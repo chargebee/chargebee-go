@@ -14,8 +14,40 @@ Install the latest version <b>2.0.0 beta 1</b> of the library with the following
 Use <b>go1.3 or newer</b>. 
 
 ## Usage
-### Sample 1 
-To create a new subscription :
+
+### To create a customer & subscription
+```go
+import (
+  "fmt"
+  "github.com/chargebee/chargebee-go"
+  subscriptionAction "github.com/chargebee/chargebee-go/actions/subscription"
+  "github.com/chargebee/chargebee-go/models/subscription"
+)
+
+func main() {
+  chargebee.Configure("{site}", "{site_api_key}")
+  res, err := subscriptionAction.Create(&subscription.CreateRequestParams{
+    PlanId:         "cbdemo_grow",
+    BillingCycles:  chargebee.Int32(3),
+    AutoCollection: enum.AutoCollectionOff,
+    Customer: &subscription.CreateCustomerParams{
+      Email:          "john@user.com",
+      FirstName:      "John",
+      LastName:       "Doe",
+      Locale:         "fr-CA",
+      Phone:          "+1-949-999-9999",
+      AutoCollection: enum.AutoCollectionOff,
+    }}).Request()
+  if err != nil {
+    fmt.Println(err)
+  }
+  Subscription := res.Subscription
+  Customer := res.Customer
+  Invoice := res.Invoice
+}
+```
+
+### To create a subscription with addons, metadata, coupons :
 
 ```go
 import (
@@ -77,7 +109,7 @@ func main() {
 }
 ```
 
-### Sample 2
+### Use of Filters In List API
 To retrieve list of subscriptions :
 
 ```go
@@ -117,8 +149,7 @@ func main() {
 }
 ```
 
-### Sample 3
-To create subscription with custom headers and custom fields:
+### To create subscription with custom headers and custom fields:
 
 ```go
 import (
@@ -132,7 +163,9 @@ func main() {
   chargebee.Configure("{site}", "{site_api_key}")
   res, err := subscriptionAction.Create(&subscription.CreateRequestParams{
     PlanId: "cbdemo_grow",
-  }).Headers("chargebee-request-origin-ip", "192.168.1.2").AddParams("cf_gender","Female").Request()
+  })
+  .Headers("chargebee-request-origin-ip", "192.168.1.2")
+  .AddParams("customer[cf_gender]","Female").Request() // Customer level custom field. 
   if err != nil {
     fmt.Println(err)
   }
@@ -144,8 +177,7 @@ func main() {
 }
 ```
 
-## Test
-Test suite needs testify's require package to run :
+## Test suite needs testify's require package to run :
 
 ```sh
   go get github.com/stretchr/testify/require
