@@ -90,10 +90,10 @@ func main() {
     },
     Addons: []*subscription.CreateAddonParams{
       {
-        Id: "cbdemo_conciergesupport"),
+        Id: "cbdemo_conciergesupport",
       },
       {
-        Id:       "cbdemo_additionaluser"),
+        Id:       "cbdemo_additionaluser",
         Quantity: chargebee.Int32(2),
       },
     },
