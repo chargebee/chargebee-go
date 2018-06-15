@@ -39,11 +39,12 @@ func main() {
       AutoCollection: enum.AutoCollectionOff,
     }}).Request()
   if err != nil {
-    fmt.Println(err)
+    panic(err)
+  }else{
+     Subscription := res.Subscription
+     Customer := res.Customer
+     Invoice := res.Invoice
   }
-  Subscription := res.Subscription
-  Customer := res.Customer
-  Invoice := res.Invoice
 }
 ```
 
@@ -99,13 +100,14 @@ func main() {
     CouponIds: []string{"cbdemo_earlybird"},
   }).Request()
   if err != nil {
-    fmt.Println(err)
-  }
+    panic(err)
+  }else{
   Subscription := res.Subscription
   Customer := res.Customer
   Card := res.Card
   Invoice := res.Invoice
   UnbilledCharges := res.UnbilledCharges
+  }
 }
 ```
 
@@ -139,12 +141,13 @@ func main() {
     },
   }).ListRequest()
   if err != nil {
-    fmt.Println(err)
-  }
+    panic(err)
+  }else{
   for i := range res.List {
     Subscription := res.List[i].Subscription
     Customer := res.List[i].Customer
     Card := res.List[i].Card
+  }
   }
 }
 ```
@@ -167,13 +170,14 @@ func main() {
   .Headers("chargebee-request-origin-ip", "192.168.1.2")
   .AddParams("customer[cf_gender]","Female").Request() // Customer level custom field. 
   if err != nil {
-    fmt.Println(err)
-  }
+    panic(err)
+  }else{
   Subscription := res.Subscription
   Customer := res.Customer
   Card := res.Card
   Invoice := res.Invoice
   UnbilledCharges := res.UnbilledCharges
+  }
 }
 ```
 
