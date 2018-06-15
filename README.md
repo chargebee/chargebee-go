@@ -166,9 +166,7 @@ func main() {
   chargebee.Configure("{site}", "{site_api_key}")
   res, err := subscriptionAction.Create(&subscription.CreateRequestParams{
     PlanId: "cbdemo_grow",
-  })
-  .Headers("chargebee-request-origin-ip", "192.168.1.2")
-  .AddParams("customer[cf_gender]","Female").Request() // Customer level custom field. 
+  }).Headers("chargebee-request-origin-ip", "192.168.1.2").AddParams("customer[cf_gender]","Female").Request() // Customer level custom field. 
   if err != nil {
     panic(err)
   }else{
