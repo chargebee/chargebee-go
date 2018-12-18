@@ -17,7 +17,7 @@ func (request RequestObj) RequestWithEnv(env Environment) (*Result, error) {
 	if err != nil {
 		panic(err)
 	}
-	res, err1 := Do(req)
+	res, err1 := Do(req, env)
 	result := &Result{}
 	if err1 != nil {
 		return result, err1

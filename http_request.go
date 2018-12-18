@@ -10,8 +10,12 @@ import (
 var httpClient = &http.Client{Timeout: DefaultHTTPTimeout}
 
 //Do is used to execute an API Request.
-func Do(req *http.Request) (string, error) {
-	response, err := httpClient.Do(req)
+func Do(req *http.Request, env Environment) (string, error) {
+	client := httpClient
+	if env.HTTPClient != nil {
+		client = env.HTTPClient
+	}
+	response, err := client.Do(req)
 	if err != nil {
 		return "", err
 	}

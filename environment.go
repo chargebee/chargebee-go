@@ -3,6 +3,7 @@ package chargebee
 import (
 	"errors"
 	"fmt"
+	"net/http"
 	"time"
 )
 
@@ -11,6 +12,7 @@ type Environment struct {
 	SiteName        string
 	ChargebeeDomain string
 	Protocol        string
+	HTTPClient      *http.Client
 }
 
 var (

@@ -10,7 +10,7 @@ func (request RequestObj) ListRequestWithEnv(env Environment) (*ResultList, erro
 	if err != nil {
 		panic(err)
 	}
-	res, err1 := Do(req)
+	res, err1 := Do(req, env)
 	result := &ResultList{}
 	if err1 != nil {
 		return result, err1
