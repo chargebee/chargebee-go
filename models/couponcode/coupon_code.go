@@ -18,7 +18,6 @@ type CreateRequestParams struct {
 	CouponSetName string `json:"coupon_set_name"`
 	Code          string `json:"code"`
 }
-
 type ListRequestParams struct {
 	Limit         *int32               `json:"limit,omitempty"`
 	Offset        string               `json:"offset,omitempty"`

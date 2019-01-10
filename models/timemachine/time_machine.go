@@ -14,11 +14,9 @@ type TimeMachine struct {
 	ErrorJson        string                           `json:"error_json"`
 	Object           string                           `json:"object"`
 }
-
 type StartAfreshRequestParams struct {
 	GenesisTime *int64 `json:"genesis_time,omitempty"`
 }
-
 type TravelForwardRequestParams struct {
 	DestinationTime *int64 `json:"destination_time,omitempty"`
 }

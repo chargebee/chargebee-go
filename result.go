@@ -15,6 +15,7 @@ import (
 	"github.com/chargebee/chargebee-go/models/estimate"
 	"github.com/chargebee/chargebee-go/models/event"
 	"github.com/chargebee/chargebee-go/models/export"
+	"github.com/chargebee/chargebee-go/models/gift"
 	"github.com/chargebee/chargebee-go/models/hostedpage"
 	"github.com/chargebee/chargebee-go/models/invoice"
 	"github.com/chargebee/chargebee-go/models/order"
@@ -22,6 +23,7 @@ import (
 	"github.com/chargebee/chargebee-go/models/plan"
 	"github.com/chargebee/chargebee-go/models/portalsession"
 	"github.com/chargebee/chargebee-go/models/promotionalcredit"
+	"github.com/chargebee/chargebee-go/models/quote"
 	"github.com/chargebee/chargebee-go/models/resourcemigration"
 	"github.com/chargebee/chargebee-go/models/sitemigrationdetail"
 	"github.com/chargebee/chargebee-go/models/subscription"
@@ -49,9 +51,11 @@ type Result struct {
 	CreditNote              *creditnote.CreditNote                           `json:"credit_note,omitempty"`
 	UnbilledCharge          *unbilledcharge.UnbilledCharge                   `json:"unbilled_charge,omitempty"`
 	Order                   *order.Order                                     `json:"order,omitempty"`
+	Gift                    *gift.Gift                                       `json:"gift,omitempty"`
 	Transaction             *transaction.Transaction                         `json:"transaction,omitempty"`
 	HostedPage              *hostedpage.HostedPage                           `json:"hosted_page,omitempty"`
 	Estimate                *estimate.Estimate                               `json:"estimate,omitempty"`
+	Quote                   *quote.Quote                                     `json:"quote,omitempty"`
 	Plan                    *plan.Plan                                       `json:"plan,omitempty"`
 	Addon                   *addon.Addon                                     `json:"addon,omitempty"`
 	Coupon                  *coupon.Coupon                                   `json:"coupon,omitempty"`

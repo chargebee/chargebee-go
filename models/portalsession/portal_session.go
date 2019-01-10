@@ -36,7 +36,6 @@ type CreateRequestParams struct {
 type CreateCustomerParams struct {
 	Id string `json:"id"`
 }
-
 type ActivateRequestParams struct {
 	Token string `json:"token"`
 }

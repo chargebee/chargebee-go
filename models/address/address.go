@@ -27,7 +27,6 @@ type RetrieveRequestParams struct {
 	SubscriptionId string `json:"subscription_id"`
 	Label          string `json:"label"`
 }
-
 type UpdateRequestParams struct {
 	SubscriptionId   string                `json:"subscription_id"`
 	Label            string                `json:"label"`

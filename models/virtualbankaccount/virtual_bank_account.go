@@ -23,12 +23,10 @@ type CreateUsingPermanentTokenRequestParams struct {
 	CustomerId  string `json:"customer_id"`
 	ReferenceId string `json:"reference_id"`
 }
-
 type CreateRequestParams struct {
 	CustomerId string `json:"customer_id"`
 	Email      string `json:"email,omitempty"`
 }
-
 type ListRequestParams struct {
 	Limit      *int32               `json:"limit,omitempty"`
 	Offset     string               `json:"offset,omitempty"`

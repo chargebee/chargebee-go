@@ -18,7 +18,9 @@ type InvoiceEstimate struct {
 	Discounts         []*Discount         `json:"discounts"`
 	Taxes             []*Tax              `json:"taxes"`
 	LineItemTaxes     []*LineItemTax      `json:"line_item_taxes"`
+	LineItemTiers     []*LineItemTier     `json:"line_item_tiers"`
 	LineItemDiscounts []*LineItemDiscount `json:"line_item_discounts"`
+	RoundOffAmount    int32               `json:"round_off_amount"`
 	Object            string              `json:"object"`
 }
 type LineItem struct {
@@ -28,10 +30,11 @@ type LineItem struct {
 	DateTo                  int64                                  `json:"date_to"`
 	UnitAmount              int32                                  `json:"unit_amount"`
 	Quantity                int32                                  `json:"quantity"`
+	Amount                  int32                                  `json:"amount"`
+	PricingModel            enum.PricingModel                      `json:"pricing_model"`
 	IsTaxed                 bool                                   `json:"is_taxed"`
 	TaxAmount               int32                                  `json:"tax_amount"`
 	TaxRate                 float64                                `json:"tax_rate"`
-	Amount                  int32                                  `json:"amount"`
 	DiscountAmount          int32                                  `json:"discount_amount"`
 	ItemLevelDiscountAmount int32                                  `json:"item_level_discount_amount"`
 	Description             string                                 `json:"description"`
@@ -62,6 +65,14 @@ type LineItemTax struct {
 	TaxJurisName string            `json:"tax_juris_name"`
 	TaxJurisCode string            `json:"tax_juris_code"`
 	Object       string            `json:"object"`
+}
+type LineItemTier struct {
+	LineItemId   string `json:"line_item_id"`
+	StartingUnit int32  `json:"starting_unit"`
+	EndingUnit   int32  `json:"ending_unit"`
+	QuantityUsed int32  `json:"quantity_used"`
+	UnitAmount   int32  `json:"unit_amount"`
+	Object       string `json:"object"`
 }
 type LineItemDiscount struct {
 	LineItemId     string                                           `json:"line_item_id"`

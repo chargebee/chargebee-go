@@ -13,11 +13,9 @@ import (
 func Retrieve(id string) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/time_machines/%v", id), nil)
 }
-
 func StartAfresh(id string, params *timemachine.StartAfreshRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/time_machines/%v/start_afresh", id), params)
 }
-
 func TravelForward(id string, params *timemachine.TravelForwardRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/time_machines/%v/travel_forward", id), params)
 }

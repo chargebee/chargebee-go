@@ -43,11 +43,14 @@ type Card struct {
 	Object           string                            `json:"object"`
 }
 type BankAccount struct {
-	NameOnAccount string                                   `json:"name_on_account"`
-	BankName      string                                   `json:"bank_name"`
-	MandateId     string                                   `json:"mandate_id"`
-	AccountType   paymentSourceEnum.BankAccountAccountType `json:"account_type"`
-	Object        string                                   `json:"object"`
+	Last4             string                 `json:"last4"`
+	NameOnAccount     string                 `json:"name_on_account"`
+	BankName          string                 `json:"bank_name"`
+	MandateId         string                 `json:"mandate_id"`
+	AccountType       enum.AccountType       `json:"account_type"`
+	EcheckType        enum.EcheckType        `json:"echeck_type"`
+	AccountHolderType enum.AccountHolderType `json:"account_holder_type"`
+	Object            string                 `json:"object"`
 }
 type AmazonPayment struct {
 	Email       string `json:"email"`
@@ -67,7 +70,6 @@ type CreateUsingTempTokenRequestParams struct {
 	IssuingCountry              string    `json:"issuing_country,omitempty"`
 	ReplacePrimaryPaymentSource *bool     `json:"replace_primary_payment_source,omitempty"`
 }
-
 type CreateUsingPermanentTokenRequestParams struct {
 	CustomerId                  string    `json:"customer_id"`
 	Type                        enum.Type `json:"type"`
@@ -76,7 +78,6 @@ type CreateUsingPermanentTokenRequestParams struct {
 	IssuingCountry              string    `json:"issuing_country,omitempty"`
 	ReplacePrimaryPaymentSource *bool     `json:"replace_primary_payment_source,omitempty"`
 }
-
 type CreateCardRequestParams struct {
 	CustomerId                  string                `json:"customer_id"`
 	Card                        *CreateCardCardParams `json:"card,omitempty"`
@@ -98,7 +99,28 @@ type CreateCardCardParams struct {
 	BillingZip       string `json:"billing_zip,omitempty"`
 	BillingCountry   string `json:"billing_country,omitempty"`
 }
-
+type CreateBankAccountRequestParams struct {
+	CustomerId                  string                              `json:"customer_id"`
+	BankAccount                 *CreateBankAccountBankAccountParams `json:"bank_account,omitempty"`
+	IssuingCountry              string                              `json:"issuing_country,omitempty"`
+	ReplacePrimaryPaymentSource *bool                               `json:"replace_primary_payment_source,omitempty"`
+}
+type CreateBankAccountBankAccountParams struct {
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	Iban                  string                 `json:"iban,omitempty"`
+	FirstName             string                 `json:"first_name,omitempty"`
+	LastName              string                 `json:"last_name,omitempty"`
+	Company               string                 `json:"company,omitempty"`
+	Email                 string                 `json:"email,omitempty"`
+	BankName              string                 `json:"bank_name,omitempty"`
+	AccountNumber         string                 `json:"account_number,omitempty"`
+	RoutingNumber         string                 `json:"routing_number,omitempty"`
+	BankCode              string                 `json:"bank_code,omitempty"`
+	AccountType           enum.AccountType       `json:"account_type,omitempty"`
+	AccountHolderType     enum.AccountHolderType `json:"account_holder_type,omitempty"`
+	EcheckType            enum.EcheckType        `json:"echeck_type,omitempty"`
+	SwedishIdentityNumber string                 `json:"swedish_identity_number,omitempty"`
+}
 type UpdateCardRequestParams struct {
 	Card            *UpdateCardCardParams  `json:"card,omitempty"`
 	GatewayMetaData map[string]interface{} `json:"gateway_meta_data,omitempty"`
@@ -116,7 +138,10 @@ type UpdateCardCardParams struct {
 	BillingState     string `json:"billing_state,omitempty"`
 	BillingCountry   string `json:"billing_country,omitempty"`
 }
-
+type VerifyBankAccountRequestParams struct {
+	Amount1 *int32 `json:"amount1"`
+	Amount2 *int32 `json:"amount2"`
+}
 type ListRequestParams struct {
 	Limit      *int32               `json:"limit,omitempty"`
 	Offset     string               `json:"offset,omitempty"`
@@ -124,11 +149,9 @@ type ListRequestParams struct {
 	Type       *filter.EnumFilter   `json:"type,omitempty"`
 	Status     *filter.EnumFilter   `json:"status,omitempty"`
 }
-
 type SwitchGatewayAccountRequestParams struct {
 	GatewayAccountId string `json:"gateway_account_id"`
 }
-
 type ExportPaymentSourceRequestParams struct {
 	GatewayAccountId string `json:"gateway_account_id"`
 }

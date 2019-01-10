@@ -6,6 +6,7 @@ const (
 	EntityTypeCustomer     EntityType = "customer"
 	EntityTypeSubscription EntityType = "subscription"
 	EntityTypeInvoice      EntityType = "invoice"
+	EntityTypeQuote        EntityType = "quote"
 	EntityTypeCreditNote   EntityType = "credit_note"
 	EntityTypeTransaction  EntityType = "transaction"
 	EntityTypePlan         EntityType = "plan"
