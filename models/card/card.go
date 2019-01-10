@@ -31,7 +31,6 @@ type Card struct {
 	MaskedNumber     string               `json:"masked_number"`
 	Object           string               `json:"object"`
 }
-
 type UpdateCardForCustomerRequestParams struct {
 	Gateway          enum.Gateway                         `json:"gateway,omitempty"`
 	GatewayAccountId string                               `json:"gateway_account_id,omitempty"`
@@ -55,12 +54,10 @@ type UpdateCardForCustomerRequestParams struct {
 type UpdateCardForCustomerCustomerParams struct {
 	VatNumber string `json:"vat_number,omitempty"`
 }
-
 type SwitchGatewayForCustomerRequestParams struct {
 	Gateway          enum.Gateway `json:"gateway,omitempty"`
 	GatewayAccountId string       `json:"gateway_account_id"`
 }
-
 type CopyCardForCustomerRequestParams struct {
 	GatewayAccountId string `json:"gateway_account_id"`
 }

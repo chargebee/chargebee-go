@@ -57,7 +57,6 @@ type CreateRequestParams struct {
 	MetaData           map[string]interface{}     `json:"meta_data,omitempty"`
 	Status             couponEnum.Status          `json:"status,omitempty"`
 }
-
 type ListRequestParams struct {
 	Limit        *int32                  `json:"limit,omitempty"`
 	Offset       string                  `json:"offset,omitempty"`
@@ -71,7 +70,6 @@ type ListRequestParams struct {
 	UpdatedAt    *filter.TimestampFilter `json:"updated_at,omitempty"`
 	SortBy       *filter.SortFilter      `json:"sort_by,omitempty"`
 }
-
 type UpdateRequestParams struct {
 	Name               string                     `json:"name,omitempty"`
 	InvoiceName        string                     `json:"invoice_name,omitempty"`
@@ -91,7 +89,6 @@ type UpdateRequestParams struct {
 	InvoiceNotes       string                     `json:"invoice_notes,omitempty"`
 	MetaData           map[string]interface{}     `json:"meta_data,omitempty"`
 }
-
 type CopyRequestParams struct {
 	FromSite       string `json:"from_site"`
 	IdAtFromSite   string `json:"id_at_from_site"`

@@ -22,7 +22,6 @@ type CreateRequestParams struct {
 	Notes      string          `json:"notes"`
 	AddedBy    string          `json:"added_by,omitempty"`
 }
-
 type ListRequestParams struct {
 	Limit      *int32                  `json:"limit,omitempty"`
 	Offset     string                  `json:"offset,omitempty"`

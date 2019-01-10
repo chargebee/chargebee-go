@@ -21,11 +21,9 @@ type CreateRequestParams struct {
 	Id       string                 `json:"id"`
 	MetaData map[string]interface{} `json:"meta_data,omitempty"`
 }
-
 type AddCouponCodesRequestParams struct {
 	Code []string `json:"code,omitempty"`
 }
-
 type ListRequestParams struct {
 	Limit         *int32               `json:"limit,omitempty"`
 	Offset        string               `json:"offset,omitempty"`
@@ -36,7 +34,6 @@ type ListRequestParams struct {
 	RedeemedCount *filter.NumberFilter `json:"redeemed_count,omitempty"`
 	ArchivedCount *filter.NumberFilter `json:"archived_count,omitempty"`
 }
-
 type UpdateRequestParams struct {
 	Name     string                 `json:"name,omitempty"`
 	MetaData map[string]interface{} `json:"meta_data,omitempty"`

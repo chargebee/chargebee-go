@@ -12,7 +12,6 @@ import (
 func List(params *event.ListRequestParams) chargebee.RequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/events"), params)
 }
-
 func Retrieve(id string) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/events/%v", id), nil)
 }

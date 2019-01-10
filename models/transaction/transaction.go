@@ -9,40 +9,42 @@ import (
 )
 
 type Transaction struct {
-	Id                     string                    `json:"id"`
-	CustomerId             string                    `json:"customer_id"`
-	SubscriptionId         string                    `json:"subscription_id"`
-	GatewayAccountId       string                    `json:"gateway_account_id"`
-	PaymentSourceId        string                    `json:"payment_source_id"`
-	PaymentMethod          enum.PaymentMethod        `json:"payment_method"`
-	ReferenceNumber        string                    `json:"reference_number"`
-	Gateway                enum.Gateway              `json:"gateway"`
-	Type                   transactionEnum.Type      `json:"type"`
-	Date                   int64                     `json:"date"`
-	SettledAt              int64                     `json:"settled_at"`
-	ExchangeRate           float64                   `json:"exchange_rate"`
-	CurrencyCode           string                    `json:"currency_code"`
-	Amount                 int32                     `json:"amount"`
-	IdAtGateway            string                    `json:"id_at_gateway"`
-	Status                 transactionEnum.Status    `json:"status"`
-	FraudFlag              transactionEnum.FraudFlag `json:"fraud_flag"`
-	ErrorCode              string                    `json:"error_code"`
-	ErrorText              string                    `json:"error_text"`
-	VoidedAt               int64                     `json:"voided_at"`
-	ResourceVersion        int64                     `json:"resource_version"`
-	UpdatedAt              int64                     `json:"updated_at"`
-	FraudReason            string                    `json:"fraud_reason"`
-	AmountUnused           int32                     `json:"amount_unused"`
-	MaskedCardNumber       string                    `json:"masked_card_number"`
-	ReferenceTransactionId string                    `json:"reference_transaction_id"`
-	RefundedTxnId          string                    `json:"refunded_txn_id"`
-	ReversalTransactionId  string                    `json:"reversal_transaction_id"`
-	LinkedInvoices         []*LinkedInvoice          `json:"linked_invoices"`
-	LinkedCreditNotes      []*LinkedCreditNote       `json:"linked_credit_notes"`
-	LinkedRefunds          []*LinkedRefund           `json:"linked_refunds"`
-	Deleted                bool                      `json:"deleted"`
-	BaseCurrencyCode       string                    `json:"base_currency_code"`
-	Object                 string                    `json:"object"`
+	Id                       string                              `json:"id"`
+	CustomerId               string                              `json:"customer_id"`
+	SubscriptionId           string                              `json:"subscription_id"`
+	GatewayAccountId         string                              `json:"gateway_account_id"`
+	PaymentSourceId          string                              `json:"payment_source_id"`
+	PaymentMethod            enum.PaymentMethod                  `json:"payment_method"`
+	ReferenceNumber          string                              `json:"reference_number"`
+	Gateway                  enum.Gateway                        `json:"gateway"`
+	Type                     transactionEnum.Type                `json:"type"`
+	Date                     int64                               `json:"date"`
+	SettledAt                int64                               `json:"settled_at"`
+	CurrencyCode             string                              `json:"currency_code"`
+	Amount                   int32                               `json:"amount"`
+	IdAtGateway              string                              `json:"id_at_gateway"`
+	Status                   transactionEnum.Status              `json:"status"`
+	FraudFlag                transactionEnum.FraudFlag           `json:"fraud_flag"`
+	AuthorizationReason      transactionEnum.AuthorizationReason `json:"authorization_reason"`
+	ErrorCode                string                              `json:"error_code"`
+	ErrorText                string                              `json:"error_text"`
+	VoidedAt                 int64                               `json:"voided_at"`
+	ResourceVersion          int64                               `json:"resource_version"`
+	UpdatedAt                int64                               `json:"updated_at"`
+	FraudReason              string                              `json:"fraud_reason"`
+	AmountUnused             int32                               `json:"amount_unused"`
+	MaskedCardNumber         string                              `json:"masked_card_number"`
+	ReferenceTransactionId   string                              `json:"reference_transaction_id"`
+	RefundedTxnId            string                              `json:"refunded_txn_id"`
+	ReferenceAuthorizationId string                              `json:"reference_authorization_id"`
+	AmountCapturable         int32                               `json:"amount_capturable"`
+	ReversalTransactionId    string                              `json:"reversal_transaction_id"`
+	LinkedInvoices           []*LinkedInvoice                    `json:"linked_invoices"`
+	LinkedCreditNotes        []*LinkedCreditNote                 `json:"linked_credit_notes"`
+	LinkedRefunds            []*LinkedRefund                     `json:"linked_refunds"`
+	LinkedPayments           []*LinkedPayment                    `json:"linked_payments"`
+	Deleted                  bool                                `json:"deleted"`
+	Object                   string                              `json:"object"`
 }
 type LinkedInvoice struct {
 	InvoiceId     string             `json:"invoice_id"`
@@ -71,6 +73,19 @@ type LinkedRefund struct {
 	TxnAmount int32                  `json:"txn_amount"`
 	Object    string                 `json:"object"`
 }
+type LinkedPayment struct {
+	Id     string                              `json:"id"`
+	Status transactionEnum.LinkedPaymentStatus `json:"status"`
+	Amount int32                               `json:"amount"`
+	Date   int64                               `json:"date"`
+	Object string                              `json:"object"`
+}
+type CreateAuthorizationRequestParams struct {
+	CustomerId      string `json:"customer_id"`
+	PaymentSourceId string `json:"payment_source_id,omitempty"`
+	CurrencyCode    string `json:"currency_code,omitempty"`
+	Amount          *int32 `json:"amount"`
+}
 type ListRequestParams struct {
 	Limit            *int32                  `json:"limit,omitempty"`
 	Offset           string                  `json:"offset,omitempty"`
@@ -87,21 +102,19 @@ type ListRequestParams struct {
 	Type             *filter.EnumFilter      `json:"type,omitempty"`
 	Date             *filter.TimestampFilter `json:"date,omitempty"`
 	Amount           *filter.NumberFilter    `json:"amount,omitempty"`
+	AmountCapturable *filter.NumberFilter    `json:"amount_capturable,omitempty"`
 	Status           *filter.EnumFilter      `json:"status,omitempty"`
 	UpdatedAt        *filter.TimestampFilter `json:"updated_at,omitempty"`
 	SortBy           *filter.SortFilter      `json:"sort_by,omitempty"`
 }
-
 type TransactionsForCustomerRequestParams struct {
 	Limit  *int32 `json:"limit,omitempty"`
 	Offset string `json:"offset,omitempty"`
 }
-
 type TransactionsForSubscriptionRequestParams struct {
 	Limit  *int32 `json:"limit,omitempty"`
 	Offset string `json:"offset,omitempty"`
 }
-
 type PaymentsForInvoiceRequestParams struct {
 	Limit  *int32 `json:"limit,omitempty"`
 	Offset string `json:"offset,omitempty"`
