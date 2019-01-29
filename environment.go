@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"net/http"
 	"time"
+
+	"github.com/cenkalti/backoff"
 )
 
 type Environment struct {
@@ -13,6 +15,7 @@ type Environment struct {
 	ChargebeeDomain string
 	Protocol        string
 	HTTPClient      *http.Client
+	BackoffConfig   backoff.BackOff
 }
 
 var (
@@ -33,6 +36,7 @@ func Configure(key string, siteName string) {
 	}
 	DefaultEnv = Environment{Key: key, SiteName: siteName}
 }
+
 func (env *Environment) apiBaseUrl() string {
 	if env.Protocol == "" {
 		env.Protocol = "https"
