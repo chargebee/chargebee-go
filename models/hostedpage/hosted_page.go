@@ -227,6 +227,12 @@ type CollectNowCardParams struct {
 	Gateway          enum.Gateway `json:"gateway,omitempty"`
 	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
 }
+type AcceptQuoteRequestParams struct {
+	Quote *AcceptQuoteQuoteParams `json:"quote,omitempty"`
+}
+type AcceptQuoteQuoteParams struct {
+	Id string `json:"id"`
+}
 type ExtendSubscriptionRequestParams struct {
 	Subscription *ExtendSubscriptionSubscriptionParams `json:"subscription,omitempty"`
 	Expiry       *int32                                `json:"expiry,omitempty"`

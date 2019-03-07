@@ -15,6 +15,7 @@ const (
 	EntityCodeJ    EntityCode = "j"
 	EntityCodeK    EntityCode = "k"
 	EntityCodeL    EntityCode = "l"
+	EntityCodeM    EntityCode = "m"
 	EntityCodeN    EntityCode = "n"
 	EntityCodeP    EntityCode = "p"
 	EntityCodeQ    EntityCode = "q"

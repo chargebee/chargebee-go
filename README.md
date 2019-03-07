@@ -1,9 +1,9 @@
 # Chargebee Go Client Library - API V2
-This is the Go Library for integrating with Chargebee. Sign up for a Chargebee account [here](https://www.chargebee.com).
+This is the beta version of Go Library for integrating with Chargebee. Sign up for a Chargebee account [here](https://www.chargebee.com).
 
 ## Installation
 
-Install the latest version of the library with the following commands:
+Install the latest version <b>2.0.0 beta 1</b> of the library with the following commands:
 
 ```sh
 	go get github.com/chargebee/chargebee-go

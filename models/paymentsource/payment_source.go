@@ -8,6 +8,9 @@ import (
 
 type PaymentSource struct {
 	Id               string                   `json:"id"`
+	ResourceVersion  int64                    `json:"resource_version"`
+	UpdatedAt        int64                    `json:"updated_at"`
+	CreatedAt        int64                    `json:"created_at"`
 	CustomerId       string                   `json:"customer_id"`
 	Type             enum.Type                `json:"type"`
 	ReferenceId      string                   `json:"reference_id"`
@@ -143,11 +146,13 @@ type VerifyBankAccountRequestParams struct {
 	Amount2 *int32 `json:"amount2"`
 }
 type ListRequestParams struct {
-	Limit      *int32               `json:"limit,omitempty"`
-	Offset     string               `json:"offset,omitempty"`
-	CustomerId *filter.StringFilter `json:"customer_id,omitempty"`
-	Type       *filter.EnumFilter   `json:"type,omitempty"`
-	Status     *filter.EnumFilter   `json:"status,omitempty"`
+	Limit      *int32                  `json:"limit,omitempty"`
+	Offset     string                  `json:"offset,omitempty"`
+	CustomerId *filter.StringFilter    `json:"customer_id,omitempty"`
+	Type       *filter.EnumFilter      `json:"type,omitempty"`
+	Status     *filter.EnumFilter      `json:"status,omitempty"`
+	UpdatedAt  *filter.TimestampFilter `json:"updated_at,omitempty"`
+	CreatedAt  *filter.TimestampFilter `json:"created_at,omitempty"`
 }
 type SwitchGatewayAccountRequestParams struct {
 	GatewayAccountId string `json:"gateway_account_id"`

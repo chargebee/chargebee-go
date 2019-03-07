@@ -119,3 +119,6 @@ type PaymentsForInvoiceRequestParams struct {
 	Limit  *int32 `json:"limit,omitempty"`
 	Offset string `json:"offset,omitempty"`
 }
+type DeleteOfflineTransactionRequestParams struct {
+	Comment string `json:"comment,omitempty"`
+}

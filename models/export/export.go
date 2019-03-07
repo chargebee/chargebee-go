@@ -260,3 +260,23 @@ type TransactionsTransactionParams struct {
 	Status           *filter.EnumFilter      `json:"status,omitempty"`
 	UpdatedAt        *filter.TimestampFilter `json:"updated_at,omitempty"`
 }
+type OrdersRequestParams struct {
+	Order *OrdersOrderParams   `json:"order,omitempty"`
+	Total *filter.NumberFilter `json:"total,omitempty"`
+}
+type OrdersOrderParams struct {
+	Id                      *filter.StringFilter    `json:"id,omitempty"`
+	SubscriptionId          *filter.StringFilter    `json:"subscription_id,omitempty"`
+	CustomerId              *filter.StringFilter    `json:"customer_id,omitempty"`
+	Status                  *filter.EnumFilter      `json:"status,omitempty"`
+	PriceType               *filter.EnumFilter      `json:"price_type,omitempty"`
+	OrderDate               *filter.TimestampFilter `json:"order_date,omitempty"`
+	ShippingDate            *filter.TimestampFilter `json:"shipping_date,omitempty"`
+	ShippedAt               *filter.TimestampFilter `json:"shipped_at,omitempty"`
+	DeliveredAt             *filter.TimestampFilter `json:"delivered_at,omitempty"`
+	CancelledAt             *filter.TimestampFilter `json:"cancelled_at,omitempty"`
+	AmountPaid              *filter.NumberFilter    `json:"amount_paid,omitempty"`
+	RefundableCredits       *filter.NumberFilter    `json:"refundable_credits,omitempty"`
+	RefundableCreditsIssued *filter.NumberFilter    `json:"refundable_credits_issued,omitempty"`
+	UpdatedAt               *filter.TimestampFilter `json:"updated_at,omitempty"`
+}

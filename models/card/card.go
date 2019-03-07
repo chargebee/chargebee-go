@@ -26,6 +26,9 @@ type Card struct {
 	BillingState     string               `json:"billing_state"`
 	BillingCountry   string               `json:"billing_country"`
 	BillingZip       string               `json:"billing_zip"`
+	CreatedAt        int64                `json:"created_at"`
+	ResourceVersion  int64                `json:"resource_version"`
+	UpdatedAt        int64                `json:"updated_at"`
 	IpAddress        string               `json:"ip_address"`
 	CustomerId       string               `json:"customer_id"`
 	MaskedNumber     string               `json:"masked_number"`

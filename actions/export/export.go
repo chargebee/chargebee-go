@@ -42,6 +42,9 @@ func CreditNotes(params *export.CreditNotesRequestParams) chargebee.RequestObj {
 func Transactions(params *export.TransactionsRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/exports/transactions"), params)
 }
+func Orders(params *export.OrdersRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/exports/orders"), params)
+}
 func WaitForExportCompletion(exp export.Export) (export.Export, error) {
 	return WaitForExportCompletionWithEnv(exp, chargebee.DefaultConfig())
 }

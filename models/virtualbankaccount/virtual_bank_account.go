@@ -15,6 +15,9 @@ type VirtualBankAccount struct {
 	SwiftCode        string       `json:"swift_code"`
 	Gateway          enum.Gateway `json:"gateway"`
 	GatewayAccountId string       `json:"gateway_account_id"`
+	ResourceVersion  int64        `json:"resource_version"`
+	UpdatedAt        int64        `json:"updated_at"`
+	CreatedAt        int64        `json:"created_at"`
 	ReferenceId      string       `json:"reference_id"`
 	Deleted          bool         `json:"deleted"`
 	Object           string       `json:"object"`
@@ -28,7 +31,9 @@ type CreateRequestParams struct {
 	Email      string `json:"email,omitempty"`
 }
 type ListRequestParams struct {
-	Limit      *int32               `json:"limit,omitempty"`
-	Offset     string               `json:"offset,omitempty"`
-	CustomerId *filter.StringFilter `json:"customer_id,omitempty"`
+	Limit      *int32                  `json:"limit,omitempty"`
+	Offset     string                  `json:"offset,omitempty"`
+	CustomerId *filter.StringFilter    `json:"customer_id,omitempty"`
+	UpdatedAt  *filter.TimestampFilter `json:"updated_at,omitempty"`
+	CreatedAt  *filter.TimestampFilter `json:"created_at,omitempty"`
 }

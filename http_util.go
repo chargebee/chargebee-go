@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"runtime"
 	"strings"
 )
 
@@ -83,6 +84,8 @@ func addHeaders(httpReq *http.Request, env Environment) {
 	httpReq.Header.Add("Accept", "application/json")
 	httpReq.Header.Add("User-Agent", "ChargeBee-Go-Client v"+Version)
 	httpReq.Header.Add("Authorization", "Basic "+basicAuth(env.Key))
+	httpReq.Header.Add("Lang-Version", runtime.Version())
+	httpReq.Header.Add("OS-Version", runtime.GOOS+" "+runtime.GOARCH)
 }
 func addCustomHeaders(httpReq *http.Request, headers map[string]string) {
 	for k, v := range headers {

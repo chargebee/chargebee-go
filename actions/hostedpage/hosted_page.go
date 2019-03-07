@@ -25,6 +25,9 @@ func ManagePaymentSources(params *hostedpage.ManagePaymentSourcesRequestParams) 
 func CollectNow(params *hostedpage.CollectNowRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/collect_now"), params)
 }
+func AcceptQuote(params *hostedpage.AcceptQuoteRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/accept_quote"), params)
+}
 func ExtendSubscription(params *hostedpage.ExtendSubscriptionRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/extend_subscription"), params)
 }

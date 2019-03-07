@@ -27,3 +27,6 @@ func PaymentsForInvoice(id string, params *transaction.PaymentsForInvoiceRequest
 func Retrieve(id string) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/transactions/%v", id), nil)
 }
+func DeleteOfflineTransaction(id string, params *transaction.DeleteOfflineTransactionRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/transactions/%v/delete_offline_transaction", id), params)
+}
