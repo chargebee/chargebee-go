@@ -74,14 +74,17 @@ type Tax struct {
 	Object      string `json:"object"`
 }
 type LineItemTax struct {
-	LineItemId   string            `json:"line_item_id"`
-	TaxName      string            `json:"tax_name"`
-	TaxRate      float64           `json:"tax_rate"`
-	TaxAmount    int32             `json:"tax_amount"`
-	TaxJurisType enum.TaxJurisType `json:"tax_juris_type"`
-	TaxJurisName string            `json:"tax_juris_name"`
-	TaxJurisCode string            `json:"tax_juris_code"`
-	Object       string            `json:"object"`
+	LineItemId          string            `json:"line_item_id"`
+	TaxName             string            `json:"tax_name"`
+	TaxRate             float64           `json:"tax_rate"`
+	IsPartialTaxApplied bool              `json:"is_partial_tax_applied"`
+	IsNonComplianceTax  bool              `json:"is_non_compliance_tax"`
+	TaxableAmount       int32             `json:"taxable_amount"`
+	TaxAmount           int32             `json:"tax_amount"`
+	TaxJurisType        enum.TaxJurisType `json:"tax_juris_type"`
+	TaxJurisName        string            `json:"tax_juris_name"`
+	TaxJurisCode        string            `json:"tax_juris_code"`
+	Object              string            `json:"object"`
 }
 type ShippingAddress struct {
 	FirstName        string                `json:"first_name"`
@@ -262,8 +265,11 @@ type CreateForOnetimeChargesAddonParams struct {
 	UnitPrice *int32 `json:"unit_price,omitempty"`
 }
 type CreateForOnetimeChargesChargeParams struct {
-	Amount      *int32 `json:"amount,omitempty"`
-	Description string `json:"description,omitempty"`
+	Amount                 *int32               `json:"amount,omitempty"`
+	Description            string               `json:"description,omitempty"`
+	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
 }
 type CreateForOnetimeChargesShippingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`

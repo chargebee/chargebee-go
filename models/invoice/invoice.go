@@ -100,14 +100,17 @@ type Tax struct {
 	Object      string `json:"object"`
 }
 type LineItemTax struct {
-	LineItemId   string            `json:"line_item_id"`
-	TaxName      string            `json:"tax_name"`
-	TaxRate      float64           `json:"tax_rate"`
-	TaxAmount    int32             `json:"tax_amount"`
-	TaxJurisType enum.TaxJurisType `json:"tax_juris_type"`
-	TaxJurisName string            `json:"tax_juris_name"`
-	TaxJurisCode string            `json:"tax_juris_code"`
-	Object       string            `json:"object"`
+	LineItemId          string            `json:"line_item_id"`
+	TaxName             string            `json:"tax_name"`
+	TaxRate             float64           `json:"tax_rate"`
+	IsPartialTaxApplied bool              `json:"is_partial_tax_applied"`
+	IsNonComplianceTax  bool              `json:"is_non_compliance_tax"`
+	TaxableAmount       int32             `json:"taxable_amount"`
+	TaxAmount           int32             `json:"tax_amount"`
+	TaxJurisType        enum.TaxJurisType `json:"tax_juris_type"`
+	TaxJurisName        string            `json:"tax_juris_name"`
+	TaxJurisCode        string            `json:"tax_juris_code"`
+	Object              string            `json:"object"`
 }
 type LineItemTier struct {
 	LineItemId   string `json:"line_item_id"`
@@ -220,8 +223,11 @@ type CreateAddonParams struct {
 	UnitPrice *int32 `json:"unit_price,omitempty"`
 }
 type CreateChargeParams struct {
-	Amount      *int32 `json:"amount,omitempty"`
-	Description string `json:"description,omitempty"`
+	Amount                 *int32               `json:"amount,omitempty"`
+	Description            string               `json:"description,omitempty"`
+	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
 }
 type CreateShippingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -240,14 +246,17 @@ type CreateShippingAddressParams struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
 type ChargeRequestParams struct {
-	CustomerId      string `json:"customer_id,omitempty"`
-	SubscriptionId  string `json:"subscription_id,omitempty"`
-	CurrencyCode    string `json:"currency_code,omitempty"`
-	Amount          *int32 `json:"amount"`
-	Description     string `json:"description"`
-	Coupon          string `json:"coupon,omitempty"`
-	PoNumber        string `json:"po_number,omitempty"`
-	PaymentSourceId string `json:"payment_source_id,omitempty"`
+	CustomerId             string               `json:"customer_id,omitempty"`
+	SubscriptionId         string               `json:"subscription_id,omitempty"`
+	CurrencyCode           string               `json:"currency_code,omitempty"`
+	Amount                 *int32               `json:"amount"`
+	Description            string               `json:"description"`
+	Coupon                 string               `json:"coupon,omitempty"`
+	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
+	PoNumber               string               `json:"po_number,omitempty"`
+	PaymentSourceId        string               `json:"payment_source_id,omitempty"`
 }
 type ChargeAddonRequestParams struct {
 	CustomerId      string `json:"customer_id,omitempty"`
@@ -419,9 +428,12 @@ type PdfRequestParams struct {
 	DispositionType enum.DispositionType `json:"disposition_type,omitempty"`
 }
 type AddChargeRequestParams struct {
-	Amount      *int32                   `json:"amount"`
-	Description string                   `json:"description"`
-	LineItem    *AddChargeLineItemParams `json:"line_item,omitempty"`
+	Amount                 *int32                   `json:"amount"`
+	Description            string                   `json:"description"`
+	AvalaraSaleType        enum.AvalaraSaleType     `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32                   `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32                   `json:"avalara_service_type,omitempty"`
+	LineItem               *AddChargeLineItemParams `json:"line_item,omitempty"`
 }
 type AddChargeLineItemParams struct {
 	DateFrom *int64 `json:"date_from,omitempty"`

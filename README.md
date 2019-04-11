@@ -3,7 +3,7 @@ This is the beta version of Go Library for integrating with Chargebee. Sign up f
 
 ## Installation
 
-Install the latest version <b>2.0.0 beta 1</b> of the library with the following commands:
+Install the latest version of the library with the following commands:
 
 ```sh
 	go get github.com/chargebee/chargebee-go

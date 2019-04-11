@@ -78,11 +78,13 @@ type CreateSubscriptionShippingAddressParams struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
 type CreateSubscriptionCustomerParams struct {
-	VatNumber        string          `json:"vat_number,omitempty"`
-	RegisteredForGst *bool           `json:"registered_for_gst,omitempty"`
-	Taxability       enum.Taxability `json:"taxability,omitempty"`
-	EntityCode       enum.EntityCode `json:"entity_code,omitempty"`
-	ExemptNumber     string          `json:"exempt_number,omitempty"`
+	VatNumber        string                   `json:"vat_number,omitempty"`
+	RegisteredForGst *bool                    `json:"registered_for_gst,omitempty"`
+	Taxability       enum.Taxability          `json:"taxability,omitempty"`
+	EntityCode       enum.EntityCode          `json:"entity_code,omitempty"`
+	ExemptNumber     string                   `json:"exempt_number,omitempty"`
+	ExemptionDetails []map[string]interface{} `json:"exemption_details,omitempty"`
+	CustomerType     enum.CustomerType        `json:"customer_type,omitempty"`
 }
 type CreateSubForCustomerEstimateRequestParams struct {
 	UseExistingBalances     *bool                                                `json:"use_existing_balances,omitempty"`

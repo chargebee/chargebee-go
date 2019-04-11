@@ -156,22 +156,24 @@ type CreateRequestParams struct {
 	InvoiceImmediately      *bool                          `json:"invoice_immediately,omitempty"`
 }
 type CreateCustomerParams struct {
-	Id                    string              `json:"id,omitempty"`
-	Email                 string              `json:"email,omitempty"`
-	FirstName             string              `json:"first_name,omitempty"`
-	LastName              string              `json:"last_name,omitempty"`
-	Company               string              `json:"company,omitempty"`
-	Taxability            enum.Taxability     `json:"taxability,omitempty"`
-	Locale                string              `json:"locale,omitempty"`
-	EntityCode            enum.EntityCode     `json:"entity_code,omitempty"`
-	ExemptNumber          string              `json:"exempt_number,omitempty"`
-	NetTermDays           *int32              `json:"net_term_days,omitempty"`
-	Phone                 string              `json:"phone,omitempty"`
-	AutoCollection        enum.AutoCollection `json:"auto_collection,omitempty"`
-	AllowDirectDebit      *bool               `json:"allow_direct_debit,omitempty"`
-	ConsolidatedInvoicing *bool               `json:"consolidated_invoicing,omitempty"`
-	VatNumber             string              `json:"vat_number,omitempty"`
-	RegisteredForGst      *bool               `json:"registered_for_gst,omitempty"`
+	Id                    string                   `json:"id,omitempty"`
+	Email                 string                   `json:"email,omitempty"`
+	FirstName             string                   `json:"first_name,omitempty"`
+	LastName              string                   `json:"last_name,omitempty"`
+	Company               string                   `json:"company,omitempty"`
+	Taxability            enum.Taxability          `json:"taxability,omitempty"`
+	Locale                string                   `json:"locale,omitempty"`
+	EntityCode            enum.EntityCode          `json:"entity_code,omitempty"`
+	ExemptNumber          string                   `json:"exempt_number,omitempty"`
+	NetTermDays           *int32                   `json:"net_term_days,omitempty"`
+	Phone                 string                   `json:"phone,omitempty"`
+	AutoCollection        enum.AutoCollection      `json:"auto_collection,omitempty"`
+	AllowDirectDebit      *bool                    `json:"allow_direct_debit,omitempty"`
+	ConsolidatedInvoicing *bool                    `json:"consolidated_invoicing,omitempty"`
+	VatNumber             string                   `json:"vat_number,omitempty"`
+	RegisteredForGst      *bool                    `json:"registered_for_gst,omitempty"`
+	ExemptionDetails      []map[string]interface{} `json:"exemption_details,omitempty"`
+	CustomerType          enum.CustomerType        `json:"customer_type,omitempty"`
 }
 type CreateAddonParams struct {
 	Id            string `json:"id,omitempty"`
@@ -697,8 +699,11 @@ type ReactivateRequestParams struct {
 	TermsToCharge        *int32                    `json:"terms_to_charge,omitempty"`
 }
 type AddChargeAtTermEndRequestParams struct {
-	Amount      *int32 `json:"amount"`
-	Description string `json:"description"`
+	Amount                 *int32               `json:"amount"`
+	Description            string               `json:"description"`
+	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
 }
 type ChargeAddonAtTermEndRequestParams struct {
 	AddonId        string `json:"addon_id"`
@@ -754,6 +759,7 @@ type ImportSubscriptionCustomerParams struct {
 	ExemptNumber     string              `json:"exempt_number,omitempty"`
 	NetTermDays      *int32              `json:"net_term_days,omitempty"`
 	Phone            string              `json:"phone,omitempty"`
+	CustomerType     enum.CustomerType   `json:"customer_type,omitempty"`
 	AutoCollection   enum.AutoCollection `json:"auto_collection,omitempty"`
 	AllowDirectDebit *bool               `json:"allow_direct_debit,omitempty"`
 	VatNumber        string              `json:"vat_number,omitempty"`

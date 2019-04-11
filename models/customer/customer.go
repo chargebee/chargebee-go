@@ -23,6 +23,7 @@ type Customer struct {
 	IsLocationValid        bool                          `json:"is_location_valid"`
 	CreatedAt              int64                         `json:"created_at"`
 	CreatedFromIp          string                        `json:"created_from_ip"`
+	ExemptionDetails       json.RawMessage               `json:"exemption_details"`
 	Taxability             enum.Taxability               `json:"taxability"`
 	EntityCode             enum.EntityCode               `json:"entity_code"`
 	ExemptNumber           string                        `json:"exempt_number"`
@@ -53,6 +54,7 @@ type Customer struct {
 	MetaData               json.RawMessage               `json:"meta_data"`
 	Deleted                bool                          `json:"deleted"`
 	RegisteredForGst       bool                          `json:"registered_for_gst"`
+	CustomerType           enum.CustomerType             `json:"customer_type"`
 	CustomField            map[string]interface{}        `json:"custom_field"`
 	Consents               map[string]interface{}        `json:"consents"`
 	Object                 string                        `json:"object"`
@@ -128,6 +130,8 @@ type CreateRequestParams struct {
 	VatNumber             string                      `json:"vat_number,omitempty"`
 	RegisteredForGst      *bool                       `json:"registered_for_gst,omitempty"`
 	Taxability            enum.Taxability             `json:"taxability,omitempty"`
+	ExemptionDetails      []map[string]interface{}    `json:"exemption_details,omitempty"`
+	CustomerType          enum.CustomerType           `json:"customer_type,omitempty"`
 	Locale                string                      `json:"locale,omitempty"`
 	EntityCode            enum.EntityCode             `json:"entity_code,omitempty"`
 	ExemptNumber          string                      `json:"exempt_number,omitempty"`
@@ -217,23 +221,25 @@ type ListRequestParams struct {
 	SortBy         *filter.SortFilter      `json:"sort_by,omitempty"`
 }
 type UpdateRequestParams struct {
-	FirstName             string                 `json:"first_name,omitempty"`
-	LastName              string                 `json:"last_name,omitempty"`
-	Email                 string                 `json:"email,omitempty"`
-	PreferredCurrencyCode string                 `json:"preferred_currency_code,omitempty"`
-	Phone                 string                 `json:"phone,omitempty"`
-	Company               string                 `json:"company,omitempty"`
-	AutoCollection        enum.AutoCollection    `json:"auto_collection,omitempty"`
-	AllowDirectDebit      *bool                  `json:"allow_direct_debit,omitempty"`
-	NetTermDays           *int32                 `json:"net_term_days,omitempty"`
-	Taxability            enum.Taxability        `json:"taxability,omitempty"`
-	Locale                string                 `json:"locale,omitempty"`
-	EntityCode            enum.EntityCode        `json:"entity_code,omitempty"`
-	ExemptNumber          string                 `json:"exempt_number,omitempty"`
-	InvoiceNotes          string                 `json:"invoice_notes,omitempty"`
-	MetaData              map[string]interface{} `json:"meta_data,omitempty"`
-	FraudFlag             customerEnum.FraudFlag `json:"fraud_flag,omitempty"`
-	ConsolidatedInvoicing *bool                  `json:"consolidated_invoicing,omitempty"`
+	FirstName             string                   `json:"first_name,omitempty"`
+	LastName              string                   `json:"last_name,omitempty"`
+	Email                 string                   `json:"email,omitempty"`
+	PreferredCurrencyCode string                   `json:"preferred_currency_code,omitempty"`
+	Phone                 string                   `json:"phone,omitempty"`
+	Company               string                   `json:"company,omitempty"`
+	AutoCollection        enum.AutoCollection      `json:"auto_collection,omitempty"`
+	AllowDirectDebit      *bool                    `json:"allow_direct_debit,omitempty"`
+	NetTermDays           *int32                   `json:"net_term_days,omitempty"`
+	Taxability            enum.Taxability          `json:"taxability,omitempty"`
+	ExemptionDetails      []map[string]interface{} `json:"exemption_details,omitempty"`
+	CustomerType          enum.CustomerType        `json:"customer_type,omitempty"`
+	Locale                string                   `json:"locale,omitempty"`
+	EntityCode            enum.EntityCode          `json:"entity_code,omitempty"`
+	ExemptNumber          string                   `json:"exempt_number,omitempty"`
+	InvoiceNotes          string                   `json:"invoice_notes,omitempty"`
+	MetaData              map[string]interface{}   `json:"meta_data,omitempty"`
+	FraudFlag             customerEnum.FraudFlag   `json:"fraud_flag,omitempty"`
+	ConsolidatedInvoicing *bool                    `json:"consolidated_invoicing,omitempty"`
 }
 type UpdatePaymentMethodRequestParams struct {
 	PaymentMethod *UpdatePaymentMethodPaymentMethodParams `json:"payment_method,omitempty"`

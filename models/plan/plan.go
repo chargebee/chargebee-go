@@ -31,6 +31,9 @@ type Plan struct {
 	EnabledInPortal             bool                                 `json:"enabled_in_portal"`
 	AddonApplicability          planEnum.AddonApplicability          `json:"addon_applicability"`
 	TaxCode                     string                               `json:"tax_code"`
+	AvalaraSaleType             enum.AvalaraSaleType                 `json:"avalara_sale_type"`
+	AvalaraTransactionType      int32                                `json:"avalara_transaction_type"`
+	AvalaraServiceType          int32                                `json:"avalara_service_type"`
 	Sku                         string                               `json:"sku"`
 	AccountingCode              string                               `json:"accounting_code"`
 	AccountingCategory1         string                               `json:"accounting_category1"`
@@ -102,6 +105,9 @@ type CreateRequestParams struct {
 	Taxable                     *bool                                `json:"taxable,omitempty"`
 	TaxProfileId                string                               `json:"tax_profile_id,omitempty"`
 	TaxCode                     string                               `json:"tax_code,omitempty"`
+	AvalaraSaleType             enum.AvalaraSaleType                 `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType      *int32                               `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType          *int32                               `json:"avalara_service_type,omitempty"`
 	Sku                         string                               `json:"sku,omitempty"`
 	AccountingCode              string                               `json:"accounting_code,omitempty"`
 	AccountingCategory1         string                               `json:"accounting_category1,omitempty"`
@@ -162,6 +168,9 @@ type UpdateRequestParams struct {
 	Taxable                     *bool                                `json:"taxable,omitempty"`
 	TaxProfileId                string                               `json:"tax_profile_id,omitempty"`
 	TaxCode                     string                               `json:"tax_code,omitempty"`
+	AvalaraSaleType             enum.AvalaraSaleType                 `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType      *int32                               `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType          *int32                               `json:"avalara_service_type,omitempty"`
 	Sku                         string                               `json:"sku,omitempty"`
 	AccountingCode              string                               `json:"accounting_code,omitempty"`
 	AccountingCategory1         string                               `json:"accounting_category1,omitempty"`

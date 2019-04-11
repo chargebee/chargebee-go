@@ -39,3 +39,6 @@ func ExportPaymentSource(id string, params *paymentsource.ExportPaymentSourceReq
 func Delete(id string) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/payment_sources/%v/delete", id), nil)
 }
+func DeleteLocal(id string) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/payment_sources/%v/delete_local", id), nil)
+}
