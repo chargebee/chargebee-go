@@ -29,8 +29,10 @@ type RevenueRecognitionRequestParams struct {
 	ReportToYear     *int32                                `json:"report_to_year"`
 	IncludeDiscounts *bool                                 `json:"include_discounts,omitempty"`
 	Invoice          *RevenueRecognitionInvoiceParams      `json:"invoice,omitempty"`
+	PaymentOwner     *filter.StringFilter                  `json:"payment_owner,omitempty"`
 	Subscription     *RevenueRecognitionSubscriptionParams `json:"subscription,omitempty"`
 	Customer         *RevenueRecognitionCustomerParams     `json:"customer,omitempty"`
+	Relationship     *RevenueRecognitionRelationshipParams `json:"relationship,omitempty"`
 }
 type RevenueRecognitionInvoiceParams struct {
 	Id             *filter.StringFilter    `json:"id,omitempty"`
@@ -73,6 +75,11 @@ type RevenueRecognitionCustomerParams struct {
 	CreatedAt      *filter.TimestampFilter `json:"created_at,omitempty"`
 	UpdatedAt      *filter.TimestampFilter `json:"updated_at,omitempty"`
 }
+type RevenueRecognitionRelationshipParams struct {
+	ParentId       *filter.StringFilter `json:"parent_id,omitempty"`
+	PaymentOwnerId *filter.StringFilter `json:"payment_owner_id,omitempty"`
+	InvoiceOwnerId *filter.StringFilter `json:"invoice_owner_id,omitempty"`
+}
 type DeferredRevenueRequestParams struct {
 	ReportBy         enum.ReportBy                      `json:"report_by"`
 	CurrencyCode     string                             `json:"currency_code,omitempty"`
@@ -82,8 +89,10 @@ type DeferredRevenueRequestParams struct {
 	ReportToYear     *int32                             `json:"report_to_year"`
 	IncludeDiscounts *bool                              `json:"include_discounts,omitempty"`
 	Invoice          *DeferredRevenueInvoiceParams      `json:"invoice,omitempty"`
+	PaymentOwner     *filter.StringFilter               `json:"payment_owner,omitempty"`
 	Subscription     *DeferredRevenueSubscriptionParams `json:"subscription,omitempty"`
 	Customer         *DeferredRevenueCustomerParams     `json:"customer,omitempty"`
+	Relationship     *DeferredRevenueRelationshipParams `json:"relationship,omitempty"`
 }
 type DeferredRevenueInvoiceParams struct {
 	Id             *filter.StringFilter    `json:"id,omitempty"`
@@ -125,6 +134,11 @@ type DeferredRevenueCustomerParams struct {
 	Taxability     *filter.EnumFilter      `json:"taxability,omitempty"`
 	CreatedAt      *filter.TimestampFilter `json:"created_at,omitempty"`
 	UpdatedAt      *filter.TimestampFilter `json:"updated_at,omitempty"`
+}
+type DeferredRevenueRelationshipParams struct {
+	ParentId       *filter.StringFilter `json:"parent_id,omitempty"`
+	PaymentOwnerId *filter.StringFilter `json:"payment_owner_id,omitempty"`
+	InvoiceOwnerId *filter.StringFilter `json:"invoice_owner_id,omitempty"`
 }
 type PlansRequestParams struct {
 	Plan *PlansPlanParams `json:"plan,omitempty"`
@@ -169,7 +183,8 @@ type CouponsCouponParams struct {
 	UpdatedAt    *filter.TimestampFilter `json:"updated_at,omitempty"`
 }
 type CustomersRequestParams struct {
-	Customer *CustomersCustomerParams `json:"customer,omitempty"`
+	Customer     *CustomersCustomerParams     `json:"customer,omitempty"`
+	Relationship *CustomersRelationshipParams `json:"relationship,omitempty"`
 }
 type CustomersCustomerParams struct {
 	Id             *filter.StringFilter    `json:"id,omitempty"`
@@ -182,6 +197,11 @@ type CustomersCustomerParams struct {
 	Taxability     *filter.EnumFilter      `json:"taxability,omitempty"`
 	CreatedAt      *filter.TimestampFilter `json:"created_at,omitempty"`
 	UpdatedAt      *filter.TimestampFilter `json:"updated_at,omitempty"`
+}
+type CustomersRelationshipParams struct {
+	ParentId       *filter.StringFilter `json:"parent_id,omitempty"`
+	PaymentOwnerId *filter.StringFilter `json:"payment_owner_id,omitempty"`
+	InvoiceOwnerId *filter.StringFilter `json:"invoice_owner_id,omitempty"`
 }
 type SubscriptionsRequestParams struct {
 	Subscription *SubscriptionsSubscriptionParams `json:"subscription,omitempty"`
@@ -201,7 +221,8 @@ type SubscriptionsSubscriptionParams struct {
 	UpdatedAt              *filter.TimestampFilter `json:"updated_at,omitempty"`
 }
 type InvoicesRequestParams struct {
-	Invoice *InvoicesInvoiceParams `json:"invoice,omitempty"`
+	Invoice      *InvoicesInvoiceParams `json:"invoice,omitempty"`
+	PaymentOwner *filter.StringFilter   `json:"payment_owner,omitempty"`
 }
 type InvoicesInvoiceParams struct {
 	Id             *filter.StringFilter    `json:"id,omitempty"`

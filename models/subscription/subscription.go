@@ -32,6 +32,7 @@ type Subscription struct {
 	StartedAt               int64                              `json:"started_at"`
 	ActivatedAt             int64                              `json:"activated_at"`
 	GiftId                  string                             `json:"gift_id"`
+	OverrideRelationship    bool                               `json:"override_relationship"`
 	PauseDate               int64                              `json:"pause_date"`
 	ResumeDate              int64                              `json:"resume_date"`
 	CancelledAt             int64                              `json:"cancelled_at"`
@@ -72,12 +73,13 @@ type Addon struct {
 	Object                 string `json:"object"`
 }
 type EventBasedAddon struct {
-	Id         string       `json:"id"`
-	Quantity   int32        `json:"quantity"`
-	UnitPrice  int32        `json:"unit_price"`
-	OnEvent    enum.OnEvent `json:"on_event"`
-	ChargeOnce bool         `json:"charge_once"`
-	Object     string       `json:"object"`
+	Id                  string       `json:"id"`
+	Quantity            int32        `json:"quantity"`
+	UnitPrice           int32        `json:"unit_price"`
+	ServicePeriodInDays int32        `json:"service_period_in_days"`
+	OnEvent             enum.OnEvent `json:"on_event"`
+	ChargeOnce          bool         `json:"charge_once"`
+	Object              string       `json:"object"`
 }
 type ChargedEventBasedAddon struct {
 	Id            string `json:"id"`
@@ -146,6 +148,7 @@ type CreateRequestParams struct {
 	CouponIds               []string                       `json:"coupon_ids,omitempty"`
 	Card                    *CreateCardParams              `json:"card,omitempty"`
 	BankAccount             *CreateBankAccountParams       `json:"bank_account,omitempty"`
+	TokenId                 string                         `json:"token_id,omitempty"`
 	PaymentMethod           *CreatePaymentMethodParams     `json:"payment_method,omitempty"`
 	BillingAddress          *CreateBillingAddressParams    `json:"billing_address,omitempty"`
 	ShippingAddress         *CreateShippingAddressParams   `json:"shipping_address,omitempty"`
@@ -183,12 +186,13 @@ type CreateAddonParams struct {
 	TrialEnd      *int64 `json:"trial_end,omitempty"`
 }
 type CreateEventBasedAddonParams struct {
-	Id         string        `json:"id,omitempty"`
-	Quantity   *int32        `json:"quantity,omitempty"`
-	UnitPrice  *int32        `json:"unit_price,omitempty"`
-	OnEvent    enum.OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce *bool         `json:"charge_once,omitempty"`
-	ChargeOn   enum.ChargeOn `json:"charge_on,omitempty"`
+	Id                  string        `json:"id,omitempty"`
+	Quantity            *int32        `json:"quantity,omitempty"`
+	UnitPrice           *int32        `json:"unit_price,omitempty"`
+	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
+	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool         `json:"charge_once,omitempty"`
+	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
 }
 type CreateCardParams struct {
 	Gateway          enum.Gateway `json:"gateway,omitempty"`
@@ -292,12 +296,13 @@ type CartSubCreateAddonParams struct {
 	TrialEnd      *int64 `json:"trial_end,omitempty"`
 }
 type CartSubCreateEventBasedAddonParams struct {
-	Id         string        `json:"id,omitempty"`
-	Quantity   *int32        `json:"quantity,omitempty"`
-	UnitPrice  *int32        `json:"unit_price,omitempty"`
-	OnEvent    enum.OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce *bool         `json:"charge_once,omitempty"`
-	ChargeOn   enum.ChargeOn `json:"charge_on,omitempty"`
+	Id                  string        `json:"id,omitempty"`
+	Quantity            *int32        `json:"quantity,omitempty"`
+	UnitPrice           *int32        `json:"unit_price,omitempty"`
+	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
+	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool         `json:"charge_once,omitempty"`
+	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
 }
 type CartSubCreateCardParams struct {
 	Gateway          enum.Gateway `json:"gateway,omitempty"`
@@ -394,6 +399,7 @@ type CreateForCustomerRequestParams struct {
 	PoNumber                string                                    `json:"po_number,omitempty"`
 	CouponIds               []string                                  `json:"coupon_ids,omitempty"`
 	PaymentSourceId         string                                    `json:"payment_source_id,omitempty"`
+	OverrideRelationship    *bool                                     `json:"override_relationship,omitempty"`
 	ShippingAddress         *CreateForCustomerShippingAddressParams   `json:"shipping_address,omitempty"`
 	InvoiceNotes            string                                    `json:"invoice_notes,omitempty"`
 	MetaData                map[string]interface{}                    `json:"meta_data,omitempty"`
@@ -407,12 +413,13 @@ type CreateForCustomerAddonParams struct {
 	TrialEnd      *int64 `json:"trial_end,omitempty"`
 }
 type CreateForCustomerEventBasedAddonParams struct {
-	Id         string        `json:"id,omitempty"`
-	Quantity   *int32        `json:"quantity,omitempty"`
-	UnitPrice  *int32        `json:"unit_price,omitempty"`
-	OnEvent    enum.OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce *bool         `json:"charge_once,omitempty"`
-	ChargeOn   enum.ChargeOn `json:"charge_on,omitempty"`
+	Id                  string        `json:"id,omitempty"`
+	Quantity            *int32        `json:"quantity,omitempty"`
+	UnitPrice           *int32        `json:"unit_price,omitempty"`
+	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
+	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool         `json:"charge_once,omitempty"`
+	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
 }
 type CreateForCustomerShippingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -438,12 +445,13 @@ type CartSubCreateForCustomerAddonParams struct {
 	TrialEnd      *int64 `json:"trial_end,omitempty"`
 }
 type CartSubCreateForCustomerEventBasedAddonParams struct {
-	Id         string        `json:"id,omitempty"`
-	Quantity   *int32        `json:"quantity,omitempty"`
-	UnitPrice  *int32        `json:"unit_price,omitempty"`
-	OnEvent    enum.OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce *bool         `json:"charge_once,omitempty"`
-	ChargeOn   enum.ChargeOn `json:"charge_on,omitempty"`
+	Id                  string        `json:"id,omitempty"`
+	Quantity            *int32        `json:"quantity,omitempty"`
+	UnitPrice           *int32        `json:"unit_price,omitempty"`
+	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
+	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool         `json:"charge_once,omitempty"`
+	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
 }
 type CartSubCreateForCustomerShippingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -477,6 +485,7 @@ type ListRequestParams struct {
 	CancelledAt            *filter.TimestampFilter `json:"cancelled_at,omitempty"`
 	HasScheduledChanges    *filter.BooleanFilter   `json:"has_scheduled_changes,omitempty"`
 	UpdatedAt              *filter.TimestampFilter `json:"updated_at,omitempty"`
+	OverrideRelationship   *filter.BooleanFilter   `json:"override_relationship,omitempty"`
 	SortBy                 *filter.SortFilter      `json:"sort_by,omitempty"`
 }
 type SubscriptionsForCustomerRequestParams struct {
@@ -513,6 +522,7 @@ type UpdateRequestParams struct {
 	ForceTermReset          *bool                          `json:"force_term_reset,omitempty"`
 	Reactivate              *bool                          `json:"reactivate,omitempty"`
 	Card                    *UpdateCardParams              `json:"card,omitempty"`
+	TokenId                 string                         `json:"token_id,omitempty"`
 	PaymentMethod           *UpdatePaymentMethodParams     `json:"payment_method,omitempty"`
 	BillingAddress          *UpdateBillingAddressParams    `json:"billing_address,omitempty"`
 	ShippingAddress         *UpdateShippingAddressParams   `json:"shipping_address,omitempty"`
@@ -520,6 +530,7 @@ type UpdateRequestParams struct {
 	InvoiceNotes            string                         `json:"invoice_notes,omitempty"`
 	MetaData                map[string]interface{}         `json:"meta_data,omitempty"`
 	InvoiceImmediately      *bool                          `json:"invoice_immediately,omitempty"`
+	OverrideRelationship    *bool                          `json:"override_relationship,omitempty"`
 }
 type UpdateAddonParams struct {
 	Id            string `json:"id,omitempty"`
@@ -529,12 +540,13 @@ type UpdateAddonParams struct {
 	TrialEnd      *int64 `json:"trial_end,omitempty"`
 }
 type UpdateEventBasedAddonParams struct {
-	Id         string        `json:"id,omitempty"`
-	Quantity   *int32        `json:"quantity,omitempty"`
-	UnitPrice  *int32        `json:"unit_price,omitempty"`
-	ChargeOn   enum.ChargeOn `json:"charge_on,omitempty"`
-	OnEvent    enum.OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce *bool         `json:"charge_once,omitempty"`
+	Id                  string        `json:"id,omitempty"`
+	Quantity            *int32        `json:"quantity,omitempty"`
+	UnitPrice           *int32        `json:"unit_price,omitempty"`
+	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
+	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
+	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool         `json:"charge_once,omitempty"`
 }
 type UpdateCardParams struct {
 	Gateway          enum.Gateway `json:"gateway,omitempty"`
@@ -607,12 +619,13 @@ type CartSubUpdateAddonParams struct {
 	TrialEnd      *int64 `json:"trial_end,omitempty"`
 }
 type CartSubUpdateEventBasedAddonParams struct {
-	Id         string        `json:"id,omitempty"`
-	Quantity   *int32        `json:"quantity,omitempty"`
-	UnitPrice  *int32        `json:"unit_price,omitempty"`
-	ChargeOn   enum.ChargeOn `json:"charge_on,omitempty"`
-	OnEvent    enum.OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce *bool         `json:"charge_once,omitempty"`
+	Id                  string        `json:"id,omitempty"`
+	Quantity            *int32        `json:"quantity,omitempty"`
+	UnitPrice           *int32        `json:"unit_price,omitempty"`
+	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
+	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
+	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool         `json:"charge_once,omitempty"`
 }
 type CartSubUpdateCardParams struct {
 	Gateway          enum.Gateway `json:"gateway,omitempty"`
@@ -704,11 +717,15 @@ type AddChargeAtTermEndRequestParams struct {
 	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
 	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
 	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
+	DateFrom               *int64               `json:"date_from,omitempty"`
+	DateTo                 *int64               `json:"date_to,omitempty"`
 }
 type ChargeAddonAtTermEndRequestParams struct {
 	AddonId        string `json:"addon_id"`
 	AddonQuantity  *int32 `json:"addon_quantity,omitempty"`
 	AddonUnitPrice *int32 `json:"addon_unit_price,omitempty"`
+	DateFrom       *int64 `json:"date_from,omitempty"`
+	DateTo         *int64 `json:"date_to,omitempty"`
 }
 type ChargeFutureRenewalsRequestParams struct {
 	TermsToCharge *int32 `json:"terms_to_charge,omitempty"`
@@ -771,11 +788,12 @@ type ImportSubscriptionAddonParams struct {
 	BillingCycles *int32 `json:"billing_cycles,omitempty"`
 }
 type ImportSubscriptionEventBasedAddonParams struct {
-	Id         string       `json:"id,omitempty"`
-	Quantity   *int32       `json:"quantity,omitempty"`
-	UnitPrice  *int32       `json:"unit_price,omitempty"`
-	OnEvent    enum.OnEvent `json:"on_event,omitempty"`
-	ChargeOnce *bool        `json:"charge_once,omitempty"`
+	Id                  string       `json:"id,omitempty"`
+	Quantity            *int32       `json:"quantity,omitempty"`
+	UnitPrice           *int32       `json:"unit_price,omitempty"`
+	ServicePeriodInDays *int32       `json:"service_period_in_days,omitempty"`
+	OnEvent             enum.OnEvent `json:"on_event,omitempty"`
+	ChargeOnce          *bool        `json:"charge_once,omitempty"`
 }
 type ImportSubscriptionChargedEventBasedAddonParams struct {
 	Id            string `json:"id,omitempty"`
@@ -881,11 +899,12 @@ type ImportForCustomerAddonParams struct {
 	BillingCycles *int32 `json:"billing_cycles,omitempty"`
 }
 type ImportForCustomerEventBasedAddonParams struct {
-	Id         string       `json:"id,omitempty"`
-	Quantity   *int32       `json:"quantity,omitempty"`
-	UnitPrice  *int32       `json:"unit_price,omitempty"`
-	OnEvent    enum.OnEvent `json:"on_event,omitempty"`
-	ChargeOnce *bool        `json:"charge_once,omitempty"`
+	Id                  string       `json:"id,omitempty"`
+	Quantity            *int32       `json:"quantity,omitempty"`
+	UnitPrice           *int32       `json:"unit_price,omitempty"`
+	ServicePeriodInDays *int32       `json:"service_period_in_days,omitempty"`
+	OnEvent             enum.OnEvent `json:"on_event,omitempty"`
+	ChargeOnce          *bool        `json:"charge_once,omitempty"`
 }
 type ImportForCustomerChargedEventBasedAddonParams struct {
 	Id            string `json:"id,omitempty"`

@@ -77,6 +77,9 @@ const (
 	EventTypeVirtualBankAccountAdded                  EventType = "virtual_bank_account_added"
 	EventTypeVirtualBankAccountUpdated                EventType = "virtual_bank_account_updated"
 	EventTypeVirtualBankAccountDeleted                EventType = "virtual_bank_account_deleted"
+	EventTypeTokenCreated                             EventType = "token_created"
+	EventTypeTokenConsumed                            EventType = "token_consumed"
+	EventTypeTokenExpired                             EventType = "token_expired"
 	EventTypeUnbilledChargesCreated                   EventType = "unbilled_charges_created"
 	EventTypeUnbilledChargesVoided                    EventType = "unbilled_charges_voided"
 	EventTypeUnbilledChargesDeleted                   EventType = "unbilled_charges_deleted"
@@ -96,4 +99,6 @@ const (
 	EventTypeGiftClaimed                              EventType = "gift_claimed"
 	EventTypeGiftExpired                              EventType = "gift_expired"
 	EventTypeGiftCancelled                            EventType = "gift_cancelled"
+	EventTypeHierarchyCreated                         EventType = "hierarchy_created"
+	EventTypeHierarchyDeleted                         EventType = "hierarchy_deleted"
 )

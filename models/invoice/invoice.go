@@ -56,6 +56,7 @@ type Invoice struct {
 	Notes                 []*Note                   `json:"notes"`
 	ShippingAddress       *ShippingAddress          `json:"shipping_address"`
 	BillingAddress        *BillingAddress           `json:"billing_address"`
+	PaymentOwner          string                    `json:"payment_owner"`
 	Deleted               bool                      `json:"deleted"`
 	Object                string                    `json:"object"`
 }
@@ -77,6 +78,7 @@ type LineItem struct {
 	EntityType              invoiceEnum.LineItemEntityType `json:"entity_type"`
 	TaxExemptReason         enum.TaxExemptReason           `json:"tax_exempt_reason"`
 	EntityId                string                         `json:"entity_id"`
+	CustomerId              string                         `json:"customer_id"`
 	Object                  string                         `json:"object"`
 }
 type Discount struct {
@@ -221,6 +223,8 @@ type CreateAddonParams struct {
 	Id        string `json:"id,omitempty"`
 	Quantity  *int32 `json:"quantity,omitempty"`
 	UnitPrice *int32 `json:"unit_price,omitempty"`
+	DateFrom  *int64 `json:"date_from,omitempty"`
+	DateTo    *int64 `json:"date_to,omitempty"`
 }
 type CreateChargeParams struct {
 	Amount                 *int32               `json:"amount,omitempty"`
@@ -228,6 +232,8 @@ type CreateChargeParams struct {
 	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
 	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
 	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
+	DateFrom               *int64               `json:"date_from,omitempty"`
+	DateTo                 *int64               `json:"date_to,omitempty"`
 }
 type CreateShippingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -251,6 +257,8 @@ type ChargeRequestParams struct {
 	CurrencyCode           string               `json:"currency_code,omitempty"`
 	Amount                 *int32               `json:"amount"`
 	Description            string               `json:"description"`
+	DateFrom               *int64               `json:"date_from,omitempty"`
+	DateTo                 *int64               `json:"date_to,omitempty"`
 	Coupon                 string               `json:"coupon,omitempty"`
 	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
 	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
@@ -264,9 +272,14 @@ type ChargeAddonRequestParams struct {
 	AddonId         string `json:"addon_id"`
 	AddonQuantity   *int32 `json:"addon_quantity,omitempty"`
 	AddonUnitPrice  *int32 `json:"addon_unit_price,omitempty"`
+	DateFrom        *int64 `json:"date_from,omitempty"`
+	DateTo          *int64 `json:"date_to,omitempty"`
 	Coupon          string `json:"coupon,omitempty"`
 	PoNumber        string `json:"po_number,omitempty"`
 	PaymentSourceId string `json:"payment_source_id,omitempty"`
+}
+type StopDunningRequestParams struct {
+	Comment string `json:"comment,omitempty"`
 }
 type ImportInvoiceRequestParams struct {
 	Id                string                              `json:"id"`
@@ -383,12 +396,14 @@ type ImportInvoiceShippingAddressParams struct {
 }
 type ApplyPaymentsRequestParams struct {
 	Transactions []*ApplyPaymentsTransactionParams `json:"transactions,omitempty"`
+	Comment      string                            `json:"comment,omitempty"`
 }
 type ApplyPaymentsTransactionParams struct {
 	Id string `json:"id,omitempty"`
 }
 type ApplyCreditsRequestParams struct {
 	CreditNotes []*ApplyCreditsCreditNoteParams `json:"credit_notes,omitempty"`
+	Comment     string                          `json:"comment,omitempty"`
 }
 type ApplyCreditsCreditNoteParams struct {
 	Id string `json:"id,omitempty"`
@@ -412,6 +427,7 @@ type ListRequestParams struct {
 	CreditsApplied *filter.NumberFilter    `json:"credits_applied,omitempty"`
 	AmountDue      *filter.NumberFilter    `json:"amount_due,omitempty"`
 	DunningStatus  *filter.EnumFilter      `json:"dunning_status,omitempty"`
+	PaymentOwner   *filter.StringFilter    `json:"payment_owner,omitempty"`
 	UpdatedAt      *filter.TimestampFilter `json:"updated_at,omitempty"`
 	VoidedAt       *filter.TimestampFilter `json:"voided_at,omitempty"`
 	SortBy         *filter.SortFilter      `json:"sort_by,omitempty"`
@@ -434,6 +450,7 @@ type AddChargeRequestParams struct {
 	AvalaraTransactionType *int32                   `json:"avalara_transaction_type,omitempty"`
 	AvalaraServiceType     *int32                   `json:"avalara_service_type,omitempty"`
 	LineItem               *AddChargeLineItemParams `json:"line_item,omitempty"`
+	Comment                string                   `json:"comment,omitempty"`
 }
 type AddChargeLineItemParams struct {
 	DateFrom *int64 `json:"date_from,omitempty"`
@@ -444,15 +461,20 @@ type AddAddonChargeRequestParams struct {
 	AddonQuantity  *int32                        `json:"addon_quantity,omitempty"`
 	AddonUnitPrice *int32                        `json:"addon_unit_price,omitempty"`
 	LineItem       *AddAddonChargeLineItemParams `json:"line_item,omitempty"`
+	Comment        string                        `json:"comment,omitempty"`
 }
 type AddAddonChargeLineItemParams struct {
 	DateFrom *int64 `json:"date_from,omitempty"`
 	DateTo   *int64 `json:"date_to,omitempty"`
 }
+type CloseRequestParams struct {
+	Comment string `json:"comment,omitempty"`
+}
 type CollectPaymentRequestParams struct {
 	Amount                     *int32 `json:"amount,omitempty"`
 	AuthorizationTransactionId string `json:"authorization_transaction_id,omitempty"`
 	PaymentSourceId            string `json:"payment_source_id,omitempty"`
+	Comment                    string `json:"comment,omitempty"`
 }
 type RecordPaymentRequestParams struct {
 	Transaction *RecordPaymentTransactionParams `json:"transaction,omitempty"`
@@ -511,13 +533,15 @@ type WriteOffRequestParams struct {
 	Comment string `json:"comment,omitempty"`
 }
 type DeleteRequestParams struct {
-	Comment string `json:"comment,omitempty"`
+	Comment      string `json:"comment,omitempty"`
+	ClaimCredits *bool  `json:"claim_credits,omitempty"`
 }
 type UpdateDetailsRequestParams struct {
 	BillingAddress  *UpdateDetailsBillingAddressParams  `json:"billing_address,omitempty"`
 	ShippingAddress *UpdateDetailsShippingAddressParams `json:"shipping_address,omitempty"`
 	VatNumber       string                              `json:"vat_number,omitempty"`
 	PoNumber        string                              `json:"po_number,omitempty"`
+	Comment         string                              `json:"comment,omitempty"`
 }
 type UpdateDetailsBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`

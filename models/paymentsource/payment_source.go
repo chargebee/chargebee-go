@@ -81,6 +81,11 @@ type CreateUsingPermanentTokenRequestParams struct {
 	IssuingCountry              string    `json:"issuing_country,omitempty"`
 	ReplacePrimaryPaymentSource *bool     `json:"replace_primary_payment_source,omitempty"`
 }
+type CreateUsingTokenRequestParams struct {
+	CustomerId                  string `json:"customer_id"`
+	ReplacePrimaryPaymentSource *bool  `json:"replace_primary_payment_source,omitempty"`
+	TokenId                     string `json:"token_id"`
+}
 type CreateCardRequestParams struct {
 	CustomerId                  string                `json:"customer_id"`
 	Card                        *CreateCardCardParams `json:"card,omitempty"`

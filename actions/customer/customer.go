@@ -69,3 +69,12 @@ func Merge(params *customer.MergeRequestParams) chargebee.RequestObj {
 func ClearPersonalData(id string) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/customers/%v/clear_personal_data", id), nil)
 }
+func Relationships(id string, params *customer.RelationshipsRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/customers/%v/relationships", id), params)
+}
+func DeleteRelationship(id string) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/customers/%v/delete_relationship", id), nil)
+}
+func Hierarchy(id string, params *customer.HierarchyRequestParams) chargebee.RequestObj {
+	return chargebee.Send("GET", fmt.Sprintf("/customers/%v/hierarchy", id), params)
+}

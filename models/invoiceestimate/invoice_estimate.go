@@ -41,6 +41,7 @@ type LineItem struct {
 	EntityType              invoiceEstimateEnum.LineItemEntityType `json:"entity_type"`
 	TaxExemptReason         enum.TaxExemptReason                   `json:"tax_exempt_reason"`
 	EntityId                string                                 `json:"entity_id"`
+	CustomerId              string                                 `json:"customer_id"`
 	Object                  string                                 `json:"object"`
 }
 type Discount struct {

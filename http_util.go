@@ -7,8 +7,8 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"strings"
 	"runtime"
+	"strings"
 )
 
 //RequestObj is the structure that contains the properties of any request data.

@@ -51,6 +51,7 @@ type LineItem struct {
 	EntityType              quoteEnum.LineItemEntityType `json:"entity_type"`
 	TaxExemptReason         enum.TaxExemptReason         `json:"tax_exempt_reason"`
 	EntityId                string                       `json:"entity_id"`
+	CustomerId              string                       `json:"customer_id"`
 	Object                  string                       `json:"object"`
 }
 type Discount struct {
@@ -148,12 +149,13 @@ type CreateSubForCustomerQuoteAddonParams struct {
 	TrialEnd      *int64 `json:"trial_end,omitempty"`
 }
 type CreateSubForCustomerQuoteEventBasedAddonParams struct {
-	Id         string        `json:"id,omitempty"`
-	Quantity   *int32        `json:"quantity,omitempty"`
-	UnitPrice  *int32        `json:"unit_price,omitempty"`
-	OnEvent    enum.OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce *bool         `json:"charge_once,omitempty"`
-	ChargeOn   enum.ChargeOn `json:"charge_on,omitempty"`
+	Id                  string        `json:"id,omitempty"`
+	Quantity            *int32        `json:"quantity,omitempty"`
+	UnitPrice           *int32        `json:"unit_price,omitempty"`
+	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
+	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool         `json:"charge_once,omitempty"`
+	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
 }
 type CreateSubForCustomerQuoteShippingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -207,12 +209,13 @@ type UpdateSubscriptionQuoteAddonParams struct {
 	TrialEnd      *int64 `json:"trial_end,omitempty"`
 }
 type UpdateSubscriptionQuoteEventBasedAddonParams struct {
-	Id         string        `json:"id,omitempty"`
-	Quantity   *int32        `json:"quantity,omitempty"`
-	UnitPrice  *int32        `json:"unit_price,omitempty"`
-	ChargeOn   enum.ChargeOn `json:"charge_on,omitempty"`
-	OnEvent    enum.OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce *bool         `json:"charge_once,omitempty"`
+	Id                  string        `json:"id,omitempty"`
+	Quantity            *int32        `json:"quantity,omitempty"`
+	UnitPrice           *int32        `json:"unit_price,omitempty"`
+	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
+	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
+	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool         `json:"charge_once,omitempty"`
 }
 type UpdateSubscriptionQuoteBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -263,6 +266,8 @@ type CreateForOnetimeChargesAddonParams struct {
 	Id        string `json:"id,omitempty"`
 	Quantity  *int32 `json:"quantity,omitempty"`
 	UnitPrice *int32 `json:"unit_price,omitempty"`
+	DateFrom  *int64 `json:"date_from,omitempty"`
+	DateTo    *int64 `json:"date_to,omitempty"`
 }
 type CreateForOnetimeChargesChargeParams struct {
 	Amount                 *int32               `json:"amount,omitempty"`
@@ -270,6 +275,8 @@ type CreateForOnetimeChargesChargeParams struct {
 	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
 	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
 	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
+	DateFrom               *int64               `json:"date_from,omitempty"`
+	DateTo                 *int64               `json:"date_to,omitempty"`
 }
 type CreateForOnetimeChargesShippingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`

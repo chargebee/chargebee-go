@@ -12,6 +12,9 @@ func CreateUsingTempToken(params *paymentsource.CreateUsingTempTokenRequestParam
 func CreateUsingPermanentToken(params *paymentsource.CreateUsingPermanentTokenRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/payment_sources/create_using_permanent_token"), params)
 }
+func CreateUsingToken(params *paymentsource.CreateUsingTokenRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/payment_sources/create_using_token"), params)
+}
 func CreateCard(params *paymentsource.CreateCardRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/payment_sources/create_card"), params)
 }

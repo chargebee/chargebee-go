@@ -104,12 +104,13 @@ type CartGiftCreateAddonParams struct {
 	TrialEnd      *int64 `json:"trial_end,omitempty"`
 }
 type CartGiftCreateEventBasedAddonParams struct {
-	Id         string        `json:"id,omitempty"`
-	Quantity   *int32        `json:"quantity,omitempty"`
-	UnitPrice  *int32        `json:"unit_price,omitempty"`
-	OnEvent    enum.OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce *bool         `json:"charge_once,omitempty"`
-	ChargeOn   enum.ChargeOn `json:"charge_on,omitempty"`
+	Id                  string        `json:"id,omitempty"`
+	Quantity            *int32        `json:"quantity,omitempty"`
+	UnitPrice           *int32        `json:"unit_price,omitempty"`
+	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
+	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool         `json:"charge_once,omitempty"`
+	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
 }
 type CartGiftCreateBillingAddressParams struct {
 	Line1            string                `json:"line1,omitempty"`
@@ -155,12 +156,13 @@ type CartGiftCreateForCustomerAddonParams struct {
 	TrialEnd      *int64 `json:"trial_end,omitempty"`
 }
 type CartGiftCreateForCustomerEventBasedAddonParams struct {
-	Id         string        `json:"id,omitempty"`
-	Quantity   *int32        `json:"quantity,omitempty"`
-	UnitPrice  *int32        `json:"unit_price,omitempty"`
-	OnEvent    enum.OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce *bool         `json:"charge_once,omitempty"`
-	ChargeOn   enum.ChargeOn `json:"charge_on,omitempty"`
+	Id                  string        `json:"id,omitempty"`
+	Quantity            *int32        `json:"quantity,omitempty"`
+	UnitPrice           *int32        `json:"unit_price,omitempty"`
+	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
+	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool         `json:"charge_once,omitempty"`
+	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
 }
 type CartGiftCreateForCustomerShippingAddressParams struct {
 	Line1            string                `json:"line1,omitempty"`

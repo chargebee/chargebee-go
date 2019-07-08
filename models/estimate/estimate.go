@@ -50,12 +50,13 @@ type CreateSubscriptionAddonParams struct {
 	TrialEnd      *int64 `json:"trial_end,omitempty"`
 }
 type CreateSubscriptionEventBasedAddonParams struct {
-	Id         string        `json:"id,omitempty"`
-	Quantity   *int32        `json:"quantity,omitempty"`
-	UnitPrice  *int32        `json:"unit_price,omitempty"`
-	OnEvent    enum.OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce *bool         `json:"charge_once,omitempty"`
-	ChargeOn   enum.ChargeOn `json:"charge_on,omitempty"`
+	Id                  string        `json:"id,omitempty"`
+	Quantity            *int32        `json:"quantity,omitempty"`
+	UnitPrice           *int32        `json:"unit_price,omitempty"`
+	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
+	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool         `json:"charge_once,omitempty"`
+	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
 }
 type CreateSubscriptionBillingAddressParams struct {
 	Line1            string                `json:"line1,omitempty"`
@@ -116,12 +117,13 @@ type CreateSubForCustomerEstimateAddonParams struct {
 	TrialEnd      *int64 `json:"trial_end,omitempty"`
 }
 type CreateSubForCustomerEstimateEventBasedAddonParams struct {
-	Id         string        `json:"id,omitempty"`
-	Quantity   *int32        `json:"quantity,omitempty"`
-	UnitPrice  *int32        `json:"unit_price,omitempty"`
-	OnEvent    enum.OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce *bool         `json:"charge_once,omitempty"`
-	ChargeOn   enum.ChargeOn `json:"charge_on,omitempty"`
+	Id                  string        `json:"id,omitempty"`
+	Quantity            *int32        `json:"quantity,omitempty"`
+	UnitPrice           *int32        `json:"unit_price,omitempty"`
+	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
+	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool         `json:"charge_once,omitempty"`
+	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
 }
 type CreateSubForCustomerEstimateShippingAddressParams struct {
 	Line1            string                `json:"line1,omitempty"`
@@ -174,12 +176,13 @@ type UpdateSubscriptionAddonParams struct {
 	TrialEnd      *int64 `json:"trial_end,omitempty"`
 }
 type UpdateSubscriptionEventBasedAddonParams struct {
-	Id         string        `json:"id,omitempty"`
-	Quantity   *int32        `json:"quantity,omitempty"`
-	UnitPrice  *int32        `json:"unit_price,omitempty"`
-	ChargeOn   enum.ChargeOn `json:"charge_on,omitempty"`
-	OnEvent    enum.OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce *bool         `json:"charge_once,omitempty"`
+	Id                  string        `json:"id,omitempty"`
+	Quantity            *int32        `json:"quantity,omitempty"`
+	UnitPrice           *int32        `json:"unit_price,omitempty"`
+	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
+	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
+	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool         `json:"charge_once,omitempty"`
 }
 type UpdateSubscriptionBillingAddressParams struct {
 	Line1            string                `json:"line1,omitempty"`

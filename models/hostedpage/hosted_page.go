@@ -73,12 +73,13 @@ type CheckoutNewAddonParams struct {
 	BillingCycles *int32 `json:"billing_cycles,omitempty"`
 }
 type CheckoutNewEventBasedAddonParams struct {
-	Id         string        `json:"id,omitempty"`
-	Quantity   *int32        `json:"quantity,omitempty"`
-	UnitPrice  *int32        `json:"unit_price,omitempty"`
-	OnEvent    enum.OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce *bool         `json:"charge_once,omitempty"`
-	ChargeOn   enum.ChargeOn `json:"charge_on,omitempty"`
+	Id                  string        `json:"id,omitempty"`
+	Quantity            *int32        `json:"quantity,omitempty"`
+	UnitPrice           *int32        `json:"unit_price,omitempty"`
+	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
+	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool         `json:"charge_once,omitempty"`
+	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
 }
 type CheckoutNewCardParams struct {
 	Gateway          enum.Gateway `json:"gateway,omitempty"`
@@ -154,12 +155,13 @@ type CheckoutExistingAddonParams struct {
 	BillingCycles *int32 `json:"billing_cycles,omitempty"`
 }
 type CheckoutExistingEventBasedAddonParams struct {
-	Id         string        `json:"id,omitempty"`
-	Quantity   *int32        `json:"quantity,omitempty"`
-	UnitPrice  *int32        `json:"unit_price,omitempty"`
-	ChargeOn   enum.ChargeOn `json:"charge_on,omitempty"`
-	OnEvent    enum.OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce *bool         `json:"charge_once,omitempty"`
+	Id                  string        `json:"id,omitempty"`
+	Quantity            *int32        `json:"quantity,omitempty"`
+	UnitPrice           *int32        `json:"unit_price,omitempty"`
+	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
+	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
+	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool         `json:"charge_once,omitempty"`
 }
 type CheckoutExistingCustomerParams struct {
 	VatNumber string `json:"vat_number,omitempty"`
