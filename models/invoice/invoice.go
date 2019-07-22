@@ -49,6 +49,7 @@ type Invoice struct {
 	LineItemTaxes         []*LineItemTax            `json:"line_item_taxes"`
 	LineItemTiers         []*LineItemTier           `json:"line_item_tiers"`
 	LinkedPayments        []*LinkedPayment          `json:"linked_payments"`
+	DunningAttempts       []*DunningAttempt         `json:"dunning_attempts"`
 	AppliedCredits        []*AppliedCredit          `json:"applied_credits"`
 	AdjustmentCreditNotes []*AdjustmentCreditNote   `json:"adjustment_credit_notes"`
 	IssuedCreditNotes     []*IssuedCreditNote       `json:"issued_credit_notes"`
@@ -128,6 +129,15 @@ type LinkedPayment struct {
 	AppliedAt     int64                  `json:"applied_at"`
 	TxnStatus     transactionEnum.Status `json:"txn_status"`
 	TxnDate       int64                  `json:"txn_date"`
+	TxnAmount     int32                  `json:"txn_amount"`
+	Object        string                 `json:"object"`
+}
+type DunningAttempt struct {
+	Attempt       int32                  `json:"attempt"`
+	TransactionId string                 `json:"transaction_id"`
+	DunningType   enum.DunningType       `json:"dunning_type"`
+	CreatedAt     int64                  `json:"created_at"`
+	TxnStatus     transactionEnum.Status `json:"txn_status"`
 	TxnAmount     int32                  `json:"txn_amount"`
 	Object        string                 `json:"object"`
 }

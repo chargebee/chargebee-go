@@ -2,6 +2,7 @@ package quote
 
 import (
 	"github.com/chargebee/chargebee-go/enum"
+	"github.com/chargebee/chargebee-go/filter"
 	quoteEnum "github.com/chargebee/chargebee-go/models/quote/enum"
 )
 
@@ -293,6 +294,18 @@ type CreateForOnetimeChargesShippingAddressParams struct {
 	Zip              string                `json:"zip,omitempty"`
 	Country          string                `json:"country,omitempty"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+}
+type ListRequestParams struct {
+	Limit          *int32                  `json:"limit,omitempty"`
+	Offset         string                  `json:"offset,omitempty"`
+	IncludeDeleted *bool                   `json:"include_deleted,omitempty"`
+	Id             *filter.StringFilter    `json:"id,omitempty"`
+	CustomerId     *filter.StringFilter    `json:"customer_id,omitempty"`
+	SubscriptionId *filter.StringFilter    `json:"subscription_id,omitempty"`
+	Status         *filter.EnumFilter      `json:"status,omitempty"`
+	Date           *filter.TimestampFilter `json:"date,omitempty"`
+	UpdatedAt      *filter.TimestampFilter `json:"updated_at,omitempty"`
+	SortBy         *filter.SortFilter      `json:"sort_by,omitempty"`
 }
 type UpdateStatusRequestParams struct {
 	Status  quoteEnum.Status `json:"status"`

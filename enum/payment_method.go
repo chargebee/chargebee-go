@@ -16,5 +16,6 @@ const (
 	PaymentMethodApplePay              PaymentMethod = "apple_pay"
 	PaymentMethodWechatPay             PaymentMethod = "wechat_pay"
 	PaymentMethodAchCredit             PaymentMethod = "ach_credit"
+	PaymentMethodSepaCredit            PaymentMethod = "sepa_credit"
 	PaymentMethodOther                 PaymentMethod = "other"
 )

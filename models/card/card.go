@@ -10,6 +10,7 @@ type Card struct {
 	Status           cardEnum.Status      `json:"status"`
 	Gateway          enum.Gateway         `json:"gateway"`
 	GatewayAccountId string               `json:"gateway_account_id"`
+	RefTxId          string               `json:"ref_tx_id"`
 	FirstName        string               `json:"first_name"`
 	LastName         string               `json:"last_name"`
 	Iin              string               `json:"iin"`

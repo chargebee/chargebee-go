@@ -149,6 +149,7 @@ type CreateRequestParams struct {
 	BankAccount           *CreateBankAccountParams    `json:"bank_account,omitempty"`
 	TokenId               string                      `json:"token_id,omitempty"`
 	PaymentMethod         *CreatePaymentMethodParams  `json:"payment_method,omitempty"`
+	PaymentIntent         *CreatePaymentIntentParams  `json:"payment_intent,omitempty"`
 	BillingAddress        *CreateBillingAddressParams `json:"billing_address,omitempty"`
 	CreatedFromIp         string                      `json:"created_from_ip,omitempty"`
 	InvoiceNotes          string                      `json:"invoice_notes,omitempty"`
@@ -196,6 +197,10 @@ type CreatePaymentMethodParams struct {
 	ReferenceId      string       `json:"reference_id,omitempty"`
 	TmpToken         string       `json:"tmp_token,omitempty"`
 	IssuingCountry   string       `json:"issuing_country,omitempty"`
+}
+type CreatePaymentIntentParams struct {
+	GatewayAccountId string `json:"gateway_account_id,omitempty"`
+	GwToken          string `json:"gw_token,omitempty"`
 }
 type CreateBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -369,6 +374,7 @@ type CollectPaymentRequestParams struct {
 	TokenId                     string                                   `json:"token_id,omitempty"`
 	PaymentMethod               *CollectPaymentPaymentMethodParams       `json:"payment_method,omitempty"`
 	Card                        *CollectPaymentCardParams                `json:"card,omitempty"`
+	PaymentIntent               *CollectPaymentPaymentIntentParams       `json:"payment_intent,omitempty"`
 	ReplacePrimaryPaymentSource *bool                                    `json:"replace_primary_payment_source,omitempty"`
 	RetainPaymentSource         *bool                                    `json:"retain_payment_source,omitempty"`
 }
@@ -397,6 +403,10 @@ type CollectPaymentCardParams struct {
 	BillingState     string `json:"billing_state,omitempty"`
 	BillingZip       string `json:"billing_zip,omitempty"`
 	BillingCountry   string `json:"billing_country,omitempty"`
+}
+type CollectPaymentPaymentIntentParams struct {
+	GatewayAccountId string `json:"gateway_account_id,omitempty"`
+	GwToken          string `json:"gw_token,omitempty"`
 }
 type DeleteRequestParams struct {
 	DeletePaymentMethod *bool `json:"delete_payment_method,omitempty"`

@@ -25,6 +25,8 @@ type Transaction struct {
 	IdAtGateway              string                              `json:"id_at_gateway"`
 	Status                   transactionEnum.Status              `json:"status"`
 	FraudFlag                transactionEnum.FraudFlag           `json:"fraud_flag"`
+	InitiatorType            transactionEnum.InitiatorType       `json:"initiator_type"`
+	ThreeDSecure             bool                                `json:"three_d_secure"`
 	AuthorizationReason      transactionEnum.AuthorizationReason `json:"authorization_reason"`
 	ErrorCode                string                              `json:"error_code"`
 	ErrorText                string                              `json:"error_text"`

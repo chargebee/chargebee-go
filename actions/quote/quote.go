@@ -18,6 +18,9 @@ func UpdateSubscriptionQuote(params *quote.UpdateSubscriptionQuoteRequestParams)
 func CreateForOnetimeCharges(params *quote.CreateForOnetimeChargesRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/quotes/create_for_onetime_charges"), params)
 }
+func List(params *quote.ListRequestParams) chargebee.RequestObj {
+	return chargebee.SendList("GET", fmt.Sprintf("/quotes"), params)
+}
 func Convert(id string) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/quotes/%v/convert", id), nil)
 }

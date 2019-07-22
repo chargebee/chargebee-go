@@ -21,6 +21,7 @@ type InvoiceEstimate struct {
 	LineItemTiers     []*LineItemTier     `json:"line_item_tiers"`
 	LineItemDiscounts []*LineItemDiscount `json:"line_item_discounts"`
 	RoundOffAmount    int32               `json:"round_off_amount"`
+	CustomerId        string              `json:"customer_id"`
 	Object            string              `json:"object"`
 }
 type LineItem struct {

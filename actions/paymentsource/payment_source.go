@@ -21,6 +21,9 @@ func CreateCard(params *paymentsource.CreateCardRequestParams) chargebee.Request
 func CreateBankAccount(params *paymentsource.CreateBankAccountRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/payment_sources/create_bank_account"), params)
 }
+func CreateUsingPaymentIntent(params *paymentsource.CreateUsingPaymentIntentRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/payment_sources/create_using_payment_intent"), params)
+}
 func UpdateCard(id string, params *paymentsource.UpdateCardRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/payment_sources/%v/update_card", id), params)
 }

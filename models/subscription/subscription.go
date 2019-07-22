@@ -150,6 +150,7 @@ type CreateRequestParams struct {
 	BankAccount             *CreateBankAccountParams       `json:"bank_account,omitempty"`
 	TokenId                 string                         `json:"token_id,omitempty"`
 	PaymentMethod           *CreatePaymentMethodParams     `json:"payment_method,omitempty"`
+	PaymentIntent           *CreatePaymentIntentParams     `json:"payment_intent,omitempty"`
 	BillingAddress          *CreateBillingAddressParams    `json:"billing_address,omitempty"`
 	ShippingAddress         *CreateShippingAddressParams   `json:"shipping_address,omitempty"`
 	AffiliateToken          string                         `json:"affiliate_token,omitempty"`
@@ -237,6 +238,10 @@ type CreatePaymentMethodParams struct {
 	ReferenceId      string       `json:"reference_id,omitempty"`
 	TmpToken         string       `json:"tmp_token,omitempty"`
 	IssuingCountry   string       `json:"issuing_country,omitempty"`
+}
+type CreatePaymentIntentParams struct {
+	GatewayAccountId string `json:"gateway_account_id,omitempty"`
+	GwToken          string `json:"gw_token,omitempty"`
 }
 type CreateBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -404,6 +409,7 @@ type CreateForCustomerRequestParams struct {
 	InvoiceNotes            string                                    `json:"invoice_notes,omitempty"`
 	MetaData                map[string]interface{}                    `json:"meta_data,omitempty"`
 	InvoiceImmediately      *bool                                     `json:"invoice_immediately,omitempty"`
+	PaymentIntent           *CreateForCustomerPaymentIntentParams     `json:"payment_intent,omitempty"`
 }
 type CreateForCustomerAddonParams struct {
 	Id            string `json:"id,omitempty"`
@@ -436,6 +442,10 @@ type CreateForCustomerShippingAddressParams struct {
 	Zip              string                `json:"zip,omitempty"`
 	Country          string                `json:"country,omitempty"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+}
+type CreateForCustomerPaymentIntentParams struct {
+	GatewayAccountId string `json:"gateway_account_id,omitempty"`
+	GwToken          string `json:"gw_token,omitempty"`
 }
 type CartSubCreateForCustomerAddonParams struct {
 	Id            string `json:"id,omitempty"`
@@ -524,6 +534,7 @@ type UpdateRequestParams struct {
 	Card                    *UpdateCardParams              `json:"card,omitempty"`
 	TokenId                 string                         `json:"token_id,omitempty"`
 	PaymentMethod           *UpdatePaymentMethodParams     `json:"payment_method,omitempty"`
+	PaymentIntent           *UpdatePaymentIntentParams     `json:"payment_intent,omitempty"`
 	BillingAddress          *UpdateBillingAddressParams    `json:"billing_address,omitempty"`
 	ShippingAddress         *UpdateShippingAddressParams   `json:"shipping_address,omitempty"`
 	Customer                *UpdateCustomerParams          `json:"customer,omitempty"`
@@ -574,6 +585,10 @@ type UpdatePaymentMethodParams struct {
 	ReferenceId      string       `json:"reference_id,omitempty"`
 	TmpToken         string       `json:"tmp_token,omitempty"`
 	IssuingCountry   string       `json:"issuing_country,omitempty"`
+}
+type UpdatePaymentIntentParams struct {
+	GatewayAccountId string `json:"gateway_account_id,omitempty"`
+	GwToken          string `json:"gw_token,omitempty"`
 }
 type UpdateBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
