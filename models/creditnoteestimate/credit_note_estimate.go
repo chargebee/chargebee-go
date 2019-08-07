@@ -59,17 +59,19 @@ type Tax struct {
 	Object      string `json:"object"`
 }
 type LineItemTax struct {
-	LineItemId          string            `json:"line_item_id"`
-	TaxName             string            `json:"tax_name"`
-	TaxRate             float64           `json:"tax_rate"`
-	IsPartialTaxApplied bool              `json:"is_partial_tax_applied"`
-	IsNonComplianceTax  bool              `json:"is_non_compliance_tax"`
-	TaxableAmount       int32             `json:"taxable_amount"`
-	TaxAmount           int32             `json:"tax_amount"`
-	TaxJurisType        enum.TaxJurisType `json:"tax_juris_type"`
-	TaxJurisName        string            `json:"tax_juris_name"`
-	TaxJurisCode        string            `json:"tax_juris_code"`
-	Object              string            `json:"object"`
+	LineItemId               string            `json:"line_item_id"`
+	TaxName                  string            `json:"tax_name"`
+	TaxRate                  float64           `json:"tax_rate"`
+	IsPartialTaxApplied      bool              `json:"is_partial_tax_applied"`
+	IsNonComplianceTax       bool              `json:"is_non_compliance_tax"`
+	TaxableAmount            int32             `json:"taxable_amount"`
+	TaxAmount                int32             `json:"tax_amount"`
+	TaxJurisType             enum.TaxJurisType `json:"tax_juris_type"`
+	TaxJurisName             string            `json:"tax_juris_name"`
+	TaxJurisCode             string            `json:"tax_juris_code"`
+	TaxAmountInLocalCurrency int32             `json:"tax_amount_in_local_currency"`
+	LocalCurrencyCode        string            `json:"local_currency_code"`
+	Object                   string            `json:"object"`
 }
 type LineItemDiscount struct {
 	LineItemId     string                                              `json:"line_item_id"`

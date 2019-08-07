@@ -1,6 +1,7 @@
 package quote
 
 import (
+	"encoding/json"
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
 	quoteEnum "github.com/chargebee/chargebee-go/models/quote/enum"
@@ -8,9 +9,11 @@ import (
 
 type Quote struct {
 	Id                string                  `json:"id"`
+	Name              string                  `json:"name"`
 	PoNumber          string                  `json:"po_number"`
 	CustomerId        string                  `json:"customer_id"`
 	SubscriptionId    string                  `json:"subscription_id"`
+	InvoiceId         string                  `json:"invoice_id"`
 	Status            quoteEnum.Status        `json:"status"`
 	OperationType     quoteEnum.OperationType `json:"operation_type"`
 	VatNumber         string                  `json:"vat_number"`
@@ -30,6 +33,7 @@ type Quote struct {
 	LineItemDiscounts []*LineItemDiscount     `json:"line_item_discounts"`
 	Taxes             []*Tax                  `json:"taxes"`
 	LineItemTaxes     []*LineItemTax          `json:"line_item_taxes"`
+	Notes             json.RawMessage         `json:"notes"`
 	ShippingAddress   *ShippingAddress        `json:"shipping_address"`
 	BillingAddress    *BillingAddress         `json:"billing_address"`
 	Object            string                  `json:"object"`
@@ -76,17 +80,19 @@ type Tax struct {
 	Object      string `json:"object"`
 }
 type LineItemTax struct {
-	LineItemId          string            `json:"line_item_id"`
-	TaxName             string            `json:"tax_name"`
-	TaxRate             float64           `json:"tax_rate"`
-	IsPartialTaxApplied bool              `json:"is_partial_tax_applied"`
-	IsNonComplianceTax  bool              `json:"is_non_compliance_tax"`
-	TaxableAmount       int32             `json:"taxable_amount"`
-	TaxAmount           int32             `json:"tax_amount"`
-	TaxJurisType        enum.TaxJurisType `json:"tax_juris_type"`
-	TaxJurisName        string            `json:"tax_juris_name"`
-	TaxJurisCode        string            `json:"tax_juris_code"`
-	Object              string            `json:"object"`
+	LineItemId               string            `json:"line_item_id"`
+	TaxName                  string            `json:"tax_name"`
+	TaxRate                  float64           `json:"tax_rate"`
+	IsPartialTaxApplied      bool              `json:"is_partial_tax_applied"`
+	IsNonComplianceTax       bool              `json:"is_non_compliance_tax"`
+	TaxableAmount            int32             `json:"taxable_amount"`
+	TaxAmount                int32             `json:"tax_amount"`
+	TaxJurisType             enum.TaxJurisType `json:"tax_juris_type"`
+	TaxJurisName             string            `json:"tax_juris_name"`
+	TaxJurisCode             string            `json:"tax_juris_code"`
+	TaxAmountInLocalCurrency int32             `json:"tax_amount_in_local_currency"`
+	LocalCurrencyCode        string            `json:"local_currency_code"`
+	Object                   string            `json:"object"`
 }
 type ShippingAddress struct {
 	FirstName        string                `json:"first_name"`
@@ -123,6 +129,9 @@ type BillingAddress struct {
 	Object           string                `json:"object"`
 }
 type CreateSubForCustomerQuoteRequestParams struct {
+	Name                    string                                            `json:"name,omitempty"`
+	Notes                   string                                            `json:"notes,omitempty"`
+	ExpiresAt               *int64                                            `json:"expires_at,omitempty"`
 	Subscription            *CreateSubForCustomerQuoteSubscriptionParams      `json:"subscription,omitempty"`
 	BillingCycles           *int32                                            `json:"billing_cycles,omitempty"`
 	Addons                  []*CreateSubForCustomerQuoteAddonParams           `json:"addons,omitempty"`
@@ -175,6 +184,9 @@ type CreateSubForCustomerQuoteShippingAddressParams struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
 type UpdateSubscriptionQuoteRequestParams struct {
+	Name                    string                                          `json:"name,omitempty"`
+	Notes                   string                                          `json:"notes,omitempty"`
+	ExpiresAt               *int64                                          `json:"expires_at,omitempty"`
 	Subscription            *UpdateSubscriptionQuoteSubscriptionParams      `json:"subscription,omitempty"`
 	BillingCycles           *int32                                          `json:"billing_cycles,omitempty"`
 	Addons                  []*UpdateSubscriptionQuoteAddonParams           `json:"addons,omitempty"`
@@ -257,6 +269,9 @@ type UpdateSubscriptionQuoteCustomerParams struct {
 type CreateForOnetimeChargesRequestParams struct {
 	CustomerId      string                                        `json:"customer_id"`
 	PoNumber        string                                        `json:"po_number,omitempty"`
+	Name            string                                        `json:"name,omitempty"`
+	Notes           string                                        `json:"notes,omitempty"`
+	ExpiresAt       *int64                                        `json:"expires_at,omitempty"`
 	CurrencyCode    string                                        `json:"currency_code,omitempty"`
 	Addons          []*CreateForOnetimeChargesAddonParams         `json:"addons,omitempty"`
 	Charges         []*CreateForOnetimeChargesChargeParams        `json:"charges,omitempty"`
@@ -306,6 +321,14 @@ type ListRequestParams struct {
 	Date           *filter.TimestampFilter `json:"date,omitempty"`
 	UpdatedAt      *filter.TimestampFilter `json:"updated_at,omitempty"`
 	SortBy         *filter.SortFilter      `json:"sort_by,omitempty"`
+}
+type ConvertRequestParams struct {
+	Subscription *ConvertSubscriptionParams `json:"subscription,omitempty"`
+}
+type ConvertSubscriptionParams struct {
+	Id             string              `json:"id,omitempty"`
+	AutoCollection enum.AutoCollection `json:"auto_collection,omitempty"`
+	PoNumber       string              `json:"po_number,omitempty"`
 }
 type UpdateStatusRequestParams struct {
 	Status  quoteEnum.Status `json:"status"`

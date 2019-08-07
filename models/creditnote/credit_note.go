@@ -9,38 +9,41 @@ import (
 )
 
 type CreditNote struct {
-	Id                   string                    `json:"id"`
-	CustomerId           string                    `json:"customer_id"`
-	SubscriptionId       string                    `json:"subscription_id"`
-	ReferenceInvoiceId   string                    `json:"reference_invoice_id"`
-	Type                 creditNoteEnum.Type       `json:"type"`
-	ReasonCode           creditNoteEnum.ReasonCode `json:"reason_code"`
-	Status               creditNoteEnum.Status     `json:"status"`
-	VatNumber            string                    `json:"vat_number"`
-	Date                 int64                     `json:"date"`
-	PriceType            enum.PriceType            `json:"price_type"`
-	CurrencyCode         string                    `json:"currency_code"`
-	Total                int32                     `json:"total"`
-	AmountAllocated      int32                     `json:"amount_allocated"`
-	AmountRefunded       int32                     `json:"amount_refunded"`
-	AmountAvailable      int32                     `json:"amount_available"`
-	RefundedAt           int64                     `json:"refunded_at"`
-	VoidedAt             int64                     `json:"voided_at"`
-	ResourceVersion      int64                     `json:"resource_version"`
-	UpdatedAt            int64                     `json:"updated_at"`
-	SubTotal             int32                     `json:"sub_total"`
-	RoundOffAmount       int32                     `json:"round_off_amount"`
-	FractionalCorrection int32                     `json:"fractional_correction"`
-	LineItems            []*LineItem               `json:"line_items"`
-	Discounts            []*Discount               `json:"discounts"`
-	LineItemDiscounts    []*LineItemDiscount       `json:"line_item_discounts"`
-	LineItemTiers        []*LineItemTier           `json:"line_item_tiers"`
-	Taxes                []*Tax                    `json:"taxes"`
-	LineItemTaxes        []*LineItemTax            `json:"line_item_taxes"`
-	LinkedRefunds        []*LinkedRefund           `json:"linked_refunds"`
-	Allocations          []*Allocation             `json:"allocations"`
-	Deleted              bool                      `json:"deleted"`
-	Object               string                    `json:"object"`
+	Id                      string                    `json:"id"`
+	CustomerId              string                    `json:"customer_id"`
+	SubscriptionId          string                    `json:"subscription_id"`
+	ReferenceInvoiceId      string                    `json:"reference_invoice_id"`
+	Type                    creditNoteEnum.Type       `json:"type"`
+	ReasonCode              creditNoteEnum.ReasonCode `json:"reason_code"`
+	Status                  creditNoteEnum.Status     `json:"status"`
+	VatNumber               string                    `json:"vat_number"`
+	Date                    int64                     `json:"date"`
+	PriceType               enum.PriceType            `json:"price_type"`
+	CurrencyCode            string                    `json:"currency_code"`
+	Total                   int32                     `json:"total"`
+	AmountAllocated         int32                     `json:"amount_allocated"`
+	AmountRefunded          int32                     `json:"amount_refunded"`
+	AmountAvailable         int32                     `json:"amount_available"`
+	RefundedAt              int64                     `json:"refunded_at"`
+	VoidedAt                int64                     `json:"voided_at"`
+	ResourceVersion         int64                     `json:"resource_version"`
+	UpdatedAt               int64                     `json:"updated_at"`
+	SubTotal                int32                     `json:"sub_total"`
+	SubTotalInLocalCurrency int32                     `json:"sub_total_in_local_currency"`
+	TotalInLocalCurrency    int32                     `json:"total_in_local_currency"`
+	LocalCurrencyCode       string                    `json:"local_currency_code"`
+	RoundOffAmount          int32                     `json:"round_off_amount"`
+	FractionalCorrection    int32                     `json:"fractional_correction"`
+	LineItems               []*LineItem               `json:"line_items"`
+	Discounts               []*Discount               `json:"discounts"`
+	LineItemDiscounts       []*LineItemDiscount       `json:"line_item_discounts"`
+	LineItemTiers           []*LineItemTier           `json:"line_item_tiers"`
+	Taxes                   []*Tax                    `json:"taxes"`
+	LineItemTaxes           []*LineItemTax            `json:"line_item_taxes"`
+	LinkedRefunds           []*LinkedRefund           `json:"linked_refunds"`
+	Allocations             []*Allocation             `json:"allocations"`
+	Deleted                 bool                      `json:"deleted"`
+	Object                  string                    `json:"object"`
 }
 type LineItem struct {
 	Id                      string                            `json:"id"`
@@ -92,17 +95,19 @@ type Tax struct {
 	Object      string `json:"object"`
 }
 type LineItemTax struct {
-	LineItemId          string            `json:"line_item_id"`
-	TaxName             string            `json:"tax_name"`
-	TaxRate             float64           `json:"tax_rate"`
-	IsPartialTaxApplied bool              `json:"is_partial_tax_applied"`
-	IsNonComplianceTax  bool              `json:"is_non_compliance_tax"`
-	TaxableAmount       int32             `json:"taxable_amount"`
-	TaxAmount           int32             `json:"tax_amount"`
-	TaxJurisType        enum.TaxJurisType `json:"tax_juris_type"`
-	TaxJurisName        string            `json:"tax_juris_name"`
-	TaxJurisCode        string            `json:"tax_juris_code"`
-	Object              string            `json:"object"`
+	LineItemId               string            `json:"line_item_id"`
+	TaxName                  string            `json:"tax_name"`
+	TaxRate                  float64           `json:"tax_rate"`
+	IsPartialTaxApplied      bool              `json:"is_partial_tax_applied"`
+	IsNonComplianceTax       bool              `json:"is_non_compliance_tax"`
+	TaxableAmount            int32             `json:"taxable_amount"`
+	TaxAmount                int32             `json:"tax_amount"`
+	TaxJurisType             enum.TaxJurisType `json:"tax_juris_type"`
+	TaxJurisName             string            `json:"tax_juris_name"`
+	TaxJurisCode             string            `json:"tax_juris_code"`
+	TaxAmountInLocalCurrency int32             `json:"tax_amount_in_local_currency"`
+	LocalCurrencyCode        string            `json:"local_currency_code"`
+	Object                   string            `json:"object"`
 }
 type LinkedRefund struct {
 	TxnId         string                 `json:"txn_id"`

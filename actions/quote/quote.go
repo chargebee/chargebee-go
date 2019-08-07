@@ -21,8 +21,8 @@ func CreateForOnetimeCharges(params *quote.CreateForOnetimeChargesRequestParams)
 func List(params *quote.ListRequestParams) chargebee.RequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/quotes"), params)
 }
-func Convert(id string) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/quotes/%v/convert", id), nil)
+func Convert(id string, params *quote.ConvertRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/quotes/%v/convert", id), params)
 }
 func UpdateStatus(id string, params *quote.UpdateStatusRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/quotes/%v/update_status", id), params)

@@ -86,6 +86,13 @@ type CreateUsingTokenRequestParams struct {
 	ReplacePrimaryPaymentSource *bool  `json:"replace_primary_payment_source,omitempty"`
 	TokenId                     string `json:"token_id"`
 }
+type CreateUsingPaymentIntentRequestParams struct {
+	CustomerId                  string `json:"customer_id"`
+	GatewayAccountId            string `json:"gateway_account_id"`
+	GwToken                     string `json:"gw_token"`
+	GwPaymentMethodId           string `json:"gw_payment_method_id,omitempty"`
+	ReplacePrimaryPaymentSource *bool  `json:"replace_primary_payment_source,omitempty"`
+}
 type CreateCardRequestParams struct {
 	CustomerId                  string                `json:"customer_id"`
 	Card                        *CreateCardCardParams `json:"card,omitempty"`
@@ -128,12 +135,6 @@ type CreateBankAccountBankAccountParams struct {
 	AccountHolderType     enum.AccountHolderType `json:"account_holder_type,omitempty"`
 	EcheckType            enum.EcheckType        `json:"echeck_type,omitempty"`
 	SwedishIdentityNumber string                 `json:"swedish_identity_number,omitempty"`
-}
-type CreateUsingPaymentIntentRequestParams struct {
-	CustomerId                  string `json:"customer_id"`
-	GatewayAccountId            string `json:"gateway_account_id"`
-	GwToken                     string `json:"gw_token"`
-	ReplacePrimaryPaymentSource *bool  `json:"replace_primary_payment_source,omitempty"`
 }
 type UpdateCardRequestParams struct {
 	Card                 *UpdateCardCardParams  `json:"card,omitempty"`

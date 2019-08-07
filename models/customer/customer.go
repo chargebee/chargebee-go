@@ -199,8 +199,9 @@ type CreatePaymentMethodParams struct {
 	IssuingCountry   string       `json:"issuing_country,omitempty"`
 }
 type CreatePaymentIntentParams struct {
-	GatewayAccountId string `json:"gateway_account_id,omitempty"`
-	GwToken          string `json:"gw_token,omitempty"`
+	GatewayAccountId  string `json:"gateway_account_id,omitempty"`
+	GwToken           string `json:"gw_token,omitempty"`
+	GwPaymentMethodId string `json:"gw_payment_method_id,omitempty"`
 }
 type CreateBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -405,8 +406,9 @@ type CollectPaymentCardParams struct {
 	BillingCountry   string `json:"billing_country,omitempty"`
 }
 type CollectPaymentPaymentIntentParams struct {
-	GatewayAccountId string `json:"gateway_account_id,omitempty"`
-	GwToken          string `json:"gw_token,omitempty"`
+	GatewayAccountId  string `json:"gateway_account_id,omitempty"`
+	GwToken           string `json:"gw_token,omitempty"`
+	GwPaymentMethodId string `json:"gw_payment_method_id,omitempty"`
 }
 type DeleteRequestParams struct {
 	DeletePaymentMethod *bool `json:"delete_payment_method,omitempty"`

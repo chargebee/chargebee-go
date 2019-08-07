@@ -240,8 +240,9 @@ type CreatePaymentMethodParams struct {
 	IssuingCountry   string       `json:"issuing_country,omitempty"`
 }
 type CreatePaymentIntentParams struct {
-	GatewayAccountId string `json:"gateway_account_id,omitempty"`
-	GwToken          string `json:"gw_token,omitempty"`
+	GatewayAccountId  string `json:"gateway_account_id,omitempty"`
+	GwToken           string `json:"gw_token,omitempty"`
+	GwPaymentMethodId string `json:"gw_payment_method_id,omitempty"`
 }
 type CreateBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -444,8 +445,9 @@ type CreateForCustomerShippingAddressParams struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
 type CreateForCustomerPaymentIntentParams struct {
-	GatewayAccountId string `json:"gateway_account_id,omitempty"`
-	GwToken          string `json:"gw_token,omitempty"`
+	GatewayAccountId  string `json:"gateway_account_id,omitempty"`
+	GwToken           string `json:"gw_token,omitempty"`
+	GwPaymentMethodId string `json:"gw_payment_method_id,omitempty"`
 }
 type CartSubCreateForCustomerAddonParams struct {
 	Id            string `json:"id,omitempty"`
@@ -587,8 +589,9 @@ type UpdatePaymentMethodParams struct {
 	IssuingCountry   string       `json:"issuing_country,omitempty"`
 }
 type UpdatePaymentIntentParams struct {
-	GatewayAccountId string `json:"gateway_account_id,omitempty"`
-	GwToken          string `json:"gw_token,omitempty"`
+	GatewayAccountId  string `json:"gateway_account_id,omitempty"`
+	GwToken           string `json:"gw_token,omitempty"`
+	GwPaymentMethodId string `json:"gw_payment_method_id,omitempty"`
 }
 type UpdateBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
