@@ -101,4 +101,6 @@ const (
 	EventTypeGiftCancelled                            EventType = "gift_cancelled"
 	EventTypeHierarchyCreated                         EventType = "hierarchy_created"
 	EventTypeHierarchyDeleted                         EventType = "hierarchy_deleted"
+	EventTypePaymentIntentCreated                     EventType = "payment_intent_created"
+	EventTypePaymentIntentUpdated                     EventType = "payment_intent_updated"
 )

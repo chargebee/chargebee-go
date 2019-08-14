@@ -199,6 +199,7 @@ type CreatePaymentMethodParams struct {
 	IssuingCountry   string       `json:"issuing_country,omitempty"`
 }
 type CreatePaymentIntentParams struct {
+	Id                string `json:"id,omitempty"`
 	GatewayAccountId  string `json:"gateway_account_id,omitempty"`
 	GwToken           string `json:"gw_token,omitempty"`
 	GwPaymentMethodId string `json:"gw_payment_method_id,omitempty"`
@@ -406,6 +407,7 @@ type CollectPaymentCardParams struct {
 	BillingCountry   string `json:"billing_country,omitempty"`
 }
 type CollectPaymentPaymentIntentParams struct {
+	Id                string `json:"id,omitempty"`
 	GatewayAccountId  string `json:"gateway_account_id,omitempty"`
 	GwToken           string `json:"gw_token,omitempty"`
 	GwPaymentMethodId string `json:"gw_payment_method_id,omitempty"`

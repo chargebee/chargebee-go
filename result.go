@@ -20,6 +20,7 @@ import (
 	"github.com/chargebee/chargebee-go/models/hostedpage"
 	"github.com/chargebee/chargebee-go/models/invoice"
 	"github.com/chargebee/chargebee-go/models/order"
+	"github.com/chargebee/chargebee-go/models/paymentintent"
 	"github.com/chargebee/chargebee-go/models/paymentsource"
 	"github.com/chargebee/chargebee-go/models/plan"
 	"github.com/chargebee/chargebee-go/models/portalsession"
@@ -74,6 +75,7 @@ type Result struct {
 	ResourceMigration       *resourcemigration.ResourceMigration             `json:"resource_migration,omitempty"`
 	TimeMachine             *timemachine.TimeMachine                         `json:"time_machine,omitempty"`
 	Export                  *export.Export                                   `json:"export,omitempty"`
+	PaymentIntent           *paymentintent.PaymentIntent                     `json:"payment_intent,omitempty"`
 	UnbilledCharges         []*unbilledcharge.UnbilledCharge                 `json:"unbilled_charges,omitempty"`
 	CreditNotes             []*creditnote.CreditNote                         `json:"credit_notes,omitempty"`
 	Hierarchies             []*hierarchy.Hierarchy                           `json:"hierarchies,omitempty"`
