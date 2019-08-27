@@ -31,6 +31,7 @@ type CreateSubscriptionRequestParams struct {
 	ShippingAddress         *CreateSubscriptionShippingAddressParams   `json:"shipping_address,omitempty"`
 	Customer                *CreateSubscriptionCustomerParams          `json:"customer,omitempty"`
 	InvoiceImmediately      *bool                                      `json:"invoice_immediately,omitempty"`
+	ClientProfileId         string                                     `json:"client_profile_id,omitempty"`
 }
 type CreateSubscriptionSubscriptionParams struct {
 	Id            string `json:"id,omitempty"`

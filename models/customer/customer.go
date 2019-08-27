@@ -56,6 +56,7 @@ type Customer struct {
 	RegisteredForGst                 bool                          `json:"registered_for_gst"`
 	BusinessCustomerWithoutVatNumber bool                          `json:"business_customer_without_vat_number"`
 	CustomerType                     enum.CustomerType             `json:"customer_type"`
+	ClientProfileId                  string                        `json:"client_profile_id"`
 	Relationship                     *Relationship                 `json:"relationship"`
 	CustomField                      map[string]interface{}        `json:"custom_field"`
 	Consents                         map[string]interface{}        `json:"consents"`
@@ -140,6 +141,7 @@ type CreateRequestParams struct {
 	Taxability            enum.Taxability             `json:"taxability,omitempty"`
 	ExemptionDetails      []map[string]interface{}    `json:"exemption_details,omitempty"`
 	CustomerType          enum.CustomerType           `json:"customer_type,omitempty"`
+	ClientProfileId       string                      `json:"client_profile_id,omitempty"`
 	Locale                string                      `json:"locale,omitempty"`
 	EntityCode            enum.EntityCode             `json:"entity_code,omitempty"`
 	ExemptNumber          string                      `json:"exempt_number,omitempty"`
@@ -255,6 +257,7 @@ type UpdateRequestParams struct {
 	Taxability            enum.Taxability          `json:"taxability,omitempty"`
 	ExemptionDetails      []map[string]interface{} `json:"exemption_details,omitempty"`
 	CustomerType          enum.CustomerType        `json:"customer_type,omitempty"`
+	ClientProfileId       string                   `json:"client_profile_id,omitempty"`
 	Locale                string                   `json:"locale,omitempty"`
 	EntityCode            enum.EntityCode          `json:"entity_code,omitempty"`
 	ExemptNumber          string                   `json:"exempt_number,omitempty"`

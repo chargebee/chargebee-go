@@ -47,6 +47,7 @@ type CreateRequestParams struct {
 	GiftReceiver    *CreateGiftReceiverParams    `json:"gift_receiver,omitempty"`
 	Subscription    *CreateSubscriptionParams    `json:"subscription,omitempty"`
 	Addons          []*CreateAddonParams         `json:"addons,omitempty"`
+	PaymentIntent   *CreatePaymentIntentParams   `json:"payment_intent,omitempty"`
 	ShippingAddress *CreateShippingAddressParams `json:"shipping_address,omitempty"`
 	CouponIds       []string                     `json:"coupon_ids,omitempty"`
 }
@@ -69,6 +70,12 @@ type CreateSubscriptionParams struct {
 type CreateAddonParams struct {
 	Id       string `json:"id,omitempty"`
 	Quantity *int32 `json:"quantity,omitempty"`
+}
+type CreatePaymentIntentParams struct {
+	Id                string `json:"id,omitempty"`
+	GatewayAccountId  string `json:"gateway_account_id,omitempty"`
+	GwToken           string `json:"gw_token,omitempty"`
+	GwPaymentMethodId string `json:"gw_payment_method_id,omitempty"`
 }
 type CreateShippingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`

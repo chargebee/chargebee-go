@@ -158,6 +158,7 @@ type CreateRequestParams struct {
 	InvoiceNotes            string                         `json:"invoice_notes,omitempty"`
 	MetaData                map[string]interface{}         `json:"meta_data,omitempty"`
 	InvoiceImmediately      *bool                          `json:"invoice_immediately,omitempty"`
+	ClientProfileId         string                         `json:"client_profile_id,omitempty"`
 }
 type CreateCustomerParams struct {
 	Id                    string                   `json:"id,omitempty"`
@@ -724,13 +725,20 @@ type CancelRequestParams struct {
 	RefundableCreditsHandling         enum.RefundableCreditsHandling         `json:"refundable_credits_handling,omitempty"`
 }
 type ReactivateRequestParams struct {
-	TrialEnd             *int64                    `json:"trial_end,omitempty"`
-	BillingCycles        *int32                    `json:"billing_cycles,omitempty"`
-	TrialPeriodDays      *int32                    `json:"trial_period_days,omitempty"`
-	ReactivateFrom       *int64                    `json:"reactivate_from,omitempty"`
-	InvoiceImmediately   *bool                     `json:"invoice_immediately,omitempty"`
-	BillingAlignmentMode enum.BillingAlignmentMode `json:"billing_alignment_mode,omitempty"`
-	TermsToCharge        *int32                    `json:"terms_to_charge,omitempty"`
+	TrialEnd             *int64                         `json:"trial_end,omitempty"`
+	BillingCycles        *int32                         `json:"billing_cycles,omitempty"`
+	TrialPeriodDays      *int32                         `json:"trial_period_days,omitempty"`
+	ReactivateFrom       *int64                         `json:"reactivate_from,omitempty"`
+	InvoiceImmediately   *bool                          `json:"invoice_immediately,omitempty"`
+	BillingAlignmentMode enum.BillingAlignmentMode      `json:"billing_alignment_mode,omitempty"`
+	TermsToCharge        *int32                         `json:"terms_to_charge,omitempty"`
+	PaymentIntent        *ReactivatePaymentIntentParams `json:"payment_intent,omitempty"`
+}
+type ReactivatePaymentIntentParams struct {
+	Id                string `json:"id,omitempty"`
+	GatewayAccountId  string `json:"gateway_account_id,omitempty"`
+	GwToken           string `json:"gw_token,omitempty"`
+	GwPaymentMethodId string `json:"gw_payment_method_id,omitempty"`
 }
 type AddChargeAtTermEndRequestParams struct {
 	Amount                 *int32               `json:"amount"`
@@ -754,6 +762,7 @@ type ChargeFutureRenewalsRequestParams struct {
 type ImportSubscriptionRequestParams struct {
 	Id                       string                                            `json:"id,omitempty"`
 	Customer                 *ImportSubscriptionCustomerParams                 `json:"customer,omitempty"`
+	ClientProfileId          string                                            `json:"client_profile_id,omitempty"`
 	PlanId                   string                                            `json:"plan_id"`
 	PlanQuantity             *int32                                            `json:"plan_quantity,omitempty"`
 	PlanUnitPrice            *int32                                            `json:"plan_unit_price,omitempty"`
@@ -969,4 +978,11 @@ type ResumeRequestParams struct {
 	ResumeDate             *int64                      `json:"resume_date,omitempty"`
 	ChargesHandling        enum.ChargesHandling        `json:"charges_handling,omitempty"`
 	UnpaidInvoicesHandling enum.UnpaidInvoicesHandling `json:"unpaid_invoices_handling,omitempty"`
+	PaymentIntent          *ResumePaymentIntentParams  `json:"payment_intent,omitempty"`
+}
+type ResumePaymentIntentParams struct {
+	Id                string `json:"id,omitempty"`
+	GatewayAccountId  string `json:"gateway_account_id,omitempty"`
+	GwToken           string `json:"gw_token,omitempty"`
+	GwPaymentMethodId string `json:"gw_payment_method_id,omitempty"`
 }

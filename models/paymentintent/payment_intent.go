@@ -7,6 +7,7 @@ import (
 type PaymentIntent struct {
 	Id                   string                   `json:"id"`
 	Status               paymentIntentEnum.Status `json:"status"`
+	CurrencyCode         string                   `json:"currency_code"`
 	Amount               int32                    `json:"amount"`
 	GatewayAccountId     string                   `json:"gateway_account_id"`
 	ExpiresAt            int64                    `json:"expires_at"`

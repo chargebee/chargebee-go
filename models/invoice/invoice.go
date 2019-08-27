@@ -223,16 +223,18 @@ type BillingAddress struct {
 	Object           string                `json:"object"`
 }
 type CreateRequestParams struct {
-	CustomerId                 string                       `json:"customer_id"`
-	CurrencyCode               string                       `json:"currency_code,omitempty"`
-	Addons                     []*CreateAddonParams         `json:"addons,omitempty"`
-	Charges                    []*CreateChargeParams        `json:"charges,omitempty"`
-	Coupon                     string                       `json:"coupon,omitempty"`
-	PoNumber                   string                       `json:"po_number,omitempty"`
-	AuthorizationTransactionId string                       `json:"authorization_transaction_id,omitempty"`
-	PaymentSourceId            string                       `json:"payment_source_id,omitempty"`
-	AutoCollection             enum.AutoCollection          `json:"auto_collection,omitempty"`
-	ShippingAddress            *CreateShippingAddressParams `json:"shipping_address,omitempty"`
+	CustomerId                  string                       `json:"customer_id"`
+	CurrencyCode                string                       `json:"currency_code,omitempty"`
+	Addons                      []*CreateAddonParams         `json:"addons,omitempty"`
+	Charges                     []*CreateChargeParams        `json:"charges,omitempty"`
+	Coupon                      string                       `json:"coupon,omitempty"`
+	PoNumber                    string                       `json:"po_number,omitempty"`
+	AuthorizationTransactionId  string                       `json:"authorization_transaction_id,omitempty"`
+	PaymentSourceId             string                       `json:"payment_source_id,omitempty"`
+	AutoCollection              enum.AutoCollection          `json:"auto_collection,omitempty"`
+	ShippingAddress             *CreateShippingAddressParams `json:"shipping_address,omitempty"`
+	PaymentIntent               *CreatePaymentIntentParams   `json:"payment_intent,omitempty"`
+	ReplacePrimaryPaymentSource *bool                        `json:"replace_primary_payment_source,omitempty"`
 }
 type CreateAddonParams struct {
 	Id        string `json:"id,omitempty"`
@@ -265,6 +267,12 @@ type CreateShippingAddressParams struct {
 	Zip              string                `json:"zip,omitempty"`
 	Country          string                `json:"country,omitempty"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+}
+type CreatePaymentIntentParams struct {
+	Id                string `json:"id,omitempty"`
+	GatewayAccountId  string `json:"gateway_account_id,omitempty"`
+	GwToken           string `json:"gw_token,omitempty"`
+	GwPaymentMethodId string `json:"gw_payment_method_id,omitempty"`
 }
 type ChargeRequestParams struct {
 	CustomerId             string               `json:"customer_id,omitempty"`

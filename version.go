@@ -1,3 +1,3 @@
 package chargebee
 
-const Version string = "2.0.6"
+const Version string = "2.0.7"
