@@ -245,3 +245,100 @@ type ResumeSubscriptionRequestParams struct {
 type ResumeSubscriptionSubscriptionParams struct {
 	ResumeDate *int64 `json:"resume_date,omitempty"`
 }
+type GiftSubscriptionRequestParams struct {
+	Gift            *GiftSubscriptionGiftParams            `json:"gift,omitempty"`
+	Gifter          *GiftSubscriptionGifterParams          `json:"gifter,omitempty"`
+	GiftReceiver    *GiftSubscriptionGiftReceiverParams    `json:"gift_receiver,omitempty"`
+	Subscription    *GiftSubscriptionSubscriptionParams    `json:"subscription,omitempty"`
+	Addons          []*GiftSubscriptionAddonParams         `json:"addons,omitempty"`
+	ShippingAddress *GiftSubscriptionShippingAddressParams `json:"shipping_address,omitempty"`
+	CouponIds       []string                               `json:"coupon_ids,omitempty"`
+}
+type GiftSubscriptionGiftParams struct {
+	ScheduledAt     *int64 `json:"scheduled_at,omitempty"`
+	AutoClaim       *bool  `json:"auto_claim,omitempty"`
+	ClaimExpiryDate *int64 `json:"claim_expiry_date,omitempty"`
+}
+type GiftSubscriptionGifterParams struct {
+	CustomerId   string `json:"customer_id"`
+	Signature    string `json:"signature"`
+	Note         string `json:"note,omitempty"`
+	PaymentSrcId string `json:"payment_src_id,omitempty"`
+}
+type GiftSubscriptionGiftReceiverParams struct {
+	CustomerId string `json:"customer_id"`
+	FirstName  string `json:"first_name"`
+	LastName   string `json:"last_name"`
+	Email      string `json:"email"`
+}
+type GiftSubscriptionSubscriptionParams struct {
+	PlanId       string `json:"plan_id"`
+	PlanQuantity *int32 `json:"plan_quantity,omitempty"`
+}
+type GiftSubscriptionAddonParams struct {
+	Id       string `json:"id,omitempty"`
+	Quantity *int32 `json:"quantity,omitempty"`
+}
+type GiftSubscriptionShippingAddressParams struct {
+	FirstName        string                `json:"first_name,omitempty"`
+	LastName         string                `json:"last_name,omitempty"`
+	Email            string                `json:"email,omitempty"`
+	Company          string                `json:"company,omitempty"`
+	Phone            string                `json:"phone,omitempty"`
+	Line1            string                `json:"line1,omitempty"`
+	Line2            string                `json:"line2,omitempty"`
+	Line3            string                `json:"line3,omitempty"`
+	City             string                `json:"city,omitempty"`
+	StateCode        string                `json:"state_code,omitempty"`
+	State            string                `json:"state,omitempty"`
+	Zip              string                `json:"zip,omitempty"`
+	Country          string                `json:"country,omitempty"`
+	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+}
+type CreateInvoiceRequestParams struct {
+	Invoice                    *CreateInvoiceInvoiceParams         `json:"invoice,omitempty"`
+	CurrencyCode               string                              `json:"currency_code,omitempty"`
+	Addons                     []*CreateInvoiceAddonParams         `json:"addons,omitempty"`
+	Charges                    []*CreateInvoiceChargeParams        `json:"charges,omitempty"`
+	Coupon                     string                              `json:"coupon,omitempty"`
+	AuthorizationTransactionId string                              `json:"authorization_transaction_id,omitempty"`
+	PaymentSourceId            string                              `json:"payment_source_id,omitempty"`
+	AutoCollection             enum.AutoCollection                 `json:"auto_collection,omitempty"`
+	ShippingAddress            *CreateInvoiceShippingAddressParams `json:"shipping_address,omitempty"`
+}
+type CreateInvoiceInvoiceParams struct {
+	CustomerId string `json:"customer_id"`
+	PoNumber   string `json:"po_number,omitempty"`
+}
+type CreateInvoiceAddonParams struct {
+	Id        string `json:"id,omitempty"`
+	Quantity  *int32 `json:"quantity,omitempty"`
+	UnitPrice *int32 `json:"unit_price,omitempty"`
+	DateFrom  *int64 `json:"date_from,omitempty"`
+	DateTo    *int64 `json:"date_to,omitempty"`
+}
+type CreateInvoiceChargeParams struct {
+	Amount                 *int32               `json:"amount,omitempty"`
+	Description            string               `json:"description,omitempty"`
+	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
+	DateFrom               *int64               `json:"date_from,omitempty"`
+	DateTo                 *int64               `json:"date_to,omitempty"`
+}
+type CreateInvoiceShippingAddressParams struct {
+	FirstName        string                `json:"first_name,omitempty"`
+	LastName         string                `json:"last_name,omitempty"`
+	Email            string                `json:"email,omitempty"`
+	Company          string                `json:"company,omitempty"`
+	Phone            string                `json:"phone,omitempty"`
+	Line1            string                `json:"line1,omitempty"`
+	Line2            string                `json:"line2,omitempty"`
+	Line3            string                `json:"line3,omitempty"`
+	City             string                `json:"city,omitempty"`
+	StateCode        string                `json:"state_code,omitempty"`
+	State            string                `json:"state,omitempty"`
+	Zip              string                `json:"zip,omitempty"`
+	Country          string                `json:"country,omitempty"`
+	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+}

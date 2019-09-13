@@ -88,6 +88,13 @@ type CreateAuthorizationRequestParams struct {
 	CurrencyCode    string `json:"currency_code,omitempty"`
 	Amount          *int32 `json:"amount"`
 }
+type RecordRefundRequestParams struct {
+	Amount          *int32             `json:"amount,omitempty"`
+	PaymentMethod   enum.PaymentMethod `json:"payment_method"`
+	Date            *int64             `json:"date"`
+	ReferenceNumber string             `json:"reference_number,omitempty"`
+	Comment         string             `json:"comment,omitempty"`
+}
 type ListRequestParams struct {
 	Limit            *int32                  `json:"limit,omitempty"`
 	Offset           string                  `json:"offset,omitempty"`

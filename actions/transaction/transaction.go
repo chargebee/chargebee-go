@@ -12,6 +12,9 @@ func CreateAuthorization(params *transaction.CreateAuthorizationRequestParams) c
 func VoidTransaction(id string) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/transactions/%v/void", id), nil)
 }
+func RecordRefund(id string, params *transaction.RecordRefundRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/transactions/%v/record_refund", id), params)
+}
 func List(params *transaction.ListRequestParams) chargebee.RequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/transactions"), params)
 }

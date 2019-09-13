@@ -33,3 +33,9 @@ func PauseSubscription(id string, params *estimate.PauseSubscriptionRequestParam
 func ResumeSubscription(id string, params *estimate.ResumeSubscriptionRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/subscriptions/%v/resume_subscription_estimate", id), params)
 }
+func GiftSubscription(params *estimate.GiftSubscriptionRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/estimates/gift_subscription"), params)
+}
+func CreateInvoice(params *estimate.CreateInvoiceRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/estimates/create_invoice"), params)
+}

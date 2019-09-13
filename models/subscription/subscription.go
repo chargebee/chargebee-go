@@ -244,6 +244,7 @@ type CreatePaymentIntentParams struct {
 	Id                string `json:"id,omitempty"`
 	GatewayAccountId  string `json:"gateway_account_id,omitempty"`
 	GwToken           string `json:"gw_token,omitempty"`
+	ReferenceId       string `json:"reference_id,omitempty"`
 	GwPaymentMethodId string `json:"gw_payment_method_id,omitempty"`
 }
 type CreateBillingAddressParams struct {
@@ -450,6 +451,7 @@ type CreateForCustomerPaymentIntentParams struct {
 	Id                string `json:"id,omitempty"`
 	GatewayAccountId  string `json:"gateway_account_id,omitempty"`
 	GwToken           string `json:"gw_token,omitempty"`
+	ReferenceId       string `json:"reference_id,omitempty"`
 	GwPaymentMethodId string `json:"gw_payment_method_id,omitempty"`
 }
 type CartSubCreateForCustomerAddonParams struct {
@@ -595,6 +597,7 @@ type UpdatePaymentIntentParams struct {
 	Id                string `json:"id,omitempty"`
 	GatewayAccountId  string `json:"gateway_account_id,omitempty"`
 	GwToken           string `json:"gw_token,omitempty"`
+	ReferenceId       string `json:"reference_id,omitempty"`
 	GwPaymentMethodId string `json:"gw_payment_method_id,omitempty"`
 }
 type UpdateBillingAddressParams struct {
@@ -738,6 +741,7 @@ type ReactivatePaymentIntentParams struct {
 	Id                string `json:"id,omitempty"`
 	GatewayAccountId  string `json:"gateway_account_id,omitempty"`
 	GwToken           string `json:"gw_token,omitempty"`
+	ReferenceId       string `json:"reference_id,omitempty"`
 	GwPaymentMethodId string `json:"gw_payment_method_id,omitempty"`
 }
 type AddChargeAtTermEndRequestParams struct {
@@ -984,5 +988,6 @@ type ResumePaymentIntentParams struct {
 	Id                string `json:"id,omitempty"`
 	GatewayAccountId  string `json:"gateway_account_id,omitempty"`
 	GwToken           string `json:"gw_token,omitempty"`
+	ReferenceId       string `json:"reference_id,omitempty"`
 	GwPaymentMethodId string `json:"gw_payment_method_id,omitempty"`
 }

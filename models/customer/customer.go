@@ -204,6 +204,7 @@ type CreatePaymentIntentParams struct {
 	Id                string `json:"id,omitempty"`
 	GatewayAccountId  string `json:"gateway_account_id,omitempty"`
 	GwToken           string `json:"gw_token,omitempty"`
+	ReferenceId       string `json:"reference_id,omitempty"`
 	GwPaymentMethodId string `json:"gw_payment_method_id,omitempty"`
 }
 type CreateBillingAddressParams struct {
@@ -414,6 +415,7 @@ type CollectPaymentPaymentIntentParams struct {
 	GatewayAccountId  string `json:"gateway_account_id,omitempty"`
 	GwToken           string `json:"gw_token,omitempty"`
 	GwPaymentMethodId string `json:"gw_payment_method_id,omitempty"`
+	ReferenceId       string `json:"reference_id,omitempty"`
 }
 type DeleteRequestParams struct {
 	DeletePaymentMethod *bool `json:"delete_payment_method,omitempty"`
