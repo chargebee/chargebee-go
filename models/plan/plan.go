@@ -31,6 +31,7 @@ type Plan struct {
 	EnabledInPortal             bool                                 `json:"enabled_in_portal"`
 	AddonApplicability          planEnum.AddonApplicability          `json:"addon_applicability"`
 	TaxCode                     string                               `json:"tax_code"`
+	TaxjarProductCode           string                               `json:"taxjar_product_code"`
 	AvalaraSaleType             enum.AvalaraSaleType                 `json:"avalara_sale_type"`
 	AvalaraTransactionType      int32                                `json:"avalara_transaction_type"`
 	AvalaraServiceType          int32                                `json:"avalara_service_type"`
@@ -105,6 +106,7 @@ type CreateRequestParams struct {
 	Taxable                     *bool                                `json:"taxable,omitempty"`
 	TaxProfileId                string                               `json:"tax_profile_id,omitempty"`
 	TaxCode                     string                               `json:"tax_code,omitempty"`
+	TaxjarProductCode           string                               `json:"taxjar_product_code,omitempty"`
 	AvalaraSaleType             enum.AvalaraSaleType                 `json:"avalara_sale_type,omitempty"`
 	AvalaraTransactionType      *int32                               `json:"avalara_transaction_type,omitempty"`
 	AvalaraServiceType          *int32                               `json:"avalara_service_type,omitempty"`
@@ -168,6 +170,7 @@ type UpdateRequestParams struct {
 	Taxable                     *bool                                `json:"taxable,omitempty"`
 	TaxProfileId                string                               `json:"tax_profile_id,omitempty"`
 	TaxCode                     string                               `json:"tax_code,omitempty"`
+	TaxjarProductCode           string                               `json:"taxjar_product_code,omitempty"`
 	AvalaraSaleType             enum.AvalaraSaleType                 `json:"avalara_sale_type,omitempty"`
 	AvalaraTransactionType      *int32                               `json:"avalara_transaction_type,omitempty"`
 	AvalaraServiceType          *int32                               `json:"avalara_service_type,omitempty"`

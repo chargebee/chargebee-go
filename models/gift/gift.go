@@ -11,6 +11,7 @@ type Gift struct {
 	Status          giftEnum.Status `json:"status"`
 	ScheduledAt     int64           `json:"scheduled_at"`
 	AutoClaim       bool            `json:"auto_claim"`
+	NoExpiry        bool            `json:"no_expiry"`
 	ClaimExpiryDate int64           `json:"claim_expiry_date"`
 	ResourceVersion int64           `json:"resource_version"`
 	UpdatedAt       int64           `json:"updated_at"`
@@ -42,6 +43,7 @@ type GiftTimeline struct {
 type CreateRequestParams struct {
 	ScheduledAt     *int64                       `json:"scheduled_at,omitempty"`
 	AutoClaim       *bool                        `json:"auto_claim,omitempty"`
+	NoExpiry        *bool                        `json:"no_expiry,omitempty"`
 	ClaimExpiryDate *int64                       `json:"claim_expiry_date,omitempty"`
 	Gifter          *CreateGifterParams          `json:"gifter,omitempty"`
 	GiftReceiver    *CreateGiftReceiverParams    `json:"gift_receiver,omitempty"`
@@ -195,4 +197,8 @@ type ListGiftReceiverParams struct {
 }
 type ListGifterParams struct {
 	CustomerId *filter.StringFilter `json:"customer_id,omitempty"`
+}
+type UpdateGiftRequestParams struct {
+	ScheduledAt *int64 `json:"scheduled_at"`
+	Comment     string `json:"comment,omitempty"`
 }

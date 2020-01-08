@@ -99,6 +99,7 @@ const (
 	EventTypeGiftClaimed                              EventType = "gift_claimed"
 	EventTypeGiftExpired                              EventType = "gift_expired"
 	EventTypeGiftCancelled                            EventType = "gift_cancelled"
+	EventTypeGiftUpdated                              EventType = "gift_updated"
 	EventTypeHierarchyCreated                         EventType = "hierarchy_created"
 	EventTypeHierarchyDeleted                         EventType = "hierarchy_deleted"
 	EventTypePaymentIntentCreated                     EventType = "payment_intent_created"

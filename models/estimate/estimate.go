@@ -257,6 +257,7 @@ type GiftSubscriptionRequestParams struct {
 type GiftSubscriptionGiftParams struct {
 	ScheduledAt     *int64 `json:"scheduled_at,omitempty"`
 	AutoClaim       *bool  `json:"auto_claim,omitempty"`
+	NoExpiry        *bool  `json:"no_expiry,omitempty"`
 	ClaimExpiryDate *int64 `json:"claim_expiry_date,omitempty"`
 }
 type GiftSubscriptionGifterParams struct {

@@ -24,6 +24,7 @@ type Addon struct {
 	ArchivedAt                  int64                                 `json:"archived_at"`
 	EnabledInPortal             bool                                  `json:"enabled_in_portal"`
 	TaxCode                     string                                `json:"tax_code"`
+	TaxjarProductCode           string                                `json:"taxjar_product_code"`
 	AvalaraSaleType             enum.AvalaraSaleType                  `json:"avalara_sale_type"`
 	AvalaraTransactionType      int32                                 `json:"avalara_transaction_type"`
 	AvalaraServiceType          int32                                 `json:"avalara_service_type"`
@@ -71,6 +72,7 @@ type CreateRequestParams struct {
 	AvalaraTransactionType      *int32                                `json:"avalara_transaction_type,omitempty"`
 	AvalaraServiceType          *int32                                `json:"avalara_service_type,omitempty"`
 	TaxCode                     string                                `json:"tax_code,omitempty"`
+	TaxjarProductCode           string                                `json:"taxjar_product_code,omitempty"`
 	InvoiceNotes                string                                `json:"invoice_notes,omitempty"`
 	MetaData                    map[string]interface{}                `json:"meta_data,omitempty"`
 	Sku                         string                                `json:"sku,omitempty"`
@@ -107,6 +109,7 @@ type UpdateRequestParams struct {
 	AvalaraTransactionType      *int32                                `json:"avalara_transaction_type,omitempty"`
 	AvalaraServiceType          *int32                                `json:"avalara_service_type,omitempty"`
 	TaxCode                     string                                `json:"tax_code,omitempty"`
+	TaxjarProductCode           string                                `json:"taxjar_product_code,omitempty"`
 	InvoiceNotes                string                                `json:"invoice_notes,omitempty"`
 	MetaData                    map[string]interface{}                `json:"meta_data,omitempty"`
 	Sku                         string                                `json:"sku,omitempty"`

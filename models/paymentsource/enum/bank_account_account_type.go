@@ -3,6 +3,7 @@ package enum
 type BankAccountAccountType string
 
 const (
-	BankAccountAccountTypeChecking BankAccountAccountType = "checking"
-	BankAccountAccountTypeSavings  BankAccountAccountType = "savings"
+	BankAccountAccountTypeChecking         BankAccountAccountType = "checking"
+	BankAccountAccountTypeSavings          BankAccountAccountType = "savings"
+	BankAccountAccountTypeBusinessChecking BankAccountAccountType = "business_checking"
 )

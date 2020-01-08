@@ -21,3 +21,6 @@ func Claim(id string) chargebee.RequestObj {
 func Cancel(id string) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/gifts/%v/cancel", id), nil)
 }
+func UpdateGift(id string, params *gift.UpdateGiftRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/gifts/%v/update_gift", id), params)
+}
