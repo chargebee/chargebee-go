@@ -1,3 +1,9 @@
+### v2.1.0 (2020-02-06)
+* * *
+
+* New attribute total_payable and charge_on_aaceptance has been added in Quote.java
+* New input parameter cancel_at has been added in cancel_a_subscription api
+
 ### v2.0.9 (2020-01-08)
 * * * 
 

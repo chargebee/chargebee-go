@@ -488,6 +488,22 @@ type CartSubCreateForCustomerShippingAddressParams struct {
 	Country          string                `json:"country,omitempty"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
+type CartSubCreateForCustomerBillingAddressParams struct {
+	FirstName        string                `json:"first_name,omitempty"`
+	LastName         string                `json:"last_name,omitempty"`
+	Email            string                `json:"email,omitempty"`
+	Company          string                `json:"company,omitempty"`
+	Phone            string                `json:"phone,omitempty"`
+	Line1            string                `json:"line1,omitempty"`
+	Line2            string                `json:"line2,omitempty"`
+	Line3            string                `json:"line3,omitempty"`
+	City             string                `json:"city,omitempty"`
+	StateCode        string                `json:"state_code,omitempty"`
+	State            string                `json:"state,omitempty"`
+	Zip              string                `json:"zip,omitempty"`
+	Country          string                `json:"country,omitempty"`
+	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+}
 type ListRequestParams struct {
 	Limit                  *int32                  `json:"limit,omitempty"`
 	Offset                 string                  `json:"offset,omitempty"`
@@ -721,13 +737,6 @@ type ChangeTermEndRequestParams struct {
 	TermEndsAt         *int64 `json:"term_ends_at"`
 	Prorate            *bool  `json:"prorate,omitempty"`
 	InvoiceImmediately *bool  `json:"invoice_immediately,omitempty"`
-}
-type CancelRequestParams struct {
-	EndOfTerm                         *bool                                  `json:"end_of_term,omitempty"`
-	CreditOptionForCurrentTermCharges enum.CreditOptionForCurrentTermCharges `json:"credit_option_for_current_term_charges,omitempty"`
-	UnbilledChargesOption             enum.UnbilledChargesOption             `json:"unbilled_charges_option,omitempty"`
-	AccountReceivablesHandling        enum.AccountReceivablesHandling        `json:"account_receivables_handling,omitempty"`
-	RefundableCreditsHandling         enum.RefundableCreditsHandling         `json:"refundable_credits_handling,omitempty"`
 }
 type ReactivateRequestParams struct {
 	TrialEnd             *int64                         `json:"trial_end,omitempty"`
@@ -979,6 +988,14 @@ type PauseRequestParams struct {
 	UnbilledChargesHandling enum.UnbilledChargesHandling `json:"unbilled_charges_handling,omitempty"`
 	InvoiceDunningHandling  enum.InvoiceDunningHandling  `json:"invoice_dunning_handling,omitempty"`
 	ResumeDate              *int64                       `json:"resume_date,omitempty"`
+}
+type CancelRequestParams struct {
+	EndOfTerm                         *bool                                  `json:"end_of_term,omitempty"`
+	CancelAt                          *int64                                 `json:"cancel_at,omitempty"`
+	CreditOptionForCurrentTermCharges enum.CreditOptionForCurrentTermCharges `json:"credit_option_for_current_term_charges,omitempty"`
+	UnbilledChargesOption             enum.UnbilledChargesOption             `json:"unbilled_charges_option,omitempty"`
+	AccountReceivablesHandling        enum.AccountReceivablesHandling        `json:"account_receivables_handling,omitempty"`
+	RefundableCreditsHandling         enum.RefundableCreditsHandling         `json:"refundable_credits_handling,omitempty"`
 }
 type ResumeRequestParams struct {
 	ResumeOption           enum.ResumeOption           `json:"resume_option,omitempty"`

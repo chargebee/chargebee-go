@@ -34,6 +34,12 @@ type CreateForCardCardParams struct {
 	BillingZip       string `json:"billing_zip,omitempty"`
 	BillingCountry   string `json:"billing_country,omitempty"`
 }
+type CreateUsingTempTokenTokenAdditionalDetailParams struct {
+	FirstName   string `json:"first_name,omitempty"`
+	LastName    string `json:"last_name,omitempty"`
+	ExpiryMonth *int32 `json:"expiry_month,omitempty"`
+	ExpiryYear  *int32 `json:"expiry_year,omitempty"`
+}
 type CreateUsingTempTokenTokenBillingAddressParams struct {
 	Line1       string `json:"line1,omitempty"`
 	Line2       string `json:"line2,omitempty"`

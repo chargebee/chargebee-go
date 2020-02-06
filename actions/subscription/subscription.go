@@ -39,9 +39,6 @@ func Update(id string, params *subscription.UpdateRequestParams) chargebee.Reque
 func ChangeTermEnd(id string, params *subscription.ChangeTermEndRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/subscriptions/%v/change_term_end", id), params)
 }
-func Cancel(id string, params *subscription.CancelRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/subscriptions/%v/cancel", id), params)
-}
 func Reactivate(id string, params *subscription.ReactivateRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/subscriptions/%v/reactivate", id), params)
 }
@@ -68,6 +65,9 @@ func Delete(id string) chargebee.RequestObj {
 }
 func Pause(id string, params *subscription.PauseRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/subscriptions/%v/pause", id), params)
+}
+func Cancel(id string, params *subscription.CancelRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/subscriptions/%v/cancel", id), params)
 }
 func Resume(id string, params *subscription.ResumeRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/subscriptions/%v/resume", id), params)
