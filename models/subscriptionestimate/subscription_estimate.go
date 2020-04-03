@@ -13,6 +13,7 @@ type SubscriptionEstimate struct {
 	PauseDate       int64                           `json:"pause_date"`
 	ResumeDate      int64                           `json:"resume_date"`
 	ShippingAddress *ShippingAddress                `json:"shipping_address"`
+	ContractTerm    *ContractTerm                   `json:"contract_term"`
 	Object          string                          `json:"object"`
 }
 type ShippingAddress struct {
@@ -31,4 +32,18 @@ type ShippingAddress struct {
 	Zip              string                `json:"zip"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status"`
 	Object           string                `json:"object"`
+}
+type ContractTerm struct {
+	Id                       string                                               `json:"id"`
+	Status                   subscriptionEstimateEnum.ContractTermStatus          `json:"status"`
+	ContractStart            int64                                                `json:"contract_start"`
+	ContractEnd              int64                                                `json:"contract_end"`
+	BillingCycle             int32                                                `json:"billing_cycle"`
+	ActionAtTermEnd          subscriptionEstimateEnum.ContractTermActionAtTermEnd `json:"action_at_term_end"`
+	TotalContractValue       int64                                                `json:"total_contract_value"`
+	CancellationCutoffPeriod int32                                                `json:"cancellation_cutoff_period"`
+	CreatedAt                int64                                                `json:"created_at"`
+	SubscriptionId           string                                               `json:"subscription_id"`
+	RemainingBillingCycles   int32                                                `json:"remaining_billing_cycles"`
+	Object                   string                                               `json:"object"`
 }

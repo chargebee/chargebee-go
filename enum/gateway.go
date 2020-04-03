@@ -37,5 +37,6 @@ const (
 	GatewayBluesnap              Gateway = "bluesnap"
 	GatewayCybersource           Gateway = "cybersource"
 	GatewayVantiv                Gateway = "vantiv"
+	GatewayCheckoutCom           Gateway = "checkout_com"
 	GatewayNotApplicable         Gateway = "not_applicable"
 )

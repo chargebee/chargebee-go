@@ -6,6 +6,7 @@ import (
 	"github.com/chargebee/chargebee-go/models/card"
 	"github.com/chargebee/chargebee-go/models/comment"
 	"github.com/chargebee/chargebee-go/models/contact"
+	"github.com/chargebee/chargebee-go/models/contractterm"
 	"github.com/chargebee/chargebee-go/models/coupon"
 	"github.com/chargebee/chargebee-go/models/couponcode"
 	"github.com/chargebee/chargebee-go/models/couponset"
@@ -26,6 +27,7 @@ import (
 	"github.com/chargebee/chargebee-go/models/portalsession"
 	"github.com/chargebee/chargebee-go/models/promotionalcredit"
 	"github.com/chargebee/chargebee-go/models/quote"
+	"github.com/chargebee/chargebee-go/models/quotelinegroup"
 	"github.com/chargebee/chargebee-go/models/resourcemigration"
 	"github.com/chargebee/chargebee-go/models/sitemigrationdetail"
 	"github.com/chargebee/chargebee-go/models/subscription"
@@ -43,6 +45,7 @@ type ResultList struct {
 }
 type Result struct {
 	Subscription            *subscription.Subscription                       `json:"subscription,omitempty"`
+	ContractTerm            *contractterm.ContractTerm                       `json:"contract_term,omitempty"`
 	Customer                *customer.Customer                               `json:"customer,omitempty"`
 	Hierarchy               *hierarchy.Hierarchy                             `json:"hierarchy,omitempty"`
 	Contact                 *contact.Contact                                 `json:"contact,omitempty"`
@@ -61,6 +64,7 @@ type Result struct {
 	HostedPage              *hostedpage.HostedPage                           `json:"hosted_page,omitempty"`
 	Estimate                *estimate.Estimate                               `json:"estimate,omitempty"`
 	Quote                   *quote.Quote                                     `json:"quote,omitempty"`
+	QuoteLineGroup          *quotelinegroup.QuoteLineGroup                   `json:"quote_line_group,omitempty"`
 	Plan                    *plan.Plan                                       `json:"plan,omitempty"`
 	Addon                   *addon.Addon                                     `json:"addon,omitempty"`
 	Coupon                  *coupon.Coupon                                   `json:"coupon,omitempty"`

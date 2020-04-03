@@ -2,6 +2,7 @@ package estimate
 
 import (
 	"github.com/chargebee/chargebee-go/enum"
+	contractTermEnum "github.com/chargebee/chargebee-go/models/contractterm/enum"
 	"github.com/chargebee/chargebee-go/models/creditnoteestimate"
 	"github.com/chargebee/chargebee-go/models/invoiceestimate"
 	"github.com/chargebee/chargebee-go/models/subscriptionestimate"
@@ -31,17 +32,19 @@ type CreateSubscriptionRequestParams struct {
 	ShippingAddress         *CreateSubscriptionShippingAddressParams   `json:"shipping_address,omitempty"`
 	Customer                *CreateSubscriptionCustomerParams          `json:"customer,omitempty"`
 	InvoiceImmediately      *bool                                      `json:"invoice_immediately,omitempty"`
+	ContractTerm            *CreateSubscriptionContractTermParams      `json:"contract_term,omitempty"`
 	ClientProfileId         string                                     `json:"client_profile_id,omitempty"`
 }
 type CreateSubscriptionSubscriptionParams struct {
-	Id            string `json:"id,omitempty"`
-	PlanId        string `json:"plan_id"`
-	PlanQuantity  *int32 `json:"plan_quantity,omitempty"`
-	PlanUnitPrice *int32 `json:"plan_unit_price,omitempty"`
-	SetupFee      *int32 `json:"setup_fee,omitempty"`
-	StartDate     *int64 `json:"start_date,omitempty"`
-	TrialEnd      *int64 `json:"trial_end,omitempty"`
-	Coupon        string `json:"coupon,omitempty"`
+	Id                                string `json:"id,omitempty"`
+	PlanId                            string `json:"plan_id"`
+	PlanQuantity                      *int32 `json:"plan_quantity,omitempty"`
+	PlanUnitPrice                     *int32 `json:"plan_unit_price,omitempty"`
+	SetupFee                          *int32 `json:"setup_fee,omitempty"`
+	StartDate                         *int64 `json:"start_date,omitempty"`
+	TrialEnd                          *int64 `json:"trial_end,omitempty"`
+	Coupon                            string `json:"coupon,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32 `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 type CreateSubscriptionAddonParams struct {
 	Id            string `json:"id,omitempty"`
@@ -88,6 +91,10 @@ type CreateSubscriptionCustomerParams struct {
 	ExemptionDetails []map[string]interface{} `json:"exemption_details,omitempty"`
 	CustomerType     enum.CustomerType        `json:"customer_type,omitempty"`
 }
+type CreateSubscriptionContractTermParams struct {
+	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
+}
 type CreateSubForCustomerEstimateRequestParams struct {
 	UseExistingBalances     *bool                                                `json:"use_existing_balances,omitempty"`
 	Subscription            *CreateSubForCustomerEstimateSubscriptionParams      `json:"subscription,omitempty"`
@@ -100,15 +107,17 @@ type CreateSubForCustomerEstimateRequestParams struct {
 	MandatoryAddonsToRemove []string                                             `json:"mandatory_addons_to_remove,omitempty"`
 	ShippingAddress         *CreateSubForCustomerEstimateShippingAddressParams   `json:"shipping_address,omitempty"`
 	CouponIds               []string                                             `json:"coupon_ids,omitempty"`
+	ContractTerm            *CreateSubForCustomerEstimateContractTermParams      `json:"contract_term,omitempty"`
 }
 type CreateSubForCustomerEstimateSubscriptionParams struct {
-	Id            string `json:"id,omitempty"`
-	PlanId        string `json:"plan_id"`
-	PlanQuantity  *int32 `json:"plan_quantity,omitempty"`
-	PlanUnitPrice *int32 `json:"plan_unit_price,omitempty"`
-	SetupFee      *int32 `json:"setup_fee,omitempty"`
-	StartDate     *int64 `json:"start_date,omitempty"`
-	TrialEnd      *int64 `json:"trial_end,omitempty"`
+	Id                                string `json:"id,omitempty"`
+	PlanId                            string `json:"plan_id"`
+	PlanQuantity                      *int32 `json:"plan_quantity,omitempty"`
+	PlanUnitPrice                     *int32 `json:"plan_unit_price,omitempty"`
+	SetupFee                          *int32 `json:"setup_fee,omitempty"`
+	StartDate                         *int64 `json:"start_date,omitempty"`
+	TrialEnd                          *int64 `json:"trial_end,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32 `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 type CreateSubForCustomerEstimateAddonParams struct {
 	Id            string `json:"id,omitempty"`
@@ -135,6 +144,10 @@ type CreateSubForCustomerEstimateShippingAddressParams struct {
 	Zip              string                `json:"zip,omitempty"`
 	Country          string                `json:"country,omitempty"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+}
+type CreateSubForCustomerEstimateContractTermParams struct {
+	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 type UpdateSubscriptionRequestParams struct {
 	Subscription            *UpdateSubscriptionSubscriptionParams      `json:"subscription,omitempty"`

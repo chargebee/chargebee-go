@@ -104,4 +104,9 @@ const (
 	EventTypeHierarchyDeleted                         EventType = "hierarchy_deleted"
 	EventTypePaymentIntentCreated                     EventType = "payment_intent_created"
 	EventTypePaymentIntentUpdated                     EventType = "payment_intent_updated"
+	EventTypeContractTermCreated                      EventType = "contract_term_created"
+	EventTypeContractTermRenewed                      EventType = "contract_term_renewed"
+	EventTypeContractTermTerminated                   EventType = "contract_term_terminated"
+	EventTypeContractTermCompleted                    EventType = "contract_term_completed"
+	EventTypeContractTermCancelled                    EventType = "contract_term_cancelled"
 )

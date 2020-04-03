@@ -7,4 +7,5 @@ const (
 	EventBasedAddonOnEventSubscriptionTrialStart EventBasedAddonOnEvent = "subscription_trial_start"
 	EventBasedAddonOnEventPlanActivation         EventBasedAddonOnEvent = "plan_activation"
 	EventBasedAddonOnEventSubscriptionActivation EventBasedAddonOnEvent = "subscription_activation"
+	EventBasedAddonOnEventContractTermination    EventBasedAddonOnEvent = "contract_termination"
 )

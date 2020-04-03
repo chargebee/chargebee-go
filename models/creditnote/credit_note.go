@@ -148,6 +148,10 @@ type CreateLineItemParams struct {
 type PdfRequestParams struct {
 	DispositionType enum.DispositionType `json:"disposition_type,omitempty"`
 }
+type RefundRequestParams struct {
+	RefundAmount  *int32 `json:"refund_amount,omitempty"`
+	CustomerNotes string `json:"customer_notes,omitempty"`
+}
 type RecordRefundRequestParams struct {
 	Transaction *RecordRefundTransactionParams `json:"transaction,omitempty"`
 	Comment     string                         `json:"comment,omitempty"`

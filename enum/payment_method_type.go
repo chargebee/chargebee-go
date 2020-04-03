@@ -12,4 +12,6 @@ const (
 	PaymentMethodTypeUnionpay              PaymentMethodType = "unionpay"
 	PaymentMethodTypeApplePay              PaymentMethodType = "apple_pay"
 	PaymentMethodTypeWechatPay             PaymentMethodType = "wechat_pay"
+	PaymentMethodTypeIdeal                 PaymentMethodType = "ideal"
+	PaymentMethodTypeGooglePay             PaymentMethodType = "google_pay"
 )

@@ -281,11 +281,10 @@ type CreateForOnetimeChargesRequestParams struct {
 	ShippingAddress *CreateForOnetimeChargesShippingAddressParams `json:"shipping_address,omitempty"`
 }
 type CreateForOnetimeChargesAddonParams struct {
-	Id        string `json:"id,omitempty"`
-	Quantity  *int32 `json:"quantity,omitempty"`
-	UnitPrice *int32 `json:"unit_price,omitempty"`
-	DateFrom  *int64 `json:"date_from,omitempty"`
-	DateTo    *int64 `json:"date_to,omitempty"`
+	Id            string `json:"id,omitempty"`
+	Quantity      *int32 `json:"quantity,omitempty"`
+	UnitPrice     *int32 `json:"unit_price,omitempty"`
+	ServicePeriod *int32 `json:"service_period,omitempty"`
 }
 type CreateForOnetimeChargesChargeParams struct {
 	Amount                 *int32               `json:"amount,omitempty"`
@@ -293,8 +292,7 @@ type CreateForOnetimeChargesChargeParams struct {
 	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
 	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
 	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
-	DateFrom               *int64               `json:"date_from,omitempty"`
-	DateTo                 *int64               `json:"date_to,omitempty"`
+	ServicePeriod          *int32               `json:"service_period,omitempty"`
 }
 type CreateForOnetimeChargesShippingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -324,6 +322,10 @@ type ListRequestParams struct {
 	UpdatedAt      *filter.TimestampFilter `json:"updated_at,omitempty"`
 	SortBy         *filter.SortFilter      `json:"sort_by,omitempty"`
 }
+type QuoteLineGroupsForQuoteRequestParams struct {
+	Limit  *int32 `json:"limit,omitempty"`
+	Offset string `json:"offset,omitempty"`
+}
 type ConvertRequestParams struct {
 	Subscription *ConvertSubscriptionParams `json:"subscription,omitempty"`
 }
@@ -340,5 +342,6 @@ type DeleteRequestParams struct {
 	Comment string `json:"comment,omitempty"`
 }
 type PdfRequestParams struct {
-	DispositionType enum.DispositionType `json:"disposition_type,omitempty"`
+	ConsolidatedView *bool                `json:"consolidated_view,omitempty"`
+	DispositionType  enum.DispositionType `json:"disposition_type,omitempty"`
 }

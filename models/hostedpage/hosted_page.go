@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
+	contractTermEnum "github.com/chargebee/chargebee-go/models/contractterm/enum"
 	hostedPageEnum "github.com/chargebee/chargebee-go/models/hostedpage/enum"
 )
 
@@ -40,19 +41,21 @@ type CheckoutNewRequestParams struct {
 	IframeMessaging         *bool                               `json:"iframe_messaging,omitempty"`
 	BillingAddress          *CheckoutNewBillingAddressParams    `json:"billing_address,omitempty"`
 	ShippingAddress         *CheckoutNewShippingAddressParams   `json:"shipping_address,omitempty"`
+	ContractTerm            *CheckoutNewContractTermParams      `json:"contract_term,omitempty"`
 }
 type CheckoutNewSubscriptionParams struct {
-	Id             string              `json:"id,omitempty"`
-	PlanId         string              `json:"plan_id"`
-	PlanQuantity   *int32              `json:"plan_quantity,omitempty"`
-	PlanUnitPrice  *int32              `json:"plan_unit_price,omitempty"`
-	SetupFee       *int32              `json:"setup_fee,omitempty"`
-	StartDate      *int64              `json:"start_date,omitempty"`
-	TrialEnd       *int64              `json:"trial_end,omitempty"`
-	Coupon         string              `json:"coupon,omitempty"`
-	AutoCollection enum.AutoCollection `json:"auto_collection,omitempty"`
-	InvoiceNotes   string              `json:"invoice_notes,omitempty"`
-	AffiliateToken string              `json:"affiliate_token,omitempty"`
+	Id                                string              `json:"id,omitempty"`
+	PlanId                            string              `json:"plan_id"`
+	PlanQuantity                      *int32              `json:"plan_quantity,omitempty"`
+	PlanUnitPrice                     *int32              `json:"plan_unit_price,omitempty"`
+	SetupFee                          *int32              `json:"setup_fee,omitempty"`
+	StartDate                         *int64              `json:"start_date,omitempty"`
+	TrialEnd                          *int64              `json:"trial_end,omitempty"`
+	Coupon                            string              `json:"coupon,omitempty"`
+	AutoCollection                    enum.AutoCollection `json:"auto_collection,omitempty"`
+	InvoiceNotes                      string              `json:"invoice_notes,omitempty"`
+	AffiliateToken                    string              `json:"affiliate_token,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32              `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 type CheckoutNewCustomerParams struct {
 	Id                    string          `json:"id,omitempty"`
@@ -117,6 +120,10 @@ type CheckoutNewShippingAddressParams struct {
 	Country          string                `json:"country,omitempty"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
+type CheckoutNewContractTermParams struct {
+	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
+}
 type CheckoutExistingRequestParams struct {
 	Subscription            *CheckoutExistingSubscriptionParams      `json:"subscription,omitempty"`
 	BillingCycles           *int32                                   `json:"billing_cycles,omitempty"`
@@ -136,17 +143,19 @@ type CheckoutExistingRequestParams struct {
 	PassThruContent         string                                   `json:"pass_thru_content,omitempty"`
 	Embed                   *bool                                    `json:"embed,omitempty"`
 	IframeMessaging         *bool                                    `json:"iframe_messaging,omitempty"`
+	ContractTerm            *CheckoutExistingContractTermParams      `json:"contract_term,omitempty"`
 }
 type CheckoutExistingSubscriptionParams struct {
-	Id            string `json:"id"`
-	PlanId        string `json:"plan_id,omitempty"`
-	PlanQuantity  *int32 `json:"plan_quantity,omitempty"`
-	PlanUnitPrice *int32 `json:"plan_unit_price,omitempty"`
-	SetupFee      *int32 `json:"setup_fee,omitempty"`
-	StartDate     *int64 `json:"start_date,omitempty"`
-	TrialEnd      *int64 `json:"trial_end,omitempty"`
-	Coupon        string `json:"coupon,omitempty"`
-	InvoiceNotes  string `json:"invoice_notes,omitempty"`
+	Id                                string `json:"id"`
+	PlanId                            string `json:"plan_id,omitempty"`
+	PlanQuantity                      *int32 `json:"plan_quantity,omitempty"`
+	PlanUnitPrice                     *int32 `json:"plan_unit_price,omitempty"`
+	SetupFee                          *int32 `json:"setup_fee,omitempty"`
+	StartDate                         *int64 `json:"start_date,omitempty"`
+	TrialEnd                          *int64 `json:"trial_end,omitempty"`
+	Coupon                            string `json:"coupon,omitempty"`
+	InvoiceNotes                      string `json:"invoice_notes,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32 `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 type CheckoutExistingAddonParams struct {
 	Id            string `json:"id,omitempty"`
@@ -169,6 +178,10 @@ type CheckoutExistingCustomerParams struct {
 type CheckoutExistingCardParams struct {
 	Gateway          enum.Gateway `json:"gateway,omitempty"`
 	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
+}
+type CheckoutExistingContractTermParams struct {
+	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 type UpdateCardRequestParams struct {
 	Customer        *UpdateCardCustomerParams `json:"customer,omitempty"`

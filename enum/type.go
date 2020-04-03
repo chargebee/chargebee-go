@@ -12,4 +12,6 @@ const (
 	TypeUnionpay              Type = "unionpay"
 	TypeApplePay              Type = "apple_pay"
 	TypeWechatPay             Type = "wechat_pay"
+	TypeIdeal                 Type = "ideal"
+	TypeGooglePay             Type = "google_pay"
 )
