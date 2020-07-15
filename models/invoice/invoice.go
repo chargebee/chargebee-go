@@ -61,6 +61,7 @@ type Invoice struct {
 	ShippingAddress         *ShippingAddress          `json:"shipping_address"`
 	BillingAddress          *BillingAddress           `json:"billing_address"`
 	PaymentOwner            string                    `json:"payment_owner"`
+	VoidReasonCode          string                    `json:"void_reason_code"`
 	Deleted                 bool                      `json:"deleted"`
 	Object                  string                    `json:"object"`
 }
@@ -79,6 +80,7 @@ type LineItem struct {
 	DiscountAmount          int32                          `json:"discount_amount"`
 	ItemLevelDiscountAmount int32                          `json:"item_level_discount_amount"`
 	Description             string                         `json:"description"`
+	EntityDescription       string                         `json:"entity_description"`
 	EntityType              invoiceEnum.LineItemEntityType `json:"entity_type"`
 	TaxExemptReason         enum.TaxExemptReason           `json:"tax_exempt_reason"`
 	EntityId                string                         `json:"entity_id"`
@@ -147,29 +149,32 @@ type DunningAttempt struct {
 	Object        string                 `json:"object"`
 }
 type AppliedCredit struct {
-	CnId          string                    `json:"cn_id"`
-	AppliedAmount int32                     `json:"applied_amount"`
-	AppliedAt     int64                     `json:"applied_at"`
-	CnReasonCode  creditNoteEnum.ReasonCode `json:"cn_reason_code"`
-	CnDate        int64                     `json:"cn_date"`
-	CnStatus      creditNoteEnum.Status     `json:"cn_status"`
-	Object        string                    `json:"object"`
+	CnId               string                    `json:"cn_id"`
+	AppliedAmount      int32                     `json:"applied_amount"`
+	AppliedAt          int64                     `json:"applied_at"`
+	CnReasonCode       creditNoteEnum.ReasonCode `json:"cn_reason_code"`
+	CnCreateReasonCode string                    `json:"cn_create_reason_code"`
+	CnDate             int64                     `json:"cn_date"`
+	CnStatus           creditNoteEnum.Status     `json:"cn_status"`
+	Object             string                    `json:"object"`
 }
 type AdjustmentCreditNote struct {
-	CnId         string                    `json:"cn_id"`
-	CnReasonCode creditNoteEnum.ReasonCode `json:"cn_reason_code"`
-	CnDate       int64                     `json:"cn_date"`
-	CnTotal      int32                     `json:"cn_total"`
-	CnStatus     creditNoteEnum.Status     `json:"cn_status"`
-	Object       string                    `json:"object"`
+	CnId               string                    `json:"cn_id"`
+	CnReasonCode       creditNoteEnum.ReasonCode `json:"cn_reason_code"`
+	CnCreateReasonCode string                    `json:"cn_create_reason_code"`
+	CnDate             int64                     `json:"cn_date"`
+	CnTotal            int32                     `json:"cn_total"`
+	CnStatus           creditNoteEnum.Status     `json:"cn_status"`
+	Object             string                    `json:"object"`
 }
 type IssuedCreditNote struct {
-	CnId         string                    `json:"cn_id"`
-	CnReasonCode creditNoteEnum.ReasonCode `json:"cn_reason_code"`
-	CnDate       int64                     `json:"cn_date"`
-	CnTotal      int32                     `json:"cn_total"`
-	CnStatus     creditNoteEnum.Status     `json:"cn_status"`
-	Object       string                    `json:"object"`
+	CnId               string                    `json:"cn_id"`
+	CnReasonCode       creditNoteEnum.ReasonCode `json:"cn_reason_code"`
+	CnCreateReasonCode string                    `json:"cn_create_reason_code"`
+	CnDate             int64                     `json:"cn_date"`
+	CnTotal            int32                     `json:"cn_total"`
+	CnStatus           creditNoteEnum.Status     `json:"cn_status"`
+	Object             string                    `json:"object"`
 }
 type LinkedOrder struct {
 	Id                string                           `json:"id"`
@@ -223,12 +228,16 @@ type BillingAddress struct {
 	Object           string                `json:"object"`
 }
 type CreateRequestParams struct {
-	CustomerId                  string                       `json:"customer_id"`
+	CustomerId                  string                       `json:"customer_id,omitempty"`
+	SubscriptionId              string                       `json:"subscription_id,omitempty"`
 	CurrencyCode                string                       `json:"currency_code,omitempty"`
 	Addons                      []*CreateAddonParams         `json:"addons,omitempty"`
 	Charges                     []*CreateChargeParams        `json:"charges,omitempty"`
-	Coupon                      string                       `json:"coupon,omitempty"`
+	InvoiceNote                 string                       `json:"invoice_note,omitempty"`
+	RemoveGeneralNote           *bool                        `json:"remove_general_note,omitempty"`
+	NotesToRemove               []*CreateNotesToRemoveParams `json:"notes_to_remove,omitempty"`
 	PoNumber                    string                       `json:"po_number,omitempty"`
+	CouponIds                   []string                     `json:"coupon_ids,omitempty"`
 	AuthorizationTransactionId  string                       `json:"authorization_transaction_id,omitempty"`
 	PaymentSourceId             string                       `json:"payment_source_id,omitempty"`
 	AutoCollection              enum.AutoCollection          `json:"auto_collection,omitempty"`
@@ -251,6 +260,14 @@ type CreateChargeParams struct {
 	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
 	DateFrom               *int64               `json:"date_from,omitempty"`
 	DateTo                 *int64               `json:"date_to,omitempty"`
+	Taxable                *bool                `json:"taxable,omitempty"`
+	TaxProfileId           string               `json:"tax_profile_id,omitempty"`
+	AvalaraTaxCode         string               `json:"avalara_tax_code,omitempty"`
+	TaxjarProductCode      string               `json:"taxjar_product_code,omitempty"`
+}
+type CreateNotesToRemoveParams struct {
+	EntityType enum.EntityType `json:"entity_type,omitempty"`
+	EntityId   string          `json:"entity_id,omitempty"`
 }
 type CreateShippingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -454,6 +471,7 @@ type ListRequestParams struct {
 	PaymentOwner   *filter.StringFilter    `json:"payment_owner,omitempty"`
 	UpdatedAt      *filter.TimestampFilter `json:"updated_at,omitempty"`
 	VoidedAt       *filter.TimestampFilter `json:"voided_at,omitempty"`
+	VoidReasonCode *filter.StringFilter    `json:"void_reason_code,omitempty"`
 	SortBy         *filter.SortFilter      `json:"sort_by,omitempty"`
 }
 type InvoicesForCustomerRequestParams struct {
@@ -492,7 +510,14 @@ type AddAddonChargeLineItemParams struct {
 	DateTo   *int64 `json:"date_to,omitempty"`
 }
 type CloseRequestParams struct {
-	Comment string `json:"comment,omitempty"`
+	Comment           string                      `json:"comment,omitempty"`
+	InvoiceNote       string                      `json:"invoice_note,omitempty"`
+	RemoveGeneralNote *bool                       `json:"remove_general_note,omitempty"`
+	NotesToRemove     []*CloseNotesToRemoveParams `json:"notes_to_remove,omitempty"`
+}
+type CloseNotesToRemoveParams struct {
+	EntityType enum.EntityType `json:"entity_type,omitempty"`
+	EntityId   string          `json:"entity_id,omitempty"`
 }
 type CollectPaymentRequestParams struct {
 	Amount                     *int32 `json:"amount,omitempty"`
@@ -521,7 +546,8 @@ type RefundRequestParams struct {
 	CustomerNotes string                  `json:"customer_notes,omitempty"`
 }
 type RefundCreditNoteParams struct {
-	ReasonCode creditNoteEnum.ReasonCode `json:"reason_code,omitempty"`
+	ReasonCode       creditNoteEnum.ReasonCode `json:"reason_code,omitempty"`
+	CreateReasonCode string                    `json:"create_reason_code,omitempty"`
 }
 type RecordRefundRequestParams struct {
 	Transaction   *RecordRefundTransactionParams `json:"transaction,omitempty"`
@@ -536,7 +562,8 @@ type RecordRefundTransactionParams struct {
 	Date            *int64             `json:"date"`
 }
 type RecordRefundCreditNoteParams struct {
-	ReasonCode creditNoteEnum.ReasonCode `json:"reason_code,omitempty"`
+	ReasonCode       creditNoteEnum.ReasonCode `json:"reason_code,omitempty"`
+	CreateReasonCode string                    `json:"create_reason_code,omitempty"`
 }
 type RemovePaymentRequestParams struct {
 	Transaction *RemovePaymentTransactionParams `json:"transaction,omitempty"`
@@ -551,7 +578,8 @@ type RemoveCreditNoteCreditNoteParams struct {
 	Id string `json:"id"`
 }
 type VoidInvoiceRequestParams struct {
-	Comment string `json:"comment,omitempty"`
+	Comment        string `json:"comment,omitempty"`
+	VoidReasonCode string `json:"void_reason_code,omitempty"`
 }
 type WriteOffRequestParams struct {
 	Comment string `json:"comment,omitempty"`

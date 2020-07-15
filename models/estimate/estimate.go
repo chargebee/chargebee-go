@@ -314,15 +314,18 @@ type CreateInvoiceRequestParams struct {
 	CurrencyCode               string                              `json:"currency_code,omitempty"`
 	Addons                     []*CreateInvoiceAddonParams         `json:"addons,omitempty"`
 	Charges                    []*CreateInvoiceChargeParams        `json:"charges,omitempty"`
+	InvoiceNotes               string                              `json:"invoice_notes,omitempty"`
 	Coupon                     string                              `json:"coupon,omitempty"`
+	CouponIds                  []string                            `json:"coupon_ids,omitempty"`
 	AuthorizationTransactionId string                              `json:"authorization_transaction_id,omitempty"`
 	PaymentSourceId            string                              `json:"payment_source_id,omitempty"`
 	AutoCollection             enum.AutoCollection                 `json:"auto_collection,omitempty"`
 	ShippingAddress            *CreateInvoiceShippingAddressParams `json:"shipping_address,omitempty"`
 }
 type CreateInvoiceInvoiceParams struct {
-	CustomerId string `json:"customer_id"`
-	PoNumber   string `json:"po_number,omitempty"`
+	CustomerId     string `json:"customer_id,omitempty"`
+	SubscriptionId string `json:"subscription_id,omitempty"`
+	PoNumber       string `json:"po_number,omitempty"`
 }
 type CreateInvoiceAddonParams struct {
 	Id        string `json:"id,omitempty"`
@@ -339,6 +342,10 @@ type CreateInvoiceChargeParams struct {
 	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
 	DateFrom               *int64               `json:"date_from,omitempty"`
 	DateTo                 *int64               `json:"date_to,omitempty"`
+	Taxable                *bool                `json:"taxable,omitempty"`
+	TaxProfileId           string               `json:"tax_profile_id,omitempty"`
+	AvalaraTaxCode         string               `json:"avalara_tax_code,omitempty"`
+	TaxjarProductCode      string               `json:"taxjar_product_code,omitempty"`
 }
 type CreateInvoiceShippingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`

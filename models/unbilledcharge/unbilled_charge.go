@@ -42,6 +42,7 @@ type ListRequestParams struct {
 	Limit          *int32               `json:"limit,omitempty"`
 	Offset         string               `json:"offset,omitempty"`
 	IncludeDeleted *bool                `json:"include_deleted,omitempty"`
+	IsVoided       *bool                `json:"is_voided,omitempty"`
 	SubscriptionId *filter.StringFilter `json:"subscription_id,omitempty"`
 	CustomerId     *filter.StringFilter `json:"customer_id,omitempty"`
 }

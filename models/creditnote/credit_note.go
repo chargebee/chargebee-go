@@ -43,6 +43,7 @@ type CreditNote struct {
 	LinkedRefunds           []*LinkedRefund           `json:"linked_refunds"`
 	Allocations             []*Allocation             `json:"allocations"`
 	Deleted                 bool                      `json:"deleted"`
+	CreateReasonCode        string                    `json:"create_reason_code"`
 	Object                  string                    `json:"object"`
 }
 type LineItem struct {
@@ -60,6 +61,7 @@ type LineItem struct {
 	DiscountAmount          int32                             `json:"discount_amount"`
 	ItemLevelDiscountAmount int32                             `json:"item_level_discount_amount"`
 	Description             string                            `json:"description"`
+	EntityDescription       string                            `json:"entity_description"`
 	EntityType              creditNoteEnum.LineItemEntityType `json:"entity_type"`
 	TaxExemptReason         enum.TaxExemptReason              `json:"tax_exempt_reason"`
 	EntityId                string                            `json:"entity_id"`
@@ -110,13 +112,14 @@ type LineItemTax struct {
 	Object                   string            `json:"object"`
 }
 type LinkedRefund struct {
-	TxnId         string                 `json:"txn_id"`
-	AppliedAmount int32                  `json:"applied_amount"`
-	AppliedAt     int64                  `json:"applied_at"`
-	TxnStatus     transactionEnum.Status `json:"txn_status"`
-	TxnDate       int64                  `json:"txn_date"`
-	TxnAmount     int32                  `json:"txn_amount"`
-	Object        string                 `json:"object"`
+	TxnId            string                 `json:"txn_id"`
+	AppliedAmount    int32                  `json:"applied_amount"`
+	AppliedAt        int64                  `json:"applied_at"`
+	TxnStatus        transactionEnum.Status `json:"txn_status"`
+	TxnDate          int64                  `json:"txn_date"`
+	TxnAmount        int32                  `json:"txn_amount"`
+	RefundReasonCode string                 `json:"refund_reason_code"`
+	Object           string                 `json:"object"`
 }
 type Allocation struct {
 	InvoiceId       string             `json:"invoice_id"`
@@ -130,7 +133,8 @@ type CreateRequestParams struct {
 	ReferenceInvoiceId string                    `json:"reference_invoice_id"`
 	Total              *int32                    `json:"total,omitempty"`
 	Type               creditNoteEnum.Type       `json:"type"`
-	ReasonCode         creditNoteEnum.ReasonCode `json:"reason_code"`
+	ReasonCode         creditNoteEnum.ReasonCode `json:"reason_code,omitempty"`
+	CreateReasonCode   string                    `json:"create_reason_code,omitempty"`
 	Date               *int64                    `json:"date,omitempty"`
 	CustomerNotes      string                    `json:"customer_notes,omitempty"`
 	LineItems          []*CreateLineItemParams   `json:"line_items,omitempty"`
@@ -149,12 +153,14 @@ type PdfRequestParams struct {
 	DispositionType enum.DispositionType `json:"disposition_type,omitempty"`
 }
 type RefundRequestParams struct {
-	RefundAmount  *int32 `json:"refund_amount,omitempty"`
-	CustomerNotes string `json:"customer_notes,omitempty"`
+	RefundAmount     *int32 `json:"refund_amount,omitempty"`
+	CustomerNotes    string `json:"customer_notes,omitempty"`
+	RefundReasonCode string `json:"refund_reason_code,omitempty"`
 }
 type RecordRefundRequestParams struct {
-	Transaction *RecordRefundTransactionParams `json:"transaction,omitempty"`
-	Comment     string                         `json:"comment,omitempty"`
+	Transaction      *RecordRefundTransactionParams `json:"transaction,omitempty"`
+	RefundReasonCode string                         `json:"refund_reason_code,omitempty"`
+	Comment          string                         `json:"comment,omitempty"`
 }
 type RecordRefundTransactionParams struct {
 	Amount          *int32             `json:"amount,omitempty"`
@@ -175,6 +181,7 @@ type ListRequestParams struct {
 	ReferenceInvoiceId *filter.StringFilter    `json:"reference_invoice_id,omitempty"`
 	Type               *filter.EnumFilter      `json:"type,omitempty"`
 	ReasonCode         *filter.EnumFilter      `json:"reason_code,omitempty"`
+	CreateReasonCode   *filter.StringFilter    `json:"create_reason_code,omitempty"`
 	Status             *filter.EnumFilter      `json:"status,omitempty"`
 	Date               *filter.TimestampFilter `json:"date,omitempty"`
 	Total              *filter.NumberFilter    `json:"total,omitempty"`

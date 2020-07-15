@@ -19,5 +19,7 @@ const (
 	PaymentMethodSepaCredit            PaymentMethod = "sepa_credit"
 	PaymentMethodIdeal                 PaymentMethod = "ideal"
 	PaymentMethodGooglePay             PaymentMethod = "google_pay"
+	PaymentMethodSofort                PaymentMethod = "sofort"
+	PaymentMethodBancontact            PaymentMethod = "bancontact"
 	PaymentMethodOther                 PaymentMethod = "other"
 )

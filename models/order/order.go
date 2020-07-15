@@ -195,6 +195,63 @@ type UpdateShippingAddressParams struct {
 	Country          string                `json:"country,omitempty"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
+type ImportOrderRequestParams struct {
+	Id                      string                            `json:"id,omitempty"`
+	DocumentNumber          string                            `json:"document_number,omitempty"`
+	InvoiceId               string                            `json:"invoice_id"`
+	Status                  orderEnum.Status                  `json:"status"`
+	SubscriptionId          string                            `json:"subscription_id,omitempty"`
+	CustomerId              string                            `json:"customer_id,omitempty"`
+	CreatedAt               *int64                            `json:"created_at"`
+	OrderDate               *int64                            `json:"order_date"`
+	ShippingDate            *int64                            `json:"shipping_date"`
+	ReferenceId             string                            `json:"reference_id,omitempty"`
+	FulfillmentStatus       string                            `json:"fulfillment_status,omitempty"`
+	Note                    string                            `json:"note,omitempty"`
+	TrackingId              string                            `json:"tracking_id,omitempty"`
+	BatchId                 string                            `json:"batch_id,omitempty"`
+	ShipmentCarrier         string                            `json:"shipment_carrier,omitempty"`
+	ShippingCutOffDate      *int64                            `json:"shipping_cut_off_date,omitempty"`
+	DeliveredAt             *int64                            `json:"delivered_at,omitempty"`
+	ShippedAt               *int64                            `json:"shipped_at,omitempty"`
+	CancelledAt             *int64                            `json:"cancelled_at,omitempty"`
+	CancellationReason      orderEnum.CancellationReason      `json:"cancellation_reason,omitempty"`
+	RefundableCreditsIssued *int32                            `json:"refundable_credits_issued,omitempty"`
+	ShippingAddress         *ImportOrderShippingAddressParams `json:"shipping_address,omitempty"`
+	BillingAddress          *ImportOrderBillingAddressParams  `json:"billing_address,omitempty"`
+}
+type ImportOrderShippingAddressParams struct {
+	FirstName        string                `json:"first_name,omitempty"`
+	LastName         string                `json:"last_name,omitempty"`
+	Email            string                `json:"email,omitempty"`
+	Company          string                `json:"company,omitempty"`
+	Phone            string                `json:"phone,omitempty"`
+	Line1            string                `json:"line1,omitempty"`
+	Line2            string                `json:"line2,omitempty"`
+	Line3            string                `json:"line3,omitempty"`
+	City             string                `json:"city,omitempty"`
+	StateCode        string                `json:"state_code,omitempty"`
+	State            string                `json:"state,omitempty"`
+	Zip              string                `json:"zip,omitempty"`
+	Country          string                `json:"country,omitempty"`
+	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+}
+type ImportOrderBillingAddressParams struct {
+	FirstName        string                `json:"first_name,omitempty"`
+	LastName         string                `json:"last_name,omitempty"`
+	Email            string                `json:"email,omitempty"`
+	Company          string                `json:"company,omitempty"`
+	Phone            string                `json:"phone,omitempty"`
+	Line1            string                `json:"line1,omitempty"`
+	Line2            string                `json:"line2,omitempty"`
+	Line3            string                `json:"line3,omitempty"`
+	City             string                `json:"city,omitempty"`
+	StateCode        string                `json:"state_code,omitempty"`
+	State            string                `json:"state,omitempty"`
+	Zip              string                `json:"zip,omitempty"`
+	Country          string                `json:"country,omitempty"`
+	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+}
 type CancelRequestParams struct {
 	CancellationReason orderEnum.CancellationReason `json:"cancellation_reason"`
 	CreditNote         *CancelCreditNoteParams      `json:"credit_note,omitempty"`
@@ -216,20 +273,21 @@ type ReopenRequestParams struct {
 	VoidCancellationCreditNotes *bool `json:"void_cancellation_credit_notes,omitempty"`
 }
 type ListRequestParams struct {
-	Limit          *int32                  `json:"limit,omitempty"`
-	Offset         string                  `json:"offset,omitempty"`
-	IncludeDeleted *bool                   `json:"include_deleted,omitempty"`
-	Id             *filter.StringFilter    `json:"id,omitempty"`
-	InvoiceId      *filter.StringFilter    `json:"invoice_id,omitempty"`
-	SubscriptionId *filter.StringFilter    `json:"subscription_id,omitempty"`
-	Status         *filter.EnumFilter      `json:"status,omitempty"`
-	ShippingDate   *filter.TimestampFilter `json:"shipping_date,omitempty"`
-	OrderType      *filter.EnumFilter      `json:"order_type,omitempty"`
-	OrderDate      *filter.TimestampFilter `json:"order_date,omitempty"`
-	PaidOn         *filter.TimestampFilter `json:"paid_on,omitempty"`
-	UpdatedAt      *filter.TimestampFilter `json:"updated_at,omitempty"`
-	CreatedAt      *filter.TimestampFilter `json:"created_at,omitempty"`
-	SortBy         *filter.SortFilter      `json:"sort_by,omitempty"`
+	Limit                     *int32                  `json:"limit,omitempty"`
+	Offset                    string                  `json:"offset,omitempty"`
+	IncludeDeleted            *bool                   `json:"include_deleted,omitempty"`
+	ExcludeDeletedCreditNotes *bool                   `json:"exclude_deleted_credit_notes,omitempty"`
+	Id                        *filter.StringFilter    `json:"id,omitempty"`
+	InvoiceId                 *filter.StringFilter    `json:"invoice_id,omitempty"`
+	SubscriptionId            *filter.StringFilter    `json:"subscription_id,omitempty"`
+	Status                    *filter.EnumFilter      `json:"status,omitempty"`
+	ShippingDate              *filter.TimestampFilter `json:"shipping_date,omitempty"`
+	OrderType                 *filter.EnumFilter      `json:"order_type,omitempty"`
+	OrderDate                 *filter.TimestampFilter `json:"order_date,omitempty"`
+	PaidOn                    *filter.TimestampFilter `json:"paid_on,omitempty"`
+	UpdatedAt                 *filter.TimestampFilter `json:"updated_at,omitempty"`
+	CreatedAt                 *filter.TimestampFilter `json:"created_at,omitempty"`
+	SortBy                    *filter.SortFilter      `json:"sort_by,omitempty"`
 }
 type OrdersForInvoiceRequestParams struct {
 	Limit  *int32 `json:"limit,omitempty"`

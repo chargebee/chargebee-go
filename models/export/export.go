@@ -31,6 +31,7 @@ type RevenueRecognitionRequestParams struct {
 	Invoice          *RevenueRecognitionInvoiceParams      `json:"invoice,omitempty"`
 	PaymentOwner     *filter.StringFilter                  `json:"payment_owner,omitempty"`
 	Subscription     *RevenueRecognitionSubscriptionParams `json:"subscription,omitempty"`
+	CancelReasonCode *filter.StringFilter                  `json:"cancel_reason_code,omitempty"`
 	Customer         *RevenueRecognitionCustomerParams     `json:"customer,omitempty"`
 	Relationship     *RevenueRecognitionRelationshipParams `json:"relationship,omitempty"`
 }
@@ -91,6 +92,7 @@ type DeferredRevenueRequestParams struct {
 	Invoice          *DeferredRevenueInvoiceParams      `json:"invoice,omitempty"`
 	PaymentOwner     *filter.StringFilter               `json:"payment_owner,omitempty"`
 	Subscription     *DeferredRevenueSubscriptionParams `json:"subscription,omitempty"`
+	CancelReasonCode *filter.StringFilter               `json:"cancel_reason_code,omitempty"`
 	Customer         *DeferredRevenueCustomerParams     `json:"customer,omitempty"`
 	Relationship     *DeferredRevenueRelationshipParams `json:"relationship,omitempty"`
 }
@@ -204,7 +206,8 @@ type CustomersRelationshipParams struct {
 	InvoiceOwnerId *filter.StringFilter `json:"invoice_owner_id,omitempty"`
 }
 type SubscriptionsRequestParams struct {
-	Subscription *SubscriptionsSubscriptionParams `json:"subscription,omitempty"`
+	Subscription     *SubscriptionsSubscriptionParams `json:"subscription,omitempty"`
+	CancelReasonCode *filter.StringFilter             `json:"cancel_reason_code,omitempty"`
 }
 type SubscriptionsSubscriptionParams struct {
 	Id                     *filter.StringFilter    `json:"id,omitempty"`
@@ -251,6 +254,7 @@ type CreditNotesCreditNoteParams struct {
 	ReferenceInvoiceId *filter.StringFilter    `json:"reference_invoice_id,omitempty"`
 	Type               *filter.EnumFilter      `json:"type,omitempty"`
 	ReasonCode         *filter.EnumFilter      `json:"reason_code,omitempty"`
+	CreateReasonCode   *filter.StringFilter    `json:"create_reason_code,omitempty"`
 	Status             *filter.EnumFilter      `json:"status,omitempty"`
 	Date               *filter.TimestampFilter `json:"date,omitempty"`
 	Total              *filter.NumberFilter    `json:"total,omitempty"`

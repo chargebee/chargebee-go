@@ -54,6 +54,8 @@ type Plan struct {
 	ApplicableAddons            []*ApplicableAddon                   `json:"applicable_addons"`
 	AttachedAddons              []*AttachedAddon                     `json:"attached_addons"`
 	EventBasedAddons            []*EventBasedAddon                   `json:"event_based_addons"`
+	ShowDescriptionInInvoices   bool                                 `json:"show_description_in_invoices"`
+	ShowDescriptionInQuotes     bool                                 `json:"show_description_in_quotes"`
 	CustomField                 map[string]interface{}               `json:"custom_field"`
 	Object                      string                               `json:"object"`
 }
@@ -122,6 +124,8 @@ type CreateRequestParams struct {
 	AttachedAddons              []*CreateAttachedAddonParams         `json:"attached_addons,omitempty"`
 	InvoiceNotes                string                               `json:"invoice_notes,omitempty"`
 	MetaData                    map[string]interface{}               `json:"meta_data,omitempty"`
+	ShowDescriptionInInvoices   *bool                                `json:"show_description_in_invoices,omitempty"`
+	ShowDescriptionInQuotes     *bool                                `json:"show_description_in_quotes,omitempty"`
 	Giftable                    *bool                                `json:"giftable,omitempty"`
 	Status                      planEnum.Status                      `json:"status,omitempty"`
 	ClaimUrl                    string                               `json:"claim_url,omitempty"`
@@ -186,6 +190,8 @@ type UpdateRequestParams struct {
 	AttachedAddons              []*UpdateAttachedAddonParams         `json:"attached_addons,omitempty"`
 	InvoiceNotes                string                               `json:"invoice_notes,omitempty"`
 	MetaData                    map[string]interface{}               `json:"meta_data,omitempty"`
+	ShowDescriptionInInvoices   *bool                                `json:"show_description_in_invoices,omitempty"`
+	ShowDescriptionInQuotes     *bool                                `json:"show_description_in_quotes,omitempty"`
 }
 type UpdateTierParams struct {
 	StartingUnit *int32 `json:"starting_unit,omitempty"`

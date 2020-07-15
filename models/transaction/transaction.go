@@ -62,6 +62,7 @@ type LinkedCreditNote struct {
 	AppliedAmount        int32                     `json:"applied_amount"`
 	AppliedAt            int64                     `json:"applied_at"`
 	CnReasonCode         creditNoteEnum.ReasonCode `json:"cn_reason_code"`
+	CnCreateReasonCode   string                    `json:"cn_create_reason_code"`
 	CnDate               int64                     `json:"cn_date"`
 	CnTotal              int32                     `json:"cn_total"`
 	CnStatus             creditNoteEnum.Status     `json:"cn_status"`

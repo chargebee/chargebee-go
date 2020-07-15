@@ -30,9 +30,10 @@ type CheckoutNewRequestParams struct {
 	BillingCycles           *int32                              `json:"billing_cycles,omitempty"`
 	Addons                  []*CheckoutNewAddonParams           `json:"addons,omitempty"`
 	EventBasedAddons        []*CheckoutNewEventBasedAddonParams `json:"event_based_addons,omitempty"`
+	MandatoryAddonsToRemove []string                            `json:"mandatory_addons_to_remove,omitempty"`
 	TermsToCharge           *int32                              `json:"terms_to_charge,omitempty"`
 	BillingAlignmentMode    enum.BillingAlignmentMode           `json:"billing_alignment_mode,omitempty"`
-	MandatoryAddonsToRemove []string                            `json:"mandatory_addons_to_remove,omitempty"`
+	CouponIds               []string                            `json:"coupon_ids,omitempty"`
 	Card                    *CheckoutNewCardParams              `json:"card,omitempty"`
 	RedirectUrl             string                              `json:"redirect_url,omitempty"`
 	CancelUrl               string                              `json:"cancel_url,omitempty"`
@@ -134,6 +135,7 @@ type CheckoutExistingRequestParams struct {
 	TermsToCharge           *int32                                   `json:"terms_to_charge,omitempty"`
 	ReactivateFrom          *int64                                   `json:"reactivate_from,omitempty"`
 	BillingAlignmentMode    enum.BillingAlignmentMode                `json:"billing_alignment_mode,omitempty"`
+	CouponIds               []string                                 `json:"coupon_ids,omitempty"`
 	Reactivate              *bool                                    `json:"reactivate,omitempty"`
 	ForceTermReset          *bool                                    `json:"force_term_reset,omitempty"`
 	Customer                *CheckoutExistingCustomerParams          `json:"customer,omitempty"`

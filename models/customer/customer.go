@@ -58,6 +58,9 @@ type Customer struct {
 	CustomerType                     enum.CustomerType             `json:"customer_type"`
 	ClientProfileId                  string                        `json:"client_profile_id"`
 	Relationship                     *Relationship                 `json:"relationship"`
+	UseDefaultHierarchySettings      bool                          `json:"use_default_hierarchy_settings"`
+	ParentAccountAccess              *ParentAccountAccess          `json:"parent_account_access"`
+	ChildAccountAccess               *ChildAccountAccess           `json:"child_account_access"`
 	CustomField                      map[string]interface{}        `json:"custom_field"`
 	Consents                         map[string]interface{}        `json:"consents"`
 	Object                           string                        `json:"object"`
@@ -124,6 +127,22 @@ type Relationship struct {
 	PaymentOwnerId string `json:"payment_owner_id"`
 	InvoiceOwnerId string `json:"invoice_owner_id"`
 	Object         string `json:"object"`
+}
+type ParentAccountAccess struct {
+	PortalEditChildSubscriptions customerEnum.ParentAccountAccessPortalEditChildSubscriptions `json:"portal_edit_child_subscriptions"`
+	PortalDownloadChildInvoices  customerEnum.ParentAccountAccessPortalDownloadChildInvoices  `json:"portal_download_child_invoices"`
+	SendSubscriptionEmails       bool                                                         `json:"send_subscription_emails"`
+	SendInvoiceEmails            bool                                                         `json:"send_invoice_emails"`
+	SendPaymentEmails            bool                                                         `json:"send_payment_emails"`
+	Object                       string                                                       `json:"object"`
+}
+type ChildAccountAccess struct {
+	PortalEditSubscriptions customerEnum.ChildAccountAccessPortalEditSubscriptions `json:"portal_edit_subscriptions"`
+	PortalDownloadInvoices  customerEnum.ChildAccountAccessPortalDownloadInvoices  `json:"portal_download_invoices"`
+	SendSubscriptionEmails  bool                                                   `json:"send_subscription_emails"`
+	SendInvoiceEmails       bool                                                   `json:"send_invoice_emails"`
+	SendPaymentEmails       bool                                                   `json:"send_payment_emails"`
+	Object                  string                                                 `json:"object"`
 }
 type CreateRequestParams struct {
 	Id                               string                       `json:"id,omitempty"`
@@ -439,10 +458,46 @@ type MergeRequestParams struct {
 	ToCustomerId   string `json:"to_customer_id"`
 }
 type RelationshipsRequestParams struct {
-	ParentId       string `json:"parent_id,omitempty"`
-	PaymentOwnerId string `json:"payment_owner_id,omitempty"`
-	InvoiceOwnerId string `json:"invoice_owner_id,omitempty"`
+	ParentId                    string                                  `json:"parent_id,omitempty"`
+	PaymentOwnerId              string                                  `json:"payment_owner_id,omitempty"`
+	InvoiceOwnerId              string                                  `json:"invoice_owner_id,omitempty"`
+	UseDefaultHierarchySettings *bool                                   `json:"use_default_hierarchy_settings,omitempty"`
+	ParentAccountAccess         *RelationshipsParentAccountAccessParams `json:"parent_account_access,omitempty"`
+	ChildAccountAccess          *RelationshipsChildAccountAccessParams  `json:"child_account_access,omitempty"`
+}
+type RelationshipsParentAccountAccessParams struct {
+	PortalEditChildSubscriptions customerEnum.ParentAccountAccessPortalEditChildSubscriptions `json:"portal_edit_child_subscriptions,omitempty"`
+	PortalDownloadChildInvoices  customerEnum.ParentAccountAccessPortalDownloadChildInvoices  `json:"portal_download_child_invoices,omitempty"`
+	SendSubscriptionEmails       *bool                                                        `json:"send_subscription_emails,omitempty"`
+	SendPaymentEmails            *bool                                                        `json:"send_payment_emails,omitempty"`
+	SendInvoiceEmails            *bool                                                        `json:"send_invoice_emails,omitempty"`
+}
+type RelationshipsChildAccountAccessParams struct {
+	PortalEditSubscriptions customerEnum.ChildAccountAccessPortalEditSubscriptions `json:"portal_edit_subscriptions,omitempty"`
+	PortalDownloadInvoices  customerEnum.ChildAccountAccessPortalDownloadInvoices  `json:"portal_download_invoices,omitempty"`
+	SendSubscriptionEmails  *bool                                                  `json:"send_subscription_emails,omitempty"`
+	SendPaymentEmails       *bool                                                  `json:"send_payment_emails,omitempty"`
+	SendInvoiceEmails       *bool                                                  `json:"send_invoice_emails,omitempty"`
 }
 type HierarchyRequestParams struct {
 	HierarchyOperationType enum.HierarchyOperationType `json:"hierarchy_operation_type,omitempty"`
+}
+type UpdateHierarchySettingsRequestParams struct {
+	UseDefaultHierarchySettings *bool                                             `json:"use_default_hierarchy_settings,omitempty"`
+	ParentAccountAccess         *UpdateHierarchySettingsParentAccountAccessParams `json:"parent_account_access,omitempty"`
+	ChildAccountAccess          *UpdateHierarchySettingsChildAccountAccessParams  `json:"child_account_access,omitempty"`
+}
+type UpdateHierarchySettingsParentAccountAccessParams struct {
+	PortalEditChildSubscriptions customerEnum.ParentAccountAccessPortalEditChildSubscriptions `json:"portal_edit_child_subscriptions,omitempty"`
+	PortalDownloadChildInvoices  customerEnum.ParentAccountAccessPortalDownloadChildInvoices  `json:"portal_download_child_invoices,omitempty"`
+	SendSubscriptionEmails       *bool                                                        `json:"send_subscription_emails,omitempty"`
+	SendPaymentEmails            *bool                                                        `json:"send_payment_emails,omitempty"`
+	SendInvoiceEmails            *bool                                                        `json:"send_invoice_emails,omitempty"`
+}
+type UpdateHierarchySettingsChildAccountAccessParams struct {
+	PortalEditSubscriptions customerEnum.ChildAccountAccessPortalEditSubscriptions `json:"portal_edit_subscriptions,omitempty"`
+	PortalDownloadInvoices  customerEnum.ChildAccountAccessPortalDownloadInvoices  `json:"portal_download_invoices,omitempty"`
+	SendSubscriptionEmails  *bool                                                  `json:"send_subscription_emails,omitempty"`
+	SendPaymentEmails       *bool                                                  `json:"send_payment_emails,omitempty"`
+	SendInvoiceEmails       *bool                                                  `json:"send_invoice_emails,omitempty"`
 }

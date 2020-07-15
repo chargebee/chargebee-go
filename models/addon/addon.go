@@ -42,6 +42,8 @@ type Addon struct {
 	TaxProfileId                string                                `json:"tax_profile_id"`
 	MetaData                    json.RawMessage                       `json:"meta_data"`
 	Tiers                       []*Tier                               `json:"tiers"`
+	ShowDescriptionInInvoices   bool                                  `json:"show_description_in_invoices"`
+	ShowDescriptionInQuotes     bool                                  `json:"show_description_in_quotes"`
 	CustomField                 map[string]interface{}                `json:"custom_field"`
 	Object                      string                                `json:"object"`
 }
@@ -82,6 +84,8 @@ type CreateRequestParams struct {
 	IsShippable                 *bool                                 `json:"is_shippable,omitempty"`
 	ShippingFrequencyPeriod     *int32                                `json:"shipping_frequency_period,omitempty"`
 	ShippingFrequencyPeriodUnit addonEnum.ShippingFrequencyPeriodUnit `json:"shipping_frequency_period_unit,omitempty"`
+	ShowDescriptionInInvoices   *bool                                 `json:"show_description_in_invoices,omitempty"`
+	ShowDescriptionInQuotes     *bool                                 `json:"show_description_in_quotes,omitempty"`
 	Status                      addonEnum.Status                      `json:"status,omitempty"`
 }
 type CreateTierParams struct {
@@ -119,6 +123,8 @@ type UpdateRequestParams struct {
 	IsShippable                 *bool                                 `json:"is_shippable,omitempty"`
 	ShippingFrequencyPeriod     *int32                                `json:"shipping_frequency_period,omitempty"`
 	ShippingFrequencyPeriodUnit addonEnum.ShippingFrequencyPeriodUnit `json:"shipping_frequency_period_unit,omitempty"`
+	ShowDescriptionInInvoices   *bool                                 `json:"show_description_in_invoices,omitempty"`
+	ShowDescriptionInQuotes     *bool                                 `json:"show_description_in_quotes,omitempty"`
 }
 type UpdateTierParams struct {
 	StartingUnit *int32 `json:"starting_unit,omitempty"`
