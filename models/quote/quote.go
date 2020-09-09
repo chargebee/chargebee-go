@@ -144,9 +144,9 @@ type CreateSubForCustomerQuoteRequestParams struct {
 	BillingCycles           *int32                                            `json:"billing_cycles,omitempty"`
 	Addons                  []*CreateSubForCustomerQuoteAddonParams           `json:"addons,omitempty"`
 	EventBasedAddons        []*CreateSubForCustomerQuoteEventBasedAddonParams `json:"event_based_addons,omitempty"`
+	MandatoryAddonsToRemove []string                                          `json:"mandatory_addons_to_remove,omitempty"`
 	TermsToCharge           *int32                                            `json:"terms_to_charge,omitempty"`
 	BillingAlignmentMode    enum.BillingAlignmentMode                         `json:"billing_alignment_mode,omitempty"`
-	MandatoryAddonsToRemove []string                                          `json:"mandatory_addons_to_remove,omitempty"`
 	ShippingAddress         *CreateSubForCustomerQuoteShippingAddressParams   `json:"shipping_address,omitempty"`
 	ContractTerm            *CreateSubForCustomerQuoteContractTermParams      `json:"contract_term,omitempty"`
 	CouponIds               []string                                          `json:"coupon_ids,omitempty"`
@@ -262,11 +262,11 @@ type UpdateSubscriptionQuoteRequestParams struct {
 	Notes                   string                                          `json:"notes,omitempty"`
 	ExpiresAt               *int64                                          `json:"expires_at,omitempty"`
 	Subscription            *UpdateSubscriptionQuoteSubscriptionParams      `json:"subscription,omitempty"`
-	BillingCycles           *int32                                          `json:"billing_cycles,omitempty"`
 	Addons                  []*UpdateSubscriptionQuoteAddonParams           `json:"addons,omitempty"`
 	EventBasedAddons        []*UpdateSubscriptionQuoteEventBasedAddonParams `json:"event_based_addons,omitempty"`
 	ReplaceAddonList        *bool                                           `json:"replace_addon_list,omitempty"`
 	MandatoryAddonsToRemove []string                                        `json:"mandatory_addons_to_remove,omitempty"`
+	BillingCycles           *int32                                          `json:"billing_cycles,omitempty"`
 	TermsToCharge           *int32                                          `json:"terms_to_charge,omitempty"`
 	ReactivateFrom          *int64                                          `json:"reactivate_from,omitempty"`
 	BillingAlignmentMode    enum.BillingAlignmentMode                       `json:"billing_alignment_mode,omitempty"`
@@ -434,9 +434,9 @@ type EditUpdateSubscriptionQuoteContractTermParams struct {
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 type CreateForOnetimeChargesRequestParams struct {
+	Name            string                                        `json:"name,omitempty"`
 	CustomerId      string                                        `json:"customer_id"`
 	PoNumber        string                                        `json:"po_number,omitempty"`
-	Name            string                                        `json:"name,omitempty"`
 	Notes           string                                        `json:"notes,omitempty"`
 	ExpiresAt       *int64                                        `json:"expires_at,omitempty"`
 	CurrencyCode    string                                        `json:"currency_code,omitempty"`

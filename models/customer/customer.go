@@ -54,8 +54,8 @@ type Customer struct {
 	MetaData                         json.RawMessage               `json:"meta_data"`
 	Deleted                          bool                          `json:"deleted"`
 	RegisteredForGst                 bool                          `json:"registered_for_gst"`
-	BusinessCustomerWithoutVatNumber bool                          `json:"business_customer_without_vat_number"`
 	CustomerType                     enum.CustomerType             `json:"customer_type"`
+	BusinessCustomerWithoutVatNumber bool                          `json:"business_customer_without_vat_number"`
 	ClientProfileId                  string                        `json:"client_profile_id"`
 	Relationship                     *Relationship                 `json:"relationship"`
 	UseDefaultHierarchySettings      bool                          `json:"use_default_hierarchy_settings"`

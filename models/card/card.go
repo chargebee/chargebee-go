@@ -31,6 +31,7 @@ type Card struct {
 	ResourceVersion  int64                `json:"resource_version"`
 	UpdatedAt        int64                `json:"updated_at"`
 	IpAddress        string               `json:"ip_address"`
+	PoweredBy        cardEnum.PoweredBy   `json:"powered_by"`
 	CustomerId       string               `json:"customer_id"`
 	MaskedNumber     string               `json:"masked_number"`
 	Object           string               `json:"object"`

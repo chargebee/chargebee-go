@@ -102,8 +102,8 @@ type CartGiftCreateSubscriptionParams struct {
 	PlanQuantity  *int32 `json:"plan_quantity,omitempty"`
 	PlanUnitPrice *int32 `json:"plan_unit_price,omitempty"`
 	SetupFee      *int32 `json:"setup_fee,omitempty"`
-	StartDate     *int64 `json:"start_date,omitempty"`
 	TrialEnd      *int64 `json:"trial_end,omitempty"`
+	StartDate     *int64 `json:"start_date,omitempty"`
 	Coupon        string `json:"coupon,omitempty"`
 }
 type CartGiftCreateAddonParams struct {
@@ -155,8 +155,8 @@ type CartGiftCreateForCustomerSubscriptionParams struct {
 	PlanQuantity  *int32 `json:"plan_quantity,omitempty"`
 	PlanUnitPrice *int32 `json:"plan_unit_price,omitempty"`
 	SetupFee      *int32 `json:"setup_fee,omitempty"`
-	StartDate     *int64 `json:"start_date,omitempty"`
 	TrialEnd      *int64 `json:"trial_end,omitempty"`
+	StartDate     *int64 `json:"start_date,omitempty"`
 }
 type CartGiftCreateForCustomerAddonParams struct {
 	Id            string `json:"id,omitempty"`

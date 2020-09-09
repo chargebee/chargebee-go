@@ -45,16 +45,16 @@ type CreateRequestParams struct {
 	DiscountPercentage *float64                   `json:"discount_percentage,omitempty"`
 	DiscountQuantity   *int32                     `json:"discount_quantity,omitempty"`
 	ApplyOn            couponEnum.ApplyOn         `json:"apply_on"`
-	PlanConstraint     couponEnum.PlanConstraint  `json:"plan_constraint,omitempty"`
-	AddonConstraint    couponEnum.AddonConstraint `json:"addon_constraint,omitempty"`
-	PlanIds            []string                   `json:"plan_ids,omitempty"`
-	AddonIds           []string                   `json:"addon_ids,omitempty"`
 	DurationType       couponEnum.DurationType    `json:"duration_type"`
 	DurationMonth      *int32                     `json:"duration_month,omitempty"`
 	ValidTill          *int64                     `json:"valid_till,omitempty"`
 	MaxRedemptions     *int32                     `json:"max_redemptions,omitempty"`
 	InvoiceNotes       string                     `json:"invoice_notes,omitempty"`
 	MetaData           map[string]interface{}     `json:"meta_data,omitempty"`
+	PlanConstraint     couponEnum.PlanConstraint  `json:"plan_constraint,omitempty"`
+	AddonConstraint    couponEnum.AddonConstraint `json:"addon_constraint,omitempty"`
+	PlanIds            []string                   `json:"plan_ids,omitempty"`
+	AddonIds           []string                   `json:"addon_ids,omitempty"`
 	Status             couponEnum.Status          `json:"status,omitempty"`
 }
 type ListRequestParams struct {
@@ -69,6 +69,7 @@ type ListRequestParams struct {
 	CreatedAt    *filter.TimestampFilter `json:"created_at,omitempty"`
 	UpdatedAt    *filter.TimestampFilter `json:"updated_at,omitempty"`
 	SortBy       *filter.SortFilter      `json:"sort_by,omitempty"`
+	CurrencyCode *filter.StringFilter    `json:"currency_code,omitempty"`
 }
 type UpdateRequestParams struct {
 	Name               string                     `json:"name,omitempty"`
@@ -78,16 +79,16 @@ type UpdateRequestParams struct {
 	CurrencyCode       string                     `json:"currency_code,omitempty"`
 	DiscountPercentage *float64                   `json:"discount_percentage,omitempty"`
 	ApplyOn            couponEnum.ApplyOn         `json:"apply_on,omitempty"`
-	PlanConstraint     couponEnum.PlanConstraint  `json:"plan_constraint,omitempty"`
-	AddonConstraint    couponEnum.AddonConstraint `json:"addon_constraint,omitempty"`
-	PlanIds            []string                   `json:"plan_ids,omitempty"`
-	AddonIds           []string                   `json:"addon_ids,omitempty"`
 	DurationType       couponEnum.DurationType    `json:"duration_type,omitempty"`
 	DurationMonth      *int32                     `json:"duration_month,omitempty"`
 	ValidTill          *int64                     `json:"valid_till,omitempty"`
 	MaxRedemptions     *int32                     `json:"max_redemptions,omitempty"`
 	InvoiceNotes       string                     `json:"invoice_notes,omitempty"`
 	MetaData           map[string]interface{}     `json:"meta_data,omitempty"`
+	PlanConstraint     couponEnum.PlanConstraint  `json:"plan_constraint,omitempty"`
+	AddonConstraint    couponEnum.AddonConstraint `json:"addon_constraint,omitempty"`
+	PlanIds            []string                   `json:"plan_ids,omitempty"`
+	AddonIds           []string                   `json:"addon_ids,omitempty"`
 }
 type CopyRequestParams struct {
 	FromSite       string `json:"from_site"`

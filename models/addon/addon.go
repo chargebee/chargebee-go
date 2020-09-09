@@ -144,6 +144,7 @@ type ListRequestParams struct {
 	PeriodUnit   *filter.EnumFilter      `json:"period_unit,omitempty"`
 	Status       *filter.EnumFilter      `json:"status,omitempty"`
 	UpdatedAt    *filter.TimestampFilter `json:"updated_at,omitempty"`
+	CurrencyCode *filter.StringFilter    `json:"currency_code,omitempty"`
 }
 type CopyRequestParams struct {
 	FromSite       string `json:"from_site"`

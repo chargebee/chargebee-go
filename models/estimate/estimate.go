@@ -24,9 +24,9 @@ type CreateSubscriptionRequestParams struct {
 	BillingCycles           *int32                                     `json:"billing_cycles,omitempty"`
 	Addons                  []*CreateSubscriptionAddonParams           `json:"addons,omitempty"`
 	EventBasedAddons        []*CreateSubscriptionEventBasedAddonParams `json:"event_based_addons,omitempty"`
+	MandatoryAddonsToRemove []string                                   `json:"mandatory_addons_to_remove,omitempty"`
 	TermsToCharge           *int32                                     `json:"terms_to_charge,omitempty"`
 	BillingAlignmentMode    enum.BillingAlignmentMode                  `json:"billing_alignment_mode,omitempty"`
-	MandatoryAddonsToRemove []string                                   `json:"mandatory_addons_to_remove,omitempty"`
 	CouponIds               []string                                   `json:"coupon_ids,omitempty"`
 	BillingAddress          *CreateSubscriptionBillingAddressParams    `json:"billing_address,omitempty"`
 	ShippingAddress         *CreateSubscriptionShippingAddressParams   `json:"shipping_address,omitempty"`
@@ -36,15 +36,17 @@ type CreateSubscriptionRequestParams struct {
 	ClientProfileId         string                                     `json:"client_profile_id,omitempty"`
 }
 type CreateSubscriptionSubscriptionParams struct {
-	Id                                string `json:"id,omitempty"`
-	PlanId                            string `json:"plan_id"`
-	PlanQuantity                      *int32 `json:"plan_quantity,omitempty"`
-	PlanUnitPrice                     *int32 `json:"plan_unit_price,omitempty"`
-	SetupFee                          *int32 `json:"setup_fee,omitempty"`
-	StartDate                         *int64 `json:"start_date,omitempty"`
-	TrialEnd                          *int64 `json:"trial_end,omitempty"`
-	Coupon                            string `json:"coupon,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32 `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	Id                                string              `json:"id,omitempty"`
+	PlanId                            string              `json:"plan_id"`
+	PlanQuantity                      *int32              `json:"plan_quantity,omitempty"`
+	PlanUnitPrice                     *int32              `json:"plan_unit_price,omitempty"`
+	SetupFee                          *int32              `json:"setup_fee,omitempty"`
+	TrialEnd                          *int64              `json:"trial_end,omitempty"`
+	StartDate                         *int64              `json:"start_date,omitempty"`
+	Coupon                            string              `json:"coupon,omitempty"`
+	FreePeriod                        *int32              `json:"free_period,omitempty"`
+	FreePeriodUnit                    enum.FreePeriodUnit `json:"free_period_unit,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32              `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 type CreateSubscriptionAddonParams struct {
 	Id            string `json:"id,omitempty"`
@@ -102,22 +104,24 @@ type CreateSubForCustomerEstimateRequestParams struct {
 	BillingCycles           *int32                                               `json:"billing_cycles,omitempty"`
 	Addons                  []*CreateSubForCustomerEstimateAddonParams           `json:"addons,omitempty"`
 	EventBasedAddons        []*CreateSubForCustomerEstimateEventBasedAddonParams `json:"event_based_addons,omitempty"`
+	MandatoryAddonsToRemove []string                                             `json:"mandatory_addons_to_remove,omitempty"`
 	TermsToCharge           *int32                                               `json:"terms_to_charge,omitempty"`
 	BillingAlignmentMode    enum.BillingAlignmentMode                            `json:"billing_alignment_mode,omitempty"`
-	MandatoryAddonsToRemove []string                                             `json:"mandatory_addons_to_remove,omitempty"`
 	ShippingAddress         *CreateSubForCustomerEstimateShippingAddressParams   `json:"shipping_address,omitempty"`
 	CouponIds               []string                                             `json:"coupon_ids,omitempty"`
 	ContractTerm            *CreateSubForCustomerEstimateContractTermParams      `json:"contract_term,omitempty"`
 }
 type CreateSubForCustomerEstimateSubscriptionParams struct {
-	Id                                string `json:"id,omitempty"`
-	PlanId                            string `json:"plan_id"`
-	PlanQuantity                      *int32 `json:"plan_quantity,omitempty"`
-	PlanUnitPrice                     *int32 `json:"plan_unit_price,omitempty"`
-	SetupFee                          *int32 `json:"setup_fee,omitempty"`
-	StartDate                         *int64 `json:"start_date,omitempty"`
-	TrialEnd                          *int64 `json:"trial_end,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32 `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	Id                                string              `json:"id,omitempty"`
+	PlanId                            string              `json:"plan_id"`
+	PlanQuantity                      *int32              `json:"plan_quantity,omitempty"`
+	PlanUnitPrice                     *int32              `json:"plan_unit_price,omitempty"`
+	SetupFee                          *int32              `json:"setup_fee,omitempty"`
+	TrialEnd                          *int64              `json:"trial_end,omitempty"`
+	StartDate                         *int64              `json:"start_date,omitempty"`
+	FreePeriod                        *int32              `json:"free_period,omitempty"`
+	FreePeriodUnit                    enum.FreePeriodUnit `json:"free_period_unit,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32              `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 type CreateSubForCustomerEstimateAddonParams struct {
 	Id            string `json:"id,omitempty"`
@@ -151,11 +155,11 @@ type CreateSubForCustomerEstimateContractTermParams struct {
 }
 type UpdateSubscriptionRequestParams struct {
 	Subscription            *UpdateSubscriptionSubscriptionParams      `json:"subscription,omitempty"`
-	BillingCycles           *int32                                     `json:"billing_cycles,omitempty"`
 	Addons                  []*UpdateSubscriptionAddonParams           `json:"addons,omitempty"`
 	EventBasedAddons        []*UpdateSubscriptionEventBasedAddonParams `json:"event_based_addons,omitempty"`
 	ReplaceAddonList        *bool                                      `json:"replace_addon_list,omitempty"`
 	MandatoryAddonsToRemove []string                                   `json:"mandatory_addons_to_remove,omitempty"`
+	BillingCycles           *int32                                     `json:"billing_cycles,omitempty"`
 	TermsToCharge           *int32                                     `json:"terms_to_charge,omitempty"`
 	ReactivateFrom          *int64                                     `json:"reactivate_from,omitempty"`
 	BillingAlignmentMode    enum.BillingAlignmentMode                  `json:"billing_alignment_mode,omitempty"`
@@ -173,14 +177,16 @@ type UpdateSubscriptionRequestParams struct {
 	InvoiceImmediately      *bool                                      `json:"invoice_immediately,omitempty"`
 }
 type UpdateSubscriptionSubscriptionParams struct {
-	Id            string `json:"id"`
-	PlanId        string `json:"plan_id,omitempty"`
-	PlanQuantity  *int32 `json:"plan_quantity,omitempty"`
-	PlanUnitPrice *int32 `json:"plan_unit_price,omitempty"`
-	SetupFee      *int32 `json:"setup_fee,omitempty"`
-	StartDate     *int64 `json:"start_date,omitempty"`
-	TrialEnd      *int64 `json:"trial_end,omitempty"`
-	Coupon        string `json:"coupon,omitempty"`
+	Id             string              `json:"id"`
+	PlanId         string              `json:"plan_id,omitempty"`
+	PlanQuantity   *int32              `json:"plan_quantity,omitempty"`
+	PlanUnitPrice  *int32              `json:"plan_unit_price,omitempty"`
+	SetupFee       *int32              `json:"setup_fee,omitempty"`
+	StartDate      *int64              `json:"start_date,omitempty"`
+	TrialEnd       *int64              `json:"trial_end,omitempty"`
+	Coupon         string              `json:"coupon,omitempty"`
+	FreePeriod     *int32              `json:"free_period,omitempty"`
+	FreePeriodUnit enum.FreePeriodUnit `json:"free_period_unit,omitempty"`
 }
 type UpdateSubscriptionAddonParams struct {
 	Id            string `json:"id,omitempty"`

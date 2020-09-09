@@ -50,8 +50,8 @@ type CheckoutNewSubscriptionParams struct {
 	PlanQuantity                      *int32              `json:"plan_quantity,omitempty"`
 	PlanUnitPrice                     *int32              `json:"plan_unit_price,omitempty"`
 	SetupFee                          *int32              `json:"setup_fee,omitempty"`
-	StartDate                         *int64              `json:"start_date,omitempty"`
 	TrialEnd                          *int64              `json:"trial_end,omitempty"`
+	StartDate                         *int64              `json:"start_date,omitempty"`
 	Coupon                            string              `json:"coupon,omitempty"`
 	AutoCollection                    enum.AutoCollection `json:"auto_collection,omitempty"`
 	InvoiceNotes                      string              `json:"invoice_notes,omitempty"`
@@ -127,11 +127,11 @@ type CheckoutNewContractTermParams struct {
 }
 type CheckoutExistingRequestParams struct {
 	Subscription            *CheckoutExistingSubscriptionParams      `json:"subscription,omitempty"`
-	BillingCycles           *int32                                   `json:"billing_cycles,omitempty"`
 	Addons                  []*CheckoutExistingAddonParams           `json:"addons,omitempty"`
 	EventBasedAddons        []*CheckoutExistingEventBasedAddonParams `json:"event_based_addons,omitempty"`
 	ReplaceAddonList        *bool                                    `json:"replace_addon_list,omitempty"`
 	MandatoryAddonsToRemove []string                                 `json:"mandatory_addons_to_remove,omitempty"`
+	BillingCycles           *int32                                   `json:"billing_cycles,omitempty"`
 	TermsToCharge           *int32                                   `json:"terms_to_charge,omitempty"`
 	ReactivateFrom          *int64                                   `json:"reactivate_from,omitempty"`
 	BillingAlignmentMode    enum.BillingAlignmentMode                `json:"billing_alignment_mode,omitempty"`

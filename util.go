@@ -10,9 +10,6 @@ import (
 	"strings"
 )
 
-var serParams = map[string]interface{}{}
-var serListParams = map[string]interface{}{}
-
 func getParamTypes(params interface{}) map[string]string {
 	v := reflect.TypeOf(params).Elem()
 	m := map[string]string{}
@@ -36,8 +33,8 @@ func SerializeParams(params interface{}) *url.Values {
 	if err := data.Decode(&m); err != nil {
 		panic(err)
 	}
-	serParams = make(map[string]interface{})
-	parseMap(m, "", "", getParamTypes(params))
+	serParams := make(map[string]interface{})
+	parseMap(m, serParams, "", "", getParamTypes(params))
 	body := &url.Values{}
 	for k, v := range serParams {
 		body.Set(k, fmt.Sprintf("%v", v))
@@ -45,7 +42,7 @@ func SerializeParams(params interface{}) *url.Values {
 	return body
 }
 
-func parseMap(aMap map[string]interface{}, prefix string, idx string, paramTypes map[string]string) {
+func parseMap(aMap, serParams map[string]interface{}, prefix string, idx string, paramTypes map[string]string) {
 	for key, val := range aMap {
 		switch value := val.(type) {
 		case map[string]interface{}:
@@ -61,10 +58,10 @@ func parseMap(aMap map[string]interface{}, prefix string, idx string, paramTypes
 				if prefix != "" {
 					key = prefix + "[" + key + "]"
 				}
-				parseMap(val.(map[string]interface{}), key, "", paramTypes)
+				parseMap(val.(map[string]interface{}), serParams, key, "", paramTypes)
 			}
 		case []interface{}:
-			parseArray(val.([]interface{}), key, "", paramTypes)
+			parseArray(val.([]interface{}), serParams, key, "", paramTypes)
 		default:
 			if prefix != "" && idx != "" {
 				key = prefix + "[" + key + "]" + "[" + idx + "]"
@@ -75,7 +72,7 @@ func parseMap(aMap map[string]interface{}, prefix string, idx string, paramTypes
 		}
 	}
 }
-func parseArray(anArray []interface{}, prefix string, idx string, paramTypes map[string]string) {
+func parseArray(anArray []interface{}, serParams map[string]interface{}, prefix string, idx string, paramTypes map[string]string) {
 	if paramTypes[camelCase(prefix)] == "[]map[string]interface {}" {
 		buf := new(bytes.Buffer)
 		enc := json.NewEncoder(buf)
@@ -88,7 +85,7 @@ func parseArray(anArray []interface{}, prefix string, idx string, paramTypes map
 	for i, val := range anArray {
 		switch value := val.(type) {
 		case map[string]interface{}:
-			parseMap(val.(map[string]interface{}), prefix, strconv.Itoa(i), paramTypes)
+			parseMap(val.(map[string]interface{}), serParams, prefix, strconv.Itoa(i), paramTypes)
 		default:
 			k := prefix + "[" + strconv.Itoa(i) + "]"
 			serParams[k] = value
@@ -109,8 +106,8 @@ func SerializeListParams(params interface{}) *url.Values {
 		panic(err)
 	}
 
-	serListParams = make(map[string]interface{})
-	parseMapListParams(m, "")
+	serListParams := make(map[string]interface{})
+	parseMapListParams(m, serListParams, "")
 	body := &url.Values{}
 	for k, v := range serListParams {
 		switch val := v.(type) {
@@ -130,11 +127,11 @@ func SerializeListParams(params interface{}) *url.Values {
 	return body
 
 }
-func parseMapListParams(aMap map[string]interface{}, prefix string) {
+func parseMapListParams(aMap, serListParams map[string]interface{}, prefix string) {
 	for key, val := range aMap {
 		switch value := val.(type) {
 		case map[string]interface{}:
-			parseMapListParams(val.(map[string]interface{}), key)
+			parseMapListParams(val.(map[string]interface{}), serListParams, key)
 		default:
 			if prefix != "" {
 				k := prefix + "[" + key + "]"

@@ -21,5 +21,7 @@ const (
 	PaymentMethodGooglePay             PaymentMethod = "google_pay"
 	PaymentMethodSofort                PaymentMethod = "sofort"
 	PaymentMethodBancontact            PaymentMethod = "bancontact"
+	PaymentMethodGiropay               PaymentMethod = "giropay"
+	PaymentMethodDotpay                PaymentMethod = "dotpay"
 	PaymentMethodOther                 PaymentMethod = "other"
 )

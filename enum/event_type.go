@@ -75,6 +75,8 @@ const (
 	EventTypePaymentSourceAdded                       EventType = "payment_source_added"
 	EventTypePaymentSourceUpdated                     EventType = "payment_source_updated"
 	EventTypePaymentSourceDeleted                     EventType = "payment_source_deleted"
+	EventTypePaymentSourceExpiring                    EventType = "payment_source_expiring"
+	EventTypePaymentSourceExpired                     EventType = "payment_source_expired"
 	EventTypeVirtualBankAccountAdded                  EventType = "virtual_bank_account_added"
 	EventTypeVirtualBankAccountUpdated                EventType = "virtual_bank_account_updated"
 	EventTypeVirtualBankAccountDeleted                EventType = "virtual_bank_account_deleted"

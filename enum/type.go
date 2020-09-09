@@ -16,4 +16,6 @@ const (
 	TypeGooglePay             Type = "google_pay"
 	TypeSofort                Type = "sofort"
 	TypeBancontact            Type = "bancontact"
+	TypeGiropay               Type = "giropay"
+	TypeDotpay                Type = "dotpay"
 )

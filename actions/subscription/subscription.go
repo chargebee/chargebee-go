@@ -60,6 +60,9 @@ func ImportSubscription(params *subscription.ImportSubscriptionRequestParams) ch
 func ImportForCustomer(id string, params *subscription.ImportForCustomerRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/customers/%v/import_subscription", id), params)
 }
+func ImportContractTerm(id string, params *subscription.ImportContractTermRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/subscriptions/%v/import_contract_term", id), params)
+}
 func OverrideBillingProfile(id string, params *subscription.OverrideBillingProfileRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/subscriptions/%v/override_billing_profile", id), params)
 }

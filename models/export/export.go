@@ -143,7 +143,8 @@ type DeferredRevenueRelationshipParams struct {
 	InvoiceOwnerId *filter.StringFilter `json:"invoice_owner_id,omitempty"`
 }
 type PlansRequestParams struct {
-	Plan *PlansPlanParams `json:"plan,omitempty"`
+	Plan         *PlansPlanParams     `json:"plan,omitempty"`
+	CurrencyCode *filter.StringFilter `json:"currency_code,omitempty"`
 }
 type PlansPlanParams struct {
 	Id                 *filter.StringFilter    `json:"id,omitempty"`
@@ -159,7 +160,8 @@ type PlansPlanParams struct {
 	UpdatedAt          *filter.TimestampFilter `json:"updated_at,omitempty"`
 }
 type AddonsRequestParams struct {
-	Addon *AddonsAddonParams `json:"addon,omitempty"`
+	Addon        *AddonsAddonParams   `json:"addon,omitempty"`
+	CurrencyCode *filter.StringFilter `json:"currency_code,omitempty"`
 }
 type AddonsAddonParams struct {
 	Id         *filter.StringFilter    `json:"id,omitempty"`
@@ -172,7 +174,8 @@ type AddonsAddonParams struct {
 	UpdatedAt  *filter.TimestampFilter `json:"updated_at,omitempty"`
 }
 type CouponsRequestParams struct {
-	Coupon *CouponsCouponParams `json:"coupon,omitempty"`
+	Coupon       *CouponsCouponParams `json:"coupon,omitempty"`
+	CurrencyCode *filter.StringFilter `json:"currency_code,omitempty"`
 }
 type CouponsCouponParams struct {
 	Id           *filter.StringFilter    `json:"id,omitempty"`

@@ -18,6 +18,9 @@ func Retrieve(id string) chargebee.RequestObj {
 func List(params *virtualbankaccount.ListRequestParams) chargebee.RequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/virtual_bank_accounts"), params)
 }
+func Delete(id string) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/virtual_bank_accounts/%v/delete", id), nil)
+}
 func DeleteLocal(id string) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/virtual_bank_accounts/%v/delete_local", id), nil)
 }
