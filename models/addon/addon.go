@@ -37,6 +37,7 @@ type Addon struct {
 	ShippingFrequencyPeriodUnit addonEnum.ShippingFrequencyPeriodUnit `json:"shipping_frequency_period_unit"`
 	ResourceVersion             int64                                 `json:"resource_version"`
 	UpdatedAt                   int64                                 `json:"updated_at"`
+	IncludedInMrr               bool                                  `json:"included_in_mrr"`
 	InvoiceNotes                string                                `json:"invoice_notes"`
 	Taxable                     bool                                  `json:"taxable"`
 	TaxProfileId                string                                `json:"tax_profile_id"`
@@ -84,6 +85,7 @@ type CreateRequestParams struct {
 	IsShippable                 *bool                                 `json:"is_shippable,omitempty"`
 	ShippingFrequencyPeriod     *int32                                `json:"shipping_frequency_period,omitempty"`
 	ShippingFrequencyPeriodUnit addonEnum.ShippingFrequencyPeriodUnit `json:"shipping_frequency_period_unit,omitempty"`
+	IncludedInMrr               *bool                                 `json:"included_in_mrr,omitempty"`
 	ShowDescriptionInInvoices   *bool                                 `json:"show_description_in_invoices,omitempty"`
 	ShowDescriptionInQuotes     *bool                                 `json:"show_description_in_quotes,omitempty"`
 	Status                      addonEnum.Status                      `json:"status,omitempty"`
@@ -123,6 +125,7 @@ type UpdateRequestParams struct {
 	IsShippable                 *bool                                 `json:"is_shippable,omitempty"`
 	ShippingFrequencyPeriod     *int32                                `json:"shipping_frequency_period,omitempty"`
 	ShippingFrequencyPeriodUnit addonEnum.ShippingFrequencyPeriodUnit `json:"shipping_frequency_period_unit,omitempty"`
+	IncludedInMrr               *bool                                 `json:"included_in_mrr,omitempty"`
 	ShowDescriptionInInvoices   *bool                                 `json:"show_description_in_invoices,omitempty"`
 	ShowDescriptionInQuotes     *bool                                 `json:"show_description_in_quotes,omitempty"`
 }

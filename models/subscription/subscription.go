@@ -46,6 +46,7 @@ type Subscription struct {
 	HasScheduledChanges               bool                               `json:"has_scheduled_changes"`
 	PaymentSourceId                   string                             `json:"payment_source_id"`
 	AutoCollection                    enum.AutoCollection                `json:"auto_collection"`
+	OfflinePaymentMethod              enum.OfflinePaymentMethod          `json:"offline_payment_method"`
 	DueInvoicesCount                  int32                              `json:"due_invoices_count"`
 	DueSince                          int64                              `json:"due_since"`
 	TotalDues                         int32                              `json:"total_dues"`
@@ -164,6 +165,7 @@ type CreateRequestParams struct {
 	AutoCollection                    enum.AutoCollection            `json:"auto_collection,omitempty"`
 	TermsToCharge                     *int32                         `json:"terms_to_charge,omitempty"`
 	BillingAlignmentMode              enum.BillingAlignmentMode      `json:"billing_alignment_mode,omitempty"`
+	OfflinePaymentMethod              enum.OfflinePaymentMethod      `json:"offline_payment_method,omitempty"`
 	PoNumber                          string                         `json:"po_number,omitempty"`
 	CouponIds                         []string                       `json:"coupon_ids,omitempty"`
 	Card                              *CreateCardParams              `json:"card,omitempty"`
@@ -198,6 +200,7 @@ type CreateCustomerParams struct {
 	TaxjarExemptionCategory          enum.TaxjarExemptionCategory `json:"taxjar_exemption_category,omitempty"`
 	Phone                            string                       `json:"phone,omitempty"`
 	AutoCollection                   enum.AutoCollection          `json:"auto_collection,omitempty"`
+	OfflinePaymentMethod             enum.OfflinePaymentMethod    `json:"offline_payment_method,omitempty"`
 	AllowDirectDebit                 *bool                        `json:"allow_direct_debit,omitempty"`
 	ConsolidatedInvoicing            *bool                        `json:"consolidated_invoicing,omitempty"`
 	VatNumber                        string                       `json:"vat_number,omitempty"`
@@ -323,6 +326,7 @@ type CartSubCreateCustomerParams struct {
 	TaxjarExemptionCategory          enum.TaxjarExemptionCategory `json:"taxjar_exemption_category,omitempty"`
 	Phone                            string                       `json:"phone,omitempty"`
 	AutoCollection                   enum.AutoCollection          `json:"auto_collection,omitempty"`
+	OfflinePaymentMethod             enum.OfflinePaymentMethod    `json:"offline_payment_method,omitempty"`
 	AllowDirectDebit                 *bool                        `json:"allow_direct_debit,omitempty"`
 	ConsolidatedInvoicing            *bool                        `json:"consolidated_invoicing,omitempty"`
 	VatNumber                        string                       `json:"vat_number,omitempty"`
@@ -443,6 +447,7 @@ type CreateForCustomerRequestParams struct {
 	AutoCollection                    enum.AutoCollection                       `json:"auto_collection,omitempty"`
 	TermsToCharge                     *int32                                    `json:"terms_to_charge,omitempty"`
 	BillingAlignmentMode              enum.BillingAlignmentMode                 `json:"billing_alignment_mode,omitempty"`
+	OfflinePaymentMethod              enum.OfflinePaymentMethod                 `json:"offline_payment_method,omitempty"`
 	PoNumber                          string                                    `json:"po_number,omitempty"`
 	CouponIds                         []string                                  `json:"coupon_ids,omitempty"`
 	PaymentSourceId                   string                                    `json:"payment_source_id,omitempty"`
@@ -561,6 +566,8 @@ type ListRequestParams struct {
 	Id                     *filter.StringFilter    `json:"id,omitempty"`
 	CustomerId             *filter.StringFilter    `json:"customer_id,omitempty"`
 	PlanId                 *filter.StringFilter    `json:"plan_id,omitempty"`
+	ItemId                 *filter.StringFilter    `json:"item_id,omitempty"`
+	ItemPriceId            *filter.StringFilter    `json:"item_price_id,omitempty"`
 	Status                 *filter.EnumFilter      `json:"status,omitempty"`
 	CancelReason           *filter.EnumFilter      `json:"cancel_reason,omitempty"`
 	CancelReasonCode       *filter.StringFilter    `json:"cancel_reason_code,omitempty"`
@@ -571,6 +578,7 @@ type ListRequestParams struct {
 	CancelledAt            *filter.TimestampFilter `json:"cancelled_at,omitempty"`
 	HasScheduledChanges    *filter.BooleanFilter   `json:"has_scheduled_changes,omitempty"`
 	UpdatedAt              *filter.TimestampFilter `json:"updated_at,omitempty"`
+	OfflinePaymentMethod   *filter.EnumFilter      `json:"offline_payment_method,omitempty"`
 	OverrideRelationship   *filter.BooleanFilter   `json:"override_relationship,omitempty"`
 	SortBy                 *filter.SortFilter      `json:"sort_by,omitempty"`
 }
@@ -604,6 +612,8 @@ type UpdateRequestParams struct {
 	TermsToCharge                     *int32                         `json:"terms_to_charge,omitempty"`
 	ReactivateFrom                    *int64                         `json:"reactivate_from,omitempty"`
 	BillingAlignmentMode              enum.BillingAlignmentMode      `json:"billing_alignment_mode,omitempty"`
+	AutoCollection                    enum.AutoCollection            `json:"auto_collection,omitempty"`
+	OfflinePaymentMethod              enum.OfflinePaymentMethod      `json:"offline_payment_method,omitempty"`
 	PoNumber                          string                         `json:"po_number,omitempty"`
 	CouponIds                         []string                       `json:"coupon_ids,omitempty"`
 	ReplaceCouponList                 *bool                          `json:"replace_coupon_list,omitempty"`

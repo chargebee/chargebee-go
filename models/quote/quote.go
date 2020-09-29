@@ -152,14 +152,15 @@ type CreateSubForCustomerQuoteRequestParams struct {
 	CouponIds               []string                                          `json:"coupon_ids,omitempty"`
 }
 type CreateSubForCustomerQuoteSubscriptionParams struct {
-	Id                                string `json:"id,omitempty"`
-	PlanId                            string `json:"plan_id"`
-	PlanQuantity                      *int32 `json:"plan_quantity,omitempty"`
-	PlanUnitPrice                     *int32 `json:"plan_unit_price,omitempty"`
-	SetupFee                          *int32 `json:"setup_fee,omitempty"`
-	TrialEnd                          *int64 `json:"trial_end,omitempty"`
-	StartDate                         *int64 `json:"start_date,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32 `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	Id                                string                    `json:"id,omitempty"`
+	PlanId                            string                    `json:"plan_id"`
+	PlanQuantity                      *int32                    `json:"plan_quantity,omitempty"`
+	PlanUnitPrice                     *int32                    `json:"plan_unit_price,omitempty"`
+	SetupFee                          *int32                    `json:"setup_fee,omitempty"`
+	TrialEnd                          *int64                    `json:"trial_end,omitempty"`
+	StartDate                         *int64                    `json:"start_date,omitempty"`
+	OfflinePaymentMethod              enum.OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 type CreateSubForCustomerQuoteAddonParams struct {
 	Id            string `json:"id,omitempty"`
@@ -212,14 +213,15 @@ type EditCreateSubForCustomerQuoteRequestParams struct {
 	CouponIds               []string                                              `json:"coupon_ids,omitempty"`
 }
 type EditCreateSubForCustomerQuoteSubscriptionParams struct {
-	Id                                string `json:"id,omitempty"`
-	PlanId                            string `json:"plan_id"`
-	PlanQuantity                      *int32 `json:"plan_quantity,omitempty"`
-	PlanUnitPrice                     *int32 `json:"plan_unit_price,omitempty"`
-	SetupFee                          *int32 `json:"setup_fee,omitempty"`
-	TrialEnd                          *int64 `json:"trial_end,omitempty"`
-	StartDate                         *int64 `json:"start_date,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32 `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	Id                                string                    `json:"id,omitempty"`
+	PlanId                            string                    `json:"plan_id"`
+	PlanQuantity                      *int32                    `json:"plan_quantity,omitempty"`
+	PlanUnitPrice                     *int32                    `json:"plan_unit_price,omitempty"`
+	SetupFee                          *int32                    `json:"setup_fee,omitempty"`
+	TrialEnd                          *int64                    `json:"trial_end,omitempty"`
+	StartDate                         *int64                    `json:"start_date,omitempty"`
+	OfflinePaymentMethod              enum.OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 type EditCreateSubForCustomerQuoteAddonParams struct {
 	Id            string `json:"id,omitempty"`
@@ -280,15 +282,17 @@ type UpdateSubscriptionQuoteRequestParams struct {
 	ContractTerm            *UpdateSubscriptionQuoteContractTermParams      `json:"contract_term,omitempty"`
 }
 type UpdateSubscriptionQuoteSubscriptionParams struct {
-	Id                                string `json:"id"`
-	PlanId                            string `json:"plan_id,omitempty"`
-	PlanQuantity                      *int32 `json:"plan_quantity,omitempty"`
-	PlanUnitPrice                     *int32 `json:"plan_unit_price,omitempty"`
-	SetupFee                          *int32 `json:"setup_fee,omitempty"`
-	StartDate                         *int64 `json:"start_date,omitempty"`
-	TrialEnd                          *int64 `json:"trial_end,omitempty"`
-	Coupon                            string `json:"coupon,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32 `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	Id                                string                    `json:"id"`
+	PlanId                            string                    `json:"plan_id,omitempty"`
+	PlanQuantity                      *int32                    `json:"plan_quantity,omitempty"`
+	PlanUnitPrice                     *int32                    `json:"plan_unit_price,omitempty"`
+	SetupFee                          *int32                    `json:"setup_fee,omitempty"`
+	StartDate                         *int64                    `json:"start_date,omitempty"`
+	TrialEnd                          *int64                    `json:"trial_end,omitempty"`
+	Coupon                            string                    `json:"coupon,omitempty"`
+	AutoCollection                    enum.AutoCollection       `json:"auto_collection,omitempty"`
+	OfflinePaymentMethod              enum.OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 type UpdateSubscriptionQuoteAddonParams struct {
 	Id            string `json:"id,omitempty"`
@@ -368,14 +372,16 @@ type EditUpdateSubscriptionQuoteRequestParams struct {
 	ContractTerm            *EditUpdateSubscriptionQuoteContractTermParams      `json:"contract_term,omitempty"`
 }
 type EditUpdateSubscriptionQuoteSubscriptionParams struct {
-	PlanId                            string `json:"plan_id,omitempty"`
-	PlanQuantity                      *int32 `json:"plan_quantity,omitempty"`
-	PlanUnitPrice                     *int32 `json:"plan_unit_price,omitempty"`
-	SetupFee                          *int32 `json:"setup_fee,omitempty"`
-	StartDate                         *int64 `json:"start_date,omitempty"`
-	TrialEnd                          *int64 `json:"trial_end,omitempty"`
-	Coupon                            string `json:"coupon,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32 `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	PlanId                            string                    `json:"plan_id,omitempty"`
+	PlanQuantity                      *int32                    `json:"plan_quantity,omitempty"`
+	PlanUnitPrice                     *int32                    `json:"plan_unit_price,omitempty"`
+	SetupFee                          *int32                    `json:"setup_fee,omitempty"`
+	StartDate                         *int64                    `json:"start_date,omitempty"`
+	TrialEnd                          *int64                    `json:"trial_end,omitempty"`
+	Coupon                            string                    `json:"coupon,omitempty"`
+	AutoCollection                    enum.AutoCollection       `json:"auto_collection,omitempty"`
+	OfflinePaymentMethod              enum.OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 type EditUpdateSubscriptionQuoteAddonParams struct {
 	Id            string `json:"id,omitempty"`

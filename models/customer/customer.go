@@ -16,6 +16,7 @@ type Customer struct {
 	Company                          string                        `json:"company"`
 	VatNumber                        string                        `json:"vat_number"`
 	AutoCollection                   enum.AutoCollection           `json:"auto_collection"`
+	OfflinePaymentMethod             enum.OfflinePaymentMethod     `json:"offline_payment_method"`
 	NetTermDays                      int32                         `json:"net_term_days"`
 	VatNumberValidatedTime           int64                         `json:"vat_number_validated_time"`
 	VatNumberStatus                  customerEnum.VatNumberStatus  `json:"vat_number_status"`
@@ -30,7 +31,6 @@ type Customer struct {
 	ResourceVersion                  int64                         `json:"resource_version"`
 	UpdatedAt                        int64                         `json:"updated_at"`
 	Locale                           string                        `json:"locale"`
-	ConsolidatedInvoicing            bool                          `json:"consolidated_invoicing"`
 	BillingDate                      int32                         `json:"billing_date"`
 	BillingDateMode                  enum.BillingDateMode          `json:"billing_date_mode"`
 	BillingDayOfWeek                 customerEnum.BillingDayOfWeek `json:"billing_day_of_week"`
@@ -54,6 +54,7 @@ type Customer struct {
 	MetaData                         json.RawMessage               `json:"meta_data"`
 	Deleted                          bool                          `json:"deleted"`
 	RegisteredForGst                 bool                          `json:"registered_for_gst"`
+	ConsolidatedInvoicing            bool                          `json:"consolidated_invoicing"`
 	CustomerType                     enum.CustomerType             `json:"customer_type"`
 	BusinessCustomerWithoutVatNumber bool                          `json:"business_customer_without_vat_number"`
 	ClientProfileId                  string                        `json:"client_profile_id"`
@@ -167,6 +168,7 @@ type CreateRequestParams struct {
 	EntityCode                       enum.EntityCode              `json:"entity_code,omitempty"`
 	ExemptNumber                     string                       `json:"exempt_number,omitempty"`
 	MetaData                         map[string]interface{}       `json:"meta_data,omitempty"`
+	OfflinePaymentMethod             enum.OfflinePaymentMethod    `json:"offline_payment_method,omitempty"`
 	ConsolidatedInvoicing            *bool                        `json:"consolidated_invoicing,omitempty"`
 	Card                             *CreateCardParams            `json:"card,omitempty"`
 	BankAccount                      *CreateBankAccountParams     `json:"bank_account,omitempty"`
@@ -245,21 +247,22 @@ type CreateBillingAddressParams struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
 type ListRequestParams struct {
-	Limit          *int32                  `json:"limit,omitempty"`
-	Offset         string                  `json:"offset,omitempty"`
-	IncludeDeleted *bool                   `json:"include_deleted,omitempty"`
-	Id             *filter.StringFilter    `json:"id,omitempty"`
-	FirstName      *filter.StringFilter    `json:"first_name,omitempty"`
-	LastName       *filter.StringFilter    `json:"last_name,omitempty"`
-	Email          *filter.StringFilter    `json:"email,omitempty"`
-	Company        *filter.StringFilter    `json:"company,omitempty"`
-	Phone          *filter.StringFilter    `json:"phone,omitempty"`
-	AutoCollection *filter.EnumFilter      `json:"auto_collection,omitempty"`
-	Taxability     *filter.EnumFilter      `json:"taxability,omitempty"`
-	CreatedAt      *filter.TimestampFilter `json:"created_at,omitempty"`
-	UpdatedAt      *filter.TimestampFilter `json:"updated_at,omitempty"`
-	Relationship   *ListRelationshipParams `json:"relationship,omitempty"`
-	SortBy         *filter.SortFilter      `json:"sort_by,omitempty"`
+	Limit                *int32                  `json:"limit,omitempty"`
+	Offset               string                  `json:"offset,omitempty"`
+	IncludeDeleted       *bool                   `json:"include_deleted,omitempty"`
+	Id                   *filter.StringFilter    `json:"id,omitempty"`
+	FirstName            *filter.StringFilter    `json:"first_name,omitempty"`
+	LastName             *filter.StringFilter    `json:"last_name,omitempty"`
+	Email                *filter.StringFilter    `json:"email,omitempty"`
+	Company              *filter.StringFilter    `json:"company,omitempty"`
+	Phone                *filter.StringFilter    `json:"phone,omitempty"`
+	AutoCollection       *filter.EnumFilter      `json:"auto_collection,omitempty"`
+	Taxability           *filter.EnumFilter      `json:"taxability,omitempty"`
+	CreatedAt            *filter.TimestampFilter `json:"created_at,omitempty"`
+	UpdatedAt            *filter.TimestampFilter `json:"updated_at,omitempty"`
+	Relationship         *ListRelationshipParams `json:"relationship,omitempty"`
+	OfflinePaymentMethod *filter.EnumFilter      `json:"offline_payment_method,omitempty"`
+	SortBy               *filter.SortFilter      `json:"sort_by,omitempty"`
 }
 type ListRelationshipParams struct {
 	ParentId       *filter.StringFilter `json:"parent_id,omitempty"`
@@ -284,6 +287,7 @@ type UpdateRequestParams struct {
 	Locale                  string                       `json:"locale,omitempty"`
 	EntityCode              enum.EntityCode              `json:"entity_code,omitempty"`
 	ExemptNumber            string                       `json:"exempt_number,omitempty"`
+	OfflinePaymentMethod    enum.OfflinePaymentMethod    `json:"offline_payment_method,omitempty"`
 	InvoiceNotes            string                       `json:"invoice_notes,omitempty"`
 	MetaData                map[string]interface{}       `json:"meta_data,omitempty"`
 	FraudFlag               customerEnum.FraudFlag       `json:"fraud_flag,omitempty"`

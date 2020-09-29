@@ -28,6 +28,7 @@ type Coupon struct {
 	ArchivedAt         int64                      `json:"archived_at"`
 	ResourceVersion    int64                      `json:"resource_version"`
 	UpdatedAt          int64                      `json:"updated_at"`
+	IncludedInMrr      bool                       `json:"included_in_mrr"`
 	PlanIds            []string                   `json:"plan_ids"`
 	AddonIds           []string                   `json:"addon_ids"`
 	Redemptions        int32                      `json:"redemptions"`
@@ -51,6 +52,7 @@ type CreateRequestParams struct {
 	MaxRedemptions     *int32                     `json:"max_redemptions,omitempty"`
 	InvoiceNotes       string                     `json:"invoice_notes,omitempty"`
 	MetaData           map[string]interface{}     `json:"meta_data,omitempty"`
+	IncludedInMrr      *bool                      `json:"included_in_mrr,omitempty"`
 	PlanConstraint     couponEnum.PlanConstraint  `json:"plan_constraint,omitempty"`
 	AddonConstraint    couponEnum.AddonConstraint `json:"addon_constraint,omitempty"`
 	PlanIds            []string                   `json:"plan_ids,omitempty"`
@@ -85,6 +87,7 @@ type UpdateRequestParams struct {
 	MaxRedemptions     *int32                     `json:"max_redemptions,omitempty"`
 	InvoiceNotes       string                     `json:"invoice_notes,omitempty"`
 	MetaData           map[string]interface{}     `json:"meta_data,omitempty"`
+	IncludedInMrr      *bool                      `json:"included_in_mrr,omitempty"`
 	PlanConstraint     couponEnum.PlanConstraint  `json:"plan_constraint,omitempty"`
 	AddonConstraint    couponEnum.AddonConstraint `json:"addon_constraint,omitempty"`
 	PlanIds            []string                   `json:"plan_ids,omitempty"`

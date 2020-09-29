@@ -63,18 +63,20 @@ type RevenueRecognitionSubscriptionParams struct {
 	CancelledAt            *filter.TimestampFilter `json:"cancelled_at,omitempty"`
 	HasScheduledChanges    *filter.BooleanFilter   `json:"has_scheduled_changes,omitempty"`
 	UpdatedAt              *filter.TimestampFilter `json:"updated_at,omitempty"`
+	OfflinePaymentMethod   *filter.EnumFilter      `json:"offline_payment_method,omitempty"`
 }
 type RevenueRecognitionCustomerParams struct {
-	Id             *filter.StringFilter    `json:"id,omitempty"`
-	FirstName      *filter.StringFilter    `json:"first_name,omitempty"`
-	LastName       *filter.StringFilter    `json:"last_name,omitempty"`
-	Email          *filter.StringFilter    `json:"email,omitempty"`
-	Company        *filter.StringFilter    `json:"company,omitempty"`
-	Phone          *filter.StringFilter    `json:"phone,omitempty"`
-	AutoCollection *filter.EnumFilter      `json:"auto_collection,omitempty"`
-	Taxability     *filter.EnumFilter      `json:"taxability,omitempty"`
-	CreatedAt      *filter.TimestampFilter `json:"created_at,omitempty"`
-	UpdatedAt      *filter.TimestampFilter `json:"updated_at,omitempty"`
+	Id                   *filter.StringFilter    `json:"id,omitempty"`
+	FirstName            *filter.StringFilter    `json:"first_name,omitempty"`
+	LastName             *filter.StringFilter    `json:"last_name,omitempty"`
+	Email                *filter.StringFilter    `json:"email,omitempty"`
+	Company              *filter.StringFilter    `json:"company,omitempty"`
+	Phone                *filter.StringFilter    `json:"phone,omitempty"`
+	AutoCollection       *filter.EnumFilter      `json:"auto_collection,omitempty"`
+	Taxability           *filter.EnumFilter      `json:"taxability,omitempty"`
+	CreatedAt            *filter.TimestampFilter `json:"created_at,omitempty"`
+	UpdatedAt            *filter.TimestampFilter `json:"updated_at,omitempty"`
+	OfflinePaymentMethod *filter.EnumFilter      `json:"offline_payment_method,omitempty"`
 }
 type RevenueRecognitionRelationshipParams struct {
 	ParentId       *filter.StringFilter `json:"parent_id,omitempty"`
@@ -124,18 +126,20 @@ type DeferredRevenueSubscriptionParams struct {
 	CancelledAt            *filter.TimestampFilter `json:"cancelled_at,omitempty"`
 	HasScheduledChanges    *filter.BooleanFilter   `json:"has_scheduled_changes,omitempty"`
 	UpdatedAt              *filter.TimestampFilter `json:"updated_at,omitempty"`
+	OfflinePaymentMethod   *filter.EnumFilter      `json:"offline_payment_method,omitempty"`
 }
 type DeferredRevenueCustomerParams struct {
-	Id             *filter.StringFilter    `json:"id,omitempty"`
-	FirstName      *filter.StringFilter    `json:"first_name,omitempty"`
-	LastName       *filter.StringFilter    `json:"last_name,omitempty"`
-	Email          *filter.StringFilter    `json:"email,omitempty"`
-	Company        *filter.StringFilter    `json:"company,omitempty"`
-	Phone          *filter.StringFilter    `json:"phone,omitempty"`
-	AutoCollection *filter.EnumFilter      `json:"auto_collection,omitempty"`
-	Taxability     *filter.EnumFilter      `json:"taxability,omitempty"`
-	CreatedAt      *filter.TimestampFilter `json:"created_at,omitempty"`
-	UpdatedAt      *filter.TimestampFilter `json:"updated_at,omitempty"`
+	Id                   *filter.StringFilter    `json:"id,omitempty"`
+	FirstName            *filter.StringFilter    `json:"first_name,omitempty"`
+	LastName             *filter.StringFilter    `json:"last_name,omitempty"`
+	Email                *filter.StringFilter    `json:"email,omitempty"`
+	Company              *filter.StringFilter    `json:"company,omitempty"`
+	Phone                *filter.StringFilter    `json:"phone,omitempty"`
+	AutoCollection       *filter.EnumFilter      `json:"auto_collection,omitempty"`
+	Taxability           *filter.EnumFilter      `json:"taxability,omitempty"`
+	CreatedAt            *filter.TimestampFilter `json:"created_at,omitempty"`
+	UpdatedAt            *filter.TimestampFilter `json:"updated_at,omitempty"`
+	OfflinePaymentMethod *filter.EnumFilter      `json:"offline_payment_method,omitempty"`
 }
 type DeferredRevenueRelationshipParams struct {
 	ParentId       *filter.StringFilter `json:"parent_id,omitempty"`
@@ -192,16 +196,17 @@ type CustomersRequestParams struct {
 	Relationship *CustomersRelationshipParams `json:"relationship,omitempty"`
 }
 type CustomersCustomerParams struct {
-	Id             *filter.StringFilter    `json:"id,omitempty"`
-	FirstName      *filter.StringFilter    `json:"first_name,omitempty"`
-	LastName       *filter.StringFilter    `json:"last_name,omitempty"`
-	Email          *filter.StringFilter    `json:"email,omitempty"`
-	Company        *filter.StringFilter    `json:"company,omitempty"`
-	Phone          *filter.StringFilter    `json:"phone,omitempty"`
-	AutoCollection *filter.EnumFilter      `json:"auto_collection,omitempty"`
-	Taxability     *filter.EnumFilter      `json:"taxability,omitempty"`
-	CreatedAt      *filter.TimestampFilter `json:"created_at,omitempty"`
-	UpdatedAt      *filter.TimestampFilter `json:"updated_at,omitempty"`
+	Id                   *filter.StringFilter    `json:"id,omitempty"`
+	FirstName            *filter.StringFilter    `json:"first_name,omitempty"`
+	LastName             *filter.StringFilter    `json:"last_name,omitempty"`
+	Email                *filter.StringFilter    `json:"email,omitempty"`
+	Company              *filter.StringFilter    `json:"company,omitempty"`
+	Phone                *filter.StringFilter    `json:"phone,omitempty"`
+	AutoCollection       *filter.EnumFilter      `json:"auto_collection,omitempty"`
+	Taxability           *filter.EnumFilter      `json:"taxability,omitempty"`
+	CreatedAt            *filter.TimestampFilter `json:"created_at,omitempty"`
+	UpdatedAt            *filter.TimestampFilter `json:"updated_at,omitempty"`
+	OfflinePaymentMethod *filter.EnumFilter      `json:"offline_payment_method,omitempty"`
 }
 type CustomersRelationshipParams struct {
 	ParentId       *filter.StringFilter `json:"parent_id,omitempty"`
@@ -225,6 +230,7 @@ type SubscriptionsSubscriptionParams struct {
 	CancelledAt            *filter.TimestampFilter `json:"cancelled_at,omitempty"`
 	HasScheduledChanges    *filter.BooleanFilter   `json:"has_scheduled_changes,omitempty"`
 	UpdatedAt              *filter.TimestampFilter `json:"updated_at,omitempty"`
+	OfflinePaymentMethod   *filter.EnumFilter      `json:"offline_payment_method,omitempty"`
 }
 type InvoicesRequestParams struct {
 	Invoice      *InvoicesInvoiceParams `json:"invoice,omitempty"`
