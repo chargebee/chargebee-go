@@ -2,6 +2,7 @@ package addon
 
 import (
 	"encoding/json"
+
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
 	addonEnum "github.com/chargebee/chargebee-go/models/addon/enum"

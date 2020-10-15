@@ -1,12 +1,13 @@
 package tests
 
 import (
+	"net/url"
+	"testing"
+
 	"github.com/chargebee/chargebee-go"
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/models/subscription"
 	"github.com/stretchr/testify/assert"
-	"net/url"
-	"testing"
 )
 
 func TestUtil(t *testing.T) {

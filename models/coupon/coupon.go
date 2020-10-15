@@ -2,6 +2,7 @@ package coupon
 
 import (
 	"encoding/json"
+
 	"github.com/chargebee/chargebee-go/filter"
 	couponEnum "github.com/chargebee/chargebee-go/models/coupon/enum"
 )

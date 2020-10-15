@@ -4,10 +4,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"time"
+
 	"github.com/chargebee/chargebee-go"
 	"github.com/chargebee/chargebee-go/models/timemachine"
 	timeMachineEnum "github.com/chargebee/chargebee-go/models/timemachine/enum"
-	"time"
 )
 
 func Retrieve(id string) chargebee.RequestObj {

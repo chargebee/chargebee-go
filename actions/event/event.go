@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"strings"
+
 	"github.com/chargebee/chargebee-go"
 	"github.com/chargebee/chargebee-go/models/event"
-	"strings"
 )
 
 func List(params *event.ListRequestParams) chargebee.RequestObj {

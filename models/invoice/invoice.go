@@ -237,6 +237,7 @@ type CreateRequestParams struct {
 	RemoveGeneralNote           *bool                        `json:"remove_general_note,omitempty"`
 	NotesToRemove               []*CreateNotesToRemoveParams `json:"notes_to_remove,omitempty"`
 	PoNumber                    string                       `json:"po_number,omitempty"`
+	Coupon                      string                       `json:"coupon,omitempty"`
 	CouponIds                   []string                     `json:"coupon_ids,omitempty"`
 	AuthorizationTransactionId  string                       `json:"authorization_transaction_id,omitempty"`
 	PaymentSourceId             string                       `json:"payment_source_id,omitempty"`

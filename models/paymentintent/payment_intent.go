@@ -15,6 +15,8 @@ type PaymentIntent struct {
 	PaymentMethodType    paymentIntentEnum.PaymentMethodType `json:"payment_method_type"`
 	CreatedAt            int64                               `json:"created_at"`
 	ModifiedAt           int64                               `json:"modified_at"`
+	ResourceVersion      int64                               `json:"resource_version"`
+	UpdatedAt            int64                               `json:"updated_at"`
 	CustomerId           string                              `json:"customer_id"`
 	Gateway              string                              `json:"gateway"`
 	ActivePaymentAttempt *PaymentAttempt                     `json:"active_payment_attempt"`

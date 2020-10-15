@@ -2,6 +2,7 @@ package subscription
 
 import (
 	"encoding/json"
+
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
 	contractTermEnum "github.com/chargebee/chargebee-go/models/contractterm/enum"
@@ -10,25 +11,26 @@ import (
 
 type Subscription struct {
 	Id                                string                             `json:"id"`
-	CustomerId                        string                             `json:"customer_id"`
 	CurrencyCode                      string                             `json:"currency_code"`
 	PlanId                            string                             `json:"plan_id"`
 	PlanQuantity                      int32                              `json:"plan_quantity"`
 	PlanUnitPrice                     int32                              `json:"plan_unit_price"`
 	SetupFee                          int32                              `json:"setup_fee"`
-	PlanAmount                        int32                              `json:"plan_amount"`
 	BillingPeriod                     int32                              `json:"billing_period"`
 	BillingPeriodUnit                 subscriptionEnum.BillingPeriodUnit `json:"billing_period_unit"`
+	StartDate                         int64                              `json:"start_date"`
+	TrialEnd                          int64                              `json:"trial_end"`
+	RemainingBillingCycles            int32                              `json:"remaining_billing_cycles"`
+	PoNumber                          string                             `json:"po_number"`
+	AutoCollection                    enum.AutoCollection                `json:"auto_collection"`
+	CustomerId                        string                             `json:"customer_id"`
+	PlanAmount                        int32                              `json:"plan_amount"`
 	PlanFreeQuantity                  int32                              `json:"plan_free_quantity"`
 	Status                            subscriptionEnum.Status            `json:"status"`
-	StartDate                         int64                              `json:"start_date"`
 	TrialStart                        int64                              `json:"trial_start"`
-	TrialEnd                          int64                              `json:"trial_end"`
 	CurrentTermStart                  int64                              `json:"current_term_start"`
 	CurrentTermEnd                    int64                              `json:"current_term_end"`
 	NextBillingAt                     int64                              `json:"next_billing_at"`
-	RemainingBillingCycles            int32                              `json:"remaining_billing_cycles"`
-	PoNumber                          string                             `json:"po_number"`
 	CreatedAt                         int64                              `json:"created_at"`
 	StartedAt                         int64                              `json:"started_at"`
 	ActivatedAt                       int64                              `json:"activated_at"`
@@ -45,7 +47,6 @@ type Subscription struct {
 	UpdatedAt                         int64                              `json:"updated_at"`
 	HasScheduledChanges               bool                               `json:"has_scheduled_changes"`
 	PaymentSourceId                   string                             `json:"payment_source_id"`
-	AutoCollection                    enum.AutoCollection                `json:"auto_collection"`
 	OfflinePaymentMethod              enum.OfflinePaymentMethod          `json:"offline_payment_method"`
 	DueInvoicesCount                  int32                              `json:"due_invoices_count"`
 	DueSince                          int64                              `json:"due_since"`
@@ -312,125 +313,6 @@ type CreateContractTermParams struct {
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
-type CartSubCreateCustomerParams struct {
-	Id                               string                       `json:"id,omitempty"`
-	Email                            string                       `json:"email,omitempty"`
-	FirstName                        string                       `json:"first_name,omitempty"`
-	LastName                         string                       `json:"last_name,omitempty"`
-	Company                          string                       `json:"company,omitempty"`
-	Taxability                       enum.Taxability              `json:"taxability,omitempty"`
-	Locale                           string                       `json:"locale,omitempty"`
-	EntityCode                       enum.EntityCode              `json:"entity_code,omitempty"`
-	ExemptNumber                     string                       `json:"exempt_number,omitempty"`
-	NetTermDays                      *int32                       `json:"net_term_days,omitempty"`
-	TaxjarExemptionCategory          enum.TaxjarExemptionCategory `json:"taxjar_exemption_category,omitempty"`
-	Phone                            string                       `json:"phone,omitempty"`
-	AutoCollection                   enum.AutoCollection          `json:"auto_collection,omitempty"`
-	OfflinePaymentMethod             enum.OfflinePaymentMethod    `json:"offline_payment_method,omitempty"`
-	AllowDirectDebit                 *bool                        `json:"allow_direct_debit,omitempty"`
-	ConsolidatedInvoicing            *bool                        `json:"consolidated_invoicing,omitempty"`
-	VatNumber                        string                       `json:"vat_number,omitempty"`
-	RegisteredForGst                 *bool                        `json:"registered_for_gst,omitempty"`
-	BusinessCustomerWithoutVatNumber *bool                        `json:"business_customer_without_vat_number,omitempty"`
-}
-type CartSubCreateAddonParams struct {
-	Id            string `json:"id,omitempty"`
-	Quantity      *int32 `json:"quantity,omitempty"`
-	UnitPrice     *int32 `json:"unit_price,omitempty"`
-	BillingCycles *int32 `json:"billing_cycles,omitempty"`
-	TrialEnd      *int64 `json:"trial_end,omitempty"`
-}
-type CartSubCreateEventBasedAddonParams struct {
-	Id                  string        `json:"id,omitempty"`
-	Quantity            *int32        `json:"quantity,omitempty"`
-	UnitPrice           *int32        `json:"unit_price,omitempty"`
-	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
-	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce          *bool         `json:"charge_once,omitempty"`
-	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
-}
-type CartSubCreateCardParams struct {
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
-	TmpToken         string       `json:"tmp_token,omitempty"`
-	FirstName        string       `json:"first_name,omitempty"`
-	LastName         string       `json:"last_name,omitempty"`
-	Number           string       `json:"number,omitempty"`
-	ExpiryMonth      *int32       `json:"expiry_month,omitempty"`
-	ExpiryYear       *int32       `json:"expiry_year,omitempty"`
-	Cvv              string       `json:"cvv,omitempty"`
-	BillingAddr1     string       `json:"billing_addr1,omitempty"`
-	BillingAddr2     string       `json:"billing_addr2,omitempty"`
-	BillingCity      string       `json:"billing_city,omitempty"`
-	BillingStateCode string       `json:"billing_state_code,omitempty"`
-	BillingState     string       `json:"billing_state,omitempty"`
-	BillingZip       string       `json:"billing_zip,omitempty"`
-	BillingCountry   string       `json:"billing_country,omitempty"`
-	IpAddress        string       `json:"ip_address,omitempty"`
-}
-type CartSubCreateBankAccountParams struct {
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	Iban                  string                 `json:"iban,omitempty"`
-	FirstName             string                 `json:"first_name,omitempty"`
-	LastName              string                 `json:"last_name,omitempty"`
-	Company               string                 `json:"company,omitempty"`
-	Email                 string                 `json:"email,omitempty"`
-	BankName              string                 `json:"bank_name,omitempty"`
-	AccountNumber         string                 `json:"account_number,omitempty"`
-	RoutingNumber         string                 `json:"routing_number,omitempty"`
-	BankCode              string                 `json:"bank_code,omitempty"`
-	AccountType           enum.AccountType       `json:"account_type,omitempty"`
-	AccountHolderType     enum.AccountHolderType `json:"account_holder_type,omitempty"`
-	EcheckType            enum.EcheckType        `json:"echeck_type,omitempty"`
-	IssuingCountry        string                 `json:"issuing_country,omitempty"`
-	SwedishIdentityNumber string                 `json:"swedish_identity_number,omitempty"`
-}
-type CartSubCreatePaymentMethodParams struct {
-	Type             enum.Type    `json:"type,omitempty"`
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
-	ReferenceId      string       `json:"reference_id,omitempty"`
-	TmpToken         string       `json:"tmp_token,omitempty"`
-	IssuingCountry   string       `json:"issuing_country,omitempty"`
-}
-type CartSubCreateBillingAddressParams struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
-}
-type CartSubCreateShippingAddressParams struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
-}
-type CartSubCreateItemTierParams struct {
-	ItemPriceId  string `json:"item_price_id,omitempty"`
-	StartingUnit *int32 `json:"starting_unit,omitempty"`
-	EndingUnit   *int32 `json:"ending_unit,omitempty"`
-	Price        *int32 `json:"price,omitempty"`
-}
 type CreateForCustomerRequestParams struct {
 	Id                                string                                    `json:"id,omitempty"`
 	PlanId                            string                                    `json:"plan_id"`
@@ -505,60 +387,6 @@ type CreateForCustomerContractTermParams struct {
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
-type CartSubCreateForCustomerAddonParams struct {
-	Id            string `json:"id,omitempty"`
-	Quantity      *int32 `json:"quantity,omitempty"`
-	UnitPrice     *int32 `json:"unit_price,omitempty"`
-	BillingCycles *int32 `json:"billing_cycles,omitempty"`
-	TrialEnd      *int64 `json:"trial_end,omitempty"`
-}
-type CartSubCreateForCustomerEventBasedAddonParams struct {
-	Id                  string        `json:"id,omitempty"`
-	Quantity            *int32        `json:"quantity,omitempty"`
-	UnitPrice           *int32        `json:"unit_price,omitempty"`
-	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
-	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce          *bool         `json:"charge_once,omitempty"`
-	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
-}
-type CartSubCreateForCustomerShippingAddressParams struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
-}
-type CartSubCreateForCustomerBillingAddressParams struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
-}
-type CartSubCreateForCustomerItemTierParams struct {
-	ItemPriceId  string `json:"item_price_id,omitempty"`
-	StartingUnit *int32 `json:"starting_unit,omitempty"`
-	EndingUnit   *int32 `json:"ending_unit,omitempty"`
-	Price        *int32 `json:"price,omitempty"`
-}
 type ListRequestParams struct {
 	Limit                  *int32                  `json:"limit,omitempty"`
 	Offset                 string                  `json:"offset,omitempty"`
@@ -566,8 +394,6 @@ type ListRequestParams struct {
 	Id                     *filter.StringFilter    `json:"id,omitempty"`
 	CustomerId             *filter.StringFilter    `json:"customer_id,omitempty"`
 	PlanId                 *filter.StringFilter    `json:"plan_id,omitempty"`
-	ItemId                 *filter.StringFilter    `json:"item_id,omitempty"`
-	ItemPriceId            *filter.StringFilter    `json:"item_price_id,omitempty"`
 	Status                 *filter.EnumFilter      `json:"status,omitempty"`
 	CancelReason           *filter.EnumFilter      `json:"cancel_reason,omitempty"`
 	CancelReasonCode       *filter.StringFilter    `json:"cancel_reason_code,omitempty"`
@@ -727,96 +553,6 @@ type UpdateCustomerParams struct {
 type UpdateContractTermParams struct {
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
-}
-type CartSubUpdateAddonParams struct {
-	Id            string `json:"id,omitempty"`
-	Quantity      *int32 `json:"quantity,omitempty"`
-	UnitPrice     *int32 `json:"unit_price,omitempty"`
-	BillingCycles *int32 `json:"billing_cycles,omitempty"`
-	TrialEnd      *int64 `json:"trial_end,omitempty"`
-}
-type CartSubUpdateEventBasedAddonParams struct {
-	Id                  string        `json:"id,omitempty"`
-	Quantity            *int32        `json:"quantity,omitempty"`
-	UnitPrice           *int32        `json:"unit_price,omitempty"`
-	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
-	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
-	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce          *bool         `json:"charge_once,omitempty"`
-}
-type CartSubUpdateCardParams struct {
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
-	TmpToken         string       `json:"tmp_token,omitempty"`
-	FirstName        string       `json:"first_name,omitempty"`
-	LastName         string       `json:"last_name,omitempty"`
-	Number           string       `json:"number,omitempty"`
-	ExpiryMonth      *int32       `json:"expiry_month,omitempty"`
-	ExpiryYear       *int32       `json:"expiry_year,omitempty"`
-	Cvv              string       `json:"cvv,omitempty"`
-	BillingAddr1     string       `json:"billing_addr1,omitempty"`
-	BillingAddr2     string       `json:"billing_addr2,omitempty"`
-	BillingCity      string       `json:"billing_city,omitempty"`
-	BillingStateCode string       `json:"billing_state_code,omitempty"`
-	BillingState     string       `json:"billing_state,omitempty"`
-	BillingZip       string       `json:"billing_zip,omitempty"`
-	BillingCountry   string       `json:"billing_country,omitempty"`
-	IpAddress        string       `json:"ip_address,omitempty"`
-}
-type CartSubUpdatePaymentMethodParams struct {
-	Type             enum.Type    `json:"type,omitempty"`
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
-	ReferenceId      string       `json:"reference_id,omitempty"`
-	TmpToken         string       `json:"tmp_token,omitempty"`
-	IssuingCountry   string       `json:"issuing_country,omitempty"`
-}
-type CartSubUpdateBillingAddressParams struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
-}
-type CartSubUpdateShippingAddressParams struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
-}
-type CartSubUpdateCustomerParams struct {
-	VatNumber                        string `json:"vat_number,omitempty"`
-	BusinessCustomerWithoutVatNumber *bool  `json:"business_customer_without_vat_number,omitempty"`
-	RegisteredForGst                 *bool  `json:"registered_for_gst,omitempty"`
-}
-type CartSubUpdateContractTermParams struct {
-	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
-}
-type CartSubUpdateItemTierParams struct {
-	ItemPriceId  string `json:"item_price_id,omitempty"`
-	StartingUnit *int32 `json:"starting_unit,omitempty"`
-	EndingUnit   *int32 `json:"ending_unit,omitempty"`
-	Price        *int32 `json:"price,omitempty"`
 }
 type ChangeTermEndRequestParams struct {
 	TermEndsAt         *int64 `json:"term_ends_at"`

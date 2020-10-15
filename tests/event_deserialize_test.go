@@ -1,9 +1,10 @@
 package tests
 
 import (
+	"testing"
+
 	"github.com/chargebee/chargebee-go/actions/event"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestDeserialize(t *testing.T) {

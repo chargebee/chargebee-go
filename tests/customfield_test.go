@@ -1,9 +1,10 @@
 package tests
 
 import (
+	"testing"
+
 	"github.com/chargebee/chargebee-go"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestCustomFieldExtractionFromResponse(t *testing.T) {

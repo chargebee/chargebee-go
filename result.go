@@ -3,6 +3,7 @@ package chargebee
 import (
 	"github.com/chargebee/chargebee-go/models/addon"
 	"github.com/chargebee/chargebee-go/models/address"
+	"github.com/chargebee/chargebee-go/models/advanceinvoiceschedule"
 	"github.com/chargebee/chargebee-go/models/card"
 	"github.com/chargebee/chargebee-go/models/comment"
 	"github.com/chargebee/chargebee-go/models/contact"
@@ -27,6 +28,7 @@ import (
 	"github.com/chargebee/chargebee-go/models/portalsession"
 	"github.com/chargebee/chargebee-go/models/promotionalcredit"
 	"github.com/chargebee/chargebee-go/models/quote"
+	"github.com/chargebee/chargebee-go/models/quotedsubscription"
 	"github.com/chargebee/chargebee-go/models/quotelinegroup"
 	"github.com/chargebee/chargebee-go/models/resourcemigration"
 	"github.com/chargebee/chargebee-go/models/sitemigrationdetail"
@@ -46,6 +48,7 @@ type ResultList struct {
 type Result struct {
 	Subscription            *subscription.Subscription                       `json:"subscription,omitempty"`
 	ContractTerm            *contractterm.ContractTerm                       `json:"contract_term,omitempty"`
+	AdvanceInvoiceSchedule  *advanceinvoiceschedule.AdvanceInvoiceSchedule   `json:"advance_invoice_schedule,omitempty"`
 	Customer                *customer.Customer                               `json:"customer,omitempty"`
 	Hierarchy               *hierarchy.Hierarchy                             `json:"hierarchy,omitempty"`
 	Contact                 *contact.Contact                                 `json:"contact,omitempty"`
@@ -64,6 +67,7 @@ type Result struct {
 	HostedPage              *hostedpage.HostedPage                           `json:"hosted_page,omitempty"`
 	Estimate                *estimate.Estimate                               `json:"estimate,omitempty"`
 	Quote                   *quote.Quote                                     `json:"quote,omitempty"`
+	QuotedSubscription      *quotedsubscription.QuotedSubscription           `json:"quoted_subscription,omitempty"`
 	QuoteLineGroup          *quotelinegroup.QuoteLineGroup                   `json:"quote_line_group,omitempty"`
 	Plan                    *plan.Plan                                       `json:"plan,omitempty"`
 	Addon                   *addon.Addon                                     `json:"addon,omitempty"`
@@ -82,6 +86,7 @@ type Result struct {
 	PaymentIntent           *paymentintent.PaymentIntent                     `json:"payment_intent,omitempty"`
 	UnbilledCharges         []*unbilledcharge.UnbilledCharge                 `json:"unbilled_charges,omitempty"`
 	CreditNotes             []*creditnote.CreditNote                         `json:"credit_notes,omitempty"`
+	AdvanceInvoiceSchedules []*advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedules,omitempty"`
 	Hierarchies             []*hierarchy.Hierarchy                           `json:"hierarchies,omitempty"`
 	Invoices                []*invoice.Invoice                               `json:"invoices,omitempty"`
 }
