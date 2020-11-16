@@ -58,6 +58,9 @@ type LineItem struct {
 	IsTaxed                 bool                         `json:"is_taxed"`
 	TaxAmount               int32                        `json:"tax_amount"`
 	TaxRate                 float64                      `json:"tax_rate"`
+	UnitAmountInDecimal     string                       `json:"unit_amount_in_decimal"`
+	QuantityInDecimal       string                       `json:"quantity_in_decimal"`
+	AmountInDecimal         string                       `json:"amount_in_decimal"`
 	DiscountAmount          int32                        `json:"discount_amount"`
 	ItemLevelDiscountAmount int32                        `json:"item_level_discount_amount"`
 	Description             string                       `json:"description"`
@@ -154,6 +157,8 @@ type CreateSubForCustomerQuoteRequestParams struct {
 }
 type CreateSubForCustomerQuoteSubscriptionParams struct {
 	Id                                string                    `json:"id,omitempty"`
+	PlanUnitPriceInDecimal            string                    `json:"plan_unit_price_in_decimal,omitempty"`
+	PlanQuantityInDecimal             string                    `json:"plan_quantity_in_decimal,omitempty"`
 	PlanId                            string                    `json:"plan_id"`
 	PlanQuantity                      *int32                    `json:"plan_quantity,omitempty"`
 	PlanUnitPrice                     *int32                    `json:"plan_unit_price,omitempty"`
@@ -164,16 +169,20 @@ type CreateSubForCustomerQuoteSubscriptionParams struct {
 	ContractTermBillingCycleOnRenewal *int32                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 type CreateSubForCustomerQuoteAddonParams struct {
-	Id            string `json:"id,omitempty"`
-	Quantity      *int32 `json:"quantity,omitempty"`
-	UnitPrice     *int32 `json:"unit_price,omitempty"`
-	BillingCycles *int32 `json:"billing_cycles,omitempty"`
-	TrialEnd      *int64 `json:"trial_end,omitempty"`
+	Id                 string `json:"id,omitempty"`
+	Quantity           *int32 `json:"quantity,omitempty"`
+	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int32 `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32 `json:"billing_cycles,omitempty"`
+	TrialEnd           *int64 `json:"trial_end,omitempty"`
 }
 type CreateSubForCustomerQuoteEventBasedAddonParams struct {
 	Id                  string        `json:"id,omitempty"`
 	Quantity            *int32        `json:"quantity,omitempty"`
 	UnitPrice           *int32        `json:"unit_price,omitempty"`
+	QuantityInDecimal   string        `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal  string        `json:"unit_price_in_decimal,omitempty"`
 	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
 	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
 	ChargeOnce          *bool         `json:"charge_once,omitempty"`
@@ -215,6 +224,8 @@ type EditCreateSubForCustomerQuoteRequestParams struct {
 }
 type EditCreateSubForCustomerQuoteSubscriptionParams struct {
 	Id                                string                    `json:"id,omitempty"`
+	PlanUnitPriceInDecimal            string                    `json:"plan_unit_price_in_decimal,omitempty"`
+	PlanQuantityInDecimal             string                    `json:"plan_quantity_in_decimal,omitempty"`
 	PlanId                            string                    `json:"plan_id"`
 	PlanQuantity                      *int32                    `json:"plan_quantity,omitempty"`
 	PlanUnitPrice                     *int32                    `json:"plan_unit_price,omitempty"`
@@ -225,16 +236,20 @@ type EditCreateSubForCustomerQuoteSubscriptionParams struct {
 	ContractTermBillingCycleOnRenewal *int32                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 type EditCreateSubForCustomerQuoteAddonParams struct {
-	Id            string `json:"id,omitempty"`
-	Quantity      *int32 `json:"quantity,omitempty"`
-	UnitPrice     *int32 `json:"unit_price,omitempty"`
-	BillingCycles *int32 `json:"billing_cycles,omitempty"`
-	TrialEnd      *int64 `json:"trial_end,omitempty"`
+	Id                 string `json:"id,omitempty"`
+	Quantity           *int32 `json:"quantity,omitempty"`
+	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int32 `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32 `json:"billing_cycles,omitempty"`
+	TrialEnd           *int64 `json:"trial_end,omitempty"`
 }
 type EditCreateSubForCustomerQuoteEventBasedAddonParams struct {
 	Id                  string        `json:"id,omitempty"`
 	Quantity            *int32        `json:"quantity,omitempty"`
 	UnitPrice           *int32        `json:"unit_price,omitempty"`
+	QuantityInDecimal   string        `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal  string        `json:"unit_price_in_decimal,omitempty"`
 	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
 	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
 	ChargeOnce          *bool         `json:"charge_once,omitempty"`
@@ -288,6 +303,8 @@ type UpdateSubscriptionQuoteSubscriptionParams struct {
 	PlanQuantity                      *int32                    `json:"plan_quantity,omitempty"`
 	PlanUnitPrice                     *int32                    `json:"plan_unit_price,omitempty"`
 	SetupFee                          *int32                    `json:"setup_fee,omitempty"`
+	PlanQuantityInDecimal             string                    `json:"plan_quantity_in_decimal,omitempty"`
+	PlanUnitPriceInDecimal            string                    `json:"plan_unit_price_in_decimal,omitempty"`
 	StartDate                         *int64                    `json:"start_date,omitempty"`
 	TrialEnd                          *int64                    `json:"trial_end,omitempty"`
 	Coupon                            string                    `json:"coupon,omitempty"`
@@ -296,11 +313,13 @@ type UpdateSubscriptionQuoteSubscriptionParams struct {
 	ContractTermBillingCycleOnRenewal *int32                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 type UpdateSubscriptionQuoteAddonParams struct {
-	Id            string `json:"id,omitempty"`
-	Quantity      *int32 `json:"quantity,omitempty"`
-	UnitPrice     *int32 `json:"unit_price,omitempty"`
-	BillingCycles *int32 `json:"billing_cycles,omitempty"`
-	TrialEnd      *int64 `json:"trial_end,omitempty"`
+	Id                 string `json:"id,omitempty"`
+	Quantity           *int32 `json:"quantity,omitempty"`
+	UnitPrice          *int32 `json:"unit_price,omitempty"`
+	BillingCycles      *int32 `json:"billing_cycles,omitempty"`
+	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
+	TrialEnd           *int64 `json:"trial_end,omitempty"`
 }
 type UpdateSubscriptionQuoteEventBasedAddonParams struct {
 	Id                  string        `json:"id,omitempty"`
@@ -310,6 +329,8 @@ type UpdateSubscriptionQuoteEventBasedAddonParams struct {
 	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
 	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
 	ChargeOnce          *bool         `json:"charge_once,omitempty"`
+	QuantityInDecimal   string        `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal  string        `json:"unit_price_in_decimal,omitempty"`
 }
 type UpdateSubscriptionQuoteBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -377,6 +398,8 @@ type EditUpdateSubscriptionQuoteSubscriptionParams struct {
 	PlanQuantity                      *int32                    `json:"plan_quantity,omitempty"`
 	PlanUnitPrice                     *int32                    `json:"plan_unit_price,omitempty"`
 	SetupFee                          *int32                    `json:"setup_fee,omitempty"`
+	PlanQuantityInDecimal             string                    `json:"plan_quantity_in_decimal,omitempty"`
+	PlanUnitPriceInDecimal            string                    `json:"plan_unit_price_in_decimal,omitempty"`
 	StartDate                         *int64                    `json:"start_date,omitempty"`
 	TrialEnd                          *int64                    `json:"trial_end,omitempty"`
 	Coupon                            string                    `json:"coupon,omitempty"`
@@ -385,11 +408,13 @@ type EditUpdateSubscriptionQuoteSubscriptionParams struct {
 	ContractTermBillingCycleOnRenewal *int32                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 type EditUpdateSubscriptionQuoteAddonParams struct {
-	Id            string `json:"id,omitempty"`
-	Quantity      *int32 `json:"quantity,omitempty"`
-	UnitPrice     *int32 `json:"unit_price,omitempty"`
-	BillingCycles *int32 `json:"billing_cycles,omitempty"`
-	TrialEnd      *int64 `json:"trial_end,omitempty"`
+	Id                 string `json:"id,omitempty"`
+	Quantity           *int32 `json:"quantity,omitempty"`
+	UnitPrice          *int32 `json:"unit_price,omitempty"`
+	BillingCycles      *int32 `json:"billing_cycles,omitempty"`
+	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
+	TrialEnd           *int64 `json:"trial_end,omitempty"`
 }
 type EditUpdateSubscriptionQuoteEventBasedAddonParams struct {
 	Id                  string        `json:"id,omitempty"`
@@ -399,6 +424,8 @@ type EditUpdateSubscriptionQuoteEventBasedAddonParams struct {
 	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
 	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
 	ChargeOnce          *bool         `json:"charge_once,omitempty"`
+	QuantityInDecimal   string        `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal  string        `json:"unit_price_in_decimal,omitempty"`
 }
 type EditUpdateSubscriptionQuoteBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -453,13 +480,16 @@ type CreateForOnetimeChargesRequestParams struct {
 	ShippingAddress *CreateForOnetimeChargesShippingAddressParams `json:"shipping_address,omitempty"`
 }
 type CreateForOnetimeChargesAddonParams struct {
-	Id            string `json:"id,omitempty"`
-	Quantity      *int32 `json:"quantity,omitempty"`
-	UnitPrice     *int32 `json:"unit_price,omitempty"`
-	ServicePeriod *int32 `json:"service_period,omitempty"`
+	Id                 string `json:"id,omitempty"`
+	Quantity           *int32 `json:"quantity,omitempty"`
+	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int32 `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
+	ServicePeriod      *int32 `json:"service_period,omitempty"`
 }
 type CreateForOnetimeChargesChargeParams struct {
 	Amount                 *int32               `json:"amount,omitempty"`
+	AmountInDecimal        string               `json:"amount_in_decimal,omitempty"`
 	Description            string               `json:"description,omitempty"`
 	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
 	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
@@ -493,13 +523,16 @@ type EditOneTimeQuoteRequestParams struct {
 	ShippingAddress *EditOneTimeQuoteShippingAddressParams `json:"shipping_address,omitempty"`
 }
 type EditOneTimeQuoteAddonParams struct {
-	Id            string `json:"id,omitempty"`
-	Quantity      *int32 `json:"quantity,omitempty"`
-	UnitPrice     *int32 `json:"unit_price,omitempty"`
-	ServicePeriod *int32 `json:"service_period,omitempty"`
+	Id                 string `json:"id,omitempty"`
+	Quantity           *int32 `json:"quantity,omitempty"`
+	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int32 `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
+	ServicePeriod      *int32 `json:"service_period,omitempty"`
 }
 type EditOneTimeQuoteChargeParams struct {
 	Amount                 *int32               `json:"amount,omitempty"`
+	AmountInDecimal        string               `json:"amount_in_decimal,omitempty"`
 	Description            string               `json:"description,omitempty"`
 	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
 	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`

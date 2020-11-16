@@ -38,6 +38,7 @@ type Addon struct {
 	ShippingFrequencyPeriodUnit addonEnum.ShippingFrequencyPeriodUnit `json:"shipping_frequency_period_unit"`
 	ResourceVersion             int64                                 `json:"resource_version"`
 	UpdatedAt                   int64                                 `json:"updated_at"`
+	PriceInDecimal              string                                `json:"price_in_decimal"`
 	IncludedInMrr               bool                                  `json:"included_in_mrr"`
 	InvoiceNotes                string                                `json:"invoice_notes"`
 	Taxable                     bool                                  `json:"taxable"`
@@ -50,10 +51,13 @@ type Addon struct {
 	Object                      string                                `json:"object"`
 }
 type Tier struct {
-	StartingUnit int32  `json:"starting_unit"`
-	EndingUnit   int32  `json:"ending_unit"`
-	Price        int32  `json:"price"`
-	Object       string `json:"object"`
+	StartingUnit          int32  `json:"starting_unit"`
+	EndingUnit            int32  `json:"ending_unit"`
+	Price                 int32  `json:"price"`
+	StartingUnitInDecimal string `json:"starting_unit_in_decimal"`
+	EndingUnitInDecimal   string `json:"ending_unit_in_decimal"`
+	PriceInDecimal        string `json:"price_in_decimal"`
+	Object                string `json:"object"`
 }
 type CreateRequestParams struct {
 	Id                          string                                `json:"id"`
@@ -89,12 +93,16 @@ type CreateRequestParams struct {
 	IncludedInMrr               *bool                                 `json:"included_in_mrr,omitempty"`
 	ShowDescriptionInInvoices   *bool                                 `json:"show_description_in_invoices,omitempty"`
 	ShowDescriptionInQuotes     *bool                                 `json:"show_description_in_quotes,omitempty"`
+	PriceInDecimal              string                                `json:"price_in_decimal,omitempty"`
 	Status                      addonEnum.Status                      `json:"status,omitempty"`
 }
 type CreateTierParams struct {
-	StartingUnit *int32 `json:"starting_unit,omitempty"`
-	EndingUnit   *int32 `json:"ending_unit,omitempty"`
-	Price        *int32 `json:"price,omitempty"`
+	StartingUnit          *int32 `json:"starting_unit,omitempty"`
+	EndingUnit            *int32 `json:"ending_unit,omitempty"`
+	Price                 *int32 `json:"price,omitempty"`
+	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
 type UpdateRequestParams struct {
 	Name                        string                                `json:"name,omitempty"`
@@ -129,11 +137,15 @@ type UpdateRequestParams struct {
 	IncludedInMrr               *bool                                 `json:"included_in_mrr,omitempty"`
 	ShowDescriptionInInvoices   *bool                                 `json:"show_description_in_invoices,omitempty"`
 	ShowDescriptionInQuotes     *bool                                 `json:"show_description_in_quotes,omitempty"`
+	PriceInDecimal              string                                `json:"price_in_decimal,omitempty"`
 }
 type UpdateTierParams struct {
-	StartingUnit *int32 `json:"starting_unit,omitempty"`
-	EndingUnit   *int32 `json:"ending_unit,omitempty"`
-	Price        *int32 `json:"price,omitempty"`
+	StartingUnit          *int32 `json:"starting_unit,omitempty"`
+	EndingUnit            *int32 `json:"ending_unit,omitempty"`
+	Price                 *int32 `json:"price,omitempty"`
+	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
 type ListRequestParams struct {
 	Limit        *int32                  `json:"limit,omitempty"`

@@ -34,6 +34,9 @@ type LineItem struct {
 	IsTaxed                 bool                                  `json:"is_taxed"`
 	TaxAmount               int32                                 `json:"tax_amount"`
 	TaxRate                 float64                               `json:"tax_rate"`
+	UnitAmountInDecimal     string                                `json:"unit_amount_in_decimal"`
+	QuantityInDecimal       string                                `json:"quantity_in_decimal"`
+	AmountInDecimal         string                                `json:"amount_in_decimal"`
 	DiscountAmount          int32                                 `json:"discount_amount"`
 	ItemLevelDiscountAmount int32                                 `json:"item_level_discount_amount"`
 	Description             string                                `json:"description"`

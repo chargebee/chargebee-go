@@ -30,6 +30,9 @@ type Addon struct {
 	Amount                 int32  `json:"amount"`
 	TrialEnd               int64  `json:"trial_end"`
 	RemainingBillingCycles int32  `json:"remaining_billing_cycles"`
+	QuantityInDecimal      string `json:"quantity_in_decimal"`
+	UnitPriceInDecimal     string `json:"unit_price_in_decimal"`
+	AmountInDecimal        string `json:"amount_in_decimal"`
 	Object                 string `json:"object"`
 }
 type EventBasedAddon struct {
@@ -39,6 +42,8 @@ type EventBasedAddon struct {
 	ServicePeriodInDays int32        `json:"service_period_in_days"`
 	OnEvent             enum.OnEvent `json:"on_event"`
 	ChargeOnce          bool         `json:"charge_once"`
+	QuantityInDecimal   string       `json:"quantity_in_decimal"`
+	UnitPriceInDecimal  string       `json:"unit_price_in_decimal"`
 	Object              string       `json:"object"`
 }
 type Coupon struct {

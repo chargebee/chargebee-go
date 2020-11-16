@@ -7,32 +7,39 @@ import (
 )
 
 type UnbilledCharge struct {
-	Id             string                        `json:"id"`
-	CustomerId     string                        `json:"customer_id"`
-	SubscriptionId string                        `json:"subscription_id"`
-	DateFrom       int64                         `json:"date_from"`
-	DateTo         int64                         `json:"date_to"`
-	UnitAmount     int32                         `json:"unit_amount"`
-	PricingModel   enum.PricingModel             `json:"pricing_model"`
-	Quantity       int32                         `json:"quantity"`
-	Amount         int32                         `json:"amount"`
-	CurrencyCode   string                        `json:"currency_code"`
-	DiscountAmount int32                         `json:"discount_amount"`
-	Description    string                        `json:"description"`
-	EntityType     unbilledChargeEnum.EntityType `json:"entity_type"`
-	EntityId       string                        `json:"entity_id"`
-	IsVoided       bool                          `json:"is_voided"`
-	VoidedAt       int64                         `json:"voided_at"`
-	Tiers          []*Tier                       `json:"tiers"`
-	Deleted        bool                          `json:"deleted"`
-	Object         string                        `json:"object"`
+	Id                  string                        `json:"id"`
+	CustomerId          string                        `json:"customer_id"`
+	SubscriptionId      string                        `json:"subscription_id"`
+	DateFrom            int64                         `json:"date_from"`
+	DateTo              int64                         `json:"date_to"`
+	UnitAmount          int32                         `json:"unit_amount"`
+	PricingModel        enum.PricingModel             `json:"pricing_model"`
+	Quantity            int32                         `json:"quantity"`
+	Amount              int32                         `json:"amount"`
+	CurrencyCode        string                        `json:"currency_code"`
+	DiscountAmount      int32                         `json:"discount_amount"`
+	Description         string                        `json:"description"`
+	EntityType          unbilledChargeEnum.EntityType `json:"entity_type"`
+	EntityId            string                        `json:"entity_id"`
+	IsVoided            bool                          `json:"is_voided"`
+	VoidedAt            int64                         `json:"voided_at"`
+	UnitAmountInDecimal string                        `json:"unit_amount_in_decimal"`
+	QuantityInDecimal   string                        `json:"quantity_in_decimal"`
+	AmountInDecimal     string                        `json:"amount_in_decimal"`
+	Tiers               []*Tier                       `json:"tiers"`
+	Deleted             bool                          `json:"deleted"`
+	Object              string                        `json:"object"`
 }
 type Tier struct {
-	StartingUnit int32  `json:"starting_unit"`
-	EndingUnit   int32  `json:"ending_unit"`
-	QuantityUsed int32  `json:"quantity_used"`
-	UnitAmount   int32  `json:"unit_amount"`
-	Object       string `json:"object"`
+	StartingUnit          int32  `json:"starting_unit"`
+	EndingUnit            int32  `json:"ending_unit"`
+	QuantityUsed          int32  `json:"quantity_used"`
+	UnitAmount            int32  `json:"unit_amount"`
+	StartingUnitInDecimal string `json:"starting_unit_in_decimal"`
+	EndingUnitInDecimal   string `json:"ending_unit_in_decimal"`
+	QuantityUsedInDecimal string `json:"quantity_used_in_decimal"`
+	UnitAmountInDecimal   string `json:"unit_amount_in_decimal"`
+	Object                string `json:"object"`
 }
 type InvoiceUnbilledChargesRequestParams struct {
 	SubscriptionId string `json:"subscription_id,omitempty"`

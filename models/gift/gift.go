@@ -66,12 +66,14 @@ type CreateGiftReceiverParams struct {
 	Email      string `json:"email"`
 }
 type CreateSubscriptionParams struct {
-	PlanId       string `json:"plan_id"`
-	PlanQuantity *int32 `json:"plan_quantity,omitempty"`
+	PlanId                string `json:"plan_id"`
+	PlanQuantity          *int32 `json:"plan_quantity,omitempty"`
+	PlanQuantityInDecimal string `json:"plan_quantity_in_decimal,omitempty"`
 }
 type CreateAddonParams struct {
-	Id       string `json:"id,omitempty"`
-	Quantity *int32 `json:"quantity,omitempty"`
+	Id                string `json:"id,omitempty"`
+	Quantity          *int32 `json:"quantity,omitempty"`
+	QuantityInDecimal string `json:"quantity_in_decimal,omitempty"`
 }
 type CreatePaymentIntentParams struct {
 	Id                string `json:"id,omitempty"`

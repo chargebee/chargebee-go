@@ -58,6 +58,9 @@ type LineItem struct {
 	IsTaxed                 bool                              `json:"is_taxed"`
 	TaxAmount               int32                             `json:"tax_amount"`
 	TaxRate                 float64                           `json:"tax_rate"`
+	UnitAmountInDecimal     string                            `json:"unit_amount_in_decimal"`
+	QuantityInDecimal       string                            `json:"quantity_in_decimal"`
+	AmountInDecimal         string                            `json:"amount_in_decimal"`
 	DiscountAmount          int32                             `json:"discount_amount"`
 	ItemLevelDiscountAmount int32                             `json:"item_level_discount_amount"`
 	Description             string                            `json:"description"`
@@ -83,12 +86,16 @@ type LineItemDiscount struct {
 	Object         string                                      `json:"object"`
 }
 type LineItemTier struct {
-	LineItemId   string `json:"line_item_id"`
-	StartingUnit int32  `json:"starting_unit"`
-	EndingUnit   int32  `json:"ending_unit"`
-	QuantityUsed int32  `json:"quantity_used"`
-	UnitAmount   int32  `json:"unit_amount"`
-	Object       string `json:"object"`
+	LineItemId            string `json:"line_item_id"`
+	StartingUnit          int32  `json:"starting_unit"`
+	EndingUnit            int32  `json:"ending_unit"`
+	QuantityUsed          int32  `json:"quantity_used"`
+	UnitAmount            int32  `json:"unit_amount"`
+	StartingUnitInDecimal string `json:"starting_unit_in_decimal"`
+	EndingUnitInDecimal   string `json:"ending_unit_in_decimal"`
+	QuantityUsedInDecimal string `json:"quantity_used_in_decimal"`
+	UnitAmountInDecimal   string `json:"unit_amount_in_decimal"`
+	Object                string `json:"object"`
 }
 type Tax struct {
 	Name        string `json:"name"`
@@ -143,7 +150,9 @@ type CreateRequestParams struct {
 type CreateLineItemParams struct {
 	ReferenceLineItemId string `json:"reference_line_item_id"`
 	UnitAmount          *int32 `json:"unit_amount,omitempty"`
+	UnitAmountInDecimal string `json:"unit_amount_in_decimal,omitempty"`
 	Quantity            *int32 `json:"quantity,omitempty"`
+	QuantityInDecimal   string `json:"quantity_in_decimal,omitempty"`
 	Amount              *int32 `json:"amount,omitempty"`
 	DateFrom            *int64 `json:"date_from,omitempty"`
 	DateTo              *int64 `json:"date_to,omitempty"`

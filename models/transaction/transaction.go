@@ -96,6 +96,10 @@ type RecordRefundRequestParams struct {
 	ReferenceNumber string             `json:"reference_number,omitempty"`
 	Comment         string             `json:"comment,omitempty"`
 }
+type RefundRequestParams struct {
+	Amount  *int32 `json:"amount,omitempty"`
+	Comment string `json:"comment,omitempty"`
+}
 type ListRequestParams struct {
 	Limit            *int32                  `json:"limit,omitempty"`
 	Offset           string                  `json:"offset,omitempty"`
