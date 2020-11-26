@@ -21,6 +21,8 @@ type QuotedSubscription struct {
 	Addons                 []*Addon                                 `json:"addons"`
 	EventBasedAddons       []*EventBasedAddon                       `json:"event_based_addons"`
 	Coupons                []*Coupon                                `json:"coupons"`
+	SubscriptionItems      []*SubscriptionItem                      `json:"subscription_items"`
+	ItemTiers              []*ItemTier                              `json:"item_tiers"`
 	Object                 string                                   `json:"object"`
 }
 type Addon struct {
@@ -51,5 +53,27 @@ type Coupon struct {
 	ApplyTill    int64  `json:"apply_till"`
 	AppliedCount int32  `json:"applied_count"`
 	CouponCode   string `json:"coupon_code"`
+	Object       string `json:"object"`
+}
+type SubscriptionItem struct {
+	ItemPriceId       string              `json:"item_price_id"`
+	ItemType          enum.ItemType       `json:"item_type"`
+	Quantity          int32               `json:"quantity"`
+	UnitPrice         int32               `json:"unit_price"`
+	Amount            int32               `json:"amount"`
+	FreeQuantity      int32               `json:"free_quantity"`
+	TrialEnd          int64               `json:"trial_end"`
+	BillingCycles     int32               `json:"billing_cycles"`
+	ServicePeriodDays int32               `json:"service_period_days"`
+	ChargeOnEvent     enum.ChargeOnEvent  `json:"charge_on_event"`
+	ChargeOnce        bool                `json:"charge_once"`
+	ChargeOnOption    enum.ChargeOnOption `json:"charge_on_option"`
+	Object            string              `json:"object"`
+}
+type ItemTier struct {
+	ItemPriceId  string `json:"item_price_id"`
+	StartingUnit int32  `json:"starting_unit"`
+	EndingUnit   int32  `json:"ending_unit"`
+	Price        int32  `json:"price"`
 	Object       string `json:"object"`
 }

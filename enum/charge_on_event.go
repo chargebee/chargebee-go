@@ -8,4 +8,5 @@ const (
 	ChargeOnEventPlanActivation         ChargeOnEvent = "plan_activation"
 	ChargeOnEventSubscriptionActivation ChargeOnEvent = "subscription_activation"
 	ChargeOnEventContractTermination    ChargeOnEvent = "contract_termination"
+	ChargeOnEventOnDemand               ChargeOnEvent = "on_demand"
 )

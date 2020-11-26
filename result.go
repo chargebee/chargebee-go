@@ -4,6 +4,7 @@ import (
 	"github.com/chargebee/chargebee-go/models/addon"
 	"github.com/chargebee/chargebee-go/models/address"
 	"github.com/chargebee/chargebee-go/models/advanceinvoiceschedule"
+	"github.com/chargebee/chargebee-go/models/attacheditem"
 	"github.com/chargebee/chargebee-go/models/card"
 	"github.com/chargebee/chargebee-go/models/comment"
 	"github.com/chargebee/chargebee-go/models/contact"
@@ -13,6 +14,7 @@ import (
 	"github.com/chargebee/chargebee-go/models/couponset"
 	"github.com/chargebee/chargebee-go/models/creditnote"
 	"github.com/chargebee/chargebee-go/models/customer"
+	"github.com/chargebee/chargebee-go/models/differentialprice"
 	"github.com/chargebee/chargebee-go/models/download"
 	"github.com/chargebee/chargebee-go/models/estimate"
 	"github.com/chargebee/chargebee-go/models/event"
@@ -21,6 +23,9 @@ import (
 	"github.com/chargebee/chargebee-go/models/hierarchy"
 	"github.com/chargebee/chargebee-go/models/hostedpage"
 	"github.com/chargebee/chargebee-go/models/invoice"
+	"github.com/chargebee/chargebee-go/models/item"
+	"github.com/chargebee/chargebee-go/models/itemfamily"
+	"github.com/chargebee/chargebee-go/models/itemprice"
 	"github.com/chargebee/chargebee-go/models/order"
 	"github.com/chargebee/chargebee-go/models/paymentintent"
 	"github.com/chargebee/chargebee-go/models/paymentsource"
@@ -84,9 +89,15 @@ type Result struct {
 	TimeMachine             *timemachine.TimeMachine                         `json:"time_machine,omitempty"`
 	Export                  *export.Export                                   `json:"export,omitempty"`
 	PaymentIntent           *paymentintent.PaymentIntent                     `json:"payment_intent,omitempty"`
+	ItemFamily              *itemfamily.ItemFamily                           `json:"item_family,omitempty"`
+	Item                    *item.Item                                       `json:"item,omitempty"`
+	ItemPrice               *itemprice.ItemPrice                             `json:"item_price,omitempty"`
+	AttachedItem            *attacheditem.AttachedItem                       `json:"attached_item,omitempty"`
+	DifferentialPrice       *differentialprice.DifferentialPrice             `json:"differential_price,omitempty"`
 	UnbilledCharges         []*unbilledcharge.UnbilledCharge                 `json:"unbilled_charges,omitempty"`
 	CreditNotes             []*creditnote.CreditNote                         `json:"credit_notes,omitempty"`
 	AdvanceInvoiceSchedules []*advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedules,omitempty"`
 	Hierarchies             []*hierarchy.Hierarchy                           `json:"hierarchies,omitempty"`
 	Invoices                []*invoice.Invoice                               `json:"invoices,omitempty"`
+	DifferentialPrices      []*differentialprice.DifferentialPrice           `json:"differential_prices,omitempty"`
 }

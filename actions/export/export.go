@@ -46,6 +46,21 @@ func Transactions(params *export.TransactionsRequestParams) chargebee.RequestObj
 func Orders(params *export.OrdersRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/exports/orders"), params)
 }
+func ItemFamilies(params *export.ItemFamiliesRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/exports/item_families"), params)
+}
+func Items(params *export.ItemsRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/exports/items"), params)
+}
+func ItemPrices(params *export.ItemPricesRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/exports/item_prices"), params)
+}
+func AttachedItems(params *export.AttachedItemsRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/exports/attached_items"), params)
+}
+func DifferentialPrices(params *export.DifferentialPricesRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/exports/differential_prices"), params)
+}
 func WaitForExportCompletion(exp export.Export) (export.Export, error) {
 	return WaitForExportCompletionWithEnv(exp, chargebee.DefaultConfig())
 }

@@ -13,11 +13,20 @@ func CreateSubscription(params *estimate.CreateSubscriptionRequestParams) charge
 func CreateSubForCustomerEstimate(id string, params *estimate.CreateSubForCustomerEstimateRequestParams) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/customers/%v/create_subscription_estimate", id), params)
 }
+func CreateSubItemForCustomerEstimate(id string, params *estimate.CreateSubItemForCustomerEstimateRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/customers/%v/create_subscription_for_items_estimate", id), params)
+}
 func UpdateSubscription(params *estimate.UpdateSubscriptionRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/estimates/update_subscription"), params)
 }
+func UpdateSubscriptionForItems(params *estimate.UpdateSubscriptionForItemsRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/estimates/update_subscription_for_items"), params)
+}
 func RenewalEstimate(id string, params *estimate.RenewalEstimateRequestParams) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/subscriptions/%v/renewal_estimate", id), params)
+}
+func AdvanceInvoiceEstimate(id string, params *estimate.AdvanceInvoiceEstimateRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/subscriptions/%v/advance_invoice_estimate", id), params)
 }
 func UpcomingInvoicesEstimate(id string) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/customers/%v/upcoming_invoices_estimate", id), nil)
@@ -39,4 +48,7 @@ func GiftSubscription(params *estimate.GiftSubscriptionRequestParams) chargebee.
 }
 func CreateInvoice(params *estimate.CreateInvoiceRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/estimates/create_invoice"), params)
+}
+func CreateInvoiceForItems(params *estimate.CreateInvoiceForItemsRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/estimates/create_invoice_for_items"), params)
 }

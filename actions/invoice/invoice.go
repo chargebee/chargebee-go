@@ -10,11 +10,17 @@ import (
 func Create(params *invoice.CreateRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices"), params)
 }
+func CreateForChargeItemsAndCharges(params *invoice.CreateForChargeItemsAndChargesRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/invoices/create_for_charge_items_and_charges"), params)
+}
 func Charge(params *invoice.ChargeRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/charge"), params)
 }
 func ChargeAddon(params *invoice.ChargeAddonRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/charge_addon"), params)
+}
+func CreateForChargeItem(params *invoice.CreateForChargeItemRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/invoices/create_for_charge_item"), params)
 }
 func StopDunning(id string, params *invoice.StopDunningRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/stop_dunning", id), params)
@@ -48,6 +54,9 @@ func AddCharge(id string, params *invoice.AddChargeRequestParams) chargebee.Requ
 }
 func AddAddonCharge(id string, params *invoice.AddAddonChargeRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/add_addon_charge", id), params)
+}
+func AddChargeItem(id string, params *invoice.AddChargeItemRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/add_charge_item", id), params)
 }
 func Close(id string, params *invoice.CloseRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/close", id), params)

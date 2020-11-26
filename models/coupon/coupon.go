@@ -8,34 +8,49 @@ import (
 )
 
 type Coupon struct {
-	Id                 string                     `json:"id"`
-	Name               string                     `json:"name"`
-	InvoiceName        string                     `json:"invoice_name"`
-	DiscountType       couponEnum.DiscountType    `json:"discount_type"`
-	DiscountPercentage float64                    `json:"discount_percentage"`
-	DiscountAmount     int32                      `json:"discount_amount"`
-	DiscountQuantity   int32                      `json:"discount_quantity"`
-	CurrencyCode       string                     `json:"currency_code"`
-	DurationType       couponEnum.DurationType    `json:"duration_type"`
-	DurationMonth      int32                      `json:"duration_month"`
-	ValidTill          int64                      `json:"valid_till"`
-	MaxRedemptions     int32                      `json:"max_redemptions"`
-	Status             couponEnum.Status          `json:"status"`
-	ApplyDiscountOn    couponEnum.ApplyDiscountOn `json:"apply_discount_on"`
-	ApplyOn            couponEnum.ApplyOn         `json:"apply_on"`
-	PlanConstraint     couponEnum.PlanConstraint  `json:"plan_constraint"`
-	AddonConstraint    couponEnum.AddonConstraint `json:"addon_constraint"`
-	CreatedAt          int64                      `json:"created_at"`
-	ArchivedAt         int64                      `json:"archived_at"`
-	ResourceVersion    int64                      `json:"resource_version"`
-	UpdatedAt          int64                      `json:"updated_at"`
-	IncludedInMrr      bool                       `json:"included_in_mrr"`
-	PlanIds            []string                   `json:"plan_ids"`
-	AddonIds           []string                   `json:"addon_ids"`
-	Redemptions        int32                      `json:"redemptions"`
-	InvoiceNotes       string                     `json:"invoice_notes"`
-	MetaData           json.RawMessage            `json:"meta_data"`
-	Object             string                     `json:"object"`
+	Id                     string                     `json:"id"`
+	Name                   string                     `json:"name"`
+	InvoiceName            string                     `json:"invoice_name"`
+	DiscountType           couponEnum.DiscountType    `json:"discount_type"`
+	DiscountPercentage     float64                    `json:"discount_percentage"`
+	DiscountAmount         int32                      `json:"discount_amount"`
+	DiscountQuantity       int32                      `json:"discount_quantity"`
+	CurrencyCode           string                     `json:"currency_code"`
+	DurationType           couponEnum.DurationType    `json:"duration_type"`
+	DurationMonth          int32                      `json:"duration_month"`
+	ValidTill              int64                      `json:"valid_till"`
+	MaxRedemptions         int32                      `json:"max_redemptions"`
+	Status                 couponEnum.Status          `json:"status"`
+	ApplyDiscountOn        couponEnum.ApplyDiscountOn `json:"apply_discount_on"`
+	ApplyOn                couponEnum.ApplyOn         `json:"apply_on"`
+	PlanConstraint         couponEnum.PlanConstraint  `json:"plan_constraint"`
+	AddonConstraint        couponEnum.AddonConstraint `json:"addon_constraint"`
+	CreatedAt              int64                      `json:"created_at"`
+	ArchivedAt             int64                      `json:"archived_at"`
+	ResourceVersion        int64                      `json:"resource_version"`
+	UpdatedAt              int64                      `json:"updated_at"`
+	IncludedInMrr          bool                       `json:"included_in_mrr"`
+	PlanIds                []string                   `json:"plan_ids"`
+	AddonIds               []string                   `json:"addon_ids"`
+	ItemConstraints        []*ItemConstraint          `json:"item_constraints"`
+	ItemConstraintCriteria []*ItemConstraintCriteria  `json:"item_constraint_criteria"`
+	Redemptions            int32                      `json:"redemptions"`
+	InvoiceNotes           string                     `json:"invoice_notes"`
+	MetaData               json.RawMessage            `json:"meta_data"`
+	Object                 string                     `json:"object"`
+}
+type ItemConstraint struct {
+	ItemType     couponEnum.ItemConstraintItemType   `json:"item_type"`
+	Constraint   couponEnum.ItemConstraintConstraint `json:"constraint"`
+	ItemPriceIds json.RawMessage                     `json:"item_price_ids"`
+	Object       string                              `json:"object"`
+}
+type ItemConstraintCriteria struct {
+	ItemType         couponEnum.ItemConstraintCriteriaItemType `json:"item_type"`
+	Currencies       json.RawMessage                           `json:"currencies"`
+	ItemFamilyIds    json.RawMessage                           `json:"item_family_ids"`
+	ItemPricePeriods json.RawMessage                           `json:"item_price_periods"`
+	Object           string                                    `json:"object"`
 }
 type CreateRequestParams struct {
 	Id                 string                     `json:"id"`
@@ -59,6 +74,67 @@ type CreateRequestParams struct {
 	PlanIds            []string                   `json:"plan_ids,omitempty"`
 	AddonIds           []string                   `json:"addon_ids,omitempty"`
 	Status             couponEnum.Status          `json:"status,omitempty"`
+}
+type CreateForItemsRequestParams struct {
+	Id                     string                                        `json:"id"`
+	Name                   string                                        `json:"name"`
+	InvoiceName            string                                        `json:"invoice_name,omitempty"`
+	DiscountType           couponEnum.DiscountType                       `json:"discount_type"`
+	DiscountAmount         *int32                                        `json:"discount_amount,omitempty"`
+	CurrencyCode           string                                        `json:"currency_code,omitempty"`
+	DiscountPercentage     *float64                                      `json:"discount_percentage,omitempty"`
+	DiscountQuantity       *int32                                        `json:"discount_quantity,omitempty"`
+	ApplyOn                couponEnum.ApplyOn                            `json:"apply_on"`
+	DurationType           couponEnum.DurationType                       `json:"duration_type"`
+	DurationMonth          *int32                                        `json:"duration_month,omitempty"`
+	ValidTill              *int64                                        `json:"valid_till,omitempty"`
+	MaxRedemptions         *int32                                        `json:"max_redemptions,omitempty"`
+	InvoiceNotes           string                                        `json:"invoice_notes,omitempty"`
+	MetaData               map[string]interface{}                        `json:"meta_data,omitempty"`
+	IncludedInMrr          *bool                                         `json:"included_in_mrr,omitempty"`
+	ItemConstraints        []*CreateForItemsItemConstraintParams         `json:"item_constraints,omitempty"`
+	ItemConstraintCriteria []*CreateForItemsItemConstraintCriteriaParams `json:"item_constraint_criteria,omitempty"`
+	Status                 couponEnum.Status                             `json:"status,omitempty"`
+}
+type CreateForItemsItemConstraintParams struct {
+	Constraint   couponEnum.ItemConstraintConstraint `json:"constraint"`
+	ItemType     couponEnum.ItemConstraintItemType   `json:"item_type"`
+	ItemPriceIds []map[string]interface{}            `json:"item_price_ids,omitempty"`
+}
+type CreateForItemsItemConstraintCriteriaParams struct {
+	ItemType         couponEnum.ItemConstraintCriteriaItemType `json:"item_type,omitempty"`
+	ItemFamilyIds    []map[string]interface{}                  `json:"item_family_ids,omitempty"`
+	Currencies       []map[string]interface{}                  `json:"currencies,omitempty"`
+	ItemPricePeriods []map[string]interface{}                  `json:"item_price_periods,omitempty"`
+}
+type UpdateForItemsRequestParams struct {
+	Name                   string                                        `json:"name,omitempty"`
+	InvoiceName            string                                        `json:"invoice_name,omitempty"`
+	DiscountType           couponEnum.DiscountType                       `json:"discount_type,omitempty"`
+	DiscountAmount         *int32                                        `json:"discount_amount,omitempty"`
+	CurrencyCode           string                                        `json:"currency_code,omitempty"`
+	DiscountPercentage     *float64                                      `json:"discount_percentage,omitempty"`
+	ApplyOn                couponEnum.ApplyOn                            `json:"apply_on,omitempty"`
+	DurationType           couponEnum.DurationType                       `json:"duration_type,omitempty"`
+	DurationMonth          *int32                                        `json:"duration_month,omitempty"`
+	ValidTill              *int64                                        `json:"valid_till,omitempty"`
+	MaxRedemptions         *int32                                        `json:"max_redemptions,omitempty"`
+	InvoiceNotes           string                                        `json:"invoice_notes,omitempty"`
+	MetaData               map[string]interface{}                        `json:"meta_data,omitempty"`
+	IncludedInMrr          *bool                                         `json:"included_in_mrr,omitempty"`
+	ItemConstraints        []*UpdateForItemsItemConstraintParams         `json:"item_constraints,omitempty"`
+	ItemConstraintCriteria []*UpdateForItemsItemConstraintCriteriaParams `json:"item_constraint_criteria,omitempty"`
+}
+type UpdateForItemsItemConstraintParams struct {
+	Constraint   couponEnum.ItemConstraintConstraint `json:"constraint"`
+	ItemType     couponEnum.ItemConstraintItemType   `json:"item_type"`
+	ItemPriceIds []map[string]interface{}            `json:"item_price_ids,omitempty"`
+}
+type UpdateForItemsItemConstraintCriteriaParams struct {
+	ItemType         couponEnum.ItemConstraintCriteriaItemType `json:"item_type,omitempty"`
+	ItemFamilyIds    []map[string]interface{}                  `json:"item_family_ids,omitempty"`
+	Currencies       []map[string]interface{}                  `json:"currencies,omitempty"`
+	ItemPricePeriods []map[string]interface{}                  `json:"item_price_periods,omitempty"`
 }
 type ListRequestParams struct {
 	Limit        *int32                  `json:"limit,omitempty"`

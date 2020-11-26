@@ -13,6 +13,8 @@ type PaymentIntent struct {
 	ExpiresAt            int64                               `json:"expires_at"`
 	ReferenceId          string                              `json:"reference_id"`
 	PaymentMethodType    paymentIntentEnum.PaymentMethodType `json:"payment_method_type"`
+	SuccessUrl           string                              `json:"success_url"`
+	FailureUrl           string                              `json:"failure_url"`
 	CreatedAt            int64                               `json:"created_at"`
 	ModifiedAt           int64                               `json:"modified_at"`
 	ResourceVersion      int64                               `json:"resource_version"`
@@ -40,10 +42,14 @@ type CreateRequestParams struct {
 	GatewayAccountId  string                              `json:"gateway_account_id,omitempty"`
 	ReferenceId       string                              `json:"reference_id,omitempty"`
 	PaymentMethodType paymentIntentEnum.PaymentMethodType `json:"payment_method_type,omitempty"`
+	SuccessUrl        string                              `json:"success_url,omitempty"`
+	FailureUrl        string                              `json:"failure_url,omitempty"`
 }
 type UpdateRequestParams struct {
 	Amount            *int32                              `json:"amount,omitempty"`
 	CurrencyCode      string                              `json:"currency_code,omitempty"`
 	GatewayAccountId  string                              `json:"gateway_account_id,omitempty"`
 	PaymentMethodType paymentIntentEnum.PaymentMethodType `json:"payment_method_type,omitempty"`
+	SuccessUrl        string                              `json:"success_url,omitempty"`
+	FailureUrl        string                              `json:"failure_url,omitempty"`
 }

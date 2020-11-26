@@ -11,8 +11,14 @@ import (
 func CheckoutNew(params *hostedpage.CheckoutNewRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/checkout_new"), params)
 }
+func CheckoutNewForItems(params *hostedpage.CheckoutNewForItemsRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/checkout_new_for_items"), params)
+}
 func CheckoutExisting(params *hostedpage.CheckoutExistingRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/checkout_existing"), params)
+}
+func CheckoutExistingForItems(params *hostedpage.CheckoutExistingForItemsRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/checkout_existing_for_items"), params)
 }
 func UpdateCard(params *hostedpage.UpdateCardRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/update_card"), params)

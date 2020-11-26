@@ -303,6 +303,74 @@ type CreatePaymentIntentParams struct {
 	ReferenceId       string `json:"reference_id,omitempty"`
 	GwPaymentMethodId string `json:"gw_payment_method_id,omitempty"`
 }
+type CreateForChargeItemsAndChargesRequestParams struct {
+	CustomerId                  string                                               `json:"customer_id,omitempty"`
+	SubscriptionId              string                                               `json:"subscription_id,omitempty"`
+	CurrencyCode                string                                               `json:"currency_code,omitempty"`
+	ItemPrices                  []*CreateForChargeItemsAndChargesItemPriceParams     `json:"item_prices,omitempty"`
+	ItemTiers                   []*CreateForChargeItemsAndChargesItemTierParams      `json:"item_tiers,omitempty"`
+	Charges                     []*CreateForChargeItemsAndChargesChargeParams        `json:"charges,omitempty"`
+	InvoiceNotes                string                                               `json:"invoice_notes,omitempty"`
+	PoNumber                    string                                               `json:"po_number,omitempty"`
+	Coupon                      string                                               `json:"coupon,omitempty"`
+	CouponIds                   []string                                             `json:"coupon_ids,omitempty"`
+	AuthorizationTransactionId  string                                               `json:"authorization_transaction_id,omitempty"`
+	PaymentSourceId             string                                               `json:"payment_source_id,omitempty"`
+	AutoCollection              enum.AutoCollection                                  `json:"auto_collection,omitempty"`
+	ShippingAddress             *CreateForChargeItemsAndChargesShippingAddressParams `json:"shipping_address,omitempty"`
+	PaymentIntent               *CreateForChargeItemsAndChargesPaymentIntentParams   `json:"payment_intent,omitempty"`
+	ReplacePrimaryPaymentSource *bool                                                `json:"replace_primary_payment_source,omitempty"`
+}
+type CreateForChargeItemsAndChargesItemPriceParams struct {
+	ItemPriceId string `json:"item_price_id,omitempty"`
+	Quantity    *int32 `json:"quantity,omitempty"`
+	UnitPrice   *int32 `json:"unit_price,omitempty"`
+	DateFrom    *int64 `json:"date_from,omitempty"`
+	DateTo      *int64 `json:"date_to,omitempty"`
+}
+type CreateForChargeItemsAndChargesItemTierParams struct {
+	ItemPriceId  string `json:"item_price_id,omitempty"`
+	StartingUnit *int32 `json:"starting_unit,omitempty"`
+	EndingUnit   *int32 `json:"ending_unit,omitempty"`
+	Price        *int32 `json:"price,omitempty"`
+}
+type CreateForChargeItemsAndChargesChargeParams struct {
+	Amount                 *int32               `json:"amount,omitempty"`
+	AmountInDecimal        string               `json:"amount_in_decimal,omitempty"`
+	Description            string               `json:"description,omitempty"`
+	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
+	DateFrom               *int64               `json:"date_from,omitempty"`
+	DateTo                 *int64               `json:"date_to,omitempty"`
+	Taxable                *bool                `json:"taxable,omitempty"`
+	TaxProfileId           string               `json:"tax_profile_id,omitempty"`
+	AvalaraTaxCode         string               `json:"avalara_tax_code,omitempty"`
+	TaxjarProductCode      string               `json:"taxjar_product_code,omitempty"`
+}
+type CreateForChargeItemsAndChargesShippingAddressParams struct {
+	FirstName        string                `json:"first_name,omitempty"`
+	LastName         string                `json:"last_name,omitempty"`
+	Email            string                `json:"email,omitempty"`
+	Company          string                `json:"company,omitempty"`
+	Phone            string                `json:"phone,omitempty"`
+	Line1            string                `json:"line1,omitempty"`
+	Line2            string                `json:"line2,omitempty"`
+	Line3            string                `json:"line3,omitempty"`
+	City             string                `json:"city,omitempty"`
+	StateCode        string                `json:"state_code,omitempty"`
+	State            string                `json:"state,omitempty"`
+	Zip              string                `json:"zip,omitempty"`
+	Country          string                `json:"country,omitempty"`
+	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+}
+type CreateForChargeItemsAndChargesPaymentIntentParams struct {
+	Id                string `json:"id,omitempty"`
+	GatewayAccountId  string `json:"gateway_account_id,omitempty"`
+	GwToken           string `json:"gw_token,omitempty"`
+	ReferenceId       string `json:"reference_id,omitempty"`
+	GwPaymentMethodId string `json:"gw_payment_method_id,omitempty"`
+}
 type ChargeRequestParams struct {
 	CustomerId             string               `json:"customer_id,omitempty"`
 	SubscriptionId         string               `json:"subscription_id,omitempty"`
@@ -332,6 +400,27 @@ type ChargeAddonRequestParams struct {
 	Coupon                  string `json:"coupon,omitempty"`
 	PoNumber                string `json:"po_number,omitempty"`
 	PaymentSourceId         string `json:"payment_source_id,omitempty"`
+}
+type CreateForChargeItemRequestParams struct {
+	CustomerId      string                               `json:"customer_id,omitempty"`
+	SubscriptionId  string                               `json:"subscription_id,omitempty"`
+	ItemPrice       *CreateForChargeItemItemPriceParams  `json:"item_price,omitempty"`
+	ItemTiers       []*CreateForChargeItemItemTierParams `json:"item_tiers,omitempty"`
+	PoNumber        string                               `json:"po_number,omitempty"`
+	Coupon          string                               `json:"coupon,omitempty"`
+	PaymentSourceId string                               `json:"payment_source_id,omitempty"`
+}
+type CreateForChargeItemItemPriceParams struct {
+	ItemPriceId string `json:"item_price_id"`
+	Quantity    *int32 `json:"quantity,omitempty"`
+	UnitPrice   *int32 `json:"unit_price,omitempty"`
+	DateFrom    *int64 `json:"date_from,omitempty"`
+	DateTo      *int64 `json:"date_to,omitempty"`
+}
+type CreateForChargeItemItemTierParams struct {
+	StartingUnit *int32 `json:"starting_unit,omitempty"`
+	EndingUnit   *int32 `json:"ending_unit,omitempty"`
+	Price        *int32 `json:"price,omitempty"`
 }
 type StopDunningRequestParams struct {
 	Comment string `json:"comment,omitempty"`
@@ -531,6 +620,23 @@ type AddAddonChargeRequestParams struct {
 type AddAddonChargeLineItemParams struct {
 	DateFrom *int64 `json:"date_from,omitempty"`
 	DateTo   *int64 `json:"date_to,omitempty"`
+}
+type AddChargeItemRequestParams struct {
+	ItemPrice *AddChargeItemItemPriceParams  `json:"item_price,omitempty"`
+	ItemTiers []*AddChargeItemItemTierParams `json:"item_tiers,omitempty"`
+	Comment   string                         `json:"comment,omitempty"`
+}
+type AddChargeItemItemPriceParams struct {
+	ItemPriceId string `json:"item_price_id"`
+	Quantity    *int32 `json:"quantity,omitempty"`
+	UnitPrice   *int32 `json:"unit_price,omitempty"`
+	DateFrom    *int64 `json:"date_from,omitempty"`
+	DateTo      *int64 `json:"date_to,omitempty"`
+}
+type AddChargeItemItemTierParams struct {
+	StartingUnit *int32 `json:"starting_unit,omitempty"`
+	EndingUnit   *int32 `json:"ending_unit,omitempty"`
+	Price        *int32 `json:"price,omitempty"`
 }
 type CloseRequestParams struct {
 	Comment           string                      `json:"comment,omitempty"`

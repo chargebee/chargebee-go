@@ -41,6 +41,37 @@ type Tier struct {
 	UnitAmountInDecimal   string `json:"unit_amount_in_decimal"`
 	Object                string `json:"object"`
 }
+type CreateRequestParams struct {
+	SubscriptionId string                   `json:"subscription_id"`
+	CurrencyCode   string                   `json:"currency_code,omitempty"`
+	ItemPrices     []*CreateItemPriceParams `json:"item_prices,omitempty"`
+	ItemTiers      []*CreateItemTierParams  `json:"item_tiers,omitempty"`
+	Charges        []*CreateChargeParams    `json:"charges,omitempty"`
+}
+type CreateItemPriceParams struct {
+	ItemPriceId string `json:"item_price_id,omitempty"`
+	Quantity    *int32 `json:"quantity,omitempty"`
+	UnitPrice   *int32 `json:"unit_price,omitempty"`
+	DateFrom    *int64 `json:"date_from,omitempty"`
+	DateTo      *int64 `json:"date_to,omitempty"`
+}
+type CreateItemTierParams struct {
+	ItemPriceId  string `json:"item_price_id,omitempty"`
+	StartingUnit *int32 `json:"starting_unit,omitempty"`
+	EndingUnit   *int32 `json:"ending_unit,omitempty"`
+	Price        *int32 `json:"price,omitempty"`
+}
+type CreateChargeParams struct {
+	Amount                 *int32               `json:"amount,omitempty"`
+	AmountInDecimal        string               `json:"amount_in_decimal,omitempty"`
+	Description            string               `json:"description,omitempty"`
+	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
+	DateFrom               *int64               `json:"date_from,omitempty"`
+	DateTo                 *int64               `json:"date_to,omitempty"`
+	Taxable                *bool                `json:"taxable,omitempty"`
+}
 type InvoiceUnbilledChargesRequestParams struct {
 	SubscriptionId string `json:"subscription_id,omitempty"`
 	CustomerId     string `json:"customer_id,omitempty"`
