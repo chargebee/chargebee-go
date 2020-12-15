@@ -416,7 +416,8 @@ type CollectNowCardParams struct {
 	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
 }
 type AcceptQuoteRequestParams struct {
-	Quote *AcceptQuoteQuoteParams `json:"quote,omitempty"`
+	Quote       *AcceptQuoteQuoteParams `json:"quote,omitempty"`
+	RedirectUrl string                  `json:"redirect_url,omitempty"`
 }
 type AcceptQuoteQuoteParams struct {
 	Id string `json:"id"`

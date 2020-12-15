@@ -56,7 +56,6 @@ type UpdateRequestParams struct {
 	Name                 string                     `json:"name,omitempty"`
 	Description          string                     `json:"description,omitempty"`
 	IsShippable          *bool                      `json:"is_shippable,omitempty"`
-	IsGiftable           *bool                      `json:"is_giftable,omitempty"`
 	ItemFamilyId         string                     `json:"item_family_id,omitempty"`
 	EnabledInPortal      *bool                      `json:"enabled_in_portal,omitempty"`
 	RedirectUrl          string                     `json:"redirect_url,omitempty"`

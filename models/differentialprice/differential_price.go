@@ -26,6 +26,9 @@ type Tier struct {
 	StartingUnit          int32  `json:"starting_unit"`
 	EndingUnit            int32  `json:"ending_unit"`
 	Price                 int32  `json:"price"`
+	StartingUnitInDecimal string `json:"starting_unit_in_decimal"`
+	EndingUnitInDecimal   string `json:"ending_unit_in_decimal"`
+	PriceInDecimal        string `json:"price_in_decimal"`
 	Object                string `json:"object"`
 }
 type ParentPeriod struct {

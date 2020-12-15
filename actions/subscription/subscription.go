@@ -70,6 +70,9 @@ func RetrieveAdvanceInvoiceSchedule(id string) chargebee.RequestObj {
 func RemoveAdvanceInvoiceSchedule(id string, params *subscription.RemoveAdvanceInvoiceScheduleRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/subscriptions/%v/remove_advance_invoice_schedule", id), params)
 }
+func RegenerateInvoice(id string, params *subscription.RegenerateInvoiceRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/subscriptions/%v/regenerate_invoice", id), params)
+}
 func ImportSubscription(params *subscription.ImportSubscriptionRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/subscriptions/import_subscription"), params)
 }

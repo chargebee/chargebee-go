@@ -225,11 +225,12 @@ type CreatePaymentMethodParams struct {
 	IssuingCountry   string       `json:"issuing_country,omitempty"`
 }
 type CreatePaymentIntentParams struct {
-	Id                string `json:"id,omitempty"`
-	GatewayAccountId  string `json:"gateway_account_id,omitempty"`
-	GwToken           string `json:"gw_token,omitempty"`
-	ReferenceId       string `json:"reference_id,omitempty"`
-	GwPaymentMethodId string `json:"gw_payment_method_id,omitempty"`
+	Id                string                 `json:"id,omitempty"`
+	GatewayAccountId  string                 `json:"gateway_account_id,omitempty"`
+	GwToken           string                 `json:"gw_token,omitempty"`
+	ReferenceId       string                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId string                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInfo    map[string]interface{} `json:"additional_info,omitempty"`
 }
 type CreateBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -439,11 +440,12 @@ type CollectPaymentCardParams struct {
 	BillingCountry   string `json:"billing_country,omitempty"`
 }
 type CollectPaymentPaymentIntentParams struct {
-	Id                string `json:"id,omitempty"`
-	GatewayAccountId  string `json:"gateway_account_id,omitempty"`
-	GwToken           string `json:"gw_token,omitempty"`
-	GwPaymentMethodId string `json:"gw_payment_method_id,omitempty"`
-	ReferenceId       string `json:"reference_id,omitempty"`
+	Id                string                 `json:"id,omitempty"`
+	GatewayAccountId  string                 `json:"gateway_account_id,omitempty"`
+	GwToken           string                 `json:"gw_token,omitempty"`
+	GwPaymentMethodId string                 `json:"gw_payment_method_id,omitempty"`
+	ReferenceId       string                 `json:"reference_id,omitempty"`
+	AdditionalInfo    map[string]interface{} `json:"additional_info,omitempty"`
 }
 type DeleteRequestParams struct {
 	DeletePaymentMethod *bool `json:"delete_payment_method,omitempty"`
