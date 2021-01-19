@@ -43,6 +43,7 @@ import (
 	"github.com/chargebee/chargebee-go/models/token"
 	"github.com/chargebee/chargebee-go/models/transaction"
 	"github.com/chargebee/chargebee-go/models/unbilledcharge"
+	"github.com/chargebee/chargebee-go/models/usage"
 	"github.com/chargebee/chargebee-go/models/virtualbankaccount"
 )
 
@@ -80,6 +81,7 @@ type Result struct {
 	CouponSet               *couponset.CouponSet                             `json:"coupon_set,omitempty"`
 	CouponCode              *couponcode.CouponCode                           `json:"coupon_code,omitempty"`
 	Address                 *address.Address                                 `json:"address,omitempty"`
+	Usage                   *usage.Usage                                     `json:"usage,omitempty"`
 	Event                   *event.Event                                     `json:"event,omitempty"`
 	Comment                 *comment.Comment                                 `json:"comment,omitempty"`
 	Download                *download.Download                               `json:"download,omitempty"`

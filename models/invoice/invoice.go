@@ -703,6 +703,7 @@ type AddChargeRequestParams struct {
 	AvalaraServiceType     *int32                   `json:"avalara_service_type,omitempty"`
 	LineItem               *AddChargeLineItemParams `json:"line_item,omitempty"`
 	Comment                string                   `json:"comment,omitempty"`
+	SubscriptionId         string                   `json:"subscription_id,omitempty"`
 }
 type AddChargeLineItemParams struct {
 	DateFrom *int64 `json:"date_from,omitempty"`
@@ -716,15 +717,17 @@ type AddAddonChargeRequestParams struct {
 	AddonUnitPriceInDecimal string                        `json:"addon_unit_price_in_decimal,omitempty"`
 	LineItem                *AddAddonChargeLineItemParams `json:"line_item,omitempty"`
 	Comment                 string                        `json:"comment,omitempty"`
+	SubscriptionId          string                        `json:"subscription_id,omitempty"`
 }
 type AddAddonChargeLineItemParams struct {
 	DateFrom *int64 `json:"date_from,omitempty"`
 	DateTo   *int64 `json:"date_to,omitempty"`
 }
 type AddChargeItemRequestParams struct {
-	ItemPrice *AddChargeItemItemPriceParams  `json:"item_price,omitempty"`
-	ItemTiers []*AddChargeItemItemTierParams `json:"item_tiers,omitempty"`
-	Comment   string                         `json:"comment,omitempty"`
+	ItemPrice      *AddChargeItemItemPriceParams  `json:"item_price,omitempty"`
+	ItemTiers      []*AddChargeItemItemTierParams `json:"item_tiers,omitempty"`
+	Comment        string                         `json:"comment,omitempty"`
+	SubscriptionId string                         `json:"subscription_id,omitempty"`
 }
 type AddChargeItemItemPriceParams struct {
 	ItemPriceId string `json:"item_price_id"`

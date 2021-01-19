@@ -77,6 +77,8 @@ type Subscription struct {
 	CancelReasonCode                  string                             `json:"cancel_reason_code"`
 	FreePeriod                        int32                              `json:"free_period"`
 	FreePeriodUnit                    enum.FreePeriodUnit                `json:"free_period_unit"`
+	CreatePendingInvoices             bool                               `json:"create_pending_invoices"`
+	AutoCloseInvoices                 bool                               `json:"auto_close_invoices"`
 	CustomField                       map[string]interface{}             `json:"custom_field"`
 	Object                            string                             `json:"object"`
 }
@@ -84,6 +86,8 @@ type SubscriptionItem struct {
 	ItemPriceId       string              `json:"item_price_id"`
 	ItemType          enum.ItemType       `json:"item_type"`
 	Quantity          int32               `json:"quantity"`
+	MeteredQuantity   string              `json:"metered_quantity"`
+	LastCalculatedAt  int64               `json:"last_calculated_at"`
 	UnitPrice         int32               `json:"unit_price"`
 	Amount            int32               `json:"amount"`
 	FreeQuantity      int32               `json:"free_quantity"`
@@ -589,6 +593,9 @@ type CreateWithItemsRequestParams struct {
 	FreePeriodUnit                    enum.FreePeriodUnit                      `json:"free_period_unit,omitempty"`
 	ContractTerm                      *CreateWithItemsContractTermParams       `json:"contract_term,omitempty"`
 	ContractTermBillingCycleOnRenewal *int32                                   `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	CreatePendingInvoices             *bool                                    `json:"create_pending_invoices,omitempty"`
+	AutoCloseInvoices                 *bool                                    `json:"auto_close_invoices,omitempty"`
+	FirstInvoicePending               *bool                                    `json:"first_invoice_pending,omitempty"`
 }
 type CreateWithItemsSubscriptionItemParams struct {
 	ItemPriceId       string              `json:"item_price_id"`
@@ -708,6 +715,8 @@ type ListRequestParams struct {
 	HasScheduledChanges    *filter.BooleanFilter   `json:"has_scheduled_changes,omitempty"`
 	UpdatedAt              *filter.TimestampFilter `json:"updated_at,omitempty"`
 	OfflinePaymentMethod   *filter.EnumFilter      `json:"offline_payment_method,omitempty"`
+	AutoCloseInvoices      *filter.BooleanFilter   `json:"auto_close_invoices,omitempty"`
+	CreatePendingInvoices  *filter.BooleanFilter   `json:"create_pending_invoices,omitempty"`
 	OverrideRelationship   *filter.BooleanFilter   `json:"override_relationship,omitempty"`
 	SortBy                 *filter.SortFilter      `json:"sort_by,omitempty"`
 }
@@ -901,6 +910,8 @@ type UpdateForItemsRequestParams struct {
 	ContractTermBillingCycleOnRenewal *int32                                  `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 	FreePeriod                        *int32                                  `json:"free_period,omitempty"`
 	FreePeriodUnit                    enum.FreePeriodUnit                     `json:"free_period_unit,omitempty"`
+	CreatePendingInvoices             *bool                                   `json:"create_pending_invoices,omitempty"`
+	AutoCloseInvoices                 *bool                                   `json:"auto_close_invoices,omitempty"`
 }
 type UpdateForItemsSubscriptionItemParams struct {
 	ItemPriceId       string              `json:"item_price_id"`
@@ -1466,6 +1477,8 @@ type ImportForItemsRequestParams struct {
 	ShippingAddress                   *ImportForItemsShippingAddressParams    `json:"shipping_address,omitempty"`
 	InvoiceNotes                      string                                  `json:"invoice_notes,omitempty"`
 	MetaData                          map[string]interface{}                  `json:"meta_data,omitempty"`
+	CreatePendingInvoices             *bool                                   `json:"create_pending_invoices,omitempty"`
+	AutoCloseInvoices                 *bool                                   `json:"auto_close_invoices,omitempty"`
 }
 type ImportForItemsSubscriptionItemParams struct {
 	ItemPriceId       string             `json:"item_price_id"`

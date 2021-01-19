@@ -11,6 +11,9 @@ import (
 func CheckoutNew(params *hostedpage.CheckoutNewRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/checkout_new"), params)
 }
+func CheckoutOneTime(params *hostedpage.CheckoutOneTimeRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/checkout_one_time"), params)
+}
 func CheckoutNewForItems(params *hostedpage.CheckoutNewForItemsRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/checkout_new_for_items"), params)
 }

@@ -37,6 +37,7 @@ type Customer struct {
 	BillingDayOfWeek                 customerEnum.BillingDayOfWeek `json:"billing_day_of_week"`
 	BillingDayOfWeekMode             enum.BillingDayOfWeekMode     `json:"billing_day_of_week_mode"`
 	PiiCleared                       customerEnum.PiiCleared       `json:"pii_cleared"`
+	AutoCloseInvoices                bool                          `json:"auto_close_invoices"`
 	CardStatus                       customerEnum.CardStatus       `json:"card_status"`
 	FraudFlag                        customerEnum.FraudFlag        `json:"fraud_flag"`
 	PrimaryPaymentSourceId           string                        `json:"primary_payment_source_id"`
@@ -170,6 +171,7 @@ type CreateRequestParams struct {
 	ExemptNumber                     string                       `json:"exempt_number,omitempty"`
 	MetaData                         map[string]interface{}       `json:"meta_data,omitempty"`
 	OfflinePaymentMethod             enum.OfflinePaymentMethod    `json:"offline_payment_method,omitempty"`
+	AutoCloseInvoices                *bool                        `json:"auto_close_invoices,omitempty"`
 	ConsolidatedInvoicing            *bool                        `json:"consolidated_invoicing,omitempty"`
 	Card                             *CreateCardParams            `json:"card,omitempty"`
 	BankAccount                      *CreateBankAccountParams     `json:"bank_account,omitempty"`
@@ -264,6 +266,7 @@ type ListRequestParams struct {
 	UpdatedAt            *filter.TimestampFilter `json:"updated_at,omitempty"`
 	Relationship         *ListRelationshipParams `json:"relationship,omitempty"`
 	OfflinePaymentMethod *filter.EnumFilter      `json:"offline_payment_method,omitempty"`
+	AutoCloseInvoices    *filter.BooleanFilter   `json:"auto_close_invoices,omitempty"`
 	SortBy               *filter.SortFilter      `json:"sort_by,omitempty"`
 }
 type ListRelationshipParams struct {
@@ -291,6 +294,7 @@ type UpdateRequestParams struct {
 	ExemptNumber            string                       `json:"exempt_number,omitempty"`
 	OfflinePaymentMethod    enum.OfflinePaymentMethod    `json:"offline_payment_method,omitempty"`
 	InvoiceNotes            string                       `json:"invoice_notes,omitempty"`
+	AutoCloseInvoices       *bool                        `json:"auto_close_invoices,omitempty"`
 	MetaData                map[string]interface{}       `json:"meta_data,omitempty"`
 	FraudFlag               customerEnum.FraudFlag       `json:"fraud_flag,omitempty"`
 	ConsolidatedInvoicing   *bool                        `json:"consolidated_invoicing,omitempty"`
@@ -414,7 +418,7 @@ type CollectPaymentRequestParams struct {
 	RetainPaymentSource         *bool                                    `json:"retain_payment_source,omitempty"`
 }
 type CollectPaymentInvoiceAllocationParams struct {
-	InvoiceId        string `json:"invoice_id,omitempty"`
+	InvoiceId        string `json:"invoice_id"`
 	AllocationAmount *int32 `json:"allocation_amount,omitempty"`
 }
 type CollectPaymentPaymentMethodParams struct {

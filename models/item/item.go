@@ -25,6 +25,8 @@ type Item struct {
 	ItemApplicability    itemEnum.ItemApplicability `json:"item_applicability"`
 	GiftClaimRedirectUrl string                     `json:"gift_claim_redirect_url"`
 	Unit                 string                     `json:"unit"`
+	Metered              bool                       `json:"metered"`
+	UsageCalculation     itemEnum.UsageCalculation  `json:"usage_calculation"`
 	ApplicableItems      []*ApplicableItem          `json:"applicable_items"`
 	Metadata             json.RawMessage            `json:"metadata"`
 	CustomField          map[string]interface{}     `json:"custom_field"`
@@ -50,6 +52,8 @@ type CreateRequestParams struct {
 	Unit                 string                     `json:"unit,omitempty"`
 	GiftClaimRedirectUrl string                     `json:"gift_claim_redirect_url,omitempty"`
 	IncludedInMrr        *bool                      `json:"included_in_mrr,omitempty"`
+	Metered              *bool                      `json:"metered,omitempty"`
+	UsageCalculation     itemEnum.UsageCalculation  `json:"usage_calculation,omitempty"`
 	Metadata             map[string]interface{}     `json:"metadata,omitempty"`
 }
 type UpdateRequestParams struct {
@@ -81,6 +85,8 @@ type ListRequestParams struct {
 	UpdatedAt          *filter.TimestampFilter `json:"updated_at,omitempty"`
 	EnabledForCheckout *filter.BooleanFilter   `json:"enabled_for_checkout,omitempty"`
 	EnabledInPortal    *filter.BooleanFilter   `json:"enabled_in_portal,omitempty"`
+	Metered            *filter.BooleanFilter   `json:"metered,omitempty"`
+	UsageCalculation   *filter.EnumFilter      `json:"usage_calculation,omitempty"`
 }
 type ListInternalItemPriceParams struct {
 	CurrencyCode *filter.StringFilter `json:"currency_code,omitempty"`

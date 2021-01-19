@@ -728,6 +728,7 @@ type CreateInvoiceForItemsRequestParams struct {
 	ItemTiers                  []*CreateInvoiceForItemsItemTierParams      `json:"item_tiers,omitempty"`
 	Charges                    []*CreateInvoiceForItemsChargeParams        `json:"charges,omitempty"`
 	Coupon                     string                                      `json:"coupon,omitempty"`
+	CouponIds                  []string                                    `json:"coupon_ids,omitempty"`
 	AuthorizationTransactionId string                                      `json:"authorization_transaction_id,omitempty"`
 	PaymentSourceId            string                                      `json:"payment_source_id,omitempty"`
 	AutoCollection             enum.AutoCollection                         `json:"auto_collection,omitempty"`

@@ -134,6 +134,166 @@ type CheckoutNewContractTermParams struct {
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
+type CheckoutOneTimeRequestParams struct {
+	Customer        *CheckoutOneTimeCustomerParams        `json:"customer,omitempty"`
+	Addons          []*CheckoutOneTimeAddonParams         `json:"addons,omitempty"`
+	CurrencyCode    string                                `json:"currency_code,omitempty"`
+	Charges         []*CheckoutOneTimeChargeParams        `json:"charges,omitempty"`
+	Invoice         *CheckoutOneTimeInvoiceParams         `json:"invoice,omitempty"`
+	CouponIds       []string                              `json:"coupon_ids,omitempty"`
+	Card            *CheckoutOneTimeCardParams            `json:"card,omitempty"`
+	RedirectUrl     string                                `json:"redirect_url,omitempty"`
+	CancelUrl       string                                `json:"cancel_url,omitempty"`
+	PassThruContent string                                `json:"pass_thru_content,omitempty"`
+	Embed           *bool                                 `json:"embed,omitempty"`
+	IframeMessaging *bool                                 `json:"iframe_messaging,omitempty"`
+	BillingAddress  *CheckoutOneTimeBillingAddressParams  `json:"billing_address,omitempty"`
+	ShippingAddress *CheckoutOneTimeShippingAddressParams `json:"shipping_address,omitempty"`
+}
+type CheckoutOneTimeCustomerParams struct {
+	Id                    string          `json:"id,omitempty"`
+	Email                 string          `json:"email,omitempty"`
+	FirstName             string          `json:"first_name,omitempty"`
+	LastName              string          `json:"last_name,omitempty"`
+	Company               string          `json:"company,omitempty"`
+	Taxability            enum.Taxability `json:"taxability,omitempty"`
+	Locale                string          `json:"locale,omitempty"`
+	Phone                 string          `json:"phone,omitempty"`
+	VatNumber             string          `json:"vat_number,omitempty"`
+	ConsolidatedInvoicing *bool           `json:"consolidated_invoicing,omitempty"`
+}
+type CheckoutOneTimeAddonParams struct {
+	Id                 string `json:"id,omitempty"`
+	Quantity           *int32 `json:"quantity,omitempty"`
+	UnitPrice          *int32 `json:"unit_price,omitempty"`
+	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
+	DateFrom           *int64 `json:"date_from,omitempty"`
+	DateTo             *int64 `json:"date_to,omitempty"`
+}
+type CheckoutOneTimeChargeParams struct {
+	Amount                 *int32               `json:"amount,omitempty"`
+	AmountInDecimal        string               `json:"amount_in_decimal,omitempty"`
+	Description            string               `json:"description,omitempty"`
+	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
+	DateFrom               *int64               `json:"date_from,omitempty"`
+	DateTo                 *int64               `json:"date_to,omitempty"`
+}
+type CheckoutOneTimeInvoiceParams struct {
+	PoNumber string `json:"po_number,omitempty"`
+}
+type CheckoutOneTimeCardParams struct {
+	Gateway          enum.Gateway `json:"gateway,omitempty"`
+	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
+}
+type CheckoutOneTimeBillingAddressParams struct {
+	FirstName        string                `json:"first_name,omitempty"`
+	LastName         string                `json:"last_name,omitempty"`
+	Email            string                `json:"email,omitempty"`
+	Company          string                `json:"company,omitempty"`
+	Phone            string                `json:"phone,omitempty"`
+	Line1            string                `json:"line1,omitempty"`
+	Line2            string                `json:"line2,omitempty"`
+	Line3            string                `json:"line3,omitempty"`
+	City             string                `json:"city,omitempty"`
+	StateCode        string                `json:"state_code,omitempty"`
+	State            string                `json:"state,omitempty"`
+	Zip              string                `json:"zip,omitempty"`
+	Country          string                `json:"country,omitempty"`
+	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+}
+type CheckoutOneTimeShippingAddressParams struct {
+	FirstName        string                `json:"first_name,omitempty"`
+	LastName         string                `json:"last_name,omitempty"`
+	Email            string                `json:"email,omitempty"`
+	Company          string                `json:"company,omitempty"`
+	Phone            string                `json:"phone,omitempty"`
+	Line1            string                `json:"line1,omitempty"`
+	Line2            string                `json:"line2,omitempty"`
+	Line3            string                `json:"line3,omitempty"`
+	City             string                `json:"city,omitempty"`
+	StateCode        string                `json:"state_code,omitempty"`
+	State            string                `json:"state,omitempty"`
+	Zip              string                `json:"zip,omitempty"`
+	Country          string                `json:"country,omitempty"`
+	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+}
+type CheckoutOneTimeForItemsCustomerParams struct {
+	Id                    string          `json:"id,omitempty"`
+	Email                 string          `json:"email,omitempty"`
+	FirstName             string          `json:"first_name,omitempty"`
+	LastName              string          `json:"last_name,omitempty"`
+	Company               string          `json:"company,omitempty"`
+	Taxability            enum.Taxability `json:"taxability,omitempty"`
+	Locale                string          `json:"locale,omitempty"`
+	Phone                 string          `json:"phone,omitempty"`
+	VatNumber             string          `json:"vat_number,omitempty"`
+	ConsolidatedInvoicing *bool           `json:"consolidated_invoicing,omitempty"`
+}
+type CheckoutOneTimeForItemsItemPriceParams struct {
+	ItemPriceId string `json:"item_price_id,omitempty"`
+	Quantity    *int32 `json:"quantity,omitempty"`
+	UnitPrice   *int32 `json:"unit_price,omitempty"`
+	DateFrom    *int64 `json:"date_from,omitempty"`
+	DateTo      *int64 `json:"date_to,omitempty"`
+}
+type CheckoutOneTimeForItemsItemTierParams struct {
+	ItemPriceId  string `json:"item_price_id,omitempty"`
+	StartingUnit *int32 `json:"starting_unit,omitempty"`
+	EndingUnit   *int32 `json:"ending_unit,omitempty"`
+	Price        *int32 `json:"price,omitempty"`
+}
+type CheckoutOneTimeForItemsChargeParams struct {
+	Amount                 *int32               `json:"amount,omitempty"`
+	AmountInDecimal        string               `json:"amount_in_decimal,omitempty"`
+	Description            string               `json:"description,omitempty"`
+	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
+	DateFrom               *int64               `json:"date_from,omitempty"`
+	DateTo                 *int64               `json:"date_to,omitempty"`
+}
+type CheckoutOneTimeForItemsInvoiceParams struct {
+	PoNumber string `json:"po_number,omitempty"`
+}
+type CheckoutOneTimeForItemsCardParams struct {
+	Gateway          enum.Gateway `json:"gateway,omitempty"`
+	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
+}
+type CheckoutOneTimeForItemsBillingAddressParams struct {
+	FirstName        string                `json:"first_name,omitempty"`
+	LastName         string                `json:"last_name,omitempty"`
+	Email            string                `json:"email,omitempty"`
+	Company          string                `json:"company,omitempty"`
+	Phone            string                `json:"phone,omitempty"`
+	Line1            string                `json:"line1,omitempty"`
+	Line2            string                `json:"line2,omitempty"`
+	Line3            string                `json:"line3,omitempty"`
+	City             string                `json:"city,omitempty"`
+	StateCode        string                `json:"state_code,omitempty"`
+	State            string                `json:"state,omitempty"`
+	Zip              string                `json:"zip,omitempty"`
+	Country          string                `json:"country,omitempty"`
+	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+}
+type CheckoutOneTimeForItemsShippingAddressParams struct {
+	FirstName        string                `json:"first_name,omitempty"`
+	LastName         string                `json:"last_name,omitempty"`
+	Email            string                `json:"email,omitempty"`
+	Company          string                `json:"company,omitempty"`
+	Phone            string                `json:"phone,omitempty"`
+	Line1            string                `json:"line1,omitempty"`
+	Line2            string                `json:"line2,omitempty"`
+	Line3            string                `json:"line3,omitempty"`
+	City             string                `json:"city,omitempty"`
+	StateCode        string                `json:"state_code,omitempty"`
+	State            string                `json:"state,omitempty"`
+	Zip              string                `json:"zip,omitempty"`
+	Country          string                `json:"country,omitempty"`
+	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+}
 type CheckoutNewForItemsRequestParams struct {
 	Subscription           *CheckoutNewForItemsSubscriptionParams       `json:"subscription,omitempty"`
 	Customer               *CheckoutNewForItemsCustomerParams           `json:"customer,omitempty"`
