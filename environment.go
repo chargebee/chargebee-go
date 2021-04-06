@@ -3,6 +3,7 @@ package chargebee
 import (
 	"errors"
 	"fmt"
+	"net/http"
 	"time"
 )
 
@@ -31,6 +32,11 @@ func Configure(key string, siteName string) {
 	}
 	DefaultEnv = Environment{Key: key, SiteName: siteName}
 }
+
+func WithHTTPClient(c *http.Client) {
+	httpClient = c
+}
+
 func (env *Environment) apiBaseUrl() string {
 	if env.Protocol == "" {
 		env.Protocol = "https"
