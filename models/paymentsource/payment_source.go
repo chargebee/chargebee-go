@@ -66,20 +66,22 @@ type Paypal struct {
 	Object      string `json:"object"`
 }
 type CreateUsingTempTokenRequestParams struct {
-	CustomerId                  string    `json:"customer_id"`
-	GatewayAccountId            string    `json:"gateway_account_id,omitempty"`
-	Type                        enum.Type `json:"type"`
-	TmpToken                    string    `json:"tmp_token"`
-	IssuingCountry              string    `json:"issuing_country,omitempty"`
-	ReplacePrimaryPaymentSource *bool     `json:"replace_primary_payment_source,omitempty"`
+	CustomerId                  string                 `json:"customer_id"`
+	GatewayAccountId            string                 `json:"gateway_account_id,omitempty"`
+	Type                        enum.Type              `json:"type"`
+	TmpToken                    string                 `json:"tmp_token"`
+	IssuingCountry              string                 `json:"issuing_country,omitempty"`
+	ReplacePrimaryPaymentSource *bool                  `json:"replace_primary_payment_source,omitempty"`
+	AdditionalInformation       map[string]interface{} `json:"additional_information,omitempty"`
 }
 type CreateUsingPermanentTokenRequestParams struct {
-	CustomerId                  string    `json:"customer_id"`
-	Type                        enum.Type `json:"type"`
-	GatewayAccountId            string    `json:"gateway_account_id,omitempty"`
-	ReferenceId                 string    `json:"reference_id"`
-	IssuingCountry              string    `json:"issuing_country,omitempty"`
-	ReplacePrimaryPaymentSource *bool     `json:"replace_primary_payment_source,omitempty"`
+	CustomerId                  string                 `json:"customer_id"`
+	Type                        enum.Type              `json:"type"`
+	GatewayAccountId            string                 `json:"gateway_account_id,omitempty"`
+	ReferenceId                 string                 `json:"reference_id"`
+	IssuingCountry              string                 `json:"issuing_country,omitempty"`
+	ReplacePrimaryPaymentSource *bool                  `json:"replace_primary_payment_source,omitempty"`
+	AdditionalInformation       map[string]interface{} `json:"additional_information,omitempty"`
 }
 type CreateUsingTokenRequestParams struct {
 	CustomerId                  string `json:"customer_id"`
@@ -92,12 +94,13 @@ type CreateUsingPaymentIntentRequestParams struct {
 	ReplacePrimaryPaymentSource *bool                                        `json:"replace_primary_payment_source,omitempty"`
 }
 type CreateUsingPaymentIntentPaymentIntentParams struct {
-	Id                string                 `json:"id,omitempty"`
-	GatewayAccountId  string                 `json:"gateway_account_id,omitempty"`
-	GwToken           string                 `json:"gw_token,omitempty"`
-	ReferenceId       string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInfo    map[string]interface{} `json:"additional_info,omitempty"`
+	Id                    string                 `json:"id,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                 `json:"gw_token,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInfo        map[string]interface{} `json:"additional_info,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type CreateCardRequestParams struct {
 	CustomerId                  string                `json:"customer_id"`
@@ -105,20 +108,21 @@ type CreateCardRequestParams struct {
 	ReplacePrimaryPaymentSource *bool                 `json:"replace_primary_payment_source,omitempty"`
 }
 type CreateCardCardParams struct {
-	GatewayAccountId string `json:"gateway_account_id,omitempty"`
-	FirstName        string `json:"first_name,omitempty"`
-	LastName         string `json:"last_name,omitempty"`
-	Number           string `json:"number"`
-	ExpiryMonth      *int32 `json:"expiry_month"`
-	ExpiryYear       *int32 `json:"expiry_year"`
-	Cvv              string `json:"cvv,omitempty"`
-	BillingAddr1     string `json:"billing_addr1,omitempty"`
-	BillingAddr2     string `json:"billing_addr2,omitempty"`
-	BillingCity      string `json:"billing_city,omitempty"`
-	BillingStateCode string `json:"billing_state_code,omitempty"`
-	BillingState     string `json:"billing_state,omitempty"`
-	BillingZip       string `json:"billing_zip,omitempty"`
-	BillingCountry   string `json:"billing_country,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	FirstName             string                 `json:"first_name,omitempty"`
+	LastName              string                 `json:"last_name,omitempty"`
+	Number                string                 `json:"number"`
+	ExpiryMonth           *int32                 `json:"expiry_month"`
+	ExpiryYear            *int32                 `json:"expiry_year"`
+	Cvv                   string                 `json:"cvv,omitempty"`
+	BillingAddr1          string                 `json:"billing_addr1,omitempty"`
+	BillingAddr2          string                 `json:"billing_addr2,omitempty"`
+	BillingCity           string                 `json:"billing_city,omitempty"`
+	BillingStateCode      string                 `json:"billing_state_code,omitempty"`
+	BillingState          string                 `json:"billing_state,omitempty"`
+	BillingZip            string                 `json:"billing_zip,omitempty"`
+	BillingCountry        string                 `json:"billing_country,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type CreateBankAccountRequestParams struct {
 	CustomerId                  string                              `json:"customer_id"`
@@ -141,6 +145,7 @@ type CreateBankAccountBankAccountParams struct {
 	AccountHolderType     enum.AccountHolderType `json:"account_holder_type,omitempty"`
 	EcheckType            enum.EcheckType        `json:"echeck_type,omitempty"`
 	SwedishIdentityNumber string                 `json:"swedish_identity_number,omitempty"`
+	BillingAddress        map[string]interface{} `json:"billing_address,omitempty"`
 }
 type UpdateCardRequestParams struct {
 	Card                 *UpdateCardCardParams  `json:"card,omitempty"`
@@ -172,6 +177,7 @@ type ListRequestParams struct {
 	Status     *filter.EnumFilter      `json:"status,omitempty"`
 	UpdatedAt  *filter.TimestampFilter `json:"updated_at,omitempty"`
 	CreatedAt  *filter.TimestampFilter `json:"created_at,omitempty"`
+	SortBy     *filter.SortFilter      `json:"sort_by,omitempty"`
 }
 type SwitchGatewayAccountRequestParams struct {
 	GatewayAccountId string `json:"gateway_account_id"`

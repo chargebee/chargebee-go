@@ -20,6 +20,7 @@ type Transaction struct {
 	Type                     transactionEnum.Type                `json:"type"`
 	Date                     int64                               `json:"date"`
 	SettledAt                int64                               `json:"settled_at"`
+	ExchangeRate             float64                             `json:"exchange_rate"`
 	CurrencyCode             string                              `json:"currency_code"`
 	Amount                   int32                               `json:"amount"`
 	IdAtGateway              string                              `json:"id_at_gateway"`
@@ -46,6 +47,7 @@ type Transaction struct {
 	LinkedRefunds            []*LinkedRefund                     `json:"linked_refunds"`
 	LinkedPayments           []*LinkedPayment                    `json:"linked_payments"`
 	Deleted                  bool                                `json:"deleted"`
+	MerchantReferenceId      string                              `json:"merchant_reference_id"`
 	Object                   string                              `json:"object"`
 }
 type LinkedInvoice struct {

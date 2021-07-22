@@ -66,12 +66,12 @@ type CreateGiftReceiverParams struct {
 	Email      string `json:"email"`
 }
 type CreatePaymentIntentParams struct {
-	Id                string                 `json:"id,omitempty"`
-	GatewayAccountId  string                 `json:"gateway_account_id,omitempty"`
-	GwToken           string                 `json:"gw_token,omitempty"`
-	ReferenceId       string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInfo    map[string]interface{} `json:"additional_info,omitempty"`
+	Id                    string                 `json:"id,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                 `json:"gw_token,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type CreateShippingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -124,12 +124,12 @@ type CreateForItemsGiftReceiverParams struct {
 	Email      string `json:"email"`
 }
 type CreateForItemsPaymentIntentParams struct {
-	Id                string                 `json:"id,omitempty"`
-	GatewayAccountId  string                 `json:"gateway_account_id,omitempty"`
-	GwToken           string                 `json:"gw_token,omitempty"`
-	ReferenceId       string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInfo    map[string]interface{} `json:"additional_info,omitempty"`
+	Id                    string                 `json:"id,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                 `json:"gw_token,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type CreateForItemsShippingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -148,16 +148,17 @@ type CreateForItemsShippingAddressParams struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
 type CreateForItemsSubscriptionItemParams struct {
-	ItemPriceId string `json:"item_price_id,omitempty"`
-	Quantity    *int32 `json:"quantity,omitempty"`
+	ItemPriceId       string `json:"item_price_id,omitempty"`
+	Quantity          *int32 `json:"quantity,omitempty"`
+	QuantityInDecimal string `json:"quantity_in_decimal,omitempty"`
 }
 type CartGiftCreateSubscriptionParams struct {
 	Id                     string                    `json:"id,omitempty"`
-	PlanUnitPriceInDecimal string                    `json:"plan_unit_price_in_decimal,omitempty"`
-	PlanQuantityInDecimal  string                    `json:"plan_quantity_in_decimal,omitempty"`
 	PlanId                 string                    `json:"plan_id"`
 	PlanQuantity           *int32                    `json:"plan_quantity,omitempty"`
+	PlanQuantityInDecimal  string                    `json:"plan_quantity_in_decimal,omitempty"`
 	PlanUnitPrice          *int32                    `json:"plan_unit_price,omitempty"`
+	PlanUnitPriceInDecimal string                    `json:"plan_unit_price_in_decimal,omitempty"`
 	SetupFee               *int32                    `json:"setup_fee,omitempty"`
 	TrialEnd               *int64                    `json:"trial_end,omitempty"`
 	StartDate              *int64                    `json:"start_date,omitempty"`
@@ -206,6 +207,7 @@ type CartGiftCreateShippingAddressParams struct {
 }
 type CartGiftCreateCustomerParams struct {
 	VatNumber        string          `json:"vat_number,omitempty"`
+	VatNumberPrefix  string          `json:"vat_number_prefix,omitempty"`
 	RegisteredForGst *bool           `json:"registered_for_gst,omitempty"`
 	Taxability       enum.Taxability `json:"taxability,omitempty"`
 	EntityCode       enum.EntityCode `json:"entity_code,omitempty"`
@@ -213,11 +215,11 @@ type CartGiftCreateCustomerParams struct {
 }
 type CartGiftCreateForCustomerSubscriptionParams struct {
 	Id                     string                    `json:"id,omitempty"`
-	PlanUnitPriceInDecimal string                    `json:"plan_unit_price_in_decimal,omitempty"`
-	PlanQuantityInDecimal  string                    `json:"plan_quantity_in_decimal,omitempty"`
 	PlanId                 string                    `json:"plan_id"`
 	PlanQuantity           *int32                    `json:"plan_quantity,omitempty"`
+	PlanQuantityInDecimal  string                    `json:"plan_quantity_in_decimal,omitempty"`
 	PlanUnitPrice          *int32                    `json:"plan_unit_price,omitempty"`
+	PlanUnitPriceInDecimal string                    `json:"plan_unit_price_in_decimal,omitempty"`
 	SetupFee               *int32                    `json:"setup_fee,omitempty"`
 	TrialEnd               *int64                    `json:"trial_end,omitempty"`
 	StartDate              *int64                    `json:"start_date,omitempty"`

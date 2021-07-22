@@ -21,10 +21,11 @@ type CreateRequestParams struct {
 	Description string `json:"description,omitempty"`
 }
 type ListRequestParams struct {
-	Limit  *int32               `json:"limit,omitempty"`
-	Offset string               `json:"offset,omitempty"`
-	Id     *filter.StringFilter `json:"id,omitempty"`
-	Name   *filter.StringFilter `json:"name,omitempty"`
+	Limit     *int32                  `json:"limit,omitempty"`
+	Offset    string                  `json:"offset,omitempty"`
+	Id        *filter.StringFilter    `json:"id,omitempty"`
+	Name      *filter.StringFilter    `json:"name,omitempty"`
+	UpdatedAt *filter.TimestampFilter `json:"updated_at,omitempty"`
 }
 type UpdateRequestParams struct {
 	Name        string `json:"name,omitempty"`

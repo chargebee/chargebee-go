@@ -9,6 +9,7 @@ type SubscriptionEstimate struct {
 	Id              string                          `json:"id"`
 	CurrencyCode    string                          `json:"currency_code"`
 	Status          subscriptionEstimateEnum.Status `json:"status"`
+	TrialEndAction  enum.TrialEndAction             `json:"trial_end_action"`
 	NextBillingAt   int64                           `json:"next_billing_at"`
 	PauseDate       int64                           `json:"pause_date"`
 	ResumeDate      int64                           `json:"resume_date"`

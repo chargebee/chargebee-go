@@ -325,13 +325,17 @@ type OrdersOrderParams struct {
 	RefundableCredits       *filter.NumberFilter    `json:"refundable_credits,omitempty"`
 	RefundableCreditsIssued *filter.NumberFilter    `json:"refundable_credits_issued,omitempty"`
 	UpdatedAt               *filter.TimestampFilter `json:"updated_at,omitempty"`
+	ResentStatus            *filter.EnumFilter      `json:"resent_status,omitempty"`
+	IsResent                *filter.BooleanFilter   `json:"is_resent,omitempty"`
+	OriginalOrderId         *filter.StringFilter    `json:"original_order_id,omitempty"`
 }
 type ItemFamiliesRequestParams struct {
 	ItemFamily *ItemFamiliesItemFamilyParams `json:"item_family,omitempty"`
 }
 type ItemFamiliesItemFamilyParams struct {
-	Id   *filter.StringFilter `json:"id,omitempty"`
-	Name *filter.StringFilter `json:"name,omitempty"`
+	Id        *filter.StringFilter    `json:"id,omitempty"`
+	Name      *filter.StringFilter    `json:"name,omitempty"`
+	UpdatedAt *filter.TimestampFilter `json:"updated_at,omitempty"`
 }
 type ItemsRequestParams struct {
 	Item *ItemsItemParams `json:"item,omitempty"`

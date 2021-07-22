@@ -2,7 +2,6 @@ package order
 
 import (
 	"fmt"
-
 	"github.com/chargebee/chargebee-go"
 	"github.com/chargebee/chargebee-go/models/order"
 )
@@ -39,4 +38,7 @@ func List(params *order.ListRequestParams) chargebee.RequestObj {
 }
 func OrdersForInvoice(id string, params *order.OrdersForInvoiceRequestParams) chargebee.RequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/invoices/%v/orders", id), params)
+}
+func Resend(id string, params *order.ResendRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/orders/%v/resend", id), params)
 }

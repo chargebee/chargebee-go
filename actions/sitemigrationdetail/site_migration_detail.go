@@ -2,7 +2,6 @@ package sitemigrationdetail
 
 import (
 	"fmt"
-
 	"github.com/chargebee/chargebee-go"
 	"github.com/chargebee/chargebee-go/models/sitemigrationdetail"
 )

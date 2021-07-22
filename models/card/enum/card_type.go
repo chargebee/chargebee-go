@@ -9,6 +9,7 @@ const (
 	CardTypeDiscover        CardType = "discover"
 	CardTypeJcb             CardType = "jcb"
 	CardTypeDinersClub      CardType = "diners_club"
+	CardTypeBancontact      CardType = "bancontact"
 	CardTypeOther           CardType = "other"
 	CardTypeNotApplicable   CardType = "not_applicable"
 )

@@ -7,4 +7,5 @@ const (
 	LineItemDiscountDiscountTypeDocumentLevelCoupon LineItemDiscountDiscountType = "document_level_coupon"
 	LineItemDiscountDiscountTypePromotionalCredits  LineItemDiscountDiscountType = "promotional_credits"
 	LineItemDiscountDiscountTypeProratedCredits     LineItemDiscountDiscountType = "prorated_credits"
+	LineItemDiscountDiscountTypeCustomDiscount      LineItemDiscountDiscountType = "custom_discount"
 )

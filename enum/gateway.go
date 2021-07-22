@@ -39,5 +39,7 @@ const (
 	GatewayVantiv                Gateway = "vantiv"
 	GatewayCheckoutCom           Gateway = "checkout_com"
 	GatewayPaypal                Gateway = "paypal"
+	GatewayIngenicoDirect        Gateway = "ingenico_direct"
+	GatewayExact                 Gateway = "exact"
 	GatewayNotApplicable         Gateway = "not_applicable"
 )

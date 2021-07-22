@@ -44,6 +44,7 @@ type CreditNote struct {
 	Allocations             []*Allocation             `json:"allocations"`
 	Deleted                 bool                      `json:"deleted"`
 	CreateReasonCode        string                    `json:"create_reason_code"`
+	VatNumberPrefix         string                    `json:"vat_number_prefix"`
 	Object                  string                    `json:"object"`
 }
 type LineItem struct {
@@ -82,6 +83,7 @@ type LineItemDiscount struct {
 	LineItemId     string                                      `json:"line_item_id"`
 	DiscountType   creditNoteEnum.LineItemDiscountDiscountType `json:"discount_type"`
 	CouponId       string                                      `json:"coupon_id"`
+	EntityId       string                                      `json:"entity_id"`
 	DiscountAmount int32                                       `json:"discount_amount"`
 	Object         string                                      `json:"object"`
 }

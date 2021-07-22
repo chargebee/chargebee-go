@@ -81,6 +81,7 @@ type LineItemDiscount struct {
 	LineItemId     string                                              `json:"line_item_id"`
 	DiscountType   creditNoteEstimateEnum.LineItemDiscountDiscountType `json:"discount_type"`
 	CouponId       string                                              `json:"coupon_id"`
+	EntityId       string                                              `json:"entity_id"`
 	DiscountAmount int32                                               `json:"discount_amount"`
 	Object         string                                              `json:"object"`
 }

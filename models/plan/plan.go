@@ -2,7 +2,6 @@ package plan
 
 import (
 	"encoding/json"
-
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
 	planEnum "github.com/chargebee/chargebee-go/models/plan/enum"
@@ -19,6 +18,7 @@ type Plan struct {
 	PeriodUnit                  planEnum.PeriodUnit                  `json:"period_unit"`
 	TrialPeriod                 int32                                `json:"trial_period"`
 	TrialPeriodUnit             planEnum.TrialPeriodUnit             `json:"trial_period_unit"`
+	TrialEndAction              planEnum.TrialEndAction              `json:"trial_end_action"`
 	PricingModel                enum.PricingModel                    `json:"pricing_model"`
 	ChargeModel                 planEnum.ChargeModel                 `json:"charge_model"`
 	FreeQuantity                int32                                `json:"free_quantity"`
@@ -40,6 +40,8 @@ type Plan struct {
 	AccountingCode              string                               `json:"accounting_code"`
 	AccountingCategory1         string                               `json:"accounting_category1"`
 	AccountingCategory2         string                               `json:"accounting_category2"`
+	AccountingCategory3         string                               `json:"accounting_category3"`
+	AccountingCategory4         string                               `json:"accounting_category4"`
 	IsShippable                 bool                                 `json:"is_shippable"`
 	ShippingFrequencyPeriod     int32                                `json:"shipping_frequency_period"`
 	ShippingFrequencyPeriodUnit planEnum.ShippingFrequencyPeriodUnit `json:"shipping_frequency_period_unit"`
@@ -98,6 +100,7 @@ type CreateRequestParams struct {
 	Description                 string                               `json:"description,omitempty"`
 	TrialPeriod                 *int32                               `json:"trial_period,omitempty"`
 	TrialPeriodUnit             planEnum.TrialPeriodUnit             `json:"trial_period_unit,omitempty"`
+	TrialEndAction              planEnum.TrialEndAction              `json:"trial_end_action,omitempty"`
 	Period                      *int32                               `json:"period,omitempty"`
 	PeriodUnit                  planEnum.PeriodUnit                  `json:"period_unit,omitempty"`
 	SetupCost                   *int32                               `json:"setup_cost,omitempty"`
@@ -126,6 +129,8 @@ type CreateRequestParams struct {
 	AccountingCode              string                               `json:"accounting_code,omitempty"`
 	AccountingCategory1         string                               `json:"accounting_category1,omitempty"`
 	AccountingCategory2         string                               `json:"accounting_category2,omitempty"`
+	AccountingCategory3         string                               `json:"accounting_category3,omitempty"`
+	AccountingCategory4         string                               `json:"accounting_category4,omitempty"`
 	IsShippable                 *bool                                `json:"is_shippable,omitempty"`
 	ShippingFrequencyPeriod     *int32                               `json:"shipping_frequency_period,omitempty"`
 	ShippingFrequencyPeriodUnit planEnum.ShippingFrequencyPeriodUnit `json:"shipping_frequency_period_unit,omitempty"`
@@ -171,6 +176,7 @@ type UpdateRequestParams struct {
 	Description                 string                               `json:"description,omitempty"`
 	TrialPeriod                 *int32                               `json:"trial_period,omitempty"`
 	TrialPeriodUnit             planEnum.TrialPeriodUnit             `json:"trial_period_unit,omitempty"`
+	TrialEndAction              planEnum.TrialEndAction              `json:"trial_end_action,omitempty"`
 	Period                      *int32                               `json:"period,omitempty"`
 	PeriodUnit                  planEnum.PeriodUnit                  `json:"period_unit,omitempty"`
 	SetupCost                   *int32                               `json:"setup_cost,omitempty"`
@@ -199,6 +205,8 @@ type UpdateRequestParams struct {
 	AccountingCode              string                               `json:"accounting_code,omitempty"`
 	AccountingCategory1         string                               `json:"accounting_category1,omitempty"`
 	AccountingCategory2         string                               `json:"accounting_category2,omitempty"`
+	AccountingCategory3         string                               `json:"accounting_category3,omitempty"`
+	AccountingCategory4         string                               `json:"accounting_category4,omitempty"`
 	IsShippable                 *bool                                `json:"is_shippable,omitempty"`
 	ShippingFrequencyPeriod     *int32                               `json:"shipping_frequency_period,omitempty"`
 	ShippingFrequencyPeriodUnit planEnum.ShippingFrequencyPeriodUnit `json:"shipping_frequency_period_unit,omitempty"`

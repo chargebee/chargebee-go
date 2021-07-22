@@ -2,7 +2,7 @@ package coupon
 
 import (
 	"encoding/json"
-
+	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
 	couponEnum "github.com/chargebee/chargebee-go/models/coupon/enum"
 )
@@ -30,6 +30,8 @@ type Coupon struct {
 	ResourceVersion        int64                      `json:"resource_version"`
 	UpdatedAt              int64                      `json:"updated_at"`
 	IncludedInMrr          bool                       `json:"included_in_mrr"`
+	Period                 int32                      `json:"period"`
+	PeriodUnit             enum.PeriodUnit            `json:"period_unit"`
 	PlanIds                []string                   `json:"plan_ids"`
 	AddonIds               []string                   `json:"addon_ids"`
 	ItemConstraints        []*ItemConstraint          `json:"item_constraints"`
@@ -69,6 +71,8 @@ type CreateRequestParams struct {
 	InvoiceNotes       string                     `json:"invoice_notes,omitempty"`
 	MetaData           map[string]interface{}     `json:"meta_data,omitempty"`
 	IncludedInMrr      *bool                      `json:"included_in_mrr,omitempty"`
+	Period             *int32                     `json:"period,omitempty"`
+	PeriodUnit         enum.PeriodUnit            `json:"period_unit,omitempty"`
 	PlanConstraint     couponEnum.PlanConstraint  `json:"plan_constraint,omitempty"`
 	AddonConstraint    couponEnum.AddonConstraint `json:"addon_constraint,omitempty"`
 	PlanIds            []string                   `json:"plan_ids,omitempty"`
@@ -92,6 +96,8 @@ type CreateForItemsRequestParams struct {
 	InvoiceNotes           string                                        `json:"invoice_notes,omitempty"`
 	MetaData               map[string]interface{}                        `json:"meta_data,omitempty"`
 	IncludedInMrr          *bool                                         `json:"included_in_mrr,omitempty"`
+	Period                 *int32                                        `json:"period,omitempty"`
+	PeriodUnit             enum.PeriodUnit                               `json:"period_unit,omitempty"`
 	ItemConstraints        []*CreateForItemsItemConstraintParams         `json:"item_constraints,omitempty"`
 	ItemConstraintCriteria []*CreateForItemsItemConstraintCriteriaParams `json:"item_constraint_criteria,omitempty"`
 	Status                 couponEnum.Status                             `json:"status,omitempty"`
@@ -122,6 +128,8 @@ type UpdateForItemsRequestParams struct {
 	InvoiceNotes           string                                        `json:"invoice_notes,omitempty"`
 	MetaData               map[string]interface{}                        `json:"meta_data,omitempty"`
 	IncludedInMrr          *bool                                         `json:"included_in_mrr,omitempty"`
+	Period                 *int32                                        `json:"period,omitempty"`
+	PeriodUnit             enum.PeriodUnit                               `json:"period_unit,omitempty"`
 	ItemConstraints        []*UpdateForItemsItemConstraintParams         `json:"item_constraints,omitempty"`
 	ItemConstraintCriteria []*UpdateForItemsItemConstraintCriteriaParams `json:"item_constraint_criteria,omitempty"`
 }
@@ -137,18 +145,19 @@ type UpdateForItemsItemConstraintCriteriaParams struct {
 	ItemPricePeriods []map[string]interface{}                  `json:"item_price_periods,omitempty"`
 }
 type ListRequestParams struct {
-	Limit        *int32                  `json:"limit,omitempty"`
-	Offset       string                  `json:"offset,omitempty"`
-	Id           *filter.StringFilter    `json:"id,omitempty"`
-	Name         *filter.StringFilter    `json:"name,omitempty"`
-	DiscountType *filter.EnumFilter      `json:"discount_type,omitempty"`
-	DurationType *filter.EnumFilter      `json:"duration_type,omitempty"`
-	Status       *filter.EnumFilter      `json:"status,omitempty"`
-	ApplyOn      *filter.EnumFilter      `json:"apply_on,omitempty"`
-	CreatedAt    *filter.TimestampFilter `json:"created_at,omitempty"`
-	UpdatedAt    *filter.TimestampFilter `json:"updated_at,omitempty"`
-	SortBy       *filter.SortFilter      `json:"sort_by,omitempty"`
-	CurrencyCode *filter.StringFilter    `json:"currency_code,omitempty"`
+	Limit            *int32                  `json:"limit,omitempty"`
+	Offset           string                  `json:"offset,omitempty"`
+	Id               *filter.StringFilter    `json:"id,omitempty"`
+	Name             *filter.StringFilter    `json:"name,omitempty"`
+	DiscountType     *filter.EnumFilter      `json:"discount_type,omitempty"`
+	DurationType     *filter.EnumFilter      `json:"duration_type,omitempty"`
+	Status           *filter.EnumFilter      `json:"status,omitempty"`
+	ApplyOn          *filter.EnumFilter      `json:"apply_on,omitempty"`
+	CreatedAt        *filter.TimestampFilter `json:"created_at,omitempty"`
+	UpdatedAt        *filter.TimestampFilter `json:"updated_at,omitempty"`
+	SortBy           *filter.SortFilter      `json:"sort_by,omitempty"`
+	CurrencyCode     *filter.StringFilter    `json:"currency_code,omitempty"`
+	IncludeDiscounts *bool                   `json:"include_discounts,omitempty"`
 }
 type UpdateRequestParams struct {
 	Name               string                     `json:"name,omitempty"`
@@ -165,6 +174,8 @@ type UpdateRequestParams struct {
 	InvoiceNotes       string                     `json:"invoice_notes,omitempty"`
 	MetaData           map[string]interface{}     `json:"meta_data,omitempty"`
 	IncludedInMrr      *bool                      `json:"included_in_mrr,omitempty"`
+	Period             *int32                     `json:"period,omitempty"`
+	PeriodUnit         enum.PeriodUnit            `json:"period_unit,omitempty"`
 	PlanConstraint     couponEnum.PlanConstraint  `json:"plan_constraint,omitempty"`
 	AddonConstraint    couponEnum.AddonConstraint `json:"addon_constraint,omitempty"`
 	PlanIds            []string                   `json:"plan_ids,omitempty"`

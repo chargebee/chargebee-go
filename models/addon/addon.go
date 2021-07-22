@@ -2,7 +2,6 @@ package addon
 
 import (
 	"encoding/json"
-
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
 	addonEnum "github.com/chargebee/chargebee-go/models/addon/enum"
@@ -33,6 +32,8 @@ type Addon struct {
 	AccountingCode              string                                `json:"accounting_code"`
 	AccountingCategory1         string                                `json:"accounting_category1"`
 	AccountingCategory2         string                                `json:"accounting_category2"`
+	AccountingCategory3         string                                `json:"accounting_category3"`
+	AccountingCategory4         string                                `json:"accounting_category4"`
 	IsShippable                 bool                                  `json:"is_shippable"`
 	ShippingFrequencyPeriod     int32                                 `json:"shipping_frequency_period"`
 	ShippingFrequencyPeriodUnit addonEnum.ShippingFrequencyPeriodUnit `json:"shipping_frequency_period_unit"`
@@ -87,6 +88,8 @@ type CreateRequestParams struct {
 	AccountingCode              string                                `json:"accounting_code,omitempty"`
 	AccountingCategory1         string                                `json:"accounting_category1,omitempty"`
 	AccountingCategory2         string                                `json:"accounting_category2,omitempty"`
+	AccountingCategory3         string                                `json:"accounting_category3,omitempty"`
+	AccountingCategory4         string                                `json:"accounting_category4,omitempty"`
 	IsShippable                 *bool                                 `json:"is_shippable,omitempty"`
 	ShippingFrequencyPeriod     *int32                                `json:"shipping_frequency_period,omitempty"`
 	ShippingFrequencyPeriodUnit addonEnum.ShippingFrequencyPeriodUnit `json:"shipping_frequency_period_unit,omitempty"`
@@ -131,6 +134,8 @@ type UpdateRequestParams struct {
 	AccountingCode              string                                `json:"accounting_code,omitempty"`
 	AccountingCategory1         string                                `json:"accounting_category1,omitempty"`
 	AccountingCategory2         string                                `json:"accounting_category2,omitempty"`
+	AccountingCategory3         string                                `json:"accounting_category3,omitempty"`
+	AccountingCategory4         string                                `json:"accounting_category4,omitempty"`
 	IsShippable                 *bool                                 `json:"is_shippable,omitempty"`
 	ShippingFrequencyPeriod     *int32                                `json:"shipping_frequency_period,omitempty"`
 	ShippingFrequencyPeriodUnit addonEnum.ShippingFrequencyPeriodUnit `json:"shipping_frequency_period_unit,omitempty"`

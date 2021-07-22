@@ -3,7 +3,6 @@ package hostedpage
 import (
 	"encoding/json"
 	"fmt"
-
 	"github.com/chargebee/chargebee-go"
 	"github.com/chargebee/chargebee-go/models/hostedpage"
 )
@@ -13,6 +12,9 @@ func CheckoutNew(params *hostedpage.CheckoutNewRequestParams) chargebee.RequestO
 }
 func CheckoutOneTime(params *hostedpage.CheckoutOneTimeRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/checkout_one_time"), params)
+}
+func CheckoutOneTimeForItems(params *hostedpage.CheckoutOneTimeForItemsRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/checkout_one_time_for_items"), params)
 }
 func CheckoutNewForItems(params *hostedpage.CheckoutNewForItemsRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/checkout_new_for_items"), params)
@@ -43,6 +45,9 @@ func ExtendSubscription(params *hostedpage.ExtendSubscriptionRequestParams) char
 }
 func CheckoutGift(params *hostedpage.CheckoutGiftRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/checkout_gift"), params)
+}
+func CheckoutGiftForItems(params *hostedpage.CheckoutGiftForItemsRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/checkout_gift_for_items"), params)
 }
 func ClaimGift(params *hostedpage.ClaimGiftRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/claim_gift"), params)

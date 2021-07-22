@@ -16,4 +16,5 @@ const (
 	CancellationReasonSubscriptionCancelled  CancellationReason = "subscription_cancelled"
 	CancellationReasonProductNotAvailable    CancellationReason = "product_not_available"
 	CancellationReasonOthers                 CancellationReason = "others"
+	CancellationReasonOrderResent            CancellationReason = "order_resent"
 )

@@ -2,7 +2,6 @@ package item
 
 import (
 	"encoding/json"
-
 	"github.com/chargebee/chargebee-go/filter"
 	itemEnum "github.com/chargebee/chargebee-go/models/item/enum"
 )
@@ -27,6 +26,7 @@ type Item struct {
 	Unit                 string                     `json:"unit"`
 	Metered              bool                       `json:"metered"`
 	UsageCalculation     itemEnum.UsageCalculation  `json:"usage_calculation"`
+	ArchivedAt           int64                      `json:"archived_at"`
 	ApplicableItems      []*ApplicableItem          `json:"applicable_items"`
 	Metadata             json.RawMessage            `json:"metadata"`
 	CustomField          map[string]interface{}     `json:"custom_field"`
@@ -71,6 +71,7 @@ type UpdateRequestParams struct {
 	GiftClaimRedirectUrl string                     `json:"gift_claim_redirect_url,omitempty"`
 	Metadata             map[string]interface{}     `json:"metadata,omitempty"`
 	IncludedInMrr        *bool                      `json:"included_in_mrr,omitempty"`
+	Status               itemEnum.Status            `json:"status,omitempty"`
 }
 type ListRequestParams struct {
 	Limit              *int32                  `json:"limit,omitempty"`
@@ -87,6 +88,7 @@ type ListRequestParams struct {
 	EnabledInPortal    *filter.BooleanFilter   `json:"enabled_in_portal,omitempty"`
 	Metered            *filter.BooleanFilter   `json:"metered,omitempty"`
 	UsageCalculation   *filter.EnumFilter      `json:"usage_calculation,omitempty"`
+	SortBy             *filter.SortFilter      `json:"sort_by,omitempty"`
 }
 type ListInternalItemPriceParams struct {
 	CurrencyCode *filter.StringFilter `json:"currency_code,omitempty"`

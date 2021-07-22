@@ -43,6 +43,7 @@ type ListRequestParams struct {
 	ItemPriceId    *filter.StringFilter    `json:"item_price_id,omitempty"`
 	InvoiceId      *filter.StringFilter    `json:"invoice_id,omitempty"`
 	Source         *filter.EnumFilter      `json:"source,omitempty"`
+	SortBy         *filter.SortFilter      `json:"sort_by,omitempty"`
 }
 type PdfRequestParams struct {
 	Invoice         *PdfInvoiceParams    `json:"invoice,omitempty"`

@@ -24,6 +24,7 @@ type Order struct {
 	ShippingDate            int64                        `json:"shipping_date"`
 	Note                    string                       `json:"note"`
 	TrackingId              string                       `json:"tracking_id"`
+	TrackingUrl             string                       `json:"tracking_url"`
 	BatchId                 string                       `json:"batch_id"`
 	CreatedBy               string                       `json:"created_by"`
 	ShipmentCarrier         string                       `json:"shipment_carrier"`
@@ -43,6 +44,9 @@ type Order struct {
 	ResourceVersion         int64                        `json:"resource_version"`
 	UpdatedAt               int64                        `json:"updated_at"`
 	CancelledAt             int64                        `json:"cancelled_at"`
+	ResentStatus            orderEnum.ResentStatus       `json:"resent_status"`
+	IsResent                bool                         `json:"is_resent"`
+	OriginalOrderId         string                       `json:"original_order_id"`
 	OrderLineItems          []*OrderLineItem             `json:"order_line_items"`
 	ShippingAddress         *ShippingAddress             `json:"shipping_address"`
 	BillingAddress          *BillingAddress              `json:"billing_address"`
@@ -57,6 +61,8 @@ type Order struct {
 	IsGifted                bool                         `json:"is_gifted"`
 	GiftNote                string                       `json:"gift_note"`
 	GiftId                  string                       `json:"gift_id"`
+	ResendReason            string                       `json:"resend_reason"`
+	ResentOrders            []*ResentOrder               `json:"resent_orders"`
 	Object                  string                       `json:"object"`
 }
 type OrderLineItem struct {
@@ -147,15 +153,22 @@ type LinkedCreditNote struct {
 	AmountRefunded int32                                     `json:"amount_refunded"`
 	Object         string                                    `json:"object"`
 }
+type ResentOrder struct {
+	OrderId string `json:"order_id"`
+	Reason  string `json:"reason"`
+	Amount  int32  `json:"amount"`
+	Object  string `json:"object"`
+}
 type CreateRequestParams struct {
-	Id                string           `json:"id,omitempty"`
-	InvoiceId         string           `json:"invoice_id"`
-	Status            orderEnum.Status `json:"status,omitempty"`
-	ReferenceId       string           `json:"reference_id,omitempty"`
-	FulfillmentStatus string           `json:"fulfillment_status,omitempty"`
-	Note              string           `json:"note,omitempty"`
-	TrackingId        string           `json:"tracking_id,omitempty"`
-	BatchId           string           `json:"batch_id,omitempty"`
+	Id                string      `json:"id,omitempty"`
+	InvoiceId         string      `json:"invoice_id"`
+	Status            enum.Status `json:"status,omitempty"`
+	ReferenceId       string      `json:"reference_id,omitempty"`
+	FulfillmentStatus string      `json:"fulfillment_status,omitempty"`
+	Note              string      `json:"note,omitempty"`
+	TrackingId        string      `json:"tracking_id,omitempty"`
+	TrackingUrl       string      `json:"tracking_url,omitempty"`
+	BatchId           string      `json:"batch_id,omitempty"`
 }
 type UpdateRequestParams struct {
 	ReferenceId        string                       `json:"reference_id,omitempty"`
@@ -168,6 +181,7 @@ type UpdateRequestParams struct {
 	ShippedAt          *int64                       `json:"shipped_at,omitempty"`
 	DeliveredAt        *int64                       `json:"delivered_at,omitempty"`
 	OrderLineItems     []*UpdateOrderLineItemParams `json:"order_line_items,omitempty"`
+	TrackingUrl        string                       `json:"tracking_url,omitempty"`
 	TrackingId         string                       `json:"tracking_id,omitempty"`
 	ShipmentCarrier    string                       `json:"shipment_carrier,omitempty"`
 	FulfillmentStatus  string                       `json:"fulfillment_status,omitempty"`
@@ -209,6 +223,7 @@ type ImportOrderRequestParams struct {
 	FulfillmentStatus       string                            `json:"fulfillment_status,omitempty"`
 	Note                    string                            `json:"note,omitempty"`
 	TrackingId              string                            `json:"tracking_id,omitempty"`
+	TrackingUrl             string                            `json:"tracking_url,omitempty"`
 	BatchId                 string                            `json:"batch_id,omitempty"`
 	ShipmentCarrier         string                            `json:"shipment_carrier,omitempty"`
 	ShippingCutOffDate      *int64                            `json:"shipping_cut_off_date,omitempty"`
@@ -287,9 +302,21 @@ type ListRequestParams struct {
 	PaidOn                    *filter.TimestampFilter `json:"paid_on,omitempty"`
 	UpdatedAt                 *filter.TimestampFilter `json:"updated_at,omitempty"`
 	CreatedAt                 *filter.TimestampFilter `json:"created_at,omitempty"`
+	ResentStatus              *filter.EnumFilter      `json:"resent_status,omitempty"`
+	IsResent                  *filter.BooleanFilter   `json:"is_resent,omitempty"`
+	OriginalOrderId           *filter.StringFilter    `json:"original_order_id,omitempty"`
 	SortBy                    *filter.SortFilter      `json:"sort_by,omitempty"`
 }
 type OrdersForInvoiceRequestParams struct {
 	Limit  *int32 `json:"limit,omitempty"`
 	Offset string `json:"offset,omitempty"`
+}
+type ResendRequestParams struct {
+	ShippingDate   *int64                       `json:"shipping_date,omitempty"`
+	ResendReason   string                       `json:"resend_reason,omitempty"`
+	OrderLineItems []*ResendOrderLineItemParams `json:"order_line_items,omitempty"`
+}
+type ResendOrderLineItemParams struct {
+	Id                  string `json:"id,omitempty"`
+	FulfillmentQuantity *int32 `json:"fulfillment_quantity,omitempty"`
 }

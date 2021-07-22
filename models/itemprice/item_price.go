@@ -2,7 +2,6 @@ package itemprice
 
 import (
 	"encoding/json"
-
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
 	itemPriceEnum "github.com/chargebee/chargebee-go/models/itemprice/enum"
@@ -18,20 +17,22 @@ type ItemPrice struct {
 	ExternalName              string                           `json:"external_name"`
 	PricingModel              enum.PricingModel                `json:"pricing_model"`
 	Price                     int32                            `json:"price"`
+	PriceInDecimal            string                           `json:"price_in_decimal"`
 	Period                    int32                            `json:"period"`
 	CurrencyCode              string                           `json:"currency_code"`
 	PeriodUnit                itemPriceEnum.PeriodUnit         `json:"period_unit"`
 	TrialPeriod               int32                            `json:"trial_period"`
 	TrialPeriodUnit           itemPriceEnum.TrialPeriodUnit    `json:"trial_period_unit"`
+	TrialEndAction            itemPriceEnum.TrialEndAction     `json:"trial_end_action"`
 	ShippingPeriod            int32                            `json:"shipping_period"`
 	ShippingPeriodUnit        itemPriceEnum.ShippingPeriodUnit `json:"shipping_period_unit"`
 	BillingCycles             int32                            `json:"billing_cycles"`
 	FreeQuantity              int32                            `json:"free_quantity"`
 	FreeQuantityInDecimal     string                           `json:"free_quantity_in_decimal"`
-	PriceInDecimal            string                           `json:"price_in_decimal"`
 	ResourceVersion           int64                            `json:"resource_version"`
 	UpdatedAt                 int64                            `json:"updated_at"`
 	CreatedAt                 int64                            `json:"created_at"`
+	ArchivedAt                int64                            `json:"archived_at"`
 	InvoiceNotes              string                           `json:"invoice_notes"`
 	Tiers                     []*Tier                          `json:"tiers"`
 	IsTaxable                 bool                             `json:"is_taxable"`
@@ -69,6 +70,8 @@ type AccountingDetail struct {
 	AccountingCode      string `json:"accounting_code"`
 	AccountingCategory1 string `json:"accounting_category1"`
 	AccountingCategory2 string `json:"accounting_category2"`
+	AccountingCategory3 string `json:"accounting_category3"`
+	AccountingCategory4 string `json:"accounting_category4"`
 	Object              string `json:"object"`
 }
 type CreateRequestParams struct {
@@ -81,12 +84,14 @@ type CreateRequestParams struct {
 	CurrencyCode              string                           `json:"currency_code,omitempty"`
 	IsTaxable                 *bool                            `json:"is_taxable,omitempty"`
 	FreeQuantity              *int32                           `json:"free_quantity,omitempty"`
+	FreeQuantityInDecimal     string                           `json:"free_quantity_in_decimal,omitempty"`
 	Metadata                  map[string]interface{}           `json:"metadata,omitempty"`
 	ShowDescriptionInInvoices *bool                            `json:"show_description_in_invoices,omitempty"`
 	ShowDescriptionInQuotes   *bool                            `json:"show_description_in_quotes,omitempty"`
 	PricingModel              enum.PricingModel                `json:"pricing_model,omitempty"`
 	Tiers                     []*CreateTierParams              `json:"tiers,omitempty"`
 	Price                     *int32                           `json:"price,omitempty"`
+	PriceInDecimal            string                           `json:"price_in_decimal,omitempty"`
 	PeriodUnit                itemPriceEnum.PeriodUnit         `json:"period_unit,omitempty"`
 	Period                    *int32                           `json:"period,omitempty"`
 	TrialPeriodUnit           itemPriceEnum.TrialPeriodUnit    `json:"trial_period_unit,omitempty"`
@@ -94,13 +99,17 @@ type CreateRequestParams struct {
 	ShippingPeriod            *int32                           `json:"shipping_period,omitempty"`
 	ShippingPeriodUnit        itemPriceEnum.ShippingPeriodUnit `json:"shipping_period_unit,omitempty"`
 	BillingCycles             *int32                           `json:"billing_cycles,omitempty"`
+	TrialEndAction            itemPriceEnum.TrialEndAction     `json:"trial_end_action,omitempty"`
 	TaxDetail                 *CreateTaxDetailParams           `json:"tax_detail,omitempty"`
 	AccountingDetail          *CreateAccountingDetailParams    `json:"accounting_detail,omitempty"`
 }
 type CreateTierParams struct {
-	StartingUnit *int32 `json:"starting_unit,omitempty"`
-	EndingUnit   *int32 `json:"ending_unit,omitempty"`
-	Price        *int32 `json:"price,omitempty"`
+	StartingUnit          *int32 `json:"starting_unit,omitempty"`
+	EndingUnit            *int32 `json:"ending_unit,omitempty"`
+	Price                 *int32 `json:"price,omitempty"`
+	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
 type CreateTaxDetailParams struct {
 	TaxProfileId           string               `json:"tax_profile_id,omitempty"`
@@ -127,10 +136,12 @@ type UpdateRequestParams struct {
 	InvoiceNotes              string                           `json:"invoice_notes,omitempty"`
 	IsTaxable                 *bool                            `json:"is_taxable,omitempty"`
 	FreeQuantity              *int32                           `json:"free_quantity,omitempty"`
+	FreeQuantityInDecimal     string                           `json:"free_quantity_in_decimal,omitempty"`
 	Metadata                  map[string]interface{}           `json:"metadata,omitempty"`
 	PricingModel              enum.PricingModel                `json:"pricing_model,omitempty"`
 	Tiers                     []*UpdateTierParams              `json:"tiers,omitempty"`
 	Price                     *int32                           `json:"price,omitempty"`
+	PriceInDecimal            string                           `json:"price_in_decimal,omitempty"`
 	PeriodUnit                itemPriceEnum.PeriodUnit         `json:"period_unit,omitempty"`
 	Period                    *int32                           `json:"period,omitempty"`
 	TrialPeriodUnit           itemPriceEnum.TrialPeriodUnit    `json:"trial_period_unit,omitempty"`
@@ -138,15 +149,19 @@ type UpdateRequestParams struct {
 	ShippingPeriod            *int32                           `json:"shipping_period,omitempty"`
 	ShippingPeriodUnit        itemPriceEnum.ShippingPeriodUnit `json:"shipping_period_unit,omitempty"`
 	BillingCycles             *int32                           `json:"billing_cycles,omitempty"`
+	TrialEndAction            itemPriceEnum.TrialEndAction     `json:"trial_end_action,omitempty"`
 	TaxDetail                 *UpdateTaxDetailParams           `json:"tax_detail,omitempty"`
 	AccountingDetail          *UpdateAccountingDetailParams    `json:"accounting_detail,omitempty"`
 	ShowDescriptionInInvoices *bool                            `json:"show_description_in_invoices,omitempty"`
 	ShowDescriptionInQuotes   *bool                            `json:"show_description_in_quotes,omitempty"`
 }
 type UpdateTierParams struct {
-	StartingUnit *int32 `json:"starting_unit,omitempty"`
-	EndingUnit   *int32 `json:"ending_unit,omitempty"`
-	Price        *int32 `json:"price,omitempty"`
+	StartingUnit          *int32 `json:"starting_unit,omitempty"`
+	EndingUnit            *int32 `json:"ending_unit,omitempty"`
+	Price                 *int32 `json:"price,omitempty"`
+	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
 type UpdateTaxDetailParams struct {
 	TaxProfileId           string               `json:"tax_profile_id,omitempty"`
@@ -180,4 +195,5 @@ type ListRequestParams struct {
 	UpdatedAt       *filter.TimestampFilter `json:"updated_at,omitempty"`
 	PeriodUnit      *filter.EnumFilter      `json:"period_unit,omitempty"`
 	Period          *filter.NumberFilter    `json:"period,omitempty"`
+	SortBy          *filter.SortFilter      `json:"sort_by,omitempty"`
 }

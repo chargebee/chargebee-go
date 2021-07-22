@@ -2,7 +2,6 @@ package subscription
 
 import (
 	"encoding/json"
-
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
 	contractTermEnum "github.com/chargebee/chargebee-go/models/contractterm/enum"
@@ -23,11 +22,14 @@ type Subscription struct {
 	RemainingBillingCycles            int32                              `json:"remaining_billing_cycles"`
 	PoNumber                          string                             `json:"po_number"`
 	AutoCollection                    enum.AutoCollection                `json:"auto_collection"`
+	PlanQuantityInDecimal             string                             `json:"plan_quantity_in_decimal"`
+	PlanUnitPriceInDecimal            string                             `json:"plan_unit_price_in_decimal"`
 	CustomerId                        string                             `json:"customer_id"`
 	PlanAmount                        int32                              `json:"plan_amount"`
 	PlanFreeQuantity                  int32                              `json:"plan_free_quantity"`
 	Status                            subscriptionEnum.Status            `json:"status"`
 	TrialStart                        int64                              `json:"trial_start"`
+	TrialEndAction                    enum.TrialEndAction                `json:"trial_end_action"`
 	CurrentTermStart                  int64                              `json:"current_term_start"`
 	CurrentTermEnd                    int64                              `json:"current_term_end"`
 	NextBillingAt                     int64                              `json:"next_billing_at"`
@@ -49,9 +51,8 @@ type Subscription struct {
 	HasScheduledChanges               bool                               `json:"has_scheduled_changes"`
 	PaymentSourceId                   string                             `json:"payment_source_id"`
 	PlanFreeQuantityInDecimal         string                             `json:"plan_free_quantity_in_decimal"`
-	PlanQuantityInDecimal             string                             `json:"plan_quantity_in_decimal"`
-	PlanUnitPriceInDecimal            string                             `json:"plan_unit_price_in_decimal"`
 	PlanAmountInDecimal               string                             `json:"plan_amount_in_decimal"`
+	CancelScheduleCreatedAt           int64                              `json:"cancel_schedule_created_at"`
 	OfflinePaymentMethod              enum.OfflinePaymentMethod          `json:"offline_payment_method"`
 	SubscriptionItems                 []*SubscriptionItem                `json:"subscription_items"`
 	ItemTiers                         []*ItemTier                        `json:"item_tiers"`
@@ -83,21 +84,25 @@ type Subscription struct {
 	Object                            string                             `json:"object"`
 }
 type SubscriptionItem struct {
-	ItemPriceId       string              `json:"item_price_id"`
-	ItemType          enum.ItemType       `json:"item_type"`
-	Quantity          int32               `json:"quantity"`
-	MeteredQuantity   string              `json:"metered_quantity"`
-	LastCalculatedAt  int64               `json:"last_calculated_at"`
-	UnitPrice         int32               `json:"unit_price"`
-	Amount            int32               `json:"amount"`
-	FreeQuantity      int32               `json:"free_quantity"`
-	TrialEnd          int64               `json:"trial_end"`
-	BillingCycles     int32               `json:"billing_cycles"`
-	ServicePeriodDays int32               `json:"service_period_days"`
-	ChargeOnEvent     enum.ChargeOnEvent  `json:"charge_on_event"`
-	ChargeOnce        bool                `json:"charge_once"`
-	ChargeOnOption    enum.ChargeOnOption `json:"charge_on_option"`
-	Object            string              `json:"object"`
+	ItemPriceId           string              `json:"item_price_id"`
+	ItemType              enum.ItemType       `json:"item_type"`
+	Quantity              int32               `json:"quantity"`
+	QuantityInDecimal     string              `json:"quantity_in_decimal"`
+	MeteredQuantity       string              `json:"metered_quantity"`
+	LastCalculatedAt      int64               `json:"last_calculated_at"`
+	UnitPrice             int32               `json:"unit_price"`
+	UnitPriceInDecimal    string              `json:"unit_price_in_decimal"`
+	Amount                int32               `json:"amount"`
+	AmountInDecimal       string              `json:"amount_in_decimal"`
+	FreeQuantity          int32               `json:"free_quantity"`
+	FreeQuantityInDecimal string              `json:"free_quantity_in_decimal"`
+	TrialEnd              int64               `json:"trial_end"`
+	BillingCycles         int32               `json:"billing_cycles"`
+	ServicePeriodDays     int32               `json:"service_period_days"`
+	ChargeOnEvent         enum.ChargeOnEvent  `json:"charge_on_event"`
+	ChargeOnce            bool                `json:"charge_once"`
+	ChargeOnOption        enum.ChargeOnOption `json:"charge_on_option"`
+	Object                string              `json:"object"`
 }
 type ItemTier struct {
 	ItemPriceId           string `json:"item_price_id"`
@@ -200,11 +205,11 @@ type ContractTerm struct {
 type CreateRequestParams struct {
 	Id                                string                         `json:"id,omitempty"`
 	Customer                          *CreateCustomerParams          `json:"customer,omitempty"`
-	PlanUnitPriceInDecimal            string                         `json:"plan_unit_price_in_decimal,omitempty"`
-	PlanQuantityInDecimal             string                         `json:"plan_quantity_in_decimal,omitempty"`
 	PlanId                            string                         `json:"plan_id"`
 	PlanQuantity                      *int32                         `json:"plan_quantity,omitempty"`
+	PlanQuantityInDecimal             string                         `json:"plan_quantity_in_decimal,omitempty"`
 	PlanUnitPrice                     *int32                         `json:"plan_unit_price,omitempty"`
+	PlanUnitPriceInDecimal            string                         `json:"plan_unit_price_in_decimal,omitempty"`
 	SetupFee                          *int32                         `json:"setup_fee,omitempty"`
 	TrialEnd                          *int64                         `json:"trial_end,omitempty"`
 	BillingCycles                     *int32                         `json:"billing_cycles,omitempty"`
@@ -235,6 +240,7 @@ type CreateRequestParams struct {
 	FreePeriodUnit                    enum.FreePeriodUnit            `json:"free_period_unit,omitempty"`
 	ContractTerm                      *CreateContractTermParams      `json:"contract_term,omitempty"`
 	ContractTermBillingCycleOnRenewal *int32                         `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	TrialEndAction                    enum.TrialEndAction            `json:"trial_end_action,omitempty"`
 	ClientProfileId                   string                         `json:"client_profile_id,omitempty"`
 }
 type CreateCustomerParams struct {
@@ -255,6 +261,7 @@ type CreateCustomerParams struct {
 	AllowDirectDebit                 *bool                        `json:"allow_direct_debit,omitempty"`
 	ConsolidatedInvoicing            *bool                        `json:"consolidated_invoicing,omitempty"`
 	VatNumber                        string                       `json:"vat_number,omitempty"`
+	VatNumberPrefix                  string                       `json:"vat_number_prefix,omitempty"`
 	RegisteredForGst                 *bool                        `json:"registered_for_gst,omitempty"`
 	BusinessCustomerWithoutVatNumber *bool                        `json:"business_customer_without_vat_number,omitempty"`
 	ExemptionDetails                 []map[string]interface{}     `json:"exemption_details,omitempty"`
@@ -281,23 +288,24 @@ type CreateEventBasedAddonParams struct {
 	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
 }
 type CreateCardParams struct {
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
-	TmpToken         string       `json:"tmp_token,omitempty"`
-	FirstName        string       `json:"first_name,omitempty"`
-	LastName         string       `json:"last_name,omitempty"`
-	Number           string       `json:"number,omitempty"`
-	ExpiryMonth      *int32       `json:"expiry_month,omitempty"`
-	ExpiryYear       *int32       `json:"expiry_year,omitempty"`
-	Cvv              string       `json:"cvv,omitempty"`
-	BillingAddr1     string       `json:"billing_addr1,omitempty"`
-	BillingAddr2     string       `json:"billing_addr2,omitempty"`
-	BillingCity      string       `json:"billing_city,omitempty"`
-	BillingStateCode string       `json:"billing_state_code,omitempty"`
-	BillingState     string       `json:"billing_state,omitempty"`
-	BillingZip       string       `json:"billing_zip,omitempty"`
-	BillingCountry   string       `json:"billing_country,omitempty"`
-	IpAddress        string       `json:"ip_address,omitempty"`
+	Gateway               enum.Gateway           `json:"gateway,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	TmpToken              string                 `json:"tmp_token,omitempty"`
+	FirstName             string                 `json:"first_name,omitempty"`
+	LastName              string                 `json:"last_name,omitempty"`
+	Number                string                 `json:"number,omitempty"`
+	ExpiryMonth           *int32                 `json:"expiry_month,omitempty"`
+	ExpiryYear            *int32                 `json:"expiry_year,omitempty"`
+	Cvv                   string                 `json:"cvv,omitempty"`
+	BillingAddr1          string                 `json:"billing_addr1,omitempty"`
+	BillingAddr2          string                 `json:"billing_addr2,omitempty"`
+	BillingCity           string                 `json:"billing_city,omitempty"`
+	BillingStateCode      string                 `json:"billing_state_code,omitempty"`
+	BillingState          string                 `json:"billing_state,omitempty"`
+	BillingZip            string                 `json:"billing_zip,omitempty"`
+	BillingCountry        string                 `json:"billing_country,omitempty"`
+	IpAddress             string                 `json:"ip_address,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type CreateBankAccountParams struct {
 	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
@@ -315,22 +323,24 @@ type CreateBankAccountParams struct {
 	EcheckType            enum.EcheckType        `json:"echeck_type,omitempty"`
 	IssuingCountry        string                 `json:"issuing_country,omitempty"`
 	SwedishIdentityNumber string                 `json:"swedish_identity_number,omitempty"`
+	BillingAddress        map[string]interface{} `json:"billing_address,omitempty"`
 }
 type CreatePaymentMethodParams struct {
-	Type             enum.Type    `json:"type,omitempty"`
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
-	ReferenceId      string       `json:"reference_id,omitempty"`
-	TmpToken         string       `json:"tmp_token,omitempty"`
-	IssuingCountry   string       `json:"issuing_country,omitempty"`
+	Type                  enum.Type              `json:"type,omitempty"`
+	Gateway               enum.Gateway           `json:"gateway,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	TmpToken              string                 `json:"tmp_token,omitempty"`
+	IssuingCountry        string                 `json:"issuing_country,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type CreatePaymentIntentParams struct {
-	Id                string                 `json:"id,omitempty"`
-	GatewayAccountId  string                 `json:"gateway_account_id,omitempty"`
-	GwToken           string                 `json:"gw_token,omitempty"`
-	ReferenceId       string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInfo    map[string]interface{} `json:"additional_info,omitempty"`
+	Id                    string                 `json:"id,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                 `json:"gw_token,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type CreateBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -386,6 +396,7 @@ type CartSubCreateCustomerParams struct {
 	AllowDirectDebit                 *bool                        `json:"allow_direct_debit,omitempty"`
 	ConsolidatedInvoicing            *bool                        `json:"consolidated_invoicing,omitempty"`
 	VatNumber                        string                       `json:"vat_number,omitempty"`
+	VatNumberPrefix                  string                       `json:"vat_number_prefix,omitempty"`
 	RegisteredForGst                 *bool                        `json:"registered_for_gst,omitempty"`
 	BusinessCustomerWithoutVatNumber *bool                        `json:"business_customer_without_vat_number,omitempty"`
 }
@@ -410,23 +421,24 @@ type CartSubCreateEventBasedAddonParams struct {
 	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
 }
 type CartSubCreateCardParams struct {
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
-	TmpToken         string       `json:"tmp_token,omitempty"`
-	FirstName        string       `json:"first_name,omitempty"`
-	LastName         string       `json:"last_name,omitempty"`
-	Number           string       `json:"number,omitempty"`
-	ExpiryMonth      *int32       `json:"expiry_month,omitempty"`
-	ExpiryYear       *int32       `json:"expiry_year,omitempty"`
-	Cvv              string       `json:"cvv,omitempty"`
-	BillingAddr1     string       `json:"billing_addr1,omitempty"`
-	BillingAddr2     string       `json:"billing_addr2,omitempty"`
-	BillingCity      string       `json:"billing_city,omitempty"`
-	BillingStateCode string       `json:"billing_state_code,omitempty"`
-	BillingState     string       `json:"billing_state,omitempty"`
-	BillingZip       string       `json:"billing_zip,omitempty"`
-	BillingCountry   string       `json:"billing_country,omitempty"`
-	IpAddress        string       `json:"ip_address,omitempty"`
+	Gateway               enum.Gateway           `json:"gateway,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	TmpToken              string                 `json:"tmp_token,omitempty"`
+	FirstName             string                 `json:"first_name,omitempty"`
+	LastName              string                 `json:"last_name,omitempty"`
+	Number                string                 `json:"number,omitempty"`
+	ExpiryMonth           *int32                 `json:"expiry_month,omitempty"`
+	ExpiryYear            *int32                 `json:"expiry_year,omitempty"`
+	Cvv                   string                 `json:"cvv,omitempty"`
+	BillingAddr1          string                 `json:"billing_addr1,omitempty"`
+	BillingAddr2          string                 `json:"billing_addr2,omitempty"`
+	BillingCity           string                 `json:"billing_city,omitempty"`
+	BillingStateCode      string                 `json:"billing_state_code,omitempty"`
+	BillingState          string                 `json:"billing_state,omitempty"`
+	BillingZip            string                 `json:"billing_zip,omitempty"`
+	BillingCountry        string                 `json:"billing_country,omitempty"`
+	IpAddress             string                 `json:"ip_address,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type CartSubCreateBankAccountParams struct {
 	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
@@ -444,14 +456,16 @@ type CartSubCreateBankAccountParams struct {
 	EcheckType            enum.EcheckType        `json:"echeck_type,omitempty"`
 	IssuingCountry        string                 `json:"issuing_country,omitempty"`
 	SwedishIdentityNumber string                 `json:"swedish_identity_number,omitempty"`
+	BillingAddress        map[string]interface{} `json:"billing_address,omitempty"`
 }
 type CartSubCreatePaymentMethodParams struct {
-	Type             enum.Type    `json:"type,omitempty"`
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
-	ReferenceId      string       `json:"reference_id,omitempty"`
-	TmpToken         string       `json:"tmp_token,omitempty"`
-	IssuingCountry   string       `json:"issuing_country,omitempty"`
+	Type                  enum.Type              `json:"type,omitempty"`
+	Gateway               enum.Gateway           `json:"gateway,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	TmpToken              string                 `json:"tmp_token,omitempty"`
+	IssuingCountry        string                 `json:"issuing_country,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type CartSubCreateBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -485,13 +499,22 @@ type CartSubCreateShippingAddressParams struct {
 	Country          string                `json:"country,omitempty"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
+type CartSubCreateItemTierParams struct {
+	ItemPriceId           string `json:"item_price_id,omitempty"`
+	StartingUnit          *int32 `json:"starting_unit,omitempty"`
+	EndingUnit            *int32 `json:"ending_unit,omitempty"`
+	Price                 *int32 `json:"price,omitempty"`
+	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
+}
 type CreateForCustomerRequestParams struct {
 	Id                                string                                    `json:"id,omitempty"`
-	PlanUnitPriceInDecimal            string                                    `json:"plan_unit_price_in_decimal,omitempty"`
-	PlanQuantityInDecimal             string                                    `json:"plan_quantity_in_decimal,omitempty"`
 	PlanId                            string                                    `json:"plan_id"`
 	PlanQuantity                      *int32                                    `json:"plan_quantity,omitempty"`
+	PlanQuantityInDecimal             string                                    `json:"plan_quantity_in_decimal,omitempty"`
 	PlanUnitPrice                     *int32                                    `json:"plan_unit_price,omitempty"`
+	PlanUnitPriceInDecimal            string                                    `json:"plan_unit_price_in_decimal,omitempty"`
 	SetupFee                          *int32                                    `json:"setup_fee,omitempty"`
 	TrialEnd                          *int64                                    `json:"trial_end,omitempty"`
 	BillingCycles                     *int32                                    `json:"billing_cycles,omitempty"`
@@ -517,6 +540,7 @@ type CreateForCustomerRequestParams struct {
 	FreePeriodUnit                    enum.FreePeriodUnit                       `json:"free_period_unit,omitempty"`
 	ContractTerm                      *CreateForCustomerContractTermParams      `json:"contract_term,omitempty"`
 	ContractTermBillingCycleOnRenewal *int32                                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	TrialEndAction                    enum.TrialEndAction                       `json:"trial_end_action,omitempty"`
 }
 type CreateForCustomerAddonParams struct {
 	Id                 string `json:"id,omitempty"`
@@ -555,12 +579,12 @@ type CreateForCustomerShippingAddressParams struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
 type CreateForCustomerPaymentIntentParams struct {
-	Id                string                 `json:"id,omitempty"`
-	GatewayAccountId  string                 `json:"gateway_account_id,omitempty"`
-	GwToken           string                 `json:"gw_token,omitempty"`
-	ReferenceId       string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInfo    map[string]interface{} `json:"additional_info,omitempty"`
+	Id                    string                 `json:"id,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                 `json:"gw_token,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type CreateForCustomerContractTermParams struct {
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
@@ -596,24 +620,30 @@ type CreateWithItemsRequestParams struct {
 	CreatePendingInvoices             *bool                                    `json:"create_pending_invoices,omitempty"`
 	AutoCloseInvoices                 *bool                                    `json:"auto_close_invoices,omitempty"`
 	FirstInvoicePending               *bool                                    `json:"first_invoice_pending,omitempty"`
+	TrialEndAction                    enum.TrialEndAction                      `json:"trial_end_action,omitempty"`
 }
 type CreateWithItemsSubscriptionItemParams struct {
-	ItemPriceId       string              `json:"item_price_id"`
-	Quantity          *int32              `json:"quantity,omitempty"`
-	UnitPrice         *int32              `json:"unit_price,omitempty"`
-	BillingCycles     *int32              `json:"billing_cycles,omitempty"`
-	TrialEnd          *int64              `json:"trial_end,omitempty"`
-	ServicePeriodDays *int32              `json:"service_period_days,omitempty"`
-	ChargeOnEvent     enum.ChargeOnEvent  `json:"charge_on_event,omitempty"`
-	ChargeOnce        *bool               `json:"charge_once,omitempty"`
-	ItemType          enum.ItemType       `json:"item_type,omitempty"`
-	ChargeOnOption    enum.ChargeOnOption `json:"charge_on_option,omitempty"`
+	ItemPriceId        string              `json:"item_price_id"`
+	Quantity           *int32              `json:"quantity,omitempty"`
+	QuantityInDecimal  string              `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int32              `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string              `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32              `json:"billing_cycles,omitempty"`
+	TrialEnd           *int64              `json:"trial_end,omitempty"`
+	ServicePeriodDays  *int32              `json:"service_period_days,omitempty"`
+	ChargeOnEvent      enum.ChargeOnEvent  `json:"charge_on_event,omitempty"`
+	ChargeOnce         *bool               `json:"charge_once,omitempty"`
+	ItemType           enum.ItemType       `json:"item_type,omitempty"`
+	ChargeOnOption     enum.ChargeOnOption `json:"charge_on_option,omitempty"`
 }
 type CreateWithItemsItemTierParams struct {
-	ItemPriceId  string `json:"item_price_id,omitempty"`
-	StartingUnit *int32 `json:"starting_unit,omitempty"`
-	EndingUnit   *int32 `json:"ending_unit,omitempty"`
-	Price        *int32 `json:"price,omitempty"`
+	ItemPriceId           string `json:"item_price_id,omitempty"`
+	StartingUnit          *int32 `json:"starting_unit,omitempty"`
+	EndingUnit            *int32 `json:"ending_unit,omitempty"`
+	Price                 *int32 `json:"price,omitempty"`
+	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
 type CreateWithItemsShippingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -632,12 +662,12 @@ type CreateWithItemsShippingAddressParams struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
 type CreateWithItemsPaymentIntentParams struct {
-	Id                string                 `json:"id,omitempty"`
-	GatewayAccountId  string                 `json:"gateway_account_id,omitempty"`
-	GwToken           string                 `json:"gw_token,omitempty"`
-	ReferenceId       string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInfo    map[string]interface{} `json:"additional_info,omitempty"`
+	Id                    string                 `json:"id,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                 `json:"gw_token,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type CreateWithItemsContractTermParams struct {
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
@@ -695,6 +725,15 @@ type CartSubCreateForCustomerBillingAddressParams struct {
 	Country          string                `json:"country,omitempty"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
+type CartSubCreateForCustomerItemTierParams struct {
+	ItemPriceId           string `json:"item_price_id,omitempty"`
+	StartingUnit          *int32 `json:"starting_unit,omitempty"`
+	EndingUnit            *int32 `json:"ending_unit,omitempty"`
+	Price                 *int32 `json:"price,omitempty"`
+	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
+}
 type ListRequestParams struct {
 	Limit                  *int32                  `json:"limit,omitempty"`
 	Offset                 string                  `json:"offset,omitempty"`
@@ -727,6 +766,10 @@ type SubscriptionsForCustomerRequestParams struct {
 type ContractTermsForSubscriptionRequestParams struct {
 	Limit  *int32 `json:"limit,omitempty"`
 	Offset string `json:"offset,omitempty"`
+}
+type RetrieveRequestParams struct {
+}
+type RetrieveWithScheduledChangesRequestParams struct {
 }
 type RemoveScheduledCancellationRequestParams struct {
 	BillingCycles *int32 `json:"billing_cycles,omitempty"`
@@ -776,6 +819,7 @@ type UpdateRequestParams struct {
 	ContractTermBillingCycleOnRenewal *int32                         `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 	FreePeriod                        *int32                         `json:"free_period,omitempty"`
 	FreePeriodUnit                    enum.FreePeriodUnit            `json:"free_period_unit,omitempty"`
+	TrialEndAction                    enum.TrialEndAction            `json:"trial_end_action,omitempty"`
 }
 type UpdateAddonParams struct {
 	Id                 string `json:"id,omitempty"`
@@ -798,39 +842,41 @@ type UpdateEventBasedAddonParams struct {
 	UnitPriceInDecimal  string        `json:"unit_price_in_decimal,omitempty"`
 }
 type UpdateCardParams struct {
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
-	TmpToken         string       `json:"tmp_token,omitempty"`
-	FirstName        string       `json:"first_name,omitempty"`
-	LastName         string       `json:"last_name,omitempty"`
-	Number           string       `json:"number,omitempty"`
-	ExpiryMonth      *int32       `json:"expiry_month,omitempty"`
-	ExpiryYear       *int32       `json:"expiry_year,omitempty"`
-	Cvv              string       `json:"cvv,omitempty"`
-	BillingAddr1     string       `json:"billing_addr1,omitempty"`
-	BillingAddr2     string       `json:"billing_addr2,omitempty"`
-	BillingCity      string       `json:"billing_city,omitempty"`
-	BillingStateCode string       `json:"billing_state_code,omitempty"`
-	BillingState     string       `json:"billing_state,omitempty"`
-	BillingZip       string       `json:"billing_zip,omitempty"`
-	BillingCountry   string       `json:"billing_country,omitempty"`
-	IpAddress        string       `json:"ip_address,omitempty"`
+	Gateway               enum.Gateway           `json:"gateway,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	TmpToken              string                 `json:"tmp_token,omitempty"`
+	FirstName             string                 `json:"first_name,omitempty"`
+	LastName              string                 `json:"last_name,omitempty"`
+	Number                string                 `json:"number,omitempty"`
+	ExpiryMonth           *int32                 `json:"expiry_month,omitempty"`
+	ExpiryYear            *int32                 `json:"expiry_year,omitempty"`
+	Cvv                   string                 `json:"cvv,omitempty"`
+	BillingAddr1          string                 `json:"billing_addr1,omitempty"`
+	BillingAddr2          string                 `json:"billing_addr2,omitempty"`
+	BillingCity           string                 `json:"billing_city,omitempty"`
+	BillingStateCode      string                 `json:"billing_state_code,omitempty"`
+	BillingState          string                 `json:"billing_state,omitempty"`
+	BillingZip            string                 `json:"billing_zip,omitempty"`
+	BillingCountry        string                 `json:"billing_country,omitempty"`
+	IpAddress             string                 `json:"ip_address,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type UpdatePaymentMethodParams struct {
-	Type             enum.Type    `json:"type,omitempty"`
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
-	ReferenceId      string       `json:"reference_id,omitempty"`
-	TmpToken         string       `json:"tmp_token,omitempty"`
-	IssuingCountry   string       `json:"issuing_country,omitempty"`
+	Type                  enum.Type              `json:"type,omitempty"`
+	Gateway               enum.Gateway           `json:"gateway,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	TmpToken              string                 `json:"tmp_token,omitempty"`
+	IssuingCountry        string                 `json:"issuing_country,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type UpdatePaymentIntentParams struct {
-	Id                string                 `json:"id,omitempty"`
-	GatewayAccountId  string                 `json:"gateway_account_id,omitempty"`
-	GwToken           string                 `json:"gw_token,omitempty"`
-	ReferenceId       string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInfo    map[string]interface{} `json:"additional_info,omitempty"`
+	Id                    string                 `json:"id,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                 `json:"gw_token,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type UpdateBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -866,6 +912,7 @@ type UpdateShippingAddressParams struct {
 }
 type UpdateCustomerParams struct {
 	VatNumber                        string `json:"vat_number,omitempty"`
+	VatNumberPrefix                  string `json:"vat_number_prefix,omitempty"`
 	BusinessCustomerWithoutVatNumber *bool  `json:"business_customer_without_vat_number,omitempty"`
 	RegisteredForGst                 *bool  `json:"registered_for_gst,omitempty"`
 }
@@ -912,59 +959,67 @@ type UpdateForItemsRequestParams struct {
 	FreePeriodUnit                    enum.FreePeriodUnit                     `json:"free_period_unit,omitempty"`
 	CreatePendingInvoices             *bool                                   `json:"create_pending_invoices,omitempty"`
 	AutoCloseInvoices                 *bool                                   `json:"auto_close_invoices,omitempty"`
+	TrialEndAction                    enum.TrialEndAction                     `json:"trial_end_action,omitempty"`
 }
 type UpdateForItemsSubscriptionItemParams struct {
-	ItemPriceId       string              `json:"item_price_id"`
-	Quantity          *int32              `json:"quantity,omitempty"`
-	UnitPrice         *int32              `json:"unit_price,omitempty"`
-	BillingCycles     *int32              `json:"billing_cycles,omitempty"`
-	TrialEnd          *int64              `json:"trial_end,omitempty"`
-	ServicePeriodDays *int32              `json:"service_period_days,omitempty"`
-	ChargeOnEvent     enum.ChargeOnEvent  `json:"charge_on_event,omitempty"`
-	ChargeOnce        *bool               `json:"charge_once,omitempty"`
-	ChargeOnOption    enum.ChargeOnOption `json:"charge_on_option,omitempty"`
-	ItemType          enum.ItemType       `json:"item_type,omitempty"`
+	ItemPriceId        string              `json:"item_price_id"`
+	Quantity           *int32              `json:"quantity,omitempty"`
+	QuantityInDecimal  string              `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int32              `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string              `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32              `json:"billing_cycles,omitempty"`
+	TrialEnd           *int64              `json:"trial_end,omitempty"`
+	ServicePeriodDays  *int32              `json:"service_period_days,omitempty"`
+	ChargeOnEvent      enum.ChargeOnEvent  `json:"charge_on_event,omitempty"`
+	ChargeOnce         *bool               `json:"charge_once,omitempty"`
+	ChargeOnOption     enum.ChargeOnOption `json:"charge_on_option,omitempty"`
+	ItemType           enum.ItemType       `json:"item_type,omitempty"`
 }
 type UpdateForItemsItemTierParams struct {
-	ItemPriceId  string `json:"item_price_id,omitempty"`
-	StartingUnit *int32 `json:"starting_unit,omitempty"`
-	EndingUnit   *int32 `json:"ending_unit,omitempty"`
-	Price        *int32 `json:"price,omitempty"`
+	ItemPriceId           string `json:"item_price_id,omitempty"`
+	StartingUnit          *int32 `json:"starting_unit,omitempty"`
+	EndingUnit            *int32 `json:"ending_unit,omitempty"`
+	Price                 *int32 `json:"price,omitempty"`
+	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
 type UpdateForItemsCardParams struct {
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
-	TmpToken         string       `json:"tmp_token,omitempty"`
-	FirstName        string       `json:"first_name,omitempty"`
-	LastName         string       `json:"last_name,omitempty"`
-	Number           string       `json:"number,omitempty"`
-	ExpiryMonth      *int32       `json:"expiry_month,omitempty"`
-	ExpiryYear       *int32       `json:"expiry_year,omitempty"`
-	Cvv              string       `json:"cvv,omitempty"`
-	BillingAddr1     string       `json:"billing_addr1,omitempty"`
-	BillingAddr2     string       `json:"billing_addr2,omitempty"`
-	BillingCity      string       `json:"billing_city,omitempty"`
-	BillingStateCode string       `json:"billing_state_code,omitempty"`
-	BillingState     string       `json:"billing_state,omitempty"`
-	BillingZip       string       `json:"billing_zip,omitempty"`
-	BillingCountry   string       `json:"billing_country,omitempty"`
-	IpAddress        string       `json:"ip_address,omitempty"`
+	Gateway               enum.Gateway           `json:"gateway,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	TmpToken              string                 `json:"tmp_token,omitempty"`
+	FirstName             string                 `json:"first_name,omitempty"`
+	LastName              string                 `json:"last_name,omitempty"`
+	Number                string                 `json:"number,omitempty"`
+	ExpiryMonth           *int32                 `json:"expiry_month,omitempty"`
+	ExpiryYear            *int32                 `json:"expiry_year,omitempty"`
+	Cvv                   string                 `json:"cvv,omitempty"`
+	BillingAddr1          string                 `json:"billing_addr1,omitempty"`
+	BillingAddr2          string                 `json:"billing_addr2,omitempty"`
+	BillingCity           string                 `json:"billing_city,omitempty"`
+	BillingStateCode      string                 `json:"billing_state_code,omitempty"`
+	BillingState          string                 `json:"billing_state,omitempty"`
+	BillingZip            string                 `json:"billing_zip,omitempty"`
+	BillingCountry        string                 `json:"billing_country,omitempty"`
+	IpAddress             string                 `json:"ip_address,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type UpdateForItemsPaymentMethodParams struct {
-	Type             enum.Type    `json:"type,omitempty"`
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
-	ReferenceId      string       `json:"reference_id,omitempty"`
-	TmpToken         string       `json:"tmp_token,omitempty"`
-	IssuingCountry   string       `json:"issuing_country,omitempty"`
+	Type                  enum.Type              `json:"type,omitempty"`
+	Gateway               enum.Gateway           `json:"gateway,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	TmpToken              string                 `json:"tmp_token,omitempty"`
+	IssuingCountry        string                 `json:"issuing_country,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type UpdateForItemsPaymentIntentParams struct {
-	Id                string                 `json:"id,omitempty"`
-	GatewayAccountId  string                 `json:"gateway_account_id,omitempty"`
-	GwToken           string                 `json:"gw_token,omitempty"`
-	ReferenceId       string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInfo    map[string]interface{} `json:"additional_info,omitempty"`
+	Id                    string                 `json:"id,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                 `json:"gw_token,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type UpdateForItemsBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -1000,6 +1055,7 @@ type UpdateForItemsShippingAddressParams struct {
 }
 type UpdateForItemsCustomerParams struct {
 	VatNumber                        string `json:"vat_number,omitempty"`
+	VatNumberPrefix                  string `json:"vat_number_prefix,omitempty"`
 	BusinessCustomerWithoutVatNumber *bool  `json:"business_customer_without_vat_number,omitempty"`
 	RegisteredForGst                 *bool  `json:"registered_for_gst,omitempty"`
 }
@@ -1028,31 +1084,33 @@ type CartSubUpdateEventBasedAddonParams struct {
 	UnitPriceInDecimal  string        `json:"unit_price_in_decimal,omitempty"`
 }
 type CartSubUpdateCardParams struct {
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
-	TmpToken         string       `json:"tmp_token,omitempty"`
-	FirstName        string       `json:"first_name,omitempty"`
-	LastName         string       `json:"last_name,omitempty"`
-	Number           string       `json:"number,omitempty"`
-	ExpiryMonth      *int32       `json:"expiry_month,omitempty"`
-	ExpiryYear       *int32       `json:"expiry_year,omitempty"`
-	Cvv              string       `json:"cvv,omitempty"`
-	BillingAddr1     string       `json:"billing_addr1,omitempty"`
-	BillingAddr2     string       `json:"billing_addr2,omitempty"`
-	BillingCity      string       `json:"billing_city,omitempty"`
-	BillingStateCode string       `json:"billing_state_code,omitempty"`
-	BillingState     string       `json:"billing_state,omitempty"`
-	BillingZip       string       `json:"billing_zip,omitempty"`
-	BillingCountry   string       `json:"billing_country,omitempty"`
-	IpAddress        string       `json:"ip_address,omitempty"`
+	Gateway               enum.Gateway           `json:"gateway,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	TmpToken              string                 `json:"tmp_token,omitempty"`
+	FirstName             string                 `json:"first_name,omitempty"`
+	LastName              string                 `json:"last_name,omitempty"`
+	Number                string                 `json:"number,omitempty"`
+	ExpiryMonth           *int32                 `json:"expiry_month,omitempty"`
+	ExpiryYear            *int32                 `json:"expiry_year,omitempty"`
+	Cvv                   string                 `json:"cvv,omitempty"`
+	BillingAddr1          string                 `json:"billing_addr1,omitempty"`
+	BillingAddr2          string                 `json:"billing_addr2,omitempty"`
+	BillingCity           string                 `json:"billing_city,omitempty"`
+	BillingStateCode      string                 `json:"billing_state_code,omitempty"`
+	BillingState          string                 `json:"billing_state,omitempty"`
+	BillingZip            string                 `json:"billing_zip,omitempty"`
+	BillingCountry        string                 `json:"billing_country,omitempty"`
+	IpAddress             string                 `json:"ip_address,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type CartSubUpdatePaymentMethodParams struct {
-	Type             enum.Type    `json:"type,omitempty"`
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
-	ReferenceId      string       `json:"reference_id,omitempty"`
-	TmpToken         string       `json:"tmp_token,omitempty"`
-	IssuingCountry   string       `json:"issuing_country,omitempty"`
+	Type                  enum.Type              `json:"type,omitempty"`
+	Gateway               enum.Gateway           `json:"gateway,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	TmpToken              string                 `json:"tmp_token,omitempty"`
+	IssuingCountry        string                 `json:"issuing_country,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type CartSubUpdateBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -1088,6 +1146,7 @@ type CartSubUpdateShippingAddressParams struct {
 }
 type CartSubUpdateCustomerParams struct {
 	VatNumber                        string `json:"vat_number,omitempty"`
+	VatNumberPrefix                  string `json:"vat_number_prefix,omitempty"`
 	BusinessCustomerWithoutVatNumber *bool  `json:"business_customer_without_vat_number,omitempty"`
 	RegisteredForGst                 *bool  `json:"registered_for_gst,omitempty"`
 }
@@ -1096,10 +1155,13 @@ type CartSubUpdateContractTermParams struct {
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 type CartSubUpdateItemTierParams struct {
-	ItemPriceId  string `json:"item_price_id,omitempty"`
-	StartingUnit *int32 `json:"starting_unit,omitempty"`
-	EndingUnit   *int32 `json:"ending_unit,omitempty"`
-	Price        *int32 `json:"price,omitempty"`
+	ItemPriceId           string `json:"item_price_id,omitempty"`
+	StartingUnit          *int32 `json:"starting_unit,omitempty"`
+	EndingUnit            *int32 `json:"ending_unit,omitempty"`
+	Price                 *int32 `json:"price,omitempty"`
+	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
 type ChangeTermEndRequestParams struct {
 	TermEndsAt         *int64 `json:"term_ends_at"`
@@ -1123,12 +1185,12 @@ type ReactivateContractTermParams struct {
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 type ReactivatePaymentIntentParams struct {
-	Id                string                 `json:"id,omitempty"`
-	GatewayAccountId  string                 `json:"gateway_account_id,omitempty"`
-	GwToken           string                 `json:"gw_token,omitempty"`
-	ReferenceId       string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInfo    map[string]interface{} `json:"additional_info,omitempty"`
+	Id                    string                 `json:"id,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                 `json:"gw_token,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type AddChargeAtTermEndRequestParams struct {
 	Amount                 *int32               `json:"amount,omitempty"`
@@ -1199,11 +1261,11 @@ type ImportSubscriptionRequestParams struct {
 	Id                                string                                            `json:"id,omitempty"`
 	Customer                          *ImportSubscriptionCustomerParams                 `json:"customer,omitempty"`
 	ClientProfileId                   string                                            `json:"client_profile_id,omitempty"`
-	PlanUnitPriceInDecimal            string                                            `json:"plan_unit_price_in_decimal,omitempty"`
-	PlanQuantityInDecimal             string                                            `json:"plan_quantity_in_decimal,omitempty"`
 	PlanId                            string                                            `json:"plan_id"`
 	PlanQuantity                      *int32                                            `json:"plan_quantity,omitempty"`
+	PlanQuantityInDecimal             string                                            `json:"plan_quantity_in_decimal,omitempty"`
 	PlanUnitPrice                     *int32                                            `json:"plan_unit_price,omitempty"`
+	PlanUnitPriceInDecimal            string                                            `json:"plan_unit_price_in_decimal,omitempty"`
 	SetupFee                          *int32                                            `json:"setup_fee,omitempty"`
 	TrialEnd                          *int64                                            `json:"trial_end,omitempty"`
 	BillingCycles                     *int32                                            `json:"billing_cycles,omitempty"`
@@ -1251,6 +1313,7 @@ type ImportSubscriptionCustomerParams struct {
 	AutoCollection          enum.AutoCollection          `json:"auto_collection,omitempty"`
 	AllowDirectDebit        *bool                        `json:"allow_direct_debit,omitempty"`
 	VatNumber               string                       `json:"vat_number,omitempty"`
+	VatNumberPrefix         string                       `json:"vat_number_prefix,omitempty"`
 }
 type ImportSubscriptionAddonParams struct {
 	Id                 string `json:"id,omitempty"`
@@ -1284,29 +1347,31 @@ type ImportSubscriptionContractTermParams struct {
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 type ImportSubscriptionCardParams struct {
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
-	TmpToken         string       `json:"tmp_token,omitempty"`
-	FirstName        string       `json:"first_name,omitempty"`
-	LastName         string       `json:"last_name,omitempty"`
-	Number           string       `json:"number,omitempty"`
-	ExpiryMonth      *int32       `json:"expiry_month,omitempty"`
-	ExpiryYear       *int32       `json:"expiry_year,omitempty"`
-	Cvv              string       `json:"cvv,omitempty"`
-	BillingAddr1     string       `json:"billing_addr1,omitempty"`
-	BillingAddr2     string       `json:"billing_addr2,omitempty"`
-	BillingCity      string       `json:"billing_city,omitempty"`
-	BillingStateCode string       `json:"billing_state_code,omitempty"`
-	BillingState     string       `json:"billing_state,omitempty"`
-	BillingZip       string       `json:"billing_zip,omitempty"`
-	BillingCountry   string       `json:"billing_country,omitempty"`
+	Gateway               enum.Gateway           `json:"gateway,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	TmpToken              string                 `json:"tmp_token,omitempty"`
+	FirstName             string                 `json:"first_name,omitempty"`
+	LastName              string                 `json:"last_name,omitempty"`
+	Number                string                 `json:"number,omitempty"`
+	ExpiryMonth           *int32                 `json:"expiry_month,omitempty"`
+	ExpiryYear            *int32                 `json:"expiry_year,omitempty"`
+	Cvv                   string                 `json:"cvv,omitempty"`
+	BillingAddr1          string                 `json:"billing_addr1,omitempty"`
+	BillingAddr2          string                 `json:"billing_addr2,omitempty"`
+	BillingCity           string                 `json:"billing_city,omitempty"`
+	BillingStateCode      string                 `json:"billing_state_code,omitempty"`
+	BillingState          string                 `json:"billing_state,omitempty"`
+	BillingZip            string                 `json:"billing_zip,omitempty"`
+	BillingCountry        string                 `json:"billing_country,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type ImportSubscriptionPaymentMethodParams struct {
-	Type             enum.Type    `json:"type,omitempty"`
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
-	ReferenceId      string       `json:"reference_id,omitempty"`
-	IssuingCountry   string       `json:"issuing_country,omitempty"`
+	Type                  enum.Type              `json:"type,omitempty"`
+	Gateway               enum.Gateway           `json:"gateway,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	IssuingCountry        string                 `json:"issuing_country,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type ImportSubscriptionBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -1348,11 +1413,11 @@ type ImportSubscriptionTransactionParams struct {
 }
 type ImportForCustomerRequestParams struct {
 	Id                                string                                           `json:"id,omitempty"`
-	PlanUnitPriceInDecimal            string                                           `json:"plan_unit_price_in_decimal,omitempty"`
-	PlanQuantityInDecimal             string                                           `json:"plan_quantity_in_decimal,omitempty"`
 	PlanId                            string                                           `json:"plan_id"`
 	PlanQuantity                      *int32                                           `json:"plan_quantity,omitempty"`
+	PlanQuantityInDecimal             string                                           `json:"plan_quantity_in_decimal,omitempty"`
 	PlanUnitPrice                     *int32                                           `json:"plan_unit_price,omitempty"`
+	PlanUnitPriceInDecimal            string                                           `json:"plan_unit_price_in_decimal,omitempty"`
 	SetupFee                          *int32                                           `json:"setup_fee,omitempty"`
 	TrialEnd                          *int64                                           `json:"trial_end,omitempty"`
 	BillingCycles                     *int32                                           `json:"billing_cycles,omitempty"`
@@ -1481,25 +1546,30 @@ type ImportForItemsRequestParams struct {
 	AutoCloseInvoices                 *bool                                   `json:"auto_close_invoices,omitempty"`
 }
 type ImportForItemsSubscriptionItemParams struct {
-	ItemPriceId       string             `json:"item_price_id"`
-	Quantity          *int32             `json:"quantity,omitempty"`
-	UnitPrice         *int32             `json:"unit_price,omitempty"`
-	BillingCycles     *int32             `json:"billing_cycles,omitempty"`
-	TrialEnd          *int64             `json:"trial_end,omitempty"`
-	ServicePeriodDays *int32             `json:"service_period_days,omitempty"`
-	ChargeOnEvent     enum.ChargeOnEvent `json:"charge_on_event,omitempty"`
-	ChargeOnce        *bool              `json:"charge_once,omitempty"`
-	ItemType          enum.ItemType      `json:"item_type,omitempty"`
+	ItemPriceId        string             `json:"item_price_id"`
+	Quantity           *int32             `json:"quantity,omitempty"`
+	QuantityInDecimal  string             `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int32             `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string             `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32             `json:"billing_cycles,omitempty"`
+	TrialEnd           *int64             `json:"trial_end,omitempty"`
+	ServicePeriodDays  *int32             `json:"service_period_days,omitempty"`
+	ChargeOnEvent      enum.ChargeOnEvent `json:"charge_on_event,omitempty"`
+	ChargeOnce         *bool              `json:"charge_once,omitempty"`
+	ItemType           enum.ItemType      `json:"item_type,omitempty"`
 }
 type ImportForItemsChargedItemParams struct {
 	ItemPriceId   string `json:"item_price_id,omitempty"`
 	LastChargedAt *int64 `json:"last_charged_at,omitempty"`
 }
 type ImportForItemsItemTierParams struct {
-	ItemPriceId  string `json:"item_price_id,omitempty"`
-	StartingUnit *int32 `json:"starting_unit,omitempty"`
-	EndingUnit   *int32 `json:"ending_unit,omitempty"`
-	Price        *int32 `json:"price,omitempty"`
+	ItemPriceId           string `json:"item_price_id,omitempty"`
+	StartingUnit          *int32 `json:"starting_unit,omitempty"`
+	EndingUnit            *int32 `json:"ending_unit,omitempty"`
+	Price                 *int32 `json:"price,omitempty"`
+	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
 type ImportForItemsContractTermParams struct {
 	Id                       string                           `json:"id,omitempty"`
@@ -1572,10 +1642,12 @@ type CancelForItemsRequestParams struct {
 	CancelReasonCode                  string                                  `json:"cancel_reason_code,omitempty"`
 }
 type CancelForItemsSubscriptionItemParams struct {
-	ItemPriceId       string `json:"item_price_id,omitempty"`
-	Quantity          *int32 `json:"quantity,omitempty"`
-	UnitPrice         *int32 `json:"unit_price,omitempty"`
-	ServicePeriodDays *int32 `json:"service_period_days,omitempty"`
+	ItemPriceId        string `json:"item_price_id,omitempty"`
+	Quantity           *int32 `json:"quantity,omitempty"`
+	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int32 `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
+	ServicePeriodDays  *int32 `json:"service_period_days,omitempty"`
 }
 type ResumeRequestParams struct {
 	ResumeOption           enum.ResumeOption           `json:"resume_option,omitempty"`
@@ -1585,10 +1657,10 @@ type ResumeRequestParams struct {
 	PaymentIntent          *ResumePaymentIntentParams  `json:"payment_intent,omitempty"`
 }
 type ResumePaymentIntentParams struct {
-	Id                string                 `json:"id,omitempty"`
-	GatewayAccountId  string                 `json:"gateway_account_id,omitempty"`
-	GwToken           string                 `json:"gw_token,omitempty"`
-	ReferenceId       string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInfo    map[string]interface{} `json:"additional_info,omitempty"`
+	Id                    string                 `json:"id,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                 `json:"gw_token,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }

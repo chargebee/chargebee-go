@@ -7,35 +7,38 @@ import (
 )
 
 type AttachedItem struct {
-	Id              string                  `json:"id"`
-	ParentItemId    string                  `json:"parent_item_id"`
-	ItemId          string                  `json:"item_id"`
-	Type            attachedItemEnum.Type   `json:"type"`
-	Status          attachedItemEnum.Status `json:"status"`
-	Quantity        int32                   `json:"quantity"`
-	BillingCycles   int32                   `json:"billing_cycles"`
-	ChargeOnEvent   enum.ChargeOnEvent      `json:"charge_on_event"`
-	ChargeOnce      bool                    `json:"charge_once"`
-	CreatedAt       int64                   `json:"created_at"`
-	ResourceVersion int64                   `json:"resource_version"`
-	UpdatedAt       int64                   `json:"updated_at"`
-	Object          string                  `json:"object"`
+	Id                string                  `json:"id"`
+	ParentItemId      string                  `json:"parent_item_id"`
+	ItemId            string                  `json:"item_id"`
+	Type              attachedItemEnum.Type   `json:"type"`
+	Status            attachedItemEnum.Status `json:"status"`
+	Quantity          int32                   `json:"quantity"`
+	QuantityInDecimal string                  `json:"quantity_in_decimal"`
+	BillingCycles     int32                   `json:"billing_cycles"`
+	ChargeOnEvent     enum.ChargeOnEvent      `json:"charge_on_event"`
+	ChargeOnce        bool                    `json:"charge_once"`
+	CreatedAt         int64                   `json:"created_at"`
+	ResourceVersion   int64                   `json:"resource_version"`
+	UpdatedAt         int64                   `json:"updated_at"`
+	Object            string                  `json:"object"`
 }
 type CreateRequestParams struct {
-	ItemId        string                `json:"item_id"`
-	Type          attachedItemEnum.Type `json:"type,omitempty"`
-	BillingCycles *int32                `json:"billing_cycles,omitempty"`
-	Quantity      *int32                `json:"quantity,omitempty"`
-	ChargeOnEvent enum.ChargeOnEvent    `json:"charge_on_event,omitempty"`
-	ChargeOnce    *bool                 `json:"charge_once,omitempty"`
+	ItemId            string                `json:"item_id"`
+	Type              attachedItemEnum.Type `json:"type,omitempty"`
+	BillingCycles     *int32                `json:"billing_cycles,omitempty"`
+	Quantity          *int32                `json:"quantity,omitempty"`
+	QuantityInDecimal string                `json:"quantity_in_decimal,omitempty"`
+	ChargeOnEvent     enum.ChargeOnEvent    `json:"charge_on_event,omitempty"`
+	ChargeOnce        *bool                 `json:"charge_once,omitempty"`
 }
 type UpdateRequestParams struct {
-	ParentItemId  string                `json:"parent_item_id"`
-	Type          attachedItemEnum.Type `json:"type,omitempty"`
-	BillingCycles *int32                `json:"billing_cycles,omitempty"`
-	Quantity      *int32                `json:"quantity,omitempty"`
-	ChargeOnEvent enum.ChargeOnEvent    `json:"charge_on_event,omitempty"`
-	ChargeOnce    *bool                 `json:"charge_once,omitempty"`
+	ParentItemId      string                `json:"parent_item_id"`
+	Type              attachedItemEnum.Type `json:"type,omitempty"`
+	BillingCycles     *int32                `json:"billing_cycles,omitempty"`
+	Quantity          *int32                `json:"quantity,omitempty"`
+	QuantityInDecimal string                `json:"quantity_in_decimal,omitempty"`
+	ChargeOnEvent     enum.ChargeOnEvent    `json:"charge_on_event,omitempty"`
+	ChargeOnce        *bool                 `json:"charge_once,omitempty"`
 }
 type RetrieveRequestParams struct {
 	ParentItemId string `json:"parent_item_id"`

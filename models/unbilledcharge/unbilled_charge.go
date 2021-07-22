@@ -49,28 +49,36 @@ type CreateRequestParams struct {
 	Charges        []*CreateChargeParams    `json:"charges,omitempty"`
 }
 type CreateItemPriceParams struct {
-	ItemPriceId string `json:"item_price_id,omitempty"`
-	Quantity    *int32 `json:"quantity,omitempty"`
-	UnitPrice   *int32 `json:"unit_price,omitempty"`
-	DateFrom    *int64 `json:"date_from,omitempty"`
-	DateTo      *int64 `json:"date_to,omitempty"`
+	ItemPriceId        string `json:"item_price_id,omitempty"`
+	Quantity           *int32 `json:"quantity,omitempty"`
+	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int32 `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
+	DateFrom           *int64 `json:"date_from,omitempty"`
+	DateTo             *int64 `json:"date_to,omitempty"`
 }
 type CreateItemTierParams struct {
-	ItemPriceId  string `json:"item_price_id,omitempty"`
-	StartingUnit *int32 `json:"starting_unit,omitempty"`
-	EndingUnit   *int32 `json:"ending_unit,omitempty"`
-	Price        *int32 `json:"price,omitempty"`
+	ItemPriceId           string `json:"item_price_id,omitempty"`
+	StartingUnit          *int32 `json:"starting_unit,omitempty"`
+	EndingUnit            *int32 `json:"ending_unit,omitempty"`
+	Price                 *int32 `json:"price,omitempty"`
+	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
 type CreateChargeParams struct {
 	Amount                 *int32               `json:"amount,omitempty"`
 	AmountInDecimal        string               `json:"amount_in_decimal,omitempty"`
 	Description            string               `json:"description,omitempty"`
+	Taxable                *bool                `json:"taxable,omitempty"`
+	TaxProfileId           string               `json:"tax_profile_id,omitempty"`
+	AvalaraTaxCode         string               `json:"avalara_tax_code,omitempty"`
+	TaxjarProductCode      string               `json:"taxjar_product_code,omitempty"`
 	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
 	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
 	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
 	DateFrom               *int64               `json:"date_from,omitempty"`
 	DateTo                 *int64               `json:"date_to,omitempty"`
-	Taxable                *bool                `json:"taxable,omitempty"`
 }
 type InvoiceUnbilledChargesRequestParams struct {
 	SubscriptionId string `json:"subscription_id,omitempty"`
