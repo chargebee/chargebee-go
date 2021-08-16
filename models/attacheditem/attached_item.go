@@ -55,13 +55,3 @@ type ListRequestParams struct {
 	ItemType      *filter.EnumFilter   `json:"item_type,omitempty"`
 	ChargeOnEvent *filter.EnumFilter   `json:"charge_on_event,omitempty"`
 }
-type ListInternalRequestParams struct {
-	Limit         *int32               `json:"limit,omitempty"`
-	Offset        string               `json:"offset,omitempty"`
-	Id            *filter.StringFilter `json:"id,omitempty"`
-	ItemId        *filter.StringFilter `json:"item_id,omitempty"`
-	Type          *filter.EnumFilter   `json:"type,omitempty"`
-	ItemType      *filter.EnumFilter   `json:"item_type,omitempty"`
-	ChargeOnEvent *filter.EnumFilter   `json:"charge_on_event,omitempty"`
-	ParentItemId  *filter.StringFilter `json:"parent_item_id,omitempty"`
-}

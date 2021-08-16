@@ -8,4 +8,5 @@ const (
 	ChargeEventTrialStart           ChargeEvent = "trial_start"
 	ChargeEventSubscriptionChange   ChargeEvent = "subscription_change"
 	ChargeEventSubscriptionRenewal  ChargeEvent = "subscription_renewal"
+	ChargeEventSubscriptionCancel   ChargeEvent = "subscription_cancel"
 )

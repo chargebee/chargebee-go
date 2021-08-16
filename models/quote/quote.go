@@ -304,6 +304,8 @@ type UpdateSubscriptionQuoteRequestParams struct {
 	BillingAlignmentMode    enum.BillingAlignmentMode                       `json:"billing_alignment_mode,omitempty"`
 	CouponIds               []string                                        `json:"coupon_ids,omitempty"`
 	ReplaceCouponList       *bool                                           `json:"replace_coupon_list,omitempty"`
+	ChangeOption            enum.ChangeOption                               `json:"change_option,omitempty"`
+	ChangesScheduledAt      *int64                                          `json:"changes_scheduled_at,omitempty"`
 	ForceTermReset          *bool                                           `json:"force_term_reset,omitempty"`
 	Reactivate              *bool                                           `json:"reactivate,omitempty"`
 	BillingAddress          *UpdateSubscriptionQuoteBillingAddressParams    `json:"billing_address,omitempty"`
@@ -401,6 +403,8 @@ type EditUpdateSubscriptionQuoteRequestParams struct {
 	BillingAlignmentMode    enum.BillingAlignmentMode                           `json:"billing_alignment_mode,omitempty"`
 	CouponIds               []string                                            `json:"coupon_ids,omitempty"`
 	ReplaceCouponList       *bool                                               `json:"replace_coupon_list,omitempty"`
+	ChangeOption            enum.ChangeOption                                   `json:"change_option,omitempty"`
+	ChangesScheduledAt      *int64                                              `json:"changes_scheduled_at,omitempty"`
 	ForceTermReset          *bool                                               `json:"force_term_reset,omitempty"`
 	Reactivate              *bool                                               `json:"reactivate,omitempty"`
 	BillingAddress          *EditUpdateSubscriptionQuoteBillingAddressParams    `json:"billing_address,omitempty"`
@@ -493,6 +497,7 @@ type CreateForOnetimeChargesRequestParams struct {
 	Addons          []*CreateForOnetimeChargesAddonParams         `json:"addons,omitempty"`
 	Charges         []*CreateForOnetimeChargesChargeParams        `json:"charges,omitempty"`
 	Coupon          string                                        `json:"coupon,omitempty"`
+	CouponIds       []string                                      `json:"coupon_ids,omitempty"`
 	ShippingAddress *CreateForOnetimeChargesShippingAddressParams `json:"shipping_address,omitempty"`
 }
 type CreateForOnetimeChargesAddonParams struct {
@@ -536,6 +541,7 @@ type EditOneTimeQuoteRequestParams struct {
 	Addons          []*EditOneTimeQuoteAddonParams         `json:"addons,omitempty"`
 	Charges         []*EditOneTimeQuoteChargeParams        `json:"charges,omitempty"`
 	Coupon          string                                 `json:"coupon,omitempty"`
+	CouponIds       []string                               `json:"coupon_ids,omitempty"`
 	ShippingAddress *EditOneTimeQuoteShippingAddressParams `json:"shipping_address,omitempty"`
 }
 type EditOneTimeQuoteAddonParams struct {
@@ -717,6 +723,8 @@ type UpdateSubscriptionQuoteForItemsRequestParams struct {
 	BillingAlignmentMode   enum.BillingAlignmentMode                                `json:"billing_alignment_mode,omitempty"`
 	CouponIds              []string                                                 `json:"coupon_ids,omitempty"`
 	ReplaceCouponList      *bool                                                    `json:"replace_coupon_list,omitempty"`
+	ChangeOption           enum.ChangeOption                                        `json:"change_option,omitempty"`
+	ChangesScheduledAt     *int64                                                   `json:"changes_scheduled_at,omitempty"`
 	ForceTermReset         *bool                                                    `json:"force_term_reset,omitempty"`
 	Reactivate             *bool                                                    `json:"reactivate,omitempty"`
 	BillingAddress         *UpdateSubscriptionQuoteForItemsBillingAddressParams     `json:"billing_address,omitempty"`
@@ -812,6 +820,8 @@ type EditUpdateSubscriptionQuoteForItemsRequestParams struct {
 	BillingAlignmentMode   enum.BillingAlignmentMode                                    `json:"billing_alignment_mode,omitempty"`
 	CouponIds              []string                                                     `json:"coupon_ids,omitempty"`
 	ReplaceCouponList      *bool                                                        `json:"replace_coupon_list,omitempty"`
+	ChangeOption           enum.ChangeOption                                            `json:"change_option,omitempty"`
+	ChangesScheduledAt     *int64                                                       `json:"changes_scheduled_at,omitempty"`
 	ForceTermReset         *bool                                                        `json:"force_term_reset,omitempty"`
 	Reactivate             *bool                                                        `json:"reactivate,omitempty"`
 	BillingAddress         *EditUpdateSubscriptionQuoteForItemsBillingAddressParams     `json:"billing_address,omitempty"`
@@ -903,6 +913,7 @@ type CreateForChargeItemsAndChargesRequestParams struct {
 	ItemTiers       []*CreateForChargeItemsAndChargesItemTierParams      `json:"item_tiers,omitempty"`
 	Charges         []*CreateForChargeItemsAndChargesChargeParams        `json:"charges,omitempty"`
 	Coupon          string                                               `json:"coupon,omitempty"`
+	CouponIds       []string                                             `json:"coupon_ids,omitempty"`
 	ShippingAddress *CreateForChargeItemsAndChargesShippingAddressParams `json:"shipping_address,omitempty"`
 }
 type CreateForChargeItemsAndChargesItemPriceParams struct {
@@ -956,6 +967,7 @@ type EditForChargeItemsAndChargesRequestParams struct {
 	ItemTiers       []*EditForChargeItemsAndChargesItemTierParams      `json:"item_tiers,omitempty"`
 	Charges         []*EditForChargeItemsAndChargesChargeParams        `json:"charges,omitempty"`
 	Coupon          string                                             `json:"coupon,omitempty"`
+	CouponIds       []string                                           `json:"coupon_ids,omitempty"`
 	ShippingAddress *EditForChargeItemsAndChargesShippingAddressParams `json:"shipping_address,omitempty"`
 }
 type EditForChargeItemsAndChargesItemPriceParams struct {
@@ -1017,12 +1029,16 @@ type QuoteLineGroupsForQuoteRequestParams struct {
 	Offset string `json:"offset,omitempty"`
 }
 type ConvertRequestParams struct {
-	Subscription *ConvertSubscriptionParams `json:"subscription,omitempty"`
+	Subscription          *ConvertSubscriptionParams `json:"subscription,omitempty"`
+	InvoiceDate           *int64                     `json:"invoice_date,omitempty"`
+	CreatePendingInvoices *bool                      `json:"create_pending_invoices,omitempty"`
+	FirstInvoicePending   *bool                      `json:"first_invoice_pending,omitempty"`
 }
 type ConvertSubscriptionParams struct {
-	Id             string              `json:"id,omitempty"`
-	AutoCollection enum.AutoCollection `json:"auto_collection,omitempty"`
-	PoNumber       string              `json:"po_number,omitempty"`
+	Id                string              `json:"id,omitempty"`
+	AutoCollection    enum.AutoCollection `json:"auto_collection,omitempty"`
+	PoNumber          string              `json:"po_number,omitempty"`
+	AutoCloseInvoices *bool               `json:"auto_close_invoices,omitempty"`
 }
 type UpdateStatusRequestParams struct {
 	Status  quoteEnum.Status `json:"status"`

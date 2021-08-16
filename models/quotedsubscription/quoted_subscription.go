@@ -20,6 +20,8 @@ type QuotedSubscription struct {
 	AutoCollection                    enum.AutoCollection                      `json:"auto_collection"`
 	PlanQuantityInDecimal             string                                   `json:"plan_quantity_in_decimal"`
 	PlanUnitPriceInDecimal            string                                   `json:"plan_unit_price_in_decimal"`
+	ChangesScheduledAt                int64                                    `json:"changes_scheduled_at"`
+	ChangeOption                      quotedSubscriptionEnum.ChangeOption      `json:"change_option"`
 	ContractTermBillingCycleOnRenewal int32                                    `json:"contract_term_billing_cycle_on_renewal"`
 	Addons                            []*Addon                                 `json:"addons"`
 	EventBasedAddons                  []*EventBasedAddon                       `json:"event_based_addons"`
@@ -53,11 +55,8 @@ type EventBasedAddon struct {
 	Object              string       `json:"object"`
 }
 type Coupon struct {
-	CouponId     string `json:"coupon_id"`
-	ApplyTill    int64  `json:"apply_till"`
-	AppliedCount int32  `json:"applied_count"`
-	CouponCode   string `json:"coupon_code"`
-	Object       string `json:"object"`
+	CouponId string `json:"coupon_id"`
+	Object   string `json:"object"`
 }
 type SubscriptionItem struct {
 	ItemPriceId           string              `json:"item_price_id"`

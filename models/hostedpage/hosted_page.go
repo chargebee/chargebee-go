@@ -438,6 +438,7 @@ type CheckoutExistingRequestParams struct {
 	EventBasedAddons           []*CheckoutExistingEventBasedAddonParams `json:"event_based_addons,omitempty"`
 	ReplaceAddonList           *bool                                    `json:"replace_addon_list,omitempty"`
 	MandatoryAddonsToRemove    []string                                 `json:"mandatory_addons_to_remove,omitempty"`
+	InvoiceDate                *int64                                   `json:"invoice_date,omitempty"`
 	BillingCycles              *int32                                   `json:"billing_cycles,omitempty"`
 	TermsToCharge              *int32                                   `json:"terms_to_charge,omitempty"`
 	ReactivateFrom             *int64                                   `json:"reactivate_from,omitempty"`
@@ -508,6 +509,7 @@ type CheckoutExistingForItemsRequestParams struct {
 	MandatoryItemsToRemove     []string                                          `json:"mandatory_items_to_remove,omitempty"`
 	ReplaceItemsList           *bool                                             `json:"replace_items_list,omitempty"`
 	ItemTiers                  []*CheckoutExistingForItemsItemTierParams         `json:"item_tiers,omitempty"`
+	InvoiceDate                *int64                                            `json:"invoice_date,omitempty"`
 	BillingCycles              *int32                                            `json:"billing_cycles,omitempty"`
 	TermsToCharge              *int32                                            `json:"terms_to_charge,omitempty"`
 	ReactivateFrom             *int64                                            `json:"reactivate_from,omitempty"`

@@ -25,7 +25,7 @@ import (
 )
 
 func main() {
-  chargebee.Configure("{site}", "{site_api_key}")
+  chargebee.Configure("{site_api_key}", "{site}")
   res, err := subscriptionAction.Create(&subscription.CreateRequestParams{
     PlanId:         "cbdemo_grow",
     BillingCycles:  chargebee.Int32(3),
@@ -59,7 +59,7 @@ import (
 )
 
 func main() {
-  chargebee.Configure("{site}", "{site_api_key}")
+  chargebee.Configure("{site_api_key}", "{site}")
   res, err := subscriptionAction.Create(&subscription.CreateRequestParams{
     PlanId:         "cbdemo_grow",
     BillingCycles:  chargebee.Int32(3),
@@ -124,7 +124,7 @@ import (
 )
 
 func main() {
-  chargebee.Configure("{site}", "{site_api_key}")
+  chargebee.Configure("{site_api_key}", "{site}")
   res, err := subscriptionAction.List(&subscription.ListRequestParams{
     Limit: chargebee.Int32(5),
     Id: &filter.StringFilter{
@@ -163,7 +163,7 @@ import (
 )
 
 func main() {
-  chargebee.Configure("{site}", "{site_api_key}")
+  chargebee.Configure("{site_api_key}", "{site}")
   res, err := subscriptionAction.Create(&subscription.CreateRequestParams{
     PlanId: "cbdemo_grow",
   }).Headers("chargebee-request-origin-ip", "192.168.1.2").AddParams("customer[cf_gender]","Female").Request() // Customer level custom field. 

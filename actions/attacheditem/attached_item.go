@@ -21,6 +21,3 @@ func Delete(id string, params *attacheditem.DeleteRequestParams) chargebee.Reque
 func List(id string, params *attacheditem.ListRequestParams) chargebee.RequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/items/%v/attached_items", id), params)
 }
-func ListInternal(params *attacheditem.ListInternalRequestParams) chargebee.RequestObj {
-	return chargebee.SendList("GET", fmt.Sprintf("/attached_items/list_internal"), params)
-}

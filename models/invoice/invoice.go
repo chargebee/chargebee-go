@@ -44,6 +44,7 @@ type Invoice struct {
 	HasAdvanceCharges       bool                      `json:"has_advance_charges"`
 	TermFinalized           bool                      `json:"term_finalized"`
 	IsGifted                bool                      `json:"is_gifted"`
+	GeneratedAt             int64                     `json:"generated_at"`
 	ExpectedPaymentDate     int64                     `json:"expected_payment_date"`
 	AmountToCollect         int32                     `json:"amount_to_collect"`
 	RoundOffAmount          int32                     `json:"round_off_amount"`
@@ -243,6 +244,7 @@ type CreateRequestParams struct {
 	SubscriptionId              string                       `json:"subscription_id,omitempty"`
 	CurrencyCode                string                       `json:"currency_code,omitempty"`
 	Addons                      []*CreateAddonParams         `json:"addons,omitempty"`
+	InvoiceDate                 *int64                       `json:"invoice_date,omitempty"`
 	Charges                     []*CreateChargeParams        `json:"charges,omitempty"`
 	InvoiceNote                 string                       `json:"invoice_note,omitempty"`
 	RemoveGeneralNote           *bool                        `json:"remove_general_note,omitempty"`
@@ -376,6 +378,7 @@ type CreateForChargeItemsAndChargesRequestParams struct {
 	AuthorizationTransactionId  string                                               `json:"authorization_transaction_id,omitempty"`
 	PaymentSourceId             string                                               `json:"payment_source_id,omitempty"`
 	AutoCollection              enum.AutoCollection                                  `json:"auto_collection,omitempty"`
+	InvoiceDate                 *int64                                               `json:"invoice_date,omitempty"`
 	ShippingAddress             *CreateForChargeItemsAndChargesShippingAddressParams `json:"shipping_address,omitempty"`
 	Card                        *CreateForChargeItemsAndChargesCardParams            `json:"card,omitempty"`
 	BankAccount                 *CreateForChargeItemsAndChargesBankAccountParams     `json:"bank_account,omitempty"`
@@ -507,6 +510,7 @@ type ChargeRequestParams struct {
 	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
 	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
 	PoNumber               string               `json:"po_number,omitempty"`
+	InvoiceDate            *int64               `json:"invoice_date,omitempty"`
 	PaymentSourceId        string               `json:"payment_source_id,omitempty"`
 }
 type ChargeAddonRequestParams struct {
@@ -522,6 +526,7 @@ type ChargeAddonRequestParams struct {
 	CouponIds               []string `json:"coupon_ids,omitempty"`
 	Coupon                  string   `json:"coupon,omitempty"`
 	PoNumber                string   `json:"po_number,omitempty"`
+	InvoiceDate             *int64   `json:"invoice_date,omitempty"`
 	PaymentSourceId         string   `json:"payment_source_id,omitempty"`
 }
 type CreateForChargeItemRequestParams struct {
@@ -532,6 +537,7 @@ type CreateForChargeItemRequestParams struct {
 	PoNumber        string                               `json:"po_number,omitempty"`
 	Coupon          string                               `json:"coupon,omitempty"`
 	PaymentSourceId string                               `json:"payment_source_id,omitempty"`
+	InvoiceDate     *int64                               `json:"invoice_date,omitempty"`
 }
 type CreateForChargeItemItemPriceParams struct {
 	ItemPriceId        string `json:"item_price_id"`
@@ -617,6 +623,7 @@ type ImportInvoiceLineItemTierParams struct {
 	UnitAmountInDecimal   string `json:"unit_amount_in_decimal,omitempty"`
 }
 type ImportInvoiceDiscountParams struct {
+	LineItemId  string                         `json:"line_item_id,omitempty"`
 	EntityType  invoiceEnum.DiscountEntityType `json:"entity_type"`
 	EntityId    string                         `json:"entity_id,omitempty"`
 	Description string                         `json:"description,omitempty"`

@@ -26,6 +26,7 @@ type CreditNote struct {
 	AmountAvailable         int32                     `json:"amount_available"`
 	RefundedAt              int64                     `json:"refunded_at"`
 	VoidedAt                int64                     `json:"voided_at"`
+	GeneratedAt             int64                     `json:"generated_at"`
 	ResourceVersion         int64                     `json:"resource_version"`
 	UpdatedAt               int64                     `json:"updated_at"`
 	SubTotal                int32                     `json:"sub_total"`

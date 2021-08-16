@@ -3,6 +3,7 @@ package chargebee
 import (
 	"errors"
 	"fmt"
+	"net/http"
 	"time"
 )
 
@@ -30,6 +31,9 @@ func Configure(key string, siteName string) {
 		panic(errors.New("Key/siteName cannot be empty"))
 	}
 	DefaultEnv = Environment{Key: key, SiteName: siteName}
+}
+func WithHTTPClient(c *http.Client) {
+	httpClient = c
 }
 func (env *Environment) apiBaseUrl() string {
 	if env.Protocol == "" {

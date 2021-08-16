@@ -90,10 +90,3 @@ type ListRequestParams struct {
 	UsageCalculation   *filter.EnumFilter      `json:"usage_calculation,omitempty"`
 	SortBy             *filter.SortFilter      `json:"sort_by,omitempty"`
 }
-type ListInternalItemPriceParams struct {
-	CurrencyCode *filter.StringFilter `json:"currency_code,omitempty"`
-	Status       *filter.EnumFilter   `json:"status,omitempty"`
-}
-type MigrateCouponCouponParams struct {
-	Id string `json:"id"`
-}

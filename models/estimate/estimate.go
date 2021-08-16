@@ -32,6 +32,7 @@ type CreateSubscriptionRequestParams struct {
 	ShippingAddress         *CreateSubscriptionShippingAddressParams   `json:"shipping_address,omitempty"`
 	Customer                *CreateSubscriptionCustomerParams          `json:"customer,omitempty"`
 	InvoiceImmediately      *bool                                      `json:"invoice_immediately,omitempty"`
+	InvoiceDate             *int64                                     `json:"invoice_date,omitempty"`
 	ContractTerm            *CreateSubscriptionContractTermParams      `json:"contract_term,omitempty"`
 	ClientProfileId         string                                     `json:"client_profile_id,omitempty"`
 }
@@ -119,6 +120,7 @@ type CreateSubItemEstimateRequestParams struct {
 	ShippingAddress        *CreateSubItemEstimateShippingAddressParams    `json:"shipping_address,omitempty"`
 	Customer               *CreateSubItemEstimateCustomerParams           `json:"customer,omitempty"`
 	InvoiceImmediately     *bool                                          `json:"invoice_immediately,omitempty"`
+	InvoiceDate            *int64                                         `json:"invoice_date,omitempty"`
 	ClientProfileId        string                                         `json:"client_profile_id,omitempty"`
 	ContractTerm           *CreateSubItemEstimateContractTermParams       `json:"contract_term,omitempty"`
 }
@@ -202,6 +204,7 @@ type CreateSubForCustomerEstimateRequestParams struct {
 	TermsToCharge           *int32                                               `json:"terms_to_charge,omitempty"`
 	BillingAlignmentMode    enum.BillingAlignmentMode                            `json:"billing_alignment_mode,omitempty"`
 	ShippingAddress         *CreateSubForCustomerEstimateShippingAddressParams   `json:"shipping_address,omitempty"`
+	InvoiceDate             *int64                                               `json:"invoice_date,omitempty"`
 	CouponIds               []string                                             `json:"coupon_ids,omitempty"`
 	ContractTerm            *CreateSubForCustomerEstimateContractTermParams      `json:"contract_term,omitempty"`
 }
@@ -266,6 +269,7 @@ type CreateSubItemForCustomerEstimateRequestParams struct {
 	TermsToCharge          *int32                                                    `json:"terms_to_charge,omitempty"`
 	BillingAlignmentMode   enum.BillingAlignmentMode                                 `json:"billing_alignment_mode,omitempty"`
 	ShippingAddress        *CreateSubItemForCustomerEstimateShippingAddressParams    `json:"shipping_address,omitempty"`
+	InvoiceDate            *int64                                                    `json:"invoice_date,omitempty"`
 	CouponIds              []string                                                  `json:"coupon_ids,omitempty"`
 	ContractTerm           *CreateSubItemForCustomerEstimateContractTermParams       `json:"contract_term,omitempty"`
 }
@@ -323,6 +327,7 @@ type UpdateSubscriptionRequestParams struct {
 	EventBasedAddons        []*UpdateSubscriptionEventBasedAddonParams `json:"event_based_addons,omitempty"`
 	ReplaceAddonList        *bool                                      `json:"replace_addon_list,omitempty"`
 	MandatoryAddonsToRemove []string                                   `json:"mandatory_addons_to_remove,omitempty"`
+	InvoiceDate             *int64                                     `json:"invoice_date,omitempty"`
 	BillingCycles           *int32                                     `json:"billing_cycles,omitempty"`
 	TermsToCharge           *int32                                     `json:"terms_to_charge,omitempty"`
 	ReactivateFrom          *int64                                     `json:"reactivate_from,omitempty"`
@@ -409,6 +414,7 @@ type UpdateSubscriptionForItemsRequestParams struct {
 	MandatoryItemsToRemove []string                                            `json:"mandatory_items_to_remove,omitempty"`
 	ReplaceItemsList       *bool                                               `json:"replace_items_list,omitempty"`
 	ItemTiers              []*UpdateSubscriptionForItemsItemTierParams         `json:"item_tiers,omitempty"`
+	InvoiceDate            *int64                                              `json:"invoice_date,omitempty"`
 	BillingCycles          *int32                                              `json:"billing_cycles,omitempty"`
 	TermsToCharge          *int32                                              `json:"terms_to_charge,omitempty"`
 	ReactivateFrom         *int64                                              `json:"reactivate_from,omitempty"`
@@ -529,6 +535,7 @@ type CancelSubscriptionRequestParams struct {
 	AccountReceivablesHandling        enum.AccountReceivablesHandling            `json:"account_receivables_handling,omitempty"`
 	RefundableCreditsHandling         enum.RefundableCreditsHandling             `json:"refundable_credits_handling,omitempty"`
 	ContractTermCancelOption          enum.ContractTermCancelOption              `json:"contract_term_cancel_option,omitempty"`
+	InvoiceDate                       *int64                                     `json:"invoice_date,omitempty"`
 	EventBasedAddons                  []*CancelSubscriptionEventBasedAddonParams `json:"event_based_addons,omitempty"`
 	CancelReasonCode                  string                                     `json:"cancel_reason_code,omitempty"`
 }
@@ -546,6 +553,7 @@ type CancelSubscriptionForItemsRequestParams struct {
 	AccountReceivablesHandling        enum.AccountReceivablesHandling                     `json:"account_receivables_handling,omitempty"`
 	RefundableCreditsHandling         enum.RefundableCreditsHandling                      `json:"refundable_credits_handling,omitempty"`
 	ContractTermCancelOption          enum.ContractTermCancelOption                       `json:"contract_term_cancel_option,omitempty"`
+	InvoiceDate                       *int64                                              `json:"invoice_date,omitempty"`
 	SubscriptionItems                 []*CancelSubscriptionForItemsSubscriptionItemParams `json:"subscription_items,omitempty"`
 	CancelReasonCode                  string                                              `json:"cancel_reason_code,omitempty"`
 }
@@ -705,6 +713,7 @@ type CreateInvoiceRequestParams struct {
 	AuthorizationTransactionId string                              `json:"authorization_transaction_id,omitempty"`
 	PaymentSourceId            string                              `json:"payment_source_id,omitempty"`
 	AutoCollection             enum.AutoCollection                 `json:"auto_collection,omitempty"`
+	InvoiceDate                *int64                              `json:"invoice_date,omitempty"`
 	ShippingAddress            *CreateInvoiceShippingAddressParams `json:"shipping_address,omitempty"`
 }
 type CreateInvoiceInvoiceParams struct {
@@ -770,6 +779,7 @@ type CreateInvoiceForItemsRequestParams struct {
 	PaymentSourceId            string                                      `json:"payment_source_id,omitempty"`
 	AutoCollection             enum.AutoCollection                         `json:"auto_collection,omitempty"`
 	ShippingAddress            *CreateInvoiceForItemsShippingAddressParams `json:"shipping_address,omitempty"`
+	InvoiceDate                *int64                                      `json:"invoice_date,omitempty"`
 }
 type CreateInvoiceForItemsInvoiceParams struct {
 	CustomerId     string `json:"customer_id"`

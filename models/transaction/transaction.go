@@ -47,6 +47,8 @@ type Transaction struct {
 	LinkedRefunds            []*LinkedRefund                     `json:"linked_refunds"`
 	LinkedPayments           []*LinkedPayment                    `json:"linked_payments"`
 	Deleted                  bool                                `json:"deleted"`
+	Iin                      string                              `json:"iin"`
+	Last4                    string                              `json:"last4"`
 	MerchantReferenceId      string                              `json:"merchant_reference_id"`
 	Object                   string                              `json:"object"`
 }
