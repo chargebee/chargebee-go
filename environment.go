@@ -12,6 +12,7 @@ type Environment struct {
 	SiteName        string
 	ChargebeeDomain string
 	Protocol        string
+	HttpClient      *http.Client
 }
 
 var (
@@ -32,9 +33,14 @@ func Configure(key string, siteName string) {
 	}
 	DefaultEnv = Environment{Key: key, SiteName: siteName}
 }
+
 func WithHTTPClient(c *http.Client) {
-	httpClient = c
+	// I don't really like setting this on the default environment, but maintains
+	// backwards compatibility at least while having the ability for client to be
+	// configured differently.
+	DefaultEnv.HttpClient = c
 }
+
 func (env *Environment) apiBaseUrl() string {
 	if env.Protocol == "" {
 		env.Protocol = "https"

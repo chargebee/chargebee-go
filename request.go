@@ -17,7 +17,11 @@ func (request RequestObj) RequestWithEnv(env Environment) (*Result, error) {
 	if err != nil {
 		panic(err)
 	}
-	res, err1 := Do(req)
+	opts := []RequestOption{}
+	if env.HttpClient != nil {
+		opts = append(opts, SetClient(env.HttpClient))
+	}
+	res, err1 := Do(req, opts...)
 	result := &Result{}
 	if err1 != nil {
 		return result, err1
