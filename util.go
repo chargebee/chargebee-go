@@ -197,6 +197,10 @@ func prepareResultCF(resbody []byte, v interface{}) {
 			v.(*Result).Addon.CustomField = customMapping(val)
 		} else if key == "plan" {
 			v.(*Result).Plan.CustomField = customMapping(val)
+		} else if key == "item" {
+			v.(*Result).Item.CustomField = customMapping(val)
+		} else if key == "item_price" {
+			v.(*Result).ItemPrice.CustomField = customMapping(val)
 		}
 
 	}
