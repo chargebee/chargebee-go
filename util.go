@@ -201,6 +201,8 @@ func prepareResultCF(resbody []byte, v interface{}) {
 			v.(*Result).Item.CustomField = customMapping(val)
 		} else if key == "item_price" {
 			v.(*Result).ItemPrice.CustomField = customMapping(val)
+		} else if key == "item_family" {
+			v.(*Result).ItemFamily.CustomField = customMapping(val)
 		}
 
 	}
