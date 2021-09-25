@@ -226,8 +226,13 @@ func prepareResultListCF(resbody []byte, v interface{}) {
 				v.(*ResultList).List[index].Addon.CustomField = customMapping(value)
 			} else if key == "plan" {
 				v.(*ResultList).List[index].Plan.CustomField = customMapping(value)
+			} else if key == "item" {
+				v.(*Result).List[index].Item.CustomField = customMapping(val)
+			} else if key == "item_price" {
+				v.(*Result).List[index].ItemPrice.CustomField = customMapping(val)
+			} else if key == "item_family" {
+				v.(*Result).List[index].ItemFamily.CustomField = customMapping(val)
 			}
-
 		}
 	}
 }
