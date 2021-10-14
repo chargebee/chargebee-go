@@ -2,6 +2,7 @@ package subscription
 
 import (
 	"encoding/json"
+
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
 	contractTermEnum "github.com/chargebee/chargebee-go/models/contractterm/enum"
@@ -408,6 +409,7 @@ type CreateForCustomerRequestParams struct {
 	InvoiceDate                       *int64                                    `json:"invoice_date,omitempty"`
 	MetaData                          map[string]interface{}                    `json:"meta_data,omitempty"`
 	InvoiceImmediately                *bool                                     `json:"invoice_immediately,omitempty"`
+	ReplacePrimaryPaymentSource       *bool                                     `json:"replace_primary_payment_source,omitempty"`
 	PaymentIntent                     *CreateForCustomerPaymentIntentParams     `json:"payment_intent,omitempty"`
 	FreePeriod                        *int32                                    `json:"free_period,omitempty"`
 	FreePeriodUnit                    enum.FreePeriodUnit                       `json:"free_period_unit,omitempty"`
@@ -486,6 +488,7 @@ type CreateWithItemsRequestParams struct {
 	InvoiceDate                       *int64                                   `json:"invoice_date,omitempty"`
 	MetaData                          map[string]interface{}                   `json:"meta_data,omitempty"`
 	InvoiceImmediately                *bool                                    `json:"invoice_immediately,omitempty"`
+	ReplacePrimaryPaymentSource       *bool                                    `json:"replace_primary_payment_source,omitempty"`
 	PaymentIntent                     *CreateWithItemsPaymentIntentParams      `json:"payment_intent,omitempty"`
 	FreePeriod                        *int32                                   `json:"free_period,omitempty"`
 	FreePeriodUnit                    enum.FreePeriodUnit                      `json:"free_period_unit,omitempty"`

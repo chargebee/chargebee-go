@@ -141,6 +141,7 @@ type LineItemDiscount struct {
 	LineItemId     string                                 `json:"line_item_id"`
 	DiscountType   orderEnum.LineItemDiscountDiscountType `json:"discount_type"`
 	CouponId       string                                 `json:"coupon_id"`
+	EntityId       string                                 `json:"entity_id"`
 	DiscountAmount int32                                  `json:"discount_amount"`
 	Object         string                                 `json:"object"`
 }
@@ -271,6 +272,7 @@ type CancelRequestParams struct {
 	CancellationReason orderEnum.CancellationReason `json:"cancellation_reason"`
 	CreditNote         *CancelCreditNoteParams      `json:"credit_note,omitempty"`
 	CustomerNotes      string                       `json:"customer_notes,omitempty"`
+	Comment            string                       `json:"comment,omitempty"`
 	CancelledAt        *int64                       `json:"cancelled_at,omitempty"`
 }
 type CancelCreditNoteParams struct {
@@ -279,6 +281,7 @@ type CancelCreditNoteParams struct {
 type CreateRefundableCreditNoteRequestParams struct {
 	CreditNote    *CreateRefundableCreditNoteCreditNoteParams `json:"credit_note,omitempty"`
 	CustomerNotes string                                      `json:"customer_notes,omitempty"`
+	Comment       string                                      `json:"comment,omitempty"`
 }
 type CreateRefundableCreditNoteCreditNoteParams struct {
 	ReasonCode creditNoteEnum.ReasonCode `json:"reason_code"`

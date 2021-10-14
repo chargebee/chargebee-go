@@ -145,19 +145,18 @@ type UpdateForItemsItemConstraintCriteriaParams struct {
 	ItemPricePeriods []map[string]interface{}                  `json:"item_price_periods,omitempty"`
 }
 type ListRequestParams struct {
-	Limit            *int32                  `json:"limit,omitempty"`
-	Offset           string                  `json:"offset,omitempty"`
-	Id               *filter.StringFilter    `json:"id,omitempty"`
-	Name             *filter.StringFilter    `json:"name,omitempty"`
-	DiscountType     *filter.EnumFilter      `json:"discount_type,omitempty"`
-	DurationType     *filter.EnumFilter      `json:"duration_type,omitempty"`
-	Status           *filter.EnumFilter      `json:"status,omitempty"`
-	ApplyOn          *filter.EnumFilter      `json:"apply_on,omitempty"`
-	CreatedAt        *filter.TimestampFilter `json:"created_at,omitempty"`
-	UpdatedAt        *filter.TimestampFilter `json:"updated_at,omitempty"`
-	SortBy           *filter.SortFilter      `json:"sort_by,omitempty"`
-	CurrencyCode     *filter.StringFilter    `json:"currency_code,omitempty"`
-	IncludeDiscounts *bool                   `json:"include_discounts,omitempty"`
+	Limit        *int32                  `json:"limit,omitempty"`
+	Offset       string                  `json:"offset,omitempty"`
+	Id           *filter.StringFilter    `json:"id,omitempty"`
+	Name         *filter.StringFilter    `json:"name,omitempty"`
+	DiscountType *filter.EnumFilter      `json:"discount_type,omitempty"`
+	DurationType *filter.EnumFilter      `json:"duration_type,omitempty"`
+	Status       *filter.EnumFilter      `json:"status,omitempty"`
+	ApplyOn      *filter.EnumFilter      `json:"apply_on,omitempty"`
+	CreatedAt    *filter.TimestampFilter `json:"created_at,omitempty"`
+	UpdatedAt    *filter.TimestampFilter `json:"updated_at,omitempty"`
+	SortBy       *filter.SortFilter      `json:"sort_by,omitempty"`
+	CurrencyCode *filter.StringFilter    `json:"currency_code,omitempty"`
 }
 type UpdateRequestParams struct {
 	Name               string                     `json:"name,omitempty"`

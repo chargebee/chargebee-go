@@ -41,5 +41,6 @@ const (
 	GatewayPaypal                Gateway = "paypal"
 	GatewayIngenicoDirect        Gateway = "ingenico_direct"
 	GatewayExact                 Gateway = "exact"
+	GatewayMollie                Gateway = "mollie"
 	GatewayNotApplicable         Gateway = "not_applicable"
 )

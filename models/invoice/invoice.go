@@ -610,6 +610,18 @@ type ImportInvoiceLineItemParams struct {
 	Tax3Amount                 *int32                         `json:"tax3_amount,omitempty"`
 	Tax4Name                   string                         `json:"tax4_name,omitempty"`
 	Tax4Amount                 *int32                         `json:"tax4_amount,omitempty"`
+	Tax5Name                   string                         `json:"tax5_name,omitempty"`
+	Tax5Amount                 *int32                         `json:"tax5_amount,omitempty"`
+	Tax6Name                   string                         `json:"tax6_name,omitempty"`
+	Tax6Amount                 *int32                         `json:"tax6_amount,omitempty"`
+	Tax7Name                   string                         `json:"tax7_name,omitempty"`
+	Tax7Amount                 *int32                         `json:"tax7_amount,omitempty"`
+	Tax8Name                   string                         `json:"tax8_name,omitempty"`
+	Tax8Amount                 *int32                         `json:"tax8_amount,omitempty"`
+	Tax9Name                   string                         `json:"tax9_name,omitempty"`
+	Tax9Amount                 *int32                         `json:"tax9_amount,omitempty"`
+	Tax10Name                  string                         `json:"tax10_name,omitempty"`
+	Tax10Amount                *int32                         `json:"tax10_amount,omitempty"`
 }
 type ImportInvoiceLineItemTierParams struct {
 	LineItemId            string `json:"line_item_id"`
