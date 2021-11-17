@@ -7,11 +7,32 @@ import (
 	"net/http"
 )
 
-var httpClient = &http.Client{Timeout: DefaultHTTPTimeout}
+// RequestOption allows you to pass along functions that customize a
+// RequestOptions struct.
+type RequestOption func(*RequestOptions)
+
+// HTTPOption contains a struct of various request options that could be
+//customized.
+type RequestOptions struct {
+	client *http.Client
+}
+
+// Client allows you to customize the http client on a per-request basis
+func SetClient(hc *http.Client) RequestOption {
+	return func(h *RequestOptions) {
+		h.client = hc
+	}
+}
 
 //Do is used to execute an API Request.
-func Do(req *http.Request) (string, error) {
-	response, err := httpClient.Do(req)
+func Do(req *http.Request, opts ...RequestOption) (string, error) {
+	reqOpts := RequestOptions{
+		client: &http.Client{},
+	}
+	for _, o := range opts {
+		o(&reqOpts)
+	}
+	response, err := reqOpts.client.Do(req)
 	if err != nil {
 		return "", err
 	}

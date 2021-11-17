@@ -10,7 +10,11 @@ func (request RequestObj) ListRequestWithEnv(env Environment) (*ResultList, erro
 	if err != nil {
 		panic(err)
 	}
-	res, err1 := Do(req)
+	opts := []RequestOption{}
+	if env.HttpClient != nil {
+		opts = append(opts, SetClient(env.HttpClient))
+	}
+	res, err1 := Do(req, opts...)
 	result := &ResultList{}
 	if err1 != nil {
 		return result, err1
