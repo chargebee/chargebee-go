@@ -1,3 +1,9 @@
+### v2.4.1 (2021-11-17)
+* * *
+
+#### Fixes:
+* Added support for custom fields in Item resource.
+
 ### v2.4.0 (2021-10-14)
 * * *
 

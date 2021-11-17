@@ -197,6 +197,12 @@ func prepareResultCF(resbody []byte, v interface{}) {
 			v.(*Result).Addon.CustomField = customMapping(val)
 		} else if key == "plan" {
 			v.(*Result).Plan.CustomField = customMapping(val)
+		} else if key == "item" {
+			v.(*Result).Item.CustomField = customMapping(val)
+		} else if key == "item_price" {
+			v.(*Result).ItemPrice.CustomField = customMapping(val)
+		} else if key == "item_family" {
+			v.(*Result).ItemFamily.CustomField = customMapping(val)
 		}
 
 	}
@@ -220,6 +226,12 @@ func prepareResultListCF(resbody []byte, v interface{}) {
 				v.(*ResultList).List[index].Addon.CustomField = customMapping(value)
 			} else if key == "plan" {
 				v.(*ResultList).List[index].Plan.CustomField = customMapping(value)
+			} else if key == "item" {
+				v.(*ResultList).List[index].Item.CustomField = customMapping(value)
+			} else if key == "item_price" {
+				v.(*ResultList).List[index].ItemPrice.CustomField = customMapping(value)
+			} else if key == "item_family" {
+				v.(*ResultList).List[index].ItemFamily.CustomField = customMapping(value)
 			}
 
 		}
