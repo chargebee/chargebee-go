@@ -280,6 +280,7 @@ type CreateChargeParams struct {
 	Taxable                *bool                `json:"taxable,omitempty"`
 	TaxProfileId           string               `json:"tax_profile_id,omitempty"`
 	AvalaraTaxCode         string               `json:"avalara_tax_code,omitempty"`
+	HsnCode                string               `json:"hsn_code,omitempty"`
 	TaxjarProductCode      string               `json:"taxjar_product_code,omitempty"`
 	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
 	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
@@ -413,6 +414,7 @@ type CreateForChargeItemsAndChargesChargeParams struct {
 	Taxable                *bool                `json:"taxable,omitempty"`
 	TaxProfileId           string               `json:"tax_profile_id,omitempty"`
 	AvalaraTaxCode         string               `json:"avalara_tax_code,omitempty"`
+	HsnCode                string               `json:"hsn_code,omitempty"`
 	TaxjarProductCode      string               `json:"taxjar_product_code,omitempty"`
 	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
 	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
@@ -514,20 +516,20 @@ type ChargeRequestParams struct {
 	PaymentSourceId        string               `json:"payment_source_id,omitempty"`
 }
 type ChargeAddonRequestParams struct {
-	CustomerId              string   `json:"customer_id,omitempty"`
-	SubscriptionId          string   `json:"subscription_id,omitempty"`
-	AddonId                 string   `json:"addon_id"`
-	AddonQuantity           *int32   `json:"addon_quantity,omitempty"`
-	AddonUnitPrice          *int32   `json:"addon_unit_price,omitempty"`
-	AddonQuantityInDecimal  string   `json:"addon_quantity_in_decimal,omitempty"`
-	AddonUnitPriceInDecimal string   `json:"addon_unit_price_in_decimal,omitempty"`
-	DateFrom                *int64   `json:"date_from,omitempty"`
-	DateTo                  *int64   `json:"date_to,omitempty"`
-	CouponIds               []string `json:"coupon_ids,omitempty"`
-	Coupon                  string   `json:"coupon,omitempty"`
-	PoNumber                string   `json:"po_number,omitempty"`
-	InvoiceDate             *int64   `json:"invoice_date,omitempty"`
-	PaymentSourceId         string   `json:"payment_source_id,omitempty"`
+	CustomerId              string       `json:"customer_id,omitempty"`
+	SubscriptionId          string       `json:"subscription_id,omitempty"`
+	AddonId                 string       `json:"addon_id"`
+	AddonQuantity           *int32       `json:"addon_quantity,omitempty"`
+	AddonUnitPrice          *int32       `json:"addon_unit_price,omitempty"`
+	AddonQuantityInDecimal  string       `json:"addon_quantity_in_decimal,omitempty"`
+	AddonUnitPriceInDecimal string       `json:"addon_unit_price_in_decimal,omitempty"`
+	DateFrom                *int64       `json:"date_from,omitempty"`
+	DateTo                  *int64       `json:"date_to,omitempty"`
+	CouponIds               []string     `json:"coupon_ids,omitempty"`
+	Coupon                  string       `json:"coupon,omitempty"`
+	PoNumber                string       `json:"po_number,omitempty"`
+	InvoiceDate             *int64       `json:"invoice_date,omitempty"`
+	PaymentSourceId         string       `json:"payment_source_id,omitempty"`
 }
 type CreateForChargeItemRequestParams struct {
 	CustomerId      string                               `json:"customer_id,omitempty"`

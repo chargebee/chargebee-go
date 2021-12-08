@@ -27,6 +27,9 @@ func CreateBankAccount(params *paymentsource.CreateBankAccountRequestParams) cha
 func UpdateCard(id string, params *paymentsource.UpdateCardRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/payment_sources/%v/update_card", id), params)
 }
+func UpdateBankAccount(id string, params *paymentsource.UpdateBankAccountRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/payment_sources/%v/update_bank_account", id), params)
+}
 func VerifyBankAccount(id string, params *paymentsource.VerifyBankAccountRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/payment_sources/%v/verify_bank_account", id), params)
 }

@@ -62,6 +62,7 @@ type TaxDetail struct {
 	AvalaraTransactionType int32                `json:"avalara_transaction_type"`
 	AvalaraServiceType     int32                `json:"avalara_service_type"`
 	AvalaraTaxCode         string               `json:"avalara_tax_code"`
+	HsnCode                string               `json:"hsn_code"`
 	TaxjarProductCode      string               `json:"taxjar_product_code"`
 	Object                 string               `json:"object"`
 }
@@ -114,6 +115,7 @@ type CreateTierParams struct {
 type CreateTaxDetailParams struct {
 	TaxProfileId           string               `json:"tax_profile_id,omitempty"`
 	AvalaraTaxCode         string               `json:"avalara_tax_code,omitempty"`
+	HsnCode                string               `json:"hsn_code,omitempty"`
 	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
 	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
 	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
@@ -166,6 +168,7 @@ type UpdateTierParams struct {
 type UpdateTaxDetailParams struct {
 	TaxProfileId           string               `json:"tax_profile_id,omitempty"`
 	AvalaraTaxCode         string               `json:"avalara_tax_code,omitempty"`
+	HsnCode                string               `json:"hsn_code,omitempty"`
 	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
 	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
 	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
@@ -196,4 +199,15 @@ type ListRequestParams struct {
 	PeriodUnit      *filter.EnumFilter      `json:"period_unit,omitempty"`
 	Period          *filter.NumberFilter    `json:"period,omitempty"`
 	SortBy          *filter.SortFilter      `json:"sort_by,omitempty"`
+}
+type FindApplicableItemsRequestParams struct {
+	Limit  *int32             `json:"limit,omitempty"`
+	Offset string             `json:"offset,omitempty"`
+	SortBy *filter.SortFilter `json:"sort_by,omitempty"`
+}
+type FindApplicableItemPricesRequestParams struct {
+	Limit  *int32             `json:"limit,omitempty"`
+	Offset string             `json:"offset,omitempty"`
+	ItemId string             `json:"item_id,omitempty"`
+	SortBy *filter.SortFilter `json:"sort_by,omitempty"`
 }

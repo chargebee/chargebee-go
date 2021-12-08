@@ -21,3 +21,9 @@ func List(params *itemprice.ListRequestParams) chargebee.RequestObj {
 func Delete(id string) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/item_prices/%v/delete", id), nil)
 }
+func FindApplicableItems(id string, params *itemprice.FindApplicableItemsRequestParams) chargebee.RequestObj {
+	return chargebee.SendList("GET", fmt.Sprintf("/item_prices/%v/applicable_items", id), params)
+}
+func FindApplicableItemPrices(id string, params *itemprice.FindApplicableItemPricesRequestParams) chargebee.RequestObj {
+	return chargebee.SendList("GET", fmt.Sprintf("/item_prices/%v/applicable_item_prices", id), params)
+}

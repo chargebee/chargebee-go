@@ -39,6 +39,7 @@ import (
 	"github.com/chargebee/chargebee-go/models/resourcemigration"
 	"github.com/chargebee/chargebee-go/models/sitemigrationdetail"
 	"github.com/chargebee/chargebee-go/models/subscription"
+	"github.com/chargebee/chargebee-go/models/taxwithheld"
 	"github.com/chargebee/chargebee-go/models/thirdpartypaymentmethod"
 	"github.com/chargebee/chargebee-go/models/timemachine"
 	"github.com/chargebee/chargebee-go/models/token"
@@ -66,6 +67,7 @@ type Result struct {
 	Card                    *card.Card                                       `json:"card,omitempty"`
 	PromotionalCredit       *promotionalcredit.PromotionalCredit             `json:"promotional_credit,omitempty"`
 	Invoice                 *invoice.Invoice                                 `json:"invoice,omitempty"`
+	TaxWithheld             *taxwithheld.TaxWithheld                         `json:"tax_withheld,omitempty"`
 	CreditNote              *creditnote.CreditNote                           `json:"credit_note,omitempty"`
 	UnbilledCharge          *unbilledcharge.UnbilledCharge                   `json:"unbilled_charge,omitempty"`
 	Order                   *order.Order                                     `json:"order,omitempty"`

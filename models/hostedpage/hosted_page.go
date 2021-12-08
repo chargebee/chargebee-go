@@ -180,6 +180,7 @@ type CheckoutOneTimeChargeParams struct {
 	Taxable                *bool                `json:"taxable,omitempty"`
 	TaxProfileId           string               `json:"tax_profile_id,omitempty"`
 	AvalaraTaxCode         string               `json:"avalara_tax_code,omitempty"`
+	HsnCode                string               `json:"hsn_code,omitempty"`
 	TaxjarProductCode      string               `json:"taxjar_product_code,omitempty"`
 	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
 	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
@@ -280,6 +281,7 @@ type CheckoutOneTimeForItemsChargeParams struct {
 	Taxable                *bool                `json:"taxable,omitempty"`
 	TaxProfileId           string               `json:"tax_profile_id,omitempty"`
 	AvalaraTaxCode         string               `json:"avalara_tax_code,omitempty"`
+	HsnCode                string               `json:"hsn_code,omitempty"`
 	TaxjarProductCode      string               `json:"taxjar_product_code,omitempty"`
 	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
 	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`

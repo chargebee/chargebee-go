@@ -32,6 +32,7 @@ type Plan struct {
 	EnabledInPortal             bool                                 `json:"enabled_in_portal"`
 	AddonApplicability          planEnum.AddonApplicability          `json:"addon_applicability"`
 	TaxCode                     string                               `json:"tax_code"`
+	HsnCode                     string                               `json:"hsn_code"`
 	TaxjarProductCode           string                               `json:"taxjar_product_code"`
 	AvalaraSaleType             enum.AvalaraSaleType                 `json:"avalara_sale_type"`
 	AvalaraTransactionType      int32                                `json:"avalara_transaction_type"`
@@ -121,6 +122,7 @@ type CreateRequestParams struct {
 	Taxable                     *bool                                `json:"taxable,omitempty"`
 	TaxProfileId                string                               `json:"tax_profile_id,omitempty"`
 	TaxCode                     string                               `json:"tax_code,omitempty"`
+	HsnCode                     string                               `json:"hsn_code,omitempty"`
 	TaxjarProductCode           string                               `json:"taxjar_product_code,omitempty"`
 	AvalaraSaleType             enum.AvalaraSaleType                 `json:"avalara_sale_type,omitempty"`
 	AvalaraTransactionType      *int32                               `json:"avalara_transaction_type,omitempty"`
@@ -197,6 +199,7 @@ type UpdateRequestParams struct {
 	Taxable                     *bool                                `json:"taxable,omitempty"`
 	TaxProfileId                string                               `json:"tax_profile_id,omitempty"`
 	TaxCode                     string                               `json:"tax_code,omitempty"`
+	HsnCode                     string                               `json:"hsn_code,omitempty"`
 	TaxjarProductCode           string                               `json:"taxjar_product_code,omitempty"`
 	AvalaraSaleType             enum.AvalaraSaleType                 `json:"avalara_sale_type,omitempty"`
 	AvalaraTransactionType      *int32                               `json:"avalara_transaction_type,omitempty"`
@@ -260,6 +263,7 @@ type ListRequestParams struct {
 	Status             *filter.EnumFilter      `json:"status,omitempty"`
 	UpdatedAt          *filter.TimestampFilter `json:"updated_at,omitempty"`
 	CurrencyCode       *filter.StringFilter    `json:"currency_code,omitempty"`
+	IncludeDeleted     *bool                   `json:"include_deleted,omitempty"`
 }
 type CopyRequestParams struct {
 	FromSite       string `json:"from_site"`

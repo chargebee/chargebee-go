@@ -24,6 +24,7 @@ type Addon struct {
 	ArchivedAt                  int64                                 `json:"archived_at"`
 	EnabledInPortal             bool                                  `json:"enabled_in_portal"`
 	TaxCode                     string                                `json:"tax_code"`
+	HsnCode                     string                                `json:"hsn_code"`
 	TaxjarProductCode           string                                `json:"taxjar_product_code"`
 	AvalaraSaleType             enum.AvalaraSaleType                  `json:"avalara_sale_type"`
 	AvalaraTransactionType      int32                                 `json:"avalara_transaction_type"`
@@ -81,6 +82,7 @@ type CreateRequestParams struct {
 	AvalaraTransactionType      *int32                                `json:"avalara_transaction_type,omitempty"`
 	AvalaraServiceType          *int32                                `json:"avalara_service_type,omitempty"`
 	TaxCode                     string                                `json:"tax_code,omitempty"`
+	HsnCode                     string                                `json:"hsn_code,omitempty"`
 	TaxjarProductCode           string                                `json:"taxjar_product_code,omitempty"`
 	InvoiceNotes                string                                `json:"invoice_notes,omitempty"`
 	MetaData                    map[string]interface{}                `json:"meta_data,omitempty"`
@@ -127,6 +129,7 @@ type UpdateRequestParams struct {
 	AvalaraTransactionType      *int32                                `json:"avalara_transaction_type,omitempty"`
 	AvalaraServiceType          *int32                                `json:"avalara_service_type,omitempty"`
 	TaxCode                     string                                `json:"tax_code,omitempty"`
+	HsnCode                     string                                `json:"hsn_code,omitempty"`
 	TaxjarProductCode           string                                `json:"taxjar_product_code,omitempty"`
 	InvoiceNotes                string                                `json:"invoice_notes,omitempty"`
 	MetaData                    map[string]interface{}                `json:"meta_data,omitempty"`
@@ -153,19 +156,20 @@ type UpdateTierParams struct {
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
 type ListRequestParams struct {
-	Limit        *int32                  `json:"limit,omitempty"`
-	Offset       string                  `json:"offset,omitempty"`
-	Id           *filter.StringFilter    `json:"id,omitempty"`
-	Name         *filter.StringFilter    `json:"name,omitempty"`
-	PricingModel *filter.EnumFilter      `json:"pricing_model,omitempty"`
-	Type         *filter.EnumFilter      `json:"type,omitempty"`
-	ChargeType   *filter.EnumFilter      `json:"charge_type,omitempty"`
-	Price        *filter.NumberFilter    `json:"price,omitempty"`
-	Period       *filter.NumberFilter    `json:"period,omitempty"`
-	PeriodUnit   *filter.EnumFilter      `json:"period_unit,omitempty"`
-	Status       *filter.EnumFilter      `json:"status,omitempty"`
-	UpdatedAt    *filter.TimestampFilter `json:"updated_at,omitempty"`
-	CurrencyCode *filter.StringFilter    `json:"currency_code,omitempty"`
+	Limit          *int32                  `json:"limit,omitempty"`
+	Offset         string                  `json:"offset,omitempty"`
+	Id             *filter.StringFilter    `json:"id,omitempty"`
+	Name           *filter.StringFilter    `json:"name,omitempty"`
+	PricingModel   *filter.EnumFilter      `json:"pricing_model,omitempty"`
+	Type           *filter.EnumFilter      `json:"type,omitempty"`
+	ChargeType     *filter.EnumFilter      `json:"charge_type,omitempty"`
+	Price          *filter.NumberFilter    `json:"price,omitempty"`
+	Period         *filter.NumberFilter    `json:"period,omitempty"`
+	PeriodUnit     *filter.EnumFilter      `json:"period_unit,omitempty"`
+	Status         *filter.EnumFilter      `json:"status,omitempty"`
+	UpdatedAt      *filter.TimestampFilter `json:"updated_at,omitempty"`
+	CurrencyCode   *filter.StringFilter    `json:"currency_code,omitempty"`
+	IncludeDeleted *bool                   `json:"include_deleted,omitempty"`
 }
 type CopyRequestParams struct {
 	FromSite       string `json:"from_site"`

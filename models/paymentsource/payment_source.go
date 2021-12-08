@@ -48,11 +48,14 @@ type Card struct {
 type BankAccount struct {
 	Last4             string                 `json:"last4"`
 	NameOnAccount     string                 `json:"name_on_account"`
+	FirstName         string                 `json:"first_name"`
+	LastName          string                 `json:"last_name"`
 	BankName          string                 `json:"bank_name"`
 	MandateId         string                 `json:"mandate_id"`
 	AccountType       enum.AccountType       `json:"account_type"`
 	EcheckType        enum.EcheckType        `json:"echeck_type"`
 	AccountHolderType enum.AccountHolderType `json:"account_holder_type"`
+	Email             string                 `json:"email"`
 	Object            string                 `json:"object"`
 }
 type AmazonPayment struct {
@@ -164,6 +167,14 @@ type UpdateCardCardParams struct {
 	BillingStateCode string `json:"billing_state_code,omitempty"`
 	BillingState     string `json:"billing_state,omitempty"`
 	BillingCountry   string `json:"billing_country,omitempty"`
+}
+type UpdateBankAccountRequestParams struct {
+	BankAccount *UpdateBankAccountBankAccountParams `json:"bank_account,omitempty"`
+}
+type UpdateBankAccountBankAccountParams struct {
+	FirstName string `json:"first_name,omitempty"`
+	LastName  string `json:"last_name,omitempty"`
+	Email     string `json:"email,omitempty"`
 }
 type VerifyBankAccountRequestParams struct {
 	Amount1 *int32 `json:"amount1"`

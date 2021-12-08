@@ -13,7 +13,6 @@ const (
 	EntityTypeAddon        EntityType = "addon"
 	EntityTypeCoupon       EntityType = "coupon"
 	EntityTypeOrder        EntityType = "order"
-	EntityTypeFeature      EntityType = "feature"
 	EntityTypeItemFamily   EntityType = "item_family"
 	EntityTypeItem         EntityType = "item"
 	EntityTypeItemPrice    EntityType = "item_price"

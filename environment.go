@@ -15,7 +15,7 @@ type Environment struct {
 }
 
 var (
-	DefaultHTTPTimeout    = 80 * time.Second
+	TotalHTTPTimeout    = 80 * time.Second
 	ExportWaitInSecs      = 3 * time.Second
 	TimeMachineWaitInSecs = 3 * time.Second
 	DefaultEnv            Environment
@@ -50,4 +50,8 @@ func DefaultConfig() Environment {
 		panic(errors.New("The default environment has not been configured"))
 	}
 	return DefaultEnv
+}
+
+func UpdateTotalHTTPTimeout(timeout time.Duration) {
+	TotalHTTPTimeout = timeout
 }

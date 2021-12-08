@@ -7,10 +7,11 @@ import (
 	"net/http"
 )
 
-var httpClient = &http.Client{Timeout: DefaultHTTPTimeout}
+var httpClient = &http.Client{Timeout: TotalHTTPTimeout}
 
 //Do is used to execute an API Request.
 func Do(req *http.Request) (string, error) {
+    httpClient = &http.Client{Timeout: TotalHTTPTimeout}
 	response, err := httpClient.Do(req)
 	if err != nil {
 		return "", err
