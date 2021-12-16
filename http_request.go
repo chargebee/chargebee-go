@@ -3,15 +3,16 @@ package chargebee
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 )
 
 var httpClient = &http.Client{Timeout: TotalHTTPTimeout}
 
-//Do is used to execute an API Request.
+// Do is used to execute an API Request.
 func Do(req *http.Request) (string, error) {
-    httpClient = &http.Client{Timeout: TotalHTTPTimeout}
+	httpClient = &http.Client{Timeout: TotalHTTPTimeout}
 	response, err := httpClient.Do(req)
 	if err != nil {
 		return "", err
@@ -26,18 +27,18 @@ func Do(req *http.Request) (string, error) {
 	}
 	return string(resBody), nil
 }
+
 func ErrorHandling(resBody []byte) error {
 	cbErr := &Error{}
 	err := json.Unmarshal(resBody, cbErr)
 	if err != nil {
-		return err
+		return fmt.Errorf("unable to unmarshal response body: %w (body=%q)", err, string(resBody))
 	}
 	if cbErr.APIErrorCode == "" {
 		return errors.New("the api_error_code is not present - probably not a chargebee error")
 
 	}
 	switch cbErr.Type {
-
 	case PaymentError:
 		cbErr.Err = &paymentErr{cbErr: cbErr}
 	case InvalidRequestError:
