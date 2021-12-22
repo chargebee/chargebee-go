@@ -14,16 +14,18 @@ type Environment struct {
 	Protocol        string
 }
 
+const (
+	APIVersion         = "v2"
+	Charset            = "UTF-8"
+	DefaultHTTPTimeout = 80 * time.Second
+)
+
 var (
-	TotalHTTPTimeout    = 80 * time.Second
+	TotalHTTPTimeout      = DefaultHTTPTimeout
 	ExportWaitInSecs      = 3 * time.Second
 	TimeMachineWaitInSecs = 3 * time.Second
 	DefaultEnv            Environment
-)
-
-const (
-	APIVersion = "v2"
-	Charset    = "UTF-8"
+	httpClient            *http.Client
 )
 
 func Configure(key string, siteName string) {
@@ -32,9 +34,7 @@ func Configure(key string, siteName string) {
 	}
 	DefaultEnv = Environment{Key: key, SiteName: siteName}
 }
-func WithHTTPClient(c *http.Client) {
-	httpClient = c
-}
+
 func (env *Environment) apiBaseUrl() string {
 	if env.Protocol == "" {
 		env.Protocol = "https"
@@ -52,6 +52,20 @@ func DefaultConfig() Environment {
 	return DefaultEnv
 }
 
+func NewDefaultHTTPClient() *http.Client {
+	return &http.Client{Timeout: TotalHTTPTimeout}
+}
+
+func WithHTTPClient(c *http.Client) {
+	if c.Timeout == 0 {
+		c.Timeout = TotalHTTPTimeout
+	}
+	httpClient = c
+}
+
 func UpdateTotalHTTPTimeout(timeout time.Duration) {
 	TotalHTTPTimeout = timeout
+	if httpClient != nil {
+		httpClient.Timeout = TotalHTTPTimeout
+	}
 }
