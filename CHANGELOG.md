@@ -1,3 +1,10 @@
+### v2.5.1 (2022-01-05)
+* * *
+
+### Fixes:
+* Improved error message for Invalid JSON response.
+* Fixed issue while coupon retrieval having '%' in coupon ID.
+
 ### v2.5.0 (2021-12-08)
 * * *
 
