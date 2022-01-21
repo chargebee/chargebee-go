@@ -15,6 +15,9 @@ func Retrieve(id string) chargebee.RequestObj {
 func Pdf(id string, params *creditnote.PdfRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/credit_notes/%v/pdf", id), params)
 }
+func DownloadEinvoice(id string) chargebee.RequestObj {
+	return chargebee.Send("GET", fmt.Sprintf("/credit_notes/%v/download_einvoice", id), nil)
+}
 func Refund(id string, params *creditnote.RefundRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/credit_notes/%v/refund", id), params)
 }

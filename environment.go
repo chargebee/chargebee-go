@@ -15,10 +15,11 @@ type Environment struct {
 }
 
 var (
-	TotalHTTPTimeout    = 80 * time.Second
+	TotalHTTPTimeout      = 80 * time.Second
 	ExportWaitInSecs      = 3 * time.Second
 	TimeMachineWaitInSecs = 3 * time.Second
 	DefaultEnv            Environment
+	httpClient            *http.Client
 )
 
 const (
@@ -33,6 +34,9 @@ func Configure(key string, siteName string) {
 	DefaultEnv = Environment{Key: key, SiteName: siteName}
 }
 func WithHTTPClient(c *http.Client) {
+	if c.Timeout == 0 {
+		c.Timeout = TotalHTTPTimeout
+	}
 	httpClient = c
 }
 func (env *Environment) apiBaseUrl() string {
@@ -52,6 +56,13 @@ func DefaultConfig() Environment {
 	return DefaultEnv
 }
 
+func NewDefaultHTTPClient() *http.Client {
+	return &http.Client{Timeout: TotalHTTPTimeout}
+}
+
 func UpdateTotalHTTPTimeout(timeout time.Duration) {
 	TotalHTTPTimeout = timeout
+	if httpClient != nil {
+		httpClient.Timeout = TotalHTTPTimeout
+	}
 }

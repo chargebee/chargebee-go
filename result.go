@@ -104,6 +104,7 @@ type Result struct {
 	CreditNotes             []*creditnote.CreditNote                         `json:"credit_notes,omitempty"`
 	AdvanceInvoiceSchedules []*advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedules,omitempty"`
 	Hierarchies             []*hierarchy.Hierarchy                           `json:"hierarchies,omitempty"`
+	Downloads               []*download.Download                             `json:"downloads,omitempty"`
 	Invoices                []*invoice.Invoice                               `json:"invoices,omitempty"`
 	DifferentialPrices      []*differentialprice.DifferentialPrice           `json:"differential_prices,omitempty"`
 }

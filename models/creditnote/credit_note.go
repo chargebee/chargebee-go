@@ -29,6 +29,7 @@ type CreditNote struct {
 	GeneratedAt             int64                     `json:"generated_at"`
 	ResourceVersion         int64                     `json:"resource_version"`
 	UpdatedAt               int64                     `json:"updated_at"`
+	Einvoice                *Einvoice                 `json:"einvoice"`
 	SubTotal                int32                     `json:"sub_total"`
 	SubTotalInLocalCurrency int32                     `json:"sub_total_in_local_currency"`
 	TotalInLocalCurrency    int32                     `json:"total_in_local_currency"`
@@ -47,6 +48,12 @@ type CreditNote struct {
 	CreateReasonCode        string                    `json:"create_reason_code"`
 	VatNumberPrefix         string                    `json:"vat_number_prefix"`
 	Object                  string                    `json:"object"`
+}
+type Einvoice struct {
+	Id      string                        `json:"id"`
+	Status  creditNoteEnum.EinvoiceStatus `json:"status"`
+	Message string                        `json:"message"`
+	Object  string                        `json:"object"`
 }
 type LineItem struct {
 	Id                      string                            `json:"id"`

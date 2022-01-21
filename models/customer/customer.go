@@ -52,6 +52,8 @@ type Customer struct {
 	RefundableCredits                int32                         `json:"refundable_credits"`
 	ExcessPayments                   int32                         `json:"excess_payments"`
 	Balances                         []*Balance                    `json:"balances"`
+	EntityIdentifiers                []*EntityIdentifier           `json:"entity_identifiers"`
+	IsEinvoiceEnabled                bool                          `json:"is_einvoice_enabled"`
 	MetaData                         json.RawMessage               `json:"meta_data"`
 	Deleted                          bool                          `json:"deleted"`
 	RegisteredForGst                 bool                          `json:"registered_for_gst"`
@@ -64,6 +66,8 @@ type Customer struct {
 	ParentAccountAccess              *ParentAccountAccess          `json:"parent_account_access"`
 	ChildAccountAccess               *ChildAccountAccess           `json:"child_account_access"`
 	VatNumberPrefix                  string                        `json:"vat_number_prefix"`
+	EntityIdentifierScheme           string                        `json:"entity_identifier_scheme"`
+	EntityIdentifierStandard         string                        `json:"entity_identifier_standard"`
 	CustomField                      map[string]interface{}        `json:"custom_field"`
 	Consents                         map[string]interface{}        `json:"consents"`
 	Object                           string                        `json:"object"`
@@ -125,6 +129,13 @@ type Balance struct {
 	BalanceCurrencyCode string `json:"balance_currency_code"`
 	Object              string `json:"object"`
 }
+type EntityIdentifier struct {
+	Id       string `json:"id"`
+	Value    string `json:"value"`
+	Scheme   string `json:"scheme"`
+	Standard string `json:"standard"`
+	Object   string `json:"object"`
+}
 type Relationship struct {
 	ParentId       string `json:"parent_id"`
 	PaymentOwnerId string `json:"payment_owner_id"`
@@ -148,40 +159,44 @@ type ChildAccountAccess struct {
 	Object                  string                                                 `json:"object"`
 }
 type CreateRequestParams struct {
-	Id                               string                       `json:"id,omitempty"`
-	FirstName                        string                       `json:"first_name,omitempty"`
-	LastName                         string                       `json:"last_name,omitempty"`
-	Email                            string                       `json:"email,omitempty"`
-	PreferredCurrencyCode            string                       `json:"preferred_currency_code,omitempty"`
-	Phone                            string                       `json:"phone,omitempty"`
-	Company                          string                       `json:"company,omitempty"`
-	AutoCollection                   enum.AutoCollection          `json:"auto_collection,omitempty"`
-	NetTermDays                      *int32                       `json:"net_term_days,omitempty"`
-	AllowDirectDebit                 *bool                        `json:"allow_direct_debit,omitempty"`
-	VatNumber                        string                       `json:"vat_number,omitempty"`
-	VatNumberPrefix                  string                       `json:"vat_number_prefix,omitempty"`
-	RegisteredForGst                 *bool                        `json:"registered_for_gst,omitempty"`
-	Taxability                       enum.Taxability              `json:"taxability,omitempty"`
-	ExemptionDetails                 []map[string]interface{}     `json:"exemption_details,omitempty"`
-	CustomerType                     enum.CustomerType            `json:"customer_type,omitempty"`
-	ClientProfileId                  string                       `json:"client_profile_id,omitempty"`
-	TaxjarExemptionCategory          enum.TaxjarExemptionCategory `json:"taxjar_exemption_category,omitempty"`
-	BusinessCustomerWithoutVatNumber *bool                        `json:"business_customer_without_vat_number,omitempty"`
-	Locale                           string                       `json:"locale,omitempty"`
-	EntityCode                       enum.EntityCode              `json:"entity_code,omitempty"`
-	ExemptNumber                     string                       `json:"exempt_number,omitempty"`
-	MetaData                         map[string]interface{}       `json:"meta_data,omitempty"`
-	OfflinePaymentMethod             enum.OfflinePaymentMethod    `json:"offline_payment_method,omitempty"`
-	AutoCloseInvoices                *bool                        `json:"auto_close_invoices,omitempty"`
-	ConsolidatedInvoicing            *bool                        `json:"consolidated_invoicing,omitempty"`
-	Card                             *CreateCardParams            `json:"card,omitempty"`
-	BankAccount                      *CreateBankAccountParams     `json:"bank_account,omitempty"`
-	TokenId                          string                       `json:"token_id,omitempty"`
-	PaymentMethod                    *CreatePaymentMethodParams   `json:"payment_method,omitempty"`
-	PaymentIntent                    *CreatePaymentIntentParams   `json:"payment_intent,omitempty"`
-	BillingAddress                   *CreateBillingAddressParams  `json:"billing_address,omitempty"`
-	CreatedFromIp                    string                       `json:"created_from_ip,omitempty"`
-	InvoiceNotes                     string                       `json:"invoice_notes,omitempty"`
+	Id                               string                          `json:"id,omitempty"`
+	FirstName                        string                          `json:"first_name,omitempty"`
+	LastName                         string                          `json:"last_name,omitempty"`
+	Email                            string                          `json:"email,omitempty"`
+	PreferredCurrencyCode            string                          `json:"preferred_currency_code,omitempty"`
+	Phone                            string                          `json:"phone,omitempty"`
+	Company                          string                          `json:"company,omitempty"`
+	AutoCollection                   enum.AutoCollection             `json:"auto_collection,omitempty"`
+	NetTermDays                      *int32                          `json:"net_term_days,omitempty"`
+	AllowDirectDebit                 *bool                           `json:"allow_direct_debit,omitempty"`
+	VatNumber                        string                          `json:"vat_number,omitempty"`
+	VatNumberPrefix                  string                          `json:"vat_number_prefix,omitempty"`
+	EntityIdentifierScheme           string                          `json:"entity_identifier_scheme,omitempty"`
+	EntityIdentifierStandard         string                          `json:"entity_identifier_standard,omitempty"`
+	RegisteredForGst                 *bool                           `json:"registered_for_gst,omitempty"`
+	IsEinvoiceEnabled                *bool                           `json:"is_einvoice_enabled,omitempty"`
+	Taxability                       enum.Taxability                 `json:"taxability,omitempty"`
+	ExemptionDetails                 []map[string]interface{}        `json:"exemption_details,omitempty"`
+	CustomerType                     enum.CustomerType               `json:"customer_type,omitempty"`
+	ClientProfileId                  string                          `json:"client_profile_id,omitempty"`
+	TaxjarExemptionCategory          enum.TaxjarExemptionCategory    `json:"taxjar_exemption_category,omitempty"`
+	BusinessCustomerWithoutVatNumber *bool                           `json:"business_customer_without_vat_number,omitempty"`
+	Locale                           string                          `json:"locale,omitempty"`
+	EntityCode                       enum.EntityCode                 `json:"entity_code,omitempty"`
+	ExemptNumber                     string                          `json:"exempt_number,omitempty"`
+	MetaData                         map[string]interface{}          `json:"meta_data,omitempty"`
+	OfflinePaymentMethod             enum.OfflinePaymentMethod       `json:"offline_payment_method,omitempty"`
+	AutoCloseInvoices                *bool                           `json:"auto_close_invoices,omitempty"`
+	ConsolidatedInvoicing            *bool                           `json:"consolidated_invoicing,omitempty"`
+	Card                             *CreateCardParams               `json:"card,omitempty"`
+	BankAccount                      *CreateBankAccountParams        `json:"bank_account,omitempty"`
+	TokenId                          string                          `json:"token_id,omitempty"`
+	PaymentMethod                    *CreatePaymentMethodParams      `json:"payment_method,omitempty"`
+	PaymentIntent                    *CreatePaymentIntentParams      `json:"payment_intent,omitempty"`
+	BillingAddress                   *CreateBillingAddressParams     `json:"billing_address,omitempty"`
+	EntityIdentifiers                []*CreateEntityIdentifierParams `json:"entity_identifiers,omitempty"`
+	CreatedFromIp                    string                          `json:"created_from_ip,omitempty"`
+	InvoiceNotes                     string                          `json:"invoice_notes,omitempty"`
 }
 type CreateCardParams struct {
 	Gateway               enum.Gateway           `json:"gateway,omitempty"`
@@ -254,6 +269,12 @@ type CreateBillingAddressParams struct {
 	Country          string                `json:"country,omitempty"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
+type CreateEntityIdentifierParams struct {
+	Id       string `json:"id,omitempty"`
+	Scheme   string `json:"scheme,omitempty"`
+	Value    string `json:"value,omitempty"`
+	Standard string `json:"standard,omitempty"`
+}
 type ListRequestParams struct {
 	Limit                *int32                  `json:"limit,omitempty"`
 	Offset               string                  `json:"offset,omitempty"`
@@ -316,11 +337,15 @@ type UpdatePaymentMethodPaymentMethodParams struct {
 	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type UpdateBillingInfoRequestParams struct {
-	BillingAddress                   *UpdateBillingInfoBillingAddressParams `json:"billing_address,omitempty"`
-	VatNumber                        string                                 `json:"vat_number,omitempty"`
-	VatNumberPrefix                  string                                 `json:"vat_number_prefix,omitempty"`
-	RegisteredForGst                 *bool                                  `json:"registered_for_gst,omitempty"`
-	BusinessCustomerWithoutVatNumber *bool                                  `json:"business_customer_without_vat_number,omitempty"`
+	BillingAddress                   *UpdateBillingInfoBillingAddressParams     `json:"billing_address,omitempty"`
+	EntityIdentifiers                []*UpdateBillingInfoEntityIdentifierParams `json:"entity_identifiers,omitempty"`
+	VatNumber                        string                                     `json:"vat_number,omitempty"`
+	VatNumberPrefix                  string                                     `json:"vat_number_prefix,omitempty"`
+	EntityIdentifierScheme           string                                     `json:"entity_identifier_scheme,omitempty"`
+	EntityIdentifierStandard         string                                     `json:"entity_identifier_standard,omitempty"`
+	RegisteredForGst                 *bool                                      `json:"registered_for_gst,omitempty"`
+	BusinessCustomerWithoutVatNumber *bool                                      `json:"business_customer_without_vat_number,omitempty"`
+	IsEinvoiceEnabled                *bool                                      `json:"is_einvoice_enabled,omitempty"`
 }
 type UpdateBillingInfoBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -337,6 +362,13 @@ type UpdateBillingInfoBillingAddressParams struct {
 	Zip              string                `json:"zip,omitempty"`
 	Country          string                `json:"country,omitempty"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+}
+type UpdateBillingInfoEntityIdentifierParams struct {
+	Id        string         `json:"id,omitempty"`
+	Scheme    string         `json:"scheme,omitempty"`
+	Value     string         `json:"value,omitempty"`
+	Operation enum.Operation `json:"operation,omitempty"`
+	Standard  string         `json:"standard,omitempty"`
 }
 type ContactsForCustomerRequestParams struct {
 	Limit  *int32 `json:"limit,omitempty"`
@@ -499,7 +531,7 @@ type RelationshipsChildAccountAccessParams struct {
 	SendInvoiceEmails       *bool                                                  `json:"send_invoice_emails,omitempty"`
 }
 type HierarchyRequestParams struct {
-	HierarchyOperationType enum.HierarchyOperationType `json:"hierarchy_operation_type,omitempty"`
+	HierarchyOperationType enum.HierarchyOperationType `json:"hierarchy_operation_type"`
 }
 type UpdateHierarchySettingsRequestParams struct {
 	UseDefaultHierarchySettings *bool                                             `json:"use_default_hierarchy_settings,omitempty"`

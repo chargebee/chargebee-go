@@ -48,6 +48,9 @@ func Retrieve(id string) chargebee.RequestObj {
 func Pdf(id string, params *invoice.PdfRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/pdf", id), params)
 }
+func DownloadEinvoice(id string) chargebee.RequestObj {
+	return chargebee.Send("GET", fmt.Sprintf("/invoices/%v/download_einvoice", id), nil)
+}
 func AddCharge(id string, params *invoice.AddChargeRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/add_charge", id), params)
 }
