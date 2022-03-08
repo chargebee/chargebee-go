@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/chargebee/chargebee-go"
 	"github.com/chargebee/chargebee-go/models/hostedpage"
+	"net/url"
 )
 
 func CheckoutNew(params *hostedpage.CheckoutNewRequestParams) chargebee.RequestObj {
@@ -56,10 +57,10 @@ func RetrieveAgreementPdf(params *hostedpage.RetrieveAgreementPdfRequestParams) 
 	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/retrieve_agreement_pdf"), params)
 }
 func Acknowledge(id string) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/%v/acknowledge", id), nil)
+	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/%v/acknowledge", url.PathEscape(id)), nil)
 }
 func Retrieve(id string) chargebee.RequestObj {
-	return chargebee.Send("GET", fmt.Sprintf("/hosted_pages/%v", id), nil)
+	return chargebee.Send("GET", fmt.Sprintf("/hosted_pages/%v", url.PathEscape(id)), nil)
 }
 func List(params *hostedpage.ListRequestParams) chargebee.RequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/hosted_pages"), params)

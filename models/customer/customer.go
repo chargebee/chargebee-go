@@ -5,6 +5,7 @@ import (
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
 	customerEnum "github.com/chargebee/chargebee-go/models/customer/enum"
+	paymentIntentEnum "github.com/chargebee/chargebee-go/models/paymentintent/enum"
 )
 
 type Customer struct {
@@ -225,6 +226,7 @@ type CreateBankAccountParams struct {
 	LastName              string                 `json:"last_name,omitempty"`
 	Company               string                 `json:"company,omitempty"`
 	Email                 string                 `json:"email,omitempty"`
+	Phone                 string                 `json:"phone,omitempty"`
 	BankName              string                 `json:"bank_name,omitempty"`
 	AccountNumber         string                 `json:"account_number,omitempty"`
 	RoutingNumber         string                 `json:"routing_number,omitempty"`
@@ -246,12 +248,13 @@ type CreatePaymentMethodParams struct {
 	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type CreatePaymentIntentParams struct {
-	Id                    string                 `json:"id,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                 `json:"gw_token,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Id                    string                              `json:"id,omitempty"`
+	GatewayAccountId      string                              `json:"gateway_account_id,omitempty"`
+	GwToken               string                              `json:"gw_token,omitempty"`
+	PaymentMethodType     paymentIntentEnum.PaymentMethodType `json:"payment_method_type,omitempty"`
+	ReferenceId           string                              `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                              `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{}              `json:"additional_information,omitempty"`
 }
 type CreateBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -484,12 +487,13 @@ type CollectPaymentCardParams struct {
 	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type CollectPaymentPaymentIntentParams struct {
-	Id                    string                 `json:"id,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                 `json:"gw_token,omitempty"`
-	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Id                    string                              `json:"id,omitempty"`
+	GatewayAccountId      string                              `json:"gateway_account_id,omitempty"`
+	GwToken               string                              `json:"gw_token,omitempty"`
+	PaymentMethodType     paymentIntentEnum.PaymentMethodType `json:"payment_method_type,omitempty"`
+	GwPaymentMethodId     string                              `json:"gw_payment_method_id,omitempty"`
+	ReferenceId           string                              `json:"reference_id,omitempty"`
+	AdditionalInformation map[string]interface{}              `json:"additional_information,omitempty"`
 }
 type DeleteRequestParams struct {
 	DeletePaymentMethod *bool `json:"delete_payment_method,omitempty"`

@@ -4,6 +4,7 @@ import (
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
 	giftEnum "github.com/chargebee/chargebee-go/models/gift/enum"
+	paymentIntentEnum "github.com/chargebee/chargebee-go/models/paymentintent/enum"
 )
 
 type Gift struct {
@@ -66,12 +67,13 @@ type CreateGiftReceiverParams struct {
 	Email      string `json:"email"`
 }
 type CreatePaymentIntentParams struct {
-	Id                    string                 `json:"id,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                 `json:"gw_token,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Id                    string                              `json:"id,omitempty"`
+	GatewayAccountId      string                              `json:"gateway_account_id,omitempty"`
+	GwToken               string                              `json:"gw_token,omitempty"`
+	PaymentMethodType     paymentIntentEnum.PaymentMethodType `json:"payment_method_type,omitempty"`
+	ReferenceId           string                              `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                              `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{}              `json:"additional_information,omitempty"`
 }
 type CreateShippingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -124,12 +126,13 @@ type CreateForItemsGiftReceiverParams struct {
 	Email      string `json:"email"`
 }
 type CreateForItemsPaymentIntentParams struct {
-	Id                    string                 `json:"id,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                 `json:"gw_token,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Id                    string                              `json:"id,omitempty"`
+	GatewayAccountId      string                              `json:"gateway_account_id,omitempty"`
+	GwToken               string                              `json:"gw_token,omitempty"`
+	PaymentMethodType     paymentIntentEnum.PaymentMethodType `json:"payment_method_type,omitempty"`
+	ReferenceId           string                              `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                              `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{}              `json:"additional_information,omitempty"`
 }
 type CreateForItemsShippingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`

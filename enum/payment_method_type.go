@@ -18,4 +18,6 @@ const (
 	PaymentMethodTypeBancontact            PaymentMethodType = "bancontact"
 	PaymentMethodTypeGiropay               PaymentMethodType = "giropay"
 	PaymentMethodTypeDotpay                PaymentMethodType = "dotpay"
+	PaymentMethodTypeUpi                   PaymentMethodType = "upi"
+	PaymentMethodTypeNetbankingEmandates   PaymentMethodType = "netbanking_emandates"
 )

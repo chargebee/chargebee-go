@@ -6,6 +6,7 @@ import (
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
 	contractTermEnum "github.com/chargebee/chargebee-go/models/contractterm/enum"
+	paymentIntentEnum "github.com/chargebee/chargebee-go/models/paymentintent/enum"
 	subscriptionEnum "github.com/chargebee/chargebee-go/models/subscription/enum"
 )
 
@@ -327,6 +328,7 @@ type CreateBankAccountParams struct {
 	LastName              string                 `json:"last_name,omitempty"`
 	Company               string                 `json:"company,omitempty"`
 	Email                 string                 `json:"email,omitempty"`
+	Phone                 string                 `json:"phone,omitempty"`
 	BankName              string                 `json:"bank_name,omitempty"`
 	AccountNumber         string                 `json:"account_number,omitempty"`
 	RoutingNumber         string                 `json:"routing_number,omitempty"`
@@ -348,12 +350,13 @@ type CreatePaymentMethodParams struct {
 	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type CreatePaymentIntentParams struct {
-	Id                    string                 `json:"id,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                 `json:"gw_token,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Id                    string                              `json:"id,omitempty"`
+	GatewayAccountId      string                              `json:"gateway_account_id,omitempty"`
+	GwToken               string                              `json:"gw_token,omitempty"`
+	PaymentMethodType     paymentIntentEnum.PaymentMethodType `json:"payment_method_type,omitempty"`
+	ReferenceId           string                              `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                              `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{}              `json:"additional_information,omitempty"`
 }
 type CreateBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -464,12 +467,13 @@ type CreateForCustomerShippingAddressParams struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
 type CreateForCustomerPaymentIntentParams struct {
-	Id                    string                 `json:"id,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                 `json:"gw_token,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Id                    string                              `json:"id,omitempty"`
+	GatewayAccountId      string                              `json:"gateway_account_id,omitempty"`
+	GwToken               string                              `json:"gw_token,omitempty"`
+	PaymentMethodType     paymentIntentEnum.PaymentMethodType `json:"payment_method_type,omitempty"`
+	ReferenceId           string                              `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                              `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{}              `json:"additional_information,omitempty"`
 }
 type CreateForCustomerContractTermParams struct {
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
@@ -549,12 +553,13 @@ type CreateWithItemsShippingAddressParams struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
 type CreateWithItemsPaymentIntentParams struct {
-	Id                    string                 `json:"id,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                 `json:"gw_token,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Id                    string                              `json:"id,omitempty"`
+	GatewayAccountId      string                              `json:"gateway_account_id,omitempty"`
+	GwToken               string                              `json:"gw_token,omitempty"`
+	PaymentMethodType     paymentIntentEnum.PaymentMethodType `json:"payment_method_type,omitempty"`
+	ReferenceId           string                              `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                              `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{}              `json:"additional_information,omitempty"`
 }
 type CreateWithItemsContractTermParams struct {
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
@@ -699,12 +704,13 @@ type UpdatePaymentMethodParams struct {
 	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type UpdatePaymentIntentParams struct {
-	Id                    string                 `json:"id,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                 `json:"gw_token,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Id                    string                              `json:"id,omitempty"`
+	GatewayAccountId      string                              `json:"gateway_account_id,omitempty"`
+	GwToken               string                              `json:"gw_token,omitempty"`
+	PaymentMethodType     paymentIntentEnum.PaymentMethodType `json:"payment_method_type,omitempty"`
+	ReferenceId           string                              `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                              `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{}              `json:"additional_information,omitempty"`
 }
 type UpdateBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -848,12 +854,13 @@ type UpdateForItemsPaymentMethodParams struct {
 	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type UpdateForItemsPaymentIntentParams struct {
-	Id                    string                 `json:"id,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                 `json:"gw_token,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Id                    string                              `json:"id,omitempty"`
+	GatewayAccountId      string                              `json:"gateway_account_id,omitempty"`
+	GwToken               string                              `json:"gw_token,omitempty"`
+	PaymentMethodType     paymentIntentEnum.PaymentMethodType `json:"payment_method_type,omitempty"`
+	ReferenceId           string                              `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                              `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{}              `json:"additional_information,omitempty"`
 }
 type UpdateForItemsBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -923,12 +930,13 @@ type ReactivateContractTermParams struct {
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 type ReactivatePaymentIntentParams struct {
-	Id                    string                 `json:"id,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                 `json:"gw_token,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Id                    string                              `json:"id,omitempty"`
+	GatewayAccountId      string                              `json:"gateway_account_id,omitempty"`
+	GwToken               string                              `json:"gw_token,omitempty"`
+	PaymentMethodType     paymentIntentEnum.PaymentMethodType `json:"payment_method_type,omitempty"`
+	ReferenceId           string                              `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                              `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{}              `json:"additional_information,omitempty"`
 }
 type AddChargeAtTermEndRequestParams struct {
 	Amount                 *int32               `json:"amount,omitempty"`
@@ -1022,6 +1030,7 @@ type ImportSubscriptionRequestParams struct {
 	TrialStart                        *int64                                            `json:"trial_start,omitempty"`
 	CancelledAt                       *int64                                            `json:"cancelled_at,omitempty"`
 	StartedAt                         *int64                                            `json:"started_at,omitempty"`
+	ActivatedAt                       *int64                                            `json:"activated_at,omitempty"`
 	PauseDate                         *int64                                            `json:"pause_date,omitempty"`
 	ResumeDate                        *int64                                            `json:"resume_date,omitempty"`
 	CreateCurrentTermInvoice          *bool                                             `json:"create_current_term_invoice,omitempty"`
@@ -1173,6 +1182,7 @@ type ImportForCustomerRequestParams struct {
 	TrialStart                        *int64                                           `json:"trial_start,omitempty"`
 	CancelledAt                       *int64                                           `json:"cancelled_at,omitempty"`
 	StartedAt                         *int64                                           `json:"started_at,omitempty"`
+	ActivatedAt                       *int64                                           `json:"activated_at,omitempty"`
 	PauseDate                         *int64                                           `json:"pause_date,omitempty"`
 	ResumeDate                        *int64                                           `json:"resume_date,omitempty"`
 	ContractTerm                      *ImportForCustomerContractTermParams             `json:"contract_term,omitempty"`
@@ -1271,6 +1281,7 @@ type ImportForItemsRequestParams struct {
 	TrialStart                        *int64                                  `json:"trial_start,omitempty"`
 	CancelledAt                       *int64                                  `json:"cancelled_at,omitempty"`
 	StartedAt                         *int64                                  `json:"started_at,omitempty"`
+	ActivatedAt                       *int64                                  `json:"activated_at,omitempty"`
 	PauseDate                         *int64                                  `json:"pause_date,omitempty"`
 	ResumeDate                        *int64                                  `json:"resume_date,omitempty"`
 	ContractTerm                      *ImportForItemsContractTermParams       `json:"contract_term,omitempty"`
@@ -1397,10 +1408,11 @@ type ResumeRequestParams struct {
 	PaymentIntent          *ResumePaymentIntentParams  `json:"payment_intent,omitempty"`
 }
 type ResumePaymentIntentParams struct {
-	Id                    string                 `json:"id,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                 `json:"gw_token,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Id                    string                              `json:"id,omitempty"`
+	GatewayAccountId      string                              `json:"gateway_account_id,omitempty"`
+	GwToken               string                              `json:"gw_token,omitempty"`
+	PaymentMethodType     paymentIntentEnum.PaymentMethodType `json:"payment_method_type,omitempty"`
+	ReferenceId           string                              `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                              `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{}              `json:"additional_information,omitempty"`
 }

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/chargebee/chargebee-go"
 	"github.com/chargebee/chargebee-go/models/unbilledcharge"
+	"net/url"
 )
 
 func Create(params *unbilledcharge.CreateRequestParams) chargebee.RequestObj {
@@ -13,7 +14,7 @@ func InvoiceUnbilledCharges(params *unbilledcharge.InvoiceUnbilledChargesRequest
 	return chargebee.Send("POST", fmt.Sprintf("/unbilled_charges/invoice_unbilled_charges"), params)
 }
 func Delete(id string) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/unbilled_charges/%v/delete", id), nil)
+	return chargebee.Send("POST", fmt.Sprintf("/unbilled_charges/%v/delete", url.PathEscape(id)), nil)
 }
 func List(params *unbilledcharge.ListRequestParams) chargebee.RequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/unbilled_charges"), params)

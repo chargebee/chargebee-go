@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/chargebee/chargebee-go"
 	"github.com/chargebee/chargebee-go/models/promotionalcredit"
+	"net/url"
 )
 
 func Add(params *promotionalcredit.AddRequestParams) chargebee.RequestObj {
@@ -19,5 +20,5 @@ func List(params *promotionalcredit.ListRequestParams) chargebee.RequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/promotional_credits"), params)
 }
 func Retrieve(id string) chargebee.RequestObj {
-	return chargebee.Send("GET", fmt.Sprintf("/promotional_credits/%v", id), nil)
+	return chargebee.Send("GET", fmt.Sprintf("/promotional_credits/%v", url.PathEscape(id)), nil)
 }

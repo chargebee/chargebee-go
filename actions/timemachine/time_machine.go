@@ -7,17 +7,18 @@ import (
 	"github.com/chargebee/chargebee-go"
 	"github.com/chargebee/chargebee-go/models/timemachine"
 	timeMachineEnum "github.com/chargebee/chargebee-go/models/timemachine/enum"
+	"net/url"
 	"time"
 )
 
 func Retrieve(id string) chargebee.RequestObj {
-	return chargebee.Send("GET", fmt.Sprintf("/time_machines/%v", id), nil)
+	return chargebee.Send("GET", fmt.Sprintf("/time_machines/%v", url.PathEscape(id)), nil)
 }
 func StartAfresh(id string, params *timemachine.StartAfreshRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/time_machines/%v/start_afresh", id), params)
+	return chargebee.Send("POST", fmt.Sprintf("/time_machines/%v/start_afresh", url.PathEscape(id)), params)
 }
 func TravelForward(id string, params *timemachine.TravelForwardRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/time_machines/%v/travel_forward", id), params)
+	return chargebee.Send("POST", fmt.Sprintf("/time_machines/%v/travel_forward", url.PathEscape(id)), params)
 }
 func WaitForTimeTravelCompletion(tm timemachine.TimeMachine) (timemachine.TimeMachine, error) {
 	return WaitForTimeTravelCompletionWithEnv(tm, chargebee.DefaultConfig())

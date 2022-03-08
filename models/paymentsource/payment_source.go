@@ -3,6 +3,7 @@ package paymentsource
 import (
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
+	paymentIntentEnum "github.com/chargebee/chargebee-go/models/paymentintent/enum"
 	paymentSourceEnum "github.com/chargebee/chargebee-go/models/paymentsource/enum"
 )
 
@@ -22,7 +23,9 @@ type PaymentSource struct {
 	Card             *Card                    `json:"card"`
 	BankAccount      *BankAccount             `json:"bank_account"`
 	AmazonPayment    *AmazonPayment           `json:"amazon_payment"`
+	Upi              *Upi                     `json:"upi"`
 	Paypal           *Paypal                  `json:"paypal"`
+	Mandates         []*Mandate               `json:"mandates"`
 	Deleted          bool                     `json:"deleted"`
 	Object           string                   `json:"object"`
 }
@@ -63,10 +66,20 @@ type AmazonPayment struct {
 	AgreementId string `json:"agreement_id"`
 	Object      string `json:"object"`
 }
+type Upi struct {
+	Vpa    string `json:"vpa"`
+	Object string `json:"object"`
+}
 type Paypal struct {
 	Email       string `json:"email"`
 	AgreementId string `json:"agreement_id"`
 	Object      string `json:"object"`
+}
+type Mandate struct {
+	Id             string `json:"id"`
+	SubscriptionId string `json:"subscription_id"`
+	CreatedAt      int64  `json:"created_at"`
+	Object         string `json:"object"`
 }
 type CreateUsingTempTokenRequestParams struct {
 	CustomerId                  string                 `json:"customer_id"`
@@ -97,13 +110,14 @@ type CreateUsingPaymentIntentRequestParams struct {
 	ReplacePrimaryPaymentSource *bool                                        `json:"replace_primary_payment_source,omitempty"`
 }
 type CreateUsingPaymentIntentPaymentIntentParams struct {
-	Id                    string                 `json:"id,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                 `json:"gw_token,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInfo        map[string]interface{} `json:"additional_info,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Id                    string                              `json:"id,omitempty"`
+	GatewayAccountId      string                              `json:"gateway_account_id,omitempty"`
+	GwToken               string                              `json:"gw_token,omitempty"`
+	PaymentMethodType     paymentIntentEnum.PaymentMethodType `json:"payment_method_type,omitempty"`
+	ReferenceId           string                              `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                              `json:"gw_payment_method_id,omitempty"`
+	AdditionalInfo        map[string]interface{}              `json:"additional_info,omitempty"`
+	AdditionalInformation map[string]interface{}              `json:"additional_information,omitempty"`
 }
 type CreateCardRequestParams struct {
 	CustomerId                  string                `json:"customer_id"`
@@ -140,6 +154,7 @@ type CreateBankAccountBankAccountParams struct {
 	LastName              string                 `json:"last_name,omitempty"`
 	Company               string                 `json:"company,omitempty"`
 	Email                 string                 `json:"email,omitempty"`
+	Phone                 string                 `json:"phone,omitempty"`
 	BankName              string                 `json:"bank_name,omitempty"`
 	AccountNumber         string                 `json:"account_number,omitempty"`
 	RoutingNumber         string                 `json:"routing_number,omitempty"`
@@ -181,14 +196,15 @@ type VerifyBankAccountRequestParams struct {
 	Amount2 *int32 `json:"amount2"`
 }
 type ListRequestParams struct {
-	Limit      *int32                  `json:"limit,omitempty"`
-	Offset     string                  `json:"offset,omitempty"`
-	CustomerId *filter.StringFilter    `json:"customer_id,omitempty"`
-	Type       *filter.EnumFilter      `json:"type,omitempty"`
-	Status     *filter.EnumFilter      `json:"status,omitempty"`
-	UpdatedAt  *filter.TimestampFilter `json:"updated_at,omitempty"`
-	CreatedAt  *filter.TimestampFilter `json:"created_at,omitempty"`
-	SortBy     *filter.SortFilter      `json:"sort_by,omitempty"`
+	Limit          *int32                  `json:"limit,omitempty"`
+	Offset         string                  `json:"offset,omitempty"`
+	SubscriptionId string                  `json:"subscription_id,omitempty"`
+	CustomerId     *filter.StringFilter    `json:"customer_id,omitempty"`
+	Type           *filter.EnumFilter      `json:"type,omitempty"`
+	Status         *filter.EnumFilter      `json:"status,omitempty"`
+	UpdatedAt      *filter.TimestampFilter `json:"updated_at,omitempty"`
+	CreatedAt      *filter.TimestampFilter `json:"created_at,omitempty"`
+	SortBy         *filter.SortFilter      `json:"sort_by,omitempty"`
 }
 type SwitchGatewayAccountRequestParams struct {
 	GatewayAccountId string `json:"gateway_account_id"`

@@ -24,4 +24,6 @@ const (
 	PaymentMethodGiropay               PaymentMethod = "giropay"
 	PaymentMethodDotpay                PaymentMethod = "dotpay"
 	PaymentMethodOther                 PaymentMethod = "other"
+	PaymentMethodUpi                   PaymentMethod = "upi"
+	PaymentMethodNetbankingEmandates   PaymentMethod = "netbanking_emandates"
 )

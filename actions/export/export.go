@@ -6,11 +6,12 @@ import (
 	"github.com/chargebee/chargebee-go"
 	"github.com/chargebee/chargebee-go/models/export"
 	exportEnum "github.com/chargebee/chargebee-go/models/export/enum"
+	"net/url"
 	"time"
 )
 
 func Retrieve(id string) chargebee.RequestObj {
-	return chargebee.Send("GET", fmt.Sprintf("/exports/%v", id), nil)
+	return chargebee.Send("GET", fmt.Sprintf("/exports/%v", url.PathEscape(id)), nil)
 }
 func RevenueRecognition(params *export.RevenueRecognitionRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/exports/revenue_recognition"), params)

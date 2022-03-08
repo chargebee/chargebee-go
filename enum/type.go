@@ -18,4 +18,6 @@ const (
 	TypeBancontact            Type = "bancontact"
 	TypeGiropay               Type = "giropay"
 	TypeDotpay                Type = "dotpay"
+	TypeUpi                   Type = "upi"
+	TypeNetbankingEmandates   Type = "netbanking_emandates"
 )
