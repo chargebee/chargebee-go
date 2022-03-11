@@ -1,6 +1,7 @@
 package chargebee
 
 import (
+	"context"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
@@ -65,12 +66,12 @@ func (request RequestObj) Headers(key string, value string) RequestObj {
 	request.Header[key] = value
 	return request
 }
-func newRequest(env Environment, method string, path string, body io.Reader, headers map[string]string) (*http.Request, error) {
+func newRequest(ctx context.Context, env Environment, method string, path string, body io.Reader, headers map[string]string) (*http.Request, error) {
 	if !strings.HasPrefix(path, "/") {
 		path = "/" + path
 	}
 	path = env.apiBaseUrl() + path
-	httpReq, err := http.NewRequest(method, path, body)
+	httpReq, err := http.NewRequestWithContext(ctx, method, path, body)
 	if err != nil {
 		panic(err)
 	}
