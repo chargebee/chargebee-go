@@ -56,6 +56,7 @@ type Subscription struct {
 	PlanAmountInDecimal               string                             `json:"plan_amount_in_decimal"`
 	CancelScheduleCreatedAt           int64                              `json:"cancel_schedule_created_at"`
 	OfflinePaymentMethod              enum.OfflinePaymentMethod          `json:"offline_payment_method"`
+	NetTermDays                       int32                              `json:"net_term_days"`
 	SubscriptionItems                 []*SubscriptionItem                `json:"subscription_items"`
 	ItemTiers                         []*ItemTier                        `json:"item_tiers"`
 	ChargedItems                      []*ChargedItem                     `json:"charged_items"`
@@ -487,6 +488,7 @@ type CreateWithItemsRequestParams struct {
 	SetupFee                          *int32                                   `json:"setup_fee,omitempty"`
 	MandatoryItemsToRemove            []string                                 `json:"mandatory_items_to_remove,omitempty"`
 	ItemTiers                         []*CreateWithItemsItemTierParams         `json:"item_tiers,omitempty"`
+	NetTermDays                       *int32                                   `json:"net_term_days,omitempty"`
 	StartDate                         *int64                                   `json:"start_date,omitempty"`
 	Coupon                            string                                   `json:"coupon,omitempty"`
 	AutoCollection                    enum.AutoCollection                      `json:"auto_collection,omitempty"`
@@ -763,6 +765,7 @@ type UpdateForItemsRequestParams struct {
 	ReplaceItemsList                  *bool                                   `json:"replace_items_list,omitempty"`
 	SetupFee                          *int32                                  `json:"setup_fee,omitempty"`
 	ItemTiers                         []*UpdateForItemsItemTierParams         `json:"item_tiers,omitempty"`
+	NetTermDays                       *int32                                  `json:"net_term_days,omitempty"`
 	InvoiceDate                       *int64                                  `json:"invoice_date,omitempty"`
 	StartDate                         *int64                                  `json:"start_date,omitempty"`
 	TrialEnd                          *int64                                  `json:"trial_end,omitempty"`
@@ -1270,6 +1273,7 @@ type ImportForItemsRequestParams struct {
 	SetupFee                          *int32                                  `json:"setup_fee,omitempty"`
 	ChargedItems                      []*ImportForItemsChargedItemParams      `json:"charged_items,omitempty"`
 	ItemTiers                         []*ImportForItemsItemTierParams         `json:"item_tiers,omitempty"`
+	NetTermDays                       *int32                                  `json:"net_term_days,omitempty"`
 	StartDate                         *int64                                  `json:"start_date,omitempty"`
 	AutoCollection                    enum.AutoCollection                     `json:"auto_collection,omitempty"`
 	PoNumber                          string                                  `json:"po_number,omitempty"`

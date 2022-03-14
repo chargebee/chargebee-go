@@ -1,3 +1,10 @@
+### v2.8.0 (2022-03-14)
+* * *
+
+#### New Input parameters:
+* net_term_days has been added to subscriptions#create_subscription_for_items, subscriptions#update_subscription_for_items, subscriptions#import_subscription_for_items endpoints.
+
+
 ### v2.7.0 (2022-03-08)
 * * *
 
