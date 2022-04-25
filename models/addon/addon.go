@@ -42,6 +42,7 @@ type Addon struct {
 	UpdatedAt                   int64                                 `json:"updated_at"`
 	PriceInDecimal              string                                `json:"price_in_decimal"`
 	IncludedInMrr               bool                                  `json:"included_in_mrr"`
+	Channel                     enum.Channel                          `json:"channel"`
 	InvoiceNotes                string                                `json:"invoice_notes"`
 	Taxable                     bool                                  `json:"taxable"`
 	TaxProfileId                string                                `json:"tax_profile_id"`
@@ -169,6 +170,7 @@ type ListRequestParams struct {
 	Status         *filter.EnumFilter      `json:"status,omitempty"`
 	UpdatedAt      *filter.TimestampFilter `json:"updated_at,omitempty"`
 	CurrencyCode   *filter.StringFilter    `json:"currency_code,omitempty"`
+	Channel        *filter.EnumFilter      `json:"channel,omitempty"`
 	IncludeDeleted *bool                   `json:"include_deleted,omitempty"`
 }
 type CopyRequestParams struct {

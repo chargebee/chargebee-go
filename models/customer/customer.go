@@ -38,6 +38,7 @@ type Customer struct {
 	BillingDayOfWeekMode             enum.BillingDayOfWeekMode     `json:"billing_day_of_week_mode"`
 	PiiCleared                       customerEnum.PiiCleared       `json:"pii_cleared"`
 	AutoCloseInvoices                bool                          `json:"auto_close_invoices"`
+	Channel                          enum.Channel                  `json:"channel"`
 	CardStatus                       customerEnum.CardStatus       `json:"card_status"`
 	FraudFlag                        customerEnum.FraudFlag        `json:"fraud_flag"`
 	PrimaryPaymentSourceId           string                        `json:"primary_payment_source_id"`
@@ -295,6 +296,7 @@ type ListRequestParams struct {
 	Relationship         *ListRelationshipParams `json:"relationship,omitempty"`
 	OfflinePaymentMethod *filter.EnumFilter      `json:"offline_payment_method,omitempty"`
 	AutoCloseInvoices    *filter.BooleanFilter   `json:"auto_close_invoices,omitempty"`
+	Channel              *filter.EnumFilter      `json:"channel,omitempty"`
 	SortBy               *filter.SortFilter      `json:"sort_by,omitempty"`
 }
 type ListRelationshipParams struct {

@@ -7,6 +7,9 @@ import (
 	"net/url"
 )
 
+func CreateUnbilledCharge(params *unbilledcharge.CreateUnbilledChargeRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/unbilled_charges/create"), params)
+}
 func Create(params *unbilledcharge.CreateRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/unbilled_charges"), params)
 }

@@ -29,6 +29,7 @@ type ItemPrice struct {
 	BillingCycles             int32                            `json:"billing_cycles"`
 	FreeQuantity              int32                            `json:"free_quantity"`
 	FreeQuantityInDecimal     string                           `json:"free_quantity_in_decimal"`
+	Channel                   enum.Channel                     `json:"channel"`
 	ResourceVersion           int64                            `json:"resource_version"`
 	UpdatedAt                 int64                            `json:"updated_at"`
 	CreatedAt                 int64                            `json:"created_at"`
@@ -198,6 +199,7 @@ type ListRequestParams struct {
 	UpdatedAt       *filter.TimestampFilter `json:"updated_at,omitempty"`
 	PeriodUnit      *filter.EnumFilter      `json:"period_unit,omitempty"`
 	Period          *filter.NumberFilter    `json:"period,omitempty"`
+	Channel         *filter.EnumFilter      `json:"channel,omitempty"`
 	SortBy          *filter.SortFilter      `json:"sort_by,omitempty"`
 }
 type FindApplicableItemsRequestParams struct {

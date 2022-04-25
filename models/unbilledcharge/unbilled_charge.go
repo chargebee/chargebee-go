@@ -41,6 +41,36 @@ type Tier struct {
 	UnitAmountInDecimal   string `json:"unit_amount_in_decimal"`
 	Object                string `json:"object"`
 }
+type CreateUnbilledChargeRequestParams struct {
+	SubscriptionId string                              `json:"subscription_id"`
+	CurrencyCode   string                              `json:"currency_code,omitempty"`
+	Addons         []*CreateUnbilledChargeAddonParams  `json:"addons,omitempty"`
+	Charges        []*CreateUnbilledChargeChargeParams `json:"charges,omitempty"`
+}
+type CreateUnbilledChargeAddonParams struct {
+	Id                 string `json:"id,omitempty"`
+	Quantity           *int32 `json:"quantity,omitempty"`
+	UnitPrice          *int32 `json:"unit_price,omitempty"`
+	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
+	DateFrom           *int64 `json:"date_from,omitempty"`
+	DateTo             *int64 `json:"date_to,omitempty"`
+}
+type CreateUnbilledChargeChargeParams struct {
+	Amount                 *int32               `json:"amount,omitempty"`
+	AmountInDecimal        string               `json:"amount_in_decimal,omitempty"`
+	Description            string               `json:"description,omitempty"`
+	Taxable                *bool                `json:"taxable,omitempty"`
+	TaxProfileId           string               `json:"tax_profile_id,omitempty"`
+	AvalaraTaxCode         string               `json:"avalara_tax_code,omitempty"`
+	HsnCode                string               `json:"hsn_code,omitempty"`
+	TaxjarProductCode      string               `json:"taxjar_product_code,omitempty"`
+	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
+	DateFrom               *int64               `json:"date_from,omitempty"`
+	DateTo                 *int64               `json:"date_to,omitempty"`
+}
 type CreateRequestParams struct {
 	SubscriptionId string                   `json:"subscription_id"`
 	CurrencyCode   string                   `json:"currency_code,omitempty"`

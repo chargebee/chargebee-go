@@ -52,6 +52,7 @@ type Plan struct {
 	ClaimUrl                    string                               `json:"claim_url"`
 	FreeQuantityInDecimal       string                               `json:"free_quantity_in_decimal"`
 	PriceInDecimal              string                               `json:"price_in_decimal"`
+	Channel                     enum.Channel                         `json:"channel"`
 	InvoiceNotes                string                               `json:"invoice_notes"`
 	Taxable                     bool                                 `json:"taxable"`
 	TaxProfileId                string                               `json:"tax_profile_id"`
@@ -263,6 +264,7 @@ type ListRequestParams struct {
 	Status             *filter.EnumFilter      `json:"status,omitempty"`
 	UpdatedAt          *filter.TimestampFilter `json:"updated_at,omitempty"`
 	CurrencyCode       *filter.StringFilter    `json:"currency_code,omitempty"`
+	Channel            *filter.EnumFilter      `json:"channel,omitempty"`
 	IncludeDeleted     *bool                   `json:"include_deleted,omitempty"`
 }
 type CopyRequestParams struct {

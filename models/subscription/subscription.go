@@ -2,7 +2,6 @@ package subscription
 
 import (
 	"encoding/json"
-
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
 	contractTermEnum "github.com/chargebee/chargebee-go/models/contractterm/enum"
@@ -56,6 +55,7 @@ type Subscription struct {
 	PlanAmountInDecimal               string                             `json:"plan_amount_in_decimal"`
 	CancelScheduleCreatedAt           int64                              `json:"cancel_schedule_created_at"`
 	OfflinePaymentMethod              enum.OfflinePaymentMethod          `json:"offline_payment_method"`
+	Channel                           enum.Channel                       `json:"channel"`
 	NetTermDays                       int32                              `json:"net_term_days"`
 	SubscriptionItems                 []*SubscriptionItem                `json:"subscription_items"`
 	ItemTiers                         []*ItemTier                        `json:"item_tiers"`
@@ -590,6 +590,7 @@ type ListRequestParams struct {
 	AutoCloseInvoices      *filter.BooleanFilter   `json:"auto_close_invoices,omitempty"`
 	OverrideRelationship   *filter.BooleanFilter   `json:"override_relationship,omitempty"`
 	SortBy                 *filter.SortFilter      `json:"sort_by,omitempty"`
+	Channel                *filter.EnumFilter      `json:"channel,omitempty"`
 }
 type SubscriptionsForCustomerRequestParams struct {
 	Limit  *int32 `json:"limit,omitempty"`

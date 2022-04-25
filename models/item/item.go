@@ -2,6 +2,7 @@ package item
 
 import (
 	"encoding/json"
+	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
 	itemEnum "github.com/chargebee/chargebee-go/models/item/enum"
 )
@@ -9,6 +10,7 @@ import (
 type Item struct {
 	Id                   string                     `json:"id"`
 	Name                 string                     `json:"name"`
+	ExternalName         string                     `json:"external_name"`
 	Description          string                     `json:"description"`
 	Status               itemEnum.Status            `json:"status"`
 	ResourceVersion      int64                      `json:"resource_version"`
@@ -27,6 +29,7 @@ type Item struct {
 	Metered              bool                       `json:"metered"`
 	UsageCalculation     itemEnum.UsageCalculation  `json:"usage_calculation"`
 	ArchivedAt           int64                      `json:"archived_at"`
+	Channel              enum.Channel               `json:"channel"`
 	ApplicableItems      []*ApplicableItem          `json:"applicable_items"`
 	Metadata             json.RawMessage            `json:"metadata"`
 	CustomField          map[string]interface{}     `json:"custom_field"`
@@ -41,9 +44,10 @@ type CreateRequestParams struct {
 	Name                 string                     `json:"name"`
 	Type                 itemEnum.Type              `json:"type"`
 	Description          string                     `json:"description,omitempty"`
-	ItemFamilyId         string                     `json:"item_family_id,omitempty"`
+	ItemFamilyId         string                     `json:"item_family_id"`
 	IsGiftable           *bool                      `json:"is_giftable,omitempty"`
 	IsShippable          *bool                      `json:"is_shippable,omitempty"`
+	ExternalName         string                     `json:"external_name,omitempty"`
 	EnabledInPortal      *bool                      `json:"enabled_in_portal,omitempty"`
 	RedirectUrl          string                     `json:"redirect_url,omitempty"`
 	EnabledForCheckout   *bool                      `json:"enabled_for_checkout,omitempty"`
@@ -60,6 +64,7 @@ type UpdateRequestParams struct {
 	Name                 string                     `json:"name,omitempty"`
 	Description          string                     `json:"description,omitempty"`
 	IsShippable          *bool                      `json:"is_shippable,omitempty"`
+	ExternalName         string                     `json:"external_name,omitempty"`
 	ItemFamilyId         string                     `json:"item_family_id,omitempty"`
 	EnabledInPortal      *bool                      `json:"enabled_in_portal,omitempty"`
 	RedirectUrl          string                     `json:"redirect_url,omitempty"`
@@ -88,5 +93,6 @@ type ListRequestParams struct {
 	EnabledInPortal    *filter.BooleanFilter   `json:"enabled_in_portal,omitempty"`
 	Metered            *filter.BooleanFilter   `json:"metered,omitempty"`
 	UsageCalculation   *filter.EnumFilter      `json:"usage_calculation,omitempty"`
+	Channel            *filter.EnumFilter      `json:"channel,omitempty"`
 	SortBy             *filter.SortFilter      `json:"sort_by,omitempty"`
 }

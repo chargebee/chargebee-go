@@ -12,7 +12,6 @@ const (
 	EventTypeCouponCreated                             EventType = "coupon_created"
 	EventTypeCouponUpdated                             EventType = "coupon_updated"
 	EventTypeCouponDeleted                             EventType = "coupon_deleted"
-	EventTypeCouponExpired                             EventType = "coupon_expired"
 	EventTypeCouponSetCreated                          EventType = "coupon_set_created"
 	EventTypeCouponSetUpdated                          EventType = "coupon_set_updated"
 	EventTypeCouponSetDeleted                          EventType = "coupon_set_deleted"

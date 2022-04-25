@@ -29,6 +29,7 @@ type CreditNote struct {
 	GeneratedAt             int64                     `json:"generated_at"`
 	ResourceVersion         int64                     `json:"resource_version"`
 	UpdatedAt               int64                     `json:"updated_at"`
+	Channel                 enum.Channel              `json:"channel"`
 	Einvoice                *Einvoice                 `json:"einvoice"`
 	SubTotal                int32                     `json:"sub_total"`
 	SubTotalInLocalCurrency int32                     `json:"sub_total_in_local_currency"`
@@ -211,6 +212,7 @@ type ListRequestParams struct {
 	VoidedAt           *filter.TimestampFilter `json:"voided_at,omitempty"`
 	UpdatedAt          *filter.TimestampFilter `json:"updated_at,omitempty"`
 	SortBy             *filter.SortFilter      `json:"sort_by,omitempty"`
+	Channel            *filter.EnumFilter      `json:"channel,omitempty"`
 }
 type CreditNotesForCustomerRequestParams struct {
 	Limit  *int32 `json:"limit,omitempty"`

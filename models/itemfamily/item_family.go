@@ -1,6 +1,7 @@
 package itemfamily
 
 import (
+	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
 	itemFamilyEnum "github.com/chargebee/chargebee-go/models/itemfamily/enum"
 )
@@ -12,6 +13,7 @@ type ItemFamily struct {
 	Status          itemFamilyEnum.Status  `json:"status"`
 	ResourceVersion int64                  `json:"resource_version"`
 	UpdatedAt       int64                  `json:"updated_at"`
+	Channel         enum.Channel           `json:"channel"`
 	CustomField     map[string]interface{} `json:"custom_field"`
 	Object          string                 `json:"object"`
 }

@@ -69,6 +69,7 @@ type Invoice struct {
 	VoidReasonCode          string                    `json:"void_reason_code"`
 	Deleted                 bool                      `json:"deleted"`
 	VatNumberPrefix         string                    `json:"vat_number_prefix"`
+	Channel                 enum.Channel              `json:"channel"`
 	Object                  string                    `json:"object"`
 }
 type LineItem struct {
@@ -528,20 +529,20 @@ type ChargeRequestParams struct {
 	PaymentSourceId        string               `json:"payment_source_id,omitempty"`
 }
 type ChargeAddonRequestParams struct {
-	CustomerId              string   `json:"customer_id,omitempty"`
-	SubscriptionId          string   `json:"subscription_id,omitempty"`
-	AddonId                 string   `json:"addon_id"`
-	AddonQuantity           *int32   `json:"addon_quantity,omitempty"`
-	AddonUnitPrice          *int32   `json:"addon_unit_price,omitempty"`
-	AddonQuantityInDecimal  string   `json:"addon_quantity_in_decimal,omitempty"`
-	AddonUnitPriceInDecimal string   `json:"addon_unit_price_in_decimal,omitempty"`
-	DateFrom                *int64   `json:"date_from,omitempty"`
-	DateTo                  *int64   `json:"date_to,omitempty"`
-	CouponIds               []string `json:"coupon_ids,omitempty"`
-	Coupon                  string   `json:"coupon,omitempty"`
-	PoNumber                string   `json:"po_number,omitempty"`
-	InvoiceDate             *int64   `json:"invoice_date,omitempty"`
-	PaymentSourceId         string   `json:"payment_source_id,omitempty"`
+	CustomerId              string       `json:"customer_id,omitempty"`
+	SubscriptionId          string       `json:"subscription_id,omitempty"`
+	AddonId                 string       `json:"addon_id"`
+	AddonQuantity           *int32       `json:"addon_quantity,omitempty"`
+	AddonUnitPrice          *int32       `json:"addon_unit_price,omitempty"`
+	AddonQuantityInDecimal  string       `json:"addon_quantity_in_decimal,omitempty"`
+	AddonUnitPriceInDecimal string       `json:"addon_unit_price_in_decimal,omitempty"`
+	DateFrom                *int64       `json:"date_from,omitempty"`
+	DateTo                  *int64       `json:"date_to,omitempty"`
+	CouponIds               []string     `json:"coupon_ids,omitempty"`
+	Coupon                  string       `json:"coupon,omitempty"`
+	PoNumber                string       `json:"po_number,omitempty"`
+	InvoiceDate             *int64       `json:"invoice_date,omitempty"`
+	PaymentSourceId         string       `json:"payment_source_id,omitempty"`
 }
 type CreateForChargeItemRequestParams struct {
 	CustomerId      string                               `json:"customer_id,omitempty"`
@@ -742,6 +743,7 @@ type ListRequestParams struct {
 	DunningStatus  *filter.EnumFilter      `json:"dunning_status,omitempty"`
 	PaymentOwner   *filter.StringFilter    `json:"payment_owner,omitempty"`
 	UpdatedAt      *filter.TimestampFilter `json:"updated_at,omitempty"`
+	Channel        *filter.EnumFilter      `json:"channel,omitempty"`
 	VoidedAt       *filter.TimestampFilter `json:"voided_at,omitempty"`
 	VoidReasonCode *filter.StringFilter    `json:"void_reason_code,omitempty"`
 	SortBy         *filter.SortFilter      `json:"sort_by,omitempty"`
