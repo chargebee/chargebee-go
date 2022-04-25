@@ -844,6 +844,7 @@ type EditUpdateSubscriptionQuoteForItemsSubscriptionItemParams struct {
 	ItemType           enum.ItemType       `json:"item_type,omitempty"`
 }
 type EditUpdateSubscriptionQuoteForItemsSubscriptionParams struct {
+	Id				  string		    `json:"id,omitempty"`
 	SetupFee                          *int32                    `json:"setup_fee,omitempty"`
 	StartDate                         *int64                    `json:"start_date,omitempty"`
 	TrialEnd                          *int64                    `json:"trial_end,omitempty"`
