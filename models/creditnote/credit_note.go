@@ -213,6 +213,10 @@ type ListRequestParams struct {
 	UpdatedAt          *filter.TimestampFilter `json:"updated_at,omitempty"`
 	SortBy             *filter.SortFilter      `json:"sort_by,omitempty"`
 	Channel            *filter.EnumFilter      `json:"channel,omitempty"`
+	Einvoice           *ListEinvoiceParams     `json:"einvoice,omitempty"`
+}
+type ListEinvoiceParams struct {
+	Status *filter.EnumFilter `json:"status,omitempty"`
 }
 type CreditNotesForCustomerRequestParams struct {
 	Limit  *int32 `json:"limit,omitempty"`

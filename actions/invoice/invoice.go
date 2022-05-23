@@ -31,6 +31,9 @@ func ImportInvoice(params *invoice.ImportInvoiceRequestParams) chargebee.Request
 func ApplyPayments(id string, params *invoice.ApplyPaymentsRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/apply_payments", url.PathEscape(id)), params)
 }
+func SyncUsages(id string) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/sync_usages", url.PathEscape(id)), nil)
+}
 func ApplyCredits(id string, params *invoice.ApplyCreditsRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/apply_credits", url.PathEscape(id)), params)
 }
@@ -93,4 +96,7 @@ func Delete(id string, params *invoice.DeleteRequestParams) chargebee.RequestObj
 }
 func UpdateDetails(id string, params *invoice.UpdateDetailsRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/update_details", url.PathEscape(id)), params)
+}
+func ResendEinvoice(id string) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/resend_einvoice", url.PathEscape(id)), nil)
 }

@@ -16,14 +16,17 @@ import (
 	"github.com/chargebee/chargebee-go/models/customer"
 	"github.com/chargebee/chargebee-go/models/differentialprice"
 	"github.com/chargebee/chargebee-go/models/download"
+	"github.com/chargebee/chargebee-go/models/entitlementoverride"
 	"github.com/chargebee/chargebee-go/models/estimate"
 	"github.com/chargebee/chargebee-go/models/event"
 	"github.com/chargebee/chargebee-go/models/export"
+	"github.com/chargebee/chargebee-go/models/feature"
 	"github.com/chargebee/chargebee-go/models/gift"
 	"github.com/chargebee/chargebee-go/models/hierarchy"
 	"github.com/chargebee/chargebee-go/models/hostedpage"
 	"github.com/chargebee/chargebee-go/models/invoice"
 	"github.com/chargebee/chargebee-go/models/item"
+	"github.com/chargebee/chargebee-go/models/itementitlement"
 	"github.com/chargebee/chargebee-go/models/itemfamily"
 	"github.com/chargebee/chargebee-go/models/itemprice"
 	"github.com/chargebee/chargebee-go/models/order"
@@ -39,6 +42,7 @@ import (
 	"github.com/chargebee/chargebee-go/models/resourcemigration"
 	"github.com/chargebee/chargebee-go/models/sitemigrationdetail"
 	"github.com/chargebee/chargebee-go/models/subscription"
+	"github.com/chargebee/chargebee-go/models/subscriptionentitlement"
 	"github.com/chargebee/chargebee-go/models/taxwithheld"
 	"github.com/chargebee/chargebee-go/models/thirdpartypaymentmethod"
 	"github.com/chargebee/chargebee-go/models/timemachine"
@@ -100,6 +104,10 @@ type Result struct {
 	ItemPrice               *itemprice.ItemPrice                             `json:"item_price,omitempty"`
 	AttachedItem            *attacheditem.AttachedItem                       `json:"attached_item,omitempty"`
 	DifferentialPrice       *differentialprice.DifferentialPrice             `json:"differential_price,omitempty"`
+	Feature                 *feature.Feature                                 `json:"feature,omitempty"`
+	SubscriptionEntitlement *subscriptionentitlement.SubscriptionEntitlement `json:"subscription_entitlement,omitempty"`
+	ItemEntitlement         *itementitlement.ItemEntitlement                 `json:"item_entitlement,omitempty"`
+	EntitlementOverride     *entitlementoverride.EntitlementOverride         `json:"entitlement_override,omitempty"`
 	UnbilledCharges         []*unbilledcharge.UnbilledCharge                 `json:"unbilled_charges,omitempty"`
 	CreditNotes             []*creditnote.CreditNote                         `json:"credit_notes,omitempty"`
 	AdvanceInvoiceSchedules []*advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedules,omitempty"`

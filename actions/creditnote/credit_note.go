@@ -37,3 +37,6 @@ func CreditNotesForCustomer(id string, params *creditnote.CreditNotesForCustomer
 func Delete(id string, params *creditnote.DeleteRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/credit_notes/%v/delete", url.PathEscape(id)), params)
 }
+func ResendEinvoice(id string) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/credit_notes/%v/resend_einvoice", url.PathEscape(id)), nil)
+}
