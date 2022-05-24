@@ -10,14 +10,29 @@ import (
 	"strings"
 )
 
-func getParamTypes(params interface{}) map[string]string {
-	v := reflect.TypeOf(params).Elem()
-	m := map[string]string{}
+func readStruct(v reflect.Type, m map[string]string) map[string]string {
+	if m == nil {
+		m = map[string]string{}
+	}
+
 	for i := 0; i < v.NumField(); i++ {
 		f := v.Field(i)
+		if f.Type.Kind() == reflect.Slice && f.Type.Elem().Kind() == reflect.Ptr {
+			getParamTypes(reflect.New(f.Type.Elem()).Elem().Interface(), m)
+		}
 		m[f.Name] = f.Type.String()
 	}
+
 	return m
+}
+
+func getParamTypes(params interface{}, m map[string]string) map[string]string {
+	v := reflect.TypeOf(params).Elem()
+	if m == nil {
+		m = map[string]string{}
+	}
+
+	return readStruct(v, m)
 }
 
 //SerializeParams is to used to serialize the inputParams request .
@@ -34,7 +49,7 @@ func SerializeParams(params interface{}) *url.Values {
 		panic(err)
 	}
 	serParams := make(map[string]interface{})
-	parseMap(m, serParams, "", "", getParamTypes(params))
+	parseMap(m, serParams, "", "", getParamTypes(params, nil))
 	body := &url.Values{}
 	for k, v := range serParams {
 		body.Set(k, fmt.Sprintf("%v", v))
@@ -61,7 +76,7 @@ func parseMap(aMap, serParams map[string]interface{}, prefix string, idx string,
 				parseMap(val.(map[string]interface{}), serParams, key, "", paramTypes)
 			}
 		case []interface{}:
-			parseArray(val.([]interface{}), serParams, key, "", paramTypes)
+			parseArray(val.([]interface{}), serParams, prefix, key, idx, paramTypes)
 		default:
 			if prefix != "" && idx != "" {
 				key = prefix + "[" + key + "]" + "[" + idx + "]"
@@ -72,22 +87,32 @@ func parseMap(aMap, serParams map[string]interface{}, prefix string, idx string,
 		}
 	}
 }
-func parseArray(anArray []interface{}, serParams map[string]interface{}, prefix string, idx string, paramTypes map[string]string) {
-	if paramTypes[camelCase(prefix)] == "[]map[string]interface {}" {
+func parseArray(anArray []interface{}, serParams map[string]interface{}, prefix, key string, idx string, paramTypes map[string]string) {
+	if paramTypes[camelCase(key)] == "[]map[string]interface {}" {
+		strSlice := make([]string, 0)
+		for _, val := range anArray {
+			if value, ok := val.(map[string]interface{}); ok {
+				for k := range value {
+					strSlice = append(strSlice, k)
+				}
+			}
+		}
 		buf := new(bytes.Buffer)
 		enc := json.NewEncoder(buf)
-		err := enc.Encode(anArray)
+		err := enc.Encode(strSlice)
 		if err != nil {
 			fmt.Println(err.Error())
 		}
-		serParams[prefix] = buf.String()
+		k := prefix + "[" + key + "]" + "[" + idx + "]"
+		serParams[k] = buf.String()
+		return
 	}
 	for i, val := range anArray {
 		switch value := val.(type) {
 		case map[string]interface{}:
-			parseMap(val.(map[string]interface{}), serParams, prefix, strconv.Itoa(i), paramTypes)
+			parseMap(val.(map[string]interface{}), serParams, key, strconv.Itoa(i), paramTypes)
 		default:
-			k := prefix + "[" + strconv.Itoa(i) + "]"
+			k := key + "[" + strconv.Itoa(i) + "]"
 			serParams[k] = value
 		}
 	}
