@@ -3,8 +3,8 @@ package gift
 import (
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
-	giftEnum "github.com/chargebee/chargebee-go/models/gift/enum"
 	paymentIntentEnum "github.com/chargebee/chargebee-go/models/paymentintent/enum"
+	giftEnum "github.com/chargebee/chargebee-go/models/gift/enum"
 )
 
 type Gift struct {
@@ -37,9 +37,9 @@ type GiftReceiver struct {
 	Object         string `json:"object"`
 }
 type GiftTimeline struct {
-	Status     enum.Status `json:"status"`
-	OccurredAt int64       `json:"occurred_at"`
-	Object     string      `json:"object"`
+	Status     giftEnum.Status `json:"status"`
+	OccurredAt int64           `json:"occurred_at"`
+	Object     string          `json:"object"`
 }
 type CreateRequestParams struct {
 	ScheduledAt     *int64                       `json:"scheduled_at,omitempty"`

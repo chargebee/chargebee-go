@@ -161,15 +161,15 @@ type ResentOrder struct {
 	Object  string `json:"object"`
 }
 type CreateRequestParams struct {
-	Id                string      `json:"id,omitempty"`
-	InvoiceId         string      `json:"invoice_id"`
-	Status            enum.Status `json:"status,omitempty"`
-	ReferenceId       string      `json:"reference_id,omitempty"`
-	FulfillmentStatus string      `json:"fulfillment_status,omitempty"`
-	Note              string      `json:"note,omitempty"`
-	TrackingId        string      `json:"tracking_id,omitempty"`
-	TrackingUrl       string      `json:"tracking_url,omitempty"`
-	BatchId           string      `json:"batch_id,omitempty"`
+	Id                string           `json:"id,omitempty"`
+	InvoiceId         string           `json:"invoice_id"`
+	Status            orderEnum.Status `json:"status,omitempty"`
+	ReferenceId       string           `json:"reference_id,omitempty"`
+	FulfillmentStatus string           `json:"fulfillment_status,omitempty"`
+	Note              string           `json:"note,omitempty"`
+	TrackingId        string           `json:"tracking_id,omitempty"`
+	TrackingUrl       string           `json:"tracking_url,omitempty"`
+	BatchId           string           `json:"batch_id,omitempty"`
 }
 type UpdateRequestParams struct {
 	ReferenceId        string                       `json:"reference_id,omitempty"`

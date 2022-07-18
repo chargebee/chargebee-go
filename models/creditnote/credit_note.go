@@ -3,9 +3,9 @@ package creditnote
 import (
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
-	creditNoteEnum "github.com/chargebee/chargebee-go/models/creditnote/enum"
 	invoiceEnum "github.com/chargebee/chargebee-go/models/invoice/enum"
 	transactionEnum "github.com/chargebee/chargebee-go/models/transaction/enum"
+	creditNoteEnum "github.com/chargebee/chargebee-go/models/creditnote/enum"
 )
 
 type CreditNote struct {
@@ -48,6 +48,7 @@ type CreditNote struct {
 	Deleted                 bool                      `json:"deleted"`
 	CreateReasonCode        string                    `json:"create_reason_code"`
 	VatNumberPrefix         string                    `json:"vat_number_prefix"`
+	BusinessEntityId        string                    `json:"business_entity_id"`
 	Object                  string                    `json:"object"`
 }
 type Einvoice struct {
@@ -82,11 +83,12 @@ type LineItem struct {
 	Object                  string                            `json:"object"`
 }
 type Discount struct {
-	Amount      int32                             `json:"amount"`
-	Description string                            `json:"description"`
-	EntityType  creditNoteEnum.DiscountEntityType `json:"entity_type"`
-	EntityId    string                            `json:"entity_id"`
-	Object      string                            `json:"object"`
+	Amount        int32                             `json:"amount"`
+	Description   string                            `json:"description"`
+	EntityType    creditNoteEnum.DiscountEntityType `json:"entity_type"`
+	EntityId      string                            `json:"entity_id"`
+	CouponSetCode string                            `json:"coupon_set_code"`
+	Object        string                            `json:"object"`
 }
 type LineItemDiscount struct {
 	LineItemId     string                                      `json:"line_item_id"`

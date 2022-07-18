@@ -14,4 +14,5 @@ const (
 	PaymentMethodTypeUpi                   PaymentMethodType = "upi"
 	PaymentMethodTypeNetbankingEmandates   PaymentMethodType = "netbanking_emandates"
 	PaymentMethodTypePaypalExpressCheckout PaymentMethodType = "paypal_express_checkout"
+	PaymentMethodTypeDirectDebit           PaymentMethodType = "direct_debit"
 )

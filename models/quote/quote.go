@@ -45,6 +45,7 @@ type Quote struct {
 	ContractTermStart          int64                   `json:"contract_term_start"`
 	ContractTermEnd            int64                   `json:"contract_term_end"`
 	ContractTermTerminationFee int32                   `json:"contract_term_termination_fee"`
+	BusinessEntityId           string                  `json:"business_entity_id"`
 	Object                     string                  `json:"object"`
 }
 type LineItem struct {
@@ -73,11 +74,12 @@ type LineItem struct {
 	Object                  string                       `json:"object"`
 }
 type Discount struct {
-	Amount      int32                        `json:"amount"`
-	Description string                       `json:"description"`
-	EntityType  quoteEnum.DiscountEntityType `json:"entity_type"`
-	EntityId    string                       `json:"entity_id"`
-	Object      string                       `json:"object"`
+	Amount        int32                        `json:"amount"`
+	Description   string                       `json:"description"`
+	EntityType    quoteEnum.DiscountEntityType `json:"entity_type"`
+	EntityId      string                       `json:"entity_id"`
+	CouponSetCode string                       `json:"coupon_set_code"`
+	Object        string                       `json:"object"`
 }
 type LineItemDiscount struct {
 	LineItemId     string                                 `json:"line_item_id"`

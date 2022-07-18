@@ -2,10 +2,9 @@ package entitlementoverride
 
 import (
 	"fmt"
-	"net/url"
-
 	"github.com/chargebee/chargebee-go"
 	"github.com/chargebee/chargebee-go/models/entitlementoverride"
+	"net/url"
 )
 
 func AddEntitlementOverrideForSubscription(id string, params *entitlementoverride.AddEntitlementOverrideForSubscriptionRequestParams) chargebee.RequestObj {

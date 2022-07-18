@@ -3,9 +3,10 @@ package enum
 type Status string
 
 const (
-	StatusScheduled Status = "scheduled"
-	StatusUnclaimed Status = "unclaimed"
-	StatusClaimed   Status = "claimed"
-	StatusCancelled Status = "cancelled"
-	StatusExpired   Status = "expired"
+	StatusFuture      Status = "future"
+	StatusInTrial     Status = "in_trial"
+	StatusActive      Status = "active"
+	StatusNonRenewing Status = "non_renewing"
+	StatusPaused      Status = "paused"
+	StatusCancelled   Status = "cancelled"
 )

@@ -22,6 +22,7 @@ type PaymentIntent struct {
 	CustomerId           string                              `json:"customer_id"`
 	Gateway              string                              `json:"gateway"`
 	ActivePaymentAttempt *PaymentAttempt                     `json:"active_payment_attempt"`
+	BusinessEntityId     string                              `json:"business_entity_id"`
 	Object               string                              `json:"object"`
 }
 type PaymentAttempt struct {
@@ -36,6 +37,7 @@ type PaymentAttempt struct {
 	Object            string                                 `json:"object"`
 }
 type CreateRequestParams struct {
+	BusinessEntityId  string                              `json:"business_entity_id,omitempty"`
 	CustomerId        string                              `json:"customer_id,omitempty"`
 	Amount            *int32                              `json:"amount"`
 	CurrencyCode      string                              `json:"currency_code"`

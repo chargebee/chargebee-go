@@ -48,11 +48,12 @@ type LineItem struct {
 	Object                  string                                `json:"object"`
 }
 type Discount struct {
-	Amount      int32                                 `json:"amount"`
-	Description string                                `json:"description"`
-	EntityType  quoteLineGroupEnum.DiscountEntityType `json:"entity_type"`
-	EntityId    string                                `json:"entity_id"`
-	Object      string                                `json:"object"`
+	Amount        int32                                 `json:"amount"`
+	Description   string                                `json:"description"`
+	EntityType    quoteLineGroupEnum.DiscountEntityType `json:"entity_type"`
+	EntityId      string                                `json:"entity_id"`
+	CouponSetCode string                                `json:"coupon_set_code"`
+	Object        string                                `json:"object"`
 }
 type LineItemDiscount struct {
 	LineItemId     string                                          `json:"line_item_id"`

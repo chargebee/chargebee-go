@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
-	customerEnum "github.com/chargebee/chargebee-go/models/customer/enum"
 	paymentIntentEnum "github.com/chargebee/chargebee-go/models/paymentintent/enum"
+	customerEnum "github.com/chargebee/chargebee-go/models/customer/enum"
 )
 
 type Customer struct {
@@ -48,6 +48,7 @@ type Customer struct {
 	Contacts                         []*Contact                    `json:"contacts"`
 	PaymentMethod                    *PaymentMethod                `json:"payment_method"`
 	InvoiceNotes                     string                        `json:"invoice_notes"`
+	BusinessEntityId                 string                        `json:"business_entity_id"`
 	PreferredCurrencyCode            string                        `json:"preferred_currency_code"`
 	PromotionalCredits               int32                         `json:"promotional_credits"`
 	UnbilledCharges                  int32                         `json:"unbilled_charges"`
@@ -197,6 +198,7 @@ type CreateRequestParams struct {
 	PaymentIntent                    *CreatePaymentIntentParams      `json:"payment_intent,omitempty"`
 	BillingAddress                   *CreateBillingAddressParams     `json:"billing_address,omitempty"`
 	EntityIdentifiers                []*CreateEntityIdentifierParams `json:"entity_identifiers,omitempty"`
+	BusinessEntityId                 string                          `json:"business_entity_id,omitempty"`
 	CreatedFromIp                    string                          `json:"created_from_ip,omitempty"`
 	InvoiceNotes                     string                          `json:"invoice_notes,omitempty"`
 }

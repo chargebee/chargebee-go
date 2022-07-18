@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
-	contractTermEnum "github.com/chargebee/chargebee-go/models/contractterm/enum"
 	paymentIntentEnum "github.com/chargebee/chargebee-go/models/paymentintent/enum"
+	contractTermEnum "github.com/chargebee/chargebee-go/models/contractterm/enum"
 	subscriptionEnum "github.com/chargebee/chargebee-go/models/subscription/enum"
 )
 
@@ -84,6 +84,7 @@ type Subscription struct {
 	FreePeriodUnit                    enum.FreePeriodUnit                `json:"free_period_unit"`
 	CreatePendingInvoices             bool                               `json:"create_pending_invoices"`
 	AutoCloseInvoices                 bool                               `json:"auto_close_invoices"`
+	BusinessEntityId                  string                             `json:"business_entity_id"`
 	CustomField                       map[string]interface{}             `json:"custom_field"`
 	Object                            string                             `json:"object"`
 }
@@ -210,6 +211,7 @@ type CreateRequestParams struct {
 	Id                                string                          `json:"id,omitempty"`
 	Customer                          *CreateCustomerParams           `json:"customer,omitempty"`
 	EntityIdentifiers                 []*CreateEntityIdentifierParams `json:"entity_identifiers,omitempty"`
+	BusinessEntityId                  string                          `json:"business_entity_id,omitempty"`
 	PlanId                            string                          `json:"plan_id"`
 	PlanQuantity                      *int32                          `json:"plan_quantity,omitempty"`
 	PlanQuantityInDecimal             string                          `json:"plan_quantity_in_decimal,omitempty"`
@@ -397,6 +399,7 @@ type CreateContractTermParams struct {
 }
 type CreateForCustomerRequestParams struct {
 	Id                                string                                    `json:"id,omitempty"`
+	BusinessEntityId                  string                                    `json:"business_entity_id,omitempty"`
 	PlanId                            string                                    `json:"plan_id"`
 	PlanQuantity                      *int32                                    `json:"plan_quantity,omitempty"`
 	PlanQuantityInDecimal             string                                    `json:"plan_quantity_in_decimal,omitempty"`
@@ -482,6 +485,7 @@ type CreateForCustomerContractTermParams struct {
 }
 type CreateWithItemsRequestParams struct {
 	Id                                string                                   `json:"id,omitempty"`
+	BusinessEntityId                  string                                   `json:"business_entity_id,omitempty"`
 	TrialEnd                          *int64                                   `json:"trial_end,omitempty"`
 	BillingCycles                     *int32                                   `json:"billing_cycles,omitempty"`
 	SubscriptionItems                 []*CreateWithItemsSubscriptionItemParams `json:"subscription_items,omitempty"`

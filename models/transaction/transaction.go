@@ -3,8 +3,8 @@ package transaction
 import (
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
-	creditNoteEnum "github.com/chargebee/chargebee-go/models/creditnote/enum"
 	invoiceEnum "github.com/chargebee/chargebee-go/models/invoice/enum"
+	creditNoteEnum "github.com/chargebee/chargebee-go/models/creditnote/enum"
 	transactionEnum "github.com/chargebee/chargebee-go/models/transaction/enum"
 )
 
@@ -50,6 +50,7 @@ type Transaction struct {
 	Iin                      string                              `json:"iin"`
 	Last4                    string                              `json:"last4"`
 	MerchantReferenceId      string                              `json:"merchant_reference_id"`
+	BusinessEntityId         string                              `json:"business_entity_id"`
 	Object                   string                              `json:"object"`
 }
 type LinkedInvoice struct {

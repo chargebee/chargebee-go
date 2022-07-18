@@ -4,6 +4,7 @@ type Gateway string
 
 const (
 	GatewayChargebee             Gateway = "chargebee"
+	GatewayChargebeePayments     Gateway = "chargebee_payments"
 	GatewayStripe                Gateway = "stripe"
 	GatewayWepay                 Gateway = "wepay"
 	GatewayBraintree             Gateway = "braintree"

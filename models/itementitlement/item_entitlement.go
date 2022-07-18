@@ -2,7 +2,6 @@ package itementitlement
 
 import (
 	"github.com/chargebee/chargebee-go/enum"
-	"github.com/chargebee/chargebee-go/models/feature"
 	itemEntitlementEnum "github.com/chargebee/chargebee-go/models/itementitlement/enum"
 )
 
@@ -14,12 +13,7 @@ type ItemEntitlement struct {
 	FeatureName string                       `json:"feature_name"`
 	Value       string                       `json:"value"`
 	Name        string                       `json:"name"`
-	Embedded    *EmbeddedResource            `json:"embedded"`
 	Object      string                       `json:"object"`
-}
-type EmbeddedResource struct {
-	Feature *feature.Feature `json:"feature"`
-	Object  string           `json:"object"`
 }
 type ItemEntitlementsForItemRequestParams struct {
 	Limit         *int32 `json:"limit,omitempty"`

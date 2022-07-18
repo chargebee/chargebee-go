@@ -27,6 +27,7 @@ type PaymentSource struct {
 	Paypal           *Paypal                  `json:"paypal"`
 	Mandates         []*Mandate               `json:"mandates"`
 	Deleted          bool                     `json:"deleted"`
+	BusinessEntityId string                   `json:"business_entity_id"`
 	Object           string                   `json:"object"`
 }
 type Card struct {

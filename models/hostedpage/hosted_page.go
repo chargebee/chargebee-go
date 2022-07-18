@@ -9,20 +9,21 @@ import (
 )
 
 type HostedPage struct {
-	Id              string                       `json:"id"`
-	Type            hostedPageEnum.Type          `json:"type"`
-	Url             string                       `json:"url"`
-	State           hostedPageEnum.State         `json:"state"`
-	FailureReason   hostedPageEnum.FailureReason `json:"failure_reason"`
-	PassThruContent string                       `json:"pass_thru_content"`
-	Embed           bool                         `json:"embed"`
-	CreatedAt       int64                        `json:"created_at"`
-	ExpiresAt       int64                        `json:"expires_at"`
-	Content         json.RawMessage              `json:"content"`
-	UpdatedAt       int64                        `json:"updated_at"`
-	ResourceVersion int64                        `json:"resource_version"`
-	CheckoutInfo    json.RawMessage              `json:"checkout_info"`
-	Object          string                       `json:"object"`
+	Id               string                       `json:"id"`
+	Type             hostedPageEnum.Type          `json:"type"`
+	Url              string                       `json:"url"`
+	State            hostedPageEnum.State         `json:"state"`
+	FailureReason    hostedPageEnum.FailureReason `json:"failure_reason"`
+	PassThruContent  string                       `json:"pass_thru_content"`
+	Embed            bool                         `json:"embed"`
+	CreatedAt        int64                        `json:"created_at"`
+	ExpiresAt        int64                        `json:"expires_at"`
+	Content          json.RawMessage              `json:"content"`
+	UpdatedAt        int64                        `json:"updated_at"`
+	ResourceVersion  int64                        `json:"resource_version"`
+	CheckoutInfo     json.RawMessage              `json:"checkout_info"`
+	BusinessEntityId string                       `json:"business_entity_id"`
+	Object           string                       `json:"object"`
 }
 type CheckoutNewRequestParams struct {
 	Subscription               *CheckoutNewSubscriptionParams      `json:"subscription,omitempty"`
@@ -229,6 +230,7 @@ type CheckoutOneTimeShippingAddressParams struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
 type CheckoutOneTimeForItemsRequestParams struct {
+	BusinessEntityId  string                                           `json:"business_entity_id,omitempty"`
 	Customer          *CheckoutOneTimeForItemsCustomerParams           `json:"customer,omitempty"`
 	ItemPrices        []*CheckoutOneTimeForItemsItemPriceParams        `json:"item_prices,omitempty"`
 	ItemTiers         []*CheckoutOneTimeForItemsItemTierParams         `json:"item_tiers,omitempty"`
@@ -344,6 +346,7 @@ type CheckoutOneTimeForItemsShippingAddressParams struct {
 type CheckoutNewForItemsRequestParams struct {
 	Subscription               *CheckoutNewForItemsSubscriptionParams       `json:"subscription,omitempty"`
 	Customer                   *CheckoutNewForItemsCustomerParams           `json:"customer,omitempty"`
+	BusinessEntityId           string                                       `json:"business_entity_id,omitempty"`
 	BillingCycles              *int32                                       `json:"billing_cycles,omitempty"`
 	SubscriptionItems          []*CheckoutNewForItemsSubscriptionItemParams `json:"subscription_items,omitempty"`
 	MandatoryItemsToRemove     []string                                     `json:"mandatory_items_to_remove,omitempty"`
@@ -706,6 +709,7 @@ type CheckoutGiftAddonParams struct {
 	QuantityInDecimal string `json:"quantity_in_decimal,omitempty"`
 }
 type CheckoutGiftForItemsRequestParams struct {
+	BusinessEntityId  string                                        `json:"business_entity_id,omitempty"`
 	Gifter            *CheckoutGiftForItemsGifterParams             `json:"gifter,omitempty"`
 	RedirectUrl       string                                        `json:"redirect_url,omitempty"`
 	SubscriptionItems []*CheckoutGiftForItemsSubscriptionItemParams `json:"subscription_items,omitempty"`
@@ -741,4 +745,13 @@ type ListRequestParams struct {
 	Type      *filter.EnumFilter      `json:"type,omitempty"`
 	State     *filter.EnumFilter      `json:"state,omitempty"`
 	UpdatedAt *filter.TimestampFilter `json:"updated_at,omitempty"`
+}
+type PreCancelRequestParams struct {
+	Subscription    *PreCancelSubscriptionParams `json:"subscription,omitempty"`
+	PassThruContent string                       `json:"pass_thru_content,omitempty"`
+	CancelUrl       string                       `json:"cancel_url,omitempty"`
+	RedirectUrl     string                       `json:"redirect_url,omitempty"`
+}
+type PreCancelSubscriptionParams struct {
+	Id string `json:"id"`
 }

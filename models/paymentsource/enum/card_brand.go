@@ -10,4 +10,6 @@ const (
 	CardBrandJcb             CardBrand = "jcb"
 	CardBrandDinersClub      CardBrand = "diners_club"
 	CardBrandOther           CardBrand = "other"
+	CardBrandBancontact      CardBrand = "bancontact"
+	CardBrandNotApplicable   CardBrand = "not_applicable"
 )
