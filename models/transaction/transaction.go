@@ -51,6 +51,7 @@ type Transaction struct {
 	Last4                    string                              `json:"last4"`
 	MerchantReferenceId      string                              `json:"merchant_reference_id"`
 	BusinessEntityId         string                              `json:"business_entity_id"`
+	PaymentMethodDetails     string                              `json:"payment_method_details"`
 	Object                   string                              `json:"object"`
 }
 type LinkedInvoice struct {

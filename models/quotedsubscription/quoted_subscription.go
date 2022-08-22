@@ -87,6 +87,7 @@ type ItemTier struct {
 	StartingUnitInDecimal string `json:"starting_unit_in_decimal"`
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal"`
 	PriceInDecimal        string `json:"price_in_decimal"`
+	Index                 int32  `json:"index"`
 	Object                string `json:"object"`
 }
 type QuotedContractTerm struct {

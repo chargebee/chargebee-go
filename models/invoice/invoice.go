@@ -90,6 +90,7 @@ type LineItem struct {
 	AmountInDecimal         string                         `json:"amount_in_decimal"`
 	DiscountAmount          int32                          `json:"discount_amount"`
 	ItemLevelDiscountAmount int32                          `json:"item_level_discount_amount"`
+	ReferenceLineItemId     string                         `json:"reference_line_item_id"`
 	Description             string                         `json:"description"`
 	EntityDescription       string                         `json:"entity_description"`
 	EntityType              invoiceEnum.LineItemEntityType `json:"entity_type"`
@@ -225,6 +226,7 @@ type ShippingAddress struct {
 	Country          string                `json:"country"`
 	Zip              string                `json:"zip"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status"`
+	Index            int32                 `json:"index"`
 	Object           string                `json:"object"`
 }
 type BillingAddress struct {
@@ -886,8 +888,9 @@ type RemoveCreditNoteCreditNoteParams struct {
 	Id string `json:"id"`
 }
 type VoidInvoiceRequestParams struct {
-	Comment        string `json:"comment,omitempty"`
-	VoidReasonCode string `json:"void_reason_code,omitempty"`
+	Comment            string `json:"comment,omitempty"`
+	VoidReasonCode     string `json:"void_reason_code,omitempty"`
+	VoidWithCreditNote *bool  `json:"void_with_credit_note,omitempty"`
 }
 type WriteOffRequestParams struct {
 	Comment string `json:"comment,omitempty"`

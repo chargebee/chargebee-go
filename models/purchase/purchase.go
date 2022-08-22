@@ -20,7 +20,6 @@ type CreateRequestParams struct {
 	Discounts         []*CreateDiscountParams         `json:"discounts,omitempty"`
 	InvoiceInfo       *CreateInvoiceInfoParams        `json:"invoice_info,omitempty"`
 	SubscriptionInfo  []*CreateSubscriptionInfoParams `json:"subscription_info,omitempty"`
-	BusinessEntityId  string                          `json:"business_entity_id,omitempty"`
 	CustomerId        string                          `json:"customer_id"`
 }
 type CreatePurchaseItemParams struct {
@@ -80,7 +79,6 @@ type EstimateRequestParams struct {
 	Discounts         []*EstimateDiscountParams         `json:"discounts,omitempty"`
 	InvoiceInfo       *EstimateInvoiceInfoParams        `json:"invoice_info,omitempty"`
 	SubscriptionInfo  []*EstimateSubscriptionInfoParams `json:"subscription_info,omitempty"`
-	BusinessEntityId  string                            `json:"business_entity_id,omitempty"`
 	Customer          *EstimateCustomerParams           `json:"customer,omitempty"`
 	BillingAddress    *EstimateBillingAddressParams     `json:"billing_address,omitempty"`
 	ClientProfileId   string                            `json:"client_profile_id,omitempty"`

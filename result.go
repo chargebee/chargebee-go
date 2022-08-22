@@ -52,6 +52,7 @@ import (
 	"github.com/chargebee/chargebee-go/models/impacteditem"
 	"github.com/chargebee/chargebee-go/models/subscriptionentitlement"
 	"github.com/chargebee/chargebee-go/models/itementitlement"
+	"github.com/chargebee/chargebee-go/models/inappsubscription"
 	"github.com/chargebee/chargebee-go/models/entitlementoverride"
 	"github.com/chargebee/chargebee-go/models/purchase"
 )
@@ -112,6 +113,7 @@ type Result struct {
 	ImpactedItem            *impacteditem.ImpactedItem                       `json:"impacted_item,omitempty"`
 	SubscriptionEntitlement *subscriptionentitlement.SubscriptionEntitlement `json:"subscription_entitlement,omitempty"`
 	ItemEntitlement         *itementitlement.ItemEntitlement                 `json:"item_entitlement,omitempty"`
+	InAppSubscription       *inappsubscription.InAppSubscription             `json:"in_app_subscription,omitempty"`
 	EntitlementOverride     *entitlementoverride.EntitlementOverride         `json:"entitlement_override,omitempty"`
 	Purchase                *purchase.Purchase                               `json:"purchase,omitempty"`
 	UnbilledCharges         []*unbilledcharge.UnbilledCharge                 `json:"unbilled_charges,omitempty"`
@@ -121,5 +123,6 @@ type Result struct {
 	Downloads               []*download.Download                             `json:"downloads,omitempty"`
 	Invoices                []*invoice.Invoice                               `json:"invoices,omitempty"`
 	DifferentialPrices      []*differentialprice.DifferentialPrice           `json:"differential_prices,omitempty"`
+	InAppSubscriptions      []*inappsubscription.InAppSubscription           `json:"in_app_subscriptions,omitempty"`
 
 }
