@@ -25,6 +25,9 @@ func SubscriptionsForCustomer(id string, params *subscription.SubscriptionsForCu
 func ContractTermsForSubscription(id string, params *subscription.ContractTermsForSubscriptionRequestParams) chargebee.RequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/subscriptions/%v/contract_terms", url.PathEscape(id)), params)
 }
+func ListDiscounts(id string, params *subscription.ListDiscountsRequestParams) chargebee.RequestObj {
+	return chargebee.SendList("GET", fmt.Sprintf("/subscriptions/%v/discounts", url.PathEscape(id)), params)
+}
 func Retrieve(id string) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/subscriptions/%v", url.PathEscape(id)), nil)
 }

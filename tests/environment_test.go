@@ -28,7 +28,6 @@ func TestDefaultHTTPClient(t *testing.T) {
 	chargebee.UpdateTotalHTTPTimeout(timeout)
 	c2 := chargebee.NewDefaultHTTPClient()
 	assert.Equal(t, timeout, c2.Timeout)
-	assert.Equal(t, c2.Timeout, c.Timeout)
 
 	// http.Client should always have a timeout
 	c3 := &http.Client{}

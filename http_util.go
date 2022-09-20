@@ -26,9 +26,11 @@ func basicAuth(key string) string {
 //Send prepares a RequestObj for Request operation.
 func Send(method string, path string, params interface{}) RequestObj {
 	var form *url.Values
+
 	if params != nil {
 		form = SerializeParams(params)
 	}
+
 	return RequestObj{
 		Params: form,
 		Method: method,
@@ -42,6 +44,7 @@ func SendList(method string, path string, params interface{}) RequestObj {
 	if params != nil {
 		form = SerializeListParams(params)
 	}
+
 	return RequestObj{
 		Params: form,
 		Method: method,

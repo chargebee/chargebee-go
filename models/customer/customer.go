@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
-	paymentIntentEnum "github.com/chargebee/chargebee-go/models/paymentintent/enum"
 	customerEnum "github.com/chargebee/chargebee-go/models/customer/enum"
+	paymentIntentEnum "github.com/chargebee/chargebee-go/models/paymentintent/enum"
 )
 
 type Customer struct {
@@ -33,6 +33,7 @@ type Customer struct {
 	UpdatedAt                        int64                         `json:"updated_at"`
 	Locale                           string                        `json:"locale"`
 	BillingDate                      int32                         `json:"billing_date"`
+	BillingMonth                     int32                         `json:"billing_month"`
 	BillingDateMode                  enum.BillingDateMode          `json:"billing_date_mode"`
 	BillingDayOfWeek                 customerEnum.BillingDayOfWeek `json:"billing_day_of_week"`
 	BillingDayOfWeekMode             enum.BillingDayOfWeekMode     `json:"billing_day_of_week_mode"`
@@ -508,6 +509,7 @@ type MoveRequestParams struct {
 }
 type ChangeBillingDateRequestParams struct {
 	BillingDate          *int32                        `json:"billing_date,omitempty"`
+	BillingMonth         *int32                        `json:"billing_month,omitempty"`
 	BillingDateMode      enum.BillingDateMode          `json:"billing_date_mode,omitempty"`
 	BillingDayOfWeek     customerEnum.BillingDayOfWeek `json:"billing_day_of_week,omitempty"`
 	BillingDayOfWeekMode enum.BillingDayOfWeekMode     `json:"billing_day_of_week_mode,omitempty"`

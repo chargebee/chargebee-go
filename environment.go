@@ -62,7 +62,4 @@ func NewDefaultHTTPClient() *http.Client {
 
 func UpdateTotalHTTPTimeout(timeout time.Duration) {
 	TotalHTTPTimeout = timeout
-	if httpClient != nil {
-		httpClient.Timeout = TotalHTTPTimeout
-	}
 }

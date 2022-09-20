@@ -231,10 +231,12 @@ type CheckoutOneTimeShippingAddressParams struct {
 }
 type CheckoutOneTimeForItemsRequestParams struct {
 	BusinessEntityId  string                                           `json:"business_entity_id,omitempty"`
+	Layout            enum.Layout                                      `json:"layout,omitempty"`
 	Customer          *CheckoutOneTimeForItemsCustomerParams           `json:"customer,omitempty"`
 	ItemPrices        []*CheckoutOneTimeForItemsItemPriceParams        `json:"item_prices,omitempty"`
 	ItemTiers         []*CheckoutOneTimeForItemsItemTierParams         `json:"item_tiers,omitempty"`
 	Charges           []*CheckoutOneTimeForItemsChargeParams           `json:"charges,omitempty"`
+	Discounts         []*CheckoutOneTimeForItemsDiscountParams         `json:"discounts,omitempty"`
 	InvoiceNote       string                                           `json:"invoice_note,omitempty"`
 	Invoice           *CheckoutOneTimeForItemsInvoiceParams            `json:"invoice,omitempty"`
 	Coupon            string                                           `json:"coupon,omitempty"`
@@ -297,6 +299,12 @@ type CheckoutOneTimeForItemsChargeParams struct {
 	DateFrom               *int64               `json:"date_from,omitempty"`
 	DateTo                 *int64               `json:"date_to,omitempty"`
 }
+type CheckoutOneTimeForItemsDiscountParams struct {
+	Percentage  *float64     `json:"percentage,omitempty"`
+	Amount      *int32       `json:"amount,omitempty"`
+	ApplyOn     enum.ApplyOn `json:"apply_on"`
+	ItemPriceId string       `json:"item_price_id,omitempty"`
+}
 type CheckoutOneTimeForItemsInvoiceParams struct {
 	PoNumber string `json:"po_number,omitempty"`
 }
@@ -345,10 +353,12 @@ type CheckoutOneTimeForItemsShippingAddressParams struct {
 }
 type CheckoutNewForItemsRequestParams struct {
 	Subscription               *CheckoutNewForItemsSubscriptionParams       `json:"subscription,omitempty"`
+	Layout                     enum.Layout                                  `json:"layout,omitempty"`
 	Customer                   *CheckoutNewForItemsCustomerParams           `json:"customer,omitempty"`
 	BusinessEntityId           string                                       `json:"business_entity_id,omitempty"`
 	BillingCycles              *int32                                       `json:"billing_cycles,omitempty"`
 	SubscriptionItems          []*CheckoutNewForItemsSubscriptionItemParams `json:"subscription_items,omitempty"`
+	Discounts                  []*CheckoutNewForItemsDiscountParams         `json:"discounts,omitempty"`
 	MandatoryItemsToRemove     []string                                     `json:"mandatory_items_to_remove,omitempty"`
 	ItemTiers                  []*CheckoutNewForItemsItemTierParams         `json:"item_tiers,omitempty"`
 	TermsToCharge              *int32                                       `json:"terms_to_charge,omitempty"`
@@ -404,6 +414,16 @@ type CheckoutNewForItemsSubscriptionItemParams struct {
 	ChargeOnce         *bool               `json:"charge_once,omitempty"`
 	ItemType           enum.ItemType       `json:"item_type,omitempty"`
 	ChargeOnOption     enum.ChargeOnOption `json:"charge_on_option,omitempty"`
+}
+type CheckoutNewForItemsDiscountParams struct {
+	ApplyOn       enum.ApplyOn      `json:"apply_on"`
+	DurationType  enum.DurationType `json:"duration_type"`
+	Percentage    *float64          `json:"percentage,omitempty"`
+	Amount        *int32            `json:"amount,omitempty"`
+	Period        *int32            `json:"period,omitempty"`
+	PeriodUnit    enum.PeriodUnit   `json:"period_unit,omitempty"`
+	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`
+	ItemPriceId   string            `json:"item_price_id,omitempty"`
 }
 type CheckoutNewForItemsItemTierParams struct {
 	ItemPriceId           string `json:"item_price_id,omitempty"`
@@ -533,10 +553,12 @@ type CheckoutExistingContractTermParams struct {
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 type CheckoutExistingForItemsRequestParams struct {
+	Layout                     enum.Layout                                       `json:"layout,omitempty"`
 	Subscription               *CheckoutExistingForItemsSubscriptionParams       `json:"subscription,omitempty"`
 	SubscriptionItems          []*CheckoutExistingForItemsSubscriptionItemParams `json:"subscription_items,omitempty"`
 	MandatoryItemsToRemove     []string                                          `json:"mandatory_items_to_remove,omitempty"`
 	ReplaceItemsList           *bool                                             `json:"replace_items_list,omitempty"`
+	Discounts                  []*CheckoutExistingForItemsDiscountParams         `json:"discounts,omitempty"`
 	ItemTiers                  []*CheckoutExistingForItemsItemTierParams         `json:"item_tiers,omitempty"`
 	InvoiceDate                *int64                                            `json:"invoice_date,omitempty"`
 	BillingCycles              *int32                                            `json:"billing_cycles,omitempty"`
@@ -579,6 +601,18 @@ type CheckoutExistingForItemsSubscriptionItemParams struct {
 	ChargeOnce         *bool               `json:"charge_once,omitempty"`
 	ChargeOnOption     enum.ChargeOnOption `json:"charge_on_option,omitempty"`
 	ItemType           enum.ItemType       `json:"item_type,omitempty"`
+}
+type CheckoutExistingForItemsDiscountParams struct {
+	ApplyOn       enum.ApplyOn       `json:"apply_on"`
+	DurationType  enum.DurationType  `json:"duration_type"`
+	Percentage    *float64           `json:"percentage,omitempty"`
+	Amount        *int32             `json:"amount,omitempty"`
+	Period        *int32             `json:"period,omitempty"`
+	PeriodUnit    enum.PeriodUnit    `json:"period_unit,omitempty"`
+	IncludedInMrr *bool              `json:"included_in_mrr,omitempty"`
+	ItemPriceId   string             `json:"item_price_id,omitempty"`
+	OperationType enum.OperationType `json:"operation_type"`
+	Id            string             `json:"id,omitempty"`
 }
 type CheckoutExistingForItemsItemTierParams struct {
 	ItemPriceId           string `json:"item_price_id,omitempty"`

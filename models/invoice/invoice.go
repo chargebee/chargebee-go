@@ -3,10 +3,10 @@ package invoice
 import (
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
-	paymentIntentEnum "github.com/chargebee/chargebee-go/models/paymentintent/enum"
-	transactionEnum "github.com/chargebee/chargebee-go/models/transaction/enum"
 	creditNoteEnum "github.com/chargebee/chargebee-go/models/creditnote/enum"
 	invoiceEnum "github.com/chargebee/chargebee-go/models/invoice/enum"
+	paymentIntentEnum "github.com/chargebee/chargebee-go/models/paymentintent/enum"
+	transactionEnum "github.com/chargebee/chargebee-go/models/transaction/enum"
 )
 
 type Invoice struct {
@@ -394,6 +394,7 @@ type CreateForChargeItemsAndChargesRequestParams struct {
 	AuthorizationTransactionId  string                                               `json:"authorization_transaction_id,omitempty"`
 	PaymentSourceId             string                                               `json:"payment_source_id,omitempty"`
 	AutoCollection              enum.AutoCollection                                  `json:"auto_collection,omitempty"`
+	Discounts                   []*CreateForChargeItemsAndChargesDiscountParams      `json:"discounts,omitempty"`
 	InvoiceDate                 *int64                                               `json:"invoice_date,omitempty"`
 	ShippingAddress             *CreateForChargeItemsAndChargesShippingAddressParams `json:"shipping_address,omitempty"`
 	Card                        *CreateForChargeItemsAndChargesCardParams            `json:"card,omitempty"`
@@ -440,6 +441,12 @@ type CreateForChargeItemsAndChargesChargeParams struct {
 type CreateForChargeItemsAndChargesNotesToRemoveParams struct {
 	EntityType enum.EntityType `json:"entity_type,omitempty"`
 	EntityId   string          `json:"entity_id,omitempty"`
+}
+type CreateForChargeItemsAndChargesDiscountParams struct {
+	Percentage  *float64     `json:"percentage,omitempty"`
+	Amount      *int32       `json:"amount,omitempty"`
+	ApplyOn     enum.ApplyOn `json:"apply_on"`
+	ItemPriceId string       `json:"item_price_id,omitempty"`
 }
 type CreateForChargeItemsAndChargesShippingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -608,6 +615,7 @@ type ImportInvoiceLineItemParams struct {
 	Id                         string                         `json:"id,omitempty"`
 	DateFrom                   *int64                         `json:"date_from,omitempty"`
 	DateTo                     *int64                         `json:"date_to,omitempty"`
+	SubscriptionId             string                         `json:"subscription_id,omitempty"`
 	Description                string                         `json:"description"`
 	UnitAmount                 *int32                         `json:"unit_amount,omitempty"`
 	Quantity                   *int32                         `json:"quantity,omitempty"`

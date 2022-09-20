@@ -3,8 +3,8 @@ package transaction
 import (
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
-	invoiceEnum "github.com/chargebee/chargebee-go/models/invoice/enum"
 	creditNoteEnum "github.com/chargebee/chargebee-go/models/creditnote/enum"
+	invoiceEnum "github.com/chargebee/chargebee-go/models/invoice/enum"
 	transactionEnum "github.com/chargebee/chargebee-go/models/transaction/enum"
 )
 

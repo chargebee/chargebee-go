@@ -45,5 +45,6 @@ const (
 	GatewayMollie                Gateway = "mollie"
 	GatewayQuickbooks            Gateway = "quickbooks"
 	GatewayRazorpay              Gateway = "razorpay"
+	GatewayGlobalPayments        Gateway = "global_payments"
 	GatewayNotApplicable         Gateway = "not_applicable"
 )

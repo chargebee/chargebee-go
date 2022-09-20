@@ -11,13 +11,16 @@ import (
 
 //Do is used to execute an API Request.
 func Do(req *http.Request) (string, error) {
-	if httpClient == nil {
-		httpClient = NewDefaultHTTPClient()
+
+	client := &http.Client{
+		Timeout: TotalHTTPTimeout,
 	}
-	response, err := httpClient.Do(req)
+
+	response, err := client.Do(req)
 	if err != nil {
 		return "", err
 	}
+
 	defer response.Body.Close()
 	resBody, err := ioutil.ReadAll(response.Body)
 	if err != nil {
