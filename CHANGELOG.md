@@ -7,6 +7,9 @@
 #### New endpoints:
 * subscriptions#list_discounts has been added to the subscriptions resource.
 
+#### New Resource:
+* discount has been added.
+
 #### New attributes:
 * billing_month has been added to the customer resource.
 
@@ -20,7 +23,7 @@
 
 #### New Enum values:
 * global_payments has been added to gateway enum.
-* layout enum has been added.
+* layout, apply_on, duration_type and operation_type enumshave been added.
 
 ### v2.12.0 (2022-08-22)
 * * *
