@@ -1,3 +1,9 @@
+### v2.13.2 (2022-09-29)
+* * *
+
+### Fixes:
+* Fixed item_price_ids issue for coupon model.
+
 ### v2.13.1 (2022-09-26)
 * * *
 
