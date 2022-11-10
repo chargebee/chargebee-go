@@ -8,4 +8,5 @@ const (
 	EinvoiceStatusInProgress EinvoiceStatus = "in_progress"
 	EinvoiceStatusSuccess    EinvoiceStatus = "success"
 	EinvoiceStatusFailed     EinvoiceStatus = "failed"
+	EinvoiceStatusRegistered EinvoiceStatus = "registered"
 )

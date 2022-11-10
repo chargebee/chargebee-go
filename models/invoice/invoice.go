@@ -599,6 +599,8 @@ type ImportInvoiceRequestParams struct {
 	Total             *int32                              `json:"total"`
 	RoundOff          *int32                              `json:"round_off,omitempty"`
 	Status            invoiceEnum.Status                  `json:"status,omitempty"`
+	VoidedAt          *int64                              `json:"voided_at,omitempty"`
+	VoidReasonCode    string                              `json:"void_reason_code,omitempty"`
 	DueDate           *int64                              `json:"due_date,omitempty"`
 	NetTermDays       *int32                              `json:"net_term_days,omitempty"`
 	UseForProration   *bool                               `json:"use_for_proration,omitempty"`
@@ -896,9 +898,9 @@ type RemoveCreditNoteCreditNoteParams struct {
 	Id string `json:"id"`
 }
 type VoidInvoiceRequestParams struct {
-	Comment            string `json:"comment,omitempty"`
-	VoidReasonCode     string `json:"void_reason_code,omitempty"`
-	VoidWithCreditNote *bool  `json:"void_with_credit_note,omitempty"`
+	Comment          string `json:"comment,omitempty"`
+	VoidReasonCode   string `json:"void_reason_code,omitempty"`
+	CreateCreditNote *bool  `json:"create_credit_note,omitempty"`
 }
 type WriteOffRequestParams struct {
 	Comment string `json:"comment,omitempty"`

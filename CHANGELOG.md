@@ -1,14 +1,24 @@
-### v2.13.2 (2022-09-29)
+### v2.14.0 (2022-11-10)
 * * *
 
-### Fixes:
-* Fixed item_price_ids issue for coupon model.
+#### New endpoints:
+* credit_notes#import_credit_note has been added to the credit_notes resource.
+* subscriptions#import_unbilled_charges has been added to the subscriptions resource.
 
-### v2.13.1 (2022-09-26)
-* * *
+#### New attributes:
+* shipped_at parameter has been added to the orders#list_orders API.
 
-### Fixes:
-* Fixed go pkg issue for enums.
+#### Added input parameters:
+* voided_at and void_reason_code have been added to the invoices#import_invoice API.
+
+#### New attributes:
+* business_entity_id has been added to the orders resource.
+
+#### New Enum values:
+* registered has been added to the status enum in credit_note_einvoice and invoice_einvoice subresources.
+* type enum has been added to the subscription_discount subresource.
+* subscription_entitlements_created has been added to the event_type enum.
+
 
 ### v2.13.0 (2022-09-20)
 * * *

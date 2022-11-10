@@ -40,3 +40,6 @@ func Delete(id string, params *creditnote.DeleteRequestParams) chargebee.Request
 func ResendEinvoice(id string) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/credit_notes/%v/resend_einvoice", url.PathEscape(id)), nil)
 }
+func ImportCreditNote(params *creditnote.ImportCreditNoteRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/credit_notes/import_credit_note"), params)
+}

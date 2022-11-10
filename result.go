@@ -1,6 +1,7 @@
 package chargebee
 
 import (
+	"github.com/chargebee/chargebee-go-old/models/discount"
 	"github.com/chargebee/chargebee-go/models/addon"
 	"github.com/chargebee/chargebee-go/models/address"
 	"github.com/chargebee/chargebee-go/models/advanceinvoiceschedule"
@@ -15,7 +16,6 @@ import (
 	"github.com/chargebee/chargebee-go/models/creditnote"
 	"github.com/chargebee/chargebee-go/models/customer"
 	"github.com/chargebee/chargebee-go/models/differentialprice"
-	"github.com/chargebee/chargebee-go/models/discount"
 	"github.com/chargebee/chargebee-go/models/download"
 	"github.com/chargebee/chargebee-go/models/entitlementoverride"
 	"github.com/chargebee/chargebee-go/models/estimate"

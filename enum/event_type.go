@@ -154,6 +154,7 @@ const (
 	EventTypeEntitlementOverridesRemoved               EventType = "entitlement_overrides_removed"
 	EventTypeItemEntitlementsRemoved                   EventType = "item_entitlements_removed"
 	EventTypeEntitlementOverridesAutoRemoved           EventType = "entitlement_overrides_auto_removed"
+	EventTypeSubscriptionEntitlementsCreated           EventType = "subscription_entitlements_created"
 	EventTypeBusinessEntityCreated                     EventType = "business_entity_created"
 	EventTypeBusinessEntityUpdated                     EventType = "business_entity_updated"
 	EventTypeBusinessEntityDeleted                     EventType = "business_entity_deleted"

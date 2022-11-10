@@ -85,6 +85,9 @@ func ImportForCustomer(id string, params *subscription.ImportForCustomerRequestP
 func ImportContractTerm(id string, params *subscription.ImportContractTermRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/subscriptions/%v/import_contract_term", url.PathEscape(id)), params)
 }
+func ImportUnbilledCharges(id string, params *subscription.ImportUnbilledChargesRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/subscriptions/%v/import_unbilled_charges", url.PathEscape(id)), params)
+}
 func ImportForItems(id string, params *subscription.ImportForItemsRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/customers/%v/import_for_items", url.PathEscape(id)), params)
 }

@@ -5,8 +5,10 @@ import (
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
 	contractTermEnum "github.com/chargebee/chargebee-go/models/contractterm/enum"
+	invoiceEnum "github.com/chargebee/chargebee-go/models/invoice/enum"
 	paymentIntentEnum "github.com/chargebee/chargebee-go/models/paymentintent/enum"
 	subscriptionEnum "github.com/chargebee/chargebee-go/models/subscription/enum"
+	unbilledChargeEnum "github.com/chargebee/chargebee-go/models/unbilledcharge/enum"
 )
 
 type Subscription struct {
@@ -211,23 +213,24 @@ type ContractTerm struct {
 	Object                   string                                       `json:"object"`
 }
 type Discount struct {
-	Id            string            `json:"id"`
-	InvoiceName   string            `json:"invoice_name"`
-	Percentage    float64           `json:"percentage"`
-	Amount        int32             `json:"amount"`
-	CurrencyCode  string            `json:"currency_code"`
-	DurationType  enum.DurationType `json:"duration_type"`
-	Period        int32             `json:"period"`
-	PeriodUnit    enum.PeriodUnit   `json:"period_unit"`
-	IncludedInMrr bool              `json:"included_in_mrr"`
-	ApplyOn       enum.ApplyOn      `json:"apply_on"`
-	ItemPriceId   string            `json:"item_price_id"`
-	CreatedAt     int64             `json:"created_at"`
-	ApplyTill     int64             `json:"apply_till"`
-	AppliedCount  int32             `json:"applied_count"`
-	CouponId      string            `json:"coupon_id"`
-	Index         int32             `json:"index"`
-	Object        string            `json:"object"`
+	Id            string                        `json:"id"`
+	InvoiceName   string                        `json:"invoice_name"`
+	Type          subscriptionEnum.DiscountType `json:"type"`
+	Percentage    float64                       `json:"percentage"`
+	Amount        int32                         `json:"amount"`
+	CurrencyCode  string                        `json:"currency_code"`
+	DurationType  enum.DurationType             `json:"duration_type"`
+	Period        int32                         `json:"period"`
+	PeriodUnit    enum.PeriodUnit               `json:"period_unit"`
+	IncludedInMrr bool                          `json:"included_in_mrr"`
+	ApplyOn       enum.ApplyOn                  `json:"apply_on"`
+	ItemPriceId   string                        `json:"item_price_id"`
+	CreatedAt     int64                         `json:"created_at"`
+	ApplyTill     int64                         `json:"apply_till"`
+	AppliedCount  int32                         `json:"applied_count"`
+	CouponId      string                        `json:"coupon_id"`
+	Index         int32                         `json:"index"`
+	Object        string                        `json:"object"`
 }
 type CreateRequestParams struct {
 	Id                                string                          `json:"id,omitempty"`
@@ -1315,6 +1318,45 @@ type ImportContractTermContractTermParams struct {
 	BillingCycle             *int32                           `json:"billing_cycle,omitempty"`
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
+}
+type ImportUnbilledChargesRequestParams struct {
+	UnbilledCharges []*ImportUnbilledChargesUnbilledChargeParams `json:"unbilled_charges,omitempty"`
+	Discounts       []*ImportUnbilledChargesDiscountParams       `json:"discounts,omitempty"`
+	Tiers           []*ImportUnbilledChargesTierParams           `json:"tiers,omitempty"`
+}
+type ImportUnbilledChargesUnbilledChargeParams struct {
+	Id                  string                        `json:"id,omitempty"`
+	DateFrom            *int64                        `json:"date_from"`
+	DateTo              *int64                        `json:"date_to"`
+	EntityType          unbilledChargeEnum.EntityType `json:"entity_type"`
+	EntityId            string                        `json:"entity_id,omitempty"`
+	Description         string                        `json:"description,omitempty"`
+	UnitAmount          *int32                        `json:"unit_amount,omitempty"`
+	Quantity            *int32                        `json:"quantity,omitempty"`
+	Amount              *int32                        `json:"amount,omitempty"`
+	UnitAmountInDecimal string                        `json:"unit_amount_in_decimal,omitempty"`
+	QuantityInDecimal   string                        `json:"quantity_in_decimal,omitempty"`
+	AmountInDecimal     string                        `json:"amount_in_decimal,omitempty"`
+	DiscountAmount      *int32                        `json:"discount_amount,omitempty"`
+	UseForProration     *bool                         `json:"use_for_proration,omitempty"`
+}
+type ImportUnbilledChargesDiscountParams struct {
+	UnbilledChargeId string                         `json:"unbilled_charge_id,omitempty"`
+	EntityType       invoiceEnum.DiscountEntityType `json:"entity_type,omitempty"`
+	EntityId         string                         `json:"entity_id,omitempty"`
+	Description      string                         `json:"description,omitempty"`
+	Amount           *int32                         `json:"amount"`
+}
+type ImportUnbilledChargesTierParams struct {
+	UnbilledChargeId      string `json:"unbilled_charge_id"`
+	StartingUnit          *int32 `json:"starting_unit,omitempty"`
+	EndingUnit            *int32 `json:"ending_unit,omitempty"`
+	QuantityUsed          *int32 `json:"quantity_used,omitempty"`
+	UnitAmount            *int32 `json:"unit_amount,omitempty"`
+	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
+	QuantityUsedInDecimal string `json:"quantity_used_in_decimal,omitempty"`
+	UnitAmountInDecimal   string `json:"unit_amount_in_decimal,omitempty"`
 }
 type ImportForItemsRequestParams struct {
 	Id                                string                                  `json:"id,omitempty"`

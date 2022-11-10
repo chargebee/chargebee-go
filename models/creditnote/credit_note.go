@@ -228,3 +228,105 @@ type CreditNotesForCustomerRequestParams struct {
 type DeleteRequestParams struct {
 	Comment string `json:"comment,omitempty"`
 }
+type ImportCreditNoteRequestParams struct {
+	Id                   string                                `json:"id"`
+	CustomerId           string                                `json:"customer_id,omitempty"`
+	SubscriptionId       string                                `json:"subscription_id,omitempty"`
+	ReferenceInvoiceId   string                                `json:"reference_invoice_id"`
+	Type                 creditNoteEnum.Type                   `json:"type"`
+	CurrencyCode         string                                `json:"currency_code,omitempty"`
+	CreateReasonCode     string                                `json:"create_reason_code"`
+	Date                 *int64                                `json:"date,omitempty"`
+	Status               creditNoteEnum.Status                 `json:"status,omitempty"`
+	Total                *int32                                `json:"total,omitempty"`
+	RefundedAt           *int64                                `json:"refunded_at,omitempty"`
+	VoidedAt             *int64                                `json:"voided_at,omitempty"`
+	SubTotal             *int32                                `json:"sub_total,omitempty"`
+	RoundOffAmount       *int32                                `json:"round_off_amount,omitempty"`
+	FractionalCorrection *int32                                `json:"fractional_correction,omitempty"`
+	VatNumberPrefix      string                                `json:"vat_number_prefix,omitempty"`
+	LineItems            []*ImportCreditNoteLineItemParams     `json:"line_items,omitempty"`
+	LineItemTiers        []*ImportCreditNoteLineItemTierParams `json:"line_item_tiers,omitempty"`
+	Discounts            []*ImportCreditNoteDiscountParams     `json:"discounts,omitempty"`
+	Taxes                []*ImportCreditNoteTaxParams          `json:"taxes,omitempty"`
+	Allocations          []*ImportCreditNoteAllocationParams   `json:"allocations,omitempty"`
+	LinkedRefunds        []*ImportCreditNoteLinkedRefundParams `json:"linked_refunds,omitempty"`
+}
+type ImportCreditNoteLineItemParams struct {
+	ReferenceLineItemId        string                            `json:"reference_line_item_id,omitempty"`
+	Id                         string                            `json:"id,omitempty"`
+	DateFrom                   *int64                            `json:"date_from,omitempty"`
+	DateTo                     *int64                            `json:"date_to,omitempty"`
+	SubscriptionId             string                            `json:"subscription_id,omitempty"`
+	Description                string                            `json:"description"`
+	UnitAmount                 *int32                            `json:"unit_amount,omitempty"`
+	Quantity                   *int32                            `json:"quantity,omitempty"`
+	Amount                     *int32                            `json:"amount,omitempty"`
+	UnitAmountInDecimal        string                            `json:"unit_amount_in_decimal,omitempty"`
+	QuantityInDecimal          string                            `json:"quantity_in_decimal,omitempty"`
+	AmountInDecimal            string                            `json:"amount_in_decimal,omitempty"`
+	EntityType                 creditNoteEnum.LineItemEntityType `json:"entity_type,omitempty"`
+	EntityId                   string                            `json:"entity_id,omitempty"`
+	ItemLevelDiscount1EntityId string                            `json:"item_level_discount1_entity_id,omitempty"`
+	ItemLevelDiscount1Amount   *int32                            `json:"item_level_discount1_amount,omitempty"`
+	ItemLevelDiscount2EntityId string                            `json:"item_level_discount2_entity_id,omitempty"`
+	ItemLevelDiscount2Amount   *int32                            `json:"item_level_discount2_amount,omitempty"`
+	Tax1Name                   string                            `json:"tax1_name,omitempty"`
+	Tax1Amount                 *int32                            `json:"tax1_amount,omitempty"`
+	Tax2Name                   string                            `json:"tax2_name,omitempty"`
+	Tax2Amount                 *int32                            `json:"tax2_amount,omitempty"`
+	Tax3Name                   string                            `json:"tax3_name,omitempty"`
+	Tax3Amount                 *int32                            `json:"tax3_amount,omitempty"`
+	Tax4Name                   string                            `json:"tax4_name,omitempty"`
+	Tax4Amount                 *int32                            `json:"tax4_amount,omitempty"`
+	Tax5Name                   string                            `json:"tax5_name,omitempty"`
+	Tax5Amount                 *int32                            `json:"tax5_amount,omitempty"`
+	Tax6Name                   string                            `json:"tax6_name,omitempty"`
+	Tax6Amount                 *int32                            `json:"tax6_amount,omitempty"`
+	Tax7Name                   string                            `json:"tax7_name,omitempty"`
+	Tax7Amount                 *int32                            `json:"tax7_amount,omitempty"`
+	Tax8Name                   string                            `json:"tax8_name,omitempty"`
+	Tax8Amount                 *int32                            `json:"tax8_amount,omitempty"`
+	Tax9Name                   string                            `json:"tax9_name,omitempty"`
+	Tax9Amount                 *int32                            `json:"tax9_amount,omitempty"`
+	Tax10Name                  string                            `json:"tax10_name,omitempty"`
+	Tax10Amount                *int32                            `json:"tax10_amount,omitempty"`
+}
+type ImportCreditNoteLineItemTierParams struct {
+	LineItemId            string `json:"line_item_id"`
+	StartingUnit          *int32 `json:"starting_unit,omitempty"`
+	EndingUnit            *int32 `json:"ending_unit,omitempty"`
+	QuantityUsed          *int32 `json:"quantity_used,omitempty"`
+	UnitAmount            *int32 `json:"unit_amount,omitempty"`
+	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
+	QuantityUsedInDecimal string `json:"quantity_used_in_decimal,omitempty"`
+	UnitAmountInDecimal   string `json:"unit_amount_in_decimal,omitempty"`
+}
+type ImportCreditNoteDiscountParams struct {
+	LineItemId  string                         `json:"line_item_id,omitempty"`
+	EntityType  invoiceEnum.DiscountEntityType `json:"entity_type"`
+	EntityId    string                         `json:"entity_id,omitempty"`
+	Description string                         `json:"description,omitempty"`
+	Amount      *int32                         `json:"amount"`
+}
+type ImportCreditNoteTaxParams struct {
+	Name        string            `json:"name"`
+	Rate        *float64          `json:"rate"`
+	Amount      *int32            `json:"amount,omitempty"`
+	Description string            `json:"description,omitempty"`
+	JurisType   enum.TaxJurisType `json:"juris_type,omitempty"`
+	JurisName   string            `json:"juris_name,omitempty"`
+	JurisCode   string            `json:"juris_code,omitempty"`
+}
+type ImportCreditNoteAllocationParams struct {
+	InvoiceId       string `json:"invoice_id"`
+	AllocatedAmount *int32 `json:"allocated_amount"`
+	AllocatedAt     *int64 `json:"allocated_at"`
+}
+type ImportCreditNoteLinkedRefundParams struct {
+	Amount          *int32             `json:"amount"`
+	PaymentMethod   enum.PaymentMethod `json:"payment_method"`
+	Date            *int64             `json:"date"`
+	ReferenceNumber string             `json:"reference_number,omitempty"`
+}

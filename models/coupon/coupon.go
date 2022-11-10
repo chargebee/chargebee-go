@@ -105,7 +105,7 @@ type CreateForItemsRequestParams struct {
 type CreateForItemsItemConstraintParams struct {
 	Constraint   couponEnum.ItemConstraintConstraint `json:"constraint"`
 	ItemType     couponEnum.ItemConstraintItemType   `json:"item_type"`
-	ItemPriceIds string                              `json:"item_price_ids,omitempty"`
+	ItemPriceIds []map[string]interface{}            `json:"item_price_ids,omitempty"`
 }
 type CreateForItemsItemConstraintCriteriaParams struct {
 	ItemType         couponEnum.ItemConstraintCriteriaItemType `json:"item_type,omitempty"`
@@ -136,7 +136,7 @@ type UpdateForItemsRequestParams struct {
 type UpdateForItemsItemConstraintParams struct {
 	Constraint   couponEnum.ItemConstraintConstraint `json:"constraint"`
 	ItemType     couponEnum.ItemConstraintItemType   `json:"item_type"`
-	ItemPriceIds string                              `json:"item_price_ids,omitempty"`
+	ItemPriceIds []map[string]interface{}            `json:"item_price_ids,omitempty"`
 }
 type UpdateForItemsItemConstraintCriteriaParams struct {
 	ItemType         couponEnum.ItemConstraintCriteriaItemType `json:"item_type,omitempty"`

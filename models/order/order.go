@@ -63,6 +63,7 @@ type Order struct {
 	GiftId                  string                       `json:"gift_id"`
 	ResendReason            string                       `json:"resend_reason"`
 	ResentOrders            []*ResentOrder               `json:"resent_orders"`
+	BusinessEntityId        string                       `json:"business_entity_id"`
 	Object                  string                       `json:"object"`
 }
 type OrderLineItem struct {
@@ -301,6 +302,7 @@ type ListRequestParams struct {
 	SubscriptionId            *filter.StringFilter    `json:"subscription_id,omitempty"`
 	Status                    *filter.EnumFilter      `json:"status,omitempty"`
 	ShippingDate              *filter.TimestampFilter `json:"shipping_date,omitempty"`
+	ShippedAt                 *filter.TimestampFilter `json:"shipped_at,omitempty"`
 	OrderType                 *filter.EnumFilter      `json:"order_type,omitempty"`
 	OrderDate                 *filter.TimestampFilter `json:"order_date,omitempty"`
 	PaidOn                    *filter.TimestampFilter `json:"paid_on,omitempty"`
