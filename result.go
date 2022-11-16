@@ -1,7 +1,6 @@
 package chargebee
 
 import (
-	"github.com/chargebee/chargebee-go-old/models/discount"
 	"github.com/chargebee/chargebee-go/models/addon"
 	"github.com/chargebee/chargebee-go/models/address"
 	"github.com/chargebee/chargebee-go/models/advanceinvoiceschedule"
@@ -65,7 +64,6 @@ type ResultList struct {
 type Result struct {
 	Subscription            *subscription.Subscription                       `json:"subscription,omitempty"`
 	ContractTerm            *contractterm.ContractTerm                       `json:"contract_term,omitempty"`
-	Discount                *discount.Discount                               `json:"discount,omitempty"`
 	AdvanceInvoiceSchedule  *advanceinvoiceschedule.AdvanceInvoiceSchedule   `json:"advance_invoice_schedule,omitempty"`
 	Customer                *customer.Customer                               `json:"customer,omitempty"`
 	Hierarchy               *hierarchy.Hierarchy                             `json:"hierarchy,omitempty"`
