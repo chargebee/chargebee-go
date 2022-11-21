@@ -16,10 +16,10 @@ The following table provides some details for each major version:
 |----------------------------|----------|-----------------------------------------------------------------------------------------------------|---------------|
 | v3                         | Active   | [v2](https://apidocs.chargebee.com/docs/api/v2?lang=go) and [v1](https://apidocs.chargebee.com/docs/api/v1?lang=go) | `master`      |
 | v2                         | Active   | [v2](https://apidocs.chargebee.com/docs/api/v2?lang=go) and [v1](https://apidocs.chargebee.com/docs/api/v1?lang=go) | `chargebee-v2`|
-| v1                         | Inactive | [v1](https://apidocs.chargebee.com/docs/api/v1?lang=go)                                                     | `chargebee-v1`|
+
 
 A couple of terms used in the above table are explained below:
-- **Status**: The current development status for the library version. An **Active** major version is currently being maintained and continues to get backward-compatible changes. **Inactive** versions no longer receive any updates.
+- **Status**: The current development status for the library version. An **Active** major version is currently being maintained and continues to get backward-compatible changes.
 - **Branch**: The branch in this repository containing the source code for the latest release of the library version. Every version of the library has been [tagged](https://github.com/chargebee/chargebee-go/tags). You can check out the source code for any version using its tag.
 
 🔴 **Alert!** Eventually, v2 will become **inactive**, after which it will no longer receive any new updates. We encourage you to [upgrade to v3](https://github.com/chargebee/chargebee-go/wiki/Migration-guide-for-v3) at the earliest.
