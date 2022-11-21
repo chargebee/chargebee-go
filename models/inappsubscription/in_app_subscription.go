@@ -16,7 +16,7 @@ type ProcessReceiptProductParams struct {
 	Id             string `json:"id"`
 	Name           string `json:"name,omitempty"`
 	CurrencyCode   string `json:"currency_code"`
-	Price          *int32 `json:"price"`
+	Price          *int64 `json:"price"`
 	PriceInDecimal string `json:"price_in_decimal,omitempty"`
 	Period         string `json:"period,omitempty"`
 	PeriodUnit     string `json:"period_unit,omitempty"`

@@ -1,10 +1,10 @@
 package paymentsource
 
 import (
-	"github.com/chargebee/chargebee-go/enum"
-	"github.com/chargebee/chargebee-go/filter"
-	paymentIntentEnum "github.com/chargebee/chargebee-go/models/paymentintent/enum"
-	paymentSourceEnum "github.com/chargebee/chargebee-go/models/paymentsource/enum"
+	"github.com/chargebee/chargebee-go/v3/enum"
+	"github.com/chargebee/chargebee-go/v3/filter"
+	paymentIntentEnum "github.com/chargebee/chargebee-go/v3/models/paymentintent/enum"
+	paymentSourceEnum "github.com/chargebee/chargebee-go/v3/models/paymentsource/enum"
 )
 
 type PaymentSource struct {
@@ -193,8 +193,8 @@ type UpdateBankAccountBankAccountParams struct {
 	Email     string `json:"email,omitempty"`
 }
 type VerifyBankAccountRequestParams struct {
-	Amount1 *int32 `json:"amount1"`
-	Amount2 *int32 `json:"amount2"`
+	Amount1 *int64 `json:"amount1"`
+	Amount2 *int64 `json:"amount2"`
 }
 type ListRequestParams struct {
 	Limit          *int32                  `json:"limit,omitempty"`

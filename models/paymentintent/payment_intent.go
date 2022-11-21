@@ -1,14 +1,14 @@
 package paymentintent
 
 import (
-	paymentIntentEnum "github.com/chargebee/chargebee-go/models/paymentintent/enum"
+	paymentIntentEnum "github.com/chargebee/chargebee-go/v3/models/paymentintent/enum"
 )
 
 type PaymentIntent struct {
 	Id                   string                              `json:"id"`
 	Status               paymentIntentEnum.Status            `json:"status"`
 	CurrencyCode         string                              `json:"currency_code"`
-	Amount               int32                               `json:"amount"`
+	Amount               int64                               `json:"amount"`
 	GatewayAccountId     string                              `json:"gateway_account_id"`
 	ExpiresAt            int64                               `json:"expires_at"`
 	ReferenceId          string                              `json:"reference_id"`
@@ -39,7 +39,7 @@ type PaymentAttempt struct {
 type CreateRequestParams struct {
 	BusinessEntityId  string                              `json:"business_entity_id,omitempty"`
 	CustomerId        string                              `json:"customer_id,omitempty"`
-	Amount            *int32                              `json:"amount"`
+	Amount            *int64                              `json:"amount"`
 	CurrencyCode      string                              `json:"currency_code"`
 	GatewayAccountId  string                              `json:"gateway_account_id,omitempty"`
 	ReferenceId       string                              `json:"reference_id,omitempty"`
@@ -48,7 +48,7 @@ type CreateRequestParams struct {
 	FailureUrl        string                              `json:"failure_url,omitempty"`
 }
 type UpdateRequestParams struct {
-	Amount            *int32                              `json:"amount,omitempty"`
+	Amount            *int64                              `json:"amount,omitempty"`
 	CurrencyCode      string                              `json:"currency_code,omitempty"`
 	GatewayAccountId  string                              `json:"gateway_account_id,omitempty"`
 	PaymentMethodType paymentIntentEnum.PaymentMethodType `json:"payment_method_type,omitempty"`

@@ -2,8 +2,8 @@ package quote
 
 import (
 	"fmt"
-	"github.com/chargebee/chargebee-go"
-	"github.com/chargebee/chargebee-go/models/quote"
+	"github.com/chargebee/chargebee-go/v3"
+	"github.com/chargebee/chargebee-go/v3/models/quote"
 	"net/url"
 )
 

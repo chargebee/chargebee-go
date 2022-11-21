@@ -2,9 +2,9 @@ package coupon
 
 import (
 	"encoding/json"
-	"github.com/chargebee/chargebee-go/enum"
-	"github.com/chargebee/chargebee-go/filter"
-	couponEnum "github.com/chargebee/chargebee-go/models/coupon/enum"
+	"github.com/chargebee/chargebee-go/v3/enum"
+	"github.com/chargebee/chargebee-go/v3/filter"
+	couponEnum "github.com/chargebee/chargebee-go/v3/models/coupon/enum"
 )
 
 type Coupon struct {
@@ -13,7 +13,7 @@ type Coupon struct {
 	InvoiceName            string                     `json:"invoice_name"`
 	DiscountType           couponEnum.DiscountType    `json:"discount_type"`
 	DiscountPercentage     float64                    `json:"discount_percentage"`
-	DiscountAmount         int32                      `json:"discount_amount"`
+	DiscountAmount         int64                      `json:"discount_amount"`
 	DiscountQuantity       int32                      `json:"discount_quantity"`
 	CurrencyCode           string                     `json:"currency_code"`
 	DurationType           couponEnum.DurationType    `json:"duration_type"`
@@ -59,7 +59,7 @@ type CreateRequestParams struct {
 	Name               string                     `json:"name"`
 	InvoiceName        string                     `json:"invoice_name,omitempty"`
 	DiscountType       couponEnum.DiscountType    `json:"discount_type"`
-	DiscountAmount     *int32                     `json:"discount_amount,omitempty"`
+	DiscountAmount     *int64                     `json:"discount_amount,omitempty"`
 	CurrencyCode       string                     `json:"currency_code,omitempty"`
 	DiscountPercentage *float64                   `json:"discount_percentage,omitempty"`
 	DiscountQuantity   *int32                     `json:"discount_quantity,omitempty"`
@@ -84,7 +84,7 @@ type CreateForItemsRequestParams struct {
 	Name                   string                                        `json:"name"`
 	InvoiceName            string                                        `json:"invoice_name,omitempty"`
 	DiscountType           couponEnum.DiscountType                       `json:"discount_type"`
-	DiscountAmount         *int32                                        `json:"discount_amount,omitempty"`
+	DiscountAmount         *int64                                        `json:"discount_amount,omitempty"`
 	CurrencyCode           string                                        `json:"currency_code,omitempty"`
 	DiscountPercentage     *float64                                      `json:"discount_percentage,omitempty"`
 	DiscountQuantity       *int32                                        `json:"discount_quantity,omitempty"`
@@ -117,7 +117,7 @@ type UpdateForItemsRequestParams struct {
 	Name                   string                                        `json:"name,omitempty"`
 	InvoiceName            string                                        `json:"invoice_name,omitempty"`
 	DiscountType           couponEnum.DiscountType                       `json:"discount_type,omitempty"`
-	DiscountAmount         *int32                                        `json:"discount_amount,omitempty"`
+	DiscountAmount         *int64                                        `json:"discount_amount,omitempty"`
 	CurrencyCode           string                                        `json:"currency_code,omitempty"`
 	DiscountPercentage     *float64                                      `json:"discount_percentage,omitempty"`
 	ApplyOn                couponEnum.ApplyOn                            `json:"apply_on,omitempty"`
@@ -162,7 +162,7 @@ type UpdateRequestParams struct {
 	Name               string                     `json:"name,omitempty"`
 	InvoiceName        string                     `json:"invoice_name,omitempty"`
 	DiscountType       couponEnum.DiscountType    `json:"discount_type,omitempty"`
-	DiscountAmount     *int32                     `json:"discount_amount,omitempty"`
+	DiscountAmount     *int64                     `json:"discount_amount,omitempty"`
 	CurrencyCode       string                     `json:"currency_code,omitempty"`
 	DiscountPercentage *float64                   `json:"discount_percentage,omitempty"`
 	ApplyOn            couponEnum.ApplyOn         `json:"apply_on,omitempty"`

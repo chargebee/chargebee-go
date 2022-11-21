@@ -2,8 +2,8 @@ package usage
 
 import (
 	"fmt"
-	"github.com/chargebee/chargebee-go"
-	"github.com/chargebee/chargebee-go/models/usage"
+	"github.com/chargebee/chargebee-go/v3"
+	"github.com/chargebee/chargebee-go/v3/models/usage"
 	"net/url"
 )
 

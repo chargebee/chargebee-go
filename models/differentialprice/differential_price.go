@@ -2,15 +2,15 @@ package differentialprice
 
 import (
 	"encoding/json"
-	"github.com/chargebee/chargebee-go/filter"
-	differentialPriceEnum "github.com/chargebee/chargebee-go/models/differentialprice/enum"
+	"github.com/chargebee/chargebee-go/v3/filter"
+	differentialPriceEnum "github.com/chargebee/chargebee-go/v3/models/differentialprice/enum"
 )
 
 type DifferentialPrice struct {
 	Id              string                       `json:"id"`
 	ItemPriceId     string                       `json:"item_price_id"`
 	ParentItemId    string                       `json:"parent_item_id"`
-	Price           int32                        `json:"price"`
+	Price           int64                        `json:"price"`
 	PriceInDecimal  string                       `json:"price_in_decimal"`
 	Status          differentialPriceEnum.Status `json:"status"`
 	ResourceVersion int64                        `json:"resource_version"`
@@ -25,7 +25,7 @@ type DifferentialPrice struct {
 type Tier struct {
 	StartingUnit          int32  `json:"starting_unit"`
 	EndingUnit            int32  `json:"ending_unit"`
-	Price                 int32  `json:"price"`
+	Price                 int64  `json:"price"`
 	StartingUnitInDecimal string `json:"starting_unit_in_decimal"`
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal"`
 	PriceInDecimal        string `json:"price_in_decimal"`
@@ -38,7 +38,7 @@ type ParentPeriod struct {
 }
 type CreateRequestParams struct {
 	ParentItemId   string                      `json:"parent_item_id"`
-	Price          *int32                      `json:"price,omitempty"`
+	Price          *int64                      `json:"price,omitempty"`
 	PriceInDecimal string                      `json:"price_in_decimal,omitempty"`
 	ParentPeriods  []*CreateParentPeriodParams `json:"parent_periods,omitempty"`
 	Tiers          []*CreateTierParams         `json:"tiers,omitempty"`
@@ -50,7 +50,7 @@ type CreateParentPeriodParams struct {
 type CreateTierParams struct {
 	StartingUnit          *int32 `json:"starting_unit,omitempty"`
 	EndingUnit            *int32 `json:"ending_unit,omitempty"`
-	Price                 *int32 `json:"price,omitempty"`
+	Price                 *int64 `json:"price,omitempty"`
 	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
@@ -60,7 +60,7 @@ type RetrieveRequestParams struct {
 }
 type UpdateRequestParams struct {
 	ItemPriceId    string                      `json:"item_price_id"`
-	Price          *int32                      `json:"price,omitempty"`
+	Price          *int64                      `json:"price,omitempty"`
 	PriceInDecimal string                      `json:"price_in_decimal,omitempty"`
 	ParentPeriods  []*UpdateParentPeriodParams `json:"parent_periods,omitempty"`
 	Tiers          []*UpdateTierParams         `json:"tiers,omitempty"`
@@ -72,7 +72,7 @@ type UpdateParentPeriodParams struct {
 type UpdateTierParams struct {
 	StartingUnit          *int32 `json:"starting_unit,omitempty"`
 	EndingUnit            *int32 `json:"ending_unit,omitempty"`
-	Price                 *int32 `json:"price,omitempty"`
+	Price                 *int64 `json:"price,omitempty"`
 	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`

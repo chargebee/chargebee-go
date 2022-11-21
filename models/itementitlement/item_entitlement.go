@@ -1,8 +1,8 @@
 package itementitlement
 
 import (
-	"github.com/chargebee/chargebee-go/enum"
-	itemEntitlementEnum "github.com/chargebee/chargebee-go/models/itementitlement/enum"
+	"github.com/chargebee/chargebee-go/v3/enum"
+	itemEntitlementEnum "github.com/chargebee/chargebee-go/v3/models/itementitlement/enum"
 )
 
 type ItemEntitlement struct {

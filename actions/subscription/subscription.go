@@ -2,8 +2,8 @@ package subscription
 
 import (
 	"fmt"
-	"github.com/chargebee/chargebee-go"
-	"github.com/chargebee/chargebee-go/models/subscription"
+	"github.com/chargebee/chargebee-go/v3"
+	"github.com/chargebee/chargebee-go/v3/models/subscription"
 	"net/url"
 )
 

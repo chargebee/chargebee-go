@@ -2,8 +2,8 @@ package paymentsource
 
 import (
 	"fmt"
-	"github.com/chargebee/chargebee-go"
-	"github.com/chargebee/chargebee-go/models/paymentsource"
+	"github.com/chargebee/chargebee-go/v3"
+	"github.com/chargebee/chargebee-go/v3/models/paymentsource"
 	"net/url"
 )
 

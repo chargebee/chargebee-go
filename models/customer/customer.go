@@ -2,10 +2,10 @@ package customer
 
 import (
 	"encoding/json"
-	"github.com/chargebee/chargebee-go/enum"
-	"github.com/chargebee/chargebee-go/filter"
-	paymentIntentEnum "github.com/chargebee/chargebee-go/models/paymentintent/enum"
-	customerEnum "github.com/chargebee/chargebee-go/models/customer/enum"
+	"github.com/chargebee/chargebee-go/v3/enum"
+	"github.com/chargebee/chargebee-go/v3/filter"
+	paymentIntentEnum "github.com/chargebee/chargebee-go/v3/models/paymentintent/enum"
+	customerEnum "github.com/chargebee/chargebee-go/v3/models/customer/enum"
 )
 
 type Customer struct {
@@ -51,10 +51,10 @@ type Customer struct {
 	InvoiceNotes                     string                        `json:"invoice_notes"`
 	BusinessEntityId                 string                        `json:"business_entity_id"`
 	PreferredCurrencyCode            string                        `json:"preferred_currency_code"`
-	PromotionalCredits               int32                         `json:"promotional_credits"`
-	UnbilledCharges                  int32                         `json:"unbilled_charges"`
-	RefundableCredits                int32                         `json:"refundable_credits"`
-	ExcessPayments                   int32                         `json:"excess_payments"`
+	PromotionalCredits               int64                         `json:"promotional_credits"`
+	UnbilledCharges                  int64                         `json:"unbilled_charges"`
+	RefundableCredits                int64                         `json:"refundable_credits"`
+	ExcessPayments                   int64                         `json:"excess_payments"`
 	Balances                         []*Balance                    `json:"balances"`
 	EntityIdentifiers                []*EntityIdentifier           `json:"entity_identifiers"`
 	IsEinvoiceEnabled                bool                          `json:"is_einvoice_enabled"`
@@ -125,10 +125,10 @@ type PaymentMethod struct {
 	Object           string                           `json:"object"`
 }
 type Balance struct {
-	PromotionalCredits  int32  `json:"promotional_credits"`
-	ExcessPayments      int32  `json:"excess_payments"`
-	RefundableCredits   int32  `json:"refundable_credits"`
-	UnbilledCharges     int32  `json:"unbilled_charges"`
+	PromotionalCredits  int64  `json:"promotional_credits"`
+	ExcessPayments      int64  `json:"excess_payments"`
+	RefundableCredits   int64  `json:"refundable_credits"`
+	UnbilledCharges     int64  `json:"unbilled_charges"`
 	CurrencyCode        string `json:"currency_code"`
 	BalanceCurrencyCode string `json:"balance_currency_code"`
 	Object              string `json:"object"`
@@ -422,21 +422,21 @@ type DeleteContactContactParams struct {
 	Id string `json:"id"`
 }
 type AddPromotionalCreditsRequestParams struct {
-	Amount       *int32          `json:"amount"`
+	Amount       *int64          `json:"amount"`
 	CurrencyCode string          `json:"currency_code,omitempty"`
 	Description  string          `json:"description"`
 	CreditType   enum.CreditType `json:"credit_type,omitempty"`
 	Reference    string          `json:"reference,omitempty"`
 }
 type DeductPromotionalCreditsRequestParams struct {
-	Amount       *int32          `json:"amount"`
+	Amount       *int64          `json:"amount"`
 	CurrencyCode string          `json:"currency_code,omitempty"`
 	Description  string          `json:"description"`
 	CreditType   enum.CreditType `json:"credit_type,omitempty"`
 	Reference    string          `json:"reference,omitempty"`
 }
 type SetPromotionalCreditsRequestParams struct {
-	Amount       *int32          `json:"amount"`
+	Amount       *int64          `json:"amount"`
 	CurrencyCode string          `json:"currency_code,omitempty"`
 	Description  string          `json:"description"`
 	CreditType   enum.CreditType `json:"credit_type,omitempty"`
@@ -447,14 +447,14 @@ type RecordExcessPaymentRequestParams struct {
 	Comment     string                                `json:"comment,omitempty"`
 }
 type RecordExcessPaymentTransactionParams struct {
-	Amount          *int32             `json:"amount"`
+	Amount          *int64             `json:"amount"`
 	CurrencyCode    string             `json:"currency_code,omitempty"`
 	Date            *int64             `json:"date"`
 	PaymentMethod   enum.PaymentMethod `json:"payment_method"`
 	ReferenceNumber string             `json:"reference_number,omitempty"`
 }
 type CollectPaymentRequestParams struct {
-	Amount                      *int32                                   `json:"amount,omitempty"`
+	Amount                      *int64                                   `json:"amount,omitempty"`
 	InvoiceAllocations          []*CollectPaymentInvoiceAllocationParams `json:"invoice_allocations,omitempty"`
 	PaymentSourceId             string                                   `json:"payment_source_id,omitempty"`
 	TokenId                     string                                   `json:"token_id,omitempty"`
@@ -466,7 +466,7 @@ type CollectPaymentRequestParams struct {
 }
 type CollectPaymentInvoiceAllocationParams struct {
 	InvoiceId        string `json:"invoice_id"`
-	AllocationAmount *int32 `json:"allocation_amount,omitempty"`
+	AllocationAmount *int64 `json:"allocation_amount,omitempty"`
 }
 type CollectPaymentPaymentMethodParams struct {
 	Type                  enum.Type              `json:"type,omitempty"`

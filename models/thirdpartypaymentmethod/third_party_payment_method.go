@@ -1,7 +1,7 @@
 package thirdpartypaymentmethod
 
 import (
-	"github.com/chargebee/chargebee-go/enum"
+	"github.com/chargebee/chargebee-go/v3/enum"
 )
 
 type ThirdPartyPaymentMethod struct {

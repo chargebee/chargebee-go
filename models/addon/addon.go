@@ -2,9 +2,9 @@ package addon
 
 import (
 	"encoding/json"
-	"github.com/chargebee/chargebee-go/enum"
-	"github.com/chargebee/chargebee-go/filter"
-	addonEnum "github.com/chargebee/chargebee-go/models/addon/enum"
+	"github.com/chargebee/chargebee-go/v3/enum"
+	"github.com/chargebee/chargebee-go/v3/filter"
+	addonEnum "github.com/chargebee/chargebee-go/v3/models/addon/enum"
 )
 
 type Addon struct {
@@ -15,7 +15,7 @@ type Addon struct {
 	PricingModel                enum.PricingModel                     `json:"pricing_model"`
 	Type                        addonEnum.Type                        `json:"type"`
 	ChargeType                  addonEnum.ChargeType                  `json:"charge_type"`
-	Price                       int32                                 `json:"price"`
+	Price                       int64                                 `json:"price"`
 	CurrencyCode                string                                `json:"currency_code"`
 	Period                      int32                                 `json:"period"`
 	PeriodUnit                  addonEnum.PeriodUnit                  `json:"period_unit"`
@@ -56,7 +56,7 @@ type Addon struct {
 type Tier struct {
 	StartingUnit          int32  `json:"starting_unit"`
 	EndingUnit            int32  `json:"ending_unit"`
-	Price                 int32  `json:"price"`
+	Price                 int64  `json:"price"`
 	StartingUnitInDecimal string `json:"starting_unit_in_decimal"`
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal"`
 	PriceInDecimal        string `json:"price_in_decimal"`
@@ -68,7 +68,7 @@ type CreateRequestParams struct {
 	InvoiceName                 string                                `json:"invoice_name,omitempty"`
 	Description                 string                                `json:"description,omitempty"`
 	ChargeType                  addonEnum.ChargeType                  `json:"charge_type"`
-	Price                       *int32                                `json:"price,omitempty"`
+	Price                       *int64                                `json:"price,omitempty"`
 	Tiers                       []*CreateTierParams                   `json:"tiers,omitempty"`
 	CurrencyCode                string                                `json:"currency_code,omitempty"`
 	Period                      *int32                                `json:"period,omitempty"`
@@ -105,7 +105,7 @@ type CreateRequestParams struct {
 type CreateTierParams struct {
 	StartingUnit          *int32 `json:"starting_unit,omitempty"`
 	EndingUnit            *int32 `json:"ending_unit,omitempty"`
-	Price                 *int32 `json:"price,omitempty"`
+	Price                 *int64 `json:"price,omitempty"`
 	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
@@ -115,7 +115,7 @@ type UpdateRequestParams struct {
 	InvoiceName                 string                                `json:"invoice_name,omitempty"`
 	Description                 string                                `json:"description,omitempty"`
 	ChargeType                  addonEnum.ChargeType                  `json:"charge_type,omitempty"`
-	Price                       *int32                                `json:"price,omitempty"`
+	Price                       *int64                                `json:"price,omitempty"`
 	Tiers                       []*UpdateTierParams                   `json:"tiers,omitempty"`
 	CurrencyCode                string                                `json:"currency_code,omitempty"`
 	Period                      *int32                                `json:"period,omitempty"`
@@ -151,7 +151,7 @@ type UpdateRequestParams struct {
 type UpdateTierParams struct {
 	StartingUnit          *int32 `json:"starting_unit,omitempty"`
 	EndingUnit            *int32 `json:"ending_unit,omitempty"`
-	Price                 *int32 `json:"price,omitempty"`
+	Price                 *int64 `json:"price,omitempty"`
 	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`

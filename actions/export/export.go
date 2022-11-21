@@ -2,11 +2,11 @@ package export
 
 import (
 	"fmt"
-	"github.com/chargebee/chargebee-go"
-	"github.com/chargebee/chargebee-go/models/export"
+	"github.com/chargebee/chargebee-go/v3"
+	"github.com/chargebee/chargebee-go/v3/models/export"
 	"net/url"
 	"errors"
-	exportEnum "github.com/chargebee/chargebee-go/models/export/enum"
+	exportEnum "github.com/chargebee/chargebee-go/v3/models/export/enum"
 	"time"
 )
 

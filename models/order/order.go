@@ -1,10 +1,10 @@
 package order
 
 import (
-	"github.com/chargebee/chargebee-go/enum"
-	"github.com/chargebee/chargebee-go/filter"
-	creditNoteEnum "github.com/chargebee/chargebee-go/models/creditnote/enum"
-	orderEnum "github.com/chargebee/chargebee-go/models/order/enum"
+	"github.com/chargebee/chargebee-go/v3/enum"
+	"github.com/chargebee/chargebee-go/v3/filter"
+	creditNoteEnum "github.com/chargebee/chargebee-go/v3/models/creditnote/enum"
+	orderEnum "github.com/chargebee/chargebee-go/v3/models/order/enum"
 )
 
 type Order struct {
@@ -28,13 +28,13 @@ type Order struct {
 	BatchId                 string                       `json:"batch_id"`
 	CreatedBy               string                       `json:"created_by"`
 	ShipmentCarrier         string                       `json:"shipment_carrier"`
-	InvoiceRoundOffAmount   int32                        `json:"invoice_round_off_amount"`
-	Tax                     int32                        `json:"tax"`
-	AmountPaid              int32                        `json:"amount_paid"`
-	AmountAdjusted          int32                        `json:"amount_adjusted"`
-	RefundableCreditsIssued int32                        `json:"refundable_credits_issued"`
-	RefundableCredits       int32                        `json:"refundable_credits"`
-	RoundingAdjustement     int32                        `json:"rounding_adjustement"`
+	InvoiceRoundOffAmount   int64                        `json:"invoice_round_off_amount"`
+	Tax                     int64                        `json:"tax"`
+	AmountPaid              int64                        `json:"amount_paid"`
+	AmountAdjusted          int64                        `json:"amount_adjusted"`
+	RefundableCreditsIssued int64                        `json:"refundable_credits_issued"`
+	RefundableCredits       int64                        `json:"refundable_credits"`
+	RoundingAdjustement     int64                        `json:"rounding_adjustement"`
 	PaidOn                  int64                        `json:"paid_on"`
 	ShippingCutOffDate      int64                        `json:"shipping_cut_off_date"`
 	CreatedAt               int64                        `json:"created_at"`
@@ -50,9 +50,9 @@ type Order struct {
 	OrderLineItems          []*OrderLineItem             `json:"order_line_items"`
 	ShippingAddress         *ShippingAddress             `json:"shipping_address"`
 	BillingAddress          *BillingAddress              `json:"billing_address"`
-	Discount                int32                        `json:"discount"`
-	SubTotal                int32                        `json:"sub_total"`
-	Total                   int32                        `json:"total"`
+	Discount                int64                        `json:"discount"`
+	SubTotal                int64                        `json:"sub_total"`
+	Total                   int64                        `json:"total"`
 	LineItemTaxes           []*LineItemTax               `json:"line_item_taxes"`
 	LineItemDiscounts       []*LineItemDiscount          `json:"line_item_discounts"`
 	LinkedCreditNotes       []*LinkedCreditNote          `json:"linked_credit_notes"`
@@ -70,22 +70,22 @@ type OrderLineItem struct {
 	Id                      string                            `json:"id"`
 	InvoiceId               string                            `json:"invoice_id"`
 	InvoiceLineItemId       string                            `json:"invoice_line_item_id"`
-	UnitPrice               int32                             `json:"unit_price"`
+	UnitPrice               int64                             `json:"unit_price"`
 	Description             string                            `json:"description"`
-	Amount                  int32                             `json:"amount"`
+	Amount                  int64                             `json:"amount"`
 	FulfillmentQuantity     int32                             `json:"fulfillment_quantity"`
-	FulfillmentAmount       int32                             `json:"fulfillment_amount"`
-	TaxAmount               int32                             `json:"tax_amount"`
-	AmountPaid              int32                             `json:"amount_paid"`
-	AmountAdjusted          int32                             `json:"amount_adjusted"`
-	RefundableCreditsIssued int32                             `json:"refundable_credits_issued"`
-	RefundableCredits       int32                             `json:"refundable_credits"`
+	FulfillmentAmount       int64                             `json:"fulfillment_amount"`
+	TaxAmount               int64                             `json:"tax_amount"`
+	AmountPaid              int64                             `json:"amount_paid"`
+	AmountAdjusted          int64                             `json:"amount_adjusted"`
+	RefundableCreditsIssued int64                             `json:"refundable_credits_issued"`
+	RefundableCredits       int64                             `json:"refundable_credits"`
 	IsShippable             bool                              `json:"is_shippable"`
 	Sku                     string                            `json:"sku"`
 	Status                  orderEnum.OrderLineItemStatus     `json:"status"`
 	EntityType              orderEnum.OrderLineItemEntityType `json:"entity_type"`
-	ItemLevelDiscountAmount int32                             `json:"item_level_discount_amount"`
-	DiscountAmount          int32                             `json:"discount_amount"`
+	ItemLevelDiscountAmount int64                             `json:"item_level_discount_amount"`
+	DiscountAmount          int64                             `json:"discount_amount"`
 	EntityId                string                            `json:"entity_id"`
 	Object                  string                            `json:"object"`
 }
@@ -130,12 +130,12 @@ type LineItemTax struct {
 	TaxRate                  float64           `json:"tax_rate"`
 	IsPartialTaxApplied      bool              `json:"is_partial_tax_applied"`
 	IsNonComplianceTax       bool              `json:"is_non_compliance_tax"`
-	TaxableAmount            int32             `json:"taxable_amount"`
-	TaxAmount                int32             `json:"tax_amount"`
+	TaxableAmount            int64             `json:"taxable_amount"`
+	TaxAmount                int64             `json:"tax_amount"`
 	TaxJurisType             enum.TaxJurisType `json:"tax_juris_type"`
 	TaxJurisName             string            `json:"tax_juris_name"`
 	TaxJurisCode             string            `json:"tax_juris_code"`
-	TaxAmountInLocalCurrency int32             `json:"tax_amount_in_local_currency"`
+	TaxAmountInLocalCurrency int64             `json:"tax_amount_in_local_currency"`
 	LocalCurrencyCode        string            `json:"local_currency_code"`
 	Object                   string            `json:"object"`
 }
@@ -144,22 +144,22 @@ type LineItemDiscount struct {
 	DiscountType   orderEnum.LineItemDiscountDiscountType `json:"discount_type"`
 	CouponId       string                                 `json:"coupon_id"`
 	EntityId       string                                 `json:"entity_id"`
-	DiscountAmount int32                                  `json:"discount_amount"`
+	DiscountAmount int64                                  `json:"discount_amount"`
 	Object         string                                 `json:"object"`
 }
 type LinkedCreditNote struct {
-	Amount         int32                                     `json:"amount"`
+	Amount         int64                                     `json:"amount"`
 	Type           orderEnum.OrderLineItemLinkedCreditType   `json:"type"`
 	Id             string                                    `json:"id"`
 	Status         orderEnum.OrderLineItemLinkedCreditStatus `json:"status"`
-	AmountAdjusted int32                                     `json:"amount_adjusted"`
-	AmountRefunded int32                                     `json:"amount_refunded"`
+	AmountAdjusted int64                                     `json:"amount_adjusted"`
+	AmountRefunded int64                                     `json:"amount_refunded"`
 	Object         string                                    `json:"object"`
 }
 type ResentOrder struct {
 	OrderId string `json:"order_id"`
 	Reason  string `json:"reason"`
-	Amount  int32  `json:"amount"`
+	Amount  int64  `json:"amount"`
 	Object  string `json:"object"`
 }
 type CreateRequestParams struct {
@@ -234,7 +234,7 @@ type ImportOrderRequestParams struct {
 	ShippedAt               *int64                            `json:"shipped_at,omitempty"`
 	CancelledAt             *int64                            `json:"cancelled_at,omitempty"`
 	CancellationReason      orderEnum.CancellationReason      `json:"cancellation_reason,omitempty"`
-	RefundableCreditsIssued *int32                            `json:"refundable_credits_issued,omitempty"`
+	RefundableCreditsIssued *int64                            `json:"refundable_credits_issued,omitempty"`
 	ShippingAddress         *ImportOrderShippingAddressParams `json:"shipping_address,omitempty"`
 	BillingAddress          *ImportOrderBillingAddressParams  `json:"billing_address,omitempty"`
 }
@@ -278,7 +278,7 @@ type CancelRequestParams struct {
 	CancelledAt        *int64                       `json:"cancelled_at,omitempty"`
 }
 type CancelCreditNoteParams struct {
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 }
 type CreateRefundableCreditNoteRequestParams struct {
 	CreditNote    *CreateRefundableCreditNoteCreditNoteParams `json:"credit_note,omitempty"`
@@ -287,7 +287,7 @@ type CreateRefundableCreditNoteRequestParams struct {
 }
 type CreateRefundableCreditNoteCreditNoteParams struct {
 	ReasonCode creditNoteEnum.ReasonCode `json:"reason_code"`
-	Total      *int32                    `json:"total"`
+	Total      *int64                    `json:"total"`
 }
 type ReopenRequestParams struct {
 	VoidCancellationCreditNotes *bool `json:"void_cancellation_credit_notes,omitempty"`

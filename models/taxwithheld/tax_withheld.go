@@ -1,7 +1,7 @@
 package taxwithheld
 
 import (
-	taxWithheldEnum "github.com/chargebee/chargebee-go/models/taxwithheld/enum"
+	taxWithheldEnum "github.com/chargebee/chargebee-go/v3/models/taxwithheld/enum"
 )
 
 type TaxWithheld struct {
@@ -13,7 +13,7 @@ type TaxWithheld struct {
 	PaymentMethod   taxWithheldEnum.PaymentMethod `json:"payment_method"`
 	Date            int64                         `json:"date"`
 	CurrencyCode    string                        `json:"currency_code"`
-	Amount          int32                         `json:"amount"`
+	Amount          int64                         `json:"amount"`
 	ExchangeRate    float64                       `json:"exchange_rate"`
 	Object          string                        `json:"object"`
 }

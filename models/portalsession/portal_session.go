@@ -1,7 +1,7 @@
 package portalsession
 
 import (
-	portalSessionEnum "github.com/chargebee/chargebee-go/models/portalsession/enum"
+	portalSessionEnum "github.com/chargebee/chargebee-go/v3/models/portalsession/enum"
 )
 
 type PortalSession struct {

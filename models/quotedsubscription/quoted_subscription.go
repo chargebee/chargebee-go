@@ -1,16 +1,16 @@
 package quotedsubscription
 
 import (
-	"github.com/chargebee/chargebee-go/enum"
-	quotedSubscriptionEnum "github.com/chargebee/chargebee-go/models/quotedsubscription/enum"
+	"github.com/chargebee/chargebee-go/v3/enum"
+	quotedSubscriptionEnum "github.com/chargebee/chargebee-go/v3/models/quotedsubscription/enum"
 )
 
 type QuotedSubscription struct {
 	Id                                string                                   `json:"id"`
 	PlanId                            string                                   `json:"plan_id"`
 	PlanQuantity                      int32                                    `json:"plan_quantity"`
-	PlanUnitPrice                     int32                                    `json:"plan_unit_price"`
-	SetupFee                          int32                                    `json:"setup_fee"`
+	PlanUnitPrice                     int64                                    `json:"plan_unit_price"`
+	SetupFee                          int64                                    `json:"setup_fee"`
 	BillingPeriod                     int32                                    `json:"billing_period"`
 	BillingPeriodUnit                 quotedSubscriptionEnum.BillingPeriodUnit `json:"billing_period_unit"`
 	StartDate                         int64                                    `json:"start_date"`
@@ -34,8 +34,8 @@ type QuotedSubscription struct {
 type Addon struct {
 	Id                     string `json:"id"`
 	Quantity               int32  `json:"quantity"`
-	UnitPrice              int32  `json:"unit_price"`
-	Amount                 int32  `json:"amount"`
+	UnitPrice              int64  `json:"unit_price"`
+	Amount                 int64  `json:"amount"`
 	TrialEnd               int64  `json:"trial_end"`
 	RemainingBillingCycles int32  `json:"remaining_billing_cycles"`
 	QuantityInDecimal      string `json:"quantity_in_decimal"`
@@ -46,7 +46,7 @@ type Addon struct {
 type EventBasedAddon struct {
 	Id                  string       `json:"id"`
 	Quantity            int32        `json:"quantity"`
-	UnitPrice           int32        `json:"unit_price"`
+	UnitPrice           int64        `json:"unit_price"`
 	ServicePeriodInDays int32        `json:"service_period_in_days"`
 	OnEvent             enum.OnEvent `json:"on_event"`
 	ChargeOnce          bool         `json:"charge_once"`
@@ -65,9 +65,9 @@ type SubscriptionItem struct {
 	QuantityInDecimal     string              `json:"quantity_in_decimal"`
 	MeteredQuantity       string              `json:"metered_quantity"`
 	LastCalculatedAt      int64               `json:"last_calculated_at"`
-	UnitPrice             int32               `json:"unit_price"`
+	UnitPrice             int64               `json:"unit_price"`
 	UnitPriceInDecimal    string              `json:"unit_price_in_decimal"`
-	Amount                int32               `json:"amount"`
+	Amount                int64               `json:"amount"`
 	AmountInDecimal       string              `json:"amount_in_decimal"`
 	FreeQuantity          int32               `json:"free_quantity"`
 	FreeQuantityInDecimal string              `json:"free_quantity_in_decimal"`
@@ -83,7 +83,7 @@ type ItemTier struct {
 	ItemPriceId           string `json:"item_price_id"`
 	StartingUnit          int32  `json:"starting_unit"`
 	EndingUnit            int32  `json:"ending_unit"`
-	Price                 int32  `json:"price"`
+	Price                 int64  `json:"price"`
 	StartingUnitInDecimal string `json:"starting_unit_in_decimal"`
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal"`
 	PriceInDecimal        string `json:"price_in_decimal"`

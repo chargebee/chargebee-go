@@ -2,9 +2,9 @@ package item
 
 import (
 	"encoding/json"
-	"github.com/chargebee/chargebee-go/enum"
-	"github.com/chargebee/chargebee-go/filter"
-	itemEnum "github.com/chargebee/chargebee-go/models/item/enum"
+	"github.com/chargebee/chargebee-go/v3/enum"
+	"github.com/chargebee/chargebee-go/v3/filter"
+	itemEnum "github.com/chargebee/chargebee-go/v3/models/item/enum"
 )
 
 type Item struct {

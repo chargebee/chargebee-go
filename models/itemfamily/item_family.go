@@ -1,9 +1,9 @@
 package itemfamily
 
 import (
-	"github.com/chargebee/chargebee-go/enum"
-	"github.com/chargebee/chargebee-go/filter"
-	itemFamilyEnum "github.com/chargebee/chargebee-go/models/itemfamily/enum"
+	"github.com/chargebee/chargebee-go/v3/enum"
+	"github.com/chargebee/chargebee-go/v3/filter"
+	itemFamilyEnum "github.com/chargebee/chargebee-go/v3/models/itemfamily/enum"
 )
 
 type ItemFamily struct {

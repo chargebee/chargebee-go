@@ -1,8 +1,8 @@
 package subscriptionestimate
 
 import (
-	"github.com/chargebee/chargebee-go/enum"
-	subscriptionEstimateEnum "github.com/chargebee/chargebee-go/models/subscriptionestimate/enum"
+	"github.com/chargebee/chargebee-go/v3/enum"
+	subscriptionEstimateEnum "github.com/chargebee/chargebee-go/v3/models/subscriptionestimate/enum"
 )
 
 type SubscriptionEstimate struct {

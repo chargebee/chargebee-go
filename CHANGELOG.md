@@ -1,3 +1,13 @@
+### v3.0.0 (2022-11-21)
+* * *
+This release includes breaking changes :
+
+⚠️ **Breaking changes**
+- Support for [Go modules](https://go.dev/ref/mod#introduction) has been added.
+- The data types for all numeric currency fields have been changed from `int32` to `int64`. Numeric currency fields can be identified as those with their data type specified in the [API docs](https://apidocs.chargebee.com/docs/api?prod_cat_ver=2) as `in cents`.
+
+See the [migration guide](https://github.com/chargebee/chargebee-go/wiki/Migration-guide-for-v3) to learn how to upgrade your SDK from v2.x to v3.x.
+
 ### v2.15.0 (2022-11-21)
 * * *
 

@@ -1,9 +1,9 @@
 package sitemigrationdetail
 
 import (
-	"github.com/chargebee/chargebee-go/enum"
-	"github.com/chargebee/chargebee-go/filter"
-	siteMigrationDetailEnum "github.com/chargebee/chargebee-go/models/sitemigrationdetail/enum"
+	"github.com/chargebee/chargebee-go/v3/enum"
+	"github.com/chargebee/chargebee-go/v3/filter"
+	siteMigrationDetailEnum "github.com/chargebee/chargebee-go/v3/models/sitemigrationdetail/enum"
 )
 
 type SiteMigrationDetail struct {

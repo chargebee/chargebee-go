@@ -2,8 +2,8 @@ package differentialprice
 
 import (
 	"fmt"
-	"github.com/chargebee/chargebee-go"
-	"github.com/chargebee/chargebee-go/models/differentialprice"
+	"github.com/chargebee/chargebee-go/v3"
+	"github.com/chargebee/chargebee-go/v3/models/differentialprice"
 	"net/url"
 )
 

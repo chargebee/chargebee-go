@@ -2,10 +2,10 @@ package hostedpage
 
 import (
 	"encoding/json"
-	"github.com/chargebee/chargebee-go/enum"
-	"github.com/chargebee/chargebee-go/filter"
-	contractTermEnum "github.com/chargebee/chargebee-go/models/contractterm/enum"
-	hostedPageEnum "github.com/chargebee/chargebee-go/models/hostedpage/enum"
+	"github.com/chargebee/chargebee-go/v3/enum"
+	"github.com/chargebee/chargebee-go/v3/filter"
+	contractTermEnum "github.com/chargebee/chargebee-go/v3/models/contractterm/enum"
+	hostedPageEnum "github.com/chargebee/chargebee-go/v3/models/hostedpage/enum"
 )
 
 type HostedPage struct {
@@ -51,9 +51,9 @@ type CheckoutNewSubscriptionParams struct {
 	PlanId                            string                    `json:"plan_id"`
 	PlanQuantity                      *int32                    `json:"plan_quantity,omitempty"`
 	PlanQuantityInDecimal             string                    `json:"plan_quantity_in_decimal,omitempty"`
-	PlanUnitPrice                     *int32                    `json:"plan_unit_price,omitempty"`
+	PlanUnitPrice                     *int64                    `json:"plan_unit_price,omitempty"`
 	PlanUnitPriceInDecimal            string                    `json:"plan_unit_price_in_decimal,omitempty"`
-	SetupFee                          *int32                    `json:"setup_fee,omitempty"`
+	SetupFee                          *int64                    `json:"setup_fee,omitempty"`
 	TrialEnd                          *int64                    `json:"trial_end,omitempty"`
 	StartDate                         *int64                    `json:"start_date,omitempty"`
 	Coupon                            string                    `json:"coupon,omitempty"`
@@ -80,14 +80,14 @@ type CheckoutNewAddonParams struct {
 	Id                 string `json:"id,omitempty"`
 	Quantity           *int32 `json:"quantity,omitempty"`
 	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
-	UnitPrice          *int32 `json:"unit_price,omitempty"`
+	UnitPrice          *int64 `json:"unit_price,omitempty"`
 	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
 	BillingCycles      *int32 `json:"billing_cycles,omitempty"`
 }
 type CheckoutNewEventBasedAddonParams struct {
 	Id                  string        `json:"id,omitempty"`
 	Quantity            *int32        `json:"quantity,omitempty"`
-	UnitPrice           *int32        `json:"unit_price,omitempty"`
+	UnitPrice           *int64        `json:"unit_price,omitempty"`
 	QuantityInDecimal   string        `json:"quantity_in_decimal,omitempty"`
 	UnitPriceInDecimal  string        `json:"unit_price_in_decimal,omitempty"`
 	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
@@ -169,14 +169,14 @@ type CheckoutOneTimeCustomerParams struct {
 type CheckoutOneTimeAddonParams struct {
 	Id                 string `json:"id,omitempty"`
 	Quantity           *int32 `json:"quantity,omitempty"`
-	UnitPrice          *int32 `json:"unit_price,omitempty"`
+	UnitPrice          *int64 `json:"unit_price,omitempty"`
 	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
 	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
 	DateFrom           *int64 `json:"date_from,omitempty"`
 	DateTo             *int64 `json:"date_to,omitempty"`
 }
 type CheckoutOneTimeChargeParams struct {
-	Amount                 *int32               `json:"amount,omitempty"`
+	Amount                 *int64               `json:"amount,omitempty"`
 	AmountInDecimal        string               `json:"amount_in_decimal,omitempty"`
 	Description            string               `json:"description,omitempty"`
 	Taxable                *bool                `json:"taxable,omitempty"`
@@ -270,7 +270,7 @@ type CheckoutOneTimeForItemsItemPriceParams struct {
 	ItemPriceId        string `json:"item_price_id,omitempty"`
 	Quantity           *int32 `json:"quantity,omitempty"`
 	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
-	UnitPrice          *int32 `json:"unit_price,omitempty"`
+	UnitPrice          *int64 `json:"unit_price,omitempty"`
 	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
 	DateFrom           *int64 `json:"date_from,omitempty"`
 	DateTo             *int64 `json:"date_to,omitempty"`
@@ -279,13 +279,13 @@ type CheckoutOneTimeForItemsItemTierParams struct {
 	ItemPriceId           string `json:"item_price_id,omitempty"`
 	StartingUnit          *int32 `json:"starting_unit,omitempty"`
 	EndingUnit            *int32 `json:"ending_unit,omitempty"`
-	Price                 *int32 `json:"price,omitempty"`
+	Price                 *int64 `json:"price,omitempty"`
 	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
 type CheckoutOneTimeForItemsChargeParams struct {
-	Amount                 *int32               `json:"amount,omitempty"`
+	Amount                 *int64               `json:"amount,omitempty"`
 	AmountInDecimal        string               `json:"amount_in_decimal,omitempty"`
 	Description            string               `json:"description,omitempty"`
 	Taxable                *bool                `json:"taxable,omitempty"`
@@ -301,7 +301,7 @@ type CheckoutOneTimeForItemsChargeParams struct {
 }
 type CheckoutOneTimeForItemsDiscountParams struct {
 	Percentage  *float64     `json:"percentage,omitempty"`
-	Amount      *int32       `json:"amount,omitempty"`
+	Amount      *int64       `json:"amount,omitempty"`
 	ApplyOn     enum.ApplyOn `json:"apply_on"`
 	ItemPriceId string       `json:"item_price_id,omitempty"`
 }
@@ -377,7 +377,7 @@ type CheckoutNewForItemsRequestParams struct {
 type CheckoutNewForItemsSubscriptionParams struct {
 	Id                                string                    `json:"id,omitempty"`
 	TrialEnd                          *int64                    `json:"trial_end,omitempty"`
-	SetupFee                          *int32                    `json:"setup_fee,omitempty"`
+	SetupFee                          *int64                    `json:"setup_fee,omitempty"`
 	StartDate                         *int64                    `json:"start_date,omitempty"`
 	Coupon                            string                    `json:"coupon,omitempty"`
 	AutoCollection                    enum.AutoCollection       `json:"auto_collection,omitempty"`
@@ -405,7 +405,7 @@ type CheckoutNewForItemsSubscriptionItemParams struct {
 	ItemPriceId        string              `json:"item_price_id"`
 	Quantity           *int32              `json:"quantity,omitempty"`
 	QuantityInDecimal  string              `json:"quantity_in_decimal,omitempty"`
-	UnitPrice          *int32              `json:"unit_price,omitempty"`
+	UnitPrice          *int64              `json:"unit_price,omitempty"`
 	UnitPriceInDecimal string              `json:"unit_price_in_decimal,omitempty"`
 	BillingCycles      *int32              `json:"billing_cycles,omitempty"`
 	TrialEnd           *int64              `json:"trial_end,omitempty"`
@@ -419,7 +419,7 @@ type CheckoutNewForItemsDiscountParams struct {
 	ApplyOn       enum.ApplyOn      `json:"apply_on"`
 	DurationType  enum.DurationType `json:"duration_type"`
 	Percentage    *float64          `json:"percentage,omitempty"`
-	Amount        *int32            `json:"amount,omitempty"`
+	Amount        *int64            `json:"amount,omitempty"`
 	Period        *int32            `json:"period,omitempty"`
 	PeriodUnit    enum.PeriodUnit   `json:"period_unit,omitempty"`
 	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`
@@ -429,7 +429,7 @@ type CheckoutNewForItemsItemTierParams struct {
 	ItemPriceId           string `json:"item_price_id,omitempty"`
 	StartingUnit          *int32 `json:"starting_unit,omitempty"`
 	EndingUnit            *int32 `json:"ending_unit,omitempty"`
-	Price                 *int32 `json:"price,omitempty"`
+	Price                 *int64 `json:"price,omitempty"`
 	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
@@ -509,8 +509,8 @@ type CheckoutExistingSubscriptionParams struct {
 	Id                                string                    `json:"id"`
 	PlanId                            string                    `json:"plan_id,omitempty"`
 	PlanQuantity                      *int32                    `json:"plan_quantity,omitempty"`
-	PlanUnitPrice                     *int32                    `json:"plan_unit_price,omitempty"`
-	SetupFee                          *int32                    `json:"setup_fee,omitempty"`
+	PlanUnitPrice                     *int64                    `json:"plan_unit_price,omitempty"`
+	SetupFee                          *int64                    `json:"setup_fee,omitempty"`
 	PlanQuantityInDecimal             string                    `json:"plan_quantity_in_decimal,omitempty"`
 	PlanUnitPriceInDecimal            string                    `json:"plan_unit_price_in_decimal,omitempty"`
 	StartDate                         *int64                    `json:"start_date,omitempty"`
@@ -524,7 +524,7 @@ type CheckoutExistingSubscriptionParams struct {
 type CheckoutExistingAddonParams struct {
 	Id                 string `json:"id,omitempty"`
 	Quantity           *int32 `json:"quantity,omitempty"`
-	UnitPrice          *int32 `json:"unit_price,omitempty"`
+	UnitPrice          *int64 `json:"unit_price,omitempty"`
 	BillingCycles      *int32 `json:"billing_cycles,omitempty"`
 	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
 	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
@@ -532,7 +532,7 @@ type CheckoutExistingAddonParams struct {
 type CheckoutExistingEventBasedAddonParams struct {
 	Id                  string        `json:"id,omitempty"`
 	Quantity            *int32        `json:"quantity,omitempty"`
-	UnitPrice           *int32        `json:"unit_price,omitempty"`
+	UnitPrice           *int64        `json:"unit_price,omitempty"`
 	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
 	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
 	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
@@ -579,7 +579,7 @@ type CheckoutExistingForItemsRequestParams struct {
 }
 type CheckoutExistingForItemsSubscriptionParams struct {
 	Id                                string                    `json:"id"`
-	SetupFee                          *int32                    `json:"setup_fee,omitempty"`
+	SetupFee                          *int64                    `json:"setup_fee,omitempty"`
 	StartDate                         *int64                    `json:"start_date,omitempty"`
 	TrialEnd                          *int64                    `json:"trial_end,omitempty"`
 	Coupon                            string                    `json:"coupon,omitempty"`
@@ -592,7 +592,7 @@ type CheckoutExistingForItemsSubscriptionItemParams struct {
 	ItemPriceId        string              `json:"item_price_id"`
 	Quantity           *int32              `json:"quantity,omitempty"`
 	QuantityInDecimal  string              `json:"quantity_in_decimal,omitempty"`
-	UnitPrice          *int32              `json:"unit_price,omitempty"`
+	UnitPrice          *int64              `json:"unit_price,omitempty"`
 	UnitPriceInDecimal string              `json:"unit_price_in_decimal,omitempty"`
 	BillingCycles      *int32              `json:"billing_cycles,omitempty"`
 	TrialEnd           *int64              `json:"trial_end,omitempty"`
@@ -606,7 +606,7 @@ type CheckoutExistingForItemsDiscountParams struct {
 	ApplyOn       enum.ApplyOn       `json:"apply_on"`
 	DurationType  enum.DurationType  `json:"duration_type"`
 	Percentage    *float64           `json:"percentage,omitempty"`
-	Amount        *int32             `json:"amount,omitempty"`
+	Amount        *int64             `json:"amount,omitempty"`
 	Period        *int32             `json:"period,omitempty"`
 	PeriodUnit    enum.PeriodUnit    `json:"period_unit,omitempty"`
 	IncludedInMrr *bool              `json:"included_in_mrr,omitempty"`
@@ -618,7 +618,7 @@ type CheckoutExistingForItemsItemTierParams struct {
 	ItemPriceId           string `json:"item_price_id,omitempty"`
 	StartingUnit          *int32 `json:"starting_unit,omitempty"`
 	EndingUnit            *int32 `json:"ending_unit,omitempty"`
-	Price                 *int32 `json:"price,omitempty"`
+	Price                 *int64 `json:"price,omitempty"`
 	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`

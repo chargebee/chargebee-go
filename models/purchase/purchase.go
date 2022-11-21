@@ -1,7 +1,7 @@
 package purchase
 
 import (
-	"github.com/chargebee/chargebee-go/enum"
+	"github.com/chargebee/chargebee-go/v3/enum"
 )
 
 type Purchase struct {
@@ -26,7 +26,7 @@ type CreatePurchaseItemParams struct {
 	Index               *int32 `json:"index"`
 	ItemPriceId         string `json:"item_price_id"`
 	Quantity            *int32 `json:"quantity,omitempty"`
-	UnitAmount          *int32 `json:"unit_amount,omitempty"`
+	UnitAmount          *int64 `json:"unit_amount,omitempty"`
 	UnitAmountInDecimal string `json:"unit_amount_in_decimal,omitempty"`
 	QuantityInDecimal   string `json:"quantity_in_decimal,omitempty"`
 }
@@ -35,7 +35,7 @@ type CreateItemTierParams struct {
 	ItemPriceId           string `json:"item_price_id,omitempty"`
 	StartingUnit          *int32 `json:"starting_unit,omitempty"`
 	EndingUnit            *int32 `json:"ending_unit,omitempty"`
-	Price                 *int32 `json:"price,omitempty"`
+	Price                 *int64 `json:"price,omitempty"`
 	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
@@ -60,7 +60,7 @@ type CreateDiscountParams struct {
 	Index         *int32   `json:"index,omitempty"`
 	CouponId      string   `json:"coupon_id,omitempty"`
 	Percentage    *float64 `json:"percentage,omitempty"`
-	Amount        *int32   `json:"amount,omitempty"`
+	Amount        *int64   `json:"amount,omitempty"`
 	IncludedInMrr *bool    `json:"included_in_mrr,omitempty"`
 }
 type CreateInvoiceInfoParams struct {
@@ -88,7 +88,7 @@ type EstimatePurchaseItemParams struct {
 	Index               *int32 `json:"index"`
 	ItemPriceId         string `json:"item_price_id"`
 	Quantity            *int32 `json:"quantity,omitempty"`
-	UnitAmount          *int32 `json:"unit_amount,omitempty"`
+	UnitAmount          *int64 `json:"unit_amount,omitempty"`
 	UnitAmountInDecimal string `json:"unit_amount_in_decimal,omitempty"`
 	QuantityInDecimal   string `json:"quantity_in_decimal,omitempty"`
 }
@@ -97,7 +97,7 @@ type EstimateItemTierParams struct {
 	ItemPriceId           string `json:"item_price_id,omitempty"`
 	StartingUnit          *int32 `json:"starting_unit,omitempty"`
 	EndingUnit            *int32 `json:"ending_unit,omitempty"`
-	Price                 *int32 `json:"price,omitempty"`
+	Price                 *int64 `json:"price,omitempty"`
 	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
@@ -122,7 +122,7 @@ type EstimateDiscountParams struct {
 	Index         *int32   `json:"index,omitempty"`
 	CouponId      string   `json:"coupon_id,omitempty"`
 	Percentage    *float64 `json:"percentage,omitempty"`
-	Amount        *int32   `json:"amount,omitempty"`
+	Amount        *int64   `json:"amount,omitempty"`
 	IncludedInMrr *bool    `json:"included_in_mrr,omitempty"`
 }
 type EstimateInvoiceInfoParams struct {

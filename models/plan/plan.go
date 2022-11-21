@@ -2,9 +2,9 @@ package plan
 
 import (
 	"encoding/json"
-	"github.com/chargebee/chargebee-go/enum"
-	"github.com/chargebee/chargebee-go/filter"
-	planEnum "github.com/chargebee/chargebee-go/models/plan/enum"
+	"github.com/chargebee/chargebee-go/v3/enum"
+	"github.com/chargebee/chargebee-go/v3/filter"
+	planEnum "github.com/chargebee/chargebee-go/v3/models/plan/enum"
 )
 
 type Plan struct {
@@ -12,7 +12,7 @@ type Plan struct {
 	Name                        string                               `json:"name"`
 	InvoiceName                 string                               `json:"invoice_name"`
 	Description                 string                               `json:"description"`
-	Price                       int32                                `json:"price"`
+	Price                       int64                                `json:"price"`
 	CurrencyCode                string                               `json:"currency_code"`
 	Period                      int32                                `json:"period"`
 	PeriodUnit                  planEnum.PeriodUnit                  `json:"period_unit"`
@@ -22,7 +22,7 @@ type Plan struct {
 	PricingModel                enum.PricingModel                    `json:"pricing_model"`
 	ChargeModel                 planEnum.ChargeModel                 `json:"charge_model"`
 	FreeQuantity                int32                                `json:"free_quantity"`
-	SetupCost                   int32                                `json:"setup_cost"`
+	SetupCost                   int64                                `json:"setup_cost"`
 	DowngradePenalty            float64                              `json:"downgrade_penalty"`
 	Status                      planEnum.Status                      `json:"status"`
 	ArchivedAt                  int64                                `json:"archived_at"`
@@ -69,7 +69,7 @@ type Plan struct {
 type Tier struct {
 	StartingUnit          int32  `json:"starting_unit"`
 	EndingUnit            int32  `json:"ending_unit"`
-	Price                 int32  `json:"price"`
+	Price                 int64  `json:"price"`
 	StartingUnitInDecimal string `json:"starting_unit_in_decimal"`
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal"`
 	PriceInDecimal        string `json:"price_in_decimal"`
@@ -105,8 +105,8 @@ type CreateRequestParams struct {
 	TrialEndAction              planEnum.TrialEndAction              `json:"trial_end_action,omitempty"`
 	Period                      *int32                               `json:"period,omitempty"`
 	PeriodUnit                  planEnum.PeriodUnit                  `json:"period_unit,omitempty"`
-	SetupCost                   *int32                               `json:"setup_cost,omitempty"`
-	Price                       *int32                               `json:"price,omitempty"`
+	SetupCost                   *int64                               `json:"setup_cost,omitempty"`
+	Price                       *int64                               `json:"price,omitempty"`
 	PriceInDecimal              string                               `json:"price_in_decimal,omitempty"`
 	Tiers                       []*CreateTierParams                  `json:"tiers,omitempty"`
 	CurrencyCode                string                               `json:"currency_code,omitempty"`
@@ -151,7 +151,7 @@ type CreateRequestParams struct {
 type CreateTierParams struct {
 	StartingUnit          *int32 `json:"starting_unit,omitempty"`
 	EndingUnit            *int32 `json:"ending_unit,omitempty"`
-	Price                 *int32 `json:"price,omitempty"`
+	Price                 *int64 `json:"price,omitempty"`
 	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
@@ -182,8 +182,8 @@ type UpdateRequestParams struct {
 	TrialEndAction              planEnum.TrialEndAction              `json:"trial_end_action,omitempty"`
 	Period                      *int32                               `json:"period,omitempty"`
 	PeriodUnit                  planEnum.PeriodUnit                  `json:"period_unit,omitempty"`
-	SetupCost                   *int32                               `json:"setup_cost,omitempty"`
-	Price                       *int32                               `json:"price,omitempty"`
+	SetupCost                   *int64                               `json:"setup_cost,omitempty"`
+	Price                       *int64                               `json:"price,omitempty"`
 	PriceInDecimal              string                               `json:"price_in_decimal,omitempty"`
 	Tiers                       []*UpdateTierParams                  `json:"tiers,omitempty"`
 	CurrencyCode                string                               `json:"currency_code,omitempty"`
@@ -225,7 +225,7 @@ type UpdateRequestParams struct {
 type UpdateTierParams struct {
 	StartingUnit          *int32 `json:"starting_unit,omitempty"`
 	EndingUnit            *int32 `json:"ending_unit,omitempty"`
-	Price                 *int32 `json:"price,omitempty"`
+	Price                 *int64 `json:"price,omitempty"`
 	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`

@@ -1,7 +1,7 @@
 package timemachine
 
 import (
-	timeMachineEnum "github.com/chargebee/chargebee-go/models/timemachine/enum"
+	timeMachineEnum "github.com/chargebee/chargebee-go/v3/models/timemachine/enum"
 )
 
 type TimeMachine struct {

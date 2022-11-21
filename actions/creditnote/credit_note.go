@@ -2,8 +2,8 @@ package creditnote
 
 import (
 	"fmt"
-	"github.com/chargebee/chargebee-go"
-	"github.com/chargebee/chargebee-go/models/creditnote"
+	"github.com/chargebee/chargebee-go/v3"
+	"github.com/chargebee/chargebee-go/v3/models/creditnote"
 	"net/url"
 )
 

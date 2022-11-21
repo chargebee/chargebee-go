@@ -1,27 +1,60 @@
-# Chargebee Go Client Library - API V2
-This is the beta version of Go Library for integrating with Chargebee. Sign up for a Chargebee account [here](https://www.chargebee.com).
+# Go Client Library for Chargebee API
+***
 
-## Installation
+This is the source code for the Go client library for [Chargebee APIs](https://apidocs.chargebee.com/docs/api?lang=go).
+
+**Go version**: v3 and v2 of the library require Go v1.3 or higher.
+
+## Library versions
+***
+
+The versioning scheme of this library is inspired by [SemVer](https://semver.org/) and the format is `v{MAJOR}.{MINOR}.{PATCH}`. For example, `v3.0.0` and `v2.5.1` are valid library versions.
+
+The following table provides some details for each major version:
+
+| Library major version | Status   | Compatible API versions                                                                             | **Branch**        |
+|----------------------------|----------|-----------------------------------------------------------------------------------------------------|---------------|
+| v3                         | Active   | [v2](https://apidocs.chargebee.com/docs/api/v2?lang=go) and [v1](https://apidocs.chargebee.com/docs/api/v1?lang=go) | `master`      |
+| v2                         | Active   | [v2](https://apidocs.chargebee.com/docs/api/v2?lang=go) and [v1](https://apidocs.chargebee.com/docs/api/v1?lang=go) | `chargebee-v2`|
+| v1                         | Inactive | [v1](https://apidocs.chargebee.com/docs/api/v1?lang=go)                                                     | `chargebee-v1`|
+
+A couple of terms used in the above table are explained below:
+- **Status**: The current development status for the library version. An **Active** major version is currently being maintained and continues to get backward-compatible changes. **Inactive** versions no longer receive any updates.
+- **Branch**: The branch in this repository containing the source code for the latest release of the library version. Every version of the library has been [tagged](https://github.com/chargebee/chargebee-go/tags). You can check out the source code for any version using its tag.
+
+🔴 **Alert!** Eventually, v2 will become **inactive**, after which it will no longer receive any new updates. We encourage you to [upgrade to v3](https://github.com/chargebee/chargebee-go/wiki/Migration-guide-for-v3) at the earliest.
+
+**Note:** See the [changelog](CHANGELOG.md) for a history of changes.
+
+## Install the library
+***
 
 Install the latest version of the library with the following commands:
 
-```sh
-	go get github.com/chargebee/chargebee-go
+### Install v3
+``` shell
+go get github.com/chargebee/chargebee-go/v3
 ```
 
-## Go Requirement 
+### Install v2
+``` shell
+go get github.com/chargebee/chargebee-go
+```
 
-Use <b>go1.3 or newer</b>. 
 
-## Usage
+## Use the library
+***
 
-### To create a customer & subscription
+Some examples for using the library are listed below.
+
+### Create a customer and subscription
+
 ```go
 import (
   "fmt"
-  "github.com/chargebee/chargebee-go"
-  subscriptionAction "github.com/chargebee/chargebee-go/actions/subscription"
-  "github.com/chargebee/chargebee-go/models/subscription"
+  "github.com/chargebee/chargebee-go/v3"
+  subscriptionAction "github.com/chargebee/chargebee-go/v3/actions/subscription"
+  "github.com/chargebee/chargebee-go/v3/models/subscription"
 )
 
 func main() {
@@ -48,14 +81,14 @@ func main() {
 }
 ```
 
-### To create a subscription with addons, metadata, coupons :
+### Create a subscription with addons, metadata, and coupons
 
 ```go
 import (
   "fmt"
-  "github.com/chargebee/chargebee-go"
-  subscriptionAction "github.com/chargebee/chargebee-go/actions/subscription"
-  "github.com/chargebee/chargebee-go/models/subscription"
+  "github.com/chargebee/chargebee-go/v3"
+  subscriptionAction "github.com/chargebee/chargebee-go/v3/actions/subscription"
+  "github.com/chargebee/chargebee-go/v3/models/subscription"
 )
 
 func main() {
@@ -111,16 +144,42 @@ func main() {
 }
 ```
 
-### Use of Filters In List API
-To retrieve list of subscriptions :
+### Create a subscription with custom headers and custom fields
 
 ```go
 import (
   "fmt"
-  "github.com/chargebee/chargebee-go"
-  subscriptionAction "github.com/chargebee/chargebee-go/actions/subscription"
-  "github.com/chargebee/chargebee-go/filter"
-  "github.com/chargebee/chargebee-go/models/subscription"
+  "github.com/chargebee/chargebee-go/v3"
+  subscriptionAction "github.com/chargebee/chargebee-go/v3/actions/subscription"
+  "github.com/chargebee/chargebee-go/v3/models/subscription"
+)
+
+func main() {
+  chargebee.Configure("{site_api_key}", "{site}")
+  res, err := subscriptionAction.Create(&subscription.CreateRequestParams{
+    PlanId: "cbdemo_grow",
+  }).Headers("chargebee-request-origin-ip", "192.168.1.2").AddParams("customer[cf_gender]","Female").Request() // Customer level custom field. 
+  if err != nil {
+    panic(err)
+  }else{
+  Subscription := res.Subscription
+  Customer := res.Customer
+  Card := res.Card
+  Invoice := res.Invoice
+  UnbilledCharges := res.UnbilledCharges
+  }
+}
+```
+
+### Retrieve a filtered list of subscriptions
+
+```go
+import (
+  "fmt"
+  "github.com/chargebee/chargebee-go/v3"
+  subscriptionAction "github.com/chargebee/chargebee-go/v3/actions/subscription"
+  "github.com/chargebee/chargebee-go/v3/filter"
+  "github.com/chargebee/chargebee-go/v3/models/subscription"
 )
 
 func main() {
@@ -152,40 +211,18 @@ func main() {
 }
 ```
 
-### To create subscription with custom headers and custom fields:
 
-```go
-import (
-  "fmt"
-  "github.com/chargebee/chargebee-go"
-  subscriptionAction "github.com/chargebee/chargebee-go/actions/subscription"
-  "github.com/chargebee/chargebee-go/models/subscription"
-)
 
-func main() {
-  chargebee.Configure("{site_api_key}", "{site}")
-  res, err := subscriptionAction.Create(&subscription.CreateRequestParams{
-    PlanId: "cbdemo_grow",
-  }).Headers("chargebee-request-origin-ip", "192.168.1.2").AddParams("customer[cf_gender]","Female").Request() // Customer level custom field. 
-  if err != nil {
-    panic(err)
-  }else{
-  Subscription := res.Subscription
-  Customer := res.Customer
-  Card := res.Card
-  Invoice := res.Invoice
-  UnbilledCharges := res.UnbilledCharges
-  }
-}
+## Use the test suite
+***
+Use [Testify's `require`](https://github.com/stretchr/testify/#require-package) package to run the test suite
+
+```shell
+go get github.com/stretchr/testify/require
 ```
 
-## Test suite needs testify's require package to run :
-
-```sh
-  go get github.com/stretchr/testify/require
-```
-
-## Error Handling
+## Handle errors
+***
 
 ```go
 _,err := //Go Library call 
@@ -243,7 +280,20 @@ if err != nil {
 }
 ```
 
+## Contribution
+***
+You may contribute patches to any of the **Active** versions of this library. To do so, raise a PR against the [respective branch](#library-versions).
+
+If you find something amiss, you are welcome to create an [issue](https://github.com/chargebee/chargebee-go/issues).
+
+## API documentation
+***
+
+The API documentation for the Go library can be found in our [API reference](https://apidocs.chargebee.com/docs/api?lang=go).
+
 ## License
+***
 
-See the LICENSE file.
+See the [LICENSE](LICENSE).
 
+---

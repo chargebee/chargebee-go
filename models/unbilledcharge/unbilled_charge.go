@@ -1,9 +1,9 @@
 package unbilledcharge
 
 import (
-	"github.com/chargebee/chargebee-go/enum"
-	"github.com/chargebee/chargebee-go/filter"
-	unbilledChargeEnum "github.com/chargebee/chargebee-go/models/unbilledcharge/enum"
+	"github.com/chargebee/chargebee-go/v3/enum"
+	"github.com/chargebee/chargebee-go/v3/filter"
+	unbilledChargeEnum "github.com/chargebee/chargebee-go/v3/models/unbilledcharge/enum"
 )
 
 type UnbilledCharge struct {
@@ -12,12 +12,12 @@ type UnbilledCharge struct {
 	SubscriptionId      string                        `json:"subscription_id"`
 	DateFrom            int64                         `json:"date_from"`
 	DateTo              int64                         `json:"date_to"`
-	UnitAmount          int32                         `json:"unit_amount"`
+	UnitAmount          int64                         `json:"unit_amount"`
 	PricingModel        enum.PricingModel             `json:"pricing_model"`
 	Quantity            int32                         `json:"quantity"`
-	Amount              int32                         `json:"amount"`
+	Amount              int64                         `json:"amount"`
 	CurrencyCode        string                        `json:"currency_code"`
-	DiscountAmount      int32                         `json:"discount_amount"`
+	DiscountAmount      int64                         `json:"discount_amount"`
 	Description         string                        `json:"description"`
 	EntityType          unbilledChargeEnum.EntityType `json:"entity_type"`
 	EntityId            string                        `json:"entity_id"`
@@ -35,7 +35,7 @@ type Tier struct {
 	StartingUnit          int32  `json:"starting_unit"`
 	EndingUnit            int32  `json:"ending_unit"`
 	QuantityUsed          int32  `json:"quantity_used"`
-	UnitAmount            int32  `json:"unit_amount"`
+	UnitAmount            int64  `json:"unit_amount"`
 	StartingUnitInDecimal string `json:"starting_unit_in_decimal"`
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal"`
 	QuantityUsedInDecimal string `json:"quantity_used_in_decimal"`
@@ -51,14 +51,14 @@ type CreateUnbilledChargeRequestParams struct {
 type CreateUnbilledChargeAddonParams struct {
 	Id                 string `json:"id,omitempty"`
 	Quantity           *int32 `json:"quantity,omitempty"`
-	UnitPrice          *int32 `json:"unit_price,omitempty"`
+	UnitPrice          *int64 `json:"unit_price,omitempty"`
 	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
 	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
 	DateFrom           *int64 `json:"date_from,omitempty"`
 	DateTo             *int64 `json:"date_to,omitempty"`
 }
 type CreateUnbilledChargeChargeParams struct {
-	Amount                 *int32               `json:"amount,omitempty"`
+	Amount                 *int64               `json:"amount,omitempty"`
 	AmountInDecimal        string               `json:"amount_in_decimal,omitempty"`
 	Description            string               `json:"description,omitempty"`
 	Taxable                *bool                `json:"taxable,omitempty"`
@@ -83,7 +83,7 @@ type CreateItemPriceParams struct {
 	ItemPriceId        string `json:"item_price_id,omitempty"`
 	Quantity           *int32 `json:"quantity,omitempty"`
 	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
-	UnitPrice          *int32 `json:"unit_price,omitempty"`
+	UnitPrice          *int64 `json:"unit_price,omitempty"`
 	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
 	DateFrom           *int64 `json:"date_from,omitempty"`
 	DateTo             *int64 `json:"date_to,omitempty"`
@@ -92,13 +92,13 @@ type CreateItemTierParams struct {
 	ItemPriceId           string `json:"item_price_id,omitempty"`
 	StartingUnit          *int32 `json:"starting_unit,omitempty"`
 	EndingUnit            *int32 `json:"ending_unit,omitempty"`
-	Price                 *int32 `json:"price,omitempty"`
+	Price                 *int64 `json:"price,omitempty"`
 	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
 type CreateChargeParams struct {
-	Amount                 *int32               `json:"amount,omitempty"`
+	Amount                 *int64               `json:"amount,omitempty"`
 	AmountInDecimal        string               `json:"amount_in_decimal,omitempty"`
 	Description            string               `json:"description,omitempty"`
 	Taxable                *bool                `json:"taxable,omitempty"`
