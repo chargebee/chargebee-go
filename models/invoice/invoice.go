@@ -3,10 +3,10 @@ package invoice
 import (
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
-	creditNoteEnum "github.com/chargebee/chargebee-go/models/creditnote/enum"
-	invoiceEnum "github.com/chargebee/chargebee-go/models/invoice/enum"
 	paymentIntentEnum "github.com/chargebee/chargebee-go/models/paymentintent/enum"
 	transactionEnum "github.com/chargebee/chargebee-go/models/transaction/enum"
+	creditNoteEnum "github.com/chargebee/chargebee-go/models/creditnote/enum"
+	invoiceEnum "github.com/chargebee/chargebee-go/models/invoice/enum"
 )
 
 type Invoice struct {
@@ -601,6 +601,9 @@ type ImportInvoiceRequestParams struct {
 	Status            invoiceEnum.Status                  `json:"status,omitempty"`
 	VoidedAt          *int64                              `json:"voided_at,omitempty"`
 	VoidReasonCode    string                              `json:"void_reason_code,omitempty"`
+	IsWrittenOff      *bool                               `json:"is_written_off,omitempty"`
+	WriteOffAmount    *int32                              `json:"write_off_amount,omitempty"`
+	WriteOffDate      *int64                              `json:"write_off_date,omitempty"`
 	DueDate           *int64                              `json:"due_date,omitempty"`
 	NetTermDays       *int32                              `json:"net_term_days,omitempty"`
 	UseForProration   *bool                               `json:"use_for_proration,omitempty"`
@@ -608,6 +611,7 @@ type ImportInvoiceRequestParams struct {
 	LineItemTiers     []*ImportInvoiceLineItemTierParams  `json:"line_item_tiers,omitempty"`
 	Discounts         []*ImportInvoiceDiscountParams      `json:"discounts,omitempty"`
 	Taxes             []*ImportInvoiceTaxParams           `json:"taxes,omitempty"`
+	CreditNote        *ImportInvoiceCreditNoteParams      `json:"credit_note,omitempty"`
 	Payments          []*ImportInvoicePaymentParams       `json:"payments,omitempty"`
 	Notes             []*ImportInvoiceNoteParams          `json:"notes,omitempty"`
 	BillingAddress    *ImportInvoiceBillingAddressParams  `json:"billing_address,omitempty"`
@@ -678,6 +682,9 @@ type ImportInvoiceTaxParams struct {
 	JurisType   enum.TaxJurisType `json:"juris_type,omitempty"`
 	JurisName   string            `json:"juris_name,omitempty"`
 	JurisCode   string            `json:"juris_code,omitempty"`
+}
+type ImportInvoiceCreditNoteParams struct {
+	Id string `json:"id,omitempty"`
 }
 type ImportInvoicePaymentParams struct {
 	Amount          *int32             `json:"amount"`

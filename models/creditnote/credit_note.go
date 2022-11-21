@@ -3,9 +3,9 @@ package creditnote
 import (
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
-	creditNoteEnum "github.com/chargebee/chargebee-go/models/creditnote/enum"
 	invoiceEnum "github.com/chargebee/chargebee-go/models/invoice/enum"
 	transactionEnum "github.com/chargebee/chargebee-go/models/transaction/enum"
+	creditNoteEnum "github.com/chargebee/chargebee-go/models/creditnote/enum"
 )
 
 type CreditNote struct {

@@ -105,13 +105,13 @@ type CreateForItemsRequestParams struct {
 type CreateForItemsItemConstraintParams struct {
 	Constraint   couponEnum.ItemConstraintConstraint `json:"constraint"`
 	ItemType     couponEnum.ItemConstraintItemType   `json:"item_type"`
-	ItemPriceIds []map[string]interface{}            `json:"item_price_ids,omitempty"`
+	ItemPriceIds []interface{}                       `json:"item_price_ids,omitempty"`
 }
 type CreateForItemsItemConstraintCriteriaParams struct {
 	ItemType         couponEnum.ItemConstraintCriteriaItemType `json:"item_type,omitempty"`
-	ItemFamilyIds    []map[string]interface{}                  `json:"item_family_ids,omitempty"`
-	Currencies       []map[string]interface{}                  `json:"currencies,omitempty"`
-	ItemPricePeriods []map[string]interface{}                  `json:"item_price_periods,omitempty"`
+	ItemFamilyIds    []interface{}                             `json:"item_family_ids,omitempty"`
+	Currencies       []interface{}                             `json:"currencies,omitempty"`
+	ItemPricePeriods []interface{}                             `json:"item_price_periods,omitempty"`
 }
 type UpdateForItemsRequestParams struct {
 	Name                   string                                        `json:"name,omitempty"`
@@ -136,13 +136,13 @@ type UpdateForItemsRequestParams struct {
 type UpdateForItemsItemConstraintParams struct {
 	Constraint   couponEnum.ItemConstraintConstraint `json:"constraint"`
 	ItemType     couponEnum.ItemConstraintItemType   `json:"item_type"`
-	ItemPriceIds []map[string]interface{}            `json:"item_price_ids,omitempty"`
+	ItemPriceIds []interface{}                       `json:"item_price_ids,omitempty"`
 }
 type UpdateForItemsItemConstraintCriteriaParams struct {
 	ItemType         couponEnum.ItemConstraintCriteriaItemType `json:"item_type,omitempty"`
-	ItemFamilyIds    []map[string]interface{}                  `json:"item_family_ids,omitempty"`
-	Currencies       []map[string]interface{}                  `json:"currencies,omitempty"`
-	ItemPricePeriods []map[string]interface{}                  `json:"item_price_periods,omitempty"`
+	ItemFamilyIds    []interface{}                             `json:"item_family_ids,omitempty"`
+	Currencies       []interface{}                             `json:"currencies,omitempty"`
+	ItemPricePeriods []interface{}                             `json:"item_price_periods,omitempty"`
 }
 type ListRequestParams struct {
 	Limit        *int32                  `json:"limit,omitempty"`

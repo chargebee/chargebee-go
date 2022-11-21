@@ -4,11 +4,11 @@ import (
 	"encoding/json"
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
-	contractTermEnum "github.com/chargebee/chargebee-go/models/contractterm/enum"
 	invoiceEnum "github.com/chargebee/chargebee-go/models/invoice/enum"
 	paymentIntentEnum "github.com/chargebee/chargebee-go/models/paymentintent/enum"
-	subscriptionEnum "github.com/chargebee/chargebee-go/models/subscription/enum"
+	contractTermEnum "github.com/chargebee/chargebee-go/models/contractterm/enum"
 	unbilledChargeEnum "github.com/chargebee/chargebee-go/models/unbilledcharge/enum"
+	subscriptionEnum "github.com/chargebee/chargebee-go/models/subscription/enum"
 )
 
 type Subscription struct {
@@ -630,6 +630,7 @@ type ListRequestParams struct {
 	AutoCloseInvoices      *filter.BooleanFilter   `json:"auto_close_invoices,omitempty"`
 	OverrideRelationship   *filter.BooleanFilter   `json:"override_relationship,omitempty"`
 	SortBy                 *filter.SortFilter      `json:"sort_by,omitempty"`
+	BusinessEntityId       *filter.StringFilter    `json:"business_entity_id,omitempty"`
 	Channel                *filter.EnumFilter      `json:"channel,omitempty"`
 }
 type SubscriptionsForCustomerRequestParams struct {
@@ -1468,6 +1469,7 @@ type PauseRequestParams struct {
 	PauseDate               *int64                       `json:"pause_date,omitempty"`
 	UnbilledChargesHandling enum.UnbilledChargesHandling `json:"unbilled_charges_handling,omitempty"`
 	InvoiceDunningHandling  enum.InvoiceDunningHandling  `json:"invoice_dunning_handling,omitempty"`
+	SkipBillingCycles       *int32                       `json:"skip_billing_cycles,omitempty"`
 	ResumeDate              *int64                       `json:"resume_date,omitempty"`
 }
 type CancelRequestParams struct {

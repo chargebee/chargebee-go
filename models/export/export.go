@@ -37,6 +37,7 @@ type RevenueRecognitionRequestParams struct {
 	CancelReasonCode *filter.StringFilter                  `json:"cancel_reason_code,omitempty"`
 	Customer         *RevenueRecognitionCustomerParams     `json:"customer,omitempty"`
 	Relationship     *RevenueRecognitionRelationshipParams `json:"relationship,omitempty"`
+	BusinessEntityId *filter.StringFilter                  `json:"business_entity_id,omitempty"`
 }
 type RevenueRecognitionInvoiceParams struct {
 	Id             *filter.StringFilter    `json:"id,omitempty"`
@@ -107,6 +108,7 @@ type DeferredRevenueRequestParams struct {
 	CancelReasonCode *filter.StringFilter               `json:"cancel_reason_code,omitempty"`
 	Customer         *DeferredRevenueCustomerParams     `json:"customer,omitempty"`
 	Relationship     *DeferredRevenueRelationshipParams `json:"relationship,omitempty"`
+	BusinessEntityId *filter.StringFilter               `json:"business_entity_id,omitempty"`
 }
 type DeferredRevenueInvoiceParams struct {
 	Id             *filter.StringFilter    `json:"id,omitempty"`
@@ -209,8 +211,9 @@ type CouponsCouponParams struct {
 	UpdatedAt    *filter.TimestampFilter `json:"updated_at,omitempty"`
 }
 type CustomersRequestParams struct {
-	Customer     *CustomersCustomerParams     `json:"customer,omitempty"`
-	Relationship *CustomersRelationshipParams `json:"relationship,omitempty"`
+	Customer         *CustomersCustomerParams     `json:"customer,omitempty"`
+	Relationship     *CustomersRelationshipParams `json:"relationship,omitempty"`
+	BusinessEntityId *filter.StringFilter         `json:"business_entity_id,omitempty"`
 }
 type CustomersCustomerParams struct {
 	Id                   *filter.StringFilter    `json:"id,omitempty"`

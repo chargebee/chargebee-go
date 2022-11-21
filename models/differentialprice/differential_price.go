@@ -45,7 +45,7 @@ type CreateRequestParams struct {
 }
 type CreateParentPeriodParams struct {
 	PeriodUnit differentialPriceEnum.ParentPeriodPeriodUnit `json:"period_unit"`
-	Period     []map[string]interface{}                     `json:"period,omitempty"`
+	Period     []interface{}                                `json:"period,omitempty"`
 }
 type CreateTierParams struct {
 	StartingUnit          *int32 `json:"starting_unit,omitempty"`
@@ -67,7 +67,7 @@ type UpdateRequestParams struct {
 }
 type UpdateParentPeriodParams struct {
 	PeriodUnit differentialPriceEnum.ParentPeriodPeriodUnit `json:"period_unit"`
-	Period     []map[string]interface{}                     `json:"period,omitempty"`
+	Period     []interface{}                                `json:"period,omitempty"`
 }
 type UpdateTierParams struct {
 	StartingUnit          *int32 `json:"starting_unit,omitempty"`

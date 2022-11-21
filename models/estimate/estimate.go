@@ -2,12 +2,12 @@ package estimate
 
 import (
 	"github.com/chargebee/chargebee-go/enum"
-	contractTermEnum "github.com/chargebee/chargebee-go/models/contractterm/enum"
-	"github.com/chargebee/chargebee-go/models/creditnoteestimate"
-	"github.com/chargebee/chargebee-go/models/invoiceestimate"
-	paymentIntentEnum "github.com/chargebee/chargebee-go/models/paymentintent/enum"
 	"github.com/chargebee/chargebee-go/models/subscriptionestimate"
+	"github.com/chargebee/chargebee-go/models/invoiceestimate"
+	"github.com/chargebee/chargebee-go/models/creditnoteestimate"
 	"github.com/chargebee/chargebee-go/models/unbilledcharge"
+	contractTermEnum "github.com/chargebee/chargebee-go/models/contractterm/enum"
+	paymentIntentEnum "github.com/chargebee/chargebee-go/models/paymentintent/enum"
 )
 
 type Estimate struct {
@@ -608,8 +608,9 @@ type PauseSubscriptionRequestParams struct {
 	UnbilledChargesHandling enum.UnbilledChargesHandling         `json:"unbilled_charges_handling,omitempty"`
 }
 type PauseSubscriptionSubscriptionParams struct {
-	PauseDate  *int64 `json:"pause_date,omitempty"`
-	ResumeDate *int64 `json:"resume_date,omitempty"`
+	PauseDate         *int64 `json:"pause_date,omitempty"`
+	ResumeDate        *int64 `json:"resume_date,omitempty"`
+	SkipBillingCycles *int32 `json:"skip_billing_cycles,omitempty"`
 }
 type ResumeSubscriptionRequestParams struct {
 	ResumeOption    enum.ResumeOption                     `json:"resume_option,omitempty"`

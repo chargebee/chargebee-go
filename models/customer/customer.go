@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"github.com/chargebee/chargebee-go/enum"
 	"github.com/chargebee/chargebee-go/filter"
-	customerEnum "github.com/chargebee/chargebee-go/models/customer/enum"
 	paymentIntentEnum "github.com/chargebee/chargebee-go/models/paymentintent/enum"
+	customerEnum "github.com/chargebee/chargebee-go/models/customer/enum"
 )
 
 type Customer struct {
@@ -297,6 +297,7 @@ type ListRequestParams struct {
 	CreatedAt            *filter.TimestampFilter `json:"created_at,omitempty"`
 	UpdatedAt            *filter.TimestampFilter `json:"updated_at,omitempty"`
 	Relationship         *ListRelationshipParams `json:"relationship,omitempty"`
+	BusinessEntityId     *filter.StringFilter    `json:"business_entity_id,omitempty"`
 	OfflinePaymentMethod *filter.EnumFilter      `json:"offline_payment_method,omitempty"`
 	AutoCloseInvoices    *filter.BooleanFilter   `json:"auto_close_invoices,omitempty"`
 	Channel              *filter.EnumFilter      `json:"channel,omitempty"`

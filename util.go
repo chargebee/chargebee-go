@@ -85,8 +85,11 @@ func parseArray(anArray []interface{}, serParams map[string]interface{}, prefix 
 	for i, val := range anArray {
 		switch value := val.(type) {
 		case map[string]interface{}:
-			parseMap(val.(map[string]interface{}), serParams, prefix, strconv.Itoa(i), paramTypes)
-		default:
+			for mk, mv := range val.(map[string]interface{}) {
+				k := prefix + "[" + mk + "]" + "[" + strconv.Itoa(i) + "]"
+				serParams[k] = mv
+			}
+			default:
 			k := prefix + "[" + strconv.Itoa(i) + "]"
 			serParams[k] = value
 		}

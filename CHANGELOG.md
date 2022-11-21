@@ -1,8 +1,29 @@
+### v2.15.0 (2022-11-21)
+* * *
+
+#### Fixes:
+* Fixed jsonArray Serialisation issue.
+
+#### New Attributes:
+* business_entity_id filter parameter has been added to the Customer.
+* is_written_off, write_off_amount, write_off_date and credit_note parameter have been added to the Invoice.
+
+#### Added input parameters:
+* business_entity_id filter parameter has been added to the  Export#RevenueRecognitionRequestParams, Export#DeferredRevenueRequestParams, Export#CustomersRequestParams and Subscription#ListRequestParams API.
+* skip_billing_cycles parameter has been added to the Estimate#PauseSubscriptionSubscriptionParams API.
+* skip_billing_cycles parameter has been added to the  Subscription#PauseRequestParams.
+* id have been added to the Invoices#ImportInvoiceCreditNoteParams API.
+
+#### New Enum values:
+* billing_cycles has been added to pause_option.
+
+
 ### v2.14.1 (2022-11-16)
 * * *
 
 ### Fixes:
 * Fixed the broken import package.
+
 
 ### v2.14.0 (2022-11-10)
 * * *
