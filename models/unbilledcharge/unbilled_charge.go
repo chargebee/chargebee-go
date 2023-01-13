@@ -28,6 +28,7 @@ type UnbilledCharge struct {
 	AmountInDecimal     string                        `json:"amount_in_decimal"`
 	UpdatedAt           int64                         `json:"updated_at"`
 	Tiers               []*Tier                       `json:"tiers"`
+	IsAdvanceCharge     bool                          `json:"is_advance_charge"`
 	Deleted             bool                          `json:"deleted"`
 	Object              string                        `json:"object"`
 }

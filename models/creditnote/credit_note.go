@@ -49,6 +49,8 @@ type CreditNote struct {
 	CreateReasonCode        string                    `json:"create_reason_code"`
 	VatNumberPrefix         string                    `json:"vat_number_prefix"`
 	BusinessEntityId        string                    `json:"business_entity_id"`
+	ShippingAddress         *ShippingAddress          `json:"shipping_address"`
+	BillingAddress          *BillingAddress           `json:"billing_address"`
 	Object                  string                    `json:"object"`
 }
 type Einvoice struct {
@@ -149,6 +151,41 @@ type Allocation struct {
 	InvoiceDate     int64              `json:"invoice_date"`
 	InvoiceStatus   invoiceEnum.Status `json:"invoice_status"`
 	Object          string             `json:"object"`
+}
+type ShippingAddress struct {
+	FirstName        string                `json:"first_name"`
+	LastName         string                `json:"last_name"`
+	Email            string                `json:"email"`
+	Company          string                `json:"company"`
+	Phone            string                `json:"phone"`
+	Line1            string                `json:"line1"`
+	Line2            string                `json:"line2"`
+	Line3            string                `json:"line3"`
+	City             string                `json:"city"`
+	StateCode        string                `json:"state_code"`
+	State            string                `json:"state"`
+	Country          string                `json:"country"`
+	Zip              string                `json:"zip"`
+	ValidationStatus enum.ValidationStatus `json:"validation_status"`
+	Index            int32                 `json:"index"`
+	Object           string                `json:"object"`
+}
+type BillingAddress struct {
+	FirstName        string                `json:"first_name"`
+	LastName         string                `json:"last_name"`
+	Email            string                `json:"email"`
+	Company          string                `json:"company"`
+	Phone            string                `json:"phone"`
+	Line1            string                `json:"line1"`
+	Line2            string                `json:"line2"`
+	Line3            string                `json:"line3"`
+	City             string                `json:"city"`
+	StateCode        string                `json:"state_code"`
+	State            string                `json:"state"`
+	Country          string                `json:"country"`
+	Zip              string                `json:"zip"`
+	ValidationStatus enum.ValidationStatus `json:"validation_status"`
+	Object           string                `json:"object"`
 }
 type CreateRequestParams struct {
 	ReferenceInvoiceId string                    `json:"reference_invoice_id"`

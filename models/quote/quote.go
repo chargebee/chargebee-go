@@ -175,6 +175,7 @@ type CreateSubForCustomerQuoteRequestParams struct {
 }
 type CreateSubForCustomerQuoteSubscriptionParams struct {
 	Id                                string                    `json:"id,omitempty"`
+	PoNumber                          string                    `json:"po_number,omitempty"`
 	PlanId                            string                    `json:"plan_id"`
 	PlanQuantity                      *int32                    `json:"plan_quantity,omitempty"`
 	PlanQuantityInDecimal             string                    `json:"plan_quantity_in_decimal,omitempty"`
@@ -599,6 +600,7 @@ type CreateSubItemsForCustomerQuoteRequestParams struct {
 }
 type CreateSubItemsForCustomerQuoteSubscriptionParams struct {
 	Id                                string                    `json:"id,omitempty"`
+	PoNumber                          string                    `json:"po_number,omitempty"`
 	TrialEnd                          *int64                    `json:"trial_end,omitempty"`
 	SetupFee                          *int64                    `json:"setup_fee,omitempty"`
 	StartDate                         *int64                    `json:"start_date,omitempty"`
