@@ -1340,6 +1340,7 @@ type ImportUnbilledChargesUnbilledChargeParams struct {
 	AmountInDecimal     string                        `json:"amount_in_decimal,omitempty"`
 	DiscountAmount      *int32                        `json:"discount_amount,omitempty"`
 	UseForProration     *bool                         `json:"use_for_proration,omitempty"`
+	IsAdvanceCharge     *bool                         `json:"is_advance_charge,omitempty"`
 }
 type ImportUnbilledChargesDiscountParams struct {
 	UnbilledChargeId string                         `json:"unbilled_charge_id,omitempty"`

@@ -11,4 +11,5 @@ const (
 	TaxExemptReasonZeroRated              TaxExemptReason = "zero_rated"
 	TaxExemptReasonReverseCharge          TaxExemptReason = "reverse_charge"
 	TaxExemptReasonHighValuePhysicalGoods TaxExemptReason = "high_value_physical_goods"
+	TaxExemptReasonZeroValueItem          TaxExemptReason = "zero_value_item"
 )

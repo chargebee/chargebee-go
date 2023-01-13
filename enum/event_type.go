@@ -32,6 +32,7 @@ const (
 	EventTypeSubscriptionActivated                     EventType = "subscription_activated"
 	EventTypeSubscriptionActivatedWithBackdating       EventType = "subscription_activated_with_backdating"
 	EventTypeSubscriptionChanged                       EventType = "subscription_changed"
+	EventTypeSubscriptionTrialExtended                 EventType = "subscription_trial_extended"
 	EventTypeMrrUpdated                                EventType = "mrr_updated"
 	EventTypeSubscriptionChangedWithBackdating         EventType = "subscription_changed_with_backdating"
 	EventTypeSubscriptionCancellationScheduled         EventType = "subscription_cancellation_scheduled"

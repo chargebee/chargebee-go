@@ -1,3 +1,26 @@
+🔴 **Alert!** Eventually, v2.x will reach end-of-life, after which it will no longer receive any new updates. We encourage you to upgrade to v3.x at the earliest.
+
+### v2.16.0 (2023-01-13)
+* * *
+
+#### New Attributes:
+* ShippingAddress and BillingAddress parameter has been added to the credit_note.
+* is_advance_charge has been added to the unbilled_charge.
+
+#### Added input parameters:
+* CreateSubForCustomerQuoteSubscriptionParams#po_number and CreateSubItemsForCustomerQuoteSubscriptionParams#po_number parameter has been added to Quote resource.
+* ImportUnbilledChargesUnbilledChargeParams#is_advance_charge parameter has been added to Subscription resource.
+* ImportInvoiceRequestParams#has_advance_charges parameter has been added to Invoice resource.
+
+#### New endpoints:
+* Invoice#DeleteLineItems has been added to the Invoice resource.
+
+#### New Enum values:
+* subscription_trial_extended has been added to event_type enum.
+* zero_value_item has been added to tax_exempt_reason enum.
+* bank_of_america has been added to gateway Enum.
+
+
 ### v2.15.0 (2022-11-21)
 * * *
 

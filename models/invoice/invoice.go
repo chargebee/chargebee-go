@@ -606,6 +606,7 @@ type ImportInvoiceRequestParams struct {
 	WriteOffDate      *int64                              `json:"write_off_date,omitempty"`
 	DueDate           *int64                              `json:"due_date,omitempty"`
 	NetTermDays       *int32                              `json:"net_term_days,omitempty"`
+	HasAdvanceCharges *bool                               `json:"has_advance_charges,omitempty"`
 	UseForProration   *bool                               `json:"use_for_proration,omitempty"`
 	LineItems         []*ImportInvoiceLineItemParams      `json:"line_items,omitempty"`
 	LineItemTiers     []*ImportInvoiceLineItemTierParams  `json:"line_item_tiers,omitempty"`
@@ -734,6 +735,12 @@ type ApplyPaymentsRequestParams struct {
 	Comment      string                            `json:"comment,omitempty"`
 }
 type ApplyPaymentsTransactionParams struct {
+	Id string `json:"id,omitempty"`
+}
+type DeleteLineItemsRequestParams struct {
+	LineItems []*DeleteLineItemsLineItemParams `json:"line_items,omitempty"`
+}
+type DeleteLineItemsLineItemParams struct {
 	Id string `json:"id,omitempty"`
 }
 type ApplyCreditsRequestParams struct {
