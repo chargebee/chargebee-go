@@ -9,11 +9,13 @@ import (
 	"strings"
 )
 
-//Do is used to execute an API Request.
+// Do is used to execute an API Request.
 func Do(req *http.Request) (string, error) {
-
-	client := &http.Client{
-		Timeout: TotalHTTPTimeout,
+	var client *http.Client
+	if httpClient != nil {
+		client = httpClient
+	} else {
+		client = &http.Client{Timeout: TotalHTTPTimeout}
 	}
 
 	response, err := client.Do(req)
@@ -45,7 +47,6 @@ func ErrorHandling(resBody []byte) error {
 	}
 	if cbErr.APIErrorCode == "" {
 		return errors.New("the api_error_code is not present - probably not a chargebee error")
-
 	}
 	switch cbErr.Type {
 
