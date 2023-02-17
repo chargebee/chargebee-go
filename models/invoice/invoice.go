@@ -873,6 +873,21 @@ type RecordPaymentTransactionParams struct {
 	ErrorCode       string                 `json:"error_code,omitempty"`
 	ErrorText       string                 `json:"error_text,omitempty"`
 }
+type RecordTaxWithheldRequestParams struct {
+	TaxWithheld *RecordTaxWithheldTaxWithheldParams `json:"tax_withheld,omitempty"`
+}
+type RecordTaxWithheldTaxWithheldParams struct {
+	Amount          *int32 `json:"amount"`
+	ReferenceNumber string `json:"reference_number,omitempty"`
+	Date            *int64 `json:"date,omitempty"`
+	Description     string `json:"description,omitempty"`
+}
+type RemoveTaxWithheldRequestParams struct {
+	TaxWithheld *RemoveTaxWithheldTaxWithheldParams `json:"tax_withheld,omitempty"`
+}
+type RemoveTaxWithheldTaxWithheldParams struct {
+	Id string `json:"id"`
+}
 type RefundRequestParams struct {
 	RefundAmount  *int32                  `json:"refund_amount,omitempty"`
 	CreditNote    *RefundCreditNoteParams `json:"credit_note,omitempty"`

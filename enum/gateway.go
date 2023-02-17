@@ -47,5 +47,6 @@ const (
 	GatewayRazorpay              Gateway = "razorpay"
 	GatewayGlobalPayments        Gateway = "global_payments"
 	GatewayBankOfAmerica         Gateway = "bank_of_america"
+	GatewayEcentric              Gateway = "ecentric"
 	GatewayNotApplicable         Gateway = "not_applicable"
 )

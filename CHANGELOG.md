@@ -1,5 +1,35 @@
 🔴 **Alert!** Eventually, v2.x will reach end-of-life, after which it will no longer receive any new updates. We encourage you to upgrade to v3.x at the earliest.
 
+### v2.17.0 (2023-02-17)
+* * *
+
+#### Fixes:
+* Fixed custom http client request creation issue.
+
+#### New Attributes:
+* resource_version and updated_at parameter has been added to the tax_withheld resource.
+
+#### Added input parameters:
+* ListRequestParams#updated_at parameter has been added to attached_item resource.
+* AttachedItemsAttachedItemParams#updated_at parameter has been added to export resource.
+* CheckoutGiftRequestParams#coupon_ids parameter has been added to hosted_page resource.
+* ProcessReceiptCustomerParams#email, ProcessReceiptCustomerParams#first_name and  ProcessReceiptCustomerParams#last_name parameters has been added to in_app_subscription resource.
+
+#### New endpoints:
+* invoice#RecordTaxWithheld and invoice#RemoveTaxWithheld has been added to the invoice resource.
+* credit_note#RemoveTaxWithheldRefund has been added to the credit_note resource.
+
+#### New Enum values:
+* custom has been added to payment_method Enum.
+* ecentric has been added to gateway Enum.
+
+#### Removed input parameters:
+* EstimateRequestParams#EstimateInvoiceInfoParams parameter has been removed from purchase resource.
+
+#### Deprecated input parameters:
+* CheckoutGiftRequest#coupon parameter have been deprecated in hosted_page resource.
+
+
 ### v2.16.0 (2023-01-13)
 * * *
 

@@ -14,6 +14,8 @@ type TaxWithheld struct {
 	Date            int64                         `json:"date"`
 	CurrencyCode    string                        `json:"currency_code"`
 	Amount          int32                         `json:"amount"`
+	ResourceVersion int64                         `json:"resource_version"`
+	UpdatedAt       int64                         `json:"updated_at"`
 	ExchangeRate    float64                       `json:"exchange_rate"`
 	Object          string                        `json:"object"`
 }

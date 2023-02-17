@@ -48,11 +48,12 @@ type DeleteRequestParams struct {
 	ParentItemId string `json:"parent_item_id"`
 }
 type ListRequestParams struct {
-	Limit         *int32               `json:"limit,omitempty"`
-	Offset        string               `json:"offset,omitempty"`
-	Id            *filter.StringFilter `json:"id,omitempty"`
-	ItemId        *filter.StringFilter `json:"item_id,omitempty"`
-	Type          *filter.EnumFilter   `json:"type,omitempty"`
-	ItemType      *filter.EnumFilter   `json:"item_type,omitempty"`
-	ChargeOnEvent *filter.EnumFilter   `json:"charge_on_event,omitempty"`
+	Limit         *int32                  `json:"limit,omitempty"`
+	Offset        string                  `json:"offset,omitempty"`
+	Id            *filter.StringFilter    `json:"id,omitempty"`
+	ItemId        *filter.StringFilter    `json:"item_id,omitempty"`
+	Type          *filter.EnumFilter      `json:"type,omitempty"`
+	ItemType      *filter.EnumFilter      `json:"item_type,omitempty"`
+	ChargeOnEvent *filter.EnumFilter      `json:"charge_on_event,omitempty"`
+	UpdatedAt     *filter.TimestampFilter `json:"updated_at,omitempty"`
 }
