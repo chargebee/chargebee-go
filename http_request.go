@@ -12,8 +12,12 @@ import (
 //Do is used to execute an API Request.
 func Do(req *http.Request) (string, error) {
 
-	client := &http.Client{
-		Timeout: TotalHTTPTimeout,
+
+	var client *http.Client
+	if httpClient != nil {
+		client = httpClient
+	} else {
+		client = &http.Client{Timeout: TotalHTTPTimeout}
 	}
 
 	response, err := client.Do(req)

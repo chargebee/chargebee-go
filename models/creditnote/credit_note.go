@@ -265,6 +265,12 @@ type CreditNotesForCustomerRequestParams struct {
 type DeleteRequestParams struct {
 	Comment string `json:"comment,omitempty"`
 }
+type RemoveTaxWithheldRefundRequestParams struct {
+	TaxWithheld *RemoveTaxWithheldRefundTaxWithheldParams `json:"tax_withheld,omitempty"`
+}
+type RemoveTaxWithheldRefundTaxWithheldParams struct {
+	Id string `json:"id"`
+}
 type ImportCreditNoteRequestParams struct {
 	Id                   string                                `json:"id"`
 	CustomerId           string                                `json:"customer_id,omitempty"`

@@ -22,7 +22,10 @@ type ProcessReceiptProductParams struct {
 	PeriodUnit     string `json:"period_unit,omitempty"`
 }
 type ProcessReceiptCustomerParams struct {
-	Id string `json:"id,omitempty"`
+	Id        string `json:"id,omitempty"`
+	Email     string `json:"email,omitempty"`
+	FirstName string `json:"first_name,omitempty"`
+	LastName  string `json:"last_name,omitempty"`
 }
 type ImportReceiptRequestParams struct {
 	Receipt  string                       `json:"receipt"`

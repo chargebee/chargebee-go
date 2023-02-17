@@ -726,6 +726,7 @@ type CheckoutGiftRequestParams struct {
 	RedirectUrl  string                          `json:"redirect_url,omitempty"`
 	Subscription *CheckoutGiftSubscriptionParams `json:"subscription,omitempty"`
 	Addons       []*CheckoutGiftAddonParams      `json:"addons,omitempty"`
+	CouponIds    []string                        `json:"coupon_ids,omitempty"`
 }
 type CheckoutGiftGifterParams struct {
 	CustomerId string `json:"customer_id,omitempty"`

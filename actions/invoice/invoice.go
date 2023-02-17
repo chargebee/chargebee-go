@@ -76,6 +76,12 @@ func CollectPayment(id string, params *invoice.CollectPaymentRequestParams) char
 func RecordPayment(id string, params *invoice.RecordPaymentRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/record_payment", url.PathEscape(id)), params)
 }
+func RecordTaxWithheld(id string, params *invoice.RecordTaxWithheldRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/record_tax_withheld", url.PathEscape(id)), params)
+}
+func RemoveTaxWithheld(id string, params *invoice.RemoveTaxWithheldRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/remove_tax_withheld", url.PathEscape(id)), params)
+}
 func Refund(id string, params *invoice.RefundRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/refund", url.PathEscape(id)), params)
 }

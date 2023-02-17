@@ -18,8 +18,8 @@ type CreateRequestParams struct {
 	ItemTiers         []*CreateItemTierParams         `json:"item_tiers,omitempty"`
 	ShippingAddresses []*CreateShippingAddressParams  `json:"shipping_addresses,omitempty"`
 	Discounts         []*CreateDiscountParams         `json:"discounts,omitempty"`
-	InvoiceInfo       *CreateInvoiceInfoParams        `json:"invoice_info,omitempty"`
 	SubscriptionInfo  []*CreateSubscriptionInfoParams `json:"subscription_info,omitempty"`
+	InvoiceInfo       *CreateInvoiceInfoParams        `json:"invoice_info,omitempty"`
 	CustomerId        string                          `json:"customer_id"`
 }
 type CreatePurchaseItemParams struct {
@@ -63,21 +63,20 @@ type CreateDiscountParams struct {
 	Amount        *int64   `json:"amount,omitempty"`
 	IncludedInMrr *bool    `json:"included_in_mrr,omitempty"`
 }
-type CreateInvoiceInfoParams struct {
-	PoNumber string `json:"po_number,omitempty"`
-	Notes    string `json:"notes,omitempty"`
-}
 type CreateSubscriptionInfoParams struct {
 	Index          *int32 `json:"index"`
 	SubscriptionId string `json:"subscription_id,omitempty"`
 	BillingCycles  *int32 `json:"billing_cycles,omitempty"`
+}
+type CreateInvoiceInfoParams struct {
+	PoNumber string `json:"po_number,omitempty"`
+	Notes    string `json:"notes,omitempty"`
 }
 type EstimateRequestParams struct {
 	PurchaseItems     []*EstimatePurchaseItemParams     `json:"purchase_items,omitempty"`
 	ItemTiers         []*EstimateItemTierParams         `json:"item_tiers,omitempty"`
 	ShippingAddresses []*EstimateShippingAddressParams  `json:"shipping_addresses,omitempty"`
 	Discounts         []*EstimateDiscountParams         `json:"discounts,omitempty"`
-	InvoiceInfo       *EstimateInvoiceInfoParams        `json:"invoice_info,omitempty"`
 	SubscriptionInfo  []*EstimateSubscriptionInfoParams `json:"subscription_info,omitempty"`
 	Customer          *EstimateCustomerParams           `json:"customer,omitempty"`
 	BillingAddress    *EstimateBillingAddressParams     `json:"billing_address,omitempty"`
@@ -124,10 +123,6 @@ type EstimateDiscountParams struct {
 	Percentage    *float64 `json:"percentage,omitempty"`
 	Amount        *int64   `json:"amount,omitempty"`
 	IncludedInMrr *bool    `json:"included_in_mrr,omitempty"`
-}
-type EstimateInvoiceInfoParams struct {
-	PoNumber string `json:"po_number,omitempty"`
-	Notes    string `json:"notes,omitempty"`
 }
 type EstimateSubscriptionInfoParams struct {
 	Index          *int32 `json:"index"`

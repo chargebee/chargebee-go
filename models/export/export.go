@@ -395,11 +395,12 @@ type AttachedItemsRequestParams struct {
 	ItemType     *filter.EnumFilter               `json:"item_type,omitempty"`
 }
 type AttachedItemsAttachedItemParams struct {
-	Id            *filter.StringFilter `json:"id,omitempty"`
-	ItemId        *filter.StringFilter `json:"item_id,omitempty"`
-	Type          *filter.EnumFilter   `json:"type,omitempty"`
-	ChargeOnEvent *filter.EnumFilter   `json:"charge_on_event,omitempty"`
-	ParentItemId  *filter.StringFilter `json:"parent_item_id,omitempty"`
+	Id            *filter.StringFilter    `json:"id,omitempty"`
+	ItemId        *filter.StringFilter    `json:"item_id,omitempty"`
+	Type          *filter.EnumFilter      `json:"type,omitempty"`
+	ChargeOnEvent *filter.EnumFilter      `json:"charge_on_event,omitempty"`
+	UpdatedAt     *filter.TimestampFilter `json:"updated_at,omitempty"`
+	ParentItemId  *filter.StringFilter    `json:"parent_item_id,omitempty"`
 }
 type DifferentialPricesRequestParams struct {
 	DifferentialPrice *DifferentialPricesDifferentialPriceParams `json:"differential_price,omitempty"`
