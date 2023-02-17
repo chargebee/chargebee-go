@@ -1,12 +1,19 @@
 package chargebee
 
+import "context"
+
 func (request RequestObj) ListRequest() (*ResultList, error) {
-	result, err := request.ListRequestWithEnv(DefaultConfig())
-	return result, err
+	return request.ListRequestWithContext(context.Background())
+}
+func (request RequestObj) ListRequestWithContext(ctx context.Context) (*ResultList, error) {
+	return request.ListRequestWithContextWithEnv(ctx, DefaultConfig())
 }
 func (request RequestObj) ListRequestWithEnv(env Environment) (*ResultList, error) {
+	return request.ListRequestWithContextWithEnv(context.Background(), env)
+}
+func (request RequestObj) ListRequestWithContextWithEnv(ctx context.Context, env Environment) (*ResultList, error) {
 	path, body := getBody(request.Method, request.Path, request.Params)
-	req, err := newRequest(env, request.Method, path, body, request.Header)
+	req, err := newRequest(ctx, env, request.Method, path, body, request.Header)
 	if err != nil {
 		panic(err)
 	}

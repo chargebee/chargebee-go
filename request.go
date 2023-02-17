@@ -2,18 +2,24 @@ package chargebee
 
 import (
 	"bytes"
+	"context"
 	"io"
 	"net/url"
 	"strings"
 )
 
 func (request RequestObj) Request() (*Result, error) {
-	result, err := request.RequestWithEnv(DefaultConfig())
-	return result, err
+	return request.RequestWithContext(context.Background())
+}
+func (request RequestObj) RequestWithContext(ctx context.Context) (*Result, error) {
+	return request.RequestWithContextWithEnv(ctx, DefaultConfig())
 }
 func (request RequestObj) RequestWithEnv(env Environment) (*Result, error) {
+	return request.RequestWithContextWithEnv(context.Background(), env)
+}
+func (request RequestObj) RequestWithContextWithEnv(ctx context.Context, env Environment) (*Result, error) {
 	path, body := getBody(request.Method, request.Path, request.Params)
-	req, err := newRequest(env, request.Method, path, body, request.Header)
+	req, err := newRequest(ctx, env, request.Method, path, body, request.Header)
 	if err != nil {
 		panic(err)
 	}
