@@ -1,6 +1,7 @@
 package chargebee
 
 import (
+	"context"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
@@ -17,6 +18,7 @@ type RequestObj struct {
 	Method string
 	Path   string
 	Header map[string]string
+	Context context.Context `form:"-"`
 }
 
 func basicAuth(key string) string {
@@ -68,6 +70,16 @@ func (request RequestObj) Headers(key string, value string) RequestObj {
 	request.Header[key] = value
 	return request
 }
+
+
+// Context used for request. It may carry deadlines, cancelation signals,
+// and other request-scoped values across API boundaries and between
+// processes.
+func (request RequestObj) Contexts(ctx context.Context) RequestObj {
+	request.Context =  ctx
+	return request
+}
+
 func newRequest(env Environment, method string, path string, body io.Reader, headers map[string]string) (*http.Request, error) {
 	if !strings.HasPrefix(path, "/") {
 		path = "/" + path

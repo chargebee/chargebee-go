@@ -120,6 +120,7 @@ type UpdateForItemsRequestParams struct {
 	DiscountAmount         *int32                                        `json:"discount_amount,omitempty"`
 	CurrencyCode           string                                        `json:"currency_code,omitempty"`
 	DiscountPercentage     *float64                                      `json:"discount_percentage,omitempty"`
+	DiscountQuantity       *int32                                        `json:"discount_quantity,omitempty"`
 	ApplyOn                couponEnum.ApplyOn                            `json:"apply_on,omitempty"`
 	DurationType           couponEnum.DurationType                       `json:"duration_type,omitempty"`
 	DurationMonth          *int32                                        `json:"duration_month,omitempty"`
@@ -165,6 +166,7 @@ type UpdateRequestParams struct {
 	DiscountAmount     *int32                     `json:"discount_amount,omitempty"`
 	CurrencyCode       string                     `json:"currency_code,omitempty"`
 	DiscountPercentage *float64                   `json:"discount_percentage,omitempty"`
+	DiscountQuantity   *int32                     `json:"discount_quantity,omitempty"`
 	ApplyOn            couponEnum.ApplyOn         `json:"apply_on,omitempty"`
 	DurationType       couponEnum.DurationType    `json:"duration_type,omitempty"`
 	DurationMonth      *int32                     `json:"duration_month,omitempty"`

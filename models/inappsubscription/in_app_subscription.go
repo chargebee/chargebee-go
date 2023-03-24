@@ -1,11 +1,17 @@
 package inappsubscription
 
+import (
+	inAppSubscriptionEnum "github.com/chargebee/chargebee-go/models/inappsubscription/enum"
+)
+
 type InAppSubscription struct {
-	AppId          string `json:"app_id"`
-	SubscriptionId string `json:"subscription_id"`
-	CustomerId     string `json:"customer_id"`
-	PlanId         string `json:"plan_id"`
-	Object         string `json:"object"`
+	AppId          string                            `json:"app_id"`
+	SubscriptionId string                            `json:"subscription_id"`
+	CustomerId     string                            `json:"customer_id"`
+	PlanId         string                            `json:"plan_id"`
+	StoreStatus    inAppSubscriptionEnum.StoreStatus `json:"store_status"`
+	InvoiceId      string                            `json:"invoice_id"`
+	Object         string                            `json:"object"`
 }
 type ProcessReceiptRequestParams struct {
 	Receipt  string                        `json:"receipt"`
@@ -38,4 +44,25 @@ type ImportReceiptProductParams struct {
 type ImportReceiptCustomerParams struct {
 	Id    string `json:"id,omitempty"`
 	Email string `json:"email,omitempty"`
+}
+type ImportSubscriptionRequestParams struct {
+	Subscription *ImportSubscriptionSubscriptionParams `json:"subscription,omitempty"`
+	Customer     *ImportSubscriptionCustomerParams     `json:"customer,omitempty"`
+}
+type ImportSubscriptionSubscriptionParams struct {
+	Id            string `json:"id"`
+	StartedAt     *int64 `json:"started_at"`
+	TermStart     *int64 `json:"term_start"`
+	TermEnd       *int64 `json:"term_end"`
+	ProductId     string `json:"product_id"`
+	CurrencyCode  string `json:"currency_code"`
+	TransactionId string `json:"transaction_id"`
+	IsTrial       *bool  `json:"is_trial,omitempty"`
+}
+type ImportSubscriptionCustomerParams struct {
+	Id    string `json:"id,omitempty"`
+	Email string `json:"email,omitempty"`
+}
+type RetrieveStoreSubsRequestParams struct {
+	Receipt string `json:"receipt"`
 }

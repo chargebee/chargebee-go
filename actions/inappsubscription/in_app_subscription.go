@@ -13,3 +13,9 @@ func ProcessReceipt(id string, params *inappsubscription.ProcessReceiptRequestPa
 func ImportReceipt(id string, params *inappsubscription.ImportReceiptRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/in_app_subscriptions/%v/import_receipt", url.PathEscape(id)), params)
 }
+func ImportSubscription(id string, params *inappsubscription.ImportSubscriptionRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/in_app_subscriptions/%v/import_subscription", url.PathEscape(id)), params)
+}
+func RetrieveStoreSubs(id string, params *inappsubscription.RetrieveStoreSubsRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/in_app_subscriptions/%v/retrieve", url.PathEscape(id)), params)
+}

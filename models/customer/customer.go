@@ -58,6 +58,7 @@ type Customer struct {
 	Balances                         []*Balance                    `json:"balances"`
 	EntityIdentifiers                []*EntityIdentifier           `json:"entity_identifiers"`
 	IsEinvoiceEnabled                bool                          `json:"is_einvoice_enabled"`
+	EinvoicingMethod                 enum.EinvoicingMethod         `json:"einvoicing_method"`
 	MetaData                         json.RawMessage               `json:"meta_data"`
 	Deleted                          bool                          `json:"deleted"`
 	RegisteredForGst                 bool                          `json:"registered_for_gst"`
@@ -179,6 +180,7 @@ type CreateRequestParams struct {
 	EntityIdentifierStandard         string                          `json:"entity_identifier_standard,omitempty"`
 	RegisteredForGst                 *bool                           `json:"registered_for_gst,omitempty"`
 	IsEinvoiceEnabled                *bool                           `json:"is_einvoice_enabled,omitempty"`
+	EinvoicingMethod                 enum.EinvoicingMethod           `json:"einvoicing_method,omitempty"`
 	Taxability                       enum.Taxability                 `json:"taxability,omitempty"`
 	ExemptionDetails                 []map[string]interface{}        `json:"exemption_details,omitempty"`
 	CustomerType                     enum.CustomerType               `json:"customer_type,omitempty"`
@@ -355,6 +357,7 @@ type UpdateBillingInfoRequestParams struct {
 	RegisteredForGst                 *bool                                      `json:"registered_for_gst,omitempty"`
 	BusinessCustomerWithoutVatNumber *bool                                      `json:"business_customer_without_vat_number,omitempty"`
 	IsEinvoiceEnabled                *bool                                      `json:"is_einvoice_enabled,omitempty"`
+	EinvoicingMethod                 enum.EinvoicingMethod                      `json:"einvoicing_method,omitempty"`
 }
 type UpdateBillingInfoBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`

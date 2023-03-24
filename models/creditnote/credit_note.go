@@ -54,10 +54,11 @@ type CreditNote struct {
 	Object                  string                    `json:"object"`
 }
 type Einvoice struct {
-	Id      string                        `json:"id"`
-	Status  creditNoteEnum.EinvoiceStatus `json:"status"`
-	Message string                        `json:"message"`
-	Object  string                        `json:"object"`
+	Id              string                        `json:"id"`
+	ReferenceNumber string                        `json:"reference_number"`
+	Status          creditNoteEnum.EinvoiceStatus `json:"status"`
+	Message         string                        `json:"message"`
+	Object          string                        `json:"object"`
 }
 type LineItem struct {
 	Id                      string                            `json:"id"`
