@@ -109,3 +109,6 @@ func UpdateDetails(id string, params *invoice.UpdateDetailsRequestParams) charge
 func ResendEinvoice(id string) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/resend_einvoice", url.PathEscape(id)), nil)
 }
+func SendEinvoice(id string) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/send_einvoice", url.PathEscape(id)), nil)
+}

@@ -64,9 +64,10 @@ type CreateDiscountParams struct {
 	IncludedInMrr *bool    `json:"included_in_mrr,omitempty"`
 }
 type CreateSubscriptionInfoParams struct {
-	Index          *int32 `json:"index"`
-	SubscriptionId string `json:"subscription_id,omitempty"`
-	BillingCycles  *int32 `json:"billing_cycles,omitempty"`
+	Index          *int32                 `json:"index"`
+	SubscriptionId string                 `json:"subscription_id,omitempty"`
+	BillingCycles  *int32                 `json:"billing_cycles,omitempty"`
+	MetaData       map[string]interface{} `json:"meta_data,omitempty"`
 }
 type CreateInvoiceInfoParams struct {
 	PoNumber string `json:"po_number,omitempty"`

@@ -298,6 +298,7 @@ type CreateCustomerParams struct {
 	EntityIdentifierScheme           string                       `json:"entity_identifier_scheme,omitempty"`
 	EntityIdentifierStandard         string                       `json:"entity_identifier_standard,omitempty"`
 	IsEinvoiceEnabled                *bool                        `json:"is_einvoice_enabled,omitempty"`
+	EinvoicingMethod                 enum.EinvoicingMethod        `json:"einvoicing_method,omitempty"`
 	RegisteredForGst                 *bool                        `json:"registered_for_gst,omitempty"`
 	BusinessCustomerWithoutVatNumber *bool                        `json:"business_customer_without_vat_number,omitempty"`
 	ExemptionDetails                 []map[string]interface{}     `json:"exemption_details,omitempty"`
@@ -789,13 +790,14 @@ type UpdateShippingAddressParams struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
 type UpdateCustomerParams struct {
-	VatNumber                        string `json:"vat_number,omitempty"`
-	VatNumberPrefix                  string `json:"vat_number_prefix,omitempty"`
-	EntityIdentifierScheme           string `json:"entity_identifier_scheme,omitempty"`
-	IsEinvoiceEnabled                *bool  `json:"is_einvoice_enabled,omitempty"`
-	EntityIdentifierStandard         string `json:"entity_identifier_standard,omitempty"`
-	BusinessCustomerWithoutVatNumber *bool  `json:"business_customer_without_vat_number,omitempty"`
-	RegisteredForGst                 *bool  `json:"registered_for_gst,omitempty"`
+	VatNumber                        string                `json:"vat_number,omitempty"`
+	VatNumberPrefix                  string                `json:"vat_number_prefix,omitempty"`
+	EntityIdentifierScheme           string                `json:"entity_identifier_scheme,omitempty"`
+	IsEinvoiceEnabled                *bool                 `json:"is_einvoice_enabled,omitempty"`
+	EinvoicingMethod                 enum.EinvoicingMethod `json:"einvoicing_method,omitempty"`
+	EntityIdentifierStandard         string                `json:"entity_identifier_standard,omitempty"`
+	BusinessCustomerWithoutVatNumber *bool                 `json:"business_customer_without_vat_number,omitempty"`
+	RegisteredForGst                 *bool                 `json:"registered_for_gst,omitempty"`
 }
 type UpdateContractTermParams struct {
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
@@ -953,13 +955,14 @@ type UpdateForItemsShippingAddressParams struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
 type UpdateForItemsCustomerParams struct {
-	VatNumber                        string `json:"vat_number,omitempty"`
-	VatNumberPrefix                  string `json:"vat_number_prefix,omitempty"`
-	EntityIdentifierScheme           string `json:"entity_identifier_scheme,omitempty"`
-	IsEinvoiceEnabled                *bool  `json:"is_einvoice_enabled,omitempty"`
-	EntityIdentifierStandard         string `json:"entity_identifier_standard,omitempty"`
-	BusinessCustomerWithoutVatNumber *bool  `json:"business_customer_without_vat_number,omitempty"`
-	RegisteredForGst                 *bool  `json:"registered_for_gst,omitempty"`
+	VatNumber                        string                `json:"vat_number,omitempty"`
+	VatNumberPrefix                  string                `json:"vat_number_prefix,omitempty"`
+	EntityIdentifierScheme           string                `json:"entity_identifier_scheme,omitempty"`
+	IsEinvoiceEnabled                *bool                 `json:"is_einvoice_enabled,omitempty"`
+	EinvoicingMethod                 enum.EinvoicingMethod `json:"einvoicing_method,omitempty"`
+	EntityIdentifierStandard         string                `json:"entity_identifier_standard,omitempty"`
+	BusinessCustomerWithoutVatNumber *bool                 `json:"business_customer_without_vat_number,omitempty"`
+	RegisteredForGst                 *bool                 `json:"registered_for_gst,omitempty"`
 }
 type UpdateForItemsContractTermParams struct {
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`

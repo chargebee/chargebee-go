@@ -247,10 +247,11 @@ type BillingAddress struct {
 	Object           string                `json:"object"`
 }
 type Einvoice struct {
-	Id      string                     `json:"id"`
-	Status  invoiceEnum.EinvoiceStatus `json:"status"`
-	Message string                     `json:"message"`
-	Object  string                     `json:"object"`
+	Id              string                     `json:"id"`
+	ReferenceNumber string                     `json:"reference_number"`
+	Status          invoiceEnum.EinvoiceStatus `json:"status"`
+	Message         string                     `json:"message"`
+	Object          string                     `json:"object"`
 }
 type CreateRequestParams struct {
 	CustomerId                  string                       `json:"customer_id,omitempty"`

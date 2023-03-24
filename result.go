@@ -15,6 +15,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/creditnote"
 	"github.com/chargebee/chargebee-go/v3/models/customer"
 	"github.com/chargebee/chargebee-go/v3/models/differentialprice"
+	"github.com/chargebee/chargebee-go/v3/models/discount"
 	"github.com/chargebee/chargebee-go/v3/models/download"
 	"github.com/chargebee/chargebee-go/v3/models/entitlementoverride"
 	"github.com/chargebee/chargebee-go/v3/models/estimate"
@@ -64,6 +65,7 @@ type ResultList struct {
 type Result struct {
 	Subscription            *subscription.Subscription                       `json:"subscription,omitempty"`
 	ContractTerm            *contractterm.ContractTerm                       `json:"contract_term,omitempty"`
+	Discount                *discount.Discount                               `json:"discount,omitempty"`
 	AdvanceInvoiceSchedule  *advanceinvoiceschedule.AdvanceInvoiceSchedule   `json:"advance_invoice_schedule,omitempty"`
 	Customer                *customer.Customer                               `json:"customer,omitempty"`
 	Hierarchy               *hierarchy.Hierarchy                             `json:"hierarchy,omitempty"`
