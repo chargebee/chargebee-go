@@ -9,4 +9,5 @@ const (
 	PaymentAttemptStatusRequiresRedirection    PaymentAttemptStatus = "requires_redirection"
 	PaymentAttemptStatusAuthorized             PaymentAttemptStatus = "authorized"
 	PaymentAttemptStatusRefused                PaymentAttemptStatus = "refused"
+	PaymentAttemptStatusPendingAuthorization   PaymentAttemptStatus = "pending_authorization"
 )

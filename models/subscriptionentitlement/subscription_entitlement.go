@@ -5,7 +5,6 @@ import (
 )
 
 type SubscriptionEntitlement struct {
-	Id             string     `json:"id"`
 	SubscriptionId string     `json:"subscription_id"`
 	FeatureId      string     `json:"feature_id"`
 	FeatureName    string     `json:"feature_name"`
