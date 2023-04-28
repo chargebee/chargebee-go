@@ -211,6 +211,7 @@ type CouponsCouponParams struct {
 	UpdatedAt    *filter.TimestampFilter `json:"updated_at,omitempty"`
 }
 type CustomersRequestParams struct {
+	ExportType       enum.ExportType              `json:"export_type,omitempty"`
 	Customer         *CustomersCustomerParams     `json:"customer,omitempty"`
 	Relationship     *CustomersRelationshipParams `json:"relationship,omitempty"`
 	BusinessEntityId *filter.StringFilter         `json:"business_entity_id,omitempty"`
@@ -236,6 +237,7 @@ type CustomersRelationshipParams struct {
 	InvoiceOwnerId *filter.StringFilter `json:"invoice_owner_id,omitempty"`
 }
 type SubscriptionsRequestParams struct {
+	ExportType       enum.ExportType                  `json:"export_type,omitempty"`
 	Subscription     *SubscriptionsSubscriptionParams `json:"subscription,omitempty"`
 	ItemId           *filter.StringFilter             `json:"item_id,omitempty"`
 	ItemPriceId      *filter.StringFilter             `json:"item_price_id,omitempty"`

@@ -1,3 +1,3 @@
 package chargebee
 
-const Version string = "2.18.0"
+const Version string = "2.19.0"
