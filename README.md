@@ -211,6 +211,42 @@ func main() {
 }
 ```
 
+### Create an idempotent request
+
+[Idempotency keys](https://apidocs.chargebee.com/docs/api) are passed along with request headers to allow a safe retry of POST requests. 
+
+```go
+import (
+	"fmt"
+	"github.com/chargebee/chargebee-go/v3"
+	customerAction "github.com/chargebee/chargebee-go/v3/actions/customer"
+	"github.com/chargebee/chargebee-go/v3/models/customer"
+)
+
+func main() {
+    chargebee.Configure("{site_api_key}", "{site}")
+	res, err := customerAction.Create(&customer.CreateRequestParams{
+		FirstName: "John",
+		LastName:  "Doe",
+		Email:     "john@test.com",
+	})
+	.SetIdempotencyKey("ghggh") // Replace <<UUID>> with a unique string
+	.Request()
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		Customer := res.Customer
+		fmt.Println(Customer)
+	}
+  headerValue := res.GetResponseHeaders() // Retrieves response headers
+	fmt.Println(headerValue)
+  idempotencyReplayedValue := res.IsIdempotencyReplayed()// Retrieves idempotency replayed header value 
+  fmt.Println(idempotencyReplayedValue)
+}
+```
+`IsIdempotencyReplayed()` method can be accessed to differentiate between original and replayed requests.
+
+
 
 
 ## Use the test suite

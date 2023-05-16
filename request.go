@@ -25,7 +25,12 @@ func (request RequestObj) RequestWithEnv(env Environment) (*Result, error) {
 	if requestError != nil {
 		return result, requestError
 	}
-	requestError = UnmarshalJSON([]byte(res), result)
+
+	if err := UnmarshalJSON(res.Body, result); err != nil {
+		return result, nil
+	}
+	result.responseHeaders = res.Headers
+
 	return result, requestError
 }
 func getBody(method string, path string, form *url.Values) (string, io.Reader) {

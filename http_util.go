@@ -71,6 +71,15 @@ func (request RequestObj) Headers(key string, value string) RequestObj {
 	return request
 }
 
+// This is used to add idempotency key .
+func (request RequestObj) SetIdempotencyKey(idempotencyKey string) RequestObj {
+	if request.Header == nil {
+		request.Header = make(map[string]string)
+	}
+	request.Header[IdempotencyHeader] = idempotencyKey
+	return request
+}
+
 // Context used for request. It may carry deadlines, cancelation signals,
 // and other request-scoped values across API boundaries and between
 // processes.

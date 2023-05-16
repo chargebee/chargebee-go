@@ -15,9 +15,15 @@ func (request RequestObj) ListRequestWithEnv(env Environment) (*ResultList, erro
 	}
 	res, requestError := Do(req)
 	result := &ResultList{}
+
 	if requestError != nil {
 		return result, requestError
 	}
-	requestError = UnmarshalJSON([]byte(res), result)
+
+	if err := UnmarshalJSON(res.Body, result); err != nil {
+		return result, err
+	}
+
+	result.responseHeaders = res.Headers
 	return result, nil
 }
