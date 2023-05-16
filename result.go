@@ -56,11 +56,14 @@ import (
 	"github.com/chargebee/chargebee-go/models/inappsubscription"
 	"github.com/chargebee/chargebee-go/models/entitlementoverride"
 	"github.com/chargebee/chargebee-go/models/purchase"
+	"net/http"
+	"strconv"
 )
 
 type ResultList struct {
-	List       []*Result `json:"list"`
-	NextOffset string    `json:"next_offset"`
+	List            []*Result  `json:"list"`
+	NextOffset      string     `json:"next_offset"`
+	responseHeaders http.Header 
 }
 type Result struct {
 	Subscription            *subscription.Subscription                       `json:"subscription,omitempty"`
@@ -126,5 +129,34 @@ type Result struct {
 	Invoices                []*invoice.Invoice                               `json:"invoices,omitempty"`
 	DifferentialPrices      []*differentialprice.DifferentialPrice           `json:"differential_prices,omitempty"`
 	InAppSubscriptions      []*inappsubscription.InAppSubscription           `json:"in_app_subscriptions,omitempty"`
+	responseHeaders         http.Header
+}
+
+func (rl *ResultList) GetResponseHeaders() http.Header {
+	return rl.responseHeaders
+}
+
+func (r *Result) GetResponseHeaders() http.Header {
+	return r.responseHeaders
+}
+
+func (r *Result) IsIdempotencyReplayed() bool {
+	value := r.responseHeaders.Get(IdempotencyReplayHeader)
+	replayed, err := strconv.ParseBool(value)
+	if err != nil {
+		return false
+	}
+	return replayed
+}
+
+type ResponseMeta struct {
+	Headers    http.Header
+	Status     string
+	StatusCode int
+}
+
+type CBResponse struct {
+	Body []byte
+	ResponseMeta
 
 }

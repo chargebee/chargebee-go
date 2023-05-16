@@ -2,6 +2,15 @@
 
 * * * 
 
+### v2.20.0 (2023-05-16)
+* * *
+
+#### New Feature:
+* Added SetIdempotencyKey("UUID") utility to pass **Idempotency key** along with request headers to allow a safe retry of POST requests.
+* Added IsIdempotencyReplayed() utility to differentiate between original and replayed requests.
+* Added GetResponseHeaders() utility to fetch the response headers.
+
+
 ### v2.19.0 (2023-04-28)
 * * *
 
