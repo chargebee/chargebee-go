@@ -68,6 +68,9 @@ func List(params *hostedpage.ListRequestParams) chargebee.RequestObj {
 func PreCancel(params *hostedpage.PreCancelRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/pre_cancel"), params)
 }
+func Events(params *hostedpage.EventsRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/events"), params)
+}
 func Content(page hostedpage.HostedPage) *chargebee.Result {
 	content := &chargebee.Result{}
 	err1 := json.Unmarshal(page.Content, content)

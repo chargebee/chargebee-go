@@ -27,4 +27,5 @@ const (
 	PaymentMethodUpi                   PaymentMethod = "upi"
 	PaymentMethodNetbankingEmandates   PaymentMethod = "netbanking_emandates"
 	PaymentMethodCustom                PaymentMethod = "custom"
+	PaymentMethodBoleto                PaymentMethod = "boleto"
 )

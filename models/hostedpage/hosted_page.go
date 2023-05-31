@@ -790,3 +790,8 @@ type PreCancelRequestParams struct {
 type PreCancelSubscriptionParams struct {
 	Id string `json:"id"`
 }
+type EventsRequestParams struct {
+	EventName  enum.EventName         `json:"event_name"`
+	OccurredAt *int64                 `json:"occurred_at,omitempty"`
+	EventData  map[string]interface{} `json:"event_data"`
+}

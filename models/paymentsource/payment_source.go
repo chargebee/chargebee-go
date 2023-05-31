@@ -22,6 +22,8 @@ type PaymentSource struct {
 	IssuingCountry   string                   `json:"issuing_country"`
 	Card             *Card                    `json:"card"`
 	BankAccount      *BankAccount             `json:"bank_account"`
+	Boleto           *CustVoucherSource       `json:"boleto"`
+	BillingAddress   *BillingAddress          `json:"billing_address"`
 	AmazonPayment    *AmazonPayment           `json:"amazon_payment"`
 	Upi              *Upi                     `json:"upi"`
 	Paypal           *Paypal                  `json:"paypal"`
@@ -61,6 +63,30 @@ type BankAccount struct {
 	AccountHolderType enum.AccountHolderType `json:"account_holder_type"`
 	Email             string                 `json:"email"`
 	Object            string                 `json:"object"`
+}
+type CustVoucherSource struct {
+	Last4     string `json:"last4"`
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+	Email     string `json:"email"`
+	Object    string `json:"object"`
+}
+type BillingAddress struct {
+	FirstName        string                `json:"first_name"`
+	LastName         string                `json:"last_name"`
+	Email            string                `json:"email"`
+	Company          string                `json:"company"`
+	Phone            string                `json:"phone"`
+	Line1            string                `json:"line1"`
+	Line2            string                `json:"line2"`
+	Line3            string                `json:"line3"`
+	City             string                `json:"city"`
+	StateCode        string                `json:"state_code"`
+	State            string                `json:"state"`
+	Country          string                `json:"country"`
+	Zip              string                `json:"zip"`
+	ValidationStatus enum.ValidationStatus `json:"validation_status"`
+	Object           string                `json:"object"`
 }
 type AmazonPayment struct {
 	Email       string `json:"email"`
@@ -119,6 +145,16 @@ type CreateUsingPaymentIntentPaymentIntentParams struct {
 	GwPaymentMethodId     string                              `json:"gw_payment_method_id,omitempty"`
 	AdditionalInfo        map[string]interface{}              `json:"additional_info,omitempty"`
 	AdditionalInformation map[string]interface{}              `json:"additional_information,omitempty"`
+}
+type CreateVoucherPaymentSourceRequestParams struct {
+	CustomerId           string                                                `json:"customer_id"`
+	VoucherPaymentSource *CreateVoucherPaymentSourceVoucherPaymentSourceParams `json:"voucher_payment_source,omitempty"`
+}
+type CreateVoucherPaymentSourceVoucherPaymentSourceParams struct {
+	VoucherType      enum.VoucherType       `json:"voucher_type"`
+	GatewayAccountId string                 `json:"gateway_account_id,omitempty"`
+	TaxId            string                 `json:"tax_id,omitempty"`
+	BillingAddress   map[string]interface{} `json:"billing_address,omitempty"`
 }
 type CreateCardRequestParams struct {
 	CustomerId                  string                `json:"customer_id"`

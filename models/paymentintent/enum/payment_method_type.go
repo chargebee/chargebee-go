@@ -15,4 +15,5 @@ const (
 	PaymentMethodTypeNetbankingEmandates   PaymentMethodType = "netbanking_emandates"
 	PaymentMethodTypePaypalExpressCheckout PaymentMethodType = "paypal_express_checkout"
 	PaymentMethodTypeDirectDebit           PaymentMethodType = "direct_debit"
+	PaymentMethodTypeBoleto                PaymentMethodType = "boleto"
 )

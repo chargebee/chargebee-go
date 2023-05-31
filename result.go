@@ -56,6 +56,7 @@ import (
 	"github.com/chargebee/chargebee-go/models/inappsubscription"
 	"github.com/chargebee/chargebee-go/models/entitlementoverride"
 	"github.com/chargebee/chargebee-go/models/purchase"
+	"github.com/chargebee/chargebee-go/models/paymentvoucher"
 	"net/http"
 	"strconv"
 )
@@ -121,6 +122,7 @@ type Result struct {
 	InAppSubscription       *inappsubscription.InAppSubscription             `json:"in_app_subscription,omitempty"`
 	EntitlementOverride     *entitlementoverride.EntitlementOverride         `json:"entitlement_override,omitempty"`
 	Purchase                *purchase.Purchase                               `json:"purchase,omitempty"`
+	PaymentVoucher          *paymentvoucher.PaymentVoucher                   `json:"payment_voucher,omitempty"`
 	UnbilledCharges         []*unbilledcharge.UnbilledCharge                 `json:"unbilled_charges,omitempty"`
 	CreditNotes             []*creditnote.CreditNote                         `json:"credit_notes,omitempty"`
 	AdvanceInvoiceSchedules []*advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedules,omitempty"`
