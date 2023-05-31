@@ -17,4 +17,6 @@ const (
 	EntityTypeItemFamily     EntityType = "item_family"
 	EntityTypeItem           EntityType = "item"
 	EntityTypeItemPrice      EntityType = "item_price"
+	EntityTypeProduct        EntityType = "product"
+	EntityTypeVariant        EntityType = "variant"
 )

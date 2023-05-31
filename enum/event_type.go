@@ -160,4 +160,13 @@ const (
 	EventTypeBusinessEntityUpdated                     EventType = "business_entity_updated"
 	EventTypeBusinessEntityDeleted                     EventType = "business_entity_deleted"
 	EventTypePurchaseCreated                           EventType = "purchase_created"
+	EventTypeVoucherCreated                            EventType = "voucher_created"
+	EventTypeVoucherExpired                            EventType = "voucher_expired"
+	EventTypeVoucherCreateFailed                       EventType = "voucher_create_failed"
+	EventTypeProductCreated                            EventType = "product_created"
+	EventTypeProductUpdated                            EventType = "product_updated"
+	EventTypeProductDeleted                            EventType = "product_deleted"
+	EventTypeVariantCreated                            EventType = "variant_created"
+	EventTypeVariantUpdated                            EventType = "variant_updated"
+	EventTypeVariantDeleted                            EventType = "variant_deleted"
 )

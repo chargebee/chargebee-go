@@ -9,4 +9,5 @@ const (
 	OfflinePaymentMethodBankTransfer OfflinePaymentMethod = "bank_transfer"
 	OfflinePaymentMethodAchCredit    OfflinePaymentMethod = "ach_credit"
 	OfflinePaymentMethodSepaCredit   OfflinePaymentMethod = "sepa_credit"
+	OfflinePaymentMethodBoleto       OfflinePaymentMethod = "boleto"
 )
