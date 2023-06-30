@@ -48,5 +48,7 @@ const (
 	GatewayGlobalPayments        Gateway = "global_payments"
 	GatewayBankOfAmerica         Gateway = "bank_of_america"
 	GatewayEcentric              Gateway = "ecentric"
+	GatewayMetricsGlobal         Gateway = "metrics_global"
+	GatewayWindcave              Gateway = "windcave"
 	GatewayNotApplicable         Gateway = "not_applicable"
 )

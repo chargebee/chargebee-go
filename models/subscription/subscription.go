@@ -276,6 +276,7 @@ type CreateRequestParams struct {
 	ContractTermBillingCycleOnRenewal *int32                          `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 	TrialEndAction                    enum.TrialEndAction             `json:"trial_end_action,omitempty"`
 	ClientProfileId                   string                          `json:"client_profile_id,omitempty"`
+	PaymentInitiator                  enum.PaymentInitiator           `json:"payment_initiator,omitempty"`
 }
 type CreateCustomerParams struct {
 	Id                               string                       `json:"id,omitempty"`
@@ -460,6 +461,7 @@ type CreateForCustomerRequestParams struct {
 	ContractTerm                      *CreateForCustomerContractTermParams      `json:"contract_term,omitempty"`
 	ContractTermBillingCycleOnRenewal *int32                                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 	TrialEndAction                    enum.TrialEndAction                       `json:"trial_end_action,omitempty"`
+	PaymentInitiator                  enum.PaymentInitiator                     `json:"payment_initiator,omitempty"`
 }
 type CreateForCustomerAddonParams struct {
 	Id                 string `json:"id,omitempty"`
@@ -546,6 +548,7 @@ type CreateWithItemsRequestParams struct {
 	AutoCloseInvoices                 *bool                                    `json:"auto_close_invoices,omitempty"`
 	FirstInvoicePending               *bool                                    `json:"first_invoice_pending,omitempty"`
 	TrialEndAction                    enum.TrialEndAction                      `json:"trial_end_action,omitempty"`
+	PaymentInitiator                  enum.PaymentInitiator                    `json:"payment_initiator,omitempty"`
 }
 type CreateWithItemsSubscriptionItemParams struct {
 	ItemPriceId        string              `json:"item_price_id"`
@@ -849,6 +852,7 @@ type UpdateForItemsRequestParams struct {
 	CreatePendingInvoices             *bool                                   `json:"create_pending_invoices,omitempty"`
 	AutoCloseInvoices                 *bool                                   `json:"auto_close_invoices,omitempty"`
 	TrialEndAction                    enum.TrialEndAction                     `json:"trial_end_action,omitempty"`
+	PaymentInitiator                  enum.PaymentInitiator                   `json:"payment_initiator,omitempty"`
 }
 type UpdateForItemsSubscriptionItemParams struct {
 	ItemPriceId        string              `json:"item_price_id"`
@@ -985,6 +989,7 @@ type ReactivateRequestParams struct {
 	InvoiceDate                       *int64                         `json:"invoice_date,omitempty"`
 	ContractTerm                      *ReactivateContractTermParams  `json:"contract_term,omitempty"`
 	ContractTermBillingCycleOnRenewal *int32                         `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	PaymentInitiator                  enum.PaymentInitiator          `json:"payment_initiator,omitempty"`
 	PaymentIntent                     *ReactivatePaymentIntentParams `json:"payment_intent,omitempty"`
 }
 type ReactivateContractTermParams struct {
@@ -1525,6 +1530,7 @@ type ResumeRequestParams struct {
 	ResumeDate             *int64                      `json:"resume_date,omitempty"`
 	ChargesHandling        enum.ChargesHandling        `json:"charges_handling,omitempty"`
 	UnpaidInvoicesHandling enum.UnpaidInvoicesHandling `json:"unpaid_invoices_handling,omitempty"`
+	PaymentInitiator       enum.PaymentInitiator       `json:"payment_initiator,omitempty"`
 	PaymentIntent          *ResumePaymentIntentParams  `json:"payment_intent,omitempty"`
 }
 type ResumePaymentIntentParams struct {

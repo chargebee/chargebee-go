@@ -9,49 +9,50 @@ import (
 )
 
 type CreditNote struct {
-	Id                      string                    `json:"id"`
-	CustomerId              string                    `json:"customer_id"`
-	SubscriptionId          string                    `json:"subscription_id"`
-	ReferenceInvoiceId      string                    `json:"reference_invoice_id"`
-	Type                    creditNoteEnum.Type       `json:"type"`
-	ReasonCode              creditNoteEnum.ReasonCode `json:"reason_code"`
-	Status                  creditNoteEnum.Status     `json:"status"`
-	VatNumber               string                    `json:"vat_number"`
-	Date                    int64                     `json:"date"`
-	PriceType               enum.PriceType            `json:"price_type"`
-	CurrencyCode            string                    `json:"currency_code"`
-	Total                   int64                     `json:"total"`
-	AmountAllocated         int64                     `json:"amount_allocated"`
-	AmountRefunded          int64                     `json:"amount_refunded"`
-	AmountAvailable         int64                     `json:"amount_available"`
-	RefundedAt              int64                     `json:"refunded_at"`
-	VoidedAt                int64                     `json:"voided_at"`
-	GeneratedAt             int64                     `json:"generated_at"`
-	ResourceVersion         int64                     `json:"resource_version"`
-	UpdatedAt               int64                     `json:"updated_at"`
-	Channel                 enum.Channel              `json:"channel"`
-	Einvoice                *Einvoice                 `json:"einvoice"`
-	SubTotal                int64                     `json:"sub_total"`
-	SubTotalInLocalCurrency int64                     `json:"sub_total_in_local_currency"`
-	TotalInLocalCurrency    int64                     `json:"total_in_local_currency"`
-	LocalCurrencyCode       string                    `json:"local_currency_code"`
-	RoundOffAmount          int64                     `json:"round_off_amount"`
-	FractionalCorrection    int64                     `json:"fractional_correction"`
-	LineItems               []*LineItem               `json:"line_items"`
-	Discounts               []*Discount               `json:"discounts"`
-	LineItemDiscounts       []*LineItemDiscount       `json:"line_item_discounts"`
-	LineItemTiers           []*LineItemTier           `json:"line_item_tiers"`
-	Taxes                   []*Tax                    `json:"taxes"`
-	LineItemTaxes           []*LineItemTax            `json:"line_item_taxes"`
-	LinkedRefunds           []*LinkedRefund           `json:"linked_refunds"`
-	Allocations             []*Allocation             `json:"allocations"`
-	Deleted                 bool                      `json:"deleted"`
-	CreateReasonCode        string                    `json:"create_reason_code"`
-	VatNumberPrefix         string                    `json:"vat_number_prefix"`
-	BusinessEntityId        string                    `json:"business_entity_id"`
-	ShippingAddress         *ShippingAddress          `json:"shipping_address"`
-	BillingAddress          *BillingAddress           `json:"billing_address"`
-	Object                  string                    `json:"object"`
+	Id                        string                    `json:"id"`
+	CustomerId                string                    `json:"customer_id"`
+	SubscriptionId            string                    `json:"subscription_id"`
+	ReferenceInvoiceId        string                    `json:"reference_invoice_id"`
+	Type                      creditNoteEnum.Type       `json:"type"`
+	ReasonCode                creditNoteEnum.ReasonCode `json:"reason_code"`
+	Status                    creditNoteEnum.Status     `json:"status"`
+	VatNumber                 string                    `json:"vat_number"`
+	Date                      int64                     `json:"date"`
+	PriceType                 enum.PriceType            `json:"price_type"`
+	CurrencyCode              string                    `json:"currency_code"`
+	Total                     int64                     `json:"total"`
+	AmountAllocated           int64                     `json:"amount_allocated"`
+	AmountRefunded            int64                     `json:"amount_refunded"`
+	AmountAvailable           int64                     `json:"amount_available"`
+	RefundedAt                int64                     `json:"refunded_at"`
+	VoidedAt                  int64                     `json:"voided_at"`
+	GeneratedAt               int64                     `json:"generated_at"`
+	ResourceVersion           int64                     `json:"resource_version"`
+	UpdatedAt                 int64                     `json:"updated_at"`
+	Channel                   enum.Channel              `json:"channel"`
+	Einvoice                  *Einvoice                 `json:"einvoice"`
+	SubTotal                  int64                     `json:"sub_total"`
+	SubTotalInLocalCurrency   int64                     `json:"sub_total_in_local_currency"`
+	TotalInLocalCurrency      int64                     `json:"total_in_local_currency"`
+	LocalCurrencyCode         string                    `json:"local_currency_code"`
+	RoundOffAmount            int64                     `json:"round_off_amount"`
+	FractionalCorrection      int64                     `json:"fractional_correction"`
+	LineItems                 []*LineItem               `json:"line_items"`
+	Discounts                 []*Discount               `json:"discounts"`
+	LineItemDiscounts         []*LineItemDiscount       `json:"line_item_discounts"`
+	LineItemTiers             []*LineItemTier           `json:"line_item_tiers"`
+	Taxes                     []*Tax                    `json:"taxes"`
+	LineItemTaxes             []*LineItemTax            `json:"line_item_taxes"`
+	LinkedRefunds             []*LinkedRefund           `json:"linked_refunds"`
+	Allocations               []*Allocation             `json:"allocations"`
+	Deleted                   bool                      `json:"deleted"`
+	LocalCurrencyExchangeRate float64                   `json:"local_currency_exchange_rate"`
+	CreateReasonCode          string                    `json:"create_reason_code"`
+	VatNumberPrefix           string                    `json:"vat_number_prefix"`
+	BusinessEntityId          string                    `json:"business_entity_id"`
+	ShippingAddress           *ShippingAddress          `json:"shipping_address"`
+	BillingAddress            *BillingAddress           `json:"billing_address"`
+	Object                    string                    `json:"object"`
 }
 type Einvoice struct {
 	Id              string                        `json:"id"`
@@ -280,7 +281,7 @@ type ImportCreditNoteRequestParams struct {
 	Type                 creditNoteEnum.Type                   `json:"type"`
 	CurrencyCode         string                                `json:"currency_code,omitempty"`
 	CreateReasonCode     string                                `json:"create_reason_code"`
-	Date                 *int64                                `json:"date,omitempty"`
+	Date                 *int64                                `json:"date"`
 	Status               creditNoteEnum.Status                 `json:"status,omitempty"`
 	Total                *int64                                `json:"total,omitempty"`
 	RefundedAt           *int64                                `json:"refunded_at,omitempty"`
