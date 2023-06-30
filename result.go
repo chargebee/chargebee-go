@@ -15,6 +15,7 @@ import (
 	"github.com/chargebee/chargebee-go/models/card"
 	"github.com/chargebee/chargebee-go/models/promotionalcredit"
 	"github.com/chargebee/chargebee-go/models/invoice"
+	"github.com/chargebee/chargebee-go/models/paymentreferencenumber"
 	"github.com/chargebee/chargebee-go/models/taxwithheld"
 	"github.com/chargebee/chargebee-go/models/creditnote"
 	"github.com/chargebee/chargebee-go/models/unbilledcharge"
@@ -81,6 +82,7 @@ type Result struct {
 	Card                    *card.Card                                       `json:"card,omitempty"`
 	PromotionalCredit       *promotionalcredit.PromotionalCredit             `json:"promotional_credit,omitempty"`
 	Invoice                 *invoice.Invoice                                 `json:"invoice,omitempty"`
+	PaymentReferenceNumber  *paymentreferencenumber.PaymentReferenceNumber   `json:"payment_reference_number,omitempty"`
 	TaxWithheld             *taxwithheld.TaxWithheld                         `json:"tax_withheld,omitempty"`
 	CreditNote              *creditnote.CreditNote                           `json:"credit_note,omitempty"`
 	UnbilledCharge          *unbilledcharge.UnbilledCharge                   `json:"unbilled_charge,omitempty"`

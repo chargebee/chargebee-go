@@ -466,6 +466,7 @@ type CollectPaymentRequestParams struct {
 	PaymentIntent               *CollectPaymentPaymentIntentParams       `json:"payment_intent,omitempty"`
 	ReplacePrimaryPaymentSource *bool                                    `json:"replace_primary_payment_source,omitempty"`
 	RetainPaymentSource         *bool                                    `json:"retain_payment_source,omitempty"`
+	PaymentInitiator            enum.PaymentInitiator                    `json:"payment_initiator,omitempty"`
 }
 type CollectPaymentInvoiceAllocationParams struct {
 	InvoiceId        string `json:"invoice_id"`

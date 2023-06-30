@@ -795,3 +795,13 @@ type EventsRequestParams struct {
 	OccurredAt *int64                 `json:"occurred_at,omitempty"`
 	EventData  map[string]interface{} `json:"event_data"`
 }
+type ViewVoucherRequestParams struct {
+	PaymentVoucher *ViewVoucherPaymentVoucherParams `json:"payment_voucher,omitempty"`
+	Customer       *ViewVoucherCustomerParams       `json:"customer,omitempty"`
+}
+type ViewVoucherPaymentVoucherParams struct {
+	Id string `json:"id"`
+}
+type ViewVoucherCustomerParams struct {
+	Locale string `json:"locale,omitempty"`
+}

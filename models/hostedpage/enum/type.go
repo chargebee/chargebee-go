@@ -14,4 +14,5 @@ const (
 	TypeClaimGift            Type = "claim_gift"
 	TypeCheckoutOneTime      Type = "checkout_one_time"
 	TypePreCancel            Type = "pre_cancel"
+	TypeViewVoucher          Type = "view_voucher"
 )
