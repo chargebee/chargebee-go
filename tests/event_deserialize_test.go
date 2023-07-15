@@ -17,4 +17,8 @@ func TestDeserialize(t *testing.T) {
 	assert.NotNil(t, content.Card)
 	assert.NotNil(t, content.Invoice)
 	assert.NotNil(t, content.Transaction)
+
+	// Check that custom fields are here
+	assert.Equal(t, content.Subscription.CustomField["cf_subscription_comment"], "test_value_subscription")
+	assert.Equal(t, content.Customer.CustomField["cf_customer_comment"], "test_value_customer")
 }

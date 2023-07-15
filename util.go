@@ -89,7 +89,7 @@ func parseArray(anArray []interface{}, serParams map[string]interface{}, prefix 
 				k := prefix + "[" + mk + "]" + "[" + strconv.Itoa(i) + "]"
 				serParams[k] = mv
 			}
-			default:
+		default:
 			k := prefix + "[" + strconv.Itoa(i) + "]"
 			serParams[k] = value
 		}
@@ -163,7 +163,7 @@ func camelCase(str string) string {
 func customFieldExtraction(v interface{}, resJSON []byte) {
 	switch v.(type) {
 	case *Result:
-		prepareResultCF(resJSON, v)
+		PrepareResultCF(resJSON, v)
 
 	case *ResultList:
 		prepareResultListCF(resJSON, v)
@@ -183,7 +183,7 @@ func customMapping(val interface{}) map[string]interface{} {
 	return custom
 }
 
-func prepareResultCF(resbody []byte, v interface{}) {
+func PrepareResultCF(resbody []byte, v interface{}) {
 	data := json.NewDecoder(strings.NewReader(string(resbody)))
 	data.UseNumber()
 	var m map[string]interface{}

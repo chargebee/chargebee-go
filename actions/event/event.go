@@ -22,6 +22,10 @@ func Content(event event.Event) *chargebee.Result {
 	if err1 != nil {
 		panic(err1)
 	}
+
+	// Parse and populate custom fields
+	chargebee.PrepareResultCF(event.Content, content)
+
 	return content
 }
 
