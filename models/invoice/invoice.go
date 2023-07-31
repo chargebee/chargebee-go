@@ -70,6 +70,7 @@ type Invoice struct {
 	PaymentOwner              string                    `json:"payment_owner"`
 	VoidReasonCode            string                    `json:"void_reason_code"`
 	Deleted                   bool                      `json:"deleted"`
+	TaxCategory               string                    `json:"tax_category"`
 	VatNumberPrefix           string                    `json:"vat_number_prefix"`
 	Channel                   enum.Channel              `json:"channel"`
 	BusinessEntityId          string                    `json:"business_entity_id"`

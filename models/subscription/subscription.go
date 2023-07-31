@@ -277,6 +277,7 @@ type CreateRequestParams struct {
 	TrialEndAction                    enum.TrialEndAction             `json:"trial_end_action,omitempty"`
 	ClientProfileId                   string                          `json:"client_profile_id,omitempty"`
 	PaymentInitiator                  enum.PaymentInitiator           `json:"payment_initiator,omitempty"`
+	Coupons                           []*CreateCouponParams           `json:"coupons,omitempty"`
 }
 type CreateCustomerParams struct {
 	Id                               string                       `json:"id,omitempty"`
@@ -425,6 +426,10 @@ type CreateContractTermParams struct {
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
+type CreateCouponParams struct {
+	CouponId  string `json:"coupon_id,omitempty"`
+	ApplyTill *int64 `json:"apply_till,omitempty"`
+}
 type CreateForCustomerRequestParams struct {
 	Id                                string                                    `json:"id,omitempty"`
 	BusinessEntityId                  string                                    `json:"business_entity_id,omitempty"`
@@ -462,6 +467,7 @@ type CreateForCustomerRequestParams struct {
 	ContractTermBillingCycleOnRenewal *int32                                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 	TrialEndAction                    enum.TrialEndAction                       `json:"trial_end_action,omitempty"`
 	PaymentInitiator                  enum.PaymentInitiator                     `json:"payment_initiator,omitempty"`
+	Coupons                           []*CreateForCustomerCouponParams          `json:"coupons,omitempty"`
 }
 type CreateForCustomerAddonParams struct {
 	Id                 string `json:"id,omitempty"`
@@ -512,6 +518,10 @@ type CreateForCustomerContractTermParams struct {
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
+type CreateForCustomerCouponParams struct {
+	CouponId  string `json:"coupon_id,omitempty"`
+	ApplyTill *int64 `json:"apply_till,omitempty"`
+}
 type CreateWithItemsRequestParams struct {
 	Id                                string                                   `json:"id,omitempty"`
 	BusinessEntityId                  string                                   `json:"business_entity_id,omitempty"`
@@ -549,6 +559,7 @@ type CreateWithItemsRequestParams struct {
 	FirstInvoicePending               *bool                                    `json:"first_invoice_pending,omitempty"`
 	TrialEndAction                    enum.TrialEndAction                      `json:"trial_end_action,omitempty"`
 	PaymentInitiator                  enum.PaymentInitiator                    `json:"payment_initiator,omitempty"`
+	Coupons                           []*CreateWithItemsCouponParams           `json:"coupons,omitempty"`
 }
 type CreateWithItemsSubscriptionItemParams struct {
 	ItemPriceId        string              `json:"item_price_id"`
@@ -611,6 +622,10 @@ type CreateWithItemsPaymentIntentParams struct {
 type CreateWithItemsContractTermParams struct {
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
+}
+type CreateWithItemsCouponParams struct {
+	CouponId  string `json:"coupon_id,omitempty"`
+	ApplyTill *int64 `json:"apply_till,omitempty"`
 }
 type ListRequestParams struct {
 	Limit                  *int32                  `json:"limit,omitempty"`
@@ -702,15 +717,17 @@ type UpdateRequestParams struct {
 	FreePeriod                        *int32                         `json:"free_period,omitempty"`
 	FreePeriodUnit                    enum.FreePeriodUnit            `json:"free_period_unit,omitempty"`
 	TrialEndAction                    enum.TrialEndAction            `json:"trial_end_action,omitempty"`
+	Coupons                           []*UpdateCouponParams          `json:"coupons,omitempty"`
 }
 type UpdateAddonParams struct {
-	Id                 string `json:"id,omitempty"`
-	Quantity           *int32 `json:"quantity,omitempty"`
-	UnitPrice          *int32 `json:"unit_price,omitempty"`
-	BillingCycles      *int32 `json:"billing_cycles,omitempty"`
-	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
-	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
-	TrialEnd           *int64 `json:"trial_end,omitempty"`
+	Id                 string             `json:"id,omitempty"`
+	Quantity           *int32             `json:"quantity,omitempty"`
+	UnitPrice          *int32             `json:"unit_price,omitempty"`
+	BillingCycles      *int32             `json:"billing_cycles,omitempty"`
+	QuantityInDecimal  string             `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal string             `json:"unit_price_in_decimal,omitempty"`
+	TrialEnd           *int64             `json:"trial_end,omitempty"`
+	ProrationType      enum.ProrationType `json:"proration_type,omitempty"`
 }
 type UpdateEventBasedAddonParams struct {
 	Id                  string        `json:"id,omitempty"`
@@ -807,6 +824,10 @@ type UpdateContractTermParams struct {
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
+type UpdateCouponParams struct {
+	CouponId  string `json:"coupon_id,omitempty"`
+	ApplyTill *int64 `json:"apply_till,omitempty"`
+}
 type UpdateForItemsRequestParams struct {
 	SubscriptionItems                 []*UpdateForItemsSubscriptionItemParams `json:"subscription_items,omitempty"`
 	MandatoryItemsToRemove            []string                                `json:"mandatory_items_to_remove,omitempty"`
@@ -853,6 +874,7 @@ type UpdateForItemsRequestParams struct {
 	AutoCloseInvoices                 *bool                                   `json:"auto_close_invoices,omitempty"`
 	TrialEndAction                    enum.TrialEndAction                     `json:"trial_end_action,omitempty"`
 	PaymentInitiator                  enum.PaymentInitiator                   `json:"payment_initiator,omitempty"`
+	Coupons                           []*UpdateForItemsCouponParams           `json:"coupons,omitempty"`
 }
 type UpdateForItemsSubscriptionItemParams struct {
 	ItemPriceId        string              `json:"item_price_id"`
@@ -972,6 +994,10 @@ type UpdateForItemsCustomerParams struct {
 type UpdateForItemsContractTermParams struct {
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
+}
+type UpdateForItemsCouponParams struct {
+	CouponId  string `json:"coupon_id,omitempty"`
+	ApplyTill *int64 `json:"apply_till,omitempty"`
 }
 type ChangeTermEndRequestParams struct {
 	TermEndsAt         *int64 `json:"term_ends_at"`
@@ -1109,6 +1135,7 @@ type ImportSubscriptionRequestParams struct {
 	InvoiceNotes                      string                                            `json:"invoice_notes,omitempty"`
 	MetaData                          map[string]interface{}                            `json:"meta_data,omitempty"`
 	Transaction                       *ImportSubscriptionTransactionParams              `json:"transaction,omitempty"`
+	Coupons                           []*ImportSubscriptionCouponParams                 `json:"coupons,omitempty"`
 }
 type ImportSubscriptionCustomerParams struct {
 	Id                      string                       `json:"id,omitempty"`
@@ -1226,6 +1253,10 @@ type ImportSubscriptionTransactionParams struct {
 	ReferenceNumber string             `json:"reference_number,omitempty"`
 	Date            *int64             `json:"date,omitempty"`
 }
+type ImportSubscriptionCouponParams struct {
+	CouponId  string `json:"coupon_id,omitempty"`
+	ApplyTill *int64 `json:"apply_till,omitempty"`
+}
 type ImportForCustomerRequestParams struct {
 	Id                                string                                           `json:"id,omitempty"`
 	PlanId                            string                                           `json:"plan_id"`
@@ -1260,6 +1291,7 @@ type ImportForCustomerRequestParams struct {
 	ShippingAddress                   *ImportForCustomerShippingAddressParams          `json:"shipping_address,omitempty"`
 	InvoiceNotes                      string                                           `json:"invoice_notes,omitempty"`
 	MetaData                          map[string]interface{}                           `json:"meta_data,omitempty"`
+	Coupons                           []*ImportForCustomerCouponParams                 `json:"coupons,omitempty"`
 }
 type ImportForCustomerAddonParams struct {
 	Id                 string `json:"id,omitempty"`
@@ -1314,6 +1346,10 @@ type ImportForCustomerShippingAddressParams struct {
 	Zip              string                `json:"zip,omitempty"`
 	Country          string                `json:"country,omitempty"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+}
+type ImportForCustomerCouponParams struct {
+	CouponId  string `json:"coupon_id,omitempty"`
+	ApplyTill *int64 `json:"apply_till,omitempty"`
 }
 type ImportContractTermRequestParams struct {
 	ContractTerm                      *ImportContractTermContractTermParams `json:"contract_term,omitempty"`
@@ -1404,8 +1440,10 @@ type ImportForItemsRequestParams struct {
 	ShippingAddress                   *ImportForItemsShippingAddressParams    `json:"shipping_address,omitempty"`
 	InvoiceNotes                      string                                  `json:"invoice_notes,omitempty"`
 	MetaData                          map[string]interface{}                  `json:"meta_data,omitempty"`
+	CancelReasonCode                  string                                  `json:"cancel_reason_code,omitempty"`
 	CreatePendingInvoices             *bool                                   `json:"create_pending_invoices,omitempty"`
 	AutoCloseInvoices                 *bool                                   `json:"auto_close_invoices,omitempty"`
+	Coupons                           []*ImportForItemsCouponParams           `json:"coupons,omitempty"`
 }
 type ImportForItemsSubscriptionItemParams struct {
 	ItemPriceId        string             `json:"item_price_id"`
@@ -1474,6 +1512,10 @@ type ImportForItemsShippingAddressParams struct {
 	Zip              string                `json:"zip,omitempty"`
 	Country          string                `json:"country,omitempty"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+}
+type ImportForItemsCouponParams struct {
+	CouponId  string `json:"coupon_id,omitempty"`
+	ApplyTill *int64 `json:"apply_till,omitempty"`
 }
 type OverrideBillingProfileRequestParams struct {
 	PaymentSourceId string              `json:"payment_source_id,omitempty"`
