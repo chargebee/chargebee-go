@@ -387,13 +387,14 @@ type UpdateSubscriptionSubscriptionParams struct {
 	TrialEndAction         enum.TrialEndAction       `json:"trial_end_action,omitempty"`
 }
 type UpdateSubscriptionAddonParams struct {
-	Id                 string `json:"id,omitempty"`
-	Quantity           *int32 `json:"quantity,omitempty"`
-	UnitPrice          *int64 `json:"unit_price,omitempty"`
-	BillingCycles      *int32 `json:"billing_cycles,omitempty"`
-	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
-	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
-	TrialEnd           *int64 `json:"trial_end,omitempty"`
+	Id                 string             `json:"id,omitempty"`
+	Quantity           *int32             `json:"quantity,omitempty"`
+	UnitPrice          *int64             `json:"unit_price,omitempty"`
+	BillingCycles      *int32             `json:"billing_cycles,omitempty"`
+	QuantityInDecimal  string             `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal string             `json:"unit_price_in_decimal,omitempty"`
+	TrialEnd           *int64             `json:"trial_end,omitempty"`
+	ProrationType      enum.ProrationType `json:"proration_type,omitempty"`
 }
 type UpdateSubscriptionEventBasedAddonParams struct {
 	Id                  string        `json:"id,omitempty"`

@@ -38,6 +38,7 @@ type Quote struct {
 	Taxes                      []*Tax                  `json:"taxes"`
 	LineItemTaxes              []*LineItemTax          `json:"line_item_taxes"`
 	LineItemTiers              []*LineItemTier         `json:"line_item_tiers"`
+	TaxCategory                string                  `json:"tax_category"`
 	CurrencyCode               string                  `json:"currency_code"`
 	Notes                      json.RawMessage         `json:"notes"`
 	ShippingAddress            *ShippingAddress        `json:"shipping_address"`

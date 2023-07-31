@@ -46,6 +46,7 @@ type CreditNote struct {
 	LinkedRefunds             []*LinkedRefund           `json:"linked_refunds"`
 	Allocations               []*Allocation             `json:"allocations"`
 	Deleted                   bool                      `json:"deleted"`
+	TaxCategory               string                    `json:"tax_category"`
 	LocalCurrencyExchangeRate float64                   `json:"local_currency_exchange_rate"`
 	CreateReasonCode          string                    `json:"create_reason_code"`
 	VatNumberPrefix           string                    `json:"vat_number_prefix"`

@@ -43,6 +43,7 @@ type Addon struct {
 	PriceInDecimal              string                                `json:"price_in_decimal"`
 	IncludedInMrr               bool                                  `json:"included_in_mrr"`
 	Channel                     enum.Channel                          `json:"channel"`
+	ProrationType               addonEnum.ProrationType               `json:"proration_type"`
 	InvoiceNotes                string                                `json:"invoice_notes"`
 	Taxable                     bool                                  `json:"taxable"`
 	TaxProfileId                string                                `json:"tax_profile_id"`
@@ -100,6 +101,7 @@ type CreateRequestParams struct {
 	ShowDescriptionInInvoices   *bool                                 `json:"show_description_in_invoices,omitempty"`
 	ShowDescriptionInQuotes     *bool                                 `json:"show_description_in_quotes,omitempty"`
 	PriceInDecimal              string                                `json:"price_in_decimal,omitempty"`
+	ProrationType               addonEnum.ProrationType               `json:"proration_type,omitempty"`
 	Status                      addonEnum.Status                      `json:"status,omitempty"`
 }
 type CreateTierParams struct {
@@ -147,6 +149,7 @@ type UpdateRequestParams struct {
 	ShowDescriptionInInvoices   *bool                                 `json:"show_description_in_invoices,omitempty"`
 	ShowDescriptionInQuotes     *bool                                 `json:"show_description_in_quotes,omitempty"`
 	PriceInDecimal              string                                `json:"price_in_decimal,omitempty"`
+	ProrationType               addonEnum.ProrationType               `json:"proration_type,omitempty"`
 }
 type UpdateTierParams struct {
 	StartingUnit          *int32 `json:"starting_unit,omitempty"`
