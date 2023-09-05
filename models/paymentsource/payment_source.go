@@ -56,6 +56,7 @@ type BankAccount struct {
 	NameOnAccount     string                 `json:"name_on_account"`
 	FirstName         string                 `json:"first_name"`
 	LastName          string                 `json:"last_name"`
+	DirectDebitScheme enum.DirectDebitScheme `json:"direct_debit_scheme"`
 	BankName          string                 `json:"bank_name"`
 	MandateId         string                 `json:"mandate_id"`
 	AccountType       enum.AccountType       `json:"account_type"`

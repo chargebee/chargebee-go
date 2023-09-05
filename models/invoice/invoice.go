@@ -820,6 +820,9 @@ type AddChargeRequestParams struct {
 	AvalaraSaleType        enum.AvalaraSaleType     `json:"avalara_sale_type,omitempty"`
 	AvalaraTransactionType *int32                   `json:"avalara_transaction_type,omitempty"`
 	AvalaraServiceType     *int32                   `json:"avalara_service_type,omitempty"`
+	AvalaraTaxCode         string                   `json:"avalara_tax_code,omitempty"`
+	HsnCode                string                   `json:"hsn_code,omitempty"`
+	TaxjarProductCode      string                   `json:"taxjar_product_code,omitempty"`
 	LineItem               *AddChargeLineItemParams `json:"line_item,omitempty"`
 	Comment                string                   `json:"comment,omitempty"`
 	SubscriptionId         string                   `json:"subscription_id,omitempty"`
