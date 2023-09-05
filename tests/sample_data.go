@@ -50,7 +50,8 @@ func eventData() string {
 				"created_at": 1339951248, 
 				"email": "rr@chargebee.com", 
 				"id": "8avPlNabxST86", 
-				"object": "customer" 
+				"object": "customer",
+				"cf_customer_comment": "test_value_customer"
 			}, 
 			"invoice": { 
 				"amount": 900, 
@@ -83,7 +84,8 @@ func eventData() string {
 				"object": "subscription", 
 				"plan_id": "no_trial", 
 				"plan_quantity": 1, 
-				"status": "active" 
+				"status": "active",
+				"cf_subscription_comment": "test_value_subscription"
 			}, 
 			"transaction": { 
 				"amount": 900, 
