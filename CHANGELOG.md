@@ -2,6 +2,13 @@
 
 * * * 
 
+### v2.24.1 (2023-09-15)
+* * *
+
+#### Fixes:
+* Fixed the issue of nested field serialization.
+
+
 ### v2.24.0 (2023-09-05)
 * * *
 
