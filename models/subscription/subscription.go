@@ -1396,7 +1396,7 @@ type ImportUnbilledChargesDiscountParams struct {
 	EntityType       invoiceEnum.DiscountEntityType `json:"entity_type,omitempty"`
 	EntityId         string                         `json:"entity_id,omitempty"`
 	Description      string                         `json:"description,omitempty"`
-	Amount           *int64                  `json:"amount"`
+	Amount           *int64                         `json:"amount"`
 }
 type ImportUnbilledChargesTierParams struct {
 	UnbilledChargeId      string `json:"unbilled_charge_id"`

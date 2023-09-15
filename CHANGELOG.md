@@ -1,3 +1,10 @@
+### v3.9.1 (2023-09-15)
+* * *
+
+#### Fixes:
+* Fixed the issue of nested field serialization.
+
+
 ### v3.9.0 (2023-09-05)
 * * *
 
@@ -240,6 +247,13 @@ See the [migration guide](https://github.com/chargebee/chargebee-go/wiki/Migrati
 🔴 **Attention**: The support for v2 will eventually be discontinued on **December 31st 2023** and will no longer receive any further updates. We strongly recommend [upgrading to v3](https://github.com/chargebee/chargebee-go/wiki/Migration-guide-for-v3) as soon as possible.
 
 * * *
+
+### v2.24.1 (2023-09-15)
+* * *
+
+#### Fixes:
+* Fixed the issue of nested field serialization.
+
 
 ### v2.24.0 (2023-09-05)
 * * *

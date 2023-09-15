@@ -53,6 +53,11 @@ func parseMap(aMap, serParams map[string]interface{}, prefix string, idx string,
 				if err != nil {
 					fmt.Println(err.Error())
 				}
+				if prefix != "" && idx != "" {
+					key = prefix + "[" + key + "]" + "[" + idx + "]"
+				} else if prefix != "" {
+					key = prefix + "[" + key + "]"
+				}
 				serParams[key] = buf.String()
 			} else {
 				if prefix != "" {
@@ -81,15 +86,27 @@ func parseArray(anArray []interface{}, serParams map[string]interface{}, prefix 
 			fmt.Println(err.Error())
 		}
 		serParams[prefix] = buf.String()
+		return
 	}
 	for i, val := range anArray {
 		switch value := val.(type) {
 		case map[string]interface{}:
 			for mk, mv := range val.(map[string]interface{}) {
 				k := prefix + "[" + mk + "]" + "[" + strconv.Itoa(i) + "]"
-				serParams[k] = mv
+				if mvArray, ok := mv.([]interface{}); ok {
+					if out, err := json.Marshal(mvArray); err == nil {
+						serParams[k] = string(out)
+					}
+				} else if mvSlice, ok := mv.(map[string]interface{}); ok {
+					if out, err := json.Marshal(mvSlice); err == nil {
+						serParams[k] = string(out)
+					}
+				} else {
+					serParams[k] = mv
+				}
 			}
-			default:
+
+		default:
 			k := prefix + "[" + strconv.Itoa(i) + "]"
 			serParams[k] = value
 		}
