@@ -299,7 +299,6 @@ type ImportCreditNoteRequestParams struct {
 	LinkedRefunds        []*ImportCreditNoteLinkedRefundParams `json:"linked_refunds,omitempty"`
 }
 type ImportCreditNoteLineItemParams struct {
-	ReferenceLineItemId        string                            `json:"reference_line_item_id,omitempty"`
 	Id                         string                            `json:"id,omitempty"`
 	DateFrom                   *int64                            `json:"date_from,omitempty"`
 	DateTo                     *int64                            `json:"date_to,omitempty"`
@@ -337,6 +336,7 @@ type ImportCreditNoteLineItemParams struct {
 	Tax9Amount                 *int32                            `json:"tax9_amount,omitempty"`
 	Tax10Name                  string                            `json:"tax10_name,omitempty"`
 	Tax10Amount                *int32                            `json:"tax10_amount,omitempty"`
+	ReferenceLineItemId        string                            `json:"reference_line_item_id,omitempty"`
 }
 type ImportCreditNoteLineItemTierParams struct {
 	LineItemId            string `json:"line_item_id"`

@@ -28,4 +28,5 @@ const (
 	PaymentMethodNetbankingEmandates   PaymentMethod = "netbanking_emandates"
 	PaymentMethodCustom                PaymentMethod = "custom"
 	PaymentMethodBoleto                PaymentMethod = "boleto"
+	PaymentMethodVenmo                 PaymentMethod = "venmo"
 )

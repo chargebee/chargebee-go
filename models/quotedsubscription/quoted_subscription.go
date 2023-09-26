@@ -32,16 +32,17 @@ type QuotedSubscription struct {
 	Object                            string                                   `json:"object"`
 }
 type Addon struct {
-	Id                     string `json:"id"`
-	Quantity               int32  `json:"quantity"`
-	UnitPrice              int32  `json:"unit_price"`
-	Amount                 int32  `json:"amount"`
-	TrialEnd               int64  `json:"trial_end"`
-	RemainingBillingCycles int32  `json:"remaining_billing_cycles"`
-	QuantityInDecimal      string `json:"quantity_in_decimal"`
-	UnitPriceInDecimal     string `json:"unit_price_in_decimal"`
-	AmountInDecimal        string `json:"amount_in_decimal"`
-	Object                 string `json:"object"`
+	Id                     string             `json:"id"`
+	Quantity               int32              `json:"quantity"`
+	UnitPrice              int32              `json:"unit_price"`
+	Amount                 int32              `json:"amount"`
+	TrialEnd               int64              `json:"trial_end"`
+	RemainingBillingCycles int32              `json:"remaining_billing_cycles"`
+	QuantityInDecimal      string             `json:"quantity_in_decimal"`
+	UnitPriceInDecimal     string             `json:"unit_price_in_decimal"`
+	AmountInDecimal        string             `json:"amount_in_decimal"`
+	ProrationType          enum.ProrationType `json:"proration_type"`
+	Object                 string             `json:"object"`
 }
 type EventBasedAddon struct {
 	Id                  string       `json:"id"`

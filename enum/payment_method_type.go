@@ -20,4 +20,5 @@ const (
 	PaymentMethodTypeDotpay                PaymentMethodType = "dotpay"
 	PaymentMethodTypeUpi                   PaymentMethodType = "upi"
 	PaymentMethodTypeNetbankingEmandates   PaymentMethodType = "netbanking_emandates"
+	PaymentMethodTypeVenmo                 PaymentMethodType = "venmo"
 )

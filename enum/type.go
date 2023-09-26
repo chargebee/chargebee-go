@@ -20,4 +20,5 @@ const (
 	TypeDotpay                Type = "dotpay"
 	TypeUpi                   Type = "upi"
 	TypeNetbankingEmandates   Type = "netbanking_emandates"
+	TypeVenmo                 Type = "venmo"
 )
