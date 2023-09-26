@@ -27,6 +27,7 @@ type PaymentSource struct {
 	AmazonPayment    *AmazonPayment           `json:"amazon_payment"`
 	Upi              *Upi                     `json:"upi"`
 	Paypal           *Paypal                  `json:"paypal"`
+	Venmo            *Venmo                   `json:"venmo"`
 	Mandates         []*Mandate               `json:"mandates"`
 	Deleted          bool                     `json:"deleted"`
 	BusinessEntityId string                   `json:"business_entity_id"`
@@ -102,6 +103,10 @@ type Paypal struct {
 	Email       string `json:"email"`
 	AgreementId string `json:"agreement_id"`
 	Object      string `json:"object"`
+}
+type Venmo struct {
+	UserName string `json:"user_name"`
+	Object   string `json:"object"`
 }
 type Mandate struct {
 	Id             string `json:"id"`
@@ -209,17 +214,18 @@ type UpdateCardRequestParams struct {
 	ReferenceTransaction string                 `json:"reference_transaction,omitempty"`
 }
 type UpdateCardCardParams struct {
-	FirstName        string `json:"first_name,omitempty"`
-	LastName         string `json:"last_name,omitempty"`
-	ExpiryMonth      *int32 `json:"expiry_month,omitempty"`
-	ExpiryYear       *int32 `json:"expiry_year,omitempty"`
-	BillingAddr1     string `json:"billing_addr1,omitempty"`
-	BillingAddr2     string `json:"billing_addr2,omitempty"`
-	BillingCity      string `json:"billing_city,omitempty"`
-	BillingZip       string `json:"billing_zip,omitempty"`
-	BillingStateCode string `json:"billing_state_code,omitempty"`
-	BillingState     string `json:"billing_state,omitempty"`
-	BillingCountry   string `json:"billing_country,omitempty"`
+	FirstName             string                 `json:"first_name,omitempty"`
+	LastName              string                 `json:"last_name,omitempty"`
+	ExpiryMonth           *int32                 `json:"expiry_month,omitempty"`
+	ExpiryYear            *int32                 `json:"expiry_year,omitempty"`
+	BillingAddr1          string                 `json:"billing_addr1,omitempty"`
+	BillingAddr2          string                 `json:"billing_addr2,omitempty"`
+	BillingCity           string                 `json:"billing_city,omitempty"`
+	BillingZip            string                 `json:"billing_zip,omitempty"`
+	BillingStateCode      string                 `json:"billing_state_code,omitempty"`
+	BillingState          string                 `json:"billing_state,omitempty"`
+	BillingCountry        string                 `json:"billing_country,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type UpdateBankAccountRequestParams struct {
 	BankAccount *UpdateBankAccountBankAccountParams `json:"bank_account,omitempty"`

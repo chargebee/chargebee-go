@@ -16,4 +16,5 @@ const (
 	PaymentMethodTypePaypalExpressCheckout PaymentMethodType = "paypal_express_checkout"
 	PaymentMethodTypeDirectDebit           PaymentMethodType = "direct_debit"
 	PaymentMethodTypeBoleto                PaymentMethodType = "boleto"
+	PaymentMethodTypeVenmo                 PaymentMethodType = "venmo"
 )

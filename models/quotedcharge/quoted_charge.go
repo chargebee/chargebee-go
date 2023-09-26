@@ -23,13 +23,14 @@ type Charge struct {
 	Object                 string               `json:"object"`
 }
 type Addon struct {
-	Id                 string `json:"id"`
-	Quantity           int32  `json:"quantity"`
-	UnitPrice          int64  `json:"unit_price"`
-	QuantityInDecimal  string `json:"quantity_in_decimal"`
-	UnitPriceInDecimal string `json:"unit_price_in_decimal"`
-	ServicePeriod      int32  `json:"service_period"`
-	Object             string `json:"object"`
+	Id                 string             `json:"id"`
+	Quantity           int32              `json:"quantity"`
+	UnitPrice          int64              `json:"unit_price"`
+	QuantityInDecimal  string             `json:"quantity_in_decimal"`
+	UnitPriceInDecimal string             `json:"unit_price_in_decimal"`
+	ProrationType      enum.ProrationType `json:"proration_type"`
+	ServicePeriod      int32              `json:"service_period"`
+	Object             string             `json:"object"`
 }
 type InvoiceItem struct {
 	ItemPriceId        string `json:"item_price_id"`
