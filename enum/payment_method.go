@@ -29,4 +29,7 @@ const (
 	PaymentMethodCustom                PaymentMethod = "custom"
 	PaymentMethodBoleto                PaymentMethod = "boleto"
 	PaymentMethodVenmo                 PaymentMethod = "venmo"
+	PaymentMethodPayTo                 PaymentMethod = "pay_to"
+	PaymentMethodFasterPayments        PaymentMethod = "faster_payments"
+	PaymentMethodSepaInstantTransfer   PaymentMethod = "sepa_instant_transfer"
 )

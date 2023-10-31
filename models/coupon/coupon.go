@@ -40,6 +40,7 @@ type Coupon struct {
 	InvoiceNotes           string                     `json:"invoice_notes"`
 	MetaData               json.RawMessage            `json:"meta_data"`
 	CouponConstraints      []*CouponConstraint        `json:"coupon_constraints"`
+	CustomField            map[string]interface{}     `json:"custom_field"`
 	Object                 string                     `json:"object"`
 }
 type ItemConstraint struct {
@@ -65,13 +66,13 @@ type CreateRequestParams struct {
 	Id                 string                     `json:"id"`
 	Name               string                     `json:"name"`
 	InvoiceName        string                     `json:"invoice_name,omitempty"`
-	DiscountType       couponEnum.DiscountType    `json:"discount_type"`
+	DiscountType       couponEnum.DiscountType    `json:"discount_type,omitempty"`
 	DiscountAmount     *int32                     `json:"discount_amount,omitempty"`
 	CurrencyCode       string                     `json:"currency_code,omitempty"`
 	DiscountPercentage *float64                   `json:"discount_percentage,omitempty"`
 	DiscountQuantity   *int32                     `json:"discount_quantity,omitempty"`
 	ApplyOn            couponEnum.ApplyOn         `json:"apply_on"`
-	DurationType       couponEnum.DurationType    `json:"duration_type"`
+	DurationType       couponEnum.DurationType    `json:"duration_type,omitempty"`
 	DurationMonth      *int32                     `json:"duration_month,omitempty"`
 	ValidTill          *int64                     `json:"valid_till,omitempty"`
 	MaxRedemptions     *int32                     `json:"max_redemptions,omitempty"`
@@ -90,13 +91,13 @@ type CreateForItemsRequestParams struct {
 	Id                     string                                        `json:"id"`
 	Name                   string                                        `json:"name"`
 	InvoiceName            string                                        `json:"invoice_name,omitempty"`
-	DiscountType           couponEnum.DiscountType                       `json:"discount_type"`
+	DiscountType           couponEnum.DiscountType                       `json:"discount_type,omitempty"`
 	DiscountAmount         *int32                                        `json:"discount_amount,omitempty"`
 	CurrencyCode           string                                        `json:"currency_code,omitempty"`
 	DiscountPercentage     *float64                                      `json:"discount_percentage,omitempty"`
 	DiscountQuantity       *int32                                        `json:"discount_quantity,omitempty"`
 	ApplyOn                couponEnum.ApplyOn                            `json:"apply_on"`
-	DurationType           couponEnum.DurationType                       `json:"duration_type"`
+	DurationType           couponEnum.DurationType                       `json:"duration_type,omitempty"`
 	DurationMonth          *int32                                        `json:"duration_month,omitempty"`
 	ValidTill              *int64                                        `json:"valid_till,omitempty"`
 	MaxRedemptions         *int32                                        `json:"max_redemptions,omitempty"`
