@@ -58,7 +58,6 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/usage"
 	"github.com/chargebee/chargebee-go/v3/models/virtualbankaccount"
 	"github.com/chargebee/chargebee-go/v3/models/paymentvoucher"
-	"github.com/chargebee/chargebee-go/v3/models/csvtaxrule"
 	"net/http"
 	"strconv"
 )
@@ -126,7 +125,6 @@ type Result struct {
 	EntitlementOverride     *entitlementoverride.EntitlementOverride         `json:"entitlement_override,omitempty"`
 	Purchase                *purchase.Purchase                               `json:"purchase,omitempty"`
 	PaymentVoucher          *paymentvoucher.PaymentVoucher                   `json:"payment_voucher,omitempty"`
-	CsvTaxRule              *csvtaxrule.CsvTaxRule                           `json:"csv_tax_rule,omitempty"`
 	UnbilledCharges         []*unbilledcharge.UnbilledCharge                 `json:"unbilled_charges,omitempty"`
 	CreditNotes             []*creditnote.CreditNote                         `json:"credit_notes,omitempty"`
 	AdvanceInvoiceSchedules []*advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedules,omitempty"`

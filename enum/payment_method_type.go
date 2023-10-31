@@ -21,4 +21,7 @@ const (
 	PaymentMethodTypeUpi                   PaymentMethodType = "upi"
 	PaymentMethodTypeNetbankingEmandates   PaymentMethodType = "netbanking_emandates"
 	PaymentMethodTypeVenmo                 PaymentMethodType = "venmo"
+	PaymentMethodTypePayTo                 PaymentMethodType = "pay_to"
+	PaymentMethodTypeFasterPayments        PaymentMethodType = "faster_payments"
+	PaymentMethodTypeSepaInstantTransfer   PaymentMethodType = "sepa_instant_transfer"
 )

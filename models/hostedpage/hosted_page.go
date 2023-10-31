@@ -247,6 +247,7 @@ type CheckoutOneTimeForItemsRequestParams struct {
 	RedirectUrl       string                                           `json:"redirect_url,omitempty"`
 	CancelUrl         string                                           `json:"cancel_url,omitempty"`
 	PassThruContent   string                                           `json:"pass_thru_content,omitempty"`
+	Source            string                                           `json:"source,omitempty"`
 	BillingAddress    *CheckoutOneTimeForItemsBillingAddressParams     `json:"billing_address,omitempty"`
 	ShippingAddress   *CheckoutOneTimeForItemsShippingAddressParams    `json:"shipping_address,omitempty"`
 }
@@ -370,6 +371,7 @@ type CheckoutNewForItemsRequestParams struct {
 	RedirectUrl                string                                       `json:"redirect_url,omitempty"`
 	CancelUrl                  string                                       `json:"cancel_url,omitempty"`
 	PassThruContent            string                                       `json:"pass_thru_content,omitempty"`
+	Source                     string                                       `json:"source,omitempty"`
 	AllowOfflinePaymentMethods *bool                                        `json:"allow_offline_payment_methods,omitempty"`
 	BillingAddress             *CheckoutNewForItemsBillingAddressParams     `json:"billing_address,omitempty"`
 	ShippingAddress            *CheckoutNewForItemsShippingAddressParams    `json:"shipping_address,omitempty"`
@@ -576,6 +578,7 @@ type CheckoutExistingForItemsRequestParams struct {
 	RedirectUrl                string                                            `json:"redirect_url,omitempty"`
 	CancelUrl                  string                                            `json:"cancel_url,omitempty"`
 	PassThruContent            string                                            `json:"pass_thru_content,omitempty"`
+	Source                     string                                            `json:"source,omitempty"`
 	AllowOfflinePaymentMethods *bool                                             `json:"allow_offline_payment_methods,omitempty"`
 	ContractTerm               *CheckoutExistingForItemsContractTermParams       `json:"contract_term,omitempty"`
 }

@@ -50,6 +50,7 @@ const (
 	GatewayEcentric              Gateway = "ecentric"
 	GatewayMetricsGlobal         Gateway = "metrics_global"
 	GatewayWindcave              Gateway = "windcave"
+	GatewayPayCom                Gateway = "pay_com"
 	GatewayEbanx                 Gateway = "ebanx"
 	GatewayNotApplicable         Gateway = "not_applicable"
 )

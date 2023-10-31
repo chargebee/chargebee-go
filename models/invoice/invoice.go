@@ -65,6 +65,7 @@ type Invoice struct {
 	LinkedOrders              []*LinkedOrder            `json:"linked_orders"`
 	Notes                     []*Note                   `json:"notes"`
 	ShippingAddress           *ShippingAddress          `json:"shipping_address"`
+	StatementDescriptor       *StatementDescriptor      `json:"statement_descriptor"`
 	BillingAddress            *BillingAddress           `json:"billing_address"`
 	Einvoice                  *Einvoice                 `json:"einvoice"`
 	PaymentOwner              string                    `json:"payment_owner"`
@@ -232,6 +233,12 @@ type ShippingAddress struct {
 	Index            int32                 `json:"index"`
 	Object           string                `json:"object"`
 }
+type StatementDescriptor struct {
+	Id             string `json:"id"`
+	Descriptor     string `json:"descriptor"`
+	AdditionalInfo string `json:"additional_info"`
+	Object         string `json:"object"`
+}
 type BillingAddress struct {
 	FirstName        string                `json:"first_name"`
 	LastName         string                `json:"last_name"`
@@ -257,30 +264,31 @@ type Einvoice struct {
 	Object          string                     `json:"object"`
 }
 type CreateRequestParams struct {
-	CustomerId                  string                       `json:"customer_id,omitempty"`
-	SubscriptionId              string                       `json:"subscription_id,omitempty"`
-	CurrencyCode                string                       `json:"currency_code,omitempty"`
-	Addons                      []*CreateAddonParams         `json:"addons,omitempty"`
-	InvoiceDate                 *int64                       `json:"invoice_date,omitempty"`
-	Charges                     []*CreateChargeParams        `json:"charges,omitempty"`
-	InvoiceNote                 string                       `json:"invoice_note,omitempty"`
-	RemoveGeneralNote           *bool                        `json:"remove_general_note,omitempty"`
-	NotesToRemove               []*CreateNotesToRemoveParams `json:"notes_to_remove,omitempty"`
-	PoNumber                    string                       `json:"po_number,omitempty"`
-	Coupon                      string                       `json:"coupon,omitempty"`
-	CouponIds                   []string                     `json:"coupon_ids,omitempty"`
-	AuthorizationTransactionId  string                       `json:"authorization_transaction_id,omitempty"`
-	PaymentSourceId             string                       `json:"payment_source_id,omitempty"`
-	AutoCollection              enum.AutoCollection          `json:"auto_collection,omitempty"`
-	ShippingAddress             *CreateShippingAddressParams `json:"shipping_address,omitempty"`
-	Card                        *CreateCardParams            `json:"card,omitempty"`
-	BankAccount                 *CreateBankAccountParams     `json:"bank_account,omitempty"`
-	TokenId                     string                       `json:"token_id,omitempty"`
-	PaymentMethod               *CreatePaymentMethodParams   `json:"payment_method,omitempty"`
-	PaymentIntent               *CreatePaymentIntentParams   `json:"payment_intent,omitempty"`
-	ReplacePrimaryPaymentSource *bool                        `json:"replace_primary_payment_source,omitempty"`
-	RetainPaymentSource         *bool                        `json:"retain_payment_source,omitempty"`
-	PaymentInitiator            enum.PaymentInitiator        `json:"payment_initiator,omitempty"`
+	CustomerId                  string                           `json:"customer_id,omitempty"`
+	SubscriptionId              string                           `json:"subscription_id,omitempty"`
+	CurrencyCode                string                           `json:"currency_code,omitempty"`
+	Addons                      []*CreateAddonParams             `json:"addons,omitempty"`
+	InvoiceDate                 *int64                           `json:"invoice_date,omitempty"`
+	Charges                     []*CreateChargeParams            `json:"charges,omitempty"`
+	InvoiceNote                 string                           `json:"invoice_note,omitempty"`
+	RemoveGeneralNote           *bool                            `json:"remove_general_note,omitempty"`
+	NotesToRemove               []*CreateNotesToRemoveParams     `json:"notes_to_remove,omitempty"`
+	PoNumber                    string                           `json:"po_number,omitempty"`
+	Coupon                      string                           `json:"coupon,omitempty"`
+	CouponIds                   []string                         `json:"coupon_ids,omitempty"`
+	AuthorizationTransactionId  string                           `json:"authorization_transaction_id,omitempty"`
+	PaymentSourceId             string                           `json:"payment_source_id,omitempty"`
+	AutoCollection              enum.AutoCollection              `json:"auto_collection,omitempty"`
+	ShippingAddress             *CreateShippingAddressParams     `json:"shipping_address,omitempty"`
+	StatementDescriptor         *CreateStatementDescriptorParams `json:"statement_descriptor,omitempty"`
+	Card                        *CreateCardParams                `json:"card,omitempty"`
+	BankAccount                 *CreateBankAccountParams         `json:"bank_account,omitempty"`
+	TokenId                     string                           `json:"token_id,omitempty"`
+	PaymentMethod               *CreatePaymentMethodParams       `json:"payment_method,omitempty"`
+	PaymentIntent               *CreatePaymentIntentParams       `json:"payment_intent,omitempty"`
+	ReplacePrimaryPaymentSource *bool                            `json:"replace_primary_payment_source,omitempty"`
+	RetainPaymentSource         *bool                            `json:"retain_payment_source,omitempty"`
+	PaymentInitiator            enum.PaymentInitiator            `json:"payment_initiator,omitempty"`
 }
 type CreateAddonParams struct {
 	Id                 string `json:"id,omitempty"`
@@ -325,6 +333,10 @@ type CreateShippingAddressParams struct {
 	Zip              string                `json:"zip,omitempty"`
 	Country          string                `json:"country,omitempty"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+}
+type CreateStatementDescriptorParams struct {
+	Descriptor     string `json:"descriptor,omitempty"`
+	AdditionalInfo string `json:"additional_info,omitempty"`
 }
 type CreateCardParams struct {
 	Gateway               enum.Gateway           `json:"gateway,omitempty"`
@@ -384,31 +396,32 @@ type CreatePaymentIntentParams struct {
 	AdditionalInformation map[string]interface{}              `json:"additional_information,omitempty"`
 }
 type CreateForChargeItemsAndChargesRequestParams struct {
-	CustomerId                  string                                               `json:"customer_id,omitempty"`
-	SubscriptionId              string                                               `json:"subscription_id,omitempty"`
-	CurrencyCode                string                                               `json:"currency_code,omitempty"`
-	ItemPrices                  []*CreateForChargeItemsAndChargesItemPriceParams     `json:"item_prices,omitempty"`
-	ItemTiers                   []*CreateForChargeItemsAndChargesItemTierParams      `json:"item_tiers,omitempty"`
-	Charges                     []*CreateForChargeItemsAndChargesChargeParams        `json:"charges,omitempty"`
-	InvoiceNote                 string                                               `json:"invoice_note,omitempty"`
-	RemoveGeneralNote           *bool                                                `json:"remove_general_note,omitempty"`
-	NotesToRemove               []*CreateForChargeItemsAndChargesNotesToRemoveParams `json:"notes_to_remove,omitempty"`
-	PoNumber                    string                                               `json:"po_number,omitempty"`
-	Coupon                      string                                               `json:"coupon,omitempty"`
-	CouponIds                   []string                                             `json:"coupon_ids,omitempty"`
-	AuthorizationTransactionId  string                                               `json:"authorization_transaction_id,omitempty"`
-	PaymentSourceId             string                                               `json:"payment_source_id,omitempty"`
-	AutoCollection              enum.AutoCollection                                  `json:"auto_collection,omitempty"`
-	Discounts                   []*CreateForChargeItemsAndChargesDiscountParams      `json:"discounts,omitempty"`
-	InvoiceDate                 *int64                                               `json:"invoice_date,omitempty"`
-	ShippingAddress             *CreateForChargeItemsAndChargesShippingAddressParams `json:"shipping_address,omitempty"`
-	Card                        *CreateForChargeItemsAndChargesCardParams            `json:"card,omitempty"`
-	BankAccount                 *CreateForChargeItemsAndChargesBankAccountParams     `json:"bank_account,omitempty"`
-	TokenId                     string                                               `json:"token_id,omitempty"`
-	PaymentMethod               *CreateForChargeItemsAndChargesPaymentMethodParams   `json:"payment_method,omitempty"`
-	PaymentIntent               *CreateForChargeItemsAndChargesPaymentIntentParams   `json:"payment_intent,omitempty"`
-	ReplacePrimaryPaymentSource *bool                                                `json:"replace_primary_payment_source,omitempty"`
-	RetainPaymentSource         *bool                                                `json:"retain_payment_source,omitempty"`
+	CustomerId                  string                                                   `json:"customer_id,omitempty"`
+	SubscriptionId              string                                                   `json:"subscription_id,omitempty"`
+	CurrencyCode                string                                                   `json:"currency_code,omitempty"`
+	ItemPrices                  []*CreateForChargeItemsAndChargesItemPriceParams         `json:"item_prices,omitempty"`
+	ItemTiers                   []*CreateForChargeItemsAndChargesItemTierParams          `json:"item_tiers,omitempty"`
+	Charges                     []*CreateForChargeItemsAndChargesChargeParams            `json:"charges,omitempty"`
+	InvoiceNote                 string                                                   `json:"invoice_note,omitempty"`
+	RemoveGeneralNote           *bool                                                    `json:"remove_general_note,omitempty"`
+	NotesToRemove               []*CreateForChargeItemsAndChargesNotesToRemoveParams     `json:"notes_to_remove,omitempty"`
+	PoNumber                    string                                                   `json:"po_number,omitempty"`
+	Coupon                      string                                                   `json:"coupon,omitempty"`
+	CouponIds                   []string                                                 `json:"coupon_ids,omitempty"`
+	AuthorizationTransactionId  string                                                   `json:"authorization_transaction_id,omitempty"`
+	PaymentSourceId             string                                                   `json:"payment_source_id,omitempty"`
+	AutoCollection              enum.AutoCollection                                      `json:"auto_collection,omitempty"`
+	Discounts                   []*CreateForChargeItemsAndChargesDiscountParams          `json:"discounts,omitempty"`
+	InvoiceDate                 *int64                                                   `json:"invoice_date,omitempty"`
+	ShippingAddress             *CreateForChargeItemsAndChargesShippingAddressParams     `json:"shipping_address,omitempty"`
+	StatementDescriptor         *CreateForChargeItemsAndChargesStatementDescriptorParams `json:"statement_descriptor,omitempty"`
+	Card                        *CreateForChargeItemsAndChargesCardParams                `json:"card,omitempty"`
+	BankAccount                 *CreateForChargeItemsAndChargesBankAccountParams         `json:"bank_account,omitempty"`
+	TokenId                     string                                                   `json:"token_id,omitempty"`
+	PaymentMethod               *CreateForChargeItemsAndChargesPaymentMethodParams       `json:"payment_method,omitempty"`
+	PaymentIntent               *CreateForChargeItemsAndChargesPaymentIntentParams       `json:"payment_intent,omitempty"`
+	ReplacePrimaryPaymentSource *bool                                                    `json:"replace_primary_payment_source,omitempty"`
+	RetainPaymentSource         *bool                                                    `json:"retain_payment_source,omitempty"`
 }
 type CreateForChargeItemsAndChargesItemPriceParams struct {
 	ItemPriceId        string `json:"item_price_id,omitempty"`
@@ -468,6 +481,10 @@ type CreateForChargeItemsAndChargesShippingAddressParams struct {
 	Zip              string                `json:"zip,omitempty"`
 	Country          string                `json:"country,omitempty"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+}
+type CreateForChargeItemsAndChargesStatementDescriptorParams struct {
+	Descriptor     string `json:"descriptor,omitempty"`
+	AdditionalInfo string `json:"additional_info,omitempty"`
 }
 type CreateForChargeItemsAndChargesCardParams struct {
 	Gateway               enum.Gateway           `json:"gateway,omitempty"`
@@ -966,12 +983,13 @@ type DeleteRequestParams struct {
 	ClaimCredits *bool  `json:"claim_credits,omitempty"`
 }
 type UpdateDetailsRequestParams struct {
-	BillingAddress  *UpdateDetailsBillingAddressParams  `json:"billing_address,omitempty"`
-	ShippingAddress *UpdateDetailsShippingAddressParams `json:"shipping_address,omitempty"`
-	VatNumber       string                              `json:"vat_number,omitempty"`
-	VatNumberPrefix string                              `json:"vat_number_prefix,omitempty"`
-	PoNumber        string                              `json:"po_number,omitempty"`
-	Comment         string                              `json:"comment,omitempty"`
+	BillingAddress      *UpdateDetailsBillingAddressParams      `json:"billing_address,omitempty"`
+	ShippingAddress     *UpdateDetailsShippingAddressParams     `json:"shipping_address,omitempty"`
+	StatementDescriptor *UpdateDetailsStatementDescriptorParams `json:"statement_descriptor,omitempty"`
+	VatNumber           string                                  `json:"vat_number,omitempty"`
+	VatNumberPrefix     string                                  `json:"vat_number_prefix,omitempty"`
+	PoNumber            string                                  `json:"po_number,omitempty"`
+	Comment             string                                  `json:"comment,omitempty"`
 }
 type UpdateDetailsBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -1004,4 +1022,8 @@ type UpdateDetailsShippingAddressParams struct {
 	Zip              string                `json:"zip,omitempty"`
 	Country          string                `json:"country,omitempty"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+}
+type UpdateDetailsStatementDescriptorParams struct {
+	Descriptor     string `json:"descriptor,omitempty"`
+	AdditionalInfo string `json:"additional_info,omitempty"`
 }
