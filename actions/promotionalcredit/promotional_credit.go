@@ -2,9 +2,9 @@ package promotionalcredit
 
 import (
 	"fmt"
+
 	"github.com/chargebee/chargebee-go/v3"
 	"github.com/chargebee/chargebee-go/v3/models/promotionalcredit"
-	"net/url"
 )
 
 func Add(params *promotionalcredit.AddRequestParams) chargebee.RequestObj {
@@ -20,5 +20,5 @@ func List(params *promotionalcredit.ListRequestParams) chargebee.RequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/promotional_credits"), params)
 }
 func Retrieve(id string) chargebee.RequestObj {
-	return chargebee.Send("GET", fmt.Sprintf("/promotional_credits/%v", url.PathEscape(id)), nil)
+	return chargebee.Send("GET", fmt.Sprintf("/promotional_credits/%v", chargebee.IDEscape(id)), nil)
 }
