@@ -1,3 +1,58 @@
+### v3.13.0 (2024-01-04)
+* * *
+
+#### New resources:
+* Entitlements has been added.
+
+#### New attributes:
+* date_to, date_from, prorated_taxable_amount has been added to quote_line_group.
+* date_to, date_from, prorated_taxable_amount has been added to quote.
+* date_to, date_from, prorated_taxable_amount has been added to credit_note_estimate.
+* date_to, date_from, prorated_taxable_amount has been added to credit_note.
+* date_to, date_from, prorated_taxable_amount has been added to invoice_estimate.
+* date_to, date_from, prorated_taxable_amount has been added to order.
+* date_to, date_from, prorated_taxable_amount has been added to invoice.
+* active_id has been added to customers.
+* active_id has been added to subscriptions.
+* reference_id has been made optional for payment_sources/create_using_permanent_token
+* payment_method_token, customer_profile_token, network_transaction_id, mandate_id, skip_retrieval, card, billing_address has been added to payment_sources.
+* custom_payment_method_id has been added to transactions.
+* custom_payment_method_name has been added to transactions.
+* error_detail has been added to transactions.
+
+
+#### New Enum values:
+* CMR_FALABELLA, TARJETA_NARANJA, NATIVA, CENCOSUD, CABAL, ARGENCARD, ELO, HIPERCARD, CARNET, RUPAY, MAESTRO has been added to Card#CardTypeEnum
+* Transferred has been added to Subscription#StatusEnum.
+* Transferred has been added to SubscriptionEstimate#StatusEnum.
+* proration_type has been added to Subscription#UpdateForItemsRequest.
+* proration_type has been added to ItemPrice.
+* payment_initiator has been added to Invoice.
+* AutomatedBankTransfer has been added to PaymentMethodEnum.
+* UsAutomatedBankTransfer, GbAutomatedBankTransfer, EuAutomatedBankTransfer, JpAutomatedBankTransfer, MxAutomatedBankTransfer has been added to VirtualBankAccount#SchemeEnum.
+* CustomerBusinessEntityChanged, SubscriptionBusinessEntityChanged has been added to EventTypeEnum.
+* Dlocal has been added to GatewayEnum.
+* UsAutomatedBankTransfer, UkAutomatedBankTransfer, EuAutomatedBankTransfer, JpAutomatedBankTransfer, MxAutomatedBankTransfer, Custom has been added to OfflinePaymentMethodEnum.
+* AutomatedBankTransfer has been added to PaymentMethodEnum.
+* AutomatedBankTransfer has been added to PaymentMethodTypeEnum.
+
+#### New Input parameters:
+* custom_payment_method_name has been added to Transactions#RecordRefundRequest.
+* proration_type has been added to Subscription#UpdateForItemsRequest.
+* payment_method_token, customer_profile_token, network_transaction_id, mandate_id, skip_retrieval, card, billing_address has been added to PaymentSource#CreateUsingPermanentTokenRequest.
+* date_to, date_from, prorated_taxable_amount has been added to QuoteLineGroup#LineItemTax.
+* date_to, date_from, prorated_taxable_amount has been added to Quote#LineItemTax.
+* date_to, date_from, prorated_taxable_amount has been added to CreditNoteEstimate#LineItemTax.
+* date_to, date_from, prorated_taxable_amount has been added to CreditNote#LineItemTax.
+* date_to, date_from, prorated_taxable_amount has been added to InvoiceEstimate#LineItemTax.
+* date_to, date_from, prorated_taxable_amount has been added to Order#LineItemTax.
+* date_to, date_from, prorated_taxable_amount has been added to Invoice#LineItemTax.
+* active_id has been added to Customer.
+* active_id has been added to Subscription.
+* subscription_items[proration_type] has been added to Estimate#UpdateSubscriptionForItemsRequest.
+* transaction[custom_payment_method_id] has been added to Customer#RecordExcessPaymentRequest.
+* transaction[custom_payment_method_id] has been added to CreditNote#RecordRefundRequest.
+
 ### v3.12.0 (2023-11-30)
 * * *
 
@@ -646,6 +701,327 @@ See the [migration guide](https://github.com/chargebee/chargebee-go/wiki/Migrati
 * subscription_trial_extended has been added to event_type enum.
 * zero_value_item has been added to tax_exempt_reason enum.
 * bank_of_america has been added to gateway Enum.
+
+🔴 **Attention**: The support for v2 will eventually be discontinued on **December 31st 2023** and will no longer receive any further updates. We strongly recommend [upgrading to v3](https://github.com/chargebee/chargebee-go/wiki/Migration-guide-for-v3) as soon as possible.
+
+* * * 
+
+### v2.27.0 (2023-11-30)
+* * *
+
+#### New Enum values:
+* swiss_reference has been added to PaymentReferenceNumber#TypeEnum.
+
+#### New Input parameters:
+* subscription[po_number] has been added to Quote#EditCreateSubForCustomerQuoteRequest in Quote resource. 
+* subscription[po_number] has been added to Quote#EditCreateSubCustomerQuoteForItemsRequest in Quote resource.
+
+* * * 
+
+### v2.26.0 (2023-10-31)
+* * *
+
+#### New attributes:
+* statement_descriptor has been added to invoice resource.
+* source has been added to the Hosted_Pages resource.
+
+#### New Enum values:
+* pay_com has been added to Gateway.
+* pay_to, faster_payments, sepa_instant_transfer has been added to Customer#TypeEnum.
+* pay_to, faster_payments, sepa_instant_transfer has been added to PaymentMethodEnum.
+* pay_to, faster_payments, sepa_instant_transfer has been added to PaymentMethodTypeEnum.
+* pay_to, faster_payments, sepa_instant_transfer has been added to TypeEnum.
+* pay_to, faster_payments, sepa_instant_transfer, amazon_payments has been added to PaymentIntent#PaymentMethodTypeEnum.
+
+#### New Input parameters:
+* source has been added to HostedPage#CheckoutOneTimeForItemsRequest.
+* source has been added to HostedPage#CheckoutNewForItemsRequest.
+* source has been added to HostedPage#CheckoutExistingForItemsRequest.
+* statement_descriptor_descriptor has been added to Invoice#CreateRequest.
+* statement_descriptor_descriptor has been added to Invoice#CreateForChargeItemsAndChargesRequest.
+* statement_descriptor_descriptor has been added to Invoice#UpdateDetailsRequest.
+* statement_descriptor_additional_info has been added to Invoice#CreateRequest.
+* statement_descriptor_additional_info has been added to Invoice#CreateForChargeItemsAndChargesRequest.
+* statement_descriptor_additional_info has been added to Invoice#UpdateDetailsRequest.
+* statement_descriptor_descriptor has been added to Subscription#CreateRequest.
+* statement_descriptor_descriptor has been added to Subscription#CreateForCustomerRequest.
+* statement_descriptor_descriptor has been added to Subscription#CreateWithItemsRequest.
+* statement_descriptor_descriptor has been added to Subscription#UpdateRequest.
+* statement_descriptor_descriptor has been added to Subscription#UpdateForItemsRequest.
+* statement_descriptor_descriptor has been added to Subscription#ReactivateRequest.
+* statement_descriptor_additional_info has been added to Subscription#CreateRequest.
+* statement_descriptor_additional_info has been added to Subscription#CreateForCustomerRequest.
+* statement_descriptor_additional_info has been added to Subscription#CreateWithItemsRequest.
+* statement_descriptor_additional_info has been added to Subscription#UpdateRequest.
+* statement_descriptor_additional_info has been added to Subscription#UpdateForItemsRequest.
+* statement_descriptor_additional_info has been added to Subscription#ReactivateRequest.
+
+#### Updates to old parameters:
+* duration_type, discount_type in coupons has been made optional.
+* proration_type in addons is now supported.
+* csv_tax_rule has been removed.
+* Tax1JurisTypeEnum has been removed.
+* Tax2JurisTypeEnum has been removed.
+* Tax3JurisTypeEnum has been removed.
+* Tax4JurisTypeEnum has been removed.
+
+### v2.25.0 (2023-09-26)
+* * *
+
+#### New attributes:
+* venmo has been added to the PaymentSource resource.
+* proration_type has been added to the QuotedCharge, QuotedSubscription and Subscription resource.
+
+#### New Enum values:
+* ebanx has been added to Gateway.
+* venmo has been added to Customer#TypeEnum.
+* venmo has been added to PaymentMethodEnum.
+* venmo has been added to PaymentMethodTypeEnum.
+* venmo has been added to TypeEnum.
+* venmo has been added to PaymentIntent#PaymentMethodTypeEnum.
+
+#### New Input parameters:
+* einvoicing_method has been added to HostedPage#CheckoutOneTimeForItemsRequest.
+* einvoicing_method has been added to HostedPage#CheckoutNewForItemsRequest.
+* additional_information has been added to PaymentSource#CardAdditionalInformation.
+
+### v2.24.1 (2023-09-15)
+* * *
+
+#### Fixes:
+* Fixed the issue of nested field serialization.
+
+
+### v2.24.0 (2023-09-05)
+* * *
+
+#### New Resource:
+* CsvTaxRule has been added.
+
+#### New attributes:
+* direct_debit_scheme has been added to the PaymentSource#PaymentSourceBankAccount resource. 
+
+#### New Enum :
+* DirectDebitSchemeEnum has been added.
+* Tax1JurisTypeEnum has been added.
+* Tax2JurisTypeEnum has been added.
+* Tax3JurisTypeEnum has been added.
+* Tax4JurisTypeEnum has been added.
+
+#### New Input parameters:
+* avalara_tax_code, hsn_code, taxjar_product_code has been added to Invoice#AddChargeRequest. 
+
+
+### v2.23.0 (2023-07-31)
+* * *
+
+#### New Attributes:
+* tax_category has been added to the CreditNote, Quote and Invoice resource. 
+* proration_type has been added in Addon resource.
+
+#### New Enum values:
+* tax has been added to EntityType enum in Invoice resource.
+* payment_source_locally_deleted has been added to EventType.
+
+#### New Input parameters:
+
+* CouponId and CouponApplyTill has been added to Subscritpion#CreateRequest in Subscritpion resource. 
+* CouponId and CouponApplyTill has been added to Subscritpion#CreateForCustomerRequest in Subscritpion resource. 
+* CouponId and CouponApplyTill has been added to Subscritpion#CreateWithItemsRequest in Subscritpion resource. 
+* CouponId and CouponApplyTill has been added to Subscritpion#UpdateRequest in Subscritpion resource. 
+* CouponId and CouponApplyTill has been added to Subscritpion#UpdateForItemsRequest in Subscritpion resource. 
+* CouponId and CouponApplyTill has been added to Subscritpion#ImportSubscriptionRequest in Subscritpion resource. 
+* CouponId and CouponApplyTill has been added to Subscritpion#ImportForCustomerRequest in Subscritpion resource. 
+* CouponId and CouponApplyTill has been added to Subscritpion#ImportForItemsRequest in Subscritpion resource. 
+* cancel_reason_code has been added to Subscritpion#ImportForItemsRequest in Subscritpion resource.
+* proration_type has been added in addon#createRequest and addon#UpdateRequest in Addon resource.
+* addons[proration_type] has been added in Estimate#UpdateSubscriptionRequest in Estimate resource.
+* addons[proration_type]  has been added in Subscription#UpdateRequest in Subscritpion resource.
+
+#### New Enum Class:
+* ProrationType enum has been added to addon resource.
+* ProrationType enum has been added.
+
+
+### v2.22.0 (2023-06-30)
+* * *
+
+#### New endpoints:
+* ViewVoucher#ViewVoucherRequest has been added to the HostedPage resource.
+* InvoiceListPaymentReferenceNumbers#InvoiceListPaymentReferenceNumbersRequest has been added to the Invoice resource.
+
+#### New Resource:
+* PaymentReferenceNumber has been added.
+
+#### New attributes:
+* local_currency_exchange_rate has been added to the CreditNote and Invoice resource. 
+
+#### New Enum values:
+* view_voucher has been added to Type enum in HostedPage resource.
+* paused has been added in StoreStatus enum in InAppSubscription resource.
+* metrics_global and windcave has been added in Gateway enum. 
+
+
+#### New Input parameters:
+* payment_initiator has been added to Customers#CollectPaymentRequest. 
+* payment_initiator has been added to Invoice#CreateRequest.
+* payment_initiator has been added to Invoice#ChargeRequest.
+* payment_initiator has been added to Invoice#ChargeAddonRequest.
+* payment_initiator has been added to Invoice#CollectPaymentRequest.
+* payment_initiator has been added to Subscription#CreateRequest.
+* payment_initiator has been added to Invoice#CreateForChargeItemRequest.
+* payment_initiator has been added to Subscription#CreateForCustomerRequest.
+* payment_initiator has been added to Subscription#CreateWithItemsRequest.
+* payment_initiator has been added to Subscription#UpdateForItemsRequest.
+* payment_initiator has been added to Subscription#ReactivateRequest.
+* payment_initiator has been added to Subscription#ResumeRequest.
+* payment_reference_numbers[id] has been added to Invoice#ImportInvoiceRequest.
+* payment_reference_numbers[type] has been added to Invoice#ImportInvoiceRequest.
+* payment_reference_numbers[number] has been added to Invoice#ImportInvoiceRequest.
+
+
+### v2.21.0 (2023-05-31)
+* * *
+
+#### New endpoints:
+* PaymentSource#CreateVoucherPaymentSource has been added to the PaymentSource resource.
+* EventsRequest#HostedPage has been added to the PaymentSource resource.
+
+#### New Resource:
+* PaymentVoucher has been added.
+
+#### New attributes:
+* boleto and billing_address has been added to the PaymentSource resource.
+* product_id has been added to the ItemPrice resource.
+
+#### New Enum Class:
+* EventNameEnum has been added.
+* PaymentVoucherTypeEnum has been added.
+* VoucherTypeEnum has been added.
+
+#### New Enum values:
+* product and variant has been added to EntityType enum.
+* product_created, product_updated, product_deleted, variant_created, variant_updated and variant_deleted enums have been added in EventType enum.
+* voucher_created, voucher_expired and voucher_create_failed have been added in EventType enum.
+* boleto has been added in PaymentMethod and OfflinePaymentMethod  and PaymentMethodTypeEnum#PaymentIntent.
+
+
+### v2.20.0 (2023-05-16)
+* * *
+
+#### New Feature:
+* Added SetIdempotencyKey("UUID") utility to pass **Idempotency key** along with request headers to allow a safe retry of POST requests.
+* Added IsIdempotencyReplayed() utility to differentiate between original and replayed requests.
+* Added GetResponseHeaders() utility to fetch the response headers.
+
+
+### v2.19.0 (2023-04-28)
+* * *
+
+#### Fixes:
+* SubscriptionId attribute has been maid as required in InAppSubscription resource.
+
+#### New Attributes: 
+* TotalContractValueBeforeTax has been added to the ContractTerm resource.
+* TotalContractValueBeforeTax#SubscriptionContractTerm has been added to the Subscription resource.
+* TotalContractValueBeforeTax#SubscriptionEstimateContractTerm has been addded to the SubscriptionEstimate resource.
+* CouponConstraints has been added to the Coupon resource.
+
+#### Added Input Parameters:
+* contract_term[total_amount_raised_before_tax]#ImportSubscriptionRequest, contract_term[total_amount_raised_before_tax]#ImportForItemsRequest, contract_term[total_amount_raised_before_tax]#ImportContractTermRequest and contract_term[total_amount_raised_before_tax]#ImportForCustomerRequest parameter has been added to Subscription resource.
+* contract_term[total_contract_value_before_tax]#ImportContractTermRequest parameter has been added to Subscription resource.
+* coupon_constraints[entity_type]#CreateForItemsRequestParams, coupon_constraints[type]#CreateForItemsRequestParams and coupon_constraints[value]#CreateForItemsRequestParams parameter has been added to the Coupon resource.
+* coupon_constraints[entity_type]#UpdateForItemsRequestParams, coupon_constraints[type]#UpdateForItemsRequestParams and coupon_constraints[value]#UpdateForItemsRequestParams parameter has been added to the Coupon resource.
+* export_type#CustomersRequest and export_type#SubscriptionsRequest parameter has been added to the Export resource.
+
+#### New Enum Class:
+* ExportType has been added.
+
+#### New Enum values:
+* pending_authorization has been added to StatusEnum#PaymentIntentPaymentAttempt to the PaymentIntent resource.
+
+
+### v2.18.0 (2023-03-24)
+* * *
+
+#### New Utility Method:
+* Added functionality to set custom context in HTTP request.
+
+#### Fixes:
+* Fixed list_discounts subscriptions API error.
+
+#### New Attributes: 
+* Einvoice#ReferenceNumber has been added to the CreditNote resource.
+* Einvoice#ReferenceNumber has been added to the Invoice resource.
+* einvoicing_method has been added to the Customer resource.
+* StoreStatus and InvoiceId have been addded to the in_app_subscriptions resource.
+
+#### Added Input Parameters:
+* UpdateForItemsRequestParams#discount_quantity and UpdateRequestParams#discount_quantity parameter has been added to the coupon resource.
+* UpdateBillingInfoRequestParams#einvoicing_method and CreateRequestParams#einvoicing_method parameter has been added to the customer resource.
+* CreateCustomerParams#einvoicing_method , UpdateCustomerParams#einvoicing_metho and  UpdateForItemsCustomerParams#einvoicing_method parameter has been added to the Subscription resource.
+* CreateSubscriptionInfoParams#meta_data parameter has been added to the purchase resource.
+
+#### New Endpoints:
+* credit_note#SendEinvoice has been added to the CreditNote resource. 
+* invoice#SendEinvoice has been added to the Invoice resource.
+* in_app_subscriptions#ImportSubscription and in_app_subscriptions#RetrieveStoreSubs requests have been added to the in_app_subscriptions resource.
+
+#### New Enum Class:
+* EinvoicingMethod has been added.
+* StoreStatus has been added in in_app_subscriptions resource.
+
+
+### v2.17.0 (2023-02-17)
+* * *
+
+#### Fixes:
+* Fixed custom http client request creation issue.
+
+#### New Attributes:
+* resource_version and updated_at parameter has been added to the tax_withheld resource.
+
+#### Added input parameters:
+* ListRequestParams#updated_at parameter has been added to attached_item resource.
+* AttachedItemsAttachedItemParams#updated_at parameter has been added to export resource.
+* CheckoutGiftRequestParams#coupon_ids parameter has been added to hosted_page resource.
+* ProcessReceiptCustomerParams#email, ProcessReceiptCustomerParams#first_name and  ProcessReceiptCustomerParams#last_name parameters has been added to in_app_subscription resource.
+
+#### New endpoints:
+* invoice#RecordTaxWithheld and invoice#RemoveTaxWithheld has been added to the invoice resource.
+* credit_note#RemoveTaxWithheldRefund has been added to the credit_note resource.
+
+#### New Enum values:
+* custom has been added to payment_method Enum.
+* ecentric has been added to gateway Enum.
+
+#### Removed input parameters:
+* EstimateRequestParams#EstimateInvoiceInfoParams parameter has been removed from purchase resource.
+
+#### Deprecated input parameters:
+* CheckoutGiftRequest#coupon parameter have been deprecated in hosted_page resource.
+
+
+### v2.16.0 (2023-01-13)
+* * *
+
+#### New Attributes:
+* ShippingAddress and BillingAddress parameter has been added to the credit_note.
+* is_advance_charge has been added to the unbilled_charge.
+
+#### Added input parameters:
+* CreateSubForCustomerQuoteSubscriptionParams#po_number and CreateSubItemsForCustomerQuoteSubscriptionParams#po_number parameter has been added to Quote resource.
+* ImportUnbilledChargesUnbilledChargeParams#is_advance_charge parameter has been added to Subscription resource.
+* ImportInvoiceRequestParams#has_advance_charges parameter has been added to Invoice resource.
+
+#### New endpoints:
+* Invoice#DeleteLineItems has been added to the Invoice resource.
+
+#### New Enum values:
+* subscription_trial_extended has been added to event_type enum.
+* zero_value_item has been added to tax_exempt_reason enum.
+* bank_of_america has been added to gateway Enum.
+
 
 ### v2.15.0 (2022-11-21)
 * * *

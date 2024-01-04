@@ -160,6 +160,8 @@ const (
 	EventTypeBusinessEntityCreated                     EventType = "business_entity_created"
 	EventTypeBusinessEntityUpdated                     EventType = "business_entity_updated"
 	EventTypeBusinessEntityDeleted                     EventType = "business_entity_deleted"
+	EventTypeCustomerBusinessEntityChanged             EventType = "customer_business_entity_changed"
+	EventTypeSubscriptionBusinessEntityChanged         EventType = "subscription_business_entity_changed"
 	EventTypePurchaseCreated                           EventType = "purchase_created"
 	EventTypeVoucherCreated                            EventType = "voucher_created"
 	EventTypeVoucherExpired                            EventType = "voucher_expired"

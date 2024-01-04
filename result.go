@@ -17,6 +17,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/differentialprice"
 	"github.com/chargebee/chargebee-go/v3/models/discount"
 	"github.com/chargebee/chargebee-go/v3/models/download"
+	"github.com/chargebee/chargebee-go/v3/models/entitlement"
 	"github.com/chargebee/chargebee-go/v3/models/entitlementoverride"
 	"github.com/chargebee/chargebee-go/v3/models/estimate"
 	"github.com/chargebee/chargebee-go/v3/models/event"
@@ -121,6 +122,7 @@ type Result struct {
 	ImpactedItem            *impacteditem.ImpactedItem                       `json:"impacted_item,omitempty"`
 	SubscriptionEntitlement *subscriptionentitlement.SubscriptionEntitlement `json:"subscription_entitlement,omitempty"`
 	ItemEntitlement         *itementitlement.ItemEntitlement                 `json:"item_entitlement,omitempty"`
+	Entitlement             *entitlement.Entitlement                         `json:"entitlement,omitempty"`
 	InAppSubscription       *inappsubscription.InAppSubscription             `json:"in_app_subscription,omitempty"`
 	EntitlementOverride     *entitlementoverride.EntitlementOverride         `json:"entitlement_override,omitempty"`
 	Purchase                *purchase.Purchase                               `json:"purchase,omitempty"`

@@ -101,6 +101,9 @@ type LineItemTax struct {
 	LineItemId               string            `json:"line_item_id"`
 	TaxName                  string            `json:"tax_name"`
 	TaxRate                  float64           `json:"tax_rate"`
+	DateTo                   int64             `json:"date_to"`
+	DateFrom                 int64             `json:"date_from"`
+	ProratedTaxableAmount    float64           `json:"prorated_taxable_amount"`
 	IsPartialTaxApplied      bool              `json:"is_partial_tax_applied"`
 	IsNonComplianceTax       bool              `json:"is_non_compliance_tax"`
 	TaxableAmount            int64             `json:"taxable_amount"`

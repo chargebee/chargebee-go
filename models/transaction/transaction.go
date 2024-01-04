@@ -35,6 +35,7 @@ type Transaction struct {
 	ResourceVersion          int64                               `json:"resource_version"`
 	UpdatedAt                int64                               `json:"updated_at"`
 	FraudReason              string                              `json:"fraud_reason"`
+	CustomPaymentMethodId    string                              `json:"custom_payment_method_id"`
 	AmountUnused             int64                               `json:"amount_unused"`
 	MaskedCardNumber         string                              `json:"masked_card_number"`
 	ReferenceTransactionId   string                              `json:"reference_transaction_id"`
@@ -52,6 +53,8 @@ type Transaction struct {
 	MerchantReferenceId      string                              `json:"merchant_reference_id"`
 	BusinessEntityId         string                              `json:"business_entity_id"`
 	PaymentMethodDetails     string                              `json:"payment_method_details"`
+	ErrorDetail              *GatewayErrorDetail                 `json:"error_detail"`
+	CustomPaymentMethodName  string                              `json:"custom_payment_method_name"`
 	Object                   string                              `json:"object"`
 }
 type LinkedInvoice struct {
@@ -89,6 +92,18 @@ type LinkedPayment struct {
 	Date   int64                               `json:"date"`
 	Object string                              `json:"object"`
 }
+type GatewayErrorDetail struct {
+	RequestId          string `json:"request_id"`
+	ErrorCategory      string `json:"error_category"`
+	ErrorCode          string `json:"error_code"`
+	ErrorMessage       string `json:"error_message"`
+	DeclineCode        string `json:"decline_code"`
+	DeclineMessage     string `json:"decline_message"`
+	NetworkErrorCode   string `json:"network_error_code"`
+	ErrorField         string `json:"error_field"`
+	RecommendationCode string `json:"recommendation_code"`
+	Object             string `json:"object"`
+}
 type CreateAuthorizationRequestParams struct {
 	CustomerId      string `json:"customer_id"`
 	PaymentSourceId string `json:"payment_source_id,omitempty"`
@@ -96,11 +111,12 @@ type CreateAuthorizationRequestParams struct {
 	Amount          *int64 `json:"amount"`
 }
 type RecordRefundRequestParams struct {
-	Amount          *int64             `json:"amount,omitempty"`
-	PaymentMethod   enum.PaymentMethod `json:"payment_method"`
-	Date            *int64             `json:"date"`
-	ReferenceNumber string             `json:"reference_number,omitempty"`
-	Comment         string             `json:"comment,omitempty"`
+	Amount                *int64             `json:"amount,omitempty"`
+	PaymentMethod         enum.PaymentMethod `json:"payment_method"`
+	Date                  *int64             `json:"date"`
+	ReferenceNumber       string             `json:"reference_number,omitempty"`
+	CustomPaymentMethodId string             `json:"custom_payment_method_id,omitempty"`
+	Comment               string             `json:"comment,omitempty"`
 }
 type RefundRequestParams struct {
 	Amount  *int64 `json:"amount,omitempty"`

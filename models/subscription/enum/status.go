@@ -9,4 +9,5 @@ const (
 	StatusNonRenewing Status = "non_renewing"
 	StatusPaused      Status = "paused"
 	StatusCancelled   Status = "cancelled"
+	StatusTransferred Status = "transferred"
 )

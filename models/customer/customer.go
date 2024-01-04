@@ -40,6 +40,7 @@ type Customer struct {
 	PiiCleared                       customerEnum.PiiCleared       `json:"pii_cleared"`
 	AutoCloseInvoices                bool                          `json:"auto_close_invoices"`
 	Channel                          enum.Channel                  `json:"channel"`
+	ActiveId                         string                        `json:"active_id"`
 	CardStatus                       customerEnum.CardStatus       `json:"card_status"`
 	FraudFlag                        customerEnum.FraudFlag        `json:"fraud_flag"`
 	PrimaryPaymentSourceId           string                        `json:"primary_payment_source_id"`
@@ -450,11 +451,12 @@ type RecordExcessPaymentRequestParams struct {
 	Comment     string                                `json:"comment,omitempty"`
 }
 type RecordExcessPaymentTransactionParams struct {
-	Amount          *int64             `json:"amount"`
-	CurrencyCode    string             `json:"currency_code,omitempty"`
-	Date            *int64             `json:"date"`
-	PaymentMethod   enum.PaymentMethod `json:"payment_method"`
-	ReferenceNumber string             `json:"reference_number,omitempty"`
+	Amount                *int64             `json:"amount"`
+	CurrencyCode          string             `json:"currency_code,omitempty"`
+	Date                  *int64             `json:"date"`
+	PaymentMethod         enum.PaymentMethod `json:"payment_method"`
+	ReferenceNumber       string             `json:"reference_number,omitempty"`
+	CustomPaymentMethodId string             `json:"custom_payment_method_id,omitempty"`
 }
 type CollectPaymentRequestParams struct {
 	Amount                      *int64                                   `json:"amount,omitempty"`

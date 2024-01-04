@@ -52,5 +52,6 @@ const (
 	GatewayWindcave              Gateway = "windcave"
 	GatewayPayCom                Gateway = "pay_com"
 	GatewayEbanx                 Gateway = "ebanx"
+	GatewayDlocal                Gateway = "dlocal"
 	GatewayNotApplicable         Gateway = "not_applicable"
 )

@@ -3,6 +3,7 @@ package paymentsource
 import (
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
+	cardEnum "github.com/chargebee/chargebee-go/v3/models/card/enum"
 	paymentIntentEnum "github.com/chargebee/chargebee-go/v3/models/paymentintent/enum"
 	paymentSourceEnum "github.com/chargebee/chargebee-go/v3/models/paymentsource/enum"
 )
@@ -124,13 +125,41 @@ type CreateUsingTempTokenRequestParams struct {
 	AdditionalInformation       map[string]interface{} `json:"additional_information,omitempty"`
 }
 type CreateUsingPermanentTokenRequestParams struct {
-	CustomerId                  string                 `json:"customer_id"`
-	Type                        enum.Type              `json:"type"`
-	GatewayAccountId            string                 `json:"gateway_account_id,omitempty"`
-	ReferenceId                 string                 `json:"reference_id"`
-	IssuingCountry              string                 `json:"issuing_country,omitempty"`
-	ReplacePrimaryPaymentSource *bool                  `json:"replace_primary_payment_source,omitempty"`
-	AdditionalInformation       map[string]interface{} `json:"additional_information,omitempty"`
+	CustomerId                  string                                         `json:"customer_id"`
+	Type                        enum.Type                                      `json:"type"`
+	GatewayAccountId            string                                         `json:"gateway_account_id,omitempty"`
+	ReferenceId                 string                                         `json:"reference_id,omitempty"`
+	IssuingCountry              string                                         `json:"issuing_country,omitempty"`
+	ReplacePrimaryPaymentSource *bool                                          `json:"replace_primary_payment_source,omitempty"`
+	PaymentMethodToken          string                                         `json:"payment_method_token,omitempty"`
+	CustomerProfileToken        string                                         `json:"customer_profile_token,omitempty"`
+	NetworkTransactionId        string                                         `json:"network_transaction_id,omitempty"`
+	MandateId                   string                                         `json:"mandate_id,omitempty"`
+	SkipRetrieval               *bool                                          `json:"skip_retrieval,omitempty"`
+	Card                        *CreateUsingPermanentTokenCardParams           `json:"card,omitempty"`
+	BillingAddress              *CreateUsingPermanentTokenBillingAddressParams `json:"billing_address,omitempty"`
+	AdditionalInformation       map[string]interface{}                         `json:"additional_information,omitempty"`
+}
+type CreateUsingPermanentTokenCardParams struct {
+	Last4       string                      `json:"last4,omitempty"`
+	Iin         string                      `json:"iin,omitempty"`
+	ExpiryMonth *int32                      `json:"expiry_month,omitempty"`
+	ExpiryYear  *int32                      `json:"expiry_year,omitempty"`
+	Brand       paymentSourceEnum.CardBrand `json:"brand,omitempty"`
+	FundingType cardEnum.FundingType        `json:"funding_type,omitempty"`
+}
+type CreateUsingPermanentTokenBillingAddressParams struct {
+	FirstName string `json:"first_name,omitempty"`
+	LastName  string `json:"last_name,omitempty"`
+	Email     string `json:"email,omitempty"`
+	Line1     string `json:"line1,omitempty"`
+	Line2     string `json:"line2,omitempty"`
+	Line3     string `json:"line3,omitempty"`
+	City      string `json:"city,omitempty"`
+	StateCode string `json:"state_code,omitempty"`
+	State     string `json:"state,omitempty"`
+	Zip       string `json:"zip,omitempty"`
+	Country   string `json:"country,omitempty"`
 }
 type CreateUsingTokenRequestParams struct {
 	CustomerId                  string `json:"customer_id"`

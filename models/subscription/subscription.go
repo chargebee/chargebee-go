@@ -59,6 +59,7 @@ type Subscription struct {
 	OfflinePaymentMethod              enum.OfflinePaymentMethod          `json:"offline_payment_method"`
 	Channel                           enum.Channel                       `json:"channel"`
 	NetTermDays                       int32                              `json:"net_term_days"`
+	ActiveId                          string                             `json:"active_id"`
 	SubscriptionItems                 []*SubscriptionItem                `json:"subscription_items"`
 	ItemTiers                         []*ItemTier                        `json:"item_tiers"`
 	ChargedItems                      []*ChargedItem                     `json:"charged_items"`
@@ -911,6 +912,7 @@ type UpdateForItemsSubscriptionItemParams struct {
 	ChargeOnce         *bool               `json:"charge_once,omitempty"`
 	ChargeOnOption     enum.ChargeOnOption `json:"charge_on_option,omitempty"`
 	ItemType           enum.ItemType       `json:"item_type,omitempty"`
+	ProrationType      enum.ProrationType  `json:"proration_type,omitempty"`
 }
 type UpdateForItemsDiscountParams struct {
 	ApplyOn       enum.ApplyOn       `json:"apply_on"`

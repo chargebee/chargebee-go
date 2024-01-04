@@ -24,4 +24,5 @@ const (
 	TypePayTo                 Type = "pay_to"
 	TypeFasterPayments        Type = "faster_payments"
 	TypeSepaInstantTransfer   Type = "sepa_instant_transfer"
+	TypeAutomatedBankTransfer Type = "automated_bank_transfer"
 )

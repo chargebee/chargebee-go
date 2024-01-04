@@ -32,4 +32,5 @@ const (
 	PaymentMethodPayTo                 PaymentMethod = "pay_to"
 	PaymentMethodFasterPayments        PaymentMethod = "faster_payments"
 	PaymentMethodSepaInstantTransfer   PaymentMethod = "sepa_instant_transfer"
+	PaymentMethodAutomatedBankTransfer PaymentMethod = "automated_bank_transfer"
 )

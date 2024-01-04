@@ -16,6 +16,7 @@ type ItemPrice struct {
 	Description               string                           `json:"description"`
 	Status                    itemPriceEnum.Status             `json:"status"`
 	ExternalName              string                           `json:"external_name"`
+	ProrationType             itemPriceEnum.ProrationType      `json:"proration_type"`
 	PricingModel              enum.PricingModel                `json:"pricing_model"`
 	Price                     int64                            `json:"price"`
 	PriceInDecimal            string                           `json:"price_in_decimal"`
@@ -83,6 +84,7 @@ type CreateRequestParams struct {
 	Description               string                           `json:"description,omitempty"`
 	ItemId                    string                           `json:"item_id"`
 	InvoiceNotes              string                           `json:"invoice_notes,omitempty"`
+	ProrationType             itemPriceEnum.ProrationType      `json:"proration_type,omitempty"`
 	ExternalName              string                           `json:"external_name,omitempty"`
 	CurrencyCode              string                           `json:"currency_code,omitempty"`
 	IsTaxable                 *bool                            `json:"is_taxable,omitempty"`
@@ -134,6 +136,7 @@ type CreateAccountingDetailParams struct {
 type UpdateRequestParams struct {
 	Name                      string                           `json:"name,omitempty"`
 	Description               string                           `json:"description,omitempty"`
+	ProrationType             itemPriceEnum.ProrationType      `json:"proration_type,omitempty"`
 	Status                    itemPriceEnum.Status             `json:"status,omitempty"`
 	ExternalName              string                           `json:"external_name,omitempty"`
 	CurrencyCode              string                           `json:"currency_code,omitempty"`

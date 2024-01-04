@@ -483,6 +483,7 @@ type UpdateSubscriptionForItemsSubscriptionItemParams struct {
 	ChargeOnce         *bool               `json:"charge_once,omitempty"`
 	ChargeOnOption     enum.ChargeOnOption `json:"charge_on_option,omitempty"`
 	ItemType           enum.ItemType       `json:"item_type,omitempty"`
+	ProrationType      enum.ProrationType  `json:"proration_type,omitempty"`
 }
 type UpdateSubscriptionForItemsDiscountParams struct {
 	ApplyOn       enum.ApplyOn       `json:"apply_on"`
