@@ -913,7 +913,7 @@ type UpdateForItemsSubscriptionItemParams struct {
 	ItemType           enum.ItemType       `json:"item_type,omitempty"`
 }
 type UpdateForItemsDiscountParams struct {
-	ApplyOn       enum.ApplyOn       `json:"apply_on"`
+	ApplyOn       *enum.ApplyOn      `json:"apply_on,omitempty"`
 	DurationType  enum.DurationType  `json:"duration_type"`
 	Percentage    *float64           `json:"percentage,omitempty"`
 	Amount        *int32             `json:"amount,omitempty"`
