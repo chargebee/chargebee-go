@@ -172,4 +172,6 @@ const (
 	EventTypeVariantCreated                            EventType = "variant_created"
 	EventTypeVariantUpdated                            EventType = "variant_updated"
 	EventTypeVariantDeleted                            EventType = "variant_deleted"
+	EventTypeItemPriceEntitlementsUpdated              EventType = "item_price_entitlements_updated"
+	EventTypeItemPriceEntitlementsRemoved              EventType = "item_price_entitlements_removed"
 )

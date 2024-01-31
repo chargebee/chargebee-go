@@ -714,6 +714,7 @@ type CollectNowCardParams struct {
 type AcceptQuoteRequestParams struct {
 	Quote       *AcceptQuoteQuoteParams `json:"quote,omitempty"`
 	RedirectUrl string                  `json:"redirect_url,omitempty"`
+	Layout      enum.Layout             `json:"layout,omitempty"`
 }
 type AcceptQuoteQuoteParams struct {
 	Id string `json:"id"`
