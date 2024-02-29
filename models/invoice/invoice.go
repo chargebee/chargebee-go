@@ -94,6 +94,7 @@ type LineItem struct {
 	AmountInDecimal         string                         `json:"amount_in_decimal"`
 	DiscountAmount          int64                          `json:"discount_amount"`
 	ItemLevelDiscountAmount int64                          `json:"item_level_discount_amount"`
+	UsagePercentage         string                         `json:"usage_percentage"`
 	ReferenceLineItemId     string                         `json:"reference_line_item_id"`
 	Description             string                         `json:"description"`
 	EntityDescription       string                         `json:"entity_description"`
@@ -770,7 +771,8 @@ type ApplyPaymentsRequestParams struct {
 	Comment      string                            `json:"comment,omitempty"`
 }
 type ApplyPaymentsTransactionParams struct {
-	Id string `json:"id,omitempty"`
+	Id     string `json:"id,omitempty"`
+	Amount *int64 `json:"amount,omitempty"`
 }
 type DeleteLineItemsRequestParams struct {
 	LineItems []*DeleteLineItemsLineItemParams `json:"line_items,omitempty"`

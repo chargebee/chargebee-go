@@ -22,6 +22,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/estimate"
 	"github.com/chargebee/chargebee-go/v3/models/event"
 	"github.com/chargebee/chargebee-go/v3/models/export"
+	"github.com/chargebee/chargebee-go/v3/models/gatewayerrordetail"
 	"github.com/chargebee/chargebee-go/v3/models/feature"
 	"github.com/chargebee/chargebee-go/v3/models/gift"
 	"github.com/chargebee/chargebee-go/v3/models/hierarchy"
@@ -112,6 +113,7 @@ type Result struct {
 	TimeMachine             *timemachine.TimeMachine                         `json:"time_machine,omitempty"`
 	Export                  *export.Export                                   `json:"export,omitempty"`
 	PaymentIntent           *paymentintent.PaymentIntent                     `json:"payment_intent,omitempty"`
+	GatewayErrorDetail      *gatewayerrordetail.GatewayErrorDetail           `json:"gateway_error_detail,omitempty"`
 	ItemFamily              *itemfamily.ItemFamily                           `json:"item_family,omitempty"`
 	Item                    *item.Item                                       `json:"item,omitempty"`
 	ItemPrice               *itemprice.ItemPrice                             `json:"item_price,omitempty"`

@@ -18,6 +18,7 @@ type Event struct {
 	EventType            enum.EventType          `json:"event_type"`
 	ApiVersion           enum.ApiVersion         `json:"api_version"`
 	Content              json.RawMessage         `json:"content"`
+	OriginUser           string                  `json:"origin_user"`
 	Object               string                  `json:"object"`
 }
 type Webhook struct {

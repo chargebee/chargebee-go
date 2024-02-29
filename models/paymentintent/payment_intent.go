@@ -1,6 +1,7 @@
 package paymentintent
 
 import (
+	"github.com/chargebee/chargebee-go/v3/models/gatewayerrordetail"
 	paymentIntentEnum "github.com/chargebee/chargebee-go/v3/models/paymentintent/enum"
 )
 
@@ -34,6 +35,7 @@ type PaymentAttempt struct {
 	ErrorText         string                                 `json:"error_text"`
 	CreatedAt         int64                                  `json:"created_at"`
 	ModifiedAt        int64                                  `json:"modified_at"`
+	ErrorDetail       *gatewayerrordetail.GatewayErrorDetail `json:"error_detail"`
 	Object            string                                 `json:"object"`
 }
 type CreateRequestParams struct {

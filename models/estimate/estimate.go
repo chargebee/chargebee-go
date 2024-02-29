@@ -283,6 +283,7 @@ type CreateSubItemForCustomerEstimateRequestParams struct {
 	TermsToCharge          *int32                                                    `json:"terms_to_charge,omitempty"`
 	BillingAlignmentMode   enum.BillingAlignmentMode                                 `json:"billing_alignment_mode,omitempty"`
 	ShippingAddress        *CreateSubItemForCustomerEstimateShippingAddressParams    `json:"shipping_address,omitempty"`
+	BillingAddress         *CreateSubItemForCustomerEstimateBillingAddressParams     `json:"billing_address,omitempty"`
 	InvoiceDate            *int64                                                    `json:"invoice_date,omitempty"`
 	CouponIds              []string                                                  `json:"coupon_ids,omitempty"`
 	ContractTerm           *CreateSubItemForCustomerEstimateContractTermParams       `json:"contract_term,omitempty"`
@@ -332,6 +333,16 @@ type CreateSubItemForCustomerEstimateItemTierParams struct {
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
 type CreateSubItemForCustomerEstimateShippingAddressParams struct {
+	Line1            string                `json:"line1,omitempty"`
+	Line2            string                `json:"line2,omitempty"`
+	Line3            string                `json:"line3,omitempty"`
+	City             string                `json:"city,omitempty"`
+	StateCode        string                `json:"state_code,omitempty"`
+	Zip              string                `json:"zip,omitempty"`
+	Country          string                `json:"country,omitempty"`
+	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+}
+type CreateSubItemForCustomerEstimateBillingAddressParams struct {
 	Line1            string                `json:"line1,omitempty"`
 	Line2            string                `json:"line2,omitempty"`
 	Line3            string                `json:"line3,omitempty"`

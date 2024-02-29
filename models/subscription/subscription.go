@@ -111,6 +111,7 @@ type SubscriptionItem struct {
 	ChargeOnEvent         enum.ChargeOnEvent  `json:"charge_on_event"`
 	ChargeOnce            bool                `json:"charge_once"`
 	ChargeOnOption        enum.ChargeOnOption `json:"charge_on_option"`
+	ProrationType         enum.ProrationType  `json:"proration_type"`
 	Object                string              `json:"object"`
 }
 type ItemTier struct {
