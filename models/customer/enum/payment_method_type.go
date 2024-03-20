@@ -25,4 +25,5 @@ const (
 	PaymentMethodTypeFasterPayments        PaymentMethodType = "faster_payments"
 	PaymentMethodTypeSepaInstantTransfer   PaymentMethodType = "sepa_instant_transfer"
 	PaymentMethodTypeAutomatedBankTransfer PaymentMethodType = "automated_bank_transfer"
+	PaymentMethodTypeKlarnaPayNow          PaymentMethodType = "klarna_pay_now"
 )

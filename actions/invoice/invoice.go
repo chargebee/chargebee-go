@@ -109,6 +109,9 @@ func Delete(id string, params *invoice.DeleteRequestParams) chargebee.RequestObj
 func UpdateDetails(id string, params *invoice.UpdateDetailsRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/update_details", url.PathEscape(id)), params)
 }
+func Installments(id string, params *invoice.InstallmentsRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/installments", url.PathEscape(id)), params)
+}
 func ResendEinvoice(id string) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/resend_einvoice", url.PathEscape(id)), nil)
 }

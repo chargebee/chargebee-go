@@ -25,4 +25,5 @@ const (
 	TypeFasterPayments        Type = "faster_payments"
 	TypeSepaInstantTransfer   Type = "sepa_instant_transfer"
 	TypeAutomatedBankTransfer Type = "automated_bank_transfer"
+	TypeKlarnaPayNow          Type = "klarna_pay_now"
 )

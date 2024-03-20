@@ -174,4 +174,7 @@ const (
 	EventTypeVariantDeleted                            EventType = "variant_deleted"
 	EventTypeItemPriceEntitlementsUpdated              EventType = "item_price_entitlements_updated"
 	EventTypeItemPriceEntitlementsRemoved              EventType = "item_price_entitlements_removed"
+	EventTypePriceVariantCreated                       EventType = "price_variant_created"
+	EventTypePriceVariantUpdated                       EventType = "price_variant_updated"
+	EventTypePriceVariantDeleted                       EventType = "price_variant_deleted"
 )

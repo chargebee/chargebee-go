@@ -11,7 +11,6 @@ type ItemPrice struct {
 	Id                        string                           `json:"id"`
 	Name                      string                           `json:"name"`
 	ItemFamilyId              string                           `json:"item_family_id"`
-	ProductId                 string                           `json:"product_id"`
 	ItemId                    string                           `json:"item_id"`
 	Description               string                           `json:"description"`
 	Status                    itemPriceEnum.Status             `json:"status"`

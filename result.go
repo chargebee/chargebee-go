@@ -5,6 +5,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/address"
 	"github.com/chargebee/chargebee-go/v3/models/advanceinvoiceschedule"
 	"github.com/chargebee/chargebee-go/v3/models/attacheditem"
+	"github.com/chargebee/chargebee-go/v3/models/attribute"
 	"github.com/chargebee/chargebee-go/v3/models/card"
 	"github.com/chargebee/chargebee-go/v3/models/comment"
 	"github.com/chargebee/chargebee-go/v3/models/contact"
@@ -28,6 +29,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/hierarchy"
 	"github.com/chargebee/chargebee-go/v3/models/hostedpage"
 	"github.com/chargebee/chargebee-go/v3/models/impacteditem"
+	"github.com/chargebee/chargebee-go/v3/models/impacteditemprice"
 	"github.com/chargebee/chargebee-go/v3/models/impactedsubscription"
 	"github.com/chargebee/chargebee-go/v3/models/inappsubscription"
 	"github.com/chargebee/chargebee-go/v3/models/invoice"
@@ -60,6 +62,8 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/usage"
 	"github.com/chargebee/chargebee-go/v3/models/virtualbankaccount"
 	"github.com/chargebee/chargebee-go/v3/models/paymentvoucher"
+	"github.com/chargebee/chargebee-go/v3/models/installmentconfig"
+	"github.com/chargebee/chargebee-go/v3/models/installment"
 	"net/http"
 	"strconv"
 )
@@ -116,12 +120,14 @@ type Result struct {
 	GatewayErrorDetail      *gatewayerrordetail.GatewayErrorDetail           `json:"gateway_error_detail,omitempty"`
 	ItemFamily              *itemfamily.ItemFamily                           `json:"item_family,omitempty"`
 	Item                    *item.Item                                       `json:"item,omitempty"`
+	Attribute               *attribute.Attribute                             `json:"attribute,omitempty"`
 	ItemPrice               *itemprice.ItemPrice                             `json:"item_price,omitempty"`
 	AttachedItem            *attacheditem.AttachedItem                       `json:"attached_item,omitempty"`
 	DifferentialPrice       *differentialprice.DifferentialPrice             `json:"differential_price,omitempty"`
 	Feature                 *feature.Feature                                 `json:"feature,omitempty"`
 	ImpactedSubscription    *impactedsubscription.ImpactedSubscription       `json:"impacted_subscription,omitempty"`
 	ImpactedItem            *impacteditem.ImpactedItem                       `json:"impacted_item,omitempty"`
+	ImpactedItemPrice       *impacteditemprice.ImpactedItemPrice             `json:"impacted_item_price,omitempty"`
 	SubscriptionEntitlement *subscriptionentitlement.SubscriptionEntitlement `json:"subscription_entitlement,omitempty"`
 	ItemEntitlement         *itementitlement.ItemEntitlement                 `json:"item_entitlement,omitempty"`
 	Entitlement             *entitlement.Entitlement                         `json:"entitlement,omitempty"`
@@ -129,6 +135,8 @@ type Result struct {
 	EntitlementOverride     *entitlementoverride.EntitlementOverride         `json:"entitlement_override,omitempty"`
 	Purchase                *purchase.Purchase                               `json:"purchase,omitempty"`
 	PaymentVoucher          *paymentvoucher.PaymentVoucher                   `json:"payment_voucher,omitempty"`
+	InstallmentConfig       *installmentconfig.InstallmentConfig             `json:"installment_config,omitempty"`
+	Installment             *installment.Installment                         `json:"installment,omitempty"`
 	UnbilledCharges         []*unbilledcharge.UnbilledCharge                 `json:"unbilled_charges,omitempty"`
 	CreditNotes             []*creditnote.CreditNote                         `json:"credit_notes,omitempty"`
 	AdvanceInvoiceSchedules []*advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedules,omitempty"`

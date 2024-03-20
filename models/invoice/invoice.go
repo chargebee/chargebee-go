@@ -1035,3 +1035,7 @@ type UpdateDetailsStatementDescriptorParams struct {
 	Descriptor     string `json:"descriptor,omitempty"`
 	AdditionalInfo string `json:"additional_info,omitempty"`
 }
+type InstallmentsRequestParams struct {
+	ConfigId string `json:"config_id"`
+	Amount   *int64 `json:"amount,omitempty"`
+}

@@ -2,6 +2,7 @@ package purchase
 
 import (
 	"github.com/chargebee/chargebee-go/v3/enum"
+	contractTermEnum "github.com/chargebee/chargebee-go/v3/models/contractterm/enum"
 )
 
 type Purchase struct {
@@ -19,8 +20,11 @@ type CreateRequestParams struct {
 	ShippingAddresses []*CreateShippingAddressParams  `json:"shipping_addresses,omitempty"`
 	Discounts         []*CreateDiscountParams         `json:"discounts,omitempty"`
 	SubscriptionInfo  []*CreateSubscriptionInfoParams `json:"subscription_info,omitempty"`
+	ContractTerms     []*CreateContractTermParams     `json:"contract_terms,omitempty"`
 	InvoiceInfo       *CreateInvoiceInfoParams        `json:"invoice_info,omitempty"`
+	InstallmentInfo   *CreateInstallmentInfoParams    `json:"installment_info,omitempty"`
 	CustomerId        string                          `json:"customer_id"`
+	PaymentSourceId   string                          `json:"payment_source_id,omitempty"`
 }
 type CreatePurchaseItemParams struct {
 	Index               *int32 `json:"index"`
@@ -64,14 +68,24 @@ type CreateDiscountParams struct {
 	IncludedInMrr *bool    `json:"included_in_mrr,omitempty"`
 }
 type CreateSubscriptionInfoParams struct {
-	Index          *int32                 `json:"index"`
-	SubscriptionId string                 `json:"subscription_id,omitempty"`
-	BillingCycles  *int32                 `json:"billing_cycles,omitempty"`
-	MetaData       map[string]interface{} `json:"meta_data,omitempty"`
+	Index                             *int32                 `json:"index"`
+	SubscriptionId                    string                 `json:"subscription_id,omitempty"`
+	BillingCycles                     *int32                 `json:"billing_cycles,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                 `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	MetaData                          map[string]interface{} `json:"meta_data,omitempty"`
+}
+type CreateContractTermParams struct {
+	Index                    *int32                           `json:"index"`
+	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 type CreateInvoiceInfoParams struct {
 	PoNumber string `json:"po_number,omitempty"`
 	Notes    string `json:"notes,omitempty"`
+}
+type CreateInstallmentInfoParams struct {
+	ConfigId string `json:"config_id,omitempty"`
+	Amount   *int64 `json:"amount,omitempty"`
 }
 type EstimateRequestParams struct {
 	PurchaseItems     []*EstimatePurchaseItemParams     `json:"purchase_items,omitempty"`
@@ -79,6 +93,7 @@ type EstimateRequestParams struct {
 	ShippingAddresses []*EstimateShippingAddressParams  `json:"shipping_addresses,omitempty"`
 	Discounts         []*EstimateDiscountParams         `json:"discounts,omitempty"`
 	SubscriptionInfo  []*EstimateSubscriptionInfoParams `json:"subscription_info,omitempty"`
+	ContractTerms     []*EstimateContractTermParams     `json:"contract_terms,omitempty"`
 	Customer          *EstimateCustomerParams           `json:"customer,omitempty"`
 	BillingAddress    *EstimateBillingAddressParams     `json:"billing_address,omitempty"`
 	ClientProfileId   string                            `json:"client_profile_id,omitempty"`
@@ -126,9 +141,15 @@ type EstimateDiscountParams struct {
 	IncludedInMrr *bool    `json:"included_in_mrr,omitempty"`
 }
 type EstimateSubscriptionInfoParams struct {
-	Index          *int32 `json:"index"`
-	SubscriptionId string `json:"subscription_id,omitempty"`
-	BillingCycles  *int32 `json:"billing_cycles,omitempty"`
+	Index                             *int32 `json:"index"`
+	SubscriptionId                    string `json:"subscription_id,omitempty"`
+	BillingCycles                     *int32 `json:"billing_cycles,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32 `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+}
+type EstimateContractTermParams struct {
+	Index                    *int32                           `json:"index"`
+	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 type EstimateCustomerParams struct {
 	VatNumber        string                   `json:"vat_number,omitempty"`

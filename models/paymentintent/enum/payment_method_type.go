@@ -21,4 +21,5 @@ const (
 	PaymentMethodTypePayTo                 PaymentMethodType = "pay_to"
 	PaymentMethodTypeFasterPayments        PaymentMethodType = "faster_payments"
 	PaymentMethodTypeSepaInstantTransfer   PaymentMethodType = "sepa_instant_transfer"
+	PaymentMethodTypeKlarnaPayNow          PaymentMethodType = "klarna_pay_now"
 )
