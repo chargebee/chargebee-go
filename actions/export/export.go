@@ -1,17 +1,17 @@
 package export
 
 import (
+	"errors"
 	"fmt"
+	"time"
+
 	"github.com/chargebee/chargebee-go/v3"
 	"github.com/chargebee/chargebee-go/v3/models/export"
-	"net/url"
-	"errors"
 	exportEnum "github.com/chargebee/chargebee-go/v3/models/export/enum"
-	"time"
 )
 
 func Retrieve(id string) chargebee.RequestObj {
-	return chargebee.Send("GET", fmt.Sprintf("/exports/%v", url.PathEscape(id)), nil)
+	return chargebee.Send("GET", fmt.Sprintf("/exports/%v", chargebee.IDEscape(id)), nil)
 }
 func RevenueRecognition(params *export.RevenueRecognitionRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/exports/revenue_recognition"), params)

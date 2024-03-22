@@ -4,17 +4,17 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"strings"
+
 	"github.com/chargebee/chargebee-go/v3"
 	"github.com/chargebee/chargebee-go/v3/models/event"
-	"net/url"
-	"strings"
 )
 
 func List(params *event.ListRequestParams) chargebee.RequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/events"), params)
 }
 func Retrieve(id string) chargebee.RequestObj {
-	return chargebee.Send("GET", fmt.Sprintf("/events/%v", url.PathEscape(id)), nil)
+	return chargebee.Send("GET", fmt.Sprintf("/events/%v", chargebee.IDEscape(id)), nil)
 }
 func Content(event event.Event) *chargebee.Result {
 	content := &chargebee.Result{}

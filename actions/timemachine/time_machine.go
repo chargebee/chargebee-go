@@ -4,21 +4,21 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"time"
+
 	"github.com/chargebee/chargebee-go/v3"
 	"github.com/chargebee/chargebee-go/v3/models/timemachine"
 	timeMachineEnum "github.com/chargebee/chargebee-go/v3/models/timemachine/enum"
-	"time"
-	"net/url"
 )
 
 func Retrieve(id string) chargebee.RequestObj {
-	return chargebee.Send("GET", fmt.Sprintf("/time_machines/%v", url.PathEscape(id)), nil)
+	return chargebee.Send("GET", fmt.Sprintf("/time_machines/%v", chargebee.IDEscape(id)), nil)
 }
 func StartAfresh(id string, params *timemachine.StartAfreshRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/time_machines/%v/start_afresh", url.PathEscape(id)), params)
+	return chargebee.Send("POST", fmt.Sprintf("/time_machines/%v/start_afresh", chargebee.IDEscape(id)), params)
 }
 func TravelForward(id string, params *timemachine.TravelForwardRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/time_machines/%v/travel_forward", url.PathEscape(id)), params)
+	return chargebee.Send("POST", fmt.Sprintf("/time_machines/%v/travel_forward", chargebee.IDEscape(id)), params)
 }
 func WaitForTimeTravelCompletion(tm timemachine.TimeMachine) (timemachine.TimeMachine, error) {
 	return WaitForTimeTravelCompletionWithEnv(tm, chargebee.DefaultConfig())
