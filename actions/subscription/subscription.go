@@ -115,3 +115,6 @@ func RemoveScheduledPause(id string) chargebee.RequestObj {
 func RemoveScheduledResumption(id string) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/subscriptions/%v/remove_scheduled_resumption", url.PathEscape(id)), nil)
 }
+func Move(id string, params *subscription.MoveRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/subscriptions/%v/move", url.PathEscape(id)), params)
+}

@@ -1618,3 +1618,7 @@ type ResumePaymentIntentParams struct {
 	GwPaymentMethodId     string                              `json:"gw_payment_method_id,omitempty"`
 	AdditionalInformation map[string]interface{}              `json:"additional_information,omitempty"`
 }
+type MoveRequestParams struct {
+	ToCustomerId      string `json:"to_customer_id"`
+	CopyPaymentSource *bool  `json:"copy_payment_source,omitempty"`
+}
