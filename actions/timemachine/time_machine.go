@@ -7,8 +7,8 @@ import (
 	"github.com/chargebee/chargebee-go/v3"
 	"github.com/chargebee/chargebee-go/v3/models/timemachine"
 	timeMachineEnum "github.com/chargebee/chargebee-go/v3/models/timemachine/enum"
-	"time"
 	"net/url"
+	"time"
 )
 
 func Retrieve(id string) chargebee.RequestObj {

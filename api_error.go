@@ -2,7 +2,7 @@ package chargebee
 
 import "encoding/json"
 
-//ErrorType is the list of allowed values for error type.
+// ErrorType is the list of allowed values for error type.
 type ErrorType string
 
 const (
@@ -28,7 +28,7 @@ func (e *Error) Error() string {
 	return string(ret)
 }
 
-//PaymentErr Occurs when there is Payment related errors.
+// PaymentErr Occurs when there is Payment related errors.
 type paymentErr struct {
 	cbErr *Error
 }
@@ -37,7 +37,7 @@ func (e *paymentErr) Error() string {
 	return e.cbErr.Error()
 }
 
-//InvalidRequestErr occurs when a request contains invalid parameters.
+// InvalidRequestErr occurs when a request contains invalid parameters.
 type invalidRequestErr struct {
 	cbErr *Error
 }
@@ -46,7 +46,7 @@ func (e *invalidRequestErr) Error() string {
 	return e.cbErr.Error()
 }
 
-//OperationFailedErr occurs when the request parameters were right but the request could not be completed.
+// OperationFailedErr occurs when the request parameters were right but the request could not be completed.
 type operationFailedErr struct {
 	cbErr *Error
 }

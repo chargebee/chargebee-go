@@ -12,6 +12,7 @@ type InstallmentConfig struct {
 	Period               int32                            `json:"period"`
 	PreferredDay         int32                            `json:"preferred_day"`
 	CreatedAt            int64                            `json:"created_at"`
+	ResourceVersion      int64                            `json:"resource_version"`
 	UpdatedAt            int64                            `json:"updated_at"`
 	Installments         []*Installment                   `json:"installments"`
 	Object               string                           `json:"object"`

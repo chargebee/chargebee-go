@@ -49,6 +49,7 @@ type Addon struct {
 	TaxProfileId                string                                `json:"tax_profile_id"`
 	MetaData                    json.RawMessage                       `json:"meta_data"`
 	Tiers                       []*Tier                               `json:"tiers"`
+	TaxProvidersFields          []*TaxProvidersField                  `json:"tax_providers_fields"`
 	ShowDescriptionInInvoices   bool                                  `json:"show_description_in_invoices"`
 	ShowDescriptionInQuotes     bool                                  `json:"show_description_in_quotes"`
 	CustomField                 map[string]interface{}                `json:"custom_field"`
@@ -62,6 +63,12 @@ type Tier struct {
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal"`
 	PriceInDecimal        string `json:"price_in_decimal"`
 	Object                string `json:"object"`
+}
+type TaxProvidersField struct {
+	ProviderName string `json:"provider_name"`
+	FieldId      string `json:"field_id"`
+	FieldValue   string `json:"field_value"`
+	Object       string `json:"object"`
 }
 type CreateRequestParams struct {
 	Id                          string                                `json:"id"`

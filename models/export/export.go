@@ -22,6 +22,10 @@ type Download struct {
 	Object      string `json:"object"`
 }
 type RevenueRecognitionRequestParams struct {
+	Invoice          *RevenueRecognitionInvoiceParams      `json:"invoice,omitempty"`
+	Subscription     *RevenueRecognitionSubscriptionParams `json:"subscription,omitempty"`
+	Customer         *RevenueRecognitionCustomerParams     `json:"customer,omitempty"`
+	Relationship     *RevenueRecognitionRelationshipParams `json:"relationship,omitempty"`
 	ReportBy         enum.ReportBy                         `json:"report_by"`
 	CurrencyCode     string                                `json:"currency_code,omitempty"`
 	ReportFromMonth  *int32                                `json:"report_from_month"`
@@ -29,14 +33,10 @@ type RevenueRecognitionRequestParams struct {
 	ReportToMonth    *int32                                `json:"report_to_month"`
 	ReportToYear     *int32                                `json:"report_to_year"`
 	IncludeDiscounts *bool                                 `json:"include_discounts,omitempty"`
-	Invoice          *RevenueRecognitionInvoiceParams      `json:"invoice,omitempty"`
 	PaymentOwner     *filter.StringFilter                  `json:"payment_owner,omitempty"`
-	Subscription     *RevenueRecognitionSubscriptionParams `json:"subscription,omitempty"`
 	ItemId           *filter.StringFilter                  `json:"item_id,omitempty"`
 	ItemPriceId      *filter.StringFilter                  `json:"item_price_id,omitempty"`
 	CancelReasonCode *filter.StringFilter                  `json:"cancel_reason_code,omitempty"`
-	Customer         *RevenueRecognitionCustomerParams     `json:"customer,omitempty"`
-	Relationship     *RevenueRecognitionRelationshipParams `json:"relationship,omitempty"`
 	BusinessEntityId *filter.StringFilter                  `json:"business_entity_id,omitempty"`
 }
 type RevenueRecognitionInvoiceParams struct {
@@ -93,6 +93,10 @@ type RevenueRecognitionRelationshipParams struct {
 	InvoiceOwnerId *filter.StringFilter `json:"invoice_owner_id,omitempty"`
 }
 type DeferredRevenueRequestParams struct {
+	Invoice          *DeferredRevenueInvoiceParams      `json:"invoice,omitempty"`
+	Subscription     *DeferredRevenueSubscriptionParams `json:"subscription,omitempty"`
+	Customer         *DeferredRevenueCustomerParams     `json:"customer,omitempty"`
+	Relationship     *DeferredRevenueRelationshipParams `json:"relationship,omitempty"`
 	ReportBy         enum.ReportBy                      `json:"report_by"`
 	CurrencyCode     string                             `json:"currency_code,omitempty"`
 	ReportFromMonth  *int32                             `json:"report_from_month"`
@@ -100,14 +104,10 @@ type DeferredRevenueRequestParams struct {
 	ReportToMonth    *int32                             `json:"report_to_month"`
 	ReportToYear     *int32                             `json:"report_to_year"`
 	IncludeDiscounts *bool                              `json:"include_discounts,omitempty"`
-	Invoice          *DeferredRevenueInvoiceParams      `json:"invoice,omitempty"`
 	PaymentOwner     *filter.StringFilter               `json:"payment_owner,omitempty"`
-	Subscription     *DeferredRevenueSubscriptionParams `json:"subscription,omitempty"`
 	ItemId           *filter.StringFilter               `json:"item_id,omitempty"`
 	ItemPriceId      *filter.StringFilter               `json:"item_price_id,omitempty"`
 	CancelReasonCode *filter.StringFilter               `json:"cancel_reason_code,omitempty"`
-	Customer         *DeferredRevenueCustomerParams     `json:"customer,omitempty"`
-	Relationship     *DeferredRevenueRelationshipParams `json:"relationship,omitempty"`
 	BusinessEntityId *filter.StringFilter               `json:"business_entity_id,omitempty"`
 }
 type DeferredRevenueInvoiceParams struct {
@@ -211,9 +211,9 @@ type CouponsCouponParams struct {
 	UpdatedAt    *filter.TimestampFilter `json:"updated_at,omitempty"`
 }
 type CustomersRequestParams struct {
-	ExportType       enum.ExportType              `json:"export_type,omitempty"`
 	Customer         *CustomersCustomerParams     `json:"customer,omitempty"`
 	Relationship     *CustomersRelationshipParams `json:"relationship,omitempty"`
+	ExportType       enum.ExportType              `json:"export_type,omitempty"`
 	BusinessEntityId *filter.StringFilter         `json:"business_entity_id,omitempty"`
 }
 type CustomersCustomerParams struct {
@@ -237,8 +237,8 @@ type CustomersRelationshipParams struct {
 	InvoiceOwnerId *filter.StringFilter `json:"invoice_owner_id,omitempty"`
 }
 type SubscriptionsRequestParams struct {
-	ExportType       enum.ExportType                  `json:"export_type,omitempty"`
 	Subscription     *SubscriptionsSubscriptionParams `json:"subscription,omitempty"`
+	ExportType       enum.ExportType                  `json:"export_type,omitempty"`
 	ItemId           *filter.StringFilter             `json:"item_id,omitempty"`
 	ItemPriceId      *filter.StringFilter             `json:"item_price_id,omitempty"`
 	CancelReasonCode *filter.StringFilter             `json:"cancel_reason_code,omitempty"`
@@ -384,6 +384,7 @@ type ItemPricesItemPriceParams struct {
 	Name            *filter.StringFilter    `json:"name,omitempty"`
 	PricingModel    *filter.EnumFilter      `json:"pricing_model,omitempty"`
 	ItemId          *filter.StringFilter    `json:"item_id,omitempty"`
+	PriceVariantId  *filter.StringFilter    `json:"price_variant_id,omitempty"`
 	TrialPeriod     *filter.NumberFilter    `json:"trial_period,omitempty"`
 	TrialPeriodUnit *filter.EnumFilter      `json:"trial_period_unit,omitempty"`
 	Status          *filter.EnumFilter      `json:"status,omitempty"`
@@ -412,4 +413,14 @@ type DifferentialPricesDifferentialPriceParams struct {
 	ItemPriceId  *filter.StringFilter `json:"item_price_id,omitempty"`
 	Id           *filter.StringFilter `json:"id,omitempty"`
 	ParentItemId *filter.StringFilter `json:"parent_item_id,omitempty"`
+}
+type PriceVariantsRequestParams struct {
+	PriceVariant *PriceVariantsPriceVariantParams `json:"price_variant,omitempty"`
+}
+type PriceVariantsPriceVariantParams struct {
+	Id        *filter.StringFilter    `json:"id,omitempty"`
+	Name      *filter.StringFilter    `json:"name,omitempty"`
+	Status    *filter.EnumFilter      `json:"status,omitempty"`
+	UpdatedAt *filter.TimestampFilter `json:"updated_at,omitempty"`
+	CreatedAt *filter.TimestampFilter `json:"created_at,omitempty"`
 }

@@ -6,14 +6,15 @@ import (
 )
 
 type Installment struct {
-	Id        string                 `json:"id"`
-	InvoiceId string                 `json:"invoice_id"`
-	Date      int64                  `json:"date"`
-	Amount    int64                  `json:"amount"`
-	Status    installmentEnum.Status `json:"status"`
-	CreatedAt int64                  `json:"created_at"`
-	UpdatedAt int64                  `json:"updated_at"`
-	Object    string                 `json:"object"`
+	Id              string                 `json:"id"`
+	InvoiceId       string                 `json:"invoice_id"`
+	Date            int64                  `json:"date"`
+	Amount          int64                  `json:"amount"`
+	Status          installmentEnum.Status `json:"status"`
+	CreatedAt       int64                  `json:"created_at"`
+	ResourceVersion int64                  `json:"resource_version"`
+	UpdatedAt       int64                  `json:"updated_at"`
+	Object          string                 `json:"object"`
 }
 type ListRequestParams struct {
 	Limit     *int32               `json:"limit,omitempty"`

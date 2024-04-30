@@ -31,30 +31,6 @@ type QuotedSubscription struct {
 	QuotedContractTerm                *QuotedContractTerm                      `json:"quoted_contract_term"`
 	Object                            string                                   `json:"object"`
 }
-type Addon struct {
-	Id                     string             `json:"id"`
-	Quantity               int32              `json:"quantity"`
-	UnitPrice              int64              `json:"unit_price"`
-	Amount                 int64              `json:"amount"`
-	TrialEnd               int64              `json:"trial_end"`
-	RemainingBillingCycles int32              `json:"remaining_billing_cycles"`
-	QuantityInDecimal      string             `json:"quantity_in_decimal"`
-	UnitPriceInDecimal     string             `json:"unit_price_in_decimal"`
-	AmountInDecimal        string             `json:"amount_in_decimal"`
-	ProrationType          enum.ProrationType `json:"proration_type"`
-	Object                 string             `json:"object"`
-}
-type EventBasedAddon struct {
-	Id                  string       `json:"id"`
-	Quantity            int32        `json:"quantity"`
-	UnitPrice           int64        `json:"unit_price"`
-	ServicePeriodInDays int32        `json:"service_period_in_days"`
-	OnEvent             enum.OnEvent `json:"on_event"`
-	ChargeOnce          bool         `json:"charge_once"`
-	QuantityInDecimal   string       `json:"quantity_in_decimal"`
-	UnitPriceInDecimal  string       `json:"unit_price_in_decimal"`
-	Object              string       `json:"object"`
-}
 type Coupon struct {
 	CouponId string `json:"coupon_id"`
 	Object   string `json:"object"`
@@ -100,4 +76,28 @@ type QuotedContractTerm struct {
 	TotalContractValue       int64                                                    `json:"total_contract_value"`
 	CancellationCutoffPeriod int32                                                    `json:"cancellation_cutoff_period"`
 	Object                   string                                                   `json:"object"`
+}
+type Addon struct {
+	Id                     string             `json:"id"`
+	Quantity               int32              `json:"quantity"`
+	UnitPrice              int64              `json:"unit_price"`
+	Amount                 int64              `json:"amount"`
+	TrialEnd               int64              `json:"trial_end"`
+	RemainingBillingCycles int32              `json:"remaining_billing_cycles"`
+	QuantityInDecimal      string             `json:"quantity_in_decimal"`
+	UnitPriceInDecimal     string             `json:"unit_price_in_decimal"`
+	AmountInDecimal        string             `json:"amount_in_decimal"`
+	ProrationType          enum.ProrationType `json:"proration_type"`
+	Object                 string             `json:"object"`
+}
+type EventBasedAddon struct {
+	Id                  string       `json:"id"`
+	Quantity            int32        `json:"quantity"`
+	UnitPrice           int64        `json:"unit_price"`
+	ServicePeriodInDays int32        `json:"service_period_in_days"`
+	OnEvent             enum.OnEvent `json:"on_event"`
+	ChargeOnce          bool         `json:"charge_once"`
+	QuantityInDecimal   string       `json:"quantity_in_decimal"`
+	UnitPriceInDecimal  string       `json:"unit_price_in_decimal"`
+	Object              string       `json:"object"`
 }

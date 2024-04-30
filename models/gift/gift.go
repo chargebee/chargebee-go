@@ -3,8 +3,8 @@ package gift
 import (
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
-	paymentIntentEnum "github.com/chargebee/chargebee-go/v3/models/paymentintent/enum"
 	giftEnum "github.com/chargebee/chargebee-go/v3/models/gift/enum"
+	paymentIntentEnum "github.com/chargebee/chargebee-go/v3/models/paymentintent/enum"
 )
 
 type Gift struct {
@@ -158,9 +158,9 @@ type CreateForItemsSubscriptionItemParams struct {
 type ListRequestParams struct {
 	Limit        *int32                  `json:"limit,omitempty"`
 	Offset       string                  `json:"offset,omitempty"`
-	Status       *filter.EnumFilter      `json:"status,omitempty"`
 	GiftReceiver *ListGiftReceiverParams `json:"gift_receiver,omitempty"`
 	Gifter       *ListGifterParams       `json:"gifter,omitempty"`
+	Status       *filter.EnumFilter      `json:"status,omitempty"`
 }
 type ListGiftReceiverParams struct {
 	Email      *filter.StringFilter `json:"email,omitempty"`

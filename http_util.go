@@ -12,12 +12,12 @@ import (
 	"strings"
 )
 
-//RequestObj is the structure that contains the properties of any request data.
+// RequestObj is the structure that contains the properties of any request data.
 type RequestObj struct {
-	Params *url.Values
-	Method string
-	Path   string
-	Header map[string]string
+	Params  *url.Values
+	Method  string
+	Path    string
+	Header  map[string]string
 	Context context.Context `form:"-"`
 }
 
@@ -25,7 +25,7 @@ func basicAuth(key string) string {
 	return base64.StdEncoding.EncodeToString([]byte(key))
 }
 
-//Send prepares a RequestObj for Request operation.
+// Send prepares a RequestObj for Request operation.
 func Send(method string, path string, params interface{}) RequestObj {
 	var form *url.Values
 
@@ -40,7 +40,7 @@ func Send(method string, path string, params interface{}) RequestObj {
 	}
 }
 
-//SendList prepares a RequestObj for ListRequest operation.
+// SendList prepares a RequestObj for ListRequest operation.
 func SendList(method string, path string, params interface{}) RequestObj {
 	var form *url.Values
 	if params != nil {
@@ -54,15 +54,15 @@ func SendList(method string, path string, params interface{}) RequestObj {
 	}
 }
 
-//AddParams add a new key-value pair to the RequestObj.Params.
-//This is used to add extra/custom_field params  in the request data.
+// AddParams add a new key-value pair to the RequestObj.Params.
+// This is used to add extra/custom_field params  in the request data.
 func (request RequestObj) AddParams(key string, value interface{}) RequestObj {
 	request.Params.Set(key, fmt.Sprintf("%v", value))
 	return request
 }
 
-//Headers add a new key-value pair to the RequestObj.Header .
-//This is used to add custom headers .
+// Headers add a new key-value pair to the RequestObj.Header .
+// This is used to add custom headers .
 func (request RequestObj) Headers(key string, value string) RequestObj {
 	if request.Header == nil {
 		request.Header = make(map[string]string)
@@ -84,7 +84,7 @@ func (request RequestObj) SetIdempotencyKey(idempotencyKey string) RequestObj {
 // and other request-scoped values across API boundaries and between
 // processes.
 func (request RequestObj) Contexts(ctx context.Context) RequestObj {
-	request.Context =  ctx
+	request.Context = ctx
 	return request
 }
 
@@ -116,7 +116,7 @@ func addCustomHeaders(httpReq *http.Request, headers map[string]string) {
 	}
 }
 
-//UnmarshalJSON is used to unmarshal the response to Result / ResultList struct.
+// UnmarshalJSON is used to unmarshal the response to Result / ResultList struct.
 func UnmarshalJSON(response []byte, result interface{}) error {
 	err := json.Unmarshal(response, result)
 	if err != nil {
@@ -126,7 +126,7 @@ func UnmarshalJSON(response []byte, result interface{}) error {
 	return nil
 }
 
-//GetMap is used to unmarshal the json.RawMessage to map[string]interface{}.
+// GetMap is used to unmarshal the json.RawMessage to map[string]interface{}.
 func GetMap(rawMessage json.RawMessage) map[string]interface{} {
 	data := json.NewDecoder(strings.NewReader(string(rawMessage)))
 	data.UseNumber()

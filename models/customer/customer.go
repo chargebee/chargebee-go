@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
-	paymentIntentEnum "github.com/chargebee/chargebee-go/v3/models/paymentintent/enum"
 	customerEnum "github.com/chargebee/chargebee-go/v3/models/customer/enum"
+	paymentIntentEnum "github.com/chargebee/chargebee-go/v3/models/paymentintent/enum"
 )
 
 type Customer struct {
@@ -58,6 +58,7 @@ type Customer struct {
 	ExcessPayments                   int64                         `json:"excess_payments"`
 	Balances                         []*Balance                    `json:"balances"`
 	EntityIdentifiers                []*EntityIdentifier           `json:"entity_identifiers"`
+	TaxProvidersFields               []*TaxProvidersField          `json:"tax_providers_fields"`
 	IsEinvoiceEnabled                bool                          `json:"is_einvoice_enabled"`
 	EinvoicingMethod                 enum.EinvoicingMethod         `json:"einvoicing_method"`
 	MetaData                         json.RawMessage               `json:"meta_data"`
@@ -141,6 +142,12 @@ type EntityIdentifier struct {
 	Scheme   string `json:"scheme"`
 	Standard string `json:"standard"`
 	Object   string `json:"object"`
+}
+type TaxProvidersField struct {
+	ProviderName string `json:"provider_name"`
+	FieldId      string `json:"field_id"`
+	FieldValue   string `json:"field_value"`
+	Object       string `json:"object"`
 }
 type Relationship struct {
 	ParentId       string `json:"parent_id"`
@@ -288,6 +295,7 @@ type CreateEntityIdentifierParams struct {
 type ListRequestParams struct {
 	Limit                *int32                  `json:"limit,omitempty"`
 	Offset               string                  `json:"offset,omitempty"`
+	Relationship         *ListRelationshipParams `json:"relationship,omitempty"`
 	IncludeDeleted       *bool                   `json:"include_deleted,omitempty"`
 	Id                   *filter.StringFilter    `json:"id,omitempty"`
 	FirstName            *filter.StringFilter    `json:"first_name,omitempty"`
@@ -299,7 +307,6 @@ type ListRequestParams struct {
 	Taxability           *filter.EnumFilter      `json:"taxability,omitempty"`
 	CreatedAt            *filter.TimestampFilter `json:"created_at,omitempty"`
 	UpdatedAt            *filter.TimestampFilter `json:"updated_at,omitempty"`
-	Relationship         *ListRelationshipParams `json:"relationship,omitempty"`
 	BusinessEntityId     *filter.StringFilter    `json:"business_entity_id,omitempty"`
 	OfflinePaymentMethod *filter.EnumFilter      `json:"offline_payment_method,omitempty"`
 	AutoCloseInvoices    *filter.BooleanFilter   `json:"auto_close_invoices,omitempty"`

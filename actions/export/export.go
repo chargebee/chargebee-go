@@ -1,12 +1,12 @@
 package export
 
 import (
+	"errors"
 	"fmt"
 	"github.com/chargebee/chargebee-go/v3"
 	"github.com/chargebee/chargebee-go/v3/models/export"
-	"net/url"
-	"errors"
 	exportEnum "github.com/chargebee/chargebee-go/v3/models/export/enum"
+	"net/url"
 	"time"
 )
 
@@ -60,6 +60,9 @@ func AttachedItems(params *export.AttachedItemsRequestParams) chargebee.RequestO
 }
 func DifferentialPrices(params *export.DifferentialPricesRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/exports/differential_prices"), params)
+}
+func PriceVariants(params *export.PriceVariantsRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/exports/price_variants"), params)
 }
 func WaitForExportCompletion(exp export.Export) (export.Export, error) {
 	return WaitForExportCompletionWithEnv(exp, chargebee.DefaultConfig())

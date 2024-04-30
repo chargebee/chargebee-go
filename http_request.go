@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-//Do is used to execute an API Request.
+// Do is used to execute an API Request.
 func Do(req *http.Request) (*CBResponse, error) {
 
 	var client *http.Client

@@ -3,9 +3,9 @@ package creditnote
 import (
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
-	transactionEnum "github.com/chargebee/chargebee-go/v3/models/transaction/enum"
-	invoiceEnum "github.com/chargebee/chargebee-go/v3/models/invoice/enum"
 	creditNoteEnum "github.com/chargebee/chargebee-go/v3/models/creditnote/enum"
+	invoiceEnum "github.com/chargebee/chargebee-go/v3/models/invoice/enum"
+	transactionEnum "github.com/chargebee/chargebee-go/v3/models/transaction/enum"
 )
 
 type CreditNote struct {
@@ -242,6 +242,7 @@ type VoidCreditNoteRequestParams struct {
 type ListRequestParams struct {
 	Limit              *int32                  `json:"limit,omitempty"`
 	Offset             string                  `json:"offset,omitempty"`
+	Einvoice           *ListEinvoiceParams     `json:"einvoice,omitempty"`
 	IncludeDeleted     *bool                   `json:"include_deleted,omitempty"`
 	Id                 *filter.StringFilter    `json:"id,omitempty"`
 	CustomerId         *filter.StringFilter    `json:"customer_id,omitempty"`
@@ -261,7 +262,6 @@ type ListRequestParams struct {
 	UpdatedAt          *filter.TimestampFilter `json:"updated_at,omitempty"`
 	SortBy             *filter.SortFilter      `json:"sort_by,omitempty"`
 	Channel            *filter.EnumFilter      `json:"channel,omitempty"`
-	Einvoice           *ListEinvoiceParams     `json:"einvoice,omitempty"`
 }
 type ListEinvoiceParams struct {
 	Status *filter.EnumFilter `json:"status,omitempty"`
@@ -304,6 +304,7 @@ type ImportCreditNoteRequestParams struct {
 	LinkedRefunds        []*ImportCreditNoteLinkedRefundParams `json:"linked_refunds,omitempty"`
 }
 type ImportCreditNoteLineItemParams struct {
+	ReferenceLineItemId        string                            `json:"reference_line_item_id,omitempty"`
 	Id                         string                            `json:"id,omitempty"`
 	DateFrom                   *int64                            `json:"date_from,omitempty"`
 	DateTo                     *int64                            `json:"date_to,omitempty"`
@@ -341,7 +342,6 @@ type ImportCreditNoteLineItemParams struct {
 	Tax9Amount                 *int64                            `json:"tax9_amount,omitempty"`
 	Tax10Name                  string                            `json:"tax10_name,omitempty"`
 	Tax10Amount                *int64                            `json:"tax10_amount,omitempty"`
-	ReferenceLineItemId        string                            `json:"reference_line_item_id,omitempty"`
 }
 type ImportCreditNoteLineItemTierParams struct {
 	LineItemId            string `json:"line_item_id"`

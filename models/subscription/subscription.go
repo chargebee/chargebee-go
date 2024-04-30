@@ -2,13 +2,14 @@ package subscription
 
 import (
 	"encoding/json"
+
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
+	contractTermEnum "github.com/chargebee/chargebee-go/v3/models/contractterm/enum"
 	invoiceEnum "github.com/chargebee/chargebee-go/v3/models/invoice/enum"
 	paymentIntentEnum "github.com/chargebee/chargebee-go/v3/models/paymentintent/enum"
-	contractTermEnum "github.com/chargebee/chargebee-go/v3/models/contractterm/enum"
-	unbilledChargeEnum "github.com/chargebee/chargebee-go/v3/models/unbilledcharge/enum"
 	subscriptionEnum "github.com/chargebee/chargebee-go/v3/models/subscription/enum"
+	unbilledChargeEnum "github.com/chargebee/chargebee-go/v3/models/unbilledcharge/enum"
 )
 
 type Subscription struct {
@@ -130,35 +131,6 @@ type ChargedItem struct {
 	LastChargedAt int64  `json:"last_charged_at"`
 	Object        string `json:"object"`
 }
-type Addon struct {
-	Id                     string             `json:"id"`
-	Quantity               int32              `json:"quantity"`
-	UnitPrice              int64              `json:"unit_price"`
-	Amount                 int64              `json:"amount"`
-	TrialEnd               int64              `json:"trial_end"`
-	RemainingBillingCycles int32              `json:"remaining_billing_cycles"`
-	QuantityInDecimal      string             `json:"quantity_in_decimal"`
-	UnitPriceInDecimal     string             `json:"unit_price_in_decimal"`
-	AmountInDecimal        string             `json:"amount_in_decimal"`
-	ProrationType          enum.ProrationType `json:"proration_type"`
-	Object                 string             `json:"object"`
-}
-type EventBasedAddon struct {
-	Id                  string       `json:"id"`
-	Quantity            int32        `json:"quantity"`
-	UnitPrice           int64        `json:"unit_price"`
-	ServicePeriodInDays int32        `json:"service_period_in_days"`
-	OnEvent             enum.OnEvent `json:"on_event"`
-	ChargeOnce          bool         `json:"charge_once"`
-	QuantityInDecimal   string       `json:"quantity_in_decimal"`
-	UnitPriceInDecimal  string       `json:"unit_price_in_decimal"`
-	Object              string       `json:"object"`
-}
-type ChargedEventBasedAddon struct {
-	Id            string `json:"id"`
-	LastChargedAt int64  `json:"last_charged_at"`
-	Object        string `json:"object"`
-}
 type Coupon struct {
 	CouponId     string `json:"coupon_id"`
 	ApplyTill    int64  `json:"apply_till"`
@@ -235,6 +207,35 @@ type Discount struct {
 	CouponId      string                        `json:"coupon_id"`
 	Index         int32                         `json:"index"`
 	Object        string                        `json:"object"`
+}
+type Addon struct {
+	Id                     string             `json:"id"`
+	Quantity               int32              `json:"quantity"`
+	UnitPrice              int64              `json:"unit_price"`
+	Amount                 int64              `json:"amount"`
+	TrialEnd               int64              `json:"trial_end"`
+	RemainingBillingCycles int32              `json:"remaining_billing_cycles"`
+	QuantityInDecimal      string             `json:"quantity_in_decimal"`
+	UnitPriceInDecimal     string             `json:"unit_price_in_decimal"`
+	AmountInDecimal        string             `json:"amount_in_decimal"`
+	ProrationType          enum.ProrationType `json:"proration_type"`
+	Object                 string             `json:"object"`
+}
+type EventBasedAddon struct {
+	Id                  string       `json:"id"`
+	Quantity            int32        `json:"quantity"`
+	UnitPrice           int64        `json:"unit_price"`
+	ServicePeriodInDays int32        `json:"service_period_in_days"`
+	OnEvent             enum.OnEvent `json:"on_event"`
+	ChargeOnce          bool         `json:"charge_once"`
+	QuantityInDecimal   string       `json:"quantity_in_decimal"`
+	UnitPriceInDecimal  string       `json:"unit_price_in_decimal"`
+	Object              string       `json:"object"`
+}
+type ChargedEventBasedAddon struct {
+	Id            string `json:"id"`
+	LastChargedAt int64  `json:"last_charged_at"`
+	Object        string `json:"object"`
 }
 type CreateRequestParams struct {
 	Id                                string                           `json:"id,omitempty"`
@@ -427,8 +428,7 @@ type CreateShippingAddressParams struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
 type CreateStatementDescriptorParams struct {
-	Descriptor     string `json:"descriptor,omitempty"`
-	AdditionalInfo string `json:"additional_info,omitempty"`
+	Descriptor string `json:"descriptor,omitempty"`
 }
 type CreateContractTermParams struct {
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
@@ -515,8 +515,7 @@ type CreateForCustomerShippingAddressParams struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
 type CreateForCustomerStatementDescriptorParams struct {
-	Descriptor     string `json:"descriptor,omitempty"`
-	AdditionalInfo string `json:"additional_info,omitempty"`
+	Descriptor string `json:"descriptor,omitempty"`
 }
 type CreateForCustomerPaymentIntentParams struct {
 	Id                    string                              `json:"id,omitempty"`
@@ -625,8 +624,7 @@ type CreateWithItemsShippingAddressParams struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
 type CreateWithItemsStatementDescriptorParams struct {
-	Descriptor     string `json:"descriptor,omitempty"`
-	AdditionalInfo string `json:"additional_info,omitempty"`
+	Descriptor string `json:"descriptor,omitempty"`
 }
 type CreateWithItemsPaymentIntentParams struct {
 	Id                    string                              `json:"id,omitempty"`
@@ -639,6 +637,7 @@ type CreateWithItemsPaymentIntentParams struct {
 }
 type CreateWithItemsContractTermParams struct {
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	ContractStart            *int64                           `json:"contract_start,omitempty"`
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 type CreateWithItemsCouponParams struct {
@@ -830,8 +829,7 @@ type UpdateShippingAddressParams struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
 type UpdateStatementDescriptorParams struct {
-	Descriptor     string `json:"descriptor,omitempty"`
-	AdditionalInfo string `json:"additional_info,omitempty"`
+	Descriptor string `json:"descriptor,omitempty"`
 }
 type UpdateCustomerParams struct {
 	VatNumber                        string                `json:"vat_number,omitempty"`
@@ -1007,8 +1005,7 @@ type UpdateForItemsShippingAddressParams struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
 type UpdateForItemsStatementDescriptorParams struct {
-	Descriptor     string `json:"descriptor,omitempty"`
-	AdditionalInfo string `json:"additional_info,omitempty"`
+	Descriptor string `json:"descriptor,omitempty"`
 }
 type UpdateForItemsCustomerParams struct {
 	VatNumber                        string                `json:"vat_number,omitempty"`
@@ -1023,6 +1020,7 @@ type UpdateForItemsCustomerParams struct {
 type UpdateForItemsContractTermParams struct {
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
+	ContractStart            *int64                           `json:"contract_start,omitempty"`
 }
 type UpdateForItemsCouponParams struct {
 	CouponId  string `json:"coupon_id,omitempty"`
@@ -1053,8 +1051,7 @@ type ReactivateContractTermParams struct {
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 type ReactivateStatementDescriptorParams struct {
-	Descriptor     string `json:"descriptor,omitempty"`
-	AdditionalInfo string `json:"additional_info,omitempty"`
+	Descriptor string `json:"descriptor,omitempty"`
 }
 type ReactivatePaymentIntentParams struct {
 	Id                    string                              `json:"id,omitempty"`

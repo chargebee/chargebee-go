@@ -29,6 +29,7 @@ type PaymentSource struct {
 	Upi              *Upi                     `json:"upi"`
 	Paypal           *Paypal                  `json:"paypal"`
 	Venmo            *Venmo                   `json:"venmo"`
+	KlarnaPayNow     *KlarnaPayNow            `json:"klarna_pay_now"`
 	Mandates         []*Mandate               `json:"mandates"`
 	Deleted          bool                     `json:"deleted"`
 	BusinessEntityId string                   `json:"business_entity_id"`
@@ -108,6 +109,10 @@ type Paypal struct {
 type Venmo struct {
 	UserName string `json:"user_name"`
 	Object   string `json:"object"`
+}
+type KlarnaPayNow struct {
+	Email  string `json:"email"`
+	Object string `json:"object"`
 }
 type Mandate struct {
 	Id             string `json:"id"`

@@ -15,6 +15,7 @@ type ItemPrice struct {
 	Description               string                           `json:"description"`
 	Status                    itemPriceEnum.Status             `json:"status"`
 	ExternalName              string                           `json:"external_name"`
+	PriceVariantId            string                           `json:"price_variant_id"`
 	ProrationType             itemPriceEnum.ProrationType      `json:"proration_type"`
 	PricingModel              enum.PricingModel                `json:"pricing_model"`
 	Price                     int64                            `json:"price"`
@@ -39,6 +40,7 @@ type ItemPrice struct {
 	Tiers                     []*Tier                          `json:"tiers"`
 	IsTaxable                 bool                             `json:"is_taxable"`
 	TaxDetail                 *TaxDetail                       `json:"tax_detail"`
+	TaxProvidersFields        []*TaxProvidersField             `json:"tax_providers_fields"`
 	AccountingDetail          *AccountingDetail                `json:"accounting_detail"`
 	Metadata                  json.RawMessage                  `json:"metadata"`
 	ItemType                  enum.ItemType                    `json:"item_type"`
@@ -68,6 +70,12 @@ type TaxDetail struct {
 	TaxjarProductCode      string               `json:"taxjar_product_code"`
 	Object                 string               `json:"object"`
 }
+type TaxProvidersField struct {
+	ProviderName string `json:"provider_name"`
+	FieldId      string `json:"field_id"`
+	FieldValue   string `json:"field_value"`
+	Object       string `json:"object"`
+}
 type AccountingDetail struct {
 	Sku                 string `json:"sku"`
 	AccountingCode      string `json:"accounting_code"`
@@ -86,6 +94,7 @@ type CreateRequestParams struct {
 	ProrationType             itemPriceEnum.ProrationType      `json:"proration_type,omitempty"`
 	ExternalName              string                           `json:"external_name,omitempty"`
 	CurrencyCode              string                           `json:"currency_code,omitempty"`
+	PriceVariantId            string                           `json:"price_variant_id,omitempty"`
 	IsTaxable                 *bool                            `json:"is_taxable,omitempty"`
 	FreeQuantity              *int32                           `json:"free_quantity,omitempty"`
 	FreeQuantityInDecimal     string                           `json:"free_quantity_in_decimal,omitempty"`
@@ -136,6 +145,7 @@ type UpdateRequestParams struct {
 	Name                      string                           `json:"name,omitempty"`
 	Description               string                           `json:"description,omitempty"`
 	ProrationType             itemPriceEnum.ProrationType      `json:"proration_type,omitempty"`
+	PriceVariantId            string                           `json:"price_variant_id,omitempty"`
 	Status                    itemPriceEnum.Status             `json:"status,omitempty"`
 	ExternalName              string                           `json:"external_name,omitempty"`
 	CurrencyCode              string                           `json:"currency_code,omitempty"`
@@ -196,6 +206,7 @@ type ListRequestParams struct {
 	ItemFamilyId    *filter.StringFilter    `json:"item_family_id,omitempty"`
 	ItemType        *filter.EnumFilter      `json:"item_type,omitempty"`
 	CurrencyCode    *filter.StringFilter    `json:"currency_code,omitempty"`
+	PriceVariantId  *filter.StringFilter    `json:"price_variant_id,omitempty"`
 	TrialPeriod     *filter.NumberFilter    `json:"trial_period,omitempty"`
 	TrialPeriodUnit *filter.EnumFilter      `json:"trial_period_unit,omitempty"`
 	Status          *filter.EnumFilter      `json:"status,omitempty"`

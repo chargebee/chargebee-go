@@ -20,7 +20,7 @@ func getParamTypes(params interface{}) map[string]string {
 	return m
 }
 
-//SerializeParams is to used to serialize the inputParams request .
+// SerializeParams is to used to serialize the inputParams request .
 // Eg : Customer : { FirstName : "John" } is serialized as "customer[first_name]" : "John".
 func SerializeParams(params interface{}) *url.Values {
 	queryParams, err := json.Marshal(params)
@@ -113,7 +113,7 @@ func parseArray(anArray []interface{}, serParams map[string]interface{}, prefix 
 	}
 }
 
-//SerializeListParams is to used to serialize the inputParams of list request.
+// SerializeListParams is to used to serialize the inputParams of list request.
 func SerializeListParams(params interface{}) *url.Values {
 	queryParams, err := json.Marshal(params)
 	if err != nil {
@@ -176,7 +176,7 @@ func camelCase(str string) string {
 	return res
 }
 
-//customFieldExtraction is used extract the customFields from response and append it in Result struct
+// customFieldExtraction is used extract the customFields from response and append it in Result struct
 func customFieldExtraction(v interface{}, resJSON []byte) {
 	switch v.(type) {
 	case *Result:
@@ -258,12 +258,12 @@ func prepareResultListCF(resbody []byte, v interface{}) {
 	}
 }
 
-//Bool returns a pointer to the bool value passed.
+// Bool returns a pointer to the bool value passed.
 func Bool(val bool) *bool {
 	return &val
 }
 
-//BoolValue returns the value of the bool pointer passed or false if the pointer is nil.
+// BoolValue returns the value of the bool pointer passed or false if the pointer is nil.
 func BoolValue(val *bool) bool {
 	if val != nil {
 		return *val
@@ -271,12 +271,12 @@ func BoolValue(val *bool) bool {
 	return false
 }
 
-//Int32 returns a pointer to the int32 value passed.
+// Int32 returns a pointer to the int32 value passed.
 func Int32(val int32) *int32 {
 	return &val
 }
 
-//Int32Value returns the value of the int32 pointer passed or 0 if the pointer is nil.
+// Int32Value returns the value of the int32 pointer passed or 0 if the pointer is nil.
 func Int32Value(val *int32) int32 {
 	if val != nil {
 		return *val
@@ -284,12 +284,12 @@ func Int32Value(val *int32) int32 {
 	return 0
 }
 
-//Int64 returns a pointer to the int64 value passed.
+// Int64 returns a pointer to the int64 value passed.
 func Int64(val int64) *int64 {
 	return &val
 }
 
-//Int64Value returns the value of the int64 pointer passed or 0 if the pointer is nil.
+// Int64Value returns the value of the int64 pointer passed or 0 if the pointer is nil.
 func Int64Value(val *int64) int64 {
 	if val != nil {
 		return *val
@@ -297,12 +297,12 @@ func Int64Value(val *int64) int64 {
 	return 0
 }
 
-//Float64 returns a pointer to the float64 value passed.
+// Float64 returns a pointer to the float64 value passed.
 func Float64(val float64) *float64 {
 	return &val
 }
 
-//Float64Value returns the value of the float64 pointer passed or 0 if the pointer is nil.
+// Float64Value returns the value of the float64 pointer passed or 0 if the pointer is nil.
 func Float64Value(val *float64) float64 {
 	if val != nil {
 		return *val

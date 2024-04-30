@@ -2,12 +2,12 @@ package estimate
 
 import (
 	"github.com/chargebee/chargebee-go/v3/enum"
-	"github.com/chargebee/chargebee-go/v3/models/subscriptionestimate"
-	"github.com/chargebee/chargebee-go/v3/models/invoiceestimate"
-	"github.com/chargebee/chargebee-go/v3/models/creditnoteestimate"
-	"github.com/chargebee/chargebee-go/v3/models/unbilledcharge"
 	contractTermEnum "github.com/chargebee/chargebee-go/v3/models/contractterm/enum"
+	"github.com/chargebee/chargebee-go/v3/models/creditnoteestimate"
+	"github.com/chargebee/chargebee-go/v3/models/invoiceestimate"
 	paymentIntentEnum "github.com/chargebee/chargebee-go/v3/models/paymentintent/enum"
+	"github.com/chargebee/chargebee-go/v3/models/subscriptionestimate"
+	"github.com/chargebee/chargebee-go/v3/models/unbilledcharge"
 )
 
 type Estimate struct {
@@ -204,6 +204,7 @@ type CreateSubItemEstimateCustomerParams struct {
 }
 type CreateSubItemEstimateContractTermParams struct {
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	ContractStart            *int64                           `json:"contract_start,omitempty"`
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 type CreateSubForCustomerEstimateRequestParams struct {
@@ -354,10 +355,13 @@ type CreateSubItemForCustomerEstimateBillingAddressParams struct {
 }
 type CreateSubItemForCustomerEstimateContractTermParams struct {
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	ContractStart            *int64                           `json:"contract_start,omitempty"`
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 type UpdateSubscriptionRequestParams struct {
 	Subscription            *UpdateSubscriptionSubscriptionParams      `json:"subscription,omitempty"`
+	ChangesScheduledAt      *int64                                     `json:"changes_scheduled_at,omitempty"`
+	ChangeOption            enum.ChangeOption                          `json:"change_option,omitempty"`
 	Addons                  []*UpdateSubscriptionAddonParams           `json:"addons,omitempty"`
 	EventBasedAddons        []*UpdateSubscriptionEventBasedAddonParams `json:"event_based_addons,omitempty"`
 	ReplaceAddonList        *bool                                      `json:"replace_addon_list,omitempty"`
@@ -446,6 +450,8 @@ type UpdateSubscriptionCustomerParams struct {
 }
 type UpdateSubscriptionForItemsRequestParams struct {
 	Subscription           *UpdateSubscriptionForItemsSubscriptionParams       `json:"subscription,omitempty"`
+	ChangesScheduledAt     *int64                                              `json:"changes_scheduled_at,omitempty"`
+	ChangeOption           enum.ChangeOption                                   `json:"change_option,omitempty"`
 	SubscriptionItems      []*UpdateSubscriptionForItemsSubscriptionItemParams `json:"subscription_items,omitempty"`
 	MandatoryItemsToRemove []string                                            `json:"mandatory_items_to_remove,omitempty"`
 	ReplaceItemsList       *bool                                               `json:"replace_items_list,omitempty"`

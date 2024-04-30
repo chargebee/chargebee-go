@@ -1,6 +1,9 @@
 package chargebee
 
 import (
+	"net/http"
+	"strconv"
+
 	"github.com/chargebee/chargebee-go/v3/models/addon"
 	"github.com/chargebee/chargebee-go/v3/models/address"
 	"github.com/chargebee/chargebee-go/v3/models/advanceinvoiceschedule"
@@ -23,8 +26,8 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/estimate"
 	"github.com/chargebee/chargebee-go/v3/models/event"
 	"github.com/chargebee/chargebee-go/v3/models/export"
-	"github.com/chargebee/chargebee-go/v3/models/gatewayerrordetail"
 	"github.com/chargebee/chargebee-go/v3/models/feature"
+	"github.com/chargebee/chargebee-go/v3/models/gatewayerrordetail"
 	"github.com/chargebee/chargebee-go/v3/models/gift"
 	"github.com/chargebee/chargebee-go/v3/models/hierarchy"
 	"github.com/chargebee/chargebee-go/v3/models/hostedpage"
@@ -32,6 +35,9 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/impacteditemprice"
 	"github.com/chargebee/chargebee-go/v3/models/impactedsubscription"
 	"github.com/chargebee/chargebee-go/v3/models/inappsubscription"
+	"github.com/chargebee/chargebee-go/v3/models/installment"
+	"github.com/chargebee/chargebee-go/v3/models/installmentconfig"
+	"github.com/chargebee/chargebee-go/v3/models/installmentdetail"
 	"github.com/chargebee/chargebee-go/v3/models/invoice"
 	"github.com/chargebee/chargebee-go/v3/models/item"
 	"github.com/chargebee/chargebee-go/v3/models/itementitlement"
@@ -39,17 +45,21 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/itemprice"
 	"github.com/chargebee/chargebee-go/v3/models/order"
 	"github.com/chargebee/chargebee-go/v3/models/paymentintent"
-	"github.com/chargebee/chargebee-go/v3/models/paymentsource"
 	"github.com/chargebee/chargebee-go/v3/models/paymentreferencenumber"
+	"github.com/chargebee/chargebee-go/v3/models/paymentsource"
+	"github.com/chargebee/chargebee-go/v3/models/paymentvoucher"
 	"github.com/chargebee/chargebee-go/v3/models/plan"
 	"github.com/chargebee/chargebee-go/v3/models/portalsession"
+	"github.com/chargebee/chargebee-go/v3/models/pricevariant"
 	"github.com/chargebee/chargebee-go/v3/models/promotionalcredit"
 	"github.com/chargebee/chargebee-go/v3/models/purchase"
 	"github.com/chargebee/chargebee-go/v3/models/quote"
 	"github.com/chargebee/chargebee-go/v3/models/quotedcharge"
 	"github.com/chargebee/chargebee-go/v3/models/quotedsubscription"
 	"github.com/chargebee/chargebee-go/v3/models/quotelinegroup"
+	"github.com/chargebee/chargebee-go/v3/models/ramp"
 	"github.com/chargebee/chargebee-go/v3/models/resourcemigration"
+	"github.com/chargebee/chargebee-go/v3/models/session"
 	"github.com/chargebee/chargebee-go/v3/models/sitemigrationdetail"
 	"github.com/chargebee/chargebee-go/v3/models/subscription"
 	"github.com/chargebee/chargebee-go/v3/models/subscriptionentitlement"
@@ -61,11 +71,6 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/unbilledcharge"
 	"github.com/chargebee/chargebee-go/v3/models/usage"
 	"github.com/chargebee/chargebee-go/v3/models/virtualbankaccount"
-	"github.com/chargebee/chargebee-go/v3/models/paymentvoucher"
-	"github.com/chargebee/chargebee-go/v3/models/installmentconfig"
-	"github.com/chargebee/chargebee-go/v3/models/installment"
-	"net/http"
-	"strconv"
 )
 
 type ResultList struct {
@@ -120,6 +125,7 @@ type Result struct {
 	GatewayErrorDetail      *gatewayerrordetail.GatewayErrorDetail           `json:"gateway_error_detail,omitempty"`
 	ItemFamily              *itemfamily.ItemFamily                           `json:"item_family,omitempty"`
 	Item                    *item.Item                                       `json:"item,omitempty"`
+	PriceVariant            *pricevariant.PriceVariant                       `json:"price_variant,omitempty"`
 	Attribute               *attribute.Attribute                             `json:"attribute,omitempty"`
 	ItemPrice               *itemprice.ItemPrice                             `json:"item_price,omitempty"`
 	AttachedItem            *attacheditem.AttachedItem                       `json:"attached_item,omitempty"`
@@ -135,16 +141,19 @@ type Result struct {
 	EntitlementOverride     *entitlementoverride.EntitlementOverride         `json:"entitlement_override,omitempty"`
 	Purchase                *purchase.Purchase                               `json:"purchase,omitempty"`
 	PaymentVoucher          *paymentvoucher.PaymentVoucher                   `json:"payment_voucher,omitempty"`
+	Ramp                    *ramp.Ramp                                       `json:"ramp,omitempty"`
 	InstallmentConfig       *installmentconfig.InstallmentConfig             `json:"installment_config,omitempty"`
 	Installment             *installment.Installment                         `json:"installment,omitempty"`
-	UnbilledCharges         []*unbilledcharge.UnbilledCharge                 `json:"unbilled_charges,omitempty"`
-	CreditNotes             []*creditnote.CreditNote                         `json:"credit_notes,omitempty"`
+	InstallmentDetail       *installmentdetail.InstallmentDetail             `json:"installment_detail,omitempty"`
+	Session                 *session.Session                                 `json:"session,omitempty"`
 	AdvanceInvoiceSchedules []*advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedules,omitempty"`
 	Hierarchies             []*hierarchy.Hierarchy                           `json:"hierarchies,omitempty"`
-	Downloads               []*download.Download                             `json:"downloads,omitempty"`
 	Invoices                []*invoice.Invoice                               `json:"invoices,omitempty"`
-	DifferentialPrices      []*differentialprice.DifferentialPrice           `json:"differential_prices,omitempty"`
+	CreditNotes             []*creditnote.CreditNote                         `json:"credit_notes,omitempty"`
+	UnbilledCharges         []*unbilledcharge.UnbilledCharge                 `json:"unbilled_charges,omitempty"`
+	Downloads               []*download.Download                             `json:"downloads,omitempty"`
 	InAppSubscriptions      []*inappsubscription.InAppSubscription           `json:"in_app_subscriptions,omitempty"`
+	DifferentialPrices      []*differentialprice.DifferentialPrice           `json:"differential_prices,omitempty"`
 	responseHeaders         http.Header
 }
 

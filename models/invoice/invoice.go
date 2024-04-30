@@ -3,11 +3,11 @@ package invoice
 import (
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
-	paymentIntentEnum "github.com/chargebee/chargebee-go/v3/models/paymentintent/enum"
 	creditNoteEnum "github.com/chargebee/chargebee-go/v3/models/creditnote/enum"
-	transactionEnum "github.com/chargebee/chargebee-go/v3/models/transaction/enum"
-	paymentReferenceNumberEnum "github.com/chargebee/chargebee-go/v3/models/paymentreferencenumber/enum"
 	invoiceEnum "github.com/chargebee/chargebee-go/v3/models/invoice/enum"
+	paymentIntentEnum "github.com/chargebee/chargebee-go/v3/models/paymentintent/enum"
+	paymentReferenceNumberEnum "github.com/chargebee/chargebee-go/v3/models/paymentreferencenumber/enum"
+	transactionEnum "github.com/chargebee/chargebee-go/v3/models/transaction/enum"
 )
 
 type Invoice struct {
@@ -238,10 +238,9 @@ type ShippingAddress struct {
 	Object           string                `json:"object"`
 }
 type StatementDescriptor struct {
-	Id             string `json:"id"`
-	Descriptor     string `json:"descriptor"`
-	AdditionalInfo string `json:"additional_info"`
-	Object         string `json:"object"`
+	Id         string `json:"id"`
+	Descriptor string `json:"descriptor"`
+	Object     string `json:"object"`
 }
 type BillingAddress struct {
 	FirstName        string                `json:"first_name"`
@@ -339,8 +338,7 @@ type CreateShippingAddressParams struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
 type CreateStatementDescriptorParams struct {
-	Descriptor     string `json:"descriptor,omitempty"`
-	AdditionalInfo string `json:"additional_info,omitempty"`
+	Descriptor string `json:"descriptor,omitempty"`
 }
 type CreateCardParams struct {
 	Gateway               enum.Gateway           `json:"gateway,omitempty"`
@@ -488,8 +486,7 @@ type CreateForChargeItemsAndChargesShippingAddressParams struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
 type CreateForChargeItemsAndChargesStatementDescriptorParams struct {
-	Descriptor     string `json:"descriptor,omitempty"`
-	AdditionalInfo string `json:"additional_info,omitempty"`
+	Descriptor string `json:"descriptor,omitempty"`
 }
 type CreateForChargeItemsAndChargesCardParams struct {
 	Gateway               enum.Gateway           `json:"gateway,omitempty"`
@@ -709,7 +706,7 @@ type ImportInvoiceDiscountParams struct {
 	EntityType  invoiceEnum.DiscountEntityType `json:"entity_type"`
 	EntityId    string                         `json:"entity_id,omitempty"`
 	Description string                         `json:"description,omitempty"`
-	Amount      *int64                  `json:"amount"`
+	Amount      *int64                         `json:"amount"`
 }
 type ImportInvoiceTaxParams struct {
 	Name        string            `json:"name"`
@@ -790,6 +787,7 @@ type ApplyCreditsCreditNoteParams struct {
 type ListRequestParams struct {
 	Limit          *int32                  `json:"limit,omitempty"`
 	Offset         string                  `json:"offset,omitempty"`
+	Einvoice       *ListEinvoiceParams     `json:"einvoice,omitempty"`
 	PaidOnAfter    *int64                  `json:"paid_on_after,omitempty"`
 	IncludeDeleted *bool                   `json:"include_deleted,omitempty"`
 	Id             *filter.StringFilter    `json:"id,omitempty"`
@@ -812,7 +810,6 @@ type ListRequestParams struct {
 	VoidedAt       *filter.TimestampFilter `json:"voided_at,omitempty"`
 	VoidReasonCode *filter.StringFilter    `json:"void_reason_code,omitempty"`
 	SortBy         *filter.SortFilter      `json:"sort_by,omitempty"`
-	Einvoice       *ListEinvoiceParams     `json:"einvoice,omitempty"`
 }
 type ListEinvoiceParams struct {
 	Status *filter.EnumFilter `json:"status,omitempty"`
@@ -831,8 +828,8 @@ type PdfRequestParams struct {
 type ListPaymentReferenceNumbersRequestParams struct {
 	Limit                  *int32                                                   `json:"limit,omitempty"`
 	Offset                 string                                                   `json:"offset,omitempty"`
-	Id                     *filter.StringFilter                                     `json:"id,omitempty"`
 	PaymentReferenceNumber *ListPaymentReferenceNumbersPaymentReferenceNumberParams `json:"payment_reference_number,omitempty"`
+	Id                     *filter.StringFilter                                     `json:"id,omitempty"`
 }
 type ListPaymentReferenceNumbersPaymentReferenceNumberParams struct {
 	Number *filter.StringFilter `json:"number,omitempty"`
@@ -1032,8 +1029,7 @@ type UpdateDetailsShippingAddressParams struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
 type UpdateDetailsStatementDescriptorParams struct {
-	Descriptor     string `json:"descriptor,omitempty"`
-	AdditionalInfo string `json:"additional_info,omitempty"`
+	Descriptor string `json:"descriptor,omitempty"`
 }
 type InstallmentsRequestParams struct {
 	ConfigId string `json:"config_id"`
