@@ -59,7 +59,6 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/quotelinegroup"
 	"github.com/chargebee/chargebee-go/v3/models/ramp"
 	"github.com/chargebee/chargebee-go/v3/models/resourcemigration"
-	"github.com/chargebee/chargebee-go/v3/models/session"
 	"github.com/chargebee/chargebee-go/v3/models/sitemigrationdetail"
 	"github.com/chargebee/chargebee-go/v3/models/subscription"
 	"github.com/chargebee/chargebee-go/v3/models/subscriptionentitlement"
@@ -145,7 +144,6 @@ type Result struct {
 	InstallmentConfig       *installmentconfig.InstallmentConfig             `json:"installment_config,omitempty"`
 	Installment             *installment.Installment                         `json:"installment,omitempty"`
 	InstallmentDetail       *installmentdetail.InstallmentDetail             `json:"installment_detail,omitempty"`
-	Session                 *session.Session                                 `json:"session,omitempty"`
 	AdvanceInvoiceSchedules []*advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedules,omitempty"`
 	Hierarchies             []*hierarchy.Hierarchy                           `json:"hierarchies,omitempty"`
 	Invoices                []*invoice.Invoice                               `json:"invoices,omitempty"`
