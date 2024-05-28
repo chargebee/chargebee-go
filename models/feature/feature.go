@@ -38,7 +38,6 @@ type CreateRequestParams struct {
 	Name        string               `json:"name"`
 	Description string               `json:"description,omitempty"`
 	Type        featureEnum.Type     `json:"type,omitempty"`
-	Status      featureEnum.Status   `json:"status,omitempty"`
 	Unit        string               `json:"unit,omitempty"`
 	Levels      []*CreateLevelParams `json:"levels,omitempty"`
 }
@@ -51,7 +50,6 @@ type CreateLevelParams struct {
 type UpdateRequestParams struct {
 	Name        string               `json:"name,omitempty"`
 	Description string               `json:"description,omitempty"`
-	Status      featureEnum.Status   `json:"status,omitempty"`
 	Unit        string               `json:"unit,omitempty"`
 	Levels      []*UpdateLevelParams `json:"levels,omitempty"`
 }

@@ -77,6 +77,17 @@ type QuotedContractTerm struct {
 	CancellationCutoffPeriod int32                                                    `json:"cancellation_cutoff_period"`
 	Object                   string                                                   `json:"object"`
 }
+type EventBasedAddon struct {
+	Id                  string       `json:"id"`
+	Quantity            int32        `json:"quantity"`
+	UnitPrice           int64        `json:"unit_price"`
+	ServicePeriodInDays int32        `json:"service_period_in_days"`
+	OnEvent             enum.OnEvent `json:"on_event"`
+	ChargeOnce          bool         `json:"charge_once"`
+	QuantityInDecimal   string       `json:"quantity_in_decimal"`
+	UnitPriceInDecimal  string       `json:"unit_price_in_decimal"`
+	Object              string       `json:"object"`
+}
 type Addon struct {
 	Id                     string             `json:"id"`
 	Quantity               int32              `json:"quantity"`
@@ -89,15 +100,4 @@ type Addon struct {
 	AmountInDecimal        string             `json:"amount_in_decimal"`
 	ProrationType          enum.ProrationType `json:"proration_type"`
 	Object                 string             `json:"object"`
-}
-type EventBasedAddon struct {
-	Id                  string       `json:"id"`
-	Quantity            int32        `json:"quantity"`
-	UnitPrice           int64        `json:"unit_price"`
-	ServicePeriodInDays int32        `json:"service_period_in_days"`
-	OnEvent             enum.OnEvent `json:"on_event"`
-	ChargeOnce          bool         `json:"charge_once"`
-	QuantityInDecimal   string       `json:"quantity_in_decimal"`
-	UnitPriceInDecimal  string       `json:"unit_price_in_decimal"`
-	Object              string       `json:"object"`
 }

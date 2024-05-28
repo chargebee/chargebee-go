@@ -114,6 +114,7 @@ type CreateRequestParams struct {
 	BillingCycles             *int32                           `json:"billing_cycles,omitempty"`
 	TrialEndAction            itemPriceEnum.TrialEndAction     `json:"trial_end_action,omitempty"`
 	TaxDetail                 *CreateTaxDetailParams           `json:"tax_detail,omitempty"`
+	TaxProvidersFields        []*CreateTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
 	AccountingDetail          *CreateAccountingDetailParams    `json:"accounting_detail,omitempty"`
 }
 type CreateTierParams struct {
@@ -132,6 +133,11 @@ type CreateTaxDetailParams struct {
 	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
 	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
 	TaxjarProductCode      string               `json:"taxjar_product_code,omitempty"`
+}
+type CreateTaxProvidersFieldParams struct {
+	ProviderName string `json:"provider_name"`
+	FieldId      string `json:"field_id"`
+	FieldValue   string `json:"field_value"`
 }
 type CreateAccountingDetailParams struct {
 	Sku                 string `json:"sku,omitempty"`
@@ -167,6 +173,7 @@ type UpdateRequestParams struct {
 	BillingCycles             *int32                           `json:"billing_cycles,omitempty"`
 	TrialEndAction            itemPriceEnum.TrialEndAction     `json:"trial_end_action,omitempty"`
 	TaxDetail                 *UpdateTaxDetailParams           `json:"tax_detail,omitempty"`
+	TaxProvidersFields        []*UpdateTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
 	AccountingDetail          *UpdateAccountingDetailParams    `json:"accounting_detail,omitempty"`
 	ShowDescriptionInInvoices *bool                            `json:"show_description_in_invoices,omitempty"`
 	ShowDescriptionInQuotes   *bool                            `json:"show_description_in_quotes,omitempty"`
@@ -187,6 +194,11 @@ type UpdateTaxDetailParams struct {
 	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
 	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
 	TaxjarProductCode      string               `json:"taxjar_product_code,omitempty"`
+}
+type UpdateTaxProvidersFieldParams struct {
+	ProviderName string `json:"provider_name"`
+	FieldId      string `json:"field_id"`
+	FieldValue   string `json:"field_value"`
 }
 type UpdateAccountingDetailParams struct {
 	Sku                 string `json:"sku,omitempty"`

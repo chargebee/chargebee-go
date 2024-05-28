@@ -45,10 +45,11 @@ type Tier struct {
 	Object                string `json:"object"`
 }
 type CreateUnbilledChargeRequestParams struct {
-	SubscriptionId string                              `json:"subscription_id"`
-	CurrencyCode   string                              `json:"currency_code,omitempty"`
-	Addons         []*CreateUnbilledChargeAddonParams  `json:"addons,omitempty"`
-	Charges        []*CreateUnbilledChargeChargeParams `json:"charges,omitempty"`
+	SubscriptionId     string                                         `json:"subscription_id"`
+	CurrencyCode       string                                         `json:"currency_code,omitempty"`
+	Addons             []*CreateUnbilledChargeAddonParams             `json:"addons,omitempty"`
+	Charges            []*CreateUnbilledChargeChargeParams            `json:"charges,omitempty"`
+	TaxProvidersFields []*CreateUnbilledChargeTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
 }
 type CreateUnbilledChargeAddonParams struct {
 	Id                 string `json:"id,omitempty"`
@@ -74,12 +75,18 @@ type CreateUnbilledChargeChargeParams struct {
 	DateFrom               *int64               `json:"date_from,omitempty"`
 	DateTo                 *int64               `json:"date_to,omitempty"`
 }
+type CreateUnbilledChargeTaxProvidersFieldParams struct {
+	ProviderName string `json:"provider_name,omitempty"`
+	FieldId      string `json:"field_id,omitempty"`
+	FieldValue   string `json:"field_value,omitempty"`
+}
 type CreateRequestParams struct {
-	SubscriptionId string                   `json:"subscription_id"`
-	CurrencyCode   string                   `json:"currency_code,omitempty"`
-	ItemPrices     []*CreateItemPriceParams `json:"item_prices,omitempty"`
-	ItemTiers      []*CreateItemTierParams  `json:"item_tiers,omitempty"`
-	Charges        []*CreateChargeParams    `json:"charges,omitempty"`
+	SubscriptionId     string                           `json:"subscription_id"`
+	CurrencyCode       string                           `json:"currency_code,omitempty"`
+	ItemPrices         []*CreateItemPriceParams         `json:"item_prices,omitempty"`
+	ItemTiers          []*CreateItemTierParams          `json:"item_tiers,omitempty"`
+	Charges            []*CreateChargeParams            `json:"charges,omitempty"`
+	TaxProvidersFields []*CreateTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
 }
 type CreateItemPriceParams struct {
 	ItemPriceId        string `json:"item_price_id,omitempty"`
@@ -113,6 +120,11 @@ type CreateChargeParams struct {
 	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
 	DateFrom               *int64               `json:"date_from,omitempty"`
 	DateTo                 *int64               `json:"date_to,omitempty"`
+}
+type CreateTaxProvidersFieldParams struct {
+	ProviderName string `json:"provider_name,omitempty"`
+	FieldId      string `json:"field_id,omitempty"`
+	FieldValue   string `json:"field_value,omitempty"`
 }
 type InvoiceUnbilledChargesRequestParams struct {
 	SubscriptionId string `json:"subscription_id,omitempty"`

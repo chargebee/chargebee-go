@@ -1,11 +1,12 @@
 package creditnote
 
 import (
+	"encoding/json"
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
 	creditNoteEnum "github.com/chargebee/chargebee-go/v3/models/creditnote/enum"
-	invoiceEnum "github.com/chargebee/chargebee-go/v3/models/invoice/enum"
 	transactionEnum "github.com/chargebee/chargebee-go/v3/models/transaction/enum"
+	invoiceEnum "github.com/chargebee/chargebee-go/v3/models/invoice/enum"
 )
 
 type CreditNote struct {
@@ -53,6 +54,7 @@ type CreditNote struct {
 	BusinessEntityId          string                    `json:"business_entity_id"`
 	ShippingAddress           *ShippingAddress          `json:"shipping_address"`
 	BillingAddress            *BillingAddress           `json:"billing_address"`
+	SiteDetailsAtCreation     *SiteDetailsAtCreation    `json:"site_details_at_creation"`
 	Object                    string                    `json:"object"`
 }
 type Einvoice struct {
@@ -194,27 +196,36 @@ type BillingAddress struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status"`
 	Object           string                `json:"object"`
 }
+type SiteDetailsAtCreation struct {
+	Timezone            string          `json:"timezone"`
+	OrganizationAddress json.RawMessage `json:"organization_address"`
+	Object              string          `json:"object"`
+}
 type CreateRequestParams struct {
-	ReferenceInvoiceId string                    `json:"reference_invoice_id"`
+	ReferenceInvoiceId string                    `json:"reference_invoice_id,omitempty"`
+	CustomerId         string                    `json:"customer_id,omitempty"`
 	Total              *int64                    `json:"total,omitempty"`
 	Type               creditNoteEnum.Type       `json:"type"`
 	ReasonCode         creditNoteEnum.ReasonCode `json:"reason_code,omitempty"`
 	CreateReasonCode   string                    `json:"create_reason_code,omitempty"`
 	Date               *int64                    `json:"date,omitempty"`
 	CustomerNotes      string                    `json:"customer_notes,omitempty"`
+	CurrencyCode       string                    `json:"currency_code,omitempty"`
 	LineItems          []*CreateLineItemParams   `json:"line_items,omitempty"`
 	Comment            string                    `json:"comment,omitempty"`
 }
 type CreateLineItemParams struct {
-	ReferenceLineItemId string `json:"reference_line_item_id"`
-	UnitAmount          *int64 `json:"unit_amount,omitempty"`
-	UnitAmountInDecimal string `json:"unit_amount_in_decimal,omitempty"`
-	Quantity            *int32 `json:"quantity,omitempty"`
-	QuantityInDecimal   string `json:"quantity_in_decimal,omitempty"`
-	Amount              *int64 `json:"amount,omitempty"`
-	DateFrom            *int64 `json:"date_from,omitempty"`
-	DateTo              *int64 `json:"date_to,omitempty"`
-	Description         string `json:"description,omitempty"`
+	ReferenceLineItemId string                            `json:"reference_line_item_id,omitempty"`
+	UnitAmount          *int64                            `json:"unit_amount,omitempty"`
+	UnitAmountInDecimal string                            `json:"unit_amount_in_decimal,omitempty"`
+	Quantity            *int32                            `json:"quantity,omitempty"`
+	QuantityInDecimal   string                            `json:"quantity_in_decimal,omitempty"`
+	Amount              *int64                            `json:"amount,omitempty"`
+	DateFrom            *int64                            `json:"date_from,omitempty"`
+	DateTo              *int64                            `json:"date_to,omitempty"`
+	Description         string                            `json:"description,omitempty"`
+	EntityType          creditNoteEnum.LineItemEntityType `json:"entity_type,omitempty"`
+	EntityId            string                            `json:"entity_id,omitempty"`
 }
 type PdfRequestParams struct {
 	DispositionType enum.DispositionType `json:"disposition_type,omitempty"`
@@ -355,11 +366,10 @@ type ImportCreditNoteLineItemTierParams struct {
 	UnitAmountInDecimal   string `json:"unit_amount_in_decimal,omitempty"`
 }
 type ImportCreditNoteDiscountParams struct {
-	LineItemId  string                         `json:"line_item_id,omitempty"`
-	EntityType  invoiceEnum.DiscountEntityType `json:"entity_type"`
-	EntityId    string                         `json:"entity_id,omitempty"`
-	Description string                         `json:"description,omitempty"`
-	Amount      *int64                         `json:"amount"`
+	EntityType  creditNoteEnum.DiscountEntityType `json:"entity_type"`
+	EntityId    string                            `json:"entity_id,omitempty"`
+	Description string                            `json:"description,omitempty"`
+	Amount      *int64                            `json:"amount"`
 }
 type ImportCreditNoteTaxParams struct {
 	Name        string            `json:"name"`

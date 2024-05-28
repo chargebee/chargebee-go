@@ -22,21 +22,22 @@ type Estimate struct {
 	Object                  string                                       `json:"object"`
 }
 type CreateSubscriptionRequestParams struct {
-	Subscription            *CreateSubscriptionSubscriptionParams      `json:"subscription,omitempty"`
-	BillingCycles           *int32                                     `json:"billing_cycles,omitempty"`
-	Addons                  []*CreateSubscriptionAddonParams           `json:"addons,omitempty"`
-	EventBasedAddons        []*CreateSubscriptionEventBasedAddonParams `json:"event_based_addons,omitempty"`
-	MandatoryAddonsToRemove []string                                   `json:"mandatory_addons_to_remove,omitempty"`
-	TermsToCharge           *int32                                     `json:"terms_to_charge,omitempty"`
-	BillingAlignmentMode    enum.BillingAlignmentMode                  `json:"billing_alignment_mode,omitempty"`
-	CouponIds               []string                                   `json:"coupon_ids,omitempty"`
-	BillingAddress          *CreateSubscriptionBillingAddressParams    `json:"billing_address,omitempty"`
-	ShippingAddress         *CreateSubscriptionShippingAddressParams   `json:"shipping_address,omitempty"`
-	Customer                *CreateSubscriptionCustomerParams          `json:"customer,omitempty"`
-	InvoiceImmediately      *bool                                      `json:"invoice_immediately,omitempty"`
-	InvoiceDate             *int64                                     `json:"invoice_date,omitempty"`
-	ContractTerm            *CreateSubscriptionContractTermParams      `json:"contract_term,omitempty"`
-	ClientProfileId         string                                     `json:"client_profile_id,omitempty"`
+	Subscription            *CreateSubscriptionSubscriptionParams        `json:"subscription,omitempty"`
+	BillingCycles           *int32                                       `json:"billing_cycles,omitempty"`
+	Addons                  []*CreateSubscriptionAddonParams             `json:"addons,omitempty"`
+	EventBasedAddons        []*CreateSubscriptionEventBasedAddonParams   `json:"event_based_addons,omitempty"`
+	MandatoryAddonsToRemove []string                                     `json:"mandatory_addons_to_remove,omitempty"`
+	TermsToCharge           *int32                                       `json:"terms_to_charge,omitempty"`
+	BillingAlignmentMode    enum.BillingAlignmentMode                    `json:"billing_alignment_mode,omitempty"`
+	CouponIds               []string                                     `json:"coupon_ids,omitempty"`
+	BillingAddress          *CreateSubscriptionBillingAddressParams      `json:"billing_address,omitempty"`
+	ShippingAddress         *CreateSubscriptionShippingAddressParams     `json:"shipping_address,omitempty"`
+	Customer                *CreateSubscriptionCustomerParams            `json:"customer,omitempty"`
+	InvoiceImmediately      *bool                                        `json:"invoice_immediately,omitempty"`
+	InvoiceDate             *int64                                       `json:"invoice_date,omitempty"`
+	ContractTerm            *CreateSubscriptionContractTermParams        `json:"contract_term,omitempty"`
+	TaxProvidersFields      []*CreateSubscriptionTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
+	ClientProfileId         string                                       `json:"client_profile_id,omitempty"`
 }
 type CreateSubscriptionSubscriptionParams struct {
 	Id                                string                    `json:"id,omitempty"`
@@ -109,35 +110,40 @@ type CreateSubscriptionContractTermParams struct {
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
+type CreateSubscriptionTaxProvidersFieldParams struct {
+	ProviderName string `json:"provider_name,omitempty"`
+	FieldId      string `json:"field_id,omitempty"`
+	FieldValue   string `json:"field_value,omitempty"`
+}
 type CreateSubItemEstimateRequestParams struct {
-	Subscription           *CreateSubItemEstimateSubscriptionParams       `json:"subscription,omitempty"`
-	BillingCycles          *int32                                         `json:"billing_cycles,omitempty"`
-	SubscriptionItems      []*CreateSubItemEstimateSubscriptionItemParams `json:"subscription_items,omitempty"`
-	Discounts              []*CreateSubItemEstimateDiscountParams         `json:"discounts,omitempty"`
-	MandatoryItemsToRemove []string                                       `json:"mandatory_items_to_remove,omitempty"`
-	ItemTiers              []*CreateSubItemEstimateItemTierParams         `json:"item_tiers,omitempty"`
-	TermsToCharge          *int32                                         `json:"terms_to_charge,omitempty"`
-	BillingAlignmentMode   enum.BillingAlignmentMode                      `json:"billing_alignment_mode,omitempty"`
-	CouponIds              []string                                       `json:"coupon_ids,omitempty"`
-	BillingAddress         *CreateSubItemEstimateBillingAddressParams     `json:"billing_address,omitempty"`
-	ShippingAddress        *CreateSubItemEstimateShippingAddressParams    `json:"shipping_address,omitempty"`
-	Customer               *CreateSubItemEstimateCustomerParams           `json:"customer,omitempty"`
-	InvoiceImmediately     *bool                                          `json:"invoice_immediately,omitempty"`
-	InvoiceDate            *int64                                         `json:"invoice_date,omitempty"`
-	ClientProfileId        string                                         `json:"client_profile_id,omitempty"`
-	ContractTerm           *CreateSubItemEstimateContractTermParams       `json:"contract_term,omitempty"`
+	Subscription           *CreateSubItemEstimateSubscriptionParams        `json:"subscription,omitempty"`
+	BillingCycles          *int32                                          `json:"billing_cycles,omitempty"`
+	SubscriptionItems      []*CreateSubItemEstimateSubscriptionItemParams  `json:"subscription_items,omitempty"`
+	Discounts              []*CreateSubItemEstimateDiscountParams          `json:"discounts,omitempty"`
+	MandatoryItemsToRemove []string                                        `json:"mandatory_items_to_remove,omitempty"`
+	ItemTiers              []*CreateSubItemEstimateItemTierParams          `json:"item_tiers,omitempty"`
+	TermsToCharge          *int32                                          `json:"terms_to_charge,omitempty"`
+	BillingAlignmentMode   enum.BillingAlignmentMode                       `json:"billing_alignment_mode,omitempty"`
+	CouponIds              []string                                        `json:"coupon_ids,omitempty"`
+	BillingAddress         *CreateSubItemEstimateBillingAddressParams      `json:"billing_address,omitempty"`
+	ShippingAddress        *CreateSubItemEstimateShippingAddressParams     `json:"shipping_address,omitempty"`
+	Customer               *CreateSubItemEstimateCustomerParams            `json:"customer,omitempty"`
+	InvoiceImmediately     *bool                                           `json:"invoice_immediately,omitempty"`
+	InvoiceDate            *int64                                          `json:"invoice_date,omitempty"`
+	ClientProfileId        string                                          `json:"client_profile_id,omitempty"`
+	ContractTerm           *CreateSubItemEstimateContractTermParams        `json:"contract_term,omitempty"`
+	TaxProvidersFields     []*CreateSubItemEstimateTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
 }
 type CreateSubItemEstimateSubscriptionParams struct {
-	Id                                string                    `json:"id,omitempty"`
-	TrialEnd                          *int64                    `json:"trial_end,omitempty"`
-	SetupFee                          *int64                    `json:"setup_fee,omitempty"`
-	StartDate                         *int64                    `json:"start_date,omitempty"`
-	Coupon                            string                    `json:"coupon,omitempty"`
-	OfflinePaymentMethod              enum.OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
-	FreePeriod                        *int32                    `json:"free_period,omitempty"`
-	FreePeriodUnit                    enum.FreePeriodUnit       `json:"free_period_unit,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
-	TrialEndAction                    enum.TrialEndAction       `json:"trial_end_action,omitempty"`
+	Id                                string              `json:"id,omitempty"`
+	TrialEnd                          *int64              `json:"trial_end,omitempty"`
+	SetupFee                          *int64              `json:"setup_fee,omitempty"`
+	StartDate                         *int64              `json:"start_date,omitempty"`
+	Coupon                            string              `json:"coupon,omitempty"`
+	FreePeriod                        *int32              `json:"free_period,omitempty"`
+	FreePeriodUnit                    enum.FreePeriodUnit `json:"free_period_unit,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32              `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	TrialEndAction                    enum.TrialEndAction `json:"trial_end_action,omitempty"`
 }
 type CreateSubItemEstimateSubscriptionItemParams struct {
 	ItemPriceId        string              `json:"item_price_id"`
@@ -206,6 +212,11 @@ type CreateSubItemEstimateContractTermParams struct {
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	ContractStart            *int64                           `json:"contract_start,omitempty"`
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
+}
+type CreateSubItemEstimateTaxProvidersFieldParams struct {
+	ProviderName string `json:"provider_name,omitempty"`
+	FieldId      string `json:"field_id,omitempty"`
+	FieldValue   string `json:"field_value,omitempty"`
 }
 type CreateSubForCustomerEstimateRequestParams struct {
 	UseExistingBalances     *bool                                                `json:"use_existing_balances,omitempty"`
@@ -290,15 +301,14 @@ type CreateSubItemForCustomerEstimateRequestParams struct {
 	ContractTerm           *CreateSubItemForCustomerEstimateContractTermParams       `json:"contract_term,omitempty"`
 }
 type CreateSubItemForCustomerEstimateSubscriptionParams struct {
-	Id                                string                    `json:"id,omitempty"`
-	TrialEnd                          *int64                    `json:"trial_end,omitempty"`
-	SetupFee                          *int64                    `json:"setup_fee,omitempty"`
-	StartDate                         *int64                    `json:"start_date,omitempty"`
-	OfflinePaymentMethod              enum.OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
-	FreePeriod                        *int32                    `json:"free_period,omitempty"`
-	FreePeriodUnit                    enum.FreePeriodUnit       `json:"free_period_unit,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
-	TrialEndAction                    enum.TrialEndAction       `json:"trial_end_action,omitempty"`
+	Id                                string              `json:"id,omitempty"`
+	TrialEnd                          *int64              `json:"trial_end,omitempty"`
+	SetupFee                          *int64              `json:"setup_fee,omitempty"`
+	StartDate                         *int64              `json:"start_date,omitempty"`
+	FreePeriod                        *int32              `json:"free_period,omitempty"`
+	FreePeriodUnit                    enum.FreePeriodUnit `json:"free_period_unit,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32              `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	TrialEndAction                    enum.TrialEndAction `json:"trial_end_action,omitempty"`
 }
 type CreateSubItemForCustomerEstimateSubscriptionItemParams struct {
 	ItemPriceId        string              `json:"item_price_id"`
@@ -760,20 +770,21 @@ type GiftSubscriptionForItemsSubscriptionItemParams struct {
 	QuantityInDecimal string `json:"quantity_in_decimal,omitempty"`
 }
 type CreateInvoiceRequestParams struct {
-	Invoice                    *CreateInvoiceInvoiceParams         `json:"invoice,omitempty"`
-	CurrencyCode               string                              `json:"currency_code,omitempty"`
-	Addons                     []*CreateInvoiceAddonParams         `json:"addons,omitempty"`
-	Charges                    []*CreateInvoiceChargeParams        `json:"charges,omitempty"`
-	InvoiceNote                string                              `json:"invoice_note,omitempty"`
-	RemoveGeneralNote          *bool                               `json:"remove_general_note,omitempty"`
-	NotesToRemove              []*CreateInvoiceNotesToRemoveParams `json:"notes_to_remove,omitempty"`
-	Coupon                     string                              `json:"coupon,omitempty"`
-	CouponIds                  []string                            `json:"coupon_ids,omitempty"`
-	AuthorizationTransactionId string                              `json:"authorization_transaction_id,omitempty"`
-	PaymentSourceId            string                              `json:"payment_source_id,omitempty"`
-	AutoCollection             enum.AutoCollection                 `json:"auto_collection,omitempty"`
-	InvoiceDate                *int64                              `json:"invoice_date,omitempty"`
-	ShippingAddress            *CreateInvoiceShippingAddressParams `json:"shipping_address,omitempty"`
+	Invoice                    *CreateInvoiceInvoiceParams             `json:"invoice,omitempty"`
+	CurrencyCode               string                                  `json:"currency_code,omitempty"`
+	Addons                     []*CreateInvoiceAddonParams             `json:"addons,omitempty"`
+	Charges                    []*CreateInvoiceChargeParams            `json:"charges,omitempty"`
+	InvoiceNote                string                                  `json:"invoice_note,omitempty"`
+	RemoveGeneralNote          *bool                                   `json:"remove_general_note,omitempty"`
+	NotesToRemove              []*CreateInvoiceNotesToRemoveParams     `json:"notes_to_remove,omitempty"`
+	Coupon                     string                                  `json:"coupon,omitempty"`
+	CouponIds                  []string                                `json:"coupon_ids,omitempty"`
+	AuthorizationTransactionId string                                  `json:"authorization_transaction_id,omitempty"`
+	PaymentSourceId            string                                  `json:"payment_source_id,omitempty"`
+	AutoCollection             enum.AutoCollection                     `json:"auto_collection,omitempty"`
+	InvoiceDate                *int64                                  `json:"invoice_date,omitempty"`
+	ShippingAddress            *CreateInvoiceShippingAddressParams     `json:"shipping_address,omitempty"`
+	TaxProvidersFields         []*CreateInvoiceTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
 }
 type CreateInvoiceInvoiceParams struct {
 	CustomerId     string `json:"customer_id,omitempty"`
@@ -824,23 +835,29 @@ type CreateInvoiceShippingAddressParams struct {
 	Country          string                `json:"country,omitempty"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
+type CreateInvoiceTaxProvidersFieldParams struct {
+	ProviderName string `json:"provider_name,omitempty"`
+	FieldId      string `json:"field_id,omitempty"`
+	FieldValue   string `json:"field_value,omitempty"`
+}
 type CreateInvoiceForItemsRequestParams struct {
-	Invoice                    *CreateInvoiceForItemsInvoiceParams         `json:"invoice,omitempty"`
-	CurrencyCode               string                                      `json:"currency_code,omitempty"`
-	ItemPrices                 []*CreateInvoiceForItemsItemPriceParams     `json:"item_prices,omitempty"`
-	ItemTiers                  []*CreateInvoiceForItemsItemTierParams      `json:"item_tiers,omitempty"`
-	Charges                    []*CreateInvoiceForItemsChargeParams        `json:"charges,omitempty"`
-	InvoiceNote                string                                      `json:"invoice_note,omitempty"`
-	RemoveGeneralNote          *bool                                       `json:"remove_general_note,omitempty"`
-	NotesToRemove              []*CreateInvoiceForItemsNotesToRemoveParams `json:"notes_to_remove,omitempty"`
-	Coupon                     string                                      `json:"coupon,omitempty"`
-	CouponIds                  []string                                    `json:"coupon_ids,omitempty"`
-	AuthorizationTransactionId string                                      `json:"authorization_transaction_id,omitempty"`
-	PaymentSourceId            string                                      `json:"payment_source_id,omitempty"`
-	AutoCollection             enum.AutoCollection                         `json:"auto_collection,omitempty"`
-	Discounts                  []*CreateInvoiceForItemsDiscountParams      `json:"discounts,omitempty"`
-	ShippingAddress            *CreateInvoiceForItemsShippingAddressParams `json:"shipping_address,omitempty"`
-	InvoiceDate                *int64                                      `json:"invoice_date,omitempty"`
+	Invoice                    *CreateInvoiceForItemsInvoiceParams             `json:"invoice,omitempty"`
+	CurrencyCode               string                                          `json:"currency_code,omitempty"`
+	ItemPrices                 []*CreateInvoiceForItemsItemPriceParams         `json:"item_prices,omitempty"`
+	ItemTiers                  []*CreateInvoiceForItemsItemTierParams          `json:"item_tiers,omitempty"`
+	Charges                    []*CreateInvoiceForItemsChargeParams            `json:"charges,omitempty"`
+	InvoiceNote                string                                          `json:"invoice_note,omitempty"`
+	RemoveGeneralNote          *bool                                           `json:"remove_general_note,omitempty"`
+	NotesToRemove              []*CreateInvoiceForItemsNotesToRemoveParams     `json:"notes_to_remove,omitempty"`
+	Coupon                     string                                          `json:"coupon,omitempty"`
+	CouponIds                  []string                                        `json:"coupon_ids,omitempty"`
+	AuthorizationTransactionId string                                          `json:"authorization_transaction_id,omitempty"`
+	PaymentSourceId            string                                          `json:"payment_source_id,omitempty"`
+	AutoCollection             enum.AutoCollection                             `json:"auto_collection,omitempty"`
+	Discounts                  []*CreateInvoiceForItemsDiscountParams          `json:"discounts,omitempty"`
+	ShippingAddress            *CreateInvoiceForItemsShippingAddressParams     `json:"shipping_address,omitempty"`
+	TaxProvidersFields         []*CreateInvoiceForItemsTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
+	InvoiceDate                *int64                                          `json:"invoice_date,omitempty"`
 }
 type CreateInvoiceForItemsInvoiceParams struct {
 	CustomerId     string `json:"customer_id,omitempty"`
@@ -905,4 +922,9 @@ type CreateInvoiceForItemsShippingAddressParams struct {
 	Zip              string                `json:"zip,omitempty"`
 	Country          string                `json:"country,omitempty"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+}
+type CreateInvoiceForItemsTaxProvidersFieldParams struct {
+	ProviderName string `json:"provider_name,omitempty"`
+	FieldId      string `json:"field_id,omitempty"`
+	FieldValue   string `json:"field_value,omitempty"`
 }

@@ -30,7 +30,6 @@ const (
 	GatewayWirecard              Gateway = "wirecard"
 	GatewayAmazonPayments        Gateway = "amazon_payments"
 	GatewayPaypalExpressCheckout Gateway = "paypal_express_checkout"
-	GatewayGocardless            Gateway = "gocardless"
 	GatewayAdyen                 Gateway = "adyen"
 	GatewayOrbital               Gateway = "orbital"
 	GatewayMonerisUs             Gateway = "moneris_us"
@@ -53,5 +52,7 @@ const (
 	GatewayPayCom                Gateway = "pay_com"
 	GatewayEbanx                 Gateway = "ebanx"
 	GatewayDlocal                Gateway = "dlocal"
+	GatewayNuvei                 Gateway = "nuvei"
+	GatewayGocardless            Gateway = "gocardless"
 	GatewayNotApplicable         Gateway = "not_applicable"
 )

@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
-	contractTermEnum "github.com/chargebee/chargebee-go/v3/models/contractterm/enum"
 	quoteEnum "github.com/chargebee/chargebee-go/v3/models/quote/enum"
+	contractTermEnum "github.com/chargebee/chargebee-go/v3/models/contractterm/enum"
 )
 
 type Quote struct {
@@ -499,17 +499,18 @@ type EditUpdateSubscriptionQuoteContractTermParams struct {
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 type CreateForOnetimeChargesRequestParams struct {
-	Name            string                                        `json:"name,omitempty"`
-	CustomerId      string                                        `json:"customer_id"`
-	PoNumber        string                                        `json:"po_number,omitempty"`
-	Notes           string                                        `json:"notes,omitempty"`
-	ExpiresAt       *int64                                        `json:"expires_at,omitempty"`
-	CurrencyCode    string                                        `json:"currency_code,omitempty"`
-	Addons          []*CreateForOnetimeChargesAddonParams         `json:"addons,omitempty"`
-	Charges         []*CreateForOnetimeChargesChargeParams        `json:"charges,omitempty"`
-	Coupon          string                                        `json:"coupon,omitempty"`
-	CouponIds       []string                                      `json:"coupon_ids,omitempty"`
-	ShippingAddress *CreateForOnetimeChargesShippingAddressParams `json:"shipping_address,omitempty"`
+	Name               string                                            `json:"name,omitempty"`
+	CustomerId         string                                            `json:"customer_id"`
+	PoNumber           string                                            `json:"po_number,omitempty"`
+	Notes              string                                            `json:"notes,omitempty"`
+	ExpiresAt          *int64                                            `json:"expires_at,omitempty"`
+	CurrencyCode       string                                            `json:"currency_code,omitempty"`
+	Addons             []*CreateForOnetimeChargesAddonParams             `json:"addons,omitempty"`
+	Charges            []*CreateForOnetimeChargesChargeParams            `json:"charges,omitempty"`
+	Coupon             string                                            `json:"coupon,omitempty"`
+	CouponIds          []string                                          `json:"coupon_ids,omitempty"`
+	ShippingAddress    *CreateForOnetimeChargesShippingAddressParams     `json:"shipping_address,omitempty"`
+	TaxProvidersFields []*CreateForOnetimeChargesTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
 }
 type CreateForOnetimeChargesAddonParams struct {
 	Id                 string `json:"id,omitempty"`
@@ -544,16 +545,22 @@ type CreateForOnetimeChargesShippingAddressParams struct {
 	Country          string                `json:"country,omitempty"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
+type CreateForOnetimeChargesTaxProvidersFieldParams struct {
+	ProviderName string `json:"provider_name,omitempty"`
+	FieldId      string `json:"field_id,omitempty"`
+	FieldValue   string `json:"field_value,omitempty"`
+}
 type EditOneTimeQuoteRequestParams struct {
-	PoNumber        string                                 `json:"po_number,omitempty"`
-	Notes           string                                 `json:"notes,omitempty"`
-	ExpiresAt       *int64                                 `json:"expires_at,omitempty"`
-	CurrencyCode    string                                 `json:"currency_code,omitempty"`
-	Addons          []*EditOneTimeQuoteAddonParams         `json:"addons,omitempty"`
-	Charges         []*EditOneTimeQuoteChargeParams        `json:"charges,omitempty"`
-	Coupon          string                                 `json:"coupon,omitempty"`
-	CouponIds       []string                               `json:"coupon_ids,omitempty"`
-	ShippingAddress *EditOneTimeQuoteShippingAddressParams `json:"shipping_address,omitempty"`
+	PoNumber           string                                     `json:"po_number,omitempty"`
+	Notes              string                                     `json:"notes,omitempty"`
+	ExpiresAt          *int64                                     `json:"expires_at,omitempty"`
+	CurrencyCode       string                                     `json:"currency_code,omitempty"`
+	Addons             []*EditOneTimeQuoteAddonParams             `json:"addons,omitempty"`
+	Charges            []*EditOneTimeQuoteChargeParams            `json:"charges,omitempty"`
+	Coupon             string                                     `json:"coupon,omitempty"`
+	CouponIds          []string                                   `json:"coupon_ids,omitempty"`
+	ShippingAddress    *EditOneTimeQuoteShippingAddressParams     `json:"shipping_address,omitempty"`
+	TaxProvidersFields []*EditOneTimeQuoteTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
 }
 type EditOneTimeQuoteAddonParams struct {
 	Id                 string `json:"id,omitempty"`
@@ -588,6 +595,11 @@ type EditOneTimeQuoteShippingAddressParams struct {
 	Country          string                `json:"country,omitempty"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
+type EditOneTimeQuoteTaxProvidersFieldParams struct {
+	ProviderName string `json:"provider_name,omitempty"`
+	FieldId      string `json:"field_id,omitempty"`
+	FieldValue   string `json:"field_value,omitempty"`
+}
 type CreateSubItemsForCustomerQuoteRequestParams struct {
 	Name                   string                                                  `json:"name,omitempty"`
 	Notes                  string                                                  `json:"notes,omitempty"`
@@ -605,13 +617,12 @@ type CreateSubItemsForCustomerQuoteRequestParams struct {
 	CouponIds              []string                                                `json:"coupon_ids,omitempty"`
 }
 type CreateSubItemsForCustomerQuoteSubscriptionParams struct {
-	Id                                string                    `json:"id,omitempty"`
-	PoNumber                          string                    `json:"po_number,omitempty"`
-	TrialEnd                          *int64                    `json:"trial_end,omitempty"`
-	SetupFee                          *int64                    `json:"setup_fee,omitempty"`
-	StartDate                         *int64                    `json:"start_date,omitempty"`
-	OfflinePaymentMethod              enum.OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	Id                                string `json:"id,omitempty"`
+	PoNumber                          string `json:"po_number,omitempty"`
+	TrialEnd                          *int64 `json:"trial_end,omitempty"`
+	SetupFee                          *int64 `json:"setup_fee,omitempty"`
+	StartDate                         *int64 `json:"start_date,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32 `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 type CreateSubItemsForCustomerQuoteSubscriptionItemParams struct {
 	ItemPriceId        string              `json:"item_price_id"`
@@ -682,13 +693,12 @@ type EditCreateSubCustomerQuoteForItemsRequestParams struct {
 	CouponIds              []string                                                    `json:"coupon_ids,omitempty"`
 }
 type EditCreateSubCustomerQuoteForItemsSubscriptionParams struct {
-	Id                                string                    `json:"id,omitempty"`
-	PoNumber                          string                    `json:"po_number,omitempty"`
-	TrialEnd                          *int64                    `json:"trial_end,omitempty"`
-	SetupFee                          *int64                    `json:"setup_fee,omitempty"`
-	StartDate                         *int64                    `json:"start_date,omitempty"`
-	OfflinePaymentMethod              enum.OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	Id                                string `json:"id,omitempty"`
+	PoNumber                          string `json:"po_number,omitempty"`
+	TrialEnd                          *int64 `json:"trial_end,omitempty"`
+	SetupFee                          *int64 `json:"setup_fee,omitempty"`
+	StartDate                         *int64 `json:"start_date,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32 `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 type EditCreateSubCustomerQuoteForItemsSubscriptionItemParams struct {
 	ItemPriceId        string              `json:"item_price_id"`
@@ -964,19 +974,20 @@ type EditUpdateSubscriptionQuoteForItemsContractTermParams struct {
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 type CreateForChargeItemsAndChargesRequestParams struct {
-	Name            string                                               `json:"name,omitempty"`
-	CustomerId      string                                               `json:"customer_id"`
-	PoNumber        string                                               `json:"po_number,omitempty"`
-	Notes           string                                               `json:"notes,omitempty"`
-	ExpiresAt       *int64                                               `json:"expires_at,omitempty"`
-	CurrencyCode    string                                               `json:"currency_code,omitempty"`
-	ItemPrices      []*CreateForChargeItemsAndChargesItemPriceParams     `json:"item_prices,omitempty"`
-	ItemTiers       []*CreateForChargeItemsAndChargesItemTierParams      `json:"item_tiers,omitempty"`
-	Charges         []*CreateForChargeItemsAndChargesChargeParams        `json:"charges,omitempty"`
-	Coupon          string                                               `json:"coupon,omitempty"`
-	CouponIds       []string                                             `json:"coupon_ids,omitempty"`
-	ShippingAddress *CreateForChargeItemsAndChargesShippingAddressParams `json:"shipping_address,omitempty"`
-	Discounts       []*CreateForChargeItemsAndChargesDiscountParams      `json:"discounts,omitempty"`
+	Name               string                                                   `json:"name,omitempty"`
+	CustomerId         string                                                   `json:"customer_id"`
+	PoNumber           string                                                   `json:"po_number,omitempty"`
+	Notes              string                                                   `json:"notes,omitempty"`
+	ExpiresAt          *int64                                                   `json:"expires_at,omitempty"`
+	CurrencyCode       string                                                   `json:"currency_code,omitempty"`
+	ItemPrices         []*CreateForChargeItemsAndChargesItemPriceParams         `json:"item_prices,omitempty"`
+	ItemTiers          []*CreateForChargeItemsAndChargesItemTierParams          `json:"item_tiers,omitempty"`
+	Charges            []*CreateForChargeItemsAndChargesChargeParams            `json:"charges,omitempty"`
+	Coupon             string                                                   `json:"coupon,omitempty"`
+	CouponIds          []string                                                 `json:"coupon_ids,omitempty"`
+	ShippingAddress    *CreateForChargeItemsAndChargesShippingAddressParams     `json:"shipping_address,omitempty"`
+	Discounts          []*CreateForChargeItemsAndChargesDiscountParams          `json:"discounts,omitempty"`
+	TaxProvidersFields []*CreateForChargeItemsAndChargesTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
 }
 type CreateForChargeItemsAndChargesItemPriceParams struct {
 	ItemPriceId        string `json:"item_price_id,omitempty"`
@@ -1026,18 +1037,24 @@ type CreateForChargeItemsAndChargesDiscountParams struct {
 	ApplyOn     enum.ApplyOn `json:"apply_on"`
 	ItemPriceId string       `json:"item_price_id,omitempty"`
 }
+type CreateForChargeItemsAndChargesTaxProvidersFieldParams struct {
+	ProviderName string `json:"provider_name,omitempty"`
+	FieldId      string `json:"field_id,omitempty"`
+	FieldValue   string `json:"field_value,omitempty"`
+}
 type EditForChargeItemsAndChargesRequestParams struct {
-	PoNumber        string                                             `json:"po_number,omitempty"`
-	Notes           string                                             `json:"notes,omitempty"`
-	ExpiresAt       *int64                                             `json:"expires_at,omitempty"`
-	CurrencyCode    string                                             `json:"currency_code,omitempty"`
-	ItemPrices      []*EditForChargeItemsAndChargesItemPriceParams     `json:"item_prices,omitempty"`
-	ItemTiers       []*EditForChargeItemsAndChargesItemTierParams      `json:"item_tiers,omitempty"`
-	Charges         []*EditForChargeItemsAndChargesChargeParams        `json:"charges,omitempty"`
-	Coupon          string                                             `json:"coupon,omitempty"`
-	CouponIds       []string                                           `json:"coupon_ids,omitempty"`
-	ShippingAddress *EditForChargeItemsAndChargesShippingAddressParams `json:"shipping_address,omitempty"`
-	Discounts       []*EditForChargeItemsAndChargesDiscountParams      `json:"discounts,omitempty"`
+	PoNumber           string                                                 `json:"po_number,omitempty"`
+	Notes              string                                                 `json:"notes,omitempty"`
+	ExpiresAt          *int64                                                 `json:"expires_at,omitempty"`
+	CurrencyCode       string                                                 `json:"currency_code,omitempty"`
+	ItemPrices         []*EditForChargeItemsAndChargesItemPriceParams         `json:"item_prices,omitempty"`
+	ItemTiers          []*EditForChargeItemsAndChargesItemTierParams          `json:"item_tiers,omitempty"`
+	Charges            []*EditForChargeItemsAndChargesChargeParams            `json:"charges,omitempty"`
+	Coupon             string                                                 `json:"coupon,omitempty"`
+	CouponIds          []string                                               `json:"coupon_ids,omitempty"`
+	ShippingAddress    *EditForChargeItemsAndChargesShippingAddressParams     `json:"shipping_address,omitempty"`
+	Discounts          []*EditForChargeItemsAndChargesDiscountParams          `json:"discounts,omitempty"`
+	TaxProvidersFields []*EditForChargeItemsAndChargesTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
 }
 type EditForChargeItemsAndChargesItemPriceParams struct {
 	ItemPriceId        string `json:"item_price_id,omitempty"`
@@ -1086,6 +1103,11 @@ type EditForChargeItemsAndChargesDiscountParams struct {
 	Amount      *int64       `json:"amount,omitempty"`
 	ApplyOn     enum.ApplyOn `json:"apply_on"`
 	ItemPriceId string       `json:"item_price_id,omitempty"`
+}
+type EditForChargeItemsAndChargesTaxProvidersFieldParams struct {
+	ProviderName string `json:"provider_name,omitempty"`
+	FieldId      string `json:"field_id,omitempty"`
+	FieldValue   string `json:"field_value,omitempty"`
 }
 type ListRequestParams struct {
 	Limit          *int32                  `json:"limit,omitempty"`

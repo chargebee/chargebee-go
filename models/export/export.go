@@ -58,7 +58,6 @@ type RevenueRecognitionInvoiceParams struct {
 type RevenueRecognitionSubscriptionParams struct {
 	Id                     *filter.StringFilter    `json:"id,omitempty"`
 	CustomerId             *filter.StringFilter    `json:"customer_id,omitempty"`
-	PlanId                 *filter.StringFilter    `json:"plan_id,omitempty"`
 	Status                 *filter.EnumFilter      `json:"status,omitempty"`
 	CancelReason           *filter.EnumFilter      `json:"cancel_reason,omitempty"`
 	RemainingBillingCycles *filter.NumberFilter    `json:"remaining_billing_cycles,omitempty"`
@@ -71,6 +70,7 @@ type RevenueRecognitionSubscriptionParams struct {
 	OfflinePaymentMethod   *filter.EnumFilter      `json:"offline_payment_method,omitempty"`
 	AutoCloseInvoices      *filter.BooleanFilter   `json:"auto_close_invoices,omitempty"`
 	Channel                *filter.EnumFilter      `json:"channel,omitempty"`
+	PlanId                 *filter.StringFilter    `json:"plan_id,omitempty"`
 }
 type RevenueRecognitionCustomerParams struct {
 	Id                   *filter.StringFilter    `json:"id,omitempty"`
@@ -129,7 +129,6 @@ type DeferredRevenueInvoiceParams struct {
 type DeferredRevenueSubscriptionParams struct {
 	Id                     *filter.StringFilter    `json:"id,omitempty"`
 	CustomerId             *filter.StringFilter    `json:"customer_id,omitempty"`
-	PlanId                 *filter.StringFilter    `json:"plan_id,omitempty"`
 	Status                 *filter.EnumFilter      `json:"status,omitempty"`
 	CancelReason           *filter.EnumFilter      `json:"cancel_reason,omitempty"`
 	RemainingBillingCycles *filter.NumberFilter    `json:"remaining_billing_cycles,omitempty"`
@@ -142,6 +141,7 @@ type DeferredRevenueSubscriptionParams struct {
 	OfflinePaymentMethod   *filter.EnumFilter      `json:"offline_payment_method,omitempty"`
 	AutoCloseInvoices      *filter.BooleanFilter   `json:"auto_close_invoices,omitempty"`
 	Channel                *filter.EnumFilter      `json:"channel,omitempty"`
+	PlanId                 *filter.StringFilter    `json:"plan_id,omitempty"`
 }
 type DeferredRevenueCustomerParams struct {
 	Id                   *filter.StringFilter    `json:"id,omitempty"`
@@ -246,7 +246,6 @@ type SubscriptionsRequestParams struct {
 type SubscriptionsSubscriptionParams struct {
 	Id                     *filter.StringFilter    `json:"id,omitempty"`
 	CustomerId             *filter.StringFilter    `json:"customer_id,omitempty"`
-	PlanId                 *filter.StringFilter    `json:"plan_id,omitempty"`
 	Status                 *filter.EnumFilter      `json:"status,omitempty"`
 	CancelReason           *filter.EnumFilter      `json:"cancel_reason,omitempty"`
 	RemainingBillingCycles *filter.NumberFilter    `json:"remaining_billing_cycles,omitempty"`
@@ -259,6 +258,7 @@ type SubscriptionsSubscriptionParams struct {
 	OfflinePaymentMethod   *filter.EnumFilter      `json:"offline_payment_method,omitempty"`
 	AutoCloseInvoices      *filter.BooleanFilter   `json:"auto_close_invoices,omitempty"`
 	Channel                *filter.EnumFilter      `json:"channel,omitempty"`
+	PlanId                 *filter.StringFilter    `json:"plan_id,omitempty"`
 }
 type InvoicesRequestParams struct {
 	Invoice      *InvoicesInvoiceParams `json:"invoice,omitempty"`

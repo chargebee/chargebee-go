@@ -5,7 +5,6 @@ import (
 
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
-	contractTermEnum "github.com/chargebee/chargebee-go/v3/models/contractterm/enum"
 	invoiceEnum "github.com/chargebee/chargebee-go/v3/models/invoice/enum"
 	paymentIntentEnum "github.com/chargebee/chargebee-go/v3/models/paymentintent/enum"
 	subscriptionEnum "github.com/chargebee/chargebee-go/v3/models/subscription/enum"
@@ -221,6 +220,11 @@ type Addon struct {
 	ProrationType          enum.ProrationType `json:"proration_type"`
 	Object                 string             `json:"object"`
 }
+type ChargedEventBasedAddon struct {
+	Id            string `json:"id"`
+	LastChargedAt int64  `json:"last_charged_at"`
+	Object        string `json:"object"`
+}
 type EventBasedAddon struct {
 	Id                  string       `json:"id"`
 	Quantity            int32        `json:"quantity"`
@@ -232,16 +236,11 @@ type EventBasedAddon struct {
 	UnitPriceInDecimal  string       `json:"unit_price_in_decimal"`
 	Object              string       `json:"object"`
 }
-type ChargedEventBasedAddon struct {
-	Id            string `json:"id"`
-	LastChargedAt int64  `json:"last_charged_at"`
-	Object        string `json:"object"`
-}
 type CreateRequestParams struct {
 	Id                                string                           `json:"id,omitempty"`
 	Customer                          *CreateCustomerParams            `json:"customer,omitempty"`
 	EntityIdentifiers                 []*CreateEntityIdentifierParams  `json:"entity_identifiers,omitempty"`
-	BusinessEntityId                  string                           `json:"business_entity_id,omitempty"`
+	TaxProvidersFields                []*CreateTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
 	PlanId                            string                           `json:"plan_id"`
 	PlanQuantity                      *int32                           `json:"plan_quantity,omitempty"`
 	PlanQuantityInDecimal             string                           `json:"plan_quantity_in_decimal,omitempty"`
@@ -317,6 +316,11 @@ type CreateEntityIdentifierParams struct {
 	Scheme   string `json:"scheme,omitempty"`
 	Value    string `json:"value,omitempty"`
 	Standard string `json:"standard,omitempty"`
+}
+type CreateTaxProvidersFieldParams struct {
+	ProviderName string `json:"provider_name,omitempty"`
+	FieldId      string `json:"field_id,omitempty"`
+	FieldValue   string `json:"field_value,omitempty"`
 }
 type CreateAddonParams struct {
 	Id                 string `json:"id,omitempty"`
@@ -431,8 +435,8 @@ type CreateStatementDescriptorParams struct {
 	Descriptor string `json:"descriptor,omitempty"`
 }
 type CreateContractTermParams struct {
-	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
+	ActionAtTermEnd          subscriptionEnum.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                                       `json:"cancellation_cutoff_period,omitempty"`
 }
 type CreateCouponParams struct {
 	CouponId  string `json:"coupon_id,omitempty"`
@@ -440,7 +444,6 @@ type CreateCouponParams struct {
 }
 type CreateForCustomerRequestParams struct {
 	Id                                string                                      `json:"id,omitempty"`
-	BusinessEntityId                  string                                      `json:"business_entity_id,omitempty"`
 	PlanId                            string                                      `json:"plan_id"`
 	PlanQuantity                      *int32                                      `json:"plan_quantity,omitempty"`
 	PlanQuantityInDecimal             string                                      `json:"plan_quantity_in_decimal,omitempty"`
@@ -527,8 +530,8 @@ type CreateForCustomerPaymentIntentParams struct {
 	AdditionalInformation map[string]interface{}              `json:"additional_information,omitempty"`
 }
 type CreateForCustomerContractTermParams struct {
-	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
+	ActionAtTermEnd          subscriptionEnum.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                                       `json:"cancellation_cutoff_period,omitempty"`
 }
 type CreateForCustomerCouponParams struct {
 	CouponId  string `json:"coupon_id,omitempty"`
@@ -550,7 +553,6 @@ type CreateWithItemsRequestParams struct {
 	AutoCollection                    enum.AutoCollection                       `json:"auto_collection,omitempty"`
 	TermsToCharge                     *int32                                    `json:"terms_to_charge,omitempty"`
 	BillingAlignmentMode              enum.BillingAlignmentMode                 `json:"billing_alignment_mode,omitempty"`
-	OfflinePaymentMethod              enum.OfflinePaymentMethod                 `json:"offline_payment_method,omitempty"`
 	PoNumber                          string                                    `json:"po_number,omitempty"`
 	CouponIds                         []string                                  `json:"coupon_ids,omitempty"`
 	PaymentSourceId                   string                                    `json:"payment_source_id,omitempty"`
@@ -636,9 +638,9 @@ type CreateWithItemsPaymentIntentParams struct {
 	AdditionalInformation map[string]interface{}              `json:"additional_information,omitempty"`
 }
 type CreateWithItemsContractTermParams struct {
-	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	ContractStart            *int64                           `json:"contract_start,omitempty"`
-	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
+	ActionAtTermEnd          subscriptionEnum.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	ContractStart            *int64                                       `json:"contract_start,omitempty"`
+	CancellationCutoffPeriod *int32                                       `json:"cancellation_cutoff_period,omitempty"`
 }
 type CreateWithItemsCouponParams struct {
 	CouponId  string `json:"coupon_id,omitempty"`
@@ -842,8 +844,8 @@ type UpdateCustomerParams struct {
 	RegisteredForGst                 *bool                 `json:"registered_for_gst,omitempty"`
 }
 type UpdateContractTermParams struct {
-	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
+	ActionAtTermEnd          subscriptionEnum.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                                       `json:"cancellation_cutoff_period,omitempty"`
 }
 type UpdateCouponParams struct {
 	CouponId  string `json:"coupon_id,omitempty"`
@@ -1018,9 +1020,9 @@ type UpdateForItemsCustomerParams struct {
 	RegisteredForGst                 *bool                 `json:"registered_for_gst,omitempty"`
 }
 type UpdateForItemsContractTermParams struct {
-	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
-	ContractStart            *int64                           `json:"contract_start,omitempty"`
+	ActionAtTermEnd          subscriptionEnum.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                                       `json:"cancellation_cutoff_period,omitempty"`
+	ContractStart            *int64                                       `json:"contract_start,omitempty"`
 }
 type UpdateForItemsCouponParams struct {
 	CouponId  string `json:"coupon_id,omitempty"`
@@ -1047,8 +1049,8 @@ type ReactivateRequestParams struct {
 	PaymentIntent                     *ReactivatePaymentIntentParams       `json:"payment_intent,omitempty"`
 }
 type ReactivateContractTermParams struct {
-	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
+	ActionAtTermEnd          subscriptionEnum.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                                       `json:"cancellation_cutoff_period,omitempty"`
 }
 type ReactivateStatementDescriptorParams struct {
 	Descriptor string `json:"descriptor,omitempty"`
@@ -1210,14 +1212,14 @@ type ImportSubscriptionChargedEventBasedAddonParams struct {
 	LastChargedAt *int64 `json:"last_charged_at,omitempty"`
 }
 type ImportSubscriptionContractTermParams struct {
-	Id                         string                           `json:"id,omitempty"`
-	CreatedAt                  *int64                           `json:"created_at,omitempty"`
-	ContractStart              *int64                           `json:"contract_start,omitempty"`
-	BillingCycle               *int32                           `json:"billing_cycle,omitempty"`
-	TotalAmountRaised          *int64                           `json:"total_amount_raised,omitempty"`
-	TotalAmountRaisedBeforeTax *int64                           `json:"total_amount_raised_before_tax,omitempty"`
-	ActionAtTermEnd            contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod   *int32                           `json:"cancellation_cutoff_period,omitempty"`
+	Id                         string                                       `json:"id,omitempty"`
+	CreatedAt                  *int64                                       `json:"created_at,omitempty"`
+	ContractStart              *int64                                       `json:"contract_start,omitempty"`
+	BillingCycle               *int32                                       `json:"billing_cycle,omitempty"`
+	TotalAmountRaised          *int64                                       `json:"total_amount_raised,omitempty"`
+	TotalAmountRaisedBeforeTax *int64                                       `json:"total_amount_raised_before_tax,omitempty"`
+	ActionAtTermEnd            subscriptionEnum.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod   *int32                                       `json:"cancellation_cutoff_period,omitempty"`
 }
 type ImportSubscriptionCardParams struct {
 	Gateway               enum.Gateway           `json:"gateway,omitempty"`
@@ -1347,14 +1349,14 @@ type ImportForCustomerChargedEventBasedAddonParams struct {
 	LastChargedAt *int64 `json:"last_charged_at,omitempty"`
 }
 type ImportForCustomerContractTermParams struct {
-	Id                         string                           `json:"id,omitempty"`
-	CreatedAt                  *int64                           `json:"created_at,omitempty"`
-	ContractStart              *int64                           `json:"contract_start,omitempty"`
-	BillingCycle               *int32                           `json:"billing_cycle,omitempty"`
-	TotalAmountRaised          *int64                           `json:"total_amount_raised,omitempty"`
-	TotalAmountRaisedBeforeTax *int64                           `json:"total_amount_raised_before_tax,omitempty"`
-	ActionAtTermEnd            contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod   *int32                           `json:"cancellation_cutoff_period,omitempty"`
+	Id                         string                                       `json:"id,omitempty"`
+	CreatedAt                  *int64                                       `json:"created_at,omitempty"`
+	ContractStart              *int64                                       `json:"contract_start,omitempty"`
+	BillingCycle               *int32                                       `json:"billing_cycle,omitempty"`
+	TotalAmountRaised          *int64                                       `json:"total_amount_raised,omitempty"`
+	TotalAmountRaisedBeforeTax *int64                                       `json:"total_amount_raised_before_tax,omitempty"`
+	ActionAtTermEnd            subscriptionEnum.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod   *int32                                       `json:"cancellation_cutoff_period,omitempty"`
 }
 type ImportForCustomerTransactionParams struct {
 	Amount          *int64             `json:"amount,omitempty"`
@@ -1387,18 +1389,18 @@ type ImportContractTermRequestParams struct {
 	ContractTermBillingCycleOnRenewal *int32                                `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 type ImportContractTermContractTermParams struct {
-	Id                          string                           `json:"id,omitempty"`
-	CreatedAt                   *int64                           `json:"created_at,omitempty"`
-	ContractStart               *int64                           `json:"contract_start,omitempty"`
-	ContractEnd                 *int64                           `json:"contract_end,omitempty"`
-	Status                      contractTermEnum.Status          `json:"status,omitempty"`
-	TotalAmountRaised           *int64                           `json:"total_amount_raised,omitempty"`
-	TotalAmountRaisedBeforeTax  *int64                           `json:"total_amount_raised_before_tax,omitempty"`
-	TotalContractValue          *int64                           `json:"total_contract_value,omitempty"`
-	TotalContractValueBeforeTax *int64                           `json:"total_contract_value_before_tax,omitempty"`
-	BillingCycle                *int32                           `json:"billing_cycle,omitempty"`
-	ActionAtTermEnd             contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod    *int32                           `json:"cancellation_cutoff_period,omitempty"`
+	Id                          string                                       `json:"id,omitempty"`
+	CreatedAt                   *int64                                       `json:"created_at,omitempty"`
+	ContractStart               *int64                                       `json:"contract_start,omitempty"`
+	ContractEnd                 *int64                                       `json:"contract_end,omitempty"`
+	Status                      subscriptionEnum.ContractTermStatus          `json:"status,omitempty"`
+	TotalAmountRaised           *int64                                       `json:"total_amount_raised,omitempty"`
+	TotalAmountRaisedBeforeTax  *int64                                       `json:"total_amount_raised_before_tax,omitempty"`
+	TotalContractValue          *int64                                       `json:"total_contract_value,omitempty"`
+	TotalContractValueBeforeTax *int64                                       `json:"total_contract_value_before_tax,omitempty"`
+	BillingCycle                *int32                                       `json:"billing_cycle,omitempty"`
+	ActionAtTermEnd             subscriptionEnum.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod    *int32                                       `json:"cancellation_cutoff_period,omitempty"`
 }
 type ImportUnbilledChargesRequestParams struct {
 	UnbilledCharges []*ImportUnbilledChargesUnbilledChargeParams `json:"unbilled_charges,omitempty"`
@@ -1513,14 +1515,14 @@ type ImportForItemsItemTierParams struct {
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
 type ImportForItemsContractTermParams struct {
-	Id                         string                           `json:"id,omitempty"`
-	CreatedAt                  *int64                           `json:"created_at,omitempty"`
-	ContractStart              *int64                           `json:"contract_start,omitempty"`
-	BillingCycle               *int32                           `json:"billing_cycle,omitempty"`
-	TotalAmountRaised          *int64                           `json:"total_amount_raised,omitempty"`
-	TotalAmountRaisedBeforeTax *int64                           `json:"total_amount_raised_before_tax,omitempty"`
-	ActionAtTermEnd            contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod   *int32                           `json:"cancellation_cutoff_period,omitempty"`
+	Id                         string                                       `json:"id,omitempty"`
+	CreatedAt                  *int64                                       `json:"created_at,omitempty"`
+	ContractStart              *int64                                       `json:"contract_start,omitempty"`
+	BillingCycle               *int32                                       `json:"billing_cycle,omitempty"`
+	TotalAmountRaised          *int64                                       `json:"total_amount_raised,omitempty"`
+	TotalAmountRaisedBeforeTax *int64                                       `json:"total_amount_raised_before_tax,omitempty"`
+	ActionAtTermEnd            subscriptionEnum.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod   *int32                                       `json:"cancellation_cutoff_period,omitempty"`
 }
 type ImportForItemsTransactionParams struct {
 	Amount          *int64             `json:"amount,omitempty"`

@@ -1,13 +1,14 @@
 package invoice
 
 import (
+	"encoding/json"
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
-	creditNoteEnum "github.com/chargebee/chargebee-go/v3/models/creditnote/enum"
 	invoiceEnum "github.com/chargebee/chargebee-go/v3/models/invoice/enum"
+	transactionEnum "github.com/chargebee/chargebee-go/v3/models/transaction/enum"
+	creditNoteEnum "github.com/chargebee/chargebee-go/v3/models/creditnote/enum"
 	paymentIntentEnum "github.com/chargebee/chargebee-go/v3/models/paymentintent/enum"
 	paymentReferenceNumberEnum "github.com/chargebee/chargebee-go/v3/models/paymentreferencenumber/enum"
-	transactionEnum "github.com/chargebee/chargebee-go/v3/models/transaction/enum"
 )
 
 type Invoice struct {
@@ -75,6 +76,7 @@ type Invoice struct {
 	VatNumberPrefix           string                    `json:"vat_number_prefix"`
 	Channel                   enum.Channel              `json:"channel"`
 	BusinessEntityId          string                    `json:"business_entity_id"`
+	SiteDetailsAtCreation     *SiteDetailsAtCreation    `json:"site_details_at_creation"`
 	Object                    string                    `json:"object"`
 }
 type LineItem struct {
@@ -266,6 +268,11 @@ type Einvoice struct {
 	Message         string                     `json:"message"`
 	Object          string                     `json:"object"`
 }
+type SiteDetailsAtCreation struct {
+	Timezone            string          `json:"timezone"`
+	OrganizationAddress json.RawMessage `json:"organization_address"`
+	Object              string          `json:"object"`
+}
 type CreateRequestParams struct {
 	CustomerId                  string                           `json:"customer_id,omitempty"`
 	SubscriptionId              string                           `json:"subscription_id,omitempty"`
@@ -273,6 +280,7 @@ type CreateRequestParams struct {
 	Addons                      []*CreateAddonParams             `json:"addons,omitempty"`
 	InvoiceDate                 *int64                           `json:"invoice_date,omitempty"`
 	Charges                     []*CreateChargeParams            `json:"charges,omitempty"`
+	TaxProvidersFields          []*CreateTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
 	InvoiceNote                 string                           `json:"invoice_note,omitempty"`
 	RemoveGeneralNote           *bool                            `json:"remove_general_note,omitempty"`
 	NotesToRemove               []*CreateNotesToRemoveParams     `json:"notes_to_remove,omitempty"`
@@ -316,6 +324,11 @@ type CreateChargeParams struct {
 	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
 	DateFrom               *int64               `json:"date_from,omitempty"`
 	DateTo                 *int64               `json:"date_to,omitempty"`
+}
+type CreateTaxProvidersFieldParams struct {
+	ProviderName string `json:"provider_name,omitempty"`
+	FieldId      string `json:"field_id,omitempty"`
+	FieldValue   string `json:"field_value,omitempty"`
 }
 type CreateNotesToRemoveParams struct {
 	EntityType enum.EntityType `json:"entity_type,omitempty"`
@@ -413,6 +426,7 @@ type CreateForChargeItemsAndChargesRequestParams struct {
 	AuthorizationTransactionId  string                                                   `json:"authorization_transaction_id,omitempty"`
 	PaymentSourceId             string                                                   `json:"payment_source_id,omitempty"`
 	AutoCollection              enum.AutoCollection                                      `json:"auto_collection,omitempty"`
+	TaxProvidersFields          []*CreateForChargeItemsAndChargesTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
 	Discounts                   []*CreateForChargeItemsAndChargesDiscountParams          `json:"discounts,omitempty"`
 	InvoiceDate                 *int64                                                   `json:"invoice_date,omitempty"`
 	ShippingAddress             *CreateForChargeItemsAndChargesShippingAddressParams     `json:"shipping_address,omitempty"`
@@ -462,6 +476,11 @@ type CreateForChargeItemsAndChargesChargeParams struct {
 type CreateForChargeItemsAndChargesNotesToRemoveParams struct {
 	EntityType enum.EntityType `json:"entity_type,omitempty"`
 	EntityId   string          `json:"entity_id,omitempty"`
+}
+type CreateForChargeItemsAndChargesTaxProvidersFieldParams struct {
+	ProviderName string `json:"provider_name,omitempty"`
+	FieldId      string `json:"field_id,omitempty"`
+	FieldValue   string `json:"field_value,omitempty"`
 }
 type CreateForChargeItemsAndChargesDiscountParams struct {
 	Percentage  *float64     `json:"percentage,omitempty"`
@@ -546,23 +565,29 @@ type CreateForChargeItemsAndChargesPaymentIntentParams struct {
 	AdditionalInformation map[string]interface{}              `json:"additional_information,omitempty"`
 }
 type ChargeRequestParams struct {
-	CustomerId             string                `json:"customer_id,omitempty"`
-	SubscriptionId         string                `json:"subscription_id,omitempty"`
-	CurrencyCode           string                `json:"currency_code,omitempty"`
-	Amount                 *int64                `json:"amount,omitempty"`
-	AmountInDecimal        string                `json:"amount_in_decimal,omitempty"`
-	Description            string                `json:"description"`
-	DateFrom               *int64                `json:"date_from,omitempty"`
-	DateTo                 *int64                `json:"date_to,omitempty"`
-	CouponIds              []string              `json:"coupon_ids,omitempty"`
-	Coupon                 string                `json:"coupon,omitempty"`
-	AvalaraSaleType        enum.AvalaraSaleType  `json:"avalara_sale_type,omitempty"`
-	AvalaraTransactionType *int32                `json:"avalara_transaction_type,omitempty"`
-	AvalaraServiceType     *int32                `json:"avalara_service_type,omitempty"`
-	PoNumber               string                `json:"po_number,omitempty"`
-	InvoiceDate            *int64                `json:"invoice_date,omitempty"`
-	PaymentSourceId        string                `json:"payment_source_id,omitempty"`
-	PaymentInitiator       enum.PaymentInitiator `json:"payment_initiator,omitempty"`
+	CustomerId             string                           `json:"customer_id,omitempty"`
+	SubscriptionId         string                           `json:"subscription_id,omitempty"`
+	CurrencyCode           string                           `json:"currency_code,omitempty"`
+	Amount                 *int64                           `json:"amount,omitempty"`
+	AmountInDecimal        string                           `json:"amount_in_decimal,omitempty"`
+	Description            string                           `json:"description"`
+	DateFrom               *int64                           `json:"date_from,omitempty"`
+	DateTo                 *int64                           `json:"date_to,omitempty"`
+	CouponIds              []string                         `json:"coupon_ids,omitempty"`
+	Coupon                 string                           `json:"coupon,omitempty"`
+	AvalaraSaleType        enum.AvalaraSaleType             `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32                           `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32                           `json:"avalara_service_type,omitempty"`
+	PoNumber               string                           `json:"po_number,omitempty"`
+	InvoiceDate            *int64                           `json:"invoice_date,omitempty"`
+	TaxProvidersFields     []*ChargeTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
+	PaymentSourceId        string                           `json:"payment_source_id,omitempty"`
+	PaymentInitiator       enum.PaymentInitiator            `json:"payment_initiator,omitempty"`
+}
+type ChargeTaxProvidersFieldParams struct {
+	ProviderName string `json:"provider_name,omitempty"`
+	FieldId      string `json:"field_id,omitempty"`
+	FieldValue   string `json:"field_value,omitempty"`
 }
 type ChargeAddonRequestParams struct {
 	CustomerId              string                `json:"customer_id,omitempty"`
@@ -702,7 +727,6 @@ type ImportInvoiceLineItemTierParams struct {
 	UnitAmountInDecimal   string `json:"unit_amount_in_decimal,omitempty"`
 }
 type ImportInvoiceDiscountParams struct {
-	LineItemId  string                         `json:"line_item_id,omitempty"`
 	EntityType  invoiceEnum.DiscountEntityType `json:"entity_type"`
 	EntityId    string                         `json:"entity_id,omitempty"`
 	Description string                         `json:"description,omitempty"`
@@ -976,16 +1000,14 @@ type RemoveCreditNoteCreditNoteParams struct {
 	Id string `json:"id"`
 }
 type VoidInvoiceRequestParams struct {
-	Comment          string `json:"comment,omitempty"`
-	VoidReasonCode   string `json:"void_reason_code,omitempty"`
-	CreateCreditNote *bool  `json:"create_credit_note,omitempty"`
+	Comment        string `json:"comment,omitempty"`
+	VoidReasonCode string `json:"void_reason_code,omitempty"`
 }
 type WriteOffRequestParams struct {
 	Comment string `json:"comment,omitempty"`
 }
 type DeleteRequestParams struct {
-	Comment      string `json:"comment,omitempty"`
-	ClaimCredits *bool  `json:"claim_credits,omitempty"`
+	Comment string `json:"comment,omitempty"`
 }
 type UpdateDetailsRequestParams struct {
 	BillingAddress      *UpdateDetailsBillingAddressParams      `json:"billing_address,omitempty"`

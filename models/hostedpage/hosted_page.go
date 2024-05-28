@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
-	contractTermEnum "github.com/chargebee/chargebee-go/v3/models/contractterm/enum"
 	hostedPageEnum "github.com/chargebee/chargebee-go/v3/models/hostedpage/enum"
+	contractTermEnum "github.com/chargebee/chargebee-go/v3/models/contractterm/enum"
 )
 
 type HostedPage struct {
@@ -247,7 +247,6 @@ type CheckoutOneTimeForItemsRequestParams struct {
 	RedirectUrl       string                                           `json:"redirect_url,omitempty"`
 	CancelUrl         string                                           `json:"cancel_url,omitempty"`
 	PassThruContent   string                                           `json:"pass_thru_content,omitempty"`
-	Source            string                                           `json:"source,omitempty"`
 	BillingAddress    *CheckoutOneTimeForItemsBillingAddressParams     `json:"billing_address,omitempty"`
 	ShippingAddress   *CheckoutOneTimeForItemsShippingAddressParams    `json:"shipping_address,omitempty"`
 }
@@ -371,23 +370,20 @@ type CheckoutNewForItemsRequestParams struct {
 	RedirectUrl                string                                       `json:"redirect_url,omitempty"`
 	CancelUrl                  string                                       `json:"cancel_url,omitempty"`
 	PassThruContent            string                                       `json:"pass_thru_content,omitempty"`
-	Source                     string                                       `json:"source,omitempty"`
 	AllowOfflinePaymentMethods *bool                                        `json:"allow_offline_payment_methods,omitempty"`
 	BillingAddress             *CheckoutNewForItemsBillingAddressParams     `json:"billing_address,omitempty"`
 	ShippingAddress            *CheckoutNewForItemsShippingAddressParams    `json:"shipping_address,omitempty"`
 	ContractTerm               *CheckoutNewForItemsContractTermParams       `json:"contract_term,omitempty"`
 }
 type CheckoutNewForItemsSubscriptionParams struct {
-	Id                                string                    `json:"id,omitempty"`
-	TrialEnd                          *int64                    `json:"trial_end,omitempty"`
-	SetupFee                          *int64                    `json:"setup_fee,omitempty"`
-	StartDate                         *int64                    `json:"start_date,omitempty"`
-	Coupon                            string                    `json:"coupon,omitempty"`
-	AutoCollection                    enum.AutoCollection       `json:"auto_collection,omitempty"`
-	OfflinePaymentMethod              enum.OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
-	InvoiceNotes                      string                    `json:"invoice_notes,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
-	AffiliateToken                    string                    `json:"affiliate_token,omitempty"`
+	Id                                string              `json:"id,omitempty"`
+	TrialEnd                          *int64              `json:"trial_end,omitempty"`
+	SetupFee                          *int64              `json:"setup_fee,omitempty"`
+	StartDate                         *int64              `json:"start_date,omitempty"`
+	Coupon                            string              `json:"coupon,omitempty"`
+	AutoCollection                    enum.AutoCollection `json:"auto_collection,omitempty"`
+	InvoiceNotes                      string              `json:"invoice_notes,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32              `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 type CheckoutNewForItemsCustomerParams struct {
 	Id                       string                `json:"id,omitempty"`
@@ -578,7 +574,6 @@ type CheckoutExistingForItemsRequestParams struct {
 	RedirectUrl                string                                            `json:"redirect_url,omitempty"`
 	CancelUrl                  string                                            `json:"cancel_url,omitempty"`
 	PassThruContent            string                                            `json:"pass_thru_content,omitempty"`
-	Source                     string                                            `json:"source,omitempty"`
 	AllowOfflinePaymentMethods *bool                                             `json:"allow_offline_payment_methods,omitempty"`
 	ContractTerm               *CheckoutExistingForItemsContractTermParams       `json:"contract_term,omitempty"`
 }
@@ -736,7 +731,6 @@ type CheckoutGiftRequestParams struct {
 }
 type CheckoutGiftGifterParams struct {
 	CustomerId string `json:"customer_id,omitempty"`
-	Locale     string `json:"locale,omitempty"`
 }
 type CheckoutGiftSubscriptionParams struct {
 	PlanId                string `json:"plan_id"`
@@ -758,7 +752,6 @@ type CheckoutGiftForItemsRequestParams struct {
 }
 type CheckoutGiftForItemsGifterParams struct {
 	CustomerId string `json:"customer_id,omitempty"`
-	Locale     string `json:"locale,omitempty"`
 }
 type CheckoutGiftForItemsSubscriptionItemParams struct {
 	ItemPriceId       string `json:"item_price_id,omitempty"`

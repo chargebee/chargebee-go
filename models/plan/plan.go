@@ -144,6 +144,7 @@ type CreateRequestParams struct {
 	IsShippable                 *bool                                `json:"is_shippable,omitempty"`
 	ShippingFrequencyPeriod     *int32                               `json:"shipping_frequency_period,omitempty"`
 	ShippingFrequencyPeriodUnit planEnum.ShippingFrequencyPeriodUnit `json:"shipping_frequency_period_unit,omitempty"`
+	TaxProvidersFields          []*CreateTaxProvidersFieldParams     `json:"tax_providers_fields,omitempty"`
 	ApplicableAddons            []*CreateApplicableAddonParams       `json:"applicable_addons,omitempty"`
 	EventBasedAddons            []*CreateEventBasedAddonParams       `json:"event_based_addons,omitempty"`
 	AttachedAddons              []*CreateAttachedAddonParams         `json:"attached_addons,omitempty"`
@@ -162,6 +163,11 @@ type CreateTierParams struct {
 	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
+}
+type CreateTaxProvidersFieldParams struct {
+	ProviderName string `json:"provider_name"`
+	FieldId      string `json:"field_id"`
+	FieldValue   string `json:"field_value"`
 }
 type CreateApplicableAddonParams struct {
 	Id string `json:"id,omitempty"`
@@ -221,6 +227,7 @@ type UpdateRequestParams struct {
 	IsShippable                 *bool                                `json:"is_shippable,omitempty"`
 	ShippingFrequencyPeriod     *int32                               `json:"shipping_frequency_period,omitempty"`
 	ShippingFrequencyPeriodUnit planEnum.ShippingFrequencyPeriodUnit `json:"shipping_frequency_period_unit,omitempty"`
+	TaxProvidersFields          []*UpdateTaxProvidersFieldParams     `json:"tax_providers_fields,omitempty"`
 	ApplicableAddons            []*UpdateApplicableAddonParams       `json:"applicable_addons,omitempty"`
 	EventBasedAddons            []*UpdateEventBasedAddonParams       `json:"event_based_addons,omitempty"`
 	AttachedAddons              []*UpdateAttachedAddonParams         `json:"attached_addons,omitempty"`
@@ -236,6 +243,11 @@ type UpdateTierParams struct {
 	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
+}
+type UpdateTaxProvidersFieldParams struct {
+	ProviderName string `json:"provider_name"`
+	FieldId      string `json:"field_id"`
+	FieldValue   string `json:"field_value"`
 }
 type UpdateApplicableAddonParams struct {
 	Id string `json:"id,omitempty"`

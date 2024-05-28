@@ -108,6 +108,7 @@ type CreateRequestParams struct {
 	ShowDescriptionInInvoices   *bool                                 `json:"show_description_in_invoices,omitempty"`
 	ShowDescriptionInQuotes     *bool                                 `json:"show_description_in_quotes,omitempty"`
 	PriceInDecimal              string                                `json:"price_in_decimal,omitempty"`
+	TaxProvidersFields          []*CreateTaxProvidersFieldParams      `json:"tax_providers_fields,omitempty"`
 	ProrationType               addonEnum.ProrationType               `json:"proration_type,omitempty"`
 	Status                      addonEnum.Status                      `json:"status,omitempty"`
 }
@@ -118,6 +119,11 @@ type CreateTierParams struct {
 	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
+}
+type CreateTaxProvidersFieldParams struct {
+	ProviderName string `json:"provider_name"`
+	FieldId      string `json:"field_id"`
+	FieldValue   string `json:"field_value"`
 }
 type UpdateRequestParams struct {
 	Name                        string                                `json:"name,omitempty"`
@@ -156,6 +162,7 @@ type UpdateRequestParams struct {
 	ShowDescriptionInInvoices   *bool                                 `json:"show_description_in_invoices,omitempty"`
 	ShowDescriptionInQuotes     *bool                                 `json:"show_description_in_quotes,omitempty"`
 	PriceInDecimal              string                                `json:"price_in_decimal,omitempty"`
+	TaxProvidersFields          []*UpdateTaxProvidersFieldParams      `json:"tax_providers_fields,omitempty"`
 	ProrationType               addonEnum.ProrationType               `json:"proration_type,omitempty"`
 }
 type UpdateTierParams struct {
@@ -165,6 +172,11 @@ type UpdateTierParams struct {
 	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
+}
+type UpdateTaxProvidersFieldParams struct {
+	ProviderName string `json:"provider_name"`
+	FieldId      string `json:"field_id"`
+	FieldValue   string `json:"field_value"`
 }
 type ListRequestParams struct {
 	Limit          *int32                  `json:"limit,omitempty"`

@@ -3,11 +3,13 @@ package enum
 type PaymentMethod string
 
 const (
-	PaymentMethodCard                  PaymentMethod = "card"
 	PaymentMethodCash                  PaymentMethod = "cash"
 	PaymentMethodCheck                 PaymentMethod = "check"
-	PaymentMethodChargeback            PaymentMethod = "chargeback"
 	PaymentMethodBankTransfer          PaymentMethod = "bank_transfer"
+	PaymentMethodOther                 PaymentMethod = "other"
+	PaymentMethodCustom                PaymentMethod = "custom"
+	PaymentMethodChargeback            PaymentMethod = "chargeback"
+	PaymentMethodCard                  PaymentMethod = "card"
 	PaymentMethodAmazonPayments        PaymentMethod = "amazon_payments"
 	PaymentMethodPaypalExpressCheckout PaymentMethod = "paypal_express_checkout"
 	PaymentMethodDirectDebit           PaymentMethod = "direct_debit"
@@ -23,10 +25,8 @@ const (
 	PaymentMethodBancontact            PaymentMethod = "bancontact"
 	PaymentMethodGiropay               PaymentMethod = "giropay"
 	PaymentMethodDotpay                PaymentMethod = "dotpay"
-	PaymentMethodOther                 PaymentMethod = "other"
 	PaymentMethodUpi                   PaymentMethod = "upi"
 	PaymentMethodNetbankingEmandates   PaymentMethod = "netbanking_emandates"
-	PaymentMethodCustom                PaymentMethod = "custom"
 	PaymentMethodBoleto                PaymentMethod = "boleto"
 	PaymentMethodVenmo                 PaymentMethod = "venmo"
 	PaymentMethodPayTo                 PaymentMethod = "pay_to"

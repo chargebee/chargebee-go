@@ -9,6 +9,8 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/advanceinvoiceschedule"
 	"github.com/chargebee/chargebee-go/v3/models/attacheditem"
 	"github.com/chargebee/chargebee-go/v3/models/attribute"
+	"github.com/chargebee/chargebee-go/v3/models/businessentity"
+	"github.com/chargebee/chargebee-go/v3/models/businessentitytransfer"
 	"github.com/chargebee/chargebee-go/v3/models/card"
 	"github.com/chargebee/chargebee-go/v3/models/comment"
 	"github.com/chargebee/chargebee-go/v3/models/contact"
@@ -85,6 +87,7 @@ type Result struct {
 	Customer                *customer.Customer                               `json:"customer,omitempty"`
 	Hierarchy               *hierarchy.Hierarchy                             `json:"hierarchy,omitempty"`
 	Contact                 *contact.Contact                                 `json:"contact,omitempty"`
+	BusinessEntityTransfer  *businessentitytransfer.BusinessEntityTransfer   `json:"business_entity_transfer,omitempty"`
 	Token                   *token.Token                                     `json:"token,omitempty"`
 	PaymentSource           *paymentsource.PaymentSource                     `json:"payment_source,omitempty"`
 	ThirdPartyPaymentMethod *thirdpartypaymentmethod.ThirdPartyPaymentMethod `json:"third_party_payment_method,omitempty"`
@@ -138,6 +141,7 @@ type Result struct {
 	Entitlement             *entitlement.Entitlement                         `json:"entitlement,omitempty"`
 	InAppSubscription       *inappsubscription.InAppSubscription             `json:"in_app_subscription,omitempty"`
 	EntitlementOverride     *entitlementoverride.EntitlementOverride         `json:"entitlement_override,omitempty"`
+	BusinessEntity          *businessentity.BusinessEntity                   `json:"business_entity,omitempty"`
 	Purchase                *purchase.Purchase                               `json:"purchase,omitempty"`
 	PaymentVoucher          *paymentvoucher.PaymentVoucher                   `json:"payment_voucher,omitempty"`
 	Ramp                    *ramp.Ramp                                       `json:"ramp,omitempty"`
