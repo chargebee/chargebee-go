@@ -26,4 +26,5 @@ const (
 	TypeSepaInstantTransfer   Type = "sepa_instant_transfer"
 	TypeAutomatedBankTransfer Type = "automated_bank_transfer"
 	TypeKlarnaPayNow          Type = "klarna_pay_now"
+	TypeOnlineBankingPoland   Type = "online_banking_poland"
 )

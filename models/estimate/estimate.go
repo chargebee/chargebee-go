@@ -594,6 +594,7 @@ type ChangeTermEndRequestParams struct {
 	InvoiceImmediately *bool  `json:"invoice_immediately,omitempty"`
 }
 type CancelSubscriptionRequestParams struct {
+	CancelOption                      enum.CancelOption                          `json:"cancel_option,omitempty"`
 	EndOfTerm                         *bool                                      `json:"end_of_term,omitempty"`
 	CancelAt                          *int64                                     `json:"cancel_at,omitempty"`
 	CreditOptionForCurrentTermCharges enum.CreditOptionForCurrentTermCharges     `json:"credit_option_for_current_term_charges,omitempty"`
@@ -612,6 +613,7 @@ type CancelSubscriptionEventBasedAddonParams struct {
 	ServicePeriodInDays *int32 `json:"service_period_in_days,omitempty"`
 }
 type CancelSubscriptionForItemsRequestParams struct {
+	CancelOption                      enum.CancelOption                                   `json:"cancel_option,omitempty"`
 	EndOfTerm                         *bool                                               `json:"end_of_term,omitempty"`
 	CancelAt                          *int64                                              `json:"cancel_at,omitempty"`
 	CreditOptionForCurrentTermCharges enum.CreditOptionForCurrentTermCharges              `json:"credit_option_for_current_term_charges,omitempty"`

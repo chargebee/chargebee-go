@@ -4,11 +4,11 @@ import (
 	"encoding/json"
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
-	invoiceEnum "github.com/chargebee/chargebee-go/v3/models/invoice/enum"
-	transactionEnum "github.com/chargebee/chargebee-go/v3/models/transaction/enum"
 	creditNoteEnum "github.com/chargebee/chargebee-go/v3/models/creditnote/enum"
+	invoiceEnum "github.com/chargebee/chargebee-go/v3/models/invoice/enum"
 	paymentIntentEnum "github.com/chargebee/chargebee-go/v3/models/paymentintent/enum"
 	paymentReferenceNumberEnum "github.com/chargebee/chargebee-go/v3/models/paymentreferencenumber/enum"
+	transactionEnum "github.com/chargebee/chargebee-go/v3/models/transaction/enum"
 )
 
 type Invoice struct {
@@ -77,6 +77,7 @@ type Invoice struct {
 	Channel                   enum.Channel              `json:"channel"`
 	BusinessEntityId          string                    `json:"business_entity_id"`
 	SiteDetailsAtCreation     *SiteDetailsAtCreation    `json:"site_details_at_creation"`
+	TaxOrigin                 *TaxOrigin                `json:"tax_origin"`
 	Object                    string                    `json:"object"`
 }
 type LineItem struct {
@@ -272,6 +273,11 @@ type SiteDetailsAtCreation struct {
 	Timezone            string          `json:"timezone"`
 	OrganizationAddress json.RawMessage `json:"organization_address"`
 	Object              string          `json:"object"`
+}
+type TaxOrigin struct {
+	Country            string `json:"country"`
+	RegistrationNumber string `json:"registration_number"`
+	Object             string `json:"object"`
 }
 type CreateRequestParams struct {
 	CustomerId                  string                           `json:"customer_id,omitempty"`

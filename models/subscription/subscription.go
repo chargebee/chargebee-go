@@ -289,13 +289,13 @@ type CreateCustomerParams struct {
 	FirstName                        string                       `json:"first_name,omitempty"`
 	LastName                         string                       `json:"last_name,omitempty"`
 	Company                          string                       `json:"company,omitempty"`
-	Taxability                       enum.Taxability              `json:"taxability,omitempty"`
+	Phone                            string                       `json:"phone,omitempty"`
 	Locale                           string                       `json:"locale,omitempty"`
+	Taxability                       enum.Taxability              `json:"taxability,omitempty"`
 	EntityCode                       enum.EntityCode              `json:"entity_code,omitempty"`
 	ExemptNumber                     string                       `json:"exempt_number,omitempty"`
 	NetTermDays                      *int32                       `json:"net_term_days,omitempty"`
 	TaxjarExemptionCategory          enum.TaxjarExemptionCategory `json:"taxjar_exemption_category,omitempty"`
-	Phone                            string                       `json:"phone,omitempty"`
 	AutoCollection                   enum.AutoCollection          `json:"auto_collection,omitempty"`
 	OfflinePaymentMethod             enum.OfflinePaymentMethod    `json:"offline_payment_method,omitempty"`
 	AllowDirectDebit                 *bool                        `json:"allow_direct_debit,omitempty"`
@@ -1176,13 +1176,13 @@ type ImportSubscriptionCustomerParams struct {
 	FirstName               string                       `json:"first_name,omitempty"`
 	LastName                string                       `json:"last_name,omitempty"`
 	Company                 string                       `json:"company,omitempty"`
-	Taxability              enum.Taxability              `json:"taxability,omitempty"`
+	Phone                   string                       `json:"phone,omitempty"`
 	Locale                  string                       `json:"locale,omitempty"`
+	Taxability              enum.Taxability              `json:"taxability,omitempty"`
 	EntityCode              enum.EntityCode              `json:"entity_code,omitempty"`
 	ExemptNumber            string                       `json:"exempt_number,omitempty"`
 	NetTermDays             *int32                       `json:"net_term_days,omitempty"`
 	TaxjarExemptionCategory enum.TaxjarExemptionCategory `json:"taxjar_exemption_category,omitempty"`
-	Phone                   string                       `json:"phone,omitempty"`
 	CustomerType            enum.CustomerType            `json:"customer_type,omitempty"`
 	AutoCollection          enum.AutoCollection          `json:"auto_collection,omitempty"`
 	AllowDirectDebit        *bool                        `json:"allow_direct_debit,omitempty"`
@@ -1563,6 +1563,7 @@ type PauseRequestParams struct {
 	ResumeDate              *int64                       `json:"resume_date,omitempty"`
 }
 type CancelRequestParams struct {
+	CancelOption                      enum.CancelOption                      `json:"cancel_option,omitempty"`
 	EndOfTerm                         *bool                                  `json:"end_of_term,omitempty"`
 	CancelAt                          *int64                                 `json:"cancel_at,omitempty"`
 	CreditOptionForCurrentTermCharges enum.CreditOptionForCurrentTermCharges `json:"credit_option_for_current_term_charges,omitempty"`
@@ -1581,6 +1582,7 @@ type CancelEventBasedAddonParams struct {
 	ServicePeriodInDays *int32 `json:"service_period_in_days,omitempty"`
 }
 type CancelForItemsRequestParams struct {
+	CancelOption                      enum.CancelOption                       `json:"cancel_option,omitempty"`
 	EndOfTerm                         *bool                                   `json:"end_of_term,omitempty"`
 	CancelAt                          *int64                                  `json:"cancel_at,omitempty"`
 	CreditOptionForCurrentTermCharges enum.CreditOptionForCurrentTermCharges  `json:"credit_option_for_current_term_charges,omitempty"`

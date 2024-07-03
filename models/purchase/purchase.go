@@ -15,16 +15,17 @@ type Purchase struct {
 	Object          string   `json:"object"`
 }
 type CreateRequestParams struct {
-	PurchaseItems     []*CreatePurchaseItemParams     `json:"purchase_items,omitempty"`
-	ItemTiers         []*CreateItemTierParams         `json:"item_tiers,omitempty"`
-	ShippingAddresses []*CreateShippingAddressParams  `json:"shipping_addresses,omitempty"`
-	Discounts         []*CreateDiscountParams         `json:"discounts,omitempty"`
-	SubscriptionInfo  []*CreateSubscriptionInfoParams `json:"subscription_info,omitempty"`
-	ContractTerms     []*CreateContractTermParams     `json:"contract_terms,omitempty"`
-	InvoiceInfo       *CreateInvoiceInfoParams        `json:"invoice_info,omitempty"`
-	InstallmentInfo   *CreateInstallmentInfoParams    `json:"installment_info,omitempty"`
-	CustomerId        string                          `json:"customer_id"`
-	PaymentSourceId   string                          `json:"payment_source_id,omitempty"`
+	PurchaseItems       []*CreatePurchaseItemParams      `json:"purchase_items,omitempty"`
+	ItemTiers           []*CreateItemTierParams          `json:"item_tiers,omitempty"`
+	ShippingAddresses   []*CreateShippingAddressParams   `json:"shipping_addresses,omitempty"`
+	Discounts           []*CreateDiscountParams          `json:"discounts,omitempty"`
+	SubscriptionInfo    []*CreateSubscriptionInfoParams  `json:"subscription_info,omitempty"`
+	ContractTerms       []*CreateContractTermParams      `json:"contract_terms,omitempty"`
+	InvoiceInfo         *CreateInvoiceInfoParams         `json:"invoice_info,omitempty"`
+	StatementDescriptor *CreateStatementDescriptorParams `json:"statement_descriptor,omitempty"`
+	InstallmentInfo     *CreateInstallmentInfoParams     `json:"installment_info,omitempty"`
+	CustomerId          string                           `json:"customer_id"`
+	PaymentSourceId     string                           `json:"payment_source_id,omitempty"`
 }
 type CreatePurchaseItemParams struct {
 	Index               *int32 `json:"index"`
@@ -82,6 +83,9 @@ type CreateContractTermParams struct {
 type CreateInvoiceInfoParams struct {
 	PoNumber string `json:"po_number,omitempty"`
 	Notes    string `json:"notes,omitempty"`
+}
+type CreateStatementDescriptorParams struct {
+	Descriptor string `json:"descriptor,omitempty"`
 }
 type CreateInstallmentInfoParams struct {
 	ConfigId string `json:"config_id,omitempty"`

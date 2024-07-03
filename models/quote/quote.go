@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
-	quoteEnum "github.com/chargebee/chargebee-go/v3/models/quote/enum"
 	contractTermEnum "github.com/chargebee/chargebee-go/v3/models/contractterm/enum"
+	quoteEnum "github.com/chargebee/chargebee-go/v3/models/quote/enum"
 )
 
 type Quote struct {

@@ -5,8 +5,8 @@ import (
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
 	creditNoteEnum "github.com/chargebee/chargebee-go/v3/models/creditnote/enum"
-	transactionEnum "github.com/chargebee/chargebee-go/v3/models/transaction/enum"
 	invoiceEnum "github.com/chargebee/chargebee-go/v3/models/invoice/enum"
+	transactionEnum "github.com/chargebee/chargebee-go/v3/models/transaction/enum"
 )
 
 type CreditNote struct {
@@ -55,6 +55,7 @@ type CreditNote struct {
 	ShippingAddress           *ShippingAddress          `json:"shipping_address"`
 	BillingAddress            *BillingAddress           `json:"billing_address"`
 	SiteDetailsAtCreation     *SiteDetailsAtCreation    `json:"site_details_at_creation"`
+	TaxOrigin                 *TaxOrigin                `json:"tax_origin"`
 	Object                    string                    `json:"object"`
 }
 type Einvoice struct {
@@ -200,6 +201,11 @@ type SiteDetailsAtCreation struct {
 	Timezone            string          `json:"timezone"`
 	OrganizationAddress json.RawMessage `json:"organization_address"`
 	Object              string          `json:"object"`
+}
+type TaxOrigin struct {
+	Country            string `json:"country"`
+	RegistrationNumber string `json:"registration_number"`
+	Object             string `json:"object"`
 }
 type CreateRequestParams struct {
 	ReferenceInvoiceId string                    `json:"reference_invoice_id,omitempty"`

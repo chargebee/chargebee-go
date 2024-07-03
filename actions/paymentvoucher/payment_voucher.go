@@ -2,10 +2,9 @@ package paymentvoucher
 
 import (
 	"fmt"
-	"net/url"
-
 	"github.com/chargebee/chargebee-go/v3"
 	"github.com/chargebee/chargebee-go/v3/models/paymentvoucher"
+	"net/url"
 )
 
 func Create(params *paymentvoucher.CreateRequestParams) chargebee.RequestObj {

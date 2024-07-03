@@ -9,10 +9,10 @@ const (
 	TypeManagePaymentSources Type = "manage_payment_sources"
 	TypeCollectNow           Type = "collect_now"
 	TypeExtendSubscription   Type = "extend_subscription"
-	TypeCheckoutGift         Type = "checkout_gift"
-	TypeClaimGift            Type = "claim_gift"
 	TypeCheckoutOneTime      Type = "checkout_one_time"
 	TypePreCancel            Type = "pre_cancel"
 	TypeViewVoucher          Type = "view_voucher"
+	TypeCheckoutGift         Type = "checkout_gift"
+	TypeClaimGift            Type = "claim_gift"
 	TypeUpdateCard           Type = "update_card"
 )

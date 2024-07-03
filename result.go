@@ -19,6 +19,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/couponcode"
 	"github.com/chargebee/chargebee-go/v3/models/couponset"
 	"github.com/chargebee/chargebee-go/v3/models/creditnote"
+	"github.com/chargebee/chargebee-go/v3/models/currency"
 	"github.com/chargebee/chargebee-go/v3/models/customer"
 	"github.com/chargebee/chargebee-go/v3/models/differentialprice"
 	"github.com/chargebee/chargebee-go/v3/models/discount"
@@ -53,6 +54,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/plan"
 	"github.com/chargebee/chargebee-go/v3/models/portalsession"
 	"github.com/chargebee/chargebee-go/v3/models/pricevariant"
+	"github.com/chargebee/chargebee-go/v3/models/pricingpagesession"
 	"github.com/chargebee/chargebee-go/v3/models/promotionalcredit"
 	"github.com/chargebee/chargebee-go/v3/models/purchase"
 	"github.com/chargebee/chargebee-go/v3/models/quote"
@@ -144,10 +146,12 @@ type Result struct {
 	BusinessEntity          *businessentity.BusinessEntity                   `json:"business_entity,omitempty"`
 	Purchase                *purchase.Purchase                               `json:"purchase,omitempty"`
 	PaymentVoucher          *paymentvoucher.PaymentVoucher                   `json:"payment_voucher,omitempty"`
+	Currency                *currency.Currency                               `json:"currency,omitempty"`
 	Ramp                    *ramp.Ramp                                       `json:"ramp,omitempty"`
 	InstallmentConfig       *installmentconfig.InstallmentConfig             `json:"installment_config,omitempty"`
 	Installment             *installment.Installment                         `json:"installment,omitempty"`
 	InstallmentDetail       *installmentdetail.InstallmentDetail             `json:"installment_detail,omitempty"`
+	PricingPageSession      *pricingpagesession.PricingPageSession           `json:"pricing_page_session,omitempty"`
 	AdvanceInvoiceSchedules []*advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedules,omitempty"`
 	Hierarchies             []*hierarchy.Hierarchy                           `json:"hierarchies,omitempty"`
 	Invoices                []*invoice.Invoice                               `json:"invoices,omitempty"`

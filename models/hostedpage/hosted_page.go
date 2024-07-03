@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
-	hostedPageEnum "github.com/chargebee/chargebee-go/v3/models/hostedpage/enum"
 	contractTermEnum "github.com/chargebee/chargebee-go/v3/models/contractterm/enum"
+	hostedPageEnum "github.com/chargebee/chargebee-go/v3/models/hostedpage/enum"
 )
 
 type HostedPage struct {
@@ -69,9 +69,9 @@ type CheckoutNewCustomerParams struct {
 	FirstName             string          `json:"first_name,omitempty"`
 	LastName              string          `json:"last_name,omitempty"`
 	Company               string          `json:"company,omitempty"`
-	Taxability            enum.Taxability `json:"taxability,omitempty"`
-	Locale                string          `json:"locale,omitempty"`
 	Phone                 string          `json:"phone,omitempty"`
+	Locale                string          `json:"locale,omitempty"`
+	Taxability            enum.Taxability `json:"taxability,omitempty"`
 	VatNumber             string          `json:"vat_number,omitempty"`
 	VatNumberPrefix       string          `json:"vat_number_prefix,omitempty"`
 	ConsolidatedInvoicing *bool           `json:"consolidated_invoicing,omitempty"`
@@ -159,9 +159,9 @@ type CheckoutOneTimeCustomerParams struct {
 	FirstName             string          `json:"first_name,omitempty"`
 	LastName              string          `json:"last_name,omitempty"`
 	Company               string          `json:"company,omitempty"`
-	Taxability            enum.Taxability `json:"taxability,omitempty"`
-	Locale                string          `json:"locale,omitempty"`
 	Phone                 string          `json:"phone,omitempty"`
+	Locale                string          `json:"locale,omitempty"`
+	Taxability            enum.Taxability `json:"taxability,omitempty"`
 	VatNumber             string          `json:"vat_number,omitempty"`
 	VatNumberPrefix       string          `json:"vat_number_prefix,omitempty"`
 	ConsolidatedInvoicing *bool           `json:"consolidated_invoicing,omitempty"`
@@ -256,9 +256,9 @@ type CheckoutOneTimeForItemsCustomerParams struct {
 	FirstName                string                `json:"first_name,omitempty"`
 	LastName                 string                `json:"last_name,omitempty"`
 	Company                  string                `json:"company,omitempty"`
-	Taxability               enum.Taxability       `json:"taxability,omitempty"`
-	Locale                   string                `json:"locale,omitempty"`
 	Phone                    string                `json:"phone,omitempty"`
+	Locale                   string                `json:"locale,omitempty"`
+	Taxability               enum.Taxability       `json:"taxability,omitempty"`
 	VatNumber                string                `json:"vat_number,omitempty"`
 	VatNumberPrefix          string                `json:"vat_number_prefix,omitempty"`
 	EinvoicingMethod         enum.EinvoicingMethod `json:"einvoicing_method,omitempty"`
@@ -391,9 +391,9 @@ type CheckoutNewForItemsCustomerParams struct {
 	FirstName                string                `json:"first_name,omitempty"`
 	LastName                 string                `json:"last_name,omitempty"`
 	Company                  string                `json:"company,omitempty"`
-	Taxability               enum.Taxability       `json:"taxability,omitempty"`
-	Locale                   string                `json:"locale,omitempty"`
 	Phone                    string                `json:"phone,omitempty"`
+	Locale                   string                `json:"locale,omitempty"`
+	Taxability               enum.Taxability       `json:"taxability,omitempty"`
 	VatNumber                string                `json:"vat_number,omitempty"`
 	VatNumberPrefix          string                `json:"vat_number_prefix,omitempty"`
 	IsEinvoiceEnabled        *bool                 `json:"is_einvoice_enabled,omitempty"`

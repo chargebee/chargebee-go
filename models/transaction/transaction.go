@@ -3,9 +3,9 @@ package transaction
 import (
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
-	transactionEnum "github.com/chargebee/chargebee-go/v3/models/transaction/enum"
-	invoiceEnum "github.com/chargebee/chargebee-go/v3/models/invoice/enum"
 	creditNoteEnum "github.com/chargebee/chargebee-go/v3/models/creditnote/enum"
+	invoiceEnum "github.com/chargebee/chargebee-go/v3/models/invoice/enum"
+	transactionEnum "github.com/chargebee/chargebee-go/v3/models/transaction/enum"
 )
 
 type Transaction struct {

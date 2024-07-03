@@ -34,4 +34,5 @@ const (
 	PaymentMethodSepaInstantTransfer   PaymentMethod = "sepa_instant_transfer"
 	PaymentMethodAutomatedBankTransfer PaymentMethod = "automated_bank_transfer"
 	PaymentMethodKlarnaPayNow          PaymentMethod = "klarna_pay_now"
+	PaymentMethodOnlineBankingPoland   PaymentMethod = "online_banking_poland"
 )

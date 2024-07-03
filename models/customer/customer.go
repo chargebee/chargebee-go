@@ -313,10 +313,10 @@ type ListRequestParams struct {
 	Taxability           *filter.EnumFilter      `json:"taxability,omitempty"`
 	CreatedAt            *filter.TimestampFilter `json:"created_at,omitempty"`
 	UpdatedAt            *filter.TimestampFilter `json:"updated_at,omitempty"`
-	BusinessEntityId     *filter.StringFilter    `json:"business_entity_id,omitempty"`
 	OfflinePaymentMethod *filter.EnumFilter      `json:"offline_payment_method,omitempty"`
 	AutoCloseInvoices    *filter.BooleanFilter   `json:"auto_close_invoices,omitempty"`
 	Channel              *filter.EnumFilter      `json:"channel,omitempty"`
+	BusinessEntityId     *filter.StringFilter    `json:"business_entity_id,omitempty"`
 	SortBy               *filter.SortFilter      `json:"sort_by,omitempty"`
 }
 type ListRelationshipParams struct {
