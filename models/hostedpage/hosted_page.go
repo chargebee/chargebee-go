@@ -568,6 +568,8 @@ type CheckoutExistingForItemsRequestParams struct {
 	CouponIds                  []string                                          `json:"coupon_ids,omitempty"`
 	Reactivate                 *bool                                             `json:"reactivate,omitempty"`
 	ForceTermReset             *bool                                             `json:"force_term_reset,omitempty"`
+	ChangeOption               enum.ChangeOption                                 `json:"change_option,omitempty"`
+	ChangesScheduledAt         *int64                                            `json:"changes_scheduled_at,omitempty"`
 	Customer                   *CheckoutExistingForItemsCustomerParams           `json:"customer,omitempty"`
 	EntityIdentifiers          []*CheckoutExistingForItemsEntityIdentifierParams `json:"entity_identifiers,omitempty"`
 	Card                       *CheckoutExistingForItemsCardParams               `json:"card,omitempty"`
