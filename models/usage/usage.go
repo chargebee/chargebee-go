@@ -38,8 +38,9 @@ type ListRequestParams struct {
 	Limit          *int32                  `json:"limit,omitempty"`
 	Offset         string                  `json:"offset,omitempty"`
 	Id             *filter.StringFilter    `json:"id,omitempty"`
-	SubscriptionId *filter.StringFilter    `json:"subscription_id"`
+	SubscriptionId *filter.StringFilter    `json:"subscription_id,omitempty"`
 	UsageDate      *filter.TimestampFilter `json:"usage_date,omitempty"`
+	UpdatedAt      *filter.TimestampFilter `json:"updated_at,omitempty"`
 	ItemPriceId    *filter.StringFilter    `json:"item_price_id,omitempty"`
 	InvoiceId      *filter.StringFilter    `json:"invoice_id,omitempty"`
 	Source         *filter.EnumFilter      `json:"source,omitempty"`

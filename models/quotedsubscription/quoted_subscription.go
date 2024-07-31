@@ -36,26 +36,28 @@ type Coupon struct {
 	Object   string `json:"object"`
 }
 type SubscriptionItem struct {
-	ItemPriceId           string              `json:"item_price_id"`
-	ItemType              enum.ItemType       `json:"item_type"`
-	Quantity              int32               `json:"quantity"`
-	QuantityInDecimal     string              `json:"quantity_in_decimal"`
-	MeteredQuantity       string              `json:"metered_quantity"`
-	LastCalculatedAt      int64               `json:"last_calculated_at"`
-	UnitPrice             int64               `json:"unit_price"`
-	UnitPriceInDecimal    string              `json:"unit_price_in_decimal"`
-	Amount                int64               `json:"amount"`
-	AmountInDecimal       string              `json:"amount_in_decimal"`
-	FreeQuantity          int32               `json:"free_quantity"`
-	FreeQuantityInDecimal string              `json:"free_quantity_in_decimal"`
-	TrialEnd              int64               `json:"trial_end"`
-	BillingCycles         int32               `json:"billing_cycles"`
-	ServicePeriodDays     int32               `json:"service_period_days"`
-	ChargeOnEvent         enum.ChargeOnEvent  `json:"charge_on_event"`
-	ChargeOnce            bool                `json:"charge_once"`
-	ChargeOnOption        enum.ChargeOnOption `json:"charge_on_option"`
-	ProrationType         enum.ProrationType  `json:"proration_type"`
-	Object                string              `json:"object"`
+	ItemPriceId           string                                   `json:"item_price_id"`
+	ItemType              enum.ItemType                            `json:"item_type"`
+	Quantity              int32                                    `json:"quantity"`
+	QuantityInDecimal     string                                   `json:"quantity_in_decimal"`
+	MeteredQuantity       string                                   `json:"metered_quantity"`
+	LastCalculatedAt      int64                                    `json:"last_calculated_at"`
+	UnitPrice             int64                                    `json:"unit_price"`
+	UnitPriceInDecimal    string                                   `json:"unit_price_in_decimal"`
+	Amount                int64                                    `json:"amount"`
+	AmountInDecimal       string                                   `json:"amount_in_decimal"`
+	BillingPeriod         int32                                    `json:"billing_period"`
+	BillingPeriodUnit     quotedSubscriptionEnum.BillingPeriodUnit `json:"billing_period_unit"`
+	FreeQuantity          int32                                    `json:"free_quantity"`
+	FreeQuantityInDecimal string                                   `json:"free_quantity_in_decimal"`
+	TrialEnd              int64                                    `json:"trial_end"`
+	BillingCycles         int32                                    `json:"billing_cycles"`
+	ServicePeriodDays     int32                                    `json:"service_period_days"`
+	ChargeOnEvent         enum.ChargeOnEvent                       `json:"charge_on_event"`
+	ChargeOnce            bool                                     `json:"charge_once"`
+	ChargeOnOption        enum.ChargeOnOption                      `json:"charge_on_option"`
+	ProrationType         enum.ProrationType                       `json:"proration_type"`
+	Object                string                                   `json:"object"`
 }
 type ItemTier struct {
 	ItemPriceId           string `json:"item_price_id"`

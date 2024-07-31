@@ -46,6 +46,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/itementitlement"
 	"github.com/chargebee/chargebee-go/v3/models/itemfamily"
 	"github.com/chargebee/chargebee-go/v3/models/itemprice"
+	"github.com/chargebee/chargebee-go/v3/models/metadata"
 	"github.com/chargebee/chargebee-go/v3/models/order"
 	"github.com/chargebee/chargebee-go/v3/models/paymentintent"
 	"github.com/chargebee/chargebee-go/v3/models/paymentreferencenumber"
@@ -138,6 +139,7 @@ type Result struct {
 	ImpactedSubscription    *impactedsubscription.ImpactedSubscription       `json:"impacted_subscription,omitempty"`
 	ImpactedItem            *impacteditem.ImpactedItem                       `json:"impacted_item,omitempty"`
 	ImpactedItemPrice       *impacteditemprice.ImpactedItemPrice             `json:"impacted_item_price,omitempty"`
+	Metadata                *metadata.Metadata                               `json:"metadata,omitempty"`
 	SubscriptionEntitlement *subscriptionentitlement.SubscriptionEntitlement `json:"subscription_entitlement,omitempty"`
 	ItemEntitlement         *itementitlement.ItemEntitlement                 `json:"item_entitlement,omitempty"`
 	Entitlement             *entitlement.Entitlement                         `json:"entitlement,omitempty"`

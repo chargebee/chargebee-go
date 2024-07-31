@@ -7,24 +7,25 @@ import (
 )
 
 type Ramp struct {
-	Id                string            `json:"id"`
-	Description       string            `json:"description"`
-	SubscriptionId    string            `json:"subscription_id"`
-	EffectiveFrom     int64             `json:"effective_from"`
-	Status            rampEnum.Status   `json:"status"`
-	CreatedAt         int64             `json:"created_at"`
-	ResourceVersion   int64             `json:"resource_version"`
-	UpdatedAt         int64             `json:"updated_at"`
-	ItemsToAdd        []*ItemsToAdd     `json:"items_to_add"`
-	ItemsToUpdate     []*ItemsToUpdate  `json:"items_to_update"`
-	CouponsToAdd      []*CouponsToAdd   `json:"coupons_to_add"`
-	DiscountsToAdd    []*DiscountsToAdd `json:"discounts_to_add"`
-	ItemTiers         []*ItemTier       `json:"item_tiers"`
-	ItemsToRemove     []string          `json:"items_to_remove"`
-	CouponsToRemove   []string          `json:"coupons_to_remove"`
-	DiscountsToRemove []string          `json:"discounts_to_remove"`
-	Deleted           bool              `json:"deleted"`
-	Object            string            `json:"object"`
+	Id                     string                  `json:"id"`
+	Description            string                  `json:"description"`
+	SubscriptionId         string                  `json:"subscription_id"`
+	EffectiveFrom          int64                   `json:"effective_from"`
+	Status                 rampEnum.Status         `json:"status"`
+	CreatedAt              int64                   `json:"created_at"`
+	ResourceVersion        int64                   `json:"resource_version"`
+	UpdatedAt              int64                   `json:"updated_at"`
+	ItemsToAdd             []*ItemsToAdd           `json:"items_to_add"`
+	ItemsToUpdate          []*ItemsToUpdate        `json:"items_to_update"`
+	CouponsToAdd           []*CouponsToAdd         `json:"coupons_to_add"`
+	DiscountsToAdd         []*DiscountsToAdd       `json:"discounts_to_add"`
+	ItemTiers              []*ItemTier             `json:"item_tiers"`
+	ItemsToRemove          []string                `json:"items_to_remove"`
+	CouponsToRemove        []string                `json:"coupons_to_remove"`
+	DiscountsToRemove      []string                `json:"discounts_to_remove"`
+	Deleted                bool                    `json:"deleted"`
+	StatusTransitionReason *StatusTransitionReason `json:"status_transition_reason"`
+	Object                 string                  `json:"object"`
 }
 type ItemsToAdd struct {
 	ItemPriceId           string        `json:"item_price_id"`
@@ -88,6 +89,11 @@ type ItemTier struct {
 	PriceInDecimal        string `json:"price_in_decimal"`
 	Index                 int32  `json:"index"`
 	Object                string `json:"object"`
+}
+type StatusTransitionReason struct {
+	Code    string `json:"code"`
+	Message string `json:"message"`
+	Object  string `json:"object"`
 }
 type CreateForSubscriptionRequestParams struct {
 	EffectiveFrom     *int64                                       `json:"effective_from"`

@@ -9,6 +9,7 @@ type PriceVariant struct {
 	Id              string                  `json:"id"`
 	Name            string                  `json:"name"`
 	ExternalName    string                  `json:"external_name"`
+	VariantGroup    string                  `json:"variant_group"`
 	Description     string                  `json:"description"`
 	Status          priceVariantEnum.Status `json:"status"`
 	CreatedAt       int64                   `json:"created_at"`
@@ -28,6 +29,7 @@ type CreateRequestParams struct {
 	Name         string                   `json:"name"`
 	ExternalName string                   `json:"external_name,omitempty"`
 	Description  string                   `json:"description,omitempty"`
+	VariantGroup string                   `json:"variant_group,omitempty"`
 	Attributes   []*CreateAttributeParams `json:"attributes,omitempty"`
 }
 type CreateAttributeParams struct {
@@ -38,6 +40,7 @@ type UpdateRequestParams struct {
 	Name         string                   `json:"name,omitempty"`
 	ExternalName string                   `json:"external_name,omitempty"`
 	Description  string                   `json:"description,omitempty"`
+	VariantGroup string                   `json:"variant_group,omitempty"`
 	Status       priceVariantEnum.Status  `json:"status,omitempty"`
 	Attributes   []*UpdateAttributeParams `json:"attributes,omitempty"`
 }
