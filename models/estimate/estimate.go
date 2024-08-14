@@ -484,6 +484,7 @@ type UpdateSubscriptionForItemsRequestParams struct {
 	ShippingAddress        *UpdateSubscriptionForItemsShippingAddressParams    `json:"shipping_address,omitempty"`
 	Customer               *UpdateSubscriptionForItemsCustomerParams           `json:"customer,omitempty"`
 	InvoiceImmediately     *bool                                               `json:"invoice_immediately,omitempty"`
+	InvoiceUsages          *bool                                               `json:"invoice_usages,omitempty"`
 }
 type UpdateSubscriptionForItemsSubscriptionParams struct {
 	Id                   string                    `json:"id"`

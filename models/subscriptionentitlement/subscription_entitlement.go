@@ -10,6 +10,7 @@ type SubscriptionEntitlement struct {
 	FeatureId      string                                     `json:"feature_id"`
 	FeatureName    string                                     `json:"feature_name"`
 	FeatureUnit    string                                     `json:"feature_unit"`
+	FeatureType    string                                     `json:"feature_type"`
 	Value          string                                     `json:"value"`
 	Name           string                                     `json:"name"`
 	IsOverridden   bool                                       `json:"is_overridden"`

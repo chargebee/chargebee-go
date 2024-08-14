@@ -900,6 +900,7 @@ type UpdateForItemsRequestParams struct {
 	TrialEndAction                    enum.TrialEndAction                      `json:"trial_end_action,omitempty"`
 	PaymentInitiator                  enum.PaymentInitiator                    `json:"payment_initiator,omitempty"`
 	Coupons                           []*UpdateForItemsCouponParams            `json:"coupons,omitempty"`
+	InvoiceUsages                     *bool                                    `json:"invoice_usages,omitempty"`
 }
 type UpdateForItemsSubscriptionItemParams struct {
 	ItemPriceId        string              `json:"item_price_id"`
