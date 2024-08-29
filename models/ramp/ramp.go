@@ -148,6 +148,59 @@ type CreateForSubscriptionDiscountsToAddParams struct {
 	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`
 	ItemPriceId   string            `json:"item_price_id,omitempty"`
 }
+type UpdateRequestParams struct {
+	EffectiveFrom     *int64                        `json:"effective_from"`
+	Description       string                        `json:"description,omitempty"`
+	CouponsToRemove   []string                      `json:"coupons_to_remove,omitempty"`
+	DiscountsToRemove []string                      `json:"discounts_to_remove,omitempty"`
+	ItemsToRemove     []string                      `json:"items_to_remove,omitempty"`
+	ItemsToAdd        []*UpdateItemsToAddParams     `json:"items_to_add,omitempty"`
+	ItemsToUpdate     []*UpdateItemsToUpdateParams  `json:"items_to_update,omitempty"`
+	ItemTiers         []*UpdateItemTierParams       `json:"item_tiers,omitempty"`
+	CouponsToAdd      []*UpdateCouponsToAddParams   `json:"coupons_to_add,omitempty"`
+	DiscountsToAdd    []*UpdateDiscountsToAddParams `json:"discounts_to_add,omitempty"`
+}
+type UpdateItemsToAddParams struct {
+	ItemPriceId        string `json:"item_price_id"`
+	Quantity           *int32 `json:"quantity,omitempty"`
+	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int64 `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32 `json:"billing_cycles,omitempty"`
+	ServicePeriodDays  *int32 `json:"service_period_days,omitempty"`
+}
+type UpdateItemsToUpdateParams struct {
+	ItemPriceId        string `json:"item_price_id"`
+	Quantity           *int32 `json:"quantity,omitempty"`
+	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int64 `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32 `json:"billing_cycles,omitempty"`
+	ServicePeriodDays  *int32 `json:"service_period_days,omitempty"`
+}
+type UpdateItemTierParams struct {
+	ItemPriceId           string `json:"item_price_id,omitempty"`
+	StartingUnit          *int32 `json:"starting_unit,omitempty"`
+	EndingUnit            *int32 `json:"ending_unit,omitempty"`
+	Price                 *int64 `json:"price,omitempty"`
+	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
+}
+type UpdateCouponsToAddParams struct {
+	CouponId  string `json:"coupon_id,omitempty"`
+	ApplyTill *int64 `json:"apply_till,omitempty"`
+}
+type UpdateDiscountsToAddParams struct {
+	ApplyOn       enum.ApplyOn      `json:"apply_on"`
+	DurationType  enum.DurationType `json:"duration_type"`
+	Percentage    *float64          `json:"percentage,omitempty"`
+	Amount        *int64            `json:"amount,omitempty"`
+	Period        *int32            `json:"period,omitempty"`
+	PeriodUnit    enum.PeriodUnit   `json:"period_unit,omitempty"`
+	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`
+	ItemPriceId   string            `json:"item_price_id,omitempty"`
+}
 type ListRequestParams struct {
 	Limit          *int32                  `json:"limit,omitempty"`
 	Offset         string                  `json:"offset,omitempty"`

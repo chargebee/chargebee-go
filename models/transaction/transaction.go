@@ -122,6 +122,11 @@ type RecordRefundRequestParams struct {
 	CustomPaymentMethodId string             `json:"custom_payment_method_id,omitempty"`
 	Comment               string             `json:"comment,omitempty"`
 }
+type ReconcileRequestParams struct {
+	IdAtGateway string                 `json:"id_at_gateway,omitempty"`
+	CustomerId  string                 `json:"customer_id,omitempty"`
+	Status      transactionEnum.Status `json:"status,omitempty"`
+}
 type RefundRequestParams struct {
 	Amount  *int64 `json:"amount,omitempty"`
 	Comment string `json:"comment,omitempty"`

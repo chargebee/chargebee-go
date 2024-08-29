@@ -10,6 +10,9 @@ import (
 func CreateForSubscription(id string, params *ramp.CreateForSubscriptionRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/subscriptions/%v/create_ramp", url.PathEscape(id)), params)
 }
+func Update(id string, params *ramp.UpdateRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/ramps/%v/update", url.PathEscape(id)), params)
+}
 func Retrieve(id string) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/ramps/%v", url.PathEscape(id)), nil)
 }

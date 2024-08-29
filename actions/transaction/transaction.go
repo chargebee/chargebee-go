@@ -16,6 +16,9 @@ func VoidTransaction(id string) chargebee.RequestObj {
 func RecordRefund(id string, params *transaction.RecordRefundRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/transactions/%v/record_refund", url.PathEscape(id)), params)
 }
+func Reconcile(id string, params *transaction.ReconcileRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/transactions/%v/reconcile", url.PathEscape(id)), params)
+}
 func Refund(id string, params *transaction.RefundRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/transactions/%v/refund", url.PathEscape(id)), params)
 }

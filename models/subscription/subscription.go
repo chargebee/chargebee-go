@@ -66,6 +66,7 @@ type Subscription struct {
 	DueSince                          int64                              `json:"due_since"`
 	TotalDues                         int64                              `json:"total_dues"`
 	Mrr                               int64                              `json:"mrr"`
+	Arr                               int64                              `json:"arr"`
 	ExchangeRate                      float64                            `json:"exchange_rate"`
 	BaseCurrencyCode                  string                             `json:"base_currency_code"`
 	Addons                            []*Addon                           `json:"addons"`

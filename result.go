@@ -21,6 +21,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/creditnote"
 	"github.com/chargebee/chargebee-go/v3/models/currency"
 	"github.com/chargebee/chargebee-go/v3/models/customer"
+	"github.com/chargebee/chargebee-go/v3/models/customerentitlement"
 	"github.com/chargebee/chargebee-go/v3/models/differentialprice"
 	"github.com/chargebee/chargebee-go/v3/models/discount"
 	"github.com/chargebee/chargebee-go/v3/models/download"
@@ -141,6 +142,7 @@ type Result struct {
 	ImpactedItemPrice       *impacteditemprice.ImpactedItemPrice             `json:"impacted_item_price,omitempty"`
 	Metadata                *metadata.Metadata                               `json:"metadata,omitempty"`
 	SubscriptionEntitlement *subscriptionentitlement.SubscriptionEntitlement `json:"subscription_entitlement,omitempty"`
+	CustomerEntitlement     *customerentitlement.CustomerEntitlement         `json:"customer_entitlement,omitempty"`
 	ItemEntitlement         *itementitlement.ItemEntitlement                 `json:"item_entitlement,omitempty"`
 	Entitlement             *entitlement.Entitlement                         `json:"entitlement,omitempty"`
 	InAppSubscription       *inappsubscription.InAppSubscription             `json:"in_app_subscription,omitempty"`
