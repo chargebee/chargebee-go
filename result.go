@@ -39,9 +39,6 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/impacteditemprice"
 	"github.com/chargebee/chargebee-go/v3/models/impactedsubscription"
 	"github.com/chargebee/chargebee-go/v3/models/inappsubscription"
-	"github.com/chargebee/chargebee-go/v3/models/installment"
-	"github.com/chargebee/chargebee-go/v3/models/installmentconfig"
-	"github.com/chargebee/chargebee-go/v3/models/installmentdetail"
 	"github.com/chargebee/chargebee-go/v3/models/invoice"
 	"github.com/chargebee/chargebee-go/v3/models/item"
 	"github.com/chargebee/chargebee-go/v3/models/itementitlement"
@@ -51,6 +48,8 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/order"
 	"github.com/chargebee/chargebee-go/v3/models/paymentintent"
 	"github.com/chargebee/chargebee-go/v3/models/paymentreferencenumber"
+	"github.com/chargebee/chargebee-go/v3/models/paymentschedule"
+	"github.com/chargebee/chargebee-go/v3/models/paymentschedulescheme"
 	"github.com/chargebee/chargebee-go/v3/models/paymentsource"
 	"github.com/chargebee/chargebee-go/v3/models/paymentvoucher"
 	"github.com/chargebee/chargebee-go/v3/models/plan"
@@ -100,6 +99,7 @@ type Result struct {
 	PromotionalCredit       *promotionalcredit.PromotionalCredit             `json:"promotional_credit,omitempty"`
 	Invoice                 *invoice.Invoice                                 `json:"invoice,omitempty"`
 	PaymentReferenceNumber  *paymentreferencenumber.PaymentReferenceNumber   `json:"payment_reference_number,omitempty"`
+	PaymentSchedule         *paymentschedule.PaymentSchedule                 `json:"payment_schedule,omitempty"`
 	TaxWithheld             *taxwithheld.TaxWithheld                         `json:"tax_withheld,omitempty"`
 	CreditNote              *creditnote.CreditNote                           `json:"credit_note,omitempty"`
 	UnbilledCharge          *unbilledcharge.UnbilledCharge                   `json:"unbilled_charge,omitempty"`
@@ -152,13 +152,12 @@ type Result struct {
 	PaymentVoucher          *paymentvoucher.PaymentVoucher                   `json:"payment_voucher,omitempty"`
 	Currency                *currency.Currency                               `json:"currency,omitempty"`
 	Ramp                    *ramp.Ramp                                       `json:"ramp,omitempty"`
-	InstallmentConfig       *installmentconfig.InstallmentConfig             `json:"installment_config,omitempty"`
-	Installment             *installment.Installment                         `json:"installment,omitempty"`
-	InstallmentDetail       *installmentdetail.InstallmentDetail             `json:"installment_detail,omitempty"`
+	PaymentScheduleScheme   *paymentschedulescheme.PaymentScheduleScheme     `json:"payment_schedule_scheme,omitempty"`
 	PricingPageSession      *pricingpagesession.PricingPageSession           `json:"pricing_page_session,omitempty"`
 	AdvanceInvoiceSchedules []*advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedules,omitempty"`
 	Hierarchies             []*hierarchy.Hierarchy                           `json:"hierarchies,omitempty"`
 	Invoices                []*invoice.Invoice                               `json:"invoices,omitempty"`
+	PaymentSchedules        []*paymentschedule.PaymentSchedule               `json:"payment_schedules,omitempty"`
 	CreditNotes             []*creditnote.CreditNote                         `json:"credit_notes,omitempty"`
 	UnbilledCharges         []*unbilledcharge.UnbilledCharge                 `json:"unbilled_charges,omitempty"`
 	Downloads               []*download.Download                             `json:"downloads,omitempty"`

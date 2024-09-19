@@ -1059,7 +1059,7 @@ type UpdateDetailsShippingAddressParams struct {
 type UpdateDetailsStatementDescriptorParams struct {
 	Descriptor string `json:"descriptor,omitempty"`
 }
-type InstallmentsRequestParams struct {
-	ConfigId string `json:"config_id"`
+type ApplyPaymentScheduleSchemeRequestParams struct {
+	SchemeId string `json:"scheme_id"`
 	Amount   *int64 `json:"amount,omitempty"`
 }

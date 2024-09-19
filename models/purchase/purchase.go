@@ -22,8 +22,8 @@ type CreateRequestParams struct {
 	SubscriptionInfo    []*CreateSubscriptionInfoParams  `json:"subscription_info,omitempty"`
 	ContractTerms       []*CreateContractTermParams      `json:"contract_terms,omitempty"`
 	InvoiceInfo         *CreateInvoiceInfoParams         `json:"invoice_info,omitempty"`
+	PaymentSchedule     *CreatePaymentScheduleParams     `json:"payment_schedule,omitempty"`
 	StatementDescriptor *CreateStatementDescriptorParams `json:"statement_descriptor,omitempty"`
-	InstallmentInfo     *CreateInstallmentInfoParams     `json:"installment_info,omitempty"`
 	CustomerId          string                           `json:"customer_id"`
 	PaymentSourceId     string                           `json:"payment_source_id,omitempty"`
 }
@@ -84,12 +84,12 @@ type CreateInvoiceInfoParams struct {
 	PoNumber string `json:"po_number,omitempty"`
 	Notes    string `json:"notes,omitempty"`
 }
+type CreatePaymentScheduleParams struct {
+	SchemeId string `json:"scheme_id,omitempty"`
+	Amount   *int64 `json:"amount,omitempty"`
+}
 type CreateStatementDescriptorParams struct {
 	Descriptor string `json:"descriptor,omitempty"`
-}
-type CreateInstallmentInfoParams struct {
-	ConfigId string `json:"config_id,omitempty"`
-	Amount   *int64 `json:"amount,omitempty"`
 }
 type EstimateRequestParams struct {
 	PurchaseItems     []*EstimatePurchaseItemParams     `json:"purchase_items,omitempty"`
