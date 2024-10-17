@@ -6,6 +6,7 @@ import (
 
 type PaymentScheduleScheme struct {
 	Id                 string                               `json:"id"`
+	Name               string                               `json:"name"`
 	Description        string                               `json:"description"`
 	NumberOfSchedules  int32                                `json:"number_of_schedules"`
 	PeriodUnit         paymentScheduleSchemeEnum.PeriodUnit `json:"period_unit"`

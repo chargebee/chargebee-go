@@ -64,3 +64,6 @@ func CreateInvoice(params *estimate.CreateInvoiceRequestParams) chargebee.Reques
 func CreateInvoiceForItems(params *estimate.CreateInvoiceForItemsRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/estimates/create_invoice_for_items"), params)
 }
+func PaymentSchedules(params *estimate.PaymentSchedulesRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/estimates/payment_schedules"), params)
+}

@@ -17,6 +17,7 @@ type CreateForNewSubscriptionRequestParams struct {
 	Subscription     *CreateForNewSubscriptionSubscriptionParams    `json:"subscription,omitempty"`
 	BusinessEntityId string                                         `json:"business_entity_id,omitempty"`
 	Customer         *CreateForNewSubscriptionCustomerParams        `json:"customer,omitempty"`
+	Discounts        []*CreateForNewSubscriptionDiscountParams      `json:"discounts,omitempty"`
 	BillingAddress   *CreateForNewSubscriptionBillingAddressParams  `json:"billing_address,omitempty"`
 	ShippingAddress  *CreateForNewSubscriptionShippingAddressParams `json:"shipping_address,omitempty"`
 }
@@ -34,6 +35,17 @@ type CreateForNewSubscriptionCustomerParams struct {
 	Company   string `json:"company,omitempty"`
 	Phone     string `json:"phone,omitempty"`
 	Locale    string `json:"locale,omitempty"`
+}
+type CreateForNewSubscriptionDiscountParams struct {
+	ApplyOn       enum.ApplyOn      `json:"apply_on"`
+	DurationType  enum.DurationType `json:"duration_type"`
+	Percentage    *float64          `json:"percentage,omitempty"`
+	Amount        *int64            `json:"amount,omitempty"`
+	Period        *int32            `json:"period,omitempty"`
+	PeriodUnit    enum.PeriodUnit   `json:"period_unit,omitempty"`
+	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`
+	ItemPriceId   string            `json:"item_price_id,omitempty"`
+	Label         string            `json:"label,omitempty"`
 }
 type CreateForNewSubscriptionBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -71,10 +83,22 @@ type CreateForExistingSubscriptionRequestParams struct {
 	RedirectUrl  string                                           `json:"redirect_url,omitempty"`
 	PricingPage  *CreateForExistingSubscriptionPricingPageParams  `json:"pricing_page,omitempty"`
 	Subscription *CreateForExistingSubscriptionSubscriptionParams `json:"subscription,omitempty"`
+	Discounts    []*CreateForExistingSubscriptionDiscountParams   `json:"discounts,omitempty"`
 }
 type CreateForExistingSubscriptionPricingPageParams struct {
 	Id string `json:"id"`
 }
 type CreateForExistingSubscriptionSubscriptionParams struct {
 	Id string `json:"id"`
+}
+type CreateForExistingSubscriptionDiscountParams struct {
+	ApplyOn       enum.ApplyOn      `json:"apply_on"`
+	DurationType  enum.DurationType `json:"duration_type"`
+	Percentage    *float64          `json:"percentage,omitempty"`
+	Amount        *int64            `json:"amount,omitempty"`
+	Period        *int32            `json:"period,omitempty"`
+	PeriodUnit    enum.PeriodUnit   `json:"period_unit,omitempty"`
+	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`
+	ItemPriceId   string            `json:"item_price_id,omitempty"`
+	Label         string            `json:"label,omitempty"`
 }

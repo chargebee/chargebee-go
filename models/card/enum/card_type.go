@@ -21,6 +21,8 @@ const (
 	CardTypeCarnet          CardType = "carnet"
 	CardTypeRupay           CardType = "rupay"
 	CardTypeMaestro         CardType = "maestro"
+	CardTypeDankort         CardType = "dankort"
+	CardTypeCartesBancaires CardType = "cartes_bancaires"
 	CardTypeOther           CardType = "other"
 	CardTypeNotApplicable   CardType = "not_applicable"
 )

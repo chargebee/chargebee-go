@@ -6,20 +6,22 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/creditnoteestimate"
 	"github.com/chargebee/chargebee-go/v3/models/invoiceestimate"
 	paymentIntentEnum "github.com/chargebee/chargebee-go/v3/models/paymentintent/enum"
+	"github.com/chargebee/chargebee-go/v3/models/paymentscheduleestimate"
 	"github.com/chargebee/chargebee-go/v3/models/subscriptionestimate"
 	"github.com/chargebee/chargebee-go/v3/models/unbilledcharge"
 )
 
 type Estimate struct {
-	CreatedAt               int64                                        `json:"created_at"`
-	SubscriptionEstimate    *subscriptionestimate.SubscriptionEstimate   `json:"subscription_estimate"`
-	SubscriptionEstimates   []*subscriptionestimate.SubscriptionEstimate `json:"subscription_estimates"`
-	InvoiceEstimate         *invoiceestimate.InvoiceEstimate             `json:"invoice_estimate"`
-	InvoiceEstimates        []*invoiceestimate.InvoiceEstimate           `json:"invoice_estimates"`
-	NextInvoiceEstimate     *invoiceestimate.InvoiceEstimate             `json:"next_invoice_estimate"`
-	CreditNoteEstimates     []*creditnoteestimate.CreditNoteEstimate     `json:"credit_note_estimates"`
-	UnbilledChargeEstimates []*unbilledcharge.UnbilledCharge             `json:"unbilled_charge_estimates"`
-	Object                  string                                       `json:"object"`
+	CreatedAt                int64                                              `json:"created_at"`
+	SubscriptionEstimate     *subscriptionestimate.SubscriptionEstimate         `json:"subscription_estimate"`
+	SubscriptionEstimates    []*subscriptionestimate.SubscriptionEstimate       `json:"subscription_estimates"`
+	InvoiceEstimate          *invoiceestimate.InvoiceEstimate                   `json:"invoice_estimate"`
+	InvoiceEstimates         []*invoiceestimate.InvoiceEstimate                 `json:"invoice_estimates"`
+	PaymentScheduleEstimates []*paymentscheduleestimate.PaymentScheduleEstimate `json:"payment_schedule_estimates"`
+	NextInvoiceEstimate      *invoiceestimate.InvoiceEstimate                   `json:"next_invoice_estimate"`
+	CreditNoteEstimates      []*creditnoteestimate.CreditNoteEstimate           `json:"credit_note_estimates"`
+	UnbilledChargeEstimates  []*unbilledcharge.UnbilledCharge                   `json:"unbilled_charge_estimates"`
+	Object                   string                                             `json:"object"`
 }
 type CreateSubscriptionRequestParams struct {
 	Subscription            *CreateSubscriptionSubscriptionParams        `json:"subscription,omitempty"`
@@ -930,4 +932,10 @@ type CreateInvoiceForItemsTaxProvidersFieldParams struct {
 	ProviderName string `json:"provider_name,omitempty"`
 	FieldId      string `json:"field_id,omitempty"`
 	FieldValue   string `json:"field_value,omitempty"`
+}
+type PaymentSchedulesRequestParams struct {
+	SchemeId                 string `json:"scheme_id"`
+	Amount                   *int64 `json:"amount,omitempty"`
+	InvoiceId                string `json:"invoice_id,omitempty"`
+	PaymentScheduleStartDate *int64 `json:"payment_schedule_start_date,omitempty"`
 }

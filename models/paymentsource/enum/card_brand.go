@@ -22,5 +22,7 @@ const (
 	CardBrandCarnet          CardBrand = "carnet"
 	CardBrandRupay           CardBrand = "rupay"
 	CardBrandMaestro         CardBrand = "maestro"
+	CardBrandDankort         CardBrand = "dankort"
+	CardBrandCartesBancaires CardBrand = "cartes_bancaires"
 	CardBrandNotApplicable   CardBrand = "not_applicable"
 )

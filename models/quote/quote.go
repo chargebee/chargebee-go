@@ -1128,6 +1128,7 @@ type QuoteLineGroupsForQuoteRequestParams struct {
 type ConvertRequestParams struct {
 	Subscription          *ConvertSubscriptionParams `json:"subscription,omitempty"`
 	InvoiceDate           *int64                     `json:"invoice_date,omitempty"`
+	InvoiceImmediately    *bool                      `json:"invoice_immediately,omitempty"`
 	CreatePendingInvoices *bool                      `json:"create_pending_invoices,omitempty"`
 	FirstInvoicePending   *bool                      `json:"first_invoice_pending,omitempty"`
 }
