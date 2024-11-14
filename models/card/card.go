@@ -46,6 +46,7 @@ type UpdateCardForCustomerRequestParams struct {
 	ExpiryMonth      *int32                               `json:"expiry_month"`
 	ExpiryYear       *int32                               `json:"expiry_year"`
 	Cvv              string                               `json:"cvv,omitempty"`
+	PreferredScheme  cardEnum.PreferredScheme             `json:"preferred_scheme,omitempty"`
 	BillingAddr1     string                               `json:"billing_addr1,omitempty"`
 	BillingAddr2     string                               `json:"billing_addr2,omitempty"`
 	BillingCity      string                               `json:"billing_city,omitempty"`

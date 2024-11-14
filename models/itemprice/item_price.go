@@ -49,6 +49,7 @@ type ItemPrice struct {
 	ParentItemId                    string                               `json:"parent_item_id"`
 	ShowDescriptionInInvoices       bool                                 `json:"show_description_in_invoices"`
 	ShowDescriptionInQuotes         bool                                 `json:"show_description_in_quotes"`
+	BusinessEntityId                string                               `json:"business_entity_id"`
 	CustomField                     map[string]interface{}               `json:"custom_field"`
 	Object                          string                               `json:"object"`
 }
@@ -103,6 +104,7 @@ type CreateRequestParams struct {
 	ShowDescriptionInInvoices       *bool                                `json:"show_description_in_invoices,omitempty"`
 	ShowDescriptionInQuotes         *bool                                `json:"show_description_in_quotes,omitempty"`
 	UsageAccumulationResetFrequency enum.UsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency,omitempty"`
+	BusinessEntityId                string                               `json:"business_entity_id,omitempty"`
 	PricingModel                    enum.PricingModel                    `json:"pricing_model,omitempty"`
 	Tiers                           []*CreateTierParams                  `json:"tiers,omitempty"`
 	Price                           *int64                               `json:"price,omitempty"`
@@ -212,24 +214,26 @@ type UpdateAccountingDetailParams struct {
 	AccountingCategory4 string `json:"accounting_category4,omitempty"`
 }
 type ListRequestParams struct {
-	Limit           *int32                  `json:"limit,omitempty"`
-	Offset          string                  `json:"offset,omitempty"`
-	Id              *filter.StringFilter    `json:"id,omitempty"`
-	Name            *filter.StringFilter    `json:"name,omitempty"`
-	PricingModel    *filter.EnumFilter      `json:"pricing_model,omitempty"`
-	ItemId          *filter.StringFilter    `json:"item_id,omitempty"`
-	ItemFamilyId    *filter.StringFilter    `json:"item_family_id,omitempty"`
-	ItemType        *filter.EnumFilter      `json:"item_type,omitempty"`
-	CurrencyCode    *filter.StringFilter    `json:"currency_code,omitempty"`
-	PriceVariantId  *filter.StringFilter    `json:"price_variant_id,omitempty"`
-	TrialPeriod     *filter.NumberFilter    `json:"trial_period,omitempty"`
-	TrialPeriodUnit *filter.EnumFilter      `json:"trial_period_unit,omitempty"`
-	Status          *filter.EnumFilter      `json:"status,omitempty"`
-	UpdatedAt       *filter.TimestampFilter `json:"updated_at,omitempty"`
-	PeriodUnit      *filter.EnumFilter      `json:"period_unit,omitempty"`
-	Period          *filter.NumberFilter    `json:"period,omitempty"`
-	Channel         *filter.EnumFilter      `json:"channel,omitempty"`
-	SortBy          *filter.SortFilter      `json:"sort_by,omitempty"`
+	Limit                     *int32                  `json:"limit,omitempty"`
+	Offset                    string                  `json:"offset,omitempty"`
+	Id                        *filter.StringFilter    `json:"id,omitempty"`
+	Name                      *filter.StringFilter    `json:"name,omitempty"`
+	PricingModel              *filter.EnumFilter      `json:"pricing_model,omitempty"`
+	ItemId                    *filter.StringFilter    `json:"item_id,omitempty"`
+	ItemFamilyId              *filter.StringFilter    `json:"item_family_id,omitempty"`
+	ItemType                  *filter.EnumFilter      `json:"item_type,omitempty"`
+	CurrencyCode              *filter.StringFilter    `json:"currency_code,omitempty"`
+	PriceVariantId            *filter.StringFilter    `json:"price_variant_id,omitempty"`
+	TrialPeriod               *filter.NumberFilter    `json:"trial_period,omitempty"`
+	TrialPeriodUnit           *filter.EnumFilter      `json:"trial_period_unit,omitempty"`
+	Status                    *filter.EnumFilter      `json:"status,omitempty"`
+	UpdatedAt                 *filter.TimestampFilter `json:"updated_at,omitempty"`
+	BusinessEntityId          *filter.StringFilter    `json:"business_entity_id,omitempty"`
+	IncludeSiteLevelResources *filter.BooleanFilter   `json:"include_site_level_resources,omitempty"`
+	PeriodUnit                *filter.EnumFilter      `json:"period_unit,omitempty"`
+	Period                    *filter.NumberFilter    `json:"period,omitempty"`
+	Channel                   *filter.EnumFilter      `json:"channel,omitempty"`
+	SortBy                    *filter.SortFilter      `json:"sort_by,omitempty"`
 }
 type FindApplicableItemsRequestParams struct {
 	Limit  *int32             `json:"limit,omitempty"`

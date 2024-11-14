@@ -26,5 +26,10 @@ type CreateRequestParams struct {
 	NumberOfSchedules *int32                               `json:"number_of_schedules"`
 	PeriodUnit        paymentScheduleSchemeEnum.PeriodUnit `json:"period_unit"`
 	Period            *int32                               `json:"period,omitempty"`
-	Description       string                               `json:"description,omitempty"`
+	Name              string                               `json:"name"`
+	FlexibleSchedules []*CreateFlexibleScheduleParams      `json:"flexible_schedules,omitempty"`
+}
+type CreateFlexibleScheduleParams struct {
+	Period           *int32   `json:"period,omitempty"`
+	AmountPercentage *float64 `json:"amount_percentage,omitempty"`
 }

@@ -34,6 +34,7 @@ type Item struct {
 	BundleItems          []*BundleItem              `json:"bundle_items"`
 	BundleConfiguration  *BundleConfiguration       `json:"bundle_configuration"`
 	Metadata             json.RawMessage            `json:"metadata"`
+	BusinessEntityId     string                     `json:"business_entity_id"`
 	CustomField          map[string]interface{}     `json:"custom_field"`
 	Object               string                     `json:"object"`
 }
@@ -73,6 +74,7 @@ type CreateRequestParams struct {
 	Metered              *bool                            `json:"metered,omitempty"`
 	UsageCalculation     itemEnum.UsageCalculation        `json:"usage_calculation,omitempty"`
 	Metadata             map[string]interface{}           `json:"metadata,omitempty"`
+	BusinessEntityId     string                           `json:"business_entity_id,omitempty"`
 	BundleItemsToAdd     []*CreateBundleItemsToAddParams  `json:"bundle_items_to_add,omitempty"`
 }
 type CreateBundleConfigurationParams struct {
@@ -126,23 +128,25 @@ type UpdateBundleItemsToRemoveParams struct {
 	ItemType enum.ItemType `json:"item_type,omitempty"`
 }
 type ListRequestParams struct {
-	Limit               *int32                         `json:"limit,omitempty"`
-	Offset              string                         `json:"offset,omitempty"`
-	BundleConfiguration *ListBundleConfigurationParams `json:"bundle_configuration,omitempty"`
-	Id                  *filter.StringFilter           `json:"id,omitempty"`
-	ItemFamilyId        *filter.StringFilter           `json:"item_family_id,omitempty"`
-	Type                *filter.EnumFilter             `json:"type,omitempty"`
-	Name                *filter.StringFilter           `json:"name,omitempty"`
-	ItemApplicability   *filter.EnumFilter             `json:"item_applicability,omitempty"`
-	Status              *filter.EnumFilter             `json:"status,omitempty"`
-	IsGiftable          *filter.BooleanFilter          `json:"is_giftable,omitempty"`
-	UpdatedAt           *filter.TimestampFilter        `json:"updated_at,omitempty"`
-	EnabledForCheckout  *filter.BooleanFilter          `json:"enabled_for_checkout,omitempty"`
-	EnabledInPortal     *filter.BooleanFilter          `json:"enabled_in_portal,omitempty"`
-	Metered             *filter.BooleanFilter          `json:"metered,omitempty"`
-	UsageCalculation    *filter.EnumFilter             `json:"usage_calculation,omitempty"`
-	Channel             *filter.EnumFilter             `json:"channel,omitempty"`
-	SortBy              *filter.SortFilter             `json:"sort_by,omitempty"`
+	Limit                     *int32                         `json:"limit,omitempty"`
+	Offset                    string                         `json:"offset,omitempty"`
+	BundleConfiguration       *ListBundleConfigurationParams `json:"bundle_configuration,omitempty"`
+	Id                        *filter.StringFilter           `json:"id,omitempty"`
+	ItemFamilyId              *filter.StringFilter           `json:"item_family_id,omitempty"`
+	Type                      *filter.EnumFilter             `json:"type,omitempty"`
+	Name                      *filter.StringFilter           `json:"name,omitempty"`
+	ItemApplicability         *filter.EnumFilter             `json:"item_applicability,omitempty"`
+	Status                    *filter.EnumFilter             `json:"status,omitempty"`
+	IsGiftable                *filter.BooleanFilter          `json:"is_giftable,omitempty"`
+	UpdatedAt                 *filter.TimestampFilter        `json:"updated_at,omitempty"`
+	EnabledForCheckout        *filter.BooleanFilter          `json:"enabled_for_checkout,omitempty"`
+	EnabledInPortal           *filter.BooleanFilter          `json:"enabled_in_portal,omitempty"`
+	Metered                   *filter.BooleanFilter          `json:"metered,omitempty"`
+	UsageCalculation          *filter.EnumFilter             `json:"usage_calculation,omitempty"`
+	Channel                   *filter.EnumFilter             `json:"channel,omitempty"`
+	BusinessEntityId          *filter.StringFilter           `json:"business_entity_id,omitempty"`
+	IncludeSiteLevelResources *filter.BooleanFilter          `json:"include_site_level_resources,omitempty"`
+	SortBy                    *filter.SortFilter             `json:"sort_by,omitempty"`
 }
 type ListBundleConfigurationParams struct {
 	Type *filter.EnumFilter `json:"type,omitempty"`

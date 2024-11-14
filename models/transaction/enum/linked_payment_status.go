@@ -9,4 +9,5 @@ const (
 	LinkedPaymentStatusFailure        LinkedPaymentStatus = "failure"
 	LinkedPaymentStatusTimeout        LinkedPaymentStatus = "timeout"
 	LinkedPaymentStatusNeedsAttention LinkedPaymentStatus = "needs_attention"
+	LinkedPaymentStatusLateFailure    LinkedPaymentStatus = "late_failure"
 )

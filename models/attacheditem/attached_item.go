@@ -21,6 +21,7 @@ type AttachedItem struct {
 	ResourceVersion   int64                   `json:"resource_version"`
 	UpdatedAt         int64                   `json:"updated_at"`
 	Channel           enum.Channel            `json:"channel"`
+	BusinessEntityId  string                  `json:"business_entity_id"`
 	Object            string                  `json:"object"`
 }
 type CreateRequestParams struct {
@@ -31,6 +32,7 @@ type CreateRequestParams struct {
 	QuantityInDecimal string                `json:"quantity_in_decimal,omitempty"`
 	ChargeOnEvent     enum.ChargeOnEvent    `json:"charge_on_event,omitempty"`
 	ChargeOnce        *bool                 `json:"charge_once,omitempty"`
+	BusinessEntityId  string                `json:"business_entity_id,omitempty"`
 }
 type UpdateRequestParams struct {
 	ParentItemId      string                `json:"parent_item_id"`

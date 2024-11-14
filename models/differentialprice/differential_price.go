@@ -7,20 +7,21 @@ import (
 )
 
 type DifferentialPrice struct {
-	Id              string                       `json:"id"`
-	ItemPriceId     string                       `json:"item_price_id"`
-	ParentItemId    string                       `json:"parent_item_id"`
-	Price           int64                        `json:"price"`
-	PriceInDecimal  string                       `json:"price_in_decimal"`
-	Status          differentialPriceEnum.Status `json:"status"`
-	ResourceVersion int64                        `json:"resource_version"`
-	UpdatedAt       int64                        `json:"updated_at"`
-	CreatedAt       int64                        `json:"created_at"`
-	ModifiedAt      int64                        `json:"modified_at"`
-	Tiers           []*Tier                      `json:"tiers"`
-	CurrencyCode    string                       `json:"currency_code"`
-	ParentPeriods   []*ParentPeriod              `json:"parent_periods"`
-	Object          string                       `json:"object"`
+	Id               string                       `json:"id"`
+	ItemPriceId      string                       `json:"item_price_id"`
+	ParentItemId     string                       `json:"parent_item_id"`
+	Price            int64                        `json:"price"`
+	PriceInDecimal   string                       `json:"price_in_decimal"`
+	Status           differentialPriceEnum.Status `json:"status"`
+	ResourceVersion  int64                        `json:"resource_version"`
+	UpdatedAt        int64                        `json:"updated_at"`
+	CreatedAt        int64                        `json:"created_at"`
+	ModifiedAt       int64                        `json:"modified_at"`
+	Tiers            []*Tier                      `json:"tiers"`
+	CurrencyCode     string                       `json:"currency_code"`
+	ParentPeriods    []*ParentPeriod              `json:"parent_periods"`
+	BusinessEntityId string                       `json:"business_entity_id"`
+	Object           string                       `json:"object"`
 }
 type Tier struct {
 	StartingUnit          int32  `json:"starting_unit"`
@@ -37,11 +38,12 @@ type ParentPeriod struct {
 	Object     string                                       `json:"object"`
 }
 type CreateRequestParams struct {
-	ParentItemId   string                      `json:"parent_item_id"`
-	Price          *int64                      `json:"price,omitempty"`
-	PriceInDecimal string                      `json:"price_in_decimal,omitempty"`
-	ParentPeriods  []*CreateParentPeriodParams `json:"parent_periods,omitempty"`
-	Tiers          []*CreateTierParams         `json:"tiers,omitempty"`
+	ParentItemId     string                      `json:"parent_item_id"`
+	Price            *int64                      `json:"price,omitempty"`
+	PriceInDecimal   string                      `json:"price_in_decimal,omitempty"`
+	ParentPeriods    []*CreateParentPeriodParams `json:"parent_periods,omitempty"`
+	Tiers            []*CreateTierParams         `json:"tiers,omitempty"`
+	BusinessEntityId string                      `json:"business_entity_id,omitempty"`
 }
 type CreateParentPeriodParams struct {
 	PeriodUnit differentialPriceEnum.ParentPeriodPeriodUnit `json:"period_unit"`

@@ -18,6 +18,7 @@ type Coupon struct {
 	CurrencyCode           string                     `json:"currency_code"`
 	DurationType           couponEnum.DurationType    `json:"duration_type"`
 	DurationMonth          int32                      `json:"duration_month"`
+	ValidFrom              int64                      `json:"valid_from"`
 	ValidTill              int64                      `json:"valid_till"`
 	MaxRedemptions         int32                      `json:"max_redemptions"`
 	Status                 couponEnum.Status          `json:"status"`
@@ -99,6 +100,7 @@ type CreateForItemsRequestParams struct {
 	ApplyOn                couponEnum.ApplyOn                            `json:"apply_on"`
 	DurationType           couponEnum.DurationType                       `json:"duration_type,omitempty"`
 	DurationMonth          *int32                                        `json:"duration_month,omitempty"`
+	ValidFrom              *int64                                        `json:"valid_from,omitempty"`
 	ValidTill              *int64                                        `json:"valid_till,omitempty"`
 	MaxRedemptions         *int32                                        `json:"max_redemptions,omitempty"`
 	InvoiceNotes           string                                        `json:"invoice_notes,omitempty"`
@@ -138,6 +140,7 @@ type UpdateForItemsRequestParams struct {
 	ApplyOn                couponEnum.ApplyOn                            `json:"apply_on,omitempty"`
 	DurationType           couponEnum.DurationType                       `json:"duration_type,omitempty"`
 	DurationMonth          *int32                                        `json:"duration_month,omitempty"`
+	ValidFrom              *int64                                        `json:"valid_from,omitempty"`
 	ValidTill              *int64                                        `json:"valid_till,omitempty"`
 	MaxRedemptions         *int32                                        `json:"max_redemptions,omitempty"`
 	InvoiceNotes           string                                        `json:"invoice_notes,omitempty"`

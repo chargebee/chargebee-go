@@ -7,4 +7,5 @@ const (
 	StatusExpired  Status = "expired"
 	StatusArchived Status = "archived"
 	StatusDeleted  Status = "deleted"
+	StatusFuture   Status = "future"
 )

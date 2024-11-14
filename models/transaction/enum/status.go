@@ -9,4 +9,5 @@ const (
 	StatusFailure        Status = "failure"
 	StatusTimeout        Status = "timeout"
 	StatusNeedsAttention Status = "needs_attention"
+	StatusLateFailure    Status = "late_failure"
 )

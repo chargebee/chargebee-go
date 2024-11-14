@@ -45,6 +45,8 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/itemfamily"
 	"github.com/chargebee/chargebee-go/v3/models/itemprice"
 	"github.com/chargebee/chargebee-go/v3/models/metadata"
+	"github.com/chargebee/chargebee-go/v3/models/omnichannelsubscription"
+	"github.com/chargebee/chargebee-go/v3/models/omnichanneltransaction"
 	"github.com/chargebee/chargebee-go/v3/models/order"
 	"github.com/chargebee/chargebee-go/v3/models/paymentintent"
 	"github.com/chargebee/chargebee-go/v3/models/paymentreferencenumber"
@@ -63,6 +65,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/quotedsubscription"
 	"github.com/chargebee/chargebee-go/v3/models/quotelinegroup"
 	"github.com/chargebee/chargebee-go/v3/models/ramp"
+	"github.com/chargebee/chargebee-go/v3/models/recordedpurchase"
 	"github.com/chargebee/chargebee-go/v3/models/resourcemigration"
 	"github.com/chargebee/chargebee-go/v3/models/sitemigrationdetail"
 	"github.com/chargebee/chargebee-go/v3/models/subscription"
@@ -154,6 +157,9 @@ type Result struct {
 	Ramp                    *ramp.Ramp                                       `json:"ramp,omitempty"`
 	PaymentScheduleScheme   *paymentschedulescheme.PaymentScheduleScheme     `json:"payment_schedule_scheme,omitempty"`
 	PricingPageSession      *pricingpagesession.PricingPageSession           `json:"pricing_page_session,omitempty"`
+	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
+	OmnichannelTransaction  *omnichanneltransaction.OmnichannelTransaction   `json:"omnichannel_transaction,omitempty"`
+	RecordedPurchase        *recordedpurchase.RecordedPurchase               `json:"recorded_purchase,omitempty"`
 	AdvanceInvoiceSchedules []*advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedules,omitempty"`
 	Hierarchies             []*hierarchy.Hierarchy                           `json:"hierarchies,omitempty"`
 	Invoices                []*invoice.Invoice                               `json:"invoices,omitempty"`

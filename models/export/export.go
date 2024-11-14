@@ -348,7 +348,9 @@ type OrdersOrderParams struct {
 	OriginalOrderId         *filter.StringFilter    `json:"original_order_id,omitempty"`
 }
 type ItemFamiliesRequestParams struct {
-	ItemFamily *ItemFamiliesItemFamilyParams `json:"item_family,omitempty"`
+	ItemFamily                *ItemFamiliesItemFamilyParams `json:"item_family,omitempty"`
+	BusinessEntityId          *filter.StringFilter          `json:"business_entity_id,omitempty"`
+	IncludeSiteLevelResources *filter.BooleanFilter         `json:"include_site_level_resources,omitempty"`
 }
 type ItemFamiliesItemFamilyParams struct {
 	Id        *filter.StringFilter    `json:"id,omitempty"`
@@ -356,7 +358,9 @@ type ItemFamiliesItemFamilyParams struct {
 	UpdatedAt *filter.TimestampFilter `json:"updated_at,omitempty"`
 }
 type ItemsRequestParams struct {
-	Item *ItemsItemParams `json:"item,omitempty"`
+	Item                      *ItemsItemParams      `json:"item,omitempty"`
+	BusinessEntityId          *filter.StringFilter  `json:"business_entity_id,omitempty"`
+	IncludeSiteLevelResources *filter.BooleanFilter `json:"include_site_level_resources,omitempty"`
 }
 type ItemsItemParams struct {
 	Id                 *filter.StringFilter    `json:"id,omitempty"`
@@ -374,10 +378,12 @@ type ItemsItemParams struct {
 	Channel            *filter.EnumFilter      `json:"channel,omitempty"`
 }
 type ItemPricesRequestParams struct {
-	ItemPrice    *ItemPricesItemPriceParams `json:"item_price,omitempty"`
-	ItemFamilyId *filter.StringFilter       `json:"item_family_id,omitempty"`
-	ItemType     *filter.EnumFilter         `json:"item_type,omitempty"`
-	CurrencyCode *filter.StringFilter       `json:"currency_code,omitempty"`
+	ItemPrice                 *ItemPricesItemPriceParams `json:"item_price,omitempty"`
+	ItemFamilyId              *filter.StringFilter       `json:"item_family_id,omitempty"`
+	ItemType                  *filter.EnumFilter         `json:"item_type,omitempty"`
+	CurrencyCode              *filter.StringFilter       `json:"currency_code,omitempty"`
+	BusinessEntityId          *filter.StringFilter       `json:"business_entity_id,omitempty"`
+	IncludeSiteLevelResources *filter.BooleanFilter      `json:"include_site_level_resources,omitempty"`
 }
 type ItemPricesItemPriceParams struct {
 	Id              *filter.StringFilter    `json:"id,omitempty"`
@@ -415,7 +421,9 @@ type DifferentialPricesDifferentialPriceParams struct {
 	ParentItemId *filter.StringFilter `json:"parent_item_id,omitempty"`
 }
 type PriceVariantsRequestParams struct {
-	PriceVariant *PriceVariantsPriceVariantParams `json:"price_variant,omitempty"`
+	PriceVariant              *PriceVariantsPriceVariantParams `json:"price_variant,omitempty"`
+	BusinessEntityId          *filter.StringFilter             `json:"business_entity_id,omitempty"`
+	IncludeSiteLevelResources *filter.BooleanFilter            `json:"include_site_level_resources,omitempty"`
 }
 type PriceVariantsPriceVariantParams struct {
 	Id        *filter.StringFilter    `json:"id,omitempty"`

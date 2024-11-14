@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
+	cardEnum "github.com/chargebee/chargebee-go/v3/models/card/enum"
 	customerEnum "github.com/chargebee/chargebee-go/v3/models/customer/enum"
 	paymentIntentEnum "github.com/chargebee/chargebee-go/v3/models/paymentintent/enum"
 )
@@ -215,24 +216,25 @@ type CreateRequestParams struct {
 	InvoiceNotes                     string                           `json:"invoice_notes,omitempty"`
 }
 type CreateCardParams struct {
-	Gateway               enum.Gateway           `json:"gateway,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	TmpToken              string                 `json:"tmp_token,omitempty"`
-	FirstName             string                 `json:"first_name,omitempty"`
-	LastName              string                 `json:"last_name,omitempty"`
-	Number                string                 `json:"number,omitempty"`
-	ExpiryMonth           *int32                 `json:"expiry_month,omitempty"`
-	ExpiryYear            *int32                 `json:"expiry_year,omitempty"`
-	Cvv                   string                 `json:"cvv,omitempty"`
-	BillingAddr1          string                 `json:"billing_addr1,omitempty"`
-	BillingAddr2          string                 `json:"billing_addr2,omitempty"`
-	BillingCity           string                 `json:"billing_city,omitempty"`
-	BillingStateCode      string                 `json:"billing_state_code,omitempty"`
-	BillingState          string                 `json:"billing_state,omitempty"`
-	BillingZip            string                 `json:"billing_zip,omitempty"`
-	BillingCountry        string                 `json:"billing_country,omitempty"`
-	IpAddress             string                 `json:"ip_address,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Gateway               enum.Gateway             `json:"gateway,omitempty"`
+	GatewayAccountId      string                   `json:"gateway_account_id,omitempty"`
+	TmpToken              string                   `json:"tmp_token,omitempty"`
+	FirstName             string                   `json:"first_name,omitempty"`
+	LastName              string                   `json:"last_name,omitempty"`
+	Number                string                   `json:"number,omitempty"`
+	ExpiryMonth           *int32                   `json:"expiry_month,omitempty"`
+	ExpiryYear            *int32                   `json:"expiry_year,omitempty"`
+	Cvv                   string                   `json:"cvv,omitempty"`
+	PreferredScheme       cardEnum.PreferredScheme `json:"preferred_scheme,omitempty"`
+	BillingAddr1          string                   `json:"billing_addr1,omitempty"`
+	BillingAddr2          string                   `json:"billing_addr2,omitempty"`
+	BillingCity           string                   `json:"billing_city,omitempty"`
+	BillingStateCode      string                   `json:"billing_state_code,omitempty"`
+	BillingState          string                   `json:"billing_state,omitempty"`
+	BillingZip            string                   `json:"billing_zip,omitempty"`
+	BillingCountry        string                   `json:"billing_country,omitempty"`
+	IpAddress             string                   `json:"ip_address,omitempty"`
+	AdditionalInformation map[string]interface{}   `json:"additional_information,omitempty"`
 }
 type CreateBankAccountParams struct {
 	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
@@ -507,21 +509,22 @@ type CollectPaymentPaymentMethodParams struct {
 	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 type CollectPaymentCardParams struct {
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	FirstName             string                 `json:"first_name,omitempty"`
-	LastName              string                 `json:"last_name,omitempty"`
-	Number                string                 `json:"number,omitempty"`
-	ExpiryMonth           *int32                 `json:"expiry_month,omitempty"`
-	ExpiryYear            *int32                 `json:"expiry_year,omitempty"`
-	Cvv                   string                 `json:"cvv,omitempty"`
-	BillingAddr1          string                 `json:"billing_addr1,omitempty"`
-	BillingAddr2          string                 `json:"billing_addr2,omitempty"`
-	BillingCity           string                 `json:"billing_city,omitempty"`
-	BillingStateCode      string                 `json:"billing_state_code,omitempty"`
-	BillingState          string                 `json:"billing_state,omitempty"`
-	BillingZip            string                 `json:"billing_zip,omitempty"`
-	BillingCountry        string                 `json:"billing_country,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	GatewayAccountId      string                   `json:"gateway_account_id,omitempty"`
+	FirstName             string                   `json:"first_name,omitempty"`
+	LastName              string                   `json:"last_name,omitempty"`
+	Number                string                   `json:"number,omitempty"`
+	ExpiryMonth           *int32                   `json:"expiry_month,omitempty"`
+	ExpiryYear            *int32                   `json:"expiry_year,omitempty"`
+	Cvv                   string                   `json:"cvv,omitempty"`
+	PreferredScheme       cardEnum.PreferredScheme `json:"preferred_scheme,omitempty"`
+	BillingAddr1          string                   `json:"billing_addr1,omitempty"`
+	BillingAddr2          string                   `json:"billing_addr2,omitempty"`
+	BillingCity           string                   `json:"billing_city,omitempty"`
+	BillingStateCode      string                   `json:"billing_state_code,omitempty"`
+	BillingState          string                   `json:"billing_state,omitempty"`
+	BillingZip            string                   `json:"billing_zip,omitempty"`
+	BillingCountry        string                   `json:"billing_country,omitempty"`
+	AdditionalInformation map[string]interface{}   `json:"additional_information,omitempty"`
 }
 type CollectPaymentPaymentIntentParams struct {
 	Id                    string                              `json:"id,omitempty"`
