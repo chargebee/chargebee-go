@@ -79,7 +79,6 @@ type Subscription struct {
 	ReferralInfo                      *ReferralInfo                      `json:"referral_info"`
 	InvoiceNotes                      string                             `json:"invoice_notes"`
 	MetaData                          json.RawMessage                    `json:"meta_data"`
-	Metadata                          json.RawMessage                    `json:"metadata"`
 	Deleted                           bool                               `json:"deleted"`
 	ChangesScheduledAt                int64                              `json:"changes_scheduled_at"`
 	ContractTerm                      *ContractTerm                      `json:"contract_term"`
@@ -92,6 +91,9 @@ type Subscription struct {
 	BusinessEntityId                  string                             `json:"business_entity_id"`
 	CustomField                       map[string]interface{}             `json:"custom_field"`
 	Object                            string                             `json:"object"`
+
+	// Deprecated: MetaData is deprecated please use MetaData instead.
+	Metadata json.RawMessage `json:"metadata"`
 }
 type SubscriptionItem struct {
 	ItemPriceId                     string                               `json:"item_price_id"`

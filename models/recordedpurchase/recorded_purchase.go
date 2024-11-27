@@ -12,6 +12,7 @@ type RecordedPurchase struct {
 	Status                         recordedPurchaseEnum.Status      `json:"status"`
 	OmnichannelTransactionId       string                           `json:"omnichannel_transaction_id"`
 	CreatedAt                      int64                            `json:"created_at"`
+	ResourceVersion                int64                            `json:"resource_version"`
 	LinkedOmnichannelSubscriptions []*LinkedOmnichannelSubscription `json:"linked_omnichannel_subscriptions"`
 	ErrorDetail                    *ErrorDetail                     `json:"error_detail"`
 	Object                         string                           `json:"object"`

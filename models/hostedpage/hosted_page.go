@@ -383,6 +383,7 @@ type CheckoutNewForItemsSubscriptionParams struct {
 	Coupon                            string              `json:"coupon,omitempty"`
 	AutoCollection                    enum.AutoCollection `json:"auto_collection,omitempty"`
 	InvoiceNotes                      string              `json:"invoice_notes,omitempty"`
+	PoNumber                          string              `json:"po_number,omitempty"`
 	ContractTermBillingCycleOnRenewal *int32              `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 type CheckoutNewForItemsCustomerParams struct {
@@ -493,6 +494,7 @@ type CheckoutExistingRequestParams struct {
 	ReactivateFrom             *int64                                   `json:"reactivate_from,omitempty"`
 	BillingAlignmentMode       enum.BillingAlignmentMode                `json:"billing_alignment_mode,omitempty"`
 	CouponIds                  []string                                 `json:"coupon_ids,omitempty"`
+	ReplaceCouponList          *bool                                    `json:"replace_coupon_list,omitempty"`
 	Reactivate                 *bool                                    `json:"reactivate,omitempty"`
 	ForceTermReset             *bool                                    `json:"force_term_reset,omitempty"`
 	Customer                   *CheckoutExistingCustomerParams          `json:"customer,omitempty"`
@@ -566,6 +568,7 @@ type CheckoutExistingForItemsRequestParams struct {
 	ReactivateFrom             *int64                                            `json:"reactivate_from,omitempty"`
 	BillingAlignmentMode       enum.BillingAlignmentMode                         `json:"billing_alignment_mode,omitempty"`
 	CouponIds                  []string                                          `json:"coupon_ids,omitempty"`
+	ReplaceCouponList          *bool                                             `json:"replace_coupon_list,omitempty"`
 	Reactivate                 *bool                                             `json:"reactivate,omitempty"`
 	ForceTermReset             *bool                                             `json:"force_term_reset,omitempty"`
 	ChangeOption               enum.ChangeOption                                 `json:"change_option,omitempty"`
