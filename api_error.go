@@ -20,6 +20,7 @@ type Error struct {
 	Type           ErrorType `json:"type"`
 	ErrorCode      string    `json:"error_code"`
 	Err            error     `json:"_"`
+	ErrorCauseID   string    `json:"error_cause_id,omitempty"`
 }
 
 // Error Serializes the error object to JSON and return it as a string.

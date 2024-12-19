@@ -13,6 +13,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/businessentitytransfer"
 	"github.com/chargebee/chargebee-go/v3/models/card"
 	"github.com/chargebee/chargebee-go/v3/models/comment"
+	"github.com/chargebee/chargebee-go/v3/models/configuration"
 	"github.com/chargebee/chargebee-go/v3/models/contact"
 	"github.com/chargebee/chargebee-go/v3/models/contractterm"
 	"github.com/chargebee/chargebee-go/v3/models/coupon"
@@ -140,6 +141,7 @@ type Result struct {
 	ItemPrice                   *itemprice.ItemPrice                                     `json:"item_price,omitempty"`
 	AttachedItem                *attacheditem.AttachedItem                               `json:"attached_item,omitempty"`
 	DifferentialPrice           *differentialprice.DifferentialPrice                     `json:"differential_price,omitempty"`
+	Configuration               *configuration.Configuration                             `json:"configuration,omitempty"`
 	Feature                     *feature.Feature                                         `json:"feature,omitempty"`
 	ImpactedSubscription        *impactedsubscription.ImpactedSubscription               `json:"impacted_subscription,omitempty"`
 	ImpactedItem                *impacteditem.ImpactedItem                               `json:"impacted_item,omitempty"`
@@ -169,6 +171,7 @@ type Result struct {
 	CreditNotes                 []*creditnote.CreditNote                                 `json:"credit_notes,omitempty"`
 	UnbilledCharges             []*unbilledcharge.UnbilledCharge                         `json:"unbilled_charges,omitempty"`
 	Downloads                   []*download.Download                                     `json:"downloads,omitempty"`
+	Configurations              []*configuration.Configuration                           `json:"configurations,omitempty"`
 	InAppSubscriptions          []*inappsubscription.InAppSubscription                   `json:"in_app_subscriptions,omitempty"`
 	DifferentialPrices          []*differentialprice.DifferentialPrice                   `json:"differential_prices,omitempty"`
 	responseHeaders             http.Header

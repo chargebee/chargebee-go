@@ -45,6 +45,9 @@ type SubscriptionItem struct {
 	UnitPrice                       int64                                    `json:"unit_price"`
 	UnitPriceInDecimal              string                                   `json:"unit_price_in_decimal"`
 	Amount                          int64                                    `json:"amount"`
+	CurrentTermStart                int64                                    `json:"current_term_start"`
+	CurrentTermEnd                  int64                                    `json:"current_term_end"`
+	NextBillingAt                   int64                                    `json:"next_billing_at"`
 	AmountInDecimal                 string                                   `json:"amount_in_decimal"`
 	BillingPeriod                   int32                                    `json:"billing_period"`
 	BillingPeriodUnit               quotedSubscriptionEnum.BillingPeriodUnit `json:"billing_period_unit"`

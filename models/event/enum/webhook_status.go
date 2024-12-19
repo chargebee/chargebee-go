@@ -10,4 +10,5 @@ const (
 	WebhookStatusFailed        WebhookStatus = "failed"
 	WebhookStatusSkipped       WebhookStatus = "skipped"
 	WebhookStatusNotApplicable WebhookStatus = "not_applicable"
+	WebhookStatusDisabled      WebhookStatus = "disabled"
 )

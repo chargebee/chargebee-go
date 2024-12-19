@@ -52,12 +52,13 @@ type LineItem struct {
 	Object                  string                                    `json:"object"`
 }
 type Discount struct {
-	Amount        int64                                     `json:"amount"`
-	Description   string                                    `json:"description"`
-	EntityType    creditNoteEstimateEnum.DiscountEntityType `json:"entity_type"`
-	EntityId      string                                    `json:"entity_id"`
-	CouponSetCode string                                    `json:"coupon_set_code"`
-	Object        string                                    `json:"object"`
+	Amount        int64                                       `json:"amount"`
+	Description   string                                      `json:"description"`
+	EntityType    creditNoteEstimateEnum.DiscountEntityType   `json:"entity_type"`
+	DiscountType  creditNoteEstimateEnum.DiscountDiscountType `json:"discount_type"`
+	EntityId      string                                      `json:"entity_id"`
+	CouponSetCode string                                      `json:"coupon_set_code"`
+	Object        string                                      `json:"object"`
 }
 type Tax struct {
 	Name        string `json:"name"`

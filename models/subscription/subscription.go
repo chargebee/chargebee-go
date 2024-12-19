@@ -77,6 +77,7 @@ type Subscription struct {
 	Coupons                           []*Coupon                          `json:"coupons"`
 	ShippingAddress                   *ShippingAddress                   `json:"shipping_address"`
 	ReferralInfo                      *ReferralInfo                      `json:"referral_info"`
+	BillingOverride                   *BillingOverride                   `json:"billing_override"`
 	InvoiceNotes                      string                             `json:"invoice_notes"`
 	MetaData                          json.RawMessage                    `json:"meta_data"`
 	Deleted                           bool                               `json:"deleted"`
@@ -105,6 +106,9 @@ type SubscriptionItem struct {
 	UnitPrice                       int64                                `json:"unit_price"`
 	UnitPriceInDecimal              string                               `json:"unit_price_in_decimal"`
 	Amount                          int64                                `json:"amount"`
+	CurrentTermStart                int64                                `json:"current_term_start"`
+	CurrentTermEnd                  int64                                `json:"current_term_end"`
+	NextBillingAt                   int64                                `json:"next_billing_at"`
 	AmountInDecimal                 string                               `json:"amount_in_decimal"`
 	BillingPeriod                   int32                                `json:"billing_period"`
 	BillingPeriodUnit               subscriptionEnum.BillingPeriodUnit   `json:"billing_period_unit"`
@@ -177,6 +181,11 @@ type ReferralInfo struct {
 	DestinationUrl            string                                    `json:"destination_url"`
 	PostPurchaseWidgetEnabled bool                                      `json:"post_purchase_widget_enabled"`
 	Object                    string                                    `json:"object"`
+}
+type BillingOverride struct {
+	MaxExcessPaymentUsage     int64  `json:"max_excess_payment_usage"`
+	MaxRefundableCreditsUsage int64  `json:"max_refundable_credits_usage"`
+	Object                    string `json:"object"`
 }
 type ContractTerm struct {
 	Id                          string                                       `json:"id"`
@@ -582,6 +591,7 @@ type CreateWithItemsRequestParams struct {
 	TrialEndAction                    enum.TrialEndAction                       `json:"trial_end_action,omitempty"`
 	PaymentInitiator                  enum.PaymentInitiator                     `json:"payment_initiator,omitempty"`
 	Coupons                           []*CreateWithItemsCouponParams            `json:"coupons,omitempty"`
+	BillingOverride                   *CreateWithItemsBillingOverrideParams     `json:"billing_override,omitempty"`
 }
 type CreateWithItemsSubscriptionItemParams struct {
 	ItemPriceId                     string                               `json:"item_price_id"`
@@ -653,6 +663,10 @@ type CreateWithItemsContractTermParams struct {
 type CreateWithItemsCouponParams struct {
 	CouponId  string `json:"coupon_id,omitempty"`
 	ApplyTill *int64 `json:"apply_till,omitempty"`
+}
+type CreateWithItemsBillingOverrideParams struct {
+	MaxExcessPaymentUsage     *int64 `json:"max_excess_payment_usage,omitempty"`
+	MaxRefundableCreditsUsage *int64 `json:"max_refundable_credits_usage,omitempty"`
 }
 type ListRequestParams struct {
 	Limit                  *int32                  `json:"limit,omitempty"`
@@ -909,6 +923,7 @@ type UpdateForItemsRequestParams struct {
 	PaymentInitiator                  enum.PaymentInitiator                    `json:"payment_initiator,omitempty"`
 	Coupons                           []*UpdateForItemsCouponParams            `json:"coupons,omitempty"`
 	InvoiceUsages                     *bool                                    `json:"invoice_usages,omitempty"`
+	BillingOverride                   *UpdateForItemsBillingOverrideParams     `json:"billing_override,omitempty"`
 }
 type UpdateForItemsSubscriptionItemParams struct {
 	ItemPriceId                     string                               `json:"item_price_id"`
@@ -1039,6 +1054,10 @@ type UpdateForItemsContractTermParams struct {
 type UpdateForItemsCouponParams struct {
 	CouponId  string `json:"coupon_id,omitempty"`
 	ApplyTill *int64 `json:"apply_till,omitempty"`
+}
+type UpdateForItemsBillingOverrideParams struct {
+	MaxExcessPaymentUsage     *int64 `json:"max_excess_payment_usage,omitempty"`
+	MaxRefundableCreditsUsage *int64 `json:"max_refundable_credits_usage,omitempty"`
 }
 type ChangeTermEndRequestParams struct {
 	TermEndsAt         *int64 `json:"term_ends_at"`
