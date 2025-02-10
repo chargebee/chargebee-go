@@ -34,6 +34,7 @@ type Item struct {
 	BundleItems          []*BundleItem              `json:"bundle_items"`
 	BundleConfiguration  *BundleConfiguration       `json:"bundle_configuration"`
 	Metadata             json.RawMessage            `json:"metadata"`
+	Deleted              bool                       `json:"deleted"`
 	BusinessEntityId     string                     `json:"business_entity_id"`
 	CustomField          map[string]interface{}     `json:"custom_field"`
 	Object               string                     `json:"object"`

@@ -156,12 +156,13 @@ type LinkedRefund struct {
 	Object           string                 `json:"object"`
 }
 type Allocation struct {
-	InvoiceId       string             `json:"invoice_id"`
-	AllocatedAmount int64              `json:"allocated_amount"`
-	AllocatedAt     int64              `json:"allocated_at"`
-	InvoiceDate     int64              `json:"invoice_date"`
-	InvoiceStatus   invoiceEnum.Status `json:"invoice_status"`
-	Object          string             `json:"object"`
+	InvoiceId       string                                  `json:"invoice_id"`
+	AllocatedAmount int64                                   `json:"allocated_amount"`
+	AllocatedAt     int64                                   `json:"allocated_at"`
+	InvoiceDate     int64                                   `json:"invoice_date"`
+	InvoiceStatus   invoiceEnum.Status                      `json:"invoice_status"`
+	TaxApplication  creditNoteEnum.AllocationTaxApplication `json:"tax_application"`
+	Object          string                                  `json:"object"`
 }
 type ShippingAddress struct {
 	FirstName        string                `json:"first_name"`

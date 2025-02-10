@@ -39,12 +39,18 @@ func WithHTTPClient(c *http.Client) {
 	}
 	httpClient = c
 }
-func (env *Environment) apiBaseUrl() string {
+func (env *Environment) apiBaseUrl(subDomain string) string {
 	if env.Protocol == "" {
 		env.Protocol = "https"
 	}
 	if env.ChargebeeDomain != "" {
+		if subDomain != "" {
+			return fmt.Sprintf("%v://%v.%v.%v/api/%v", env.Protocol, env.SiteName, subDomain, env.ChargebeeDomain, APIVersion)
+		}
 		return fmt.Sprintf("%v://%v.%v/api/%v", env.Protocol, env.SiteName, env.ChargebeeDomain, APIVersion)
+	}
+	if subDomain != "" {
+		return fmt.Sprintf("https://%v.%v.chargebee.com/api/%v", env.SiteName, subDomain, APIVersion)
 	}
 	return fmt.Sprintf("https://%v.chargebee.com/api/%v", env.SiteName, APIVersion)
 }

@@ -14,11 +14,14 @@ import (
 
 // RequestObj is the structure that contains the properties of any request data.
 type RequestObj struct {
-	Params  *url.Values
-	Method  string
-	Path    string
-	Header  map[string]string
-	Context context.Context `form:"-"`
+	Params        *url.Values
+	Method        string
+	Path          string
+	Header        map[string]string
+	Context       context.Context `form:"-"`
+	subDomain     string
+	isJsonRequest bool
+	JsonBody      string
 }
 
 func basicAuth(key string) string {
@@ -37,6 +40,28 @@ func Send(method string, path string, params interface{}) RequestObj {
 		Params: form,
 		Method: method,
 		Path:   path,
+	}
+}
+
+func SendJsonRequest(method string, path string, params interface{}) RequestObj {
+	var body string
+
+	if params != nil {
+		if strings.ToUpper(method) == "POST" {
+			jsonData, err := json.Marshal(params)
+			if err != nil {
+				panic(err)
+			}
+			body = string(jsonData)
+		}
+
+	}
+
+	return RequestObj{
+		Method:        method,
+		Path:          path,
+		JsonBody:      body,
+		isJsonRequest: true,
 	}
 }
 
@@ -80,6 +105,11 @@ func (request RequestObj) SetIdempotencyKey(idempotencyKey string) RequestObj {
 	return request
 }
 
+func (request RequestObj) SetSubDomain(subDomain string) RequestObj {
+	request.subDomain = subDomain
+	return request
+}
+
 // Context used for request. It may carry deadlines, cancelation signals,
 // and other request-scoped values across API boundaries and between
 // processes.
@@ -88,27 +118,31 @@ func (request RequestObj) Contexts(ctx context.Context) RequestObj {
 	return request
 }
 
-func newRequest(env Environment, method string, path string, body io.Reader, headers map[string]string) (*http.Request, error) {
+func newRequest(env Environment, method string, path string, body io.Reader, headers map[string]string, subDomain string, isJsonRequest bool) (*http.Request, error) {
 	if !strings.HasPrefix(path, "/") {
 		path = "/" + path
 	}
-	path = env.apiBaseUrl() + path
+	path = env.apiBaseUrl(subDomain) + path
 	httpReq, err := http.NewRequest(method, path, body)
 	if err != nil {
 		panic(err)
 	}
-	addHeaders(httpReq, env)
+	addHeaders(httpReq, env, isJsonRequest)
 	addCustomHeaders(httpReq, headers)
 	return httpReq, err
 }
-func addHeaders(httpReq *http.Request, env Environment) {
+func addHeaders(httpReq *http.Request, env Environment, isJsonRequest bool) {
 	httpReq.Header.Add("Accept-Charset", Charset)
-	httpReq.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	httpReq.Header.Add("Accept", "application/json")
 	httpReq.Header.Add("User-Agent", "ChargeBee-Go-Client v"+Version)
 	httpReq.Header.Add("Authorization", "Basic "+basicAuth(env.Key))
 	httpReq.Header.Add("Lang-Version", runtime.Version())
 	httpReq.Header.Add("OS-Version", runtime.GOOS+" "+runtime.GOARCH)
+	if isJsonRequest {
+		httpReq.Header.Set("Content-Type", "application/json;charset=UTF-8")
+	} else {
+		httpReq.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	}
 }
 func addCustomHeaders(httpReq *http.Request, headers map[string]string) {
 	for k, v := range headers {

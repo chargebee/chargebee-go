@@ -35,4 +35,5 @@ const (
 	EntityTypeOmnichannelSubscription     EntityType = "omnichannel_subscription"
 	EntityTypeOmnichannelSubscriptionItem EntityType = "omnichannel_subscription_item"
 	EntityTypeOmnichannelTransaction      EntityType = "omnichannel_transaction"
+	EntityTypeRecordedPurchase            EntityType = "recorded_purchase"
 )

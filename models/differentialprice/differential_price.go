@@ -21,6 +21,7 @@ type DifferentialPrice struct {
 	CurrencyCode     string                       `json:"currency_code"`
 	ParentPeriods    []*ParentPeriod              `json:"parent_periods"`
 	BusinessEntityId string                       `json:"business_entity_id"`
+	Deleted          bool                         `json:"deleted"`
 	Object           string                       `json:"object"`
 }
 type Tier struct {

@@ -539,14 +539,8 @@ type DeleteRequestParams struct {
 	DeletePaymentMethod *bool `json:"delete_payment_method,omitempty"`
 }
 type MoveRequestParams struct {
-	IdAtFromSite       string                         `json:"id_at_from_site"`
-	FromSite           string                         `json:"from_site"`
-	TaxProvidersFields []*MoveTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
-}
-type MoveTaxProvidersFieldParams struct {
-	ProviderName string `json:"provider_name,omitempty"`
-	FieldId      string `json:"field_id,omitempty"`
-	FieldValue   string `json:"field_value,omitempty"`
+	IdAtFromSite string `json:"id_at_from_site"`
+	FromSite     string `json:"from_site"`
 }
 type ChangeBillingDateRequestParams struct {
 	BillingDate          *int32                        `json:"billing_date,omitempty"`
@@ -556,14 +550,8 @@ type ChangeBillingDateRequestParams struct {
 	BillingDayOfWeekMode enum.BillingDayOfWeekMode     `json:"billing_day_of_week_mode,omitempty"`
 }
 type MergeRequestParams struct {
-	FromCustomerId     string                          `json:"from_customer_id"`
-	ToCustomerId       string                          `json:"to_customer_id"`
-	TaxProvidersFields []*MergeTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
-}
-type MergeTaxProvidersFieldParams struct {
-	ProviderName string `json:"provider_name,omitempty"`
-	FieldId      string `json:"field_id,omitempty"`
-	FieldValue   string `json:"field_value,omitempty"`
+	FromCustomerId string `json:"from_customer_id"`
+	ToCustomerId   string `json:"to_customer_id"`
 }
 type RelationshipsRequestParams struct {
 	ParentId                    string                                  `json:"parent_id,omitempty"`

@@ -12,8 +12,14 @@ func (request RequestObj) Request() (*Result, error) {
 	return result, err
 }
 func (request RequestObj) RequestWithEnv(env Environment) (*Result, error) {
-	path, body := getBody(request.Method, request.Path, request.Params)
-	req, err := newRequest(env, request.Method, path, body, request.Header)
+	var body io.Reader
+	var path string
+	if request.isJsonRequest {
+		path, body = getJsonBody(request.Method, request.Path, request.JsonBody)
+	} else {
+		path, body = getBody(request.Method, request.Path, request.Params)
+	}
+	req, err := newRequest(env, request.Method, path, body, request.Header, request.subDomain, request.isJsonRequest)
 	if err != nil {
 		panic(err)
 	}
@@ -30,6 +36,7 @@ func (request RequestObj) RequestWithEnv(env Environment) (*Result, error) {
 		return result, nil
 	}
 	result.responseHeaders = res.Headers
+	result.httpStatusCode = res.StatusCode
 
 	return result, requestError
 }
@@ -42,6 +49,14 @@ func getBody(method string, path string, form *url.Values) (string, io.Reader) {
 		} else {
 			body = bytes.NewBufferString(data)
 		}
+	}
+	return path, body
+}
+
+func getJsonBody(method string, path string, jsonBody string) (string, io.Reader) {
+	var body io.Reader
+	if jsonBody != "" {
+		body = bytes.NewBufferString(jsonBody)
 	}
 	return path, body
 }

@@ -1,9 +1,6 @@
 package chargebee
 
 import (
-	"net/http"
-	"strconv"
-
 	"github.com/chargebee/chargebee-go/v3/models/addon"
 	"github.com/chargebee/chargebee-go/v3/models/address"
 	"github.com/chargebee/chargebee-go/v3/models/advanceinvoiceschedule"
@@ -69,6 +66,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/ramp"
 	"github.com/chargebee/chargebee-go/v3/models/recordedpurchase"
 	"github.com/chargebee/chargebee-go/v3/models/resourcemigration"
+	"github.com/chargebee/chargebee-go/v3/models/rule"
 	"github.com/chargebee/chargebee-go/v3/models/sitemigrationdetail"
 	"github.com/chargebee/chargebee-go/v3/models/subscription"
 	"github.com/chargebee/chargebee-go/v3/models/subscriptionentitlement"
@@ -79,13 +77,17 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/transaction"
 	"github.com/chargebee/chargebee-go/v3/models/unbilledcharge"
 	"github.com/chargebee/chargebee-go/v3/models/usage"
+	"github.com/chargebee/chargebee-go/v3/models/usageevent"
 	"github.com/chargebee/chargebee-go/v3/models/virtualbankaccount"
+	"net/http"
+	"strconv"
 )
 
 type ResultList struct {
 	List            []*Result `json:"list"`
 	NextOffset      string    `json:"next_offset"`
 	responseHeaders http.Header
+	httpStatusCode  int
 }
 type Result struct {
 	Subscription                *subscription.Subscription                               `json:"subscription,omitempty"`
@@ -164,6 +166,8 @@ type Result struct {
 	OmnichannelTransaction      *omnichanneltransaction.OmnichannelTransaction           `json:"omnichannel_transaction,omitempty"`
 	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
 	RecordedPurchase            *recordedpurchase.RecordedPurchase                       `json:"recorded_purchase,omitempty"`
+	Rule                        *rule.Rule                                               `json:"rule,omitempty"`
+	UsageEvent                  *usageevent.UsageEvent                                   `json:"usage_event,omitempty"`
 	AdvanceInvoiceSchedules     []*advanceinvoiceschedule.AdvanceInvoiceSchedule         `json:"advance_invoice_schedules,omitempty"`
 	Hierarchies                 []*hierarchy.Hierarchy                                   `json:"hierarchies,omitempty"`
 	Invoices                    []*invoice.Invoice                                       `json:"invoices,omitempty"`
@@ -173,16 +177,25 @@ type Result struct {
 	Downloads                   []*download.Download                                     `json:"downloads,omitempty"`
 	Configurations              []*configuration.Configuration                           `json:"configurations,omitempty"`
 	InAppSubscriptions          []*inappsubscription.InAppSubscription                   `json:"in_app_subscriptions,omitempty"`
-	DifferentialPrices          []*differentialprice.DifferentialPrice                   `json:"differential_prices,omitempty"`
+	FailedEvents                interface{}                                              `json:"failed_events,omitempty"`
+	BatchId                     interface{}                                              `json:"batch_id,omitempty"`
+	Success                     interface{}                                              `json:"success,omitempty"`
+	ScheduledAt                 interface{}                                              `json:"scheduled_at,omitempty"`
 	responseHeaders             http.Header
+	httpStatusCode              int
 }
 
 func (rl *ResultList) GetResponseHeaders() http.Header {
 	return rl.responseHeaders
 }
-
+func (rl *ResultList) GetHttpStatusCode() int {
+	return rl.httpStatusCode
+}
 func (r *Result) GetResponseHeaders() http.Header {
 	return r.responseHeaders
+}
+func (r *Result) GetHttpStatusCode() int {
+	return r.httpStatusCode
 }
 
 func (r *Result) IsIdempotencyReplayed() bool {

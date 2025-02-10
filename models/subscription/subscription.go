@@ -1475,6 +1475,7 @@ type ImportUnbilledChargesTierParams struct {
 	UnitAmountInDecimal   string `json:"unit_amount_in_decimal,omitempty"`
 }
 type ImportForItemsRequestParams struct {
+	ExhaustedCouponIds                []string                                `json:"exhausted_coupon_ids,omitempty"`
 	Id                                string                                  `json:"id,omitempty"`
 	TrialEnd                          *int64                                  `json:"trial_end,omitempty"`
 	BillingCycles                     *int32                                  `json:"billing_cycles,omitempty"`

@@ -19,6 +19,7 @@ type InvoiceEstimate struct {
 	Taxes             []*Tax              `json:"taxes"`
 	LineItemTaxes     []*LineItemTax      `json:"line_item_taxes"`
 	LineItemTiers     []*LineItemTier     `json:"line_item_tiers"`
+	LineItemCredits   []*LineItemCredit   `json:"line_item_credits"`
 	LineItemDiscounts []*LineItemDiscount `json:"line_item_discounts"`
 	RoundOffAmount    int64               `json:"round_off_amount"`
 	CustomerId        string              `json:"customer_id"`
@@ -95,6 +96,12 @@ type LineItemTier struct {
 	QuantityUsedInDecimal string `json:"quantity_used_in_decimal"`
 	UnitAmountInDecimal   string `json:"unit_amount_in_decimal"`
 	Object                string `json:"object"`
+}
+type LineItemCredit struct {
+	CnId          string  `json:"cn_id"`
+	AppliedAmount float64 `json:"applied_amount"`
+	LineItemId    string  `json:"line_item_id"`
+	Object        string  `json:"object"`
 }
 type LineItemDiscount struct {
 	LineItemId     string                                           `json:"line_item_id"`

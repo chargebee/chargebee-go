@@ -49,6 +49,7 @@ type ItemPrice struct {
 	ParentItemId                    string                               `json:"parent_item_id"`
 	ShowDescriptionInInvoices       bool                                 `json:"show_description_in_invoices"`
 	ShowDescriptionInQuotes         bool                                 `json:"show_description_in_quotes"`
+	Deleted                         bool                                 `json:"deleted"`
 	BusinessEntityId                string                               `json:"business_entity_id"`
 	CustomField                     map[string]interface{}               `json:"custom_field"`
 	Object                          string                               `json:"object"`

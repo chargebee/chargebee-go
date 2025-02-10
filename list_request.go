@@ -6,7 +6,7 @@ func (request RequestObj) ListRequest() (*ResultList, error) {
 }
 func (request RequestObj) ListRequestWithEnv(env Environment) (*ResultList, error) {
 	path, body := getBody(request.Method, request.Path, request.Params)
-	req, err := newRequest(env, request.Method, path, body, request.Header)
+	req, err := newRequest(env, request.Method, path, body, request.Header, request.subDomain, false)
 	if err != nil {
 		panic(err)
 	}
@@ -25,5 +25,6 @@ func (request RequestObj) ListRequestWithEnv(env Environment) (*ResultList, erro
 	}
 
 	result.responseHeaders = res.Headers
+	result.httpStatusCode = res.StatusCode
 	return result, nil
 }

@@ -58,6 +58,7 @@ type Invoice struct {
 	LineItemDiscounts         []*LineItemDiscount       `json:"line_item_discounts"`
 	Taxes                     []*Tax                    `json:"taxes"`
 	LineItemTaxes             []*LineItemTax            `json:"line_item_taxes"`
+	LineItemCredits           []*LineItemCredit         `json:"line_item_credits"`
 	LineItemTiers             []*LineItemTier           `json:"line_item_tiers"`
 	LinkedPayments            []*LinkedPayment          `json:"linked_payments"`
 	DunningAttempts           []*DunningAttempt         `json:"dunning_attempts"`
@@ -149,6 +150,12 @@ type LineItemTax struct {
 	LocalCurrencyCode        string            `json:"local_currency_code"`
 	Object                   string            `json:"object"`
 }
+type LineItemCredit struct {
+	CnId          string  `json:"cn_id"`
+	AppliedAmount float64 `json:"applied_amount"`
+	LineItemId    string  `json:"line_item_id"`
+	Object        string  `json:"object"`
+}
 type LineItemTier struct {
 	LineItemId            string `json:"line_item_id"`
 	StartingUnit          int32  `json:"starting_unit"`
@@ -180,14 +187,15 @@ type DunningAttempt struct {
 	Object        string                 `json:"object"`
 }
 type AppliedCredit struct {
-	CnId               string                    `json:"cn_id"`
-	AppliedAmount      int64                     `json:"applied_amount"`
-	AppliedAt          int64                     `json:"applied_at"`
-	CnReasonCode       creditNoteEnum.ReasonCode `json:"cn_reason_code"`
-	CnCreateReasonCode string                    `json:"cn_create_reason_code"`
-	CnDate             int64                     `json:"cn_date"`
-	CnStatus           creditNoteEnum.Status     `json:"cn_status"`
-	Object             string                    `json:"object"`
+	CnId               string                                  `json:"cn_id"`
+	AppliedAmount      int64                                   `json:"applied_amount"`
+	AppliedAt          int64                                   `json:"applied_at"`
+	CnReasonCode       creditNoteEnum.ReasonCode               `json:"cn_reason_code"`
+	CnCreateReasonCode string                                  `json:"cn_create_reason_code"`
+	CnDate             int64                                   `json:"cn_date"`
+	CnStatus           creditNoteEnum.Status                   `json:"cn_status"`
+	TaxApplication     invoiceEnum.AppliedCreditTaxApplication `json:"tax_application"`
+	Object             string                                  `json:"object"`
 }
 type AdjustmentCreditNote struct {
 	CnId               string                    `json:"cn_id"`

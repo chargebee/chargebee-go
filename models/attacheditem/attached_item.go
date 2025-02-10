@@ -22,6 +22,7 @@ type AttachedItem struct {
 	UpdatedAt         int64                   `json:"updated_at"`
 	Channel           enum.Channel            `json:"channel"`
 	BusinessEntityId  string                  `json:"business_entity_id"`
+	Deleted           bool                    `json:"deleted"`
 	Object            string                  `json:"object"`
 }
 type CreateRequestParams struct {

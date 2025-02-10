@@ -18,6 +18,7 @@ type PriceVariant struct {
 	ArchivedAt       int64                   `json:"archived_at"`
 	Attributes       []*Attribute            `json:"attributes"`
 	BusinessEntityId string                  `json:"business_entity_id"`
+	Deleted          bool                    `json:"deleted"`
 	Object           string                  `json:"object"`
 }
 type Attribute struct {

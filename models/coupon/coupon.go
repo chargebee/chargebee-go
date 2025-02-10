@@ -41,6 +41,7 @@ type Coupon struct {
 	InvoiceNotes           string                     `json:"invoice_notes"`
 	MetaData               json.RawMessage            `json:"meta_data"`
 	CouponConstraints      []*CouponConstraint        `json:"coupon_constraints"`
+	Deleted                bool                       `json:"deleted"`
 	CustomField            map[string]interface{}     `json:"custom_field"`
 	Object                 string                     `json:"object"`
 }
