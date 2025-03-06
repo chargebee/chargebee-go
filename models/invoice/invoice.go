@@ -2,6 +2,7 @@ package invoice
 
 import (
 	"encoding/json"
+
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
 	cardEnum "github.com/chargebee/chargebee-go/v3/models/card/enum"
@@ -727,6 +728,7 @@ type ImportInvoiceLineItemParams struct {
 	Tax9Amount                 *int64                         `json:"tax9_amount,omitempty"`
 	Tax10Name                  string                         `json:"tax10_name,omitempty"`
 	Tax10Amount                *int64                         `json:"tax10_amount,omitempty"`
+	CreatedAt                  *int64                         `json:"created_at,omitempty"`
 }
 type ImportInvoicePaymentReferenceNumberParams struct {
 	Id     string                          `json:"id,omitempty"`

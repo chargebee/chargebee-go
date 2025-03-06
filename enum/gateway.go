@@ -5,6 +5,7 @@ type Gateway string
 const (
 	GatewayChargebee             Gateway = "chargebee"
 	GatewayChargebeePayments     Gateway = "chargebee_payments"
+	GatewayAdyen                 Gateway = "adyen"
 	GatewayStripe                Gateway = "stripe"
 	GatewayWepay                 Gateway = "wepay"
 	GatewayBraintree             Gateway = "braintree"
@@ -30,7 +31,6 @@ const (
 	GatewayWirecard              Gateway = "wirecard"
 	GatewayAmazonPayments        Gateway = "amazon_payments"
 	GatewayPaypalExpressCheckout Gateway = "paypal_express_checkout"
-	GatewayAdyen                 Gateway = "adyen"
 	GatewayOrbital               Gateway = "orbital"
 	GatewayMonerisUs             Gateway = "moneris_us"
 	GatewayMoneris               Gateway = "moneris"

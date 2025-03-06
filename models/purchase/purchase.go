@@ -3,6 +3,7 @@ package purchase
 import (
 	"github.com/chargebee/chargebee-go/v3/enum"
 	contractTermEnum "github.com/chargebee/chargebee-go/v3/models/contractterm/enum"
+	paymentIntentEnum "github.com/chargebee/chargebee-go/v3/models/paymentintent/enum"
 )
 
 type Purchase struct {
@@ -26,6 +27,7 @@ type CreateRequestParams struct {
 	StatementDescriptor *CreateStatementDescriptorParams `json:"statement_descriptor,omitempty"`
 	CustomerId          string                           `json:"customer_id"`
 	PaymentSourceId     string                           `json:"payment_source_id,omitempty"`
+	PaymentIntent       *CreatePaymentIntentParams       `json:"payment_intent,omitempty"`
 }
 type CreatePurchaseItemParams struct {
 	Index               *int32 `json:"index"`
@@ -90,6 +92,15 @@ type CreatePaymentScheduleParams struct {
 }
 type CreateStatementDescriptorParams struct {
 	Descriptor string `json:"descriptor,omitempty"`
+}
+type CreatePaymentIntentParams struct {
+	Id                    string                              `json:"id,omitempty"`
+	GatewayAccountId      string                              `json:"gateway_account_id,omitempty"`
+	GwToken               string                              `json:"gw_token,omitempty"`
+	PaymentMethodType     paymentIntentEnum.PaymentMethodType `json:"payment_method_type,omitempty"`
+	ReferenceId           string                              `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                              `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{}              `json:"additional_information,omitempty"`
 }
 type EstimateRequestParams struct {
 	PurchaseItems     []*EstimatePurchaseItemParams     `json:"purchase_items,omitempty"`
