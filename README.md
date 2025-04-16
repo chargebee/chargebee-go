@@ -1,7 +1,8 @@
-# Go Client Library for Chargebee API
-***
+# Chargebee Go Client Library
 
-This is the source code for the Go client library for [Chargebee APIs](https://apidocs.chargebee.com/docs/api?lang=go).
+This is the official Go library for integrating with Chargebee
+- 📘 For a complete reference of available APIs, check out our [API Documentation](https://apidocs.chargebee.com/docs/api/?lang=go).  
+- 🧪 To explore and test API capabilities interactively, head over to our [API Explorer](https://api-explorer.chargebee.com).
 
 **Go version**: v3 and v2 of the library require Go v1.3 or higher.
 
