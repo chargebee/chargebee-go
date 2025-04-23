@@ -28,6 +28,7 @@ type Item struct {
 	Unit                 string                     `json:"unit"`
 	Metered              bool                       `json:"metered"`
 	UsageCalculation     itemEnum.UsageCalculation  `json:"usage_calculation"`
+	IsPercentagePricing  bool                       `json:"is_percentage_pricing"`
 	ArchivedAt           int64                      `json:"archived_at"`
 	Channel              enum.Channel               `json:"channel"`
 	ApplicableItems      []*ApplicableItem          `json:"applicable_items"`
@@ -77,6 +78,7 @@ type CreateRequestParams struct {
 	Metadata             map[string]interface{}           `json:"metadata,omitempty"`
 	BusinessEntityId     string                           `json:"business_entity_id,omitempty"`
 	BundleItemsToAdd     []*CreateBundleItemsToAddParams  `json:"bundle_items_to_add,omitempty"`
+	IsPercentagePricing  *bool                            `json:"is_percentage_pricing,omitempty"`
 }
 type CreateBundleConfigurationParams struct {
 	Type itemEnum.BundleConfigurationType `json:"type,omitempty"`

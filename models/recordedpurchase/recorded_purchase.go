@@ -26,13 +26,19 @@ type ErrorDetail struct {
 	Object       string `json:"object"`
 }
 type CreateRequestParams struct {
-	AppId         string                     `json:"app_id"`
-	Customer      *CreateCustomerParams      `json:"customer,omitempty"`
-	AppleAppStore *CreateAppleAppStoreParams `json:"apple_app_store,omitempty"`
+	AppId           string                       `json:"app_id"`
+	Customer        *CreateCustomerParams        `json:"customer,omitempty"`
+	AppleAppStore   *CreateAppleAppStoreParams   `json:"apple_app_store,omitempty"`
+	GooglePlayStore *CreateGooglePlayStoreParams `json:"google_play_store,omitempty"`
 }
 type CreateCustomerParams struct {
 	Id string `json:"id"`
 }
 type CreateAppleAppStoreParams struct {
 	TransactionId string `json:"transaction_id,omitempty"`
+	Receipt       string `json:"receipt,omitempty"`
+	ProductId     string `json:"product_id,omitempty"`
+}
+type CreateGooglePlayStoreParams struct {
+	PurchaseToken string `json:"purchase_token,omitempty"`
 }

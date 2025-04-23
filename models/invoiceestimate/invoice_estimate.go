@@ -23,6 +23,7 @@ type InvoiceEstimate struct {
 	LineItemDiscounts []*LineItemDiscount `json:"line_item_discounts"`
 	RoundOffAmount    int64               `json:"round_off_amount"`
 	CustomerId        string              `json:"customer_id"`
+	LineItemAddresses []*LineItemAddress  `json:"line_item_addresses"`
 	Object            string              `json:"object"`
 }
 type LineItem struct {
@@ -42,7 +43,8 @@ type LineItem struct {
 	AmountInDecimal         string                                 `json:"amount_in_decimal"`
 	DiscountAmount          int64                                  `json:"discount_amount"`
 	ItemLevelDiscountAmount int64                                  `json:"item_level_discount_amount"`
-	UsagePercentage         string                                 `json:"usage_percentage"`
+	Metered                 bool                                   `json:"metered"`
+	Percentage              string                                 `json:"percentage"`
 	ReferenceLineItemId     string                                 `json:"reference_line_item_id"`
 	Description             string                                 `json:"description"`
 	EntityDescription       string                                 `json:"entity_description"`
@@ -86,16 +88,18 @@ type LineItemTax struct {
 	Object                   string            `json:"object"`
 }
 type LineItemTier struct {
-	LineItemId            string `json:"line_item_id"`
-	StartingUnit          int32  `json:"starting_unit"`
-	EndingUnit            int32  `json:"ending_unit"`
-	QuantityUsed          int32  `json:"quantity_used"`
-	UnitAmount            int64  `json:"unit_amount"`
-	StartingUnitInDecimal string `json:"starting_unit_in_decimal"`
-	EndingUnitInDecimal   string `json:"ending_unit_in_decimal"`
-	QuantityUsedInDecimal string `json:"quantity_used_in_decimal"`
-	UnitAmountInDecimal   string `json:"unit_amount_in_decimal"`
-	Object                string `json:"object"`
+	LineItemId            string           `json:"line_item_id"`
+	StartingUnit          int32            `json:"starting_unit"`
+	EndingUnit            int32            `json:"ending_unit"`
+	QuantityUsed          int32            `json:"quantity_used"`
+	UnitAmount            int64            `json:"unit_amount"`
+	StartingUnitInDecimal string           `json:"starting_unit_in_decimal"`
+	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal"`
+	QuantityUsedInDecimal string           `json:"quantity_used_in_decimal"`
+	UnitAmountInDecimal   string           `json:"unit_amount_in_decimal"`
+	PricingType           enum.PricingType `json:"pricing_type"`
+	PackageSize           int32            `json:"package_size"`
+	Object                string           `json:"object"`
 }
 type LineItemCredit struct {
 	CnId          string  `json:"cn_id"`
@@ -110,4 +114,22 @@ type LineItemDiscount struct {
 	EntityId       string                                           `json:"entity_id"`
 	DiscountAmount int64                                            `json:"discount_amount"`
 	Object         string                                           `json:"object"`
+}
+type LineItemAddress struct {
+	LineItemId       string                `json:"line_item_id"`
+	FirstName        string                `json:"first_name"`
+	LastName         string                `json:"last_name"`
+	Email            string                `json:"email"`
+	Company          string                `json:"company"`
+	Phone            string                `json:"phone"`
+	Line1            string                `json:"line1"`
+	Line2            string                `json:"line2"`
+	Line3            string                `json:"line3"`
+	City             string                `json:"city"`
+	StateCode        string                `json:"state_code"`
+	State            string                `json:"state"`
+	Country          string                `json:"country"`
+	Zip              string                `json:"zip"`
+	ValidationStatus enum.ValidationStatus `json:"validation_status"`
+	Object           string                `json:"object"`
 }

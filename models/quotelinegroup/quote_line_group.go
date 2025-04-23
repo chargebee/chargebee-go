@@ -39,7 +39,8 @@ type LineItem struct {
 	AmountInDecimal         string                                `json:"amount_in_decimal"`
 	DiscountAmount          int64                                 `json:"discount_amount"`
 	ItemLevelDiscountAmount int64                                 `json:"item_level_discount_amount"`
-	UsagePercentage         string                                `json:"usage_percentage"`
+	Metered                 bool                                  `json:"metered"`
+	Percentage              string                                `json:"percentage"`
 	ReferenceLineItemId     string                                `json:"reference_line_item_id"`
 	Description             string                                `json:"description"`
 	EntityDescription       string                                `json:"entity_description"`

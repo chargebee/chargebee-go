@@ -277,13 +277,15 @@ type CheckoutOneTimeForItemsItemPriceParams struct {
 	DateTo             *int64 `json:"date_to,omitempty"`
 }
 type CheckoutOneTimeForItemsItemTierParams struct {
-	ItemPriceId           string `json:"item_price_id,omitempty"`
-	StartingUnit          *int32 `json:"starting_unit,omitempty"`
-	EndingUnit            *int32 `json:"ending_unit,omitempty"`
-	Price                 *int64 `json:"price,omitempty"`
-	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
+	ItemPriceId           string           `json:"item_price_id,omitempty"`
+	StartingUnit          *int32           `json:"starting_unit,omitempty"`
+	EndingUnit            *int32           `json:"ending_unit,omitempty"`
+	Price                 *int64           `json:"price,omitempty"`
+	StartingUnitInDecimal string           `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string           `json:"price_in_decimal,omitempty"`
+	PricingType           enum.PricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32           `json:"package_size,omitempty"`
 }
 type CheckoutOneTimeForItemsChargeParams struct {
 	Amount                 *int64               `json:"amount,omitempty"`
@@ -427,13 +429,15 @@ type CheckoutNewForItemsDiscountParams struct {
 	ItemPriceId   string            `json:"item_price_id,omitempty"`
 }
 type CheckoutNewForItemsItemTierParams struct {
-	ItemPriceId           string `json:"item_price_id,omitempty"`
-	StartingUnit          *int32 `json:"starting_unit,omitempty"`
-	EndingUnit            *int32 `json:"ending_unit,omitempty"`
-	Price                 *int64 `json:"price,omitempty"`
-	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
+	ItemPriceId           string           `json:"item_price_id,omitempty"`
+	StartingUnit          *int32           `json:"starting_unit,omitempty"`
+	EndingUnit            *int32           `json:"ending_unit,omitempty"`
+	Price                 *int64           `json:"price,omitempty"`
+	StartingUnitInDecimal string           `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string           `json:"price_in_decimal,omitempty"`
+	PricingType           enum.PricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32           `json:"package_size,omitempty"`
 }
 type CheckoutNewForItemsCardParams struct {
 	Gateway          enum.Gateway `json:"gateway,omitempty"`
@@ -620,13 +624,15 @@ type CheckoutExistingForItemsDiscountParams struct {
 	Id            string             `json:"id,omitempty"`
 }
 type CheckoutExistingForItemsItemTierParams struct {
-	ItemPriceId           string `json:"item_price_id,omitempty"`
-	StartingUnit          *int32 `json:"starting_unit,omitempty"`
-	EndingUnit            *int32 `json:"ending_unit,omitempty"`
-	Price                 *int64 `json:"price,omitempty"`
-	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
+	ItemPriceId           string           `json:"item_price_id,omitempty"`
+	StartingUnit          *int32           `json:"starting_unit,omitempty"`
+	EndingUnit            *int32           `json:"ending_unit,omitempty"`
+	Price                 *int64           `json:"price,omitempty"`
+	StartingUnitInDecimal string           `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string           `json:"price_in_decimal,omitempty"`
+	PricingType           enum.PricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32           `json:"package_size,omitempty"`
 }
 type CheckoutExistingForItemsCustomerParams struct {
 	VatNumber                string `json:"vat_number,omitempty"`

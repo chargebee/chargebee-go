@@ -48,6 +48,7 @@ type Quote struct {
 	ContractTermTerminationFee int64                   `json:"contract_term_termination_fee"`
 	BusinessEntityId           string                  `json:"business_entity_id"`
 	Deleted                    bool                    `json:"deleted"`
+	CustomField                map[string]interface{}  `json:"custom_field"`
 	Object                     string                  `json:"object"`
 }
 type LineItem struct {
@@ -67,7 +68,8 @@ type LineItem struct {
 	AmountInDecimal         string                       `json:"amount_in_decimal"`
 	DiscountAmount          int64                        `json:"discount_amount"`
 	ItemLevelDiscountAmount int64                        `json:"item_level_discount_amount"`
-	UsagePercentage         string                       `json:"usage_percentage"`
+	Metered                 bool                         `json:"metered"`
+	Percentage              string                       `json:"percentage"`
 	ReferenceLineItemId     string                       `json:"reference_line_item_id"`
 	Description             string                       `json:"description"`
 	EntityDescription       string                       `json:"entity_description"`
@@ -119,16 +121,18 @@ type LineItemTax struct {
 	Object                   string            `json:"object"`
 }
 type LineItemTier struct {
-	LineItemId            string `json:"line_item_id"`
-	StartingUnit          int32  `json:"starting_unit"`
-	EndingUnit            int32  `json:"ending_unit"`
-	QuantityUsed          int32  `json:"quantity_used"`
-	UnitAmount            int64  `json:"unit_amount"`
-	StartingUnitInDecimal string `json:"starting_unit_in_decimal"`
-	EndingUnitInDecimal   string `json:"ending_unit_in_decimal"`
-	QuantityUsedInDecimal string `json:"quantity_used_in_decimal"`
-	UnitAmountInDecimal   string `json:"unit_amount_in_decimal"`
-	Object                string `json:"object"`
+	LineItemId            string           `json:"line_item_id"`
+	StartingUnit          int32            `json:"starting_unit"`
+	EndingUnit            int32            `json:"ending_unit"`
+	QuantityUsed          int32            `json:"quantity_used"`
+	UnitAmount            int64            `json:"unit_amount"`
+	StartingUnitInDecimal string           `json:"starting_unit_in_decimal"`
+	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal"`
+	QuantityUsedInDecimal string           `json:"quantity_used_in_decimal"`
+	UnitAmountInDecimal   string           `json:"unit_amount_in_decimal"`
+	PricingType           enum.PricingType `json:"pricing_type"`
+	PackageSize           int32            `json:"package_size"`
+	Object                string           `json:"object"`
 }
 type ShippingAddress struct {
 	FirstName        string                `json:"first_name"`
@@ -651,13 +655,15 @@ type CreateSubItemsForCustomerQuoteDiscountParams struct {
 	ItemPriceId   string            `json:"item_price_id,omitempty"`
 }
 type CreateSubItemsForCustomerQuoteItemTierParams struct {
-	ItemPriceId           string `json:"item_price_id,omitempty"`
-	StartingUnit          *int32 `json:"starting_unit,omitempty"`
-	EndingUnit            *int32 `json:"ending_unit,omitempty"`
-	Price                 *int64 `json:"price,omitempty"`
-	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
+	ItemPriceId           string           `json:"item_price_id,omitempty"`
+	StartingUnit          *int32           `json:"starting_unit,omitempty"`
+	EndingUnit            *int32           `json:"ending_unit,omitempty"`
+	Price                 *int64           `json:"price,omitempty"`
+	StartingUnitInDecimal string           `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string           `json:"price_in_decimal,omitempty"`
+	PricingType           enum.PricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32           `json:"package_size,omitempty"`
 }
 type CreateSubItemsForCustomerQuoteShippingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -727,13 +733,15 @@ type EditCreateSubCustomerQuoteForItemsDiscountParams struct {
 	ItemPriceId   string            `json:"item_price_id,omitempty"`
 }
 type EditCreateSubCustomerQuoteForItemsItemTierParams struct {
-	ItemPriceId           string `json:"item_price_id,omitempty"`
-	StartingUnit          *int32 `json:"starting_unit,omitempty"`
-	EndingUnit            *int32 `json:"ending_unit,omitempty"`
-	Price                 *int64 `json:"price,omitempty"`
-	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
+	ItemPriceId           string           `json:"item_price_id,omitempty"`
+	StartingUnit          *int32           `json:"starting_unit,omitempty"`
+	EndingUnit            *int32           `json:"ending_unit,omitempty"`
+	Price                 *int64           `json:"price,omitempty"`
+	StartingUnitInDecimal string           `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string           `json:"price_in_decimal,omitempty"`
+	PricingType           enum.PricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32           `json:"package_size,omitempty"`
 }
 type EditCreateSubCustomerQuoteForItemsShippingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -817,13 +825,15 @@ type UpdateSubscriptionQuoteForItemsDiscountParams struct {
 	Id            string             `json:"id,omitempty"`
 }
 type UpdateSubscriptionQuoteForItemsItemTierParams struct {
-	ItemPriceId           string `json:"item_price_id,omitempty"`
-	StartingUnit          *int32 `json:"starting_unit,omitempty"`
-	EndingUnit            *int32 `json:"ending_unit,omitempty"`
-	Price                 *int64 `json:"price,omitempty"`
-	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
+	ItemPriceId           string           `json:"item_price_id,omitempty"`
+	StartingUnit          *int32           `json:"starting_unit,omitempty"`
+	EndingUnit            *int32           `json:"ending_unit,omitempty"`
+	Price                 *int64           `json:"price,omitempty"`
+	StartingUnitInDecimal string           `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string           `json:"price_in_decimal,omitempty"`
+	PricingType           enum.PricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32           `json:"package_size,omitempty"`
 }
 type UpdateSubscriptionQuoteForItemsBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -926,13 +936,15 @@ type EditUpdateSubscriptionQuoteForItemsDiscountParams struct {
 	Id            string             `json:"id,omitempty"`
 }
 type EditUpdateSubscriptionQuoteForItemsItemTierParams struct {
-	ItemPriceId           string `json:"item_price_id,omitempty"`
-	StartingUnit          *int32 `json:"starting_unit,omitempty"`
-	EndingUnit            *int32 `json:"ending_unit,omitempty"`
-	Price                 *int64 `json:"price,omitempty"`
-	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
+	ItemPriceId           string           `json:"item_price_id,omitempty"`
+	StartingUnit          *int32           `json:"starting_unit,omitempty"`
+	EndingUnit            *int32           `json:"ending_unit,omitempty"`
+	Price                 *int64           `json:"price,omitempty"`
+	StartingUnitInDecimal string           `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string           `json:"price_in_decimal,omitempty"`
+	PricingType           enum.PricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32           `json:"package_size,omitempty"`
 }
 type EditUpdateSubscriptionQuoteForItemsBillingAddressParams struct {
 	FirstName        string                `json:"first_name,omitempty"`
@@ -1000,13 +1012,15 @@ type CreateForChargeItemsAndChargesItemPriceParams struct {
 	ServicePeriodDays  *int32 `json:"service_period_days,omitempty"`
 }
 type CreateForChargeItemsAndChargesItemTierParams struct {
-	ItemPriceId           string `json:"item_price_id,omitempty"`
-	StartingUnit          *int32 `json:"starting_unit,omitempty"`
-	EndingUnit            *int32 `json:"ending_unit,omitempty"`
-	Price                 *int64 `json:"price,omitempty"`
-	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
+	ItemPriceId           string           `json:"item_price_id,omitempty"`
+	StartingUnit          *int32           `json:"starting_unit,omitempty"`
+	EndingUnit            *int32           `json:"ending_unit,omitempty"`
+	Price                 *int64           `json:"price,omitempty"`
+	StartingUnitInDecimal string           `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string           `json:"price_in_decimal,omitempty"`
+	PricingType           enum.PricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32           `json:"package_size,omitempty"`
 }
 type CreateForChargeItemsAndChargesChargeParams struct {
 	Amount                 *int64               `json:"amount,omitempty"`
@@ -1067,13 +1081,15 @@ type EditForChargeItemsAndChargesItemPriceParams struct {
 	ServicePeriodDays  *int32 `json:"service_period_days,omitempty"`
 }
 type EditForChargeItemsAndChargesItemTierParams struct {
-	ItemPriceId           string `json:"item_price_id,omitempty"`
-	StartingUnit          *int32 `json:"starting_unit,omitempty"`
-	EndingUnit            *int32 `json:"ending_unit,omitempty"`
-	Price                 *int64 `json:"price,omitempty"`
-	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
+	ItemPriceId           string           `json:"item_price_id,omitempty"`
+	StartingUnit          *int32           `json:"starting_unit,omitempty"`
+	EndingUnit            *int32           `json:"ending_unit,omitempty"`
+	Price                 *int64           `json:"price,omitempty"`
+	StartingUnitInDecimal string           `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string           `json:"price_in_decimal,omitempty"`
+	PricingType           enum.PricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32           `json:"package_size,omitempty"`
 }
 type EditForChargeItemsAndChargesChargeParams struct {
 	Amount                 *int64               `json:"amount,omitempty"`

@@ -56,13 +56,15 @@ type Addon struct {
 	Object                      string                                `json:"object"`
 }
 type Tier struct {
-	StartingUnit          int32  `json:"starting_unit"`
-	EndingUnit            int32  `json:"ending_unit"`
-	Price                 int64  `json:"price"`
-	StartingUnitInDecimal string `json:"starting_unit_in_decimal"`
-	EndingUnitInDecimal   string `json:"ending_unit_in_decimal"`
-	PriceInDecimal        string `json:"price_in_decimal"`
-	Object                string `json:"object"`
+	StartingUnit          int32            `json:"starting_unit"`
+	EndingUnit            int32            `json:"ending_unit"`
+	Price                 int64            `json:"price"`
+	StartingUnitInDecimal string           `json:"starting_unit_in_decimal"`
+	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal"`
+	PriceInDecimal        string           `json:"price_in_decimal"`
+	PricingType           enum.PricingType `json:"pricing_type"`
+	PackageSize           int32            `json:"package_size"`
+	Object                string           `json:"object"`
 }
 type TaxProvidersField struct {
 	ProviderName string `json:"provider_name"`
