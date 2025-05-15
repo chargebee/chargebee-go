@@ -162,7 +162,7 @@ type CreateSubItemEstimateSubscriptionItemParams struct {
 	ChargeOnOption     enum.ChargeOnOption `json:"charge_on_option,omitempty"`
 }
 type CreateSubItemEstimateDiscountParams struct {
-	ApplyOn       enum.ApplyOn      `json:"apply_on"`
+	ApplyOn       enum.ApplyOn      `json:"apply_on,omitempty"`
 	DurationType  enum.DurationType `json:"duration_type"`
 	Percentage    *float64          `json:"percentage,omitempty"`
 	Amount        *int64            `json:"amount,omitempty"`
@@ -329,7 +329,7 @@ type CreateSubItemForCustomerEstimateSubscriptionItemParams struct {
 	ChargeOnOption     enum.ChargeOnOption `json:"charge_on_option,omitempty"`
 }
 type CreateSubItemForCustomerEstimateDiscountParams struct {
-	ApplyOn       enum.ApplyOn      `json:"apply_on"`
+	ApplyOn       enum.ApplyOn      `json:"apply_on,omitempty"`
 	DurationType  enum.DurationType `json:"duration_type"`
 	Percentage    *float64          `json:"percentage,omitempty"`
 	Amount        *int64            `json:"amount,omitempty"`
@@ -520,7 +520,7 @@ type UpdateSubscriptionForItemsSubscriptionItemParams struct {
 	ProrationType      enum.ProrationType  `json:"proration_type,omitempty"`
 }
 type UpdateSubscriptionForItemsDiscountParams struct {
-	ApplyOn       enum.ApplyOn       `json:"apply_on"`
+	ApplyOn       enum.ApplyOn       `json:"apply_on,omitempty"`
 	DurationType  enum.DurationType  `json:"duration_type"`
 	Percentage    *float64           `json:"percentage,omitempty"`
 	Amount        *int64             `json:"amount,omitempty"`

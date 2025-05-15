@@ -37,7 +37,7 @@ type CreateForNewSubscriptionCustomerParams struct {
 	Locale    string `json:"locale,omitempty"`
 }
 type CreateForNewSubscriptionDiscountParams struct {
-	ApplyOn       enum.ApplyOn      `json:"apply_on"`
+	ApplyOn       enum.ApplyOn      `json:"apply_on,omitempty"`
 	DurationType  enum.DurationType `json:"duration_type"`
 	Percentage    *float64          `json:"percentage,omitempty"`
 	Amount        *int64            `json:"amount,omitempty"`
@@ -92,7 +92,7 @@ type CreateForExistingSubscriptionSubscriptionParams struct {
 	Id string `json:"id"`
 }
 type CreateForExistingSubscriptionDiscountParams struct {
-	ApplyOn       enum.ApplyOn      `json:"apply_on"`
+	ApplyOn       enum.ApplyOn      `json:"apply_on,omitempty"`
 	DurationType  enum.DurationType `json:"duration_type"`
 	Percentage    *float64          `json:"percentage,omitempty"`
 	Amount        *int64            `json:"amount,omitempty"`

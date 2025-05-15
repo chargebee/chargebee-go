@@ -8,4 +8,5 @@ const (
 	OmnichannelSubscriptionItemStatusCancelled     OmnichannelSubscriptionItemStatus = "cancelled"
 	OmnichannelSubscriptionItemStatusInDunning     OmnichannelSubscriptionItemStatus = "in_dunning"
 	OmnichannelSubscriptionItemStatusInGracePeriod OmnichannelSubscriptionItemStatus = "in_grace_period"
+	OmnichannelSubscriptionItemStatusPaused        OmnichannelSubscriptionItemStatus = "paused"
 )

@@ -79,6 +79,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/unbilledcharge"
 	"github.com/chargebee/chargebee-go/v3/models/usage"
 	"github.com/chargebee/chargebee-go/v3/models/usageevent"
+	"github.com/chargebee/chargebee-go/v3/models/usagefile"
 	"github.com/chargebee/chargebee-go/v3/models/virtualbankaccount"
 	"net/http"
 	"strconv"
@@ -170,6 +171,7 @@ type Result struct {
 	Rule                                       *rule.Rule                                                                             `json:"rule,omitempty"`
 	UsageEvent                                 *usageevent.UsageEvent                                                                 `json:"usage_event,omitempty"`
 	OmnichannelSubscriptionItemScheduledChange *omnichannelsubscriptionitemscheduledchange.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
+	UsageFile                                  *usagefile.UsageFile                                                                   `json:"usage_file,omitempty"`
 	AdvanceInvoiceSchedules                    []*advanceinvoiceschedule.AdvanceInvoiceSchedule                                       `json:"advance_invoice_schedules,omitempty"`
 	Hierarchies                                []*hierarchy.Hierarchy                                                                 `json:"hierarchies,omitempty"`
 	Invoices                                   []*invoice.Invoice                                                                     `json:"invoices,omitempty"`

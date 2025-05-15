@@ -34,6 +34,7 @@ type OmnichannelTransaction struct {
 type ListRequestParams struct {
 	Limit      *int32               `json:"limit,omitempty"`
 	Offset     string               `json:"offset,omitempty"`
+	Source     *filter.EnumFilter   `json:"source,omitempty"`
 	CustomerId *filter.StringFilter `json:"customer_id,omitempty"`
 }
 type OmnichannelTransactionsForOmnichannelSubscriptionRequestParams struct {

@@ -419,7 +419,7 @@ type CheckoutNewForItemsSubscriptionItemParams struct {
 	ChargeOnOption     enum.ChargeOnOption `json:"charge_on_option,omitempty"`
 }
 type CheckoutNewForItemsDiscountParams struct {
-	ApplyOn       enum.ApplyOn      `json:"apply_on"`
+	ApplyOn       enum.ApplyOn      `json:"apply_on,omitempty"`
 	DurationType  enum.DurationType `json:"duration_type"`
 	Percentage    *float64          `json:"percentage,omitempty"`
 	Amount        *int64            `json:"amount,omitempty"`
@@ -612,7 +612,7 @@ type CheckoutExistingForItemsSubscriptionItemParams struct {
 	ItemType           enum.ItemType       `json:"item_type,omitempty"`
 }
 type CheckoutExistingForItemsDiscountParams struct {
-	ApplyOn       enum.ApplyOn       `json:"apply_on"`
+	ApplyOn       enum.ApplyOn       `json:"apply_on,omitempty"`
 	DurationType  enum.DurationType  `json:"duration_type"`
 	Percentage    *float64           `json:"percentage,omitempty"`
 	Amount        *int64             `json:"amount,omitempty"`

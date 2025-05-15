@@ -715,6 +715,7 @@ type ImportInvoiceRequestParams struct {
 	Notes                   []*ImportInvoiceNoteParams                   `json:"notes,omitempty"`
 	BillingAddress          *ImportInvoiceBillingAddressParams           `json:"billing_address,omitempty"`
 	ShippingAddress         *ImportInvoiceShippingAddressParams          `json:"shipping_address,omitempty"`
+	LineItemAddresses       []*ImportInvoiceLineItemAddressParams        `json:"line_item_addresses,omitempty"`
 }
 type ImportInvoiceLineItemParams struct {
 	Id                         string                         `json:"id,omitempty"`
@@ -818,6 +819,23 @@ type ImportInvoiceBillingAddressParams struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
 type ImportInvoiceShippingAddressParams struct {
+	FirstName        string                `json:"first_name,omitempty"`
+	LastName         string                `json:"last_name,omitempty"`
+	Email            string                `json:"email,omitempty"`
+	Company          string                `json:"company,omitempty"`
+	Phone            string                `json:"phone,omitempty"`
+	Line1            string                `json:"line1,omitempty"`
+	Line2            string                `json:"line2,omitempty"`
+	Line3            string                `json:"line3,omitempty"`
+	City             string                `json:"city,omitempty"`
+	StateCode        string                `json:"state_code,omitempty"`
+	State            string                `json:"state,omitempty"`
+	Zip              string                `json:"zip,omitempty"`
+	Country          string                `json:"country,omitempty"`
+	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+}
+type ImportInvoiceLineItemAddressParams struct {
+	LineItemId       string                `json:"line_item_id,omitempty"`
 	FirstName        string                `json:"first_name,omitempty"`
 	LastName         string                `json:"last_name,omitempty"`
 	Email            string                `json:"email,omitempty"`

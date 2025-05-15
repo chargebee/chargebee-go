@@ -611,7 +611,7 @@ type CreateWithItemsSubscriptionItemParams struct {
 	UsageAccumulationResetFrequency enum.UsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency,omitempty"`
 }
 type CreateWithItemsDiscountParams struct {
-	ApplyOn       enum.ApplyOn      `json:"apply_on"`
+	ApplyOn       enum.ApplyOn      `json:"apply_on,omitempty"`
 	DurationType  enum.DurationType `json:"duration_type"`
 	Percentage    *float64          `json:"percentage,omitempty"`
 	Amount        *int64            `json:"amount,omitempty"`
@@ -946,7 +946,7 @@ type UpdateForItemsSubscriptionItemParams struct {
 	UsageAccumulationResetFrequency enum.UsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency,omitempty"`
 }
 type UpdateForItemsDiscountParams struct {
-	ApplyOn       enum.ApplyOn       `json:"apply_on"`
+	ApplyOn       enum.ApplyOn       `json:"apply_on,omitempty"`
 	DurationType  enum.DurationType  `json:"duration_type"`
 	Percentage    *float64           `json:"percentage,omitempty"`
 	Amount        *int64             `json:"amount,omitempty"`
@@ -1531,7 +1531,7 @@ type ImportForItemsSubscriptionItemParams struct {
 	ItemType           enum.ItemType      `json:"item_type,omitempty"`
 }
 type ImportForItemsDiscountParams struct {
-	ApplyOn       enum.ApplyOn      `json:"apply_on"`
+	ApplyOn       enum.ApplyOn      `json:"apply_on,omitempty"`
 	DurationType  enum.DurationType `json:"duration_type"`
 	Percentage    *float64          `json:"percentage,omitempty"`
 	Amount        *int64            `json:"amount,omitempty"`

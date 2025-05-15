@@ -645,7 +645,7 @@ type CreateSubItemsForCustomerQuoteSubscriptionItemParams struct {
 	ChargeOnOption     enum.ChargeOnOption `json:"charge_on_option,omitempty"`
 }
 type CreateSubItemsForCustomerQuoteDiscountParams struct {
-	ApplyOn       enum.ApplyOn      `json:"apply_on"`
+	ApplyOn       enum.ApplyOn      `json:"apply_on,omitempty"`
 	DurationType  enum.DurationType `json:"duration_type"`
 	Percentage    *float64          `json:"percentage,omitempty"`
 	Amount        *int64            `json:"amount,omitempty"`
@@ -723,7 +723,7 @@ type EditCreateSubCustomerQuoteForItemsSubscriptionItemParams struct {
 	ChargeOnOption     enum.ChargeOnOption `json:"charge_on_option,omitempty"`
 }
 type EditCreateSubCustomerQuoteForItemsDiscountParams struct {
-	ApplyOn       enum.ApplyOn      `json:"apply_on"`
+	ApplyOn       enum.ApplyOn      `json:"apply_on,omitempty"`
 	DurationType  enum.DurationType `json:"duration_type"`
 	Percentage    *float64          `json:"percentage,omitempty"`
 	Amount        *int64            `json:"amount,omitempty"`
@@ -813,7 +813,7 @@ type UpdateSubscriptionQuoteForItemsSubscriptionItemParams struct {
 	ItemType           enum.ItemType       `json:"item_type,omitempty"`
 }
 type UpdateSubscriptionQuoteForItemsDiscountParams struct {
-	ApplyOn       enum.ApplyOn       `json:"apply_on"`
+	ApplyOn       enum.ApplyOn       `json:"apply_on,omitempty"`
 	DurationType  enum.DurationType  `json:"duration_type"`
 	Percentage    *float64           `json:"percentage,omitempty"`
 	Amount        *int64             `json:"amount,omitempty"`
@@ -924,7 +924,7 @@ type EditUpdateSubscriptionQuoteForItemsSubscriptionParams struct {
 	ContractTermBillingCycleOnRenewal *int32                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 type EditUpdateSubscriptionQuoteForItemsDiscountParams struct {
-	ApplyOn       enum.ApplyOn       `json:"apply_on"`
+	ApplyOn       enum.ApplyOn       `json:"apply_on,omitempty"`
 	DurationType  enum.DurationType  `json:"duration_type"`
 	Percentage    *float64           `json:"percentage,omitempty"`
 	Amount        *int64             `json:"amount,omitempty"`
