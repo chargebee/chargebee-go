@@ -75,10 +75,10 @@ type CreateRequestParams struct {
 	IncludedInMrr        *bool                            `json:"included_in_mrr,omitempty"`
 	Metered              *bool                            `json:"metered,omitempty"`
 	UsageCalculation     itemEnum.UsageCalculation        `json:"usage_calculation,omitempty"`
+	IsPercentagePricing  *bool                            `json:"is_percentage_pricing,omitempty"`
 	Metadata             map[string]interface{}           `json:"metadata,omitempty"`
 	BusinessEntityId     string                           `json:"business_entity_id,omitempty"`
 	BundleItemsToAdd     []*CreateBundleItemsToAddParams  `json:"bundle_items_to_add,omitempty"`
-	IsPercentagePricing  *bool                            `json:"is_percentage_pricing,omitempty"`
 }
 type CreateBundleConfigurationParams struct {
 	Type itemEnum.BundleConfigurationType `json:"type,omitempty"`
@@ -107,6 +107,7 @@ type UpdateRequestParams struct {
 	Metadata             map[string]interface{}             `json:"metadata,omitempty"`
 	IncludedInMrr        *bool                              `json:"included_in_mrr,omitempty"`
 	Status               itemEnum.Status                    `json:"status,omitempty"`
+	IsPercentagePricing  *bool                              `json:"is_percentage_pricing,omitempty"`
 	BundleItemsToAdd     []*UpdateBundleItemsToAddParams    `json:"bundle_items_to_add,omitempty"`
 	BundleItemsToUpdate  []*UpdateBundleItemsToUpdateParams `json:"bundle_items_to_update,omitempty"`
 	BundleItemsToRemove  []*UpdateBundleItemsToRemoveParams `json:"bundle_items_to_remove,omitempty"`

@@ -204,6 +204,7 @@ const (
 	EventTypeSalesOrderUpdated                                       EventType = "sales_order_updated"
 	EventTypeOmnichannelSubscriptionItemChanged                      EventType = "omnichannel_subscription_item_changed"
 	EventTypeOmnichannelSubscriptionItemPaused                       EventType = "omnichannel_subscription_item_paused"
+	EventTypeOmnichannelSubscriptionItemResumed                      EventType = "omnichannel_subscription_item_resumed"
 	EventTypePlanCreated                                             EventType = "plan_created"
 	EventTypePlanUpdated                                             EventType = "plan_updated"
 	EventTypePlanDeleted                                             EventType = "plan_deleted"

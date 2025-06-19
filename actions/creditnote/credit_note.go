@@ -10,8 +10,8 @@ import (
 func Create(params *creditnote.CreateRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/credit_notes"), params)
 }
-func Retrieve(id string) chargebee.RequestObj {
-	return chargebee.Send("GET", fmt.Sprintf("/credit_notes/%v", url.PathEscape(id)), nil)
+func Retrieve(id string, params *creditnote.RetrieveRequestParams) chargebee.RequestObj {
+	return chargebee.Send("GET", fmt.Sprintf("/credit_notes/%v", url.PathEscape(id)), params)
 }
 func Pdf(id string, params *creditnote.PdfRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/credit_notes/%v/pdf", url.PathEscape(id)), params)

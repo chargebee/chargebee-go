@@ -303,6 +303,7 @@ type CreateSubItemForCustomerEstimateRequestParams struct {
 	InvoiceDate            *int64                                                    `json:"invoice_date,omitempty"`
 	CouponIds              []string                                                  `json:"coupon_ids,omitempty"`
 	ContractTerm           *CreateSubItemForCustomerEstimateContractTermParams       `json:"contract_term,omitempty"`
+	BillingOverride        *CreateSubItemForCustomerEstimateBillingOverrideParams    `json:"billing_override,omitempty"`
 }
 type CreateSubItemForCustomerEstimateSubscriptionParams struct {
 	Id                                string              `json:"id,omitempty"`
@@ -373,6 +374,10 @@ type CreateSubItemForCustomerEstimateContractTermParams struct {
 	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	ContractStart            *int64                           `json:"contract_start,omitempty"`
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
+}
+type CreateSubItemForCustomerEstimateBillingOverrideParams struct {
+	MaxExcessPaymentUsage     *int64 `json:"max_excess_payment_usage,omitempty"`
+	MaxRefundableCreditsUsage *int64 `json:"max_refundable_credits_usage,omitempty"`
 }
 type UpdateSubscriptionRequestParams struct {
 	Subscription            *UpdateSubscriptionSubscriptionParams      `json:"subscription,omitempty"`
@@ -491,6 +496,7 @@ type UpdateSubscriptionForItemsRequestParams struct {
 	Customer               *UpdateSubscriptionForItemsCustomerParams           `json:"customer,omitempty"`
 	InvoiceImmediately     *bool                                               `json:"invoice_immediately,omitempty"`
 	InvoiceUsages          *bool                                               `json:"invoice_usages,omitempty"`
+	BillingOverride        *UpdateSubscriptionForItemsBillingOverrideParams    `json:"billing_override,omitempty"`
 }
 type UpdateSubscriptionForItemsSubscriptionParams struct {
 	Id                   string                    `json:"id"`
@@ -567,6 +573,10 @@ type UpdateSubscriptionForItemsCustomerParams struct {
 	VatNumberPrefix  string          `json:"vat_number_prefix,omitempty"`
 	RegisteredForGst *bool           `json:"registered_for_gst,omitempty"`
 	Taxability       enum.Taxability `json:"taxability,omitempty"`
+}
+type UpdateSubscriptionForItemsBillingOverrideParams struct {
+	MaxExcessPaymentUsage     *int64 `json:"max_excess_payment_usage,omitempty"`
+	MaxRefundableCreditsUsage *int64 `json:"max_refundable_credits_usage,omitempty"`
 }
 type RenewalEstimateRequestParams struct {
 	IncludeDelayedCharges       *bool `json:"include_delayed_charges,omitempty"`

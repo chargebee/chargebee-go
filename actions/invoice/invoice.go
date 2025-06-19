@@ -25,6 +25,12 @@ func CreateForChargeItem(params *invoice.CreateForChargeItemRequestParams) charg
 func StopDunning(id string, params *invoice.StopDunningRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/stop_dunning", url.PathEscape(id)), params)
 }
+func PauseDunning(id string, params *invoice.PauseDunningRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/pause_dunning", url.PathEscape(id)), params)
+}
+func ResumeDunning(id string, params *invoice.ResumeDunningRequestParams) chargebee.RequestObj {
+	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/resume_dunning", url.PathEscape(id)), params)
+}
 func ImportInvoice(params *invoice.ImportInvoiceRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/import_invoice"), params)
 }
@@ -49,8 +55,8 @@ func InvoicesForCustomer(id string, params *invoice.InvoicesForCustomerRequestPa
 func InvoicesForSubscription(id string, params *invoice.InvoicesForSubscriptionRequestParams) chargebee.RequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/subscriptions/%v/invoices", url.PathEscape(id)), params)
 }
-func Retrieve(id string) chargebee.RequestObj {
-	return chargebee.Send("GET", fmt.Sprintf("/invoices/%v", url.PathEscape(id)), nil)
+func Retrieve(id string, params *invoice.RetrieveRequestParams) chargebee.RequestObj {
+	return chargebee.Send("GET", fmt.Sprintf("/invoices/%v", url.PathEscape(id)), params)
 }
 func Pdf(id string, params *invoice.PdfRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/pdf", url.PathEscape(id)), params)

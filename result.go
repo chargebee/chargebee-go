@@ -62,6 +62,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/purchase"
 	"github.com/chargebee/chargebee-go/v3/models/quote"
 	"github.com/chargebee/chargebee-go/v3/models/quotedcharge"
+	"github.com/chargebee/chargebee-go/v3/models/quotedramp"
 	"github.com/chargebee/chargebee-go/v3/models/quotedsubscription"
 	"github.com/chargebee/chargebee-go/v3/models/quotelinegroup"
 	"github.com/chargebee/chargebee-go/v3/models/ramp"
@@ -120,6 +121,7 @@ type Result struct {
 	Quote                                      *quote.Quote                                                                           `json:"quote,omitempty"`
 	QuotedSubscription                         *quotedsubscription.QuotedSubscription                                                 `json:"quoted_subscription,omitempty"`
 	QuotedCharge                               *quotedcharge.QuotedCharge                                                             `json:"quoted_charge,omitempty"`
+	QuotedRamp                                 *quotedramp.QuotedRamp                                                                 `json:"quoted_ramp,omitempty"`
 	QuoteLineGroup                             *quotelinegroup.QuoteLineGroup                                                         `json:"quote_line_group,omitempty"`
 	Plan                                       *plan.Plan                                                                             `json:"plan,omitempty"`
 	Addon                                      *addon.Addon                                                                           `json:"addon,omitempty"`

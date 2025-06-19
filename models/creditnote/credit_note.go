@@ -2,7 +2,6 @@ package creditnote
 
 import (
 	"encoding/json"
-
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
 	creditNoteEnum "github.com/chargebee/chargebee-go/v3/models/creditnote/enum"
@@ -85,7 +84,7 @@ type LineItem struct {
 	DiscountAmount          int64                             `json:"discount_amount"`
 	ItemLevelDiscountAmount int64                             `json:"item_level_discount_amount"`
 	Metered                 bool                              `json:"metered"`
-	Percentage              string                            `json:"percentage"`
+	IsPercentagePricing     bool                              `json:"is_percentage_pricing"`
 	ReferenceLineItemId     string                            `json:"reference_line_item_id"`
 	Description             string                            `json:"description"`
 	EntityDescription       string                            `json:"entity_description"`
@@ -257,6 +256,13 @@ type CreateLineItemParams struct {
 	Description         string                            `json:"description,omitempty"`
 	EntityType          creditNoteEnum.LineItemEntityType `json:"entity_type,omitempty"`
 	EntityId            string                            `json:"entity_id,omitempty"`
+}
+type RetrieveRequestParams struct {
+	LineItem *RetrieveLineItemParams `json:"line_item,omitempty"`
+}
+type RetrieveLineItemParams struct {
+	SubscriptionId *filter.StringFilter `json:"subscription_id,omitempty"`
+	CustomerId     *filter.StringFilter `json:"customer_id,omitempty"`
 }
 type PdfRequestParams struct {
 	DispositionType enum.DispositionType `json:"disposition_type,omitempty"`

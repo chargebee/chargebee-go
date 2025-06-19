@@ -2,6 +2,7 @@ package subscription
 
 import (
 	"encoding/json"
+
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
 	cardEnum "github.com/chargebee/chargebee-go/v3/models/card/enum"
@@ -703,8 +704,9 @@ type SubscriptionsForCustomerRequestParams struct {
 	Offset string `json:"offset,omitempty"`
 }
 type ContractTermsForSubscriptionRequestParams struct {
-	Limit  *int32 `json:"limit,omitempty"`
-	Offset string `json:"offset,omitempty"`
+	Limit  *int32             `json:"limit,omitempty"`
+	Offset string             `json:"offset,omitempty"`
+	SortBy *filter.SortFilter `json:"sort_by,omitempty"`
 }
 type ListDiscountsRequestParams struct {
 	Limit  *int32 `json:"limit,omitempty"`

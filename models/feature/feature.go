@@ -6,17 +6,18 @@ import (
 )
 
 type Feature struct {
-	Id              string             `json:"id"`
-	Name            string             `json:"name"`
-	Description     string             `json:"description"`
-	Status          featureEnum.Status `json:"status"`
-	Type            featureEnum.Type   `json:"type"`
-	Unit            string             `json:"unit"`
-	ResourceVersion int64              `json:"resource_version"`
-	UpdatedAt       int64              `json:"updated_at"`
-	CreatedAt       int64              `json:"created_at"`
-	Levels          []*Level           `json:"levels"`
-	Object          string             `json:"object"`
+	Id              string                 `json:"id"`
+	Name            string                 `json:"name"`
+	Description     string                 `json:"description"`
+	Status          featureEnum.Status     `json:"status"`
+	Type            featureEnum.Type       `json:"type"`
+	Unit            string                 `json:"unit"`
+	ResourceVersion int64                  `json:"resource_version"`
+	UpdatedAt       int64                  `json:"updated_at"`
+	CreatedAt       int64                  `json:"created_at"`
+	Levels          []*Level               `json:"levels"`
+	CustomField     map[string]interface{} `json:"custom_field"`
+	Object          string                 `json:"object"`
 }
 type Level struct {
 	Name        string `json:"name"`

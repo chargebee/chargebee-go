@@ -2,7 +2,6 @@ package invoice
 
 import (
 	"encoding/json"
-
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
 	cardEnum "github.com/chargebee/chargebee-go/v3/models/card/enum"
@@ -102,7 +101,7 @@ type LineItem struct {
 	DiscountAmount          int64                          `json:"discount_amount"`
 	ItemLevelDiscountAmount int64                          `json:"item_level_discount_amount"`
 	Metered                 bool                           `json:"metered"`
-	Percentage              string                         `json:"percentage"`
+	IsPercentagePricing     bool                           `json:"is_percentage_pricing"`
 	ReferenceLineItemId     string                         `json:"reference_line_item_id"`
 	Description             string                         `json:"description"`
 	EntityDescription       string                         `json:"entity_description"`
@@ -232,9 +231,9 @@ type LinkedOrder struct {
 	Object            string                           `json:"object"`
 }
 type Note struct {
-	EntityType invoiceEnum.NoteEntityType `json:"entity_type"`
 	Note       string                     `json:"note"`
 	EntityId   string                     `json:"entity_id"`
+	EntityType invoiceEnum.NoteEntityType `json:"entity_type"`
 	Object     string                     `json:"object"`
 }
 type ShippingAddress struct {
@@ -682,6 +681,13 @@ type CreateForChargeItemItemTierParams struct {
 type StopDunningRequestParams struct {
 	Comment string `json:"comment,omitempty"`
 }
+type PauseDunningRequestParams struct {
+	ExpectedPaymentDate *int64 `json:"expected_payment_date"`
+	Comment             string `json:"comment,omitempty"`
+}
+type ResumeDunningRequestParams struct {
+	Comment string `json:"comment,omitempty"`
+}
 type ImportInvoiceRequestParams struct {
 	Id                      string                                       `json:"id"`
 	CurrencyCode            string                                       `json:"currency_code,omitempty"`
@@ -909,6 +915,13 @@ type InvoicesForCustomerRequestParams struct {
 type InvoicesForSubscriptionRequestParams struct {
 	Limit  *int32 `json:"limit,omitempty"`
 	Offset string `json:"offset,omitempty"`
+}
+type RetrieveRequestParams struct {
+	LineItem *RetrieveLineItemParams `json:"line_item,omitempty"`
+}
+type RetrieveLineItemParams struct {
+	SubscriptionId *filter.StringFilter `json:"subscription_id,omitempty"`
+	CustomerId     *filter.StringFilter `json:"customer_id,omitempty"`
 }
 type PdfRequestParams struct {
 	DispositionType enum.DispositionType `json:"disposition_type,omitempty"`

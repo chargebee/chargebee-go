@@ -17,9 +17,11 @@ type OmnichannelSubscriptionItem struct {
 	CancelledAt          int64                                              `json:"cancelled_at"`
 	CancellationReason   omnichannelSubscriptionItemEnum.CancellationReason `json:"cancellation_reason"`
 	GracePeriodExpiresAt int64                                              `json:"grace_period_expires_at"`
+	ResumesAt            int64                                              `json:"resumes_at"`
 	HasScheduledChanges  bool                                               `json:"has_scheduled_changes"`
 	ResourceVersion      int64                                              `json:"resource_version"`
 	UpcomingRenewal      *UpcomingRenewal                                   `json:"upcoming_renewal"`
+	LinkedItem           *LinkedItem                                        `json:"linked_item"`
 	Object               string                                             `json:"object"`
 }
 type UpcomingRenewal struct {
@@ -27,6 +29,11 @@ type UpcomingRenewal struct {
 	PriceUnits    int64  `json:"price_units"`
 	PriceNanos    int64  `json:"price_nanos"`
 	Object        string `json:"object"`
+}
+type LinkedItem struct {
+	Id       string `json:"id"`
+	LinkedAt int64  `json:"linked_at"`
+	Object   string `json:"object"`
 }
 type ListOmniSubItemScheduleChangesRequestParams struct {
 	Limit  *int32 `json:"limit,omitempty"`
