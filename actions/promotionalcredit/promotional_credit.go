@@ -8,13 +8,13 @@ import (
 )
 
 func Add(params *promotionalcredit.AddRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/promotional_credits/add"), params)
+	return chargebee.Send("POST", fmt.Sprintf("/promotional_credits/add"), params).SetIdempotency(true)
 }
 func Deduct(params *promotionalcredit.DeductRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/promotional_credits/deduct"), params)
+	return chargebee.Send("POST", fmt.Sprintf("/promotional_credits/deduct"), params).SetIdempotency(true)
 }
 func Set(params *promotionalcredit.SetRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/promotional_credits/set"), params)
+	return chargebee.Send("POST", fmt.Sprintf("/promotional_credits/set"), params).SetIdempotency(true)
 }
 func List(params *promotionalcredit.ListRequestParams) chargebee.RequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/promotional_credits"), params)

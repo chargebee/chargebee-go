@@ -14,14 +14,14 @@ func Retrieve(id string) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/currencies/%v", url.PathEscape(id)), nil)
 }
 func Create(params *currency.CreateRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/currencies"), params)
+	return chargebee.Send("POST", fmt.Sprintf("/currencies"), params).SetIdempotency(true)
 }
 func Update(id string, params *currency.UpdateRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/currencies/%v", url.PathEscape(id)), params)
+	return chargebee.Send("POST", fmt.Sprintf("/currencies/%v", url.PathEscape(id)), params).SetIdempotency(true)
 }
 func AddSchedule(id string, params *currency.AddScheduleRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/currencies/%v/add_schedule", url.PathEscape(id)), params)
+	return chargebee.Send("POST", fmt.Sprintf("/currencies/%v/add_schedule", url.PathEscape(id)), params).SetIdempotency(true)
 }
 func RemoveSchedule(id string) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/currencies/%v/remove_schedule", url.PathEscape(id)), nil)
+	return chargebee.Send("POST", fmt.Sprintf("/currencies/%v/remove_schedule", url.PathEscape(id)), nil).SetIdempotency(true)
 }

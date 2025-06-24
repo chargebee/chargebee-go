@@ -7,11 +7,20 @@ import (
 	"time"
 )
 
+type RetryConfig struct {
+	Enabled       bool
+	MaxRetries    int
+	DelayMs       int
+	RetryOn map[int]struct{}
+}
+
 type Environment struct {
 	Key             string
 	SiteName        string
 	ChargebeeDomain string
 	Protocol        string
+	RetryConfig     *RetryConfig
+	EnableDebugLogs bool
 }
 
 var (
@@ -39,6 +48,14 @@ func WithHTTPClient(c *http.Client) {
 	}
 	httpClient = c
 }
+func WithRetryConfig(c *RetryConfig) {
+	DefaultEnv.RetryConfig = c
+}
+
+func WithEnableDebugLogs(enabled bool) {
+	DefaultEnv.EnableDebugLogs = enabled
+}
+
 func (env *Environment) apiBaseUrl(subDomain string) string {
 	if env.Protocol == "" {
 		env.Protocol = "https"

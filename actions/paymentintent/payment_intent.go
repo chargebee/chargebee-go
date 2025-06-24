@@ -8,10 +8,10 @@ import (
 )
 
 func Create(params *paymentintent.CreateRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/payment_intents"), params)
+	return chargebee.Send("POST", fmt.Sprintf("/payment_intents"), params).SetIdempotency(true)
 }
 func Update(id string, params *paymentintent.UpdateRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/payment_intents/%v", url.PathEscape(id)), params)
+	return chargebee.Send("POST", fmt.Sprintf("/payment_intents/%v", url.PathEscape(id)), params).SetIdempotency(true)
 }
 func Retrieve(id string) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/payment_intents/%v", url.PathEscape(id)), nil)

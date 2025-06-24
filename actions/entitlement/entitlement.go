@@ -10,5 +10,5 @@ func List(params *entitlement.ListRequestParams) chargebee.RequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/entitlements"), params)
 }
 func Create(params *entitlement.CreateRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/entitlements"), params)
+	return chargebee.Send("POST", fmt.Sprintf("/entitlements"), params).SetIdempotency(true)
 }

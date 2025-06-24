@@ -8,10 +8,10 @@ import (
 )
 
 func CreateUsingPermanentToken(params *virtualbankaccount.CreateUsingPermanentTokenRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/virtual_bank_accounts/create_using_permanent_token"), params)
+	return chargebee.Send("POST", fmt.Sprintf("/virtual_bank_accounts/create_using_permanent_token"), params).SetIdempotency(true)
 }
 func Create(params *virtualbankaccount.CreateRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/virtual_bank_accounts"), params)
+	return chargebee.Send("POST", fmt.Sprintf("/virtual_bank_accounts"), params).SetIdempotency(true)
 }
 func Retrieve(id string) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/virtual_bank_accounts/%v", url.PathEscape(id)), nil)
@@ -20,8 +20,8 @@ func List(params *virtualbankaccount.ListRequestParams) chargebee.RequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/virtual_bank_accounts"), params)
 }
 func Delete(id string) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/virtual_bank_accounts/%v/delete", url.PathEscape(id)), nil)
+	return chargebee.Send("POST", fmt.Sprintf("/virtual_bank_accounts/%v/delete", url.PathEscape(id)), nil).SetIdempotency(true)
 }
 func DeleteLocal(id string) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/virtual_bank_accounts/%v/delete_local", url.PathEscape(id)), nil)
+	return chargebee.Send("POST", fmt.Sprintf("/virtual_bank_accounts/%v/delete_local", url.PathEscape(id)), nil).SetIdempotency(true)
 }

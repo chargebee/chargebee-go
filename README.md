@@ -317,6 +317,72 @@ if err != nil {
 }
 ```
 
+ ### Retry Handling
+
+Chargebee's SDK includes built-in retry logic to handle temporary network issues and server-side errors. This feature is **disabled by default** but can be **enabled when needed**.
+
+#### Key features include:
+
+- **Automatic retries for specific HTTP status codes**: Retries are automatically triggered for status codes `500`, `502`, `503`, and `504`.
+- **Exponential backoff**: Retry delays increase exponentially to prevent overwhelming the server.
+- **Rate limit management**: If a `429 Too Many Requests` response is received with a `Retry-After` header, the SDK waits for the specified duration before retrying.
+  > *Note: Exponential backoff and max retries do not apply in this case.*
+- **Customizable retry behavior**: Retry logic can be configured using the `retryConfig` parameter in the environment configuration.
+
+#### Example: Customizing Retry Logic
+
+You can enable and configure the retry logic by passing a `retryConfig` object when initializing the Chargebee environment:
+
+```go
+import (
+"fmt"
+"github.com/chargebee/chargebee-go/v3"
+customerAction "github.com/chargebee/chargebee-go/v3/actions/customer"
+"github.com/chargebee/chargebee-go/v3/models/customer"
+)
+
+func main() {
+    chargebee.Configure("{site_api_key}", "{site}")
+    retryConfig := &chargebee.RetryConfig{
+        Enabled:       true,
+        MaxRetries:    3,
+		DelayMs:   500,
+        RetryOn: map[int]struct{}{500: {}, 503: {}},
+    }
+    chargebee.WithRetryConfig(retryConfig)
+}
+
+// ... your Chargebee API operations below ...
+
+```
+
+#### Example: Rate Limit retry logic
+
+You can enable and configure the retry logic for rate-limit by passing a `retryConfig` object when initializing the Chargebee environment:
+
+```go
+import (
+"fmt"
+"github.com/chargebee/chargebee-go/v3"
+customerAction "github.com/chargebee/chargebee-go/v3/actions/customer"
+"github.com/chargebee/chargebee-go/v3/models/customer"
+)
+
+func main() {
+    chargebee.Configure("{site_api_key}", "{site}")
+    retryConfig := &chargebee.RetryConfig{
+        Enabled:       true,
+        MaxRetries:    3,
+        DelayMs:   500,
+        RetryOn: map[int]struct{}{429: {}},
+    }
+    chargebee.WithRetryConfig(retryConfig)
+}
+
+// ... your Chargebee API operations below ...
+
+```
+
 ## Contribution
 ***
 You may contribute patches to any of the **Active** versions of this library. To do so, raise a PR against the [respective branch](#library-versions).

@@ -26,7 +26,7 @@ func (request RequestObj) RequestWithEnv(env Environment) (*Result, error) {
 	if request.Context != nil {
 		req = req.WithContext(request.Context)
 	}
-	res, requestError := Do(req)
+	res, requestError := Do(req, request.idempotent)
 	result := &Result{}
 	if requestError != nil {
 		return result, requestError

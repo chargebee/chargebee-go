@@ -13,7 +13,7 @@ func (request RequestObj) ListRequestWithEnv(env Environment) (*ResultList, erro
 	if request.Context != nil {
 		req = req.WithContext(request.Context)
 	}
-	res, requestError := Do(req)
+	res, requestError := Do(req, request.isJsonRequest)
 	result := &ResultList{}
 
 	if requestError != nil {

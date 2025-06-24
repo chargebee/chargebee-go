@@ -7,8 +7,8 @@ import (
 )
 
 func CreateForNewSubscription(params *pricingpagesession.CreateForNewSubscriptionRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/pricing_page_sessions/create_for_new_subscription"), params)
+	return chargebee.Send("POST", fmt.Sprintf("/pricing_page_sessions/create_for_new_subscription"), params).SetIdempotency(true)
 }
 func CreateForExistingSubscription(params *pricingpagesession.CreateForExistingSubscriptionRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/pricing_page_sessions/create_for_existing_subscription"), params)
+	return chargebee.Send("POST", fmt.Sprintf("/pricing_page_sessions/create_for_existing_subscription"), params).SetIdempotency(true)
 }

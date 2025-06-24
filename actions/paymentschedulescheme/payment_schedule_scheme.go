@@ -8,11 +8,11 @@ import (
 )
 
 func Create(params *paymentschedulescheme.CreateRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/payment_schedule_schemes"), params)
+	return chargebee.Send("POST", fmt.Sprintf("/payment_schedule_schemes"), params).SetIdempotency(true)
 }
 func Retrieve(id string) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/payment_schedule_schemes/%v", url.PathEscape(id)), nil)
 }
 func Delete(id string) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/payment_schedule_schemes/%v/delete", url.PathEscape(id)), nil)
+	return chargebee.Send("POST", fmt.Sprintf("/payment_schedule_schemes/%v/delete", url.PathEscape(id)), nil).SetIdempotency(true)
 }

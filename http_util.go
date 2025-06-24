@@ -5,10 +5,12 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"github.com/google/uuid"
 	"io"
 	"net/http"
 	"net/url"
 	"runtime"
+	"strconv"
 	"strings"
 )
 
@@ -22,6 +24,7 @@ type RequestObj struct {
 	subDomain     string
 	isJsonRequest bool
 	JsonBody      string
+	idempotent    bool
 }
 
 func basicAuth(key string) string {
@@ -110,6 +113,11 @@ func (request RequestObj) SetSubDomain(subDomain string) RequestObj {
 	return request
 }
 
+func (request RequestObj) SetIdempotency(idempotent bool) RequestObj {
+	request.idempotent = idempotent
+	return request
+}
+
 // Context used for request. It may carry deadlines, cancelation signals,
 // and other request-scoped values across API boundaries and between
 // processes.
@@ -148,6 +156,15 @@ func addCustomHeaders(httpReq *http.Request, headers map[string]string) {
 	for k, v := range headers {
 		httpReq.Header.Add(k, v)
 	}
+}
+func ensureIdempotencyKey(req *http.Request, isIdempotent bool) {
+	if isIdempotent && req.Header.Get("X-CB-Idempotency-Key") == "" {
+		req.Header.Set("X-CB-Idempotency-Key", uuid.NewString())
+	}
+}
+
+func ensureRetryCountHeader(req *http.Request, attempt int) {
+	req.Header.Set("X-CB-Retry-Attempt", strconv.Itoa(attempt))
 }
 
 // UnmarshalJSON is used to unmarshal the response to Result / ResultList struct.

@@ -8,19 +8,19 @@ import (
 )
 
 func CreateAuthorization(params *transaction.CreateAuthorizationRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/transactions/create_authorization"), params)
+	return chargebee.Send("POST", fmt.Sprintf("/transactions/create_authorization"), params).SetIdempotency(true)
 }
 func VoidTransaction(id string) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/transactions/%v/void", url.PathEscape(id)), nil)
+	return chargebee.Send("POST", fmt.Sprintf("/transactions/%v/void", url.PathEscape(id)), nil).SetIdempotency(true)
 }
 func RecordRefund(id string, params *transaction.RecordRefundRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/transactions/%v/record_refund", url.PathEscape(id)), params)
+	return chargebee.Send("POST", fmt.Sprintf("/transactions/%v/record_refund", url.PathEscape(id)), params).SetIdempotency(true)
 }
 func Reconcile(id string, params *transaction.ReconcileRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/transactions/%v/reconcile", url.PathEscape(id)), params)
+	return chargebee.Send("POST", fmt.Sprintf("/transactions/%v/reconcile", url.PathEscape(id)), params).SetIdempotency(true)
 }
 func Refund(id string, params *transaction.RefundRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/transactions/%v/refund", url.PathEscape(id)), params)
+	return chargebee.Send("POST", fmt.Sprintf("/transactions/%v/refund", url.PathEscape(id)), params).SetIdempotency(true)
 }
 func List(params *transaction.ListRequestParams) chargebee.RequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/transactions"), params)
@@ -38,5 +38,5 @@ func Retrieve(id string) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/transactions/%v", url.PathEscape(id)), nil)
 }
 func DeleteOfflineTransaction(id string, params *transaction.DeleteOfflineTransactionRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/transactions/%v/delete_offline_transaction", url.PathEscape(id)), params)
+	return chargebee.Send("POST", fmt.Sprintf("/transactions/%v/delete_offline_transaction", url.PathEscape(id)), params).SetIdempotency(true)
 }

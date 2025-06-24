@@ -8,7 +8,7 @@ import (
 )
 
 func Create(params *recordedpurchase.CreateRequestParams) chargebee.RequestObj {
-	return chargebee.Send("POST", fmt.Sprintf("/recorded_purchases"), params)
+	return chargebee.Send("POST", fmt.Sprintf("/recorded_purchases"), params).SetIdempotency(true)
 }
 func Retrieve(id string) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/recorded_purchases/%v", url.PathEscape(id)), nil)
