@@ -2,9 +2,8 @@ package rule
 
 import (
 	"fmt"
-	"net/url"
-
 	"github.com/chargebee/chargebee-go/v3"
+	"net/url"
 )
 
 func Retrieve(id string) chargebee.RequestObj {

@@ -44,10 +44,10 @@ func TestDo_RetryOn503(t *testing.T) {
 	req, _ := http.NewRequest("GET", server.URL, nil)
 	ctx := context.WithValue(req.Context(), "cb_env", chargebee.Environment{
 		RetryConfig: &chargebee.RetryConfig{
-			Enabled:       true,
-			MaxRetries:    2,
-			DelayMs:       10,
-			RetryOn: map[int]struct{}{503: {}},
+			Enabled:    true,
+			MaxRetries: 2,
+			DelayMs:    10,
+			RetryOn:    map[int]struct{}{503: {}},
 		},
 	})
 	req = req.WithContext(ctx)
@@ -83,10 +83,10 @@ func TestDo_RetryAfterHeader(t *testing.T) {
 	req, _ := http.NewRequest("GET", server.URL, nil)
 	ctx := context.WithValue(req.Context(), "cb_env", chargebee.Environment{
 		RetryConfig: &chargebee.RetryConfig{
-			Enabled:       true,
-			MaxRetries:    2,
-			DelayMs:       10,
-			RetryOn: map[int]struct{}{503: {}},
+			Enabled:    true,
+			MaxRetries: 2,
+			DelayMs:    10,
+			RetryOn:    map[int]struct{}{503: {}},
 		},
 	})
 	req = req.WithContext(ctx)
@@ -118,10 +118,10 @@ func TestDo_RetryDisabled(t *testing.T) {
 	req, _ := http.NewRequest("GET", server.URL, nil)
 	ctx := context.WithValue(req.Context(), "cb_env", chargebee.Environment{
 		RetryConfig: &chargebee.RetryConfig{
-			Enabled:       false,
-			MaxRetries:    5,
-			DelayMs:       10,
-			RetryOn: map[int]struct{}{503: {}},
+			Enabled:    false,
+			MaxRetries: 5,
+			DelayMs:    10,
+			RetryOn:    map[int]struct{}{503: {}},
 		},
 	})
 	req = req.WithContext(ctx)

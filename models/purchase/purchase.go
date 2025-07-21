@@ -16,18 +16,19 @@ type Purchase struct {
 	Object          string   `json:"object"`
 }
 type CreateRequestParams struct {
-	PurchaseItems       []*CreatePurchaseItemParams      `json:"purchase_items,omitempty"`
-	ItemTiers           []*CreateItemTierParams          `json:"item_tiers,omitempty"`
-	ShippingAddresses   []*CreateShippingAddressParams   `json:"shipping_addresses,omitempty"`
-	Discounts           []*CreateDiscountParams          `json:"discounts,omitempty"`
-	SubscriptionInfo    []*CreateSubscriptionInfoParams  `json:"subscription_info,omitempty"`
-	ContractTerms       []*CreateContractTermParams      `json:"contract_terms,omitempty"`
-	InvoiceInfo         *CreateInvoiceInfoParams         `json:"invoice_info,omitempty"`
-	PaymentSchedule     *CreatePaymentScheduleParams     `json:"payment_schedule,omitempty"`
-	StatementDescriptor *CreateStatementDescriptorParams `json:"statement_descriptor,omitempty"`
-	CustomerId          string                           `json:"customer_id"`
-	PaymentSourceId     string                           `json:"payment_source_id,omitempty"`
-	PaymentIntent       *CreatePaymentIntentParams       `json:"payment_intent,omitempty"`
+	PurchaseItems               []*CreatePurchaseItemParams      `json:"purchase_items,omitempty"`
+	ItemTiers                   []*CreateItemTierParams          `json:"item_tiers,omitempty"`
+	ShippingAddresses           []*CreateShippingAddressParams   `json:"shipping_addresses,omitempty"`
+	Discounts                   []*CreateDiscountParams          `json:"discounts,omitempty"`
+	SubscriptionInfo            []*CreateSubscriptionInfoParams  `json:"subscription_info,omitempty"`
+	ContractTerms               []*CreateContractTermParams      `json:"contract_terms,omitempty"`
+	InvoiceInfo                 *CreateInvoiceInfoParams         `json:"invoice_info,omitempty"`
+	PaymentSchedule             *CreatePaymentScheduleParams     `json:"payment_schedule,omitempty"`
+	StatementDescriptor         *CreateStatementDescriptorParams `json:"statement_descriptor,omitempty"`
+	CustomerId                  string                           `json:"customer_id"`
+	PaymentSourceId             string                           `json:"payment_source_id,omitempty"`
+	PaymentIntent               *CreatePaymentIntentParams       `json:"payment_intent,omitempty"`
+	ReplacePrimaryPaymentSource *bool                            `json:"replace_primary_payment_source,omitempty"`
 }
 type CreatePurchaseItemParams struct {
 	Index               *int32 `json:"index"`

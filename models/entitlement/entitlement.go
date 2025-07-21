@@ -27,11 +27,13 @@ type ListRequestParams struct {
 }
 type CreateRequestParams struct {
 	Action       enum.Action                `json:"action"`
+	ChangeReason string                     `json:"change_reason,omitempty"`
 	Entitlements []*CreateEntitlementParams `json:"entitlements,omitempty"`
 }
 type CreateEntitlementParams struct {
-	EntityId   string                     `json:"entity_id"`
-	FeatureId  string                     `json:"feature_id"`
-	EntityType entitlementEnum.EntityType `json:"entity_type,omitempty"`
-	Value      string                     `json:"value,omitempty"`
+	EntityId            string                     `json:"entity_id"`
+	FeatureId           string                     `json:"feature_id"`
+	EntityType          entitlementEnum.EntityType `json:"entity_type,omitempty"`
+	Value               string                     `json:"value,omitempty"`
+	ApplyGrandfathering *bool                      `json:"apply_grandfathering,omitempty"`
 }

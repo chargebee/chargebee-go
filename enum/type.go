@@ -27,4 +27,5 @@ const (
 	TypeAutomatedBankTransfer Type = "automated_bank_transfer"
 	TypeKlarnaPayNow          Type = "klarna_pay_now"
 	TypeOnlineBankingPoland   Type = "online_banking_poland"
+	TypePayconiqByBancontact  Type = "payconiq_by_bancontact"
 )

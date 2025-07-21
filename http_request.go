@@ -33,7 +33,7 @@ func Do(req *http.Request, isIdempotent bool) (*CBResponse, error) {
 	retryEnabled := false
 	maxRetries := 3
 	delayMs := 500
-	retryOn := map[int]struct{}{ 500: {}, 502: {}, 503: {}, 504: {}}
+	retryOn := map[int]struct{}{500: {}, 502: {}, 503: {}, 504: {}}
 	enableDebug := env.EnableDebugLogs
 
 	if cfg := env.RetryConfig; cfg != nil {

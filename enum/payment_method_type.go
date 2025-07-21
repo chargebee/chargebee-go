@@ -27,4 +27,5 @@ const (
 	PaymentMethodTypeAutomatedBankTransfer PaymentMethodType = "automated_bank_transfer"
 	PaymentMethodTypeKlarnaPayNow          PaymentMethodType = "klarna_pay_now"
 	PaymentMethodTypeOnlineBankingPoland   PaymentMethodType = "online_banking_poland"
+	PaymentMethodTypePayconiqByBancontact  PaymentMethodType = "payconiq_by_bancontact"
 )
