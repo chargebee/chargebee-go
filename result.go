@@ -6,6 +6,8 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/advanceinvoiceschedule"
 	"github.com/chargebee/chargebee-go/v3/models/attacheditem"
 	"github.com/chargebee/chargebee-go/v3/models/attribute"
+	"github.com/chargebee/chargebee-go/v3/models/billingconfiguration"
+	"github.com/chargebee/chargebee-go/v3/models/brand"
 	"github.com/chargebee/chargebee-go/v3/models/businessentity"
 	"github.com/chargebee/chargebee-go/v3/models/businessentitytransfer"
 	"github.com/chargebee/chargebee-go/v3/models/card"
@@ -122,6 +124,7 @@ type Result struct {
 	QuotedSubscription                         *quotedsubscription.QuotedSubscription                                                 `json:"quoted_subscription,omitempty"`
 	QuotedCharge                               *quotedcharge.QuotedCharge                                                             `json:"quoted_charge,omitempty"`
 	QuotedRamp                                 *quotedramp.QuotedRamp                                                                 `json:"quoted_ramp,omitempty"`
+	BillingConfiguration                       *billingconfiguration.BillingConfiguration                                             `json:"billing_configuration,omitempty"`
 	QuoteLineGroup                             *quotelinegroup.QuoteLineGroup                                                         `json:"quote_line_group,omitempty"`
 	Plan                                       *plan.Plan                                                                             `json:"plan,omitempty"`
 	Addon                                      *addon.Addon                                                                           `json:"addon,omitempty"`
@@ -174,6 +177,7 @@ type Result struct {
 	UsageEvent                                 *usageevent.UsageEvent                                                                 `json:"usage_event,omitempty"`
 	OmnichannelSubscriptionItemScheduledChange *omnichannelsubscriptionitemscheduledchange.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
 	UsageFile                                  *usagefile.UsageFile                                                                   `json:"usage_file,omitempty"`
+	Brand                                      *brand.Brand                                                                           `json:"brand,omitempty"`
 	AdvanceInvoiceSchedules                    []*advanceinvoiceschedule.AdvanceInvoiceSchedule                                       `json:"advance_invoice_schedules,omitempty"`
 	Hierarchies                                []*hierarchy.Hierarchy                                                                 `json:"hierarchies,omitempty"`
 	Invoices                                   []*invoice.Invoice                                                                     `json:"invoices,omitempty"`

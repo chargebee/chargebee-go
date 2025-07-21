@@ -2,7 +2,6 @@ package configuration
 
 import (
 	"fmt"
-
 	"github.com/chargebee/chargebee-go/v3"
 )
 

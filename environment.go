@@ -8,10 +8,10 @@ import (
 )
 
 type RetryConfig struct {
-	Enabled       bool
-	MaxRetries    int
-	DelayMs       int
-	RetryOn map[int]struct{}
+	Enabled    bool
+	MaxRetries int
+	DelayMs    int
+	RetryOn    map[int]struct{}
 }
 
 type Environment struct {

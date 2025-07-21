@@ -9,5 +9,6 @@ const (
 	PoweredByGiropay        PoweredBy = "giropay"
 	PoweredByCard           PoweredBy = "card"
 	PoweredByLatamLocalCard PoweredBy = "latam_local_card"
+	PoweredByPayconiq       PoweredBy = "payconiq"
 	PoweredByNotApplicable  PoweredBy = "not_applicable"
 )

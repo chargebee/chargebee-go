@@ -79,6 +79,9 @@ func DeleteRelationship(id string) chargebee.RequestObj {
 func Hierarchy(id string, params *customer.HierarchyRequestParams) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/customers/%v/hierarchy", url.PathEscape(id)), params)
 }
+func ListHierarchyDetail(id string, params *customer.ListHierarchyDetailRequestParams) chargebee.RequestObj {
+	return chargebee.SendList("GET", fmt.Sprintf("/customers/%v/hierarchy_detail", url.PathEscape(id)), params)
+}
 func UpdateHierarchySettings(id string, params *customer.UpdateHierarchySettingsRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/customers/%v/update_hierarchy_settings", url.PathEscape(id)), params).SetIdempotency(true)
 }

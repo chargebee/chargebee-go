@@ -2,7 +2,6 @@ package subscription
 
 import (
 	"encoding/json"
-
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
 	cardEnum "github.com/chargebee/chargebee-go/v3/models/card/enum"
@@ -713,7 +712,13 @@ type ListDiscountsRequestParams struct {
 	Offset string `json:"offset,omitempty"`
 }
 type RemoveScheduledCancellationRequestParams struct {
-	BillingCycles *int32 `json:"billing_cycles,omitempty"`
+	BillingCycles                     *int32                                         `json:"billing_cycles,omitempty"`
+	ContractTerm                      *RemoveScheduledCancellationContractTermParams `json:"contract_term,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                         `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+}
+type RemoveScheduledCancellationContractTermParams struct {
+	ActionAtTermEnd          subscriptionEnum.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                                       `json:"cancellation_cutoff_period,omitempty"`
 }
 type RemoveCouponsRequestParams struct {
 	CouponIds []string `json:"coupon_ids,omitempty"`

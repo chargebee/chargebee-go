@@ -578,6 +578,11 @@ type RelationshipsChildAccountAccessParams struct {
 type HierarchyRequestParams struct {
 	HierarchyOperationType enum.HierarchyOperationType `json:"hierarchy_operation_type"`
 }
+type ListHierarchyDetailRequestParams struct {
+	Limit                  *int32                      `json:"limit,omitempty"`
+	Offset                 string                      `json:"offset,omitempty"`
+	HierarchyOperationType enum.HierarchyOperationType `json:"hierarchy_operation_type"`
+}
 type UpdateHierarchySettingsRequestParams struct {
 	UseDefaultHierarchySettings *bool                                             `json:"use_default_hierarchy_settings,omitempty"`
 	ParentAccountAccess         *UpdateHierarchySettingsParentAccountAccessParams `json:"parent_account_access,omitempty"`

@@ -26,10 +26,11 @@ type ErrorDetail struct {
 	Object       string `json:"object"`
 }
 type CreateRequestParams struct {
-	AppId           string                       `json:"app_id"`
-	Customer        *CreateCustomerParams        `json:"customer,omitempty"`
-	AppleAppStore   *CreateAppleAppStoreParams   `json:"apple_app_store,omitempty"`
-	GooglePlayStore *CreateGooglePlayStoreParams `json:"google_play_store,omitempty"`
+	AppId                   string                               `json:"app_id"`
+	Customer                *CreateCustomerParams                `json:"customer,omitempty"`
+	AppleAppStore           *CreateAppleAppStoreParams           `json:"apple_app_store,omitempty"`
+	GooglePlayStore         *CreateGooglePlayStoreParams         `json:"google_play_store,omitempty"`
+	OmnichannelSubscription *CreateOmnichannelSubscriptionParams `json:"omnichannel_subscription,omitempty"`
 }
 type CreateCustomerParams struct {
 	Id string `json:"id"`
@@ -41,4 +42,7 @@ type CreateAppleAppStoreParams struct {
 }
 type CreateGooglePlayStoreParams struct {
 	PurchaseToken string `json:"purchase_token,omitempty"`
+}
+type CreateOmnichannelSubscriptionParams struct {
+	Id string `json:"id,omitempty"`
 }

@@ -53,6 +53,7 @@ const (
 	GatewayEbanx                 Gateway = "ebanx"
 	GatewayDlocal                Gateway = "dlocal"
 	GatewayNuvei                 Gateway = "nuvei"
+	GatewaySolidgate             Gateway = "solidgate"
 	GatewayPaystack              Gateway = "paystack"
 	GatewayJpMorgan              Gateway = "jp_morgan"
 	GatewayGocardless            Gateway = "gocardless"
