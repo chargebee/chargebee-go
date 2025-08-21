@@ -7,19 +7,20 @@ import (
 )
 
 type PromotionalCredit struct {
-	Id              string                     `json:"id"`
-	CustomerId      string                     `json:"customer_id"`
-	Type            promotionalCreditEnum.Type `json:"type"`
-	AmountInDecimal string                     `json:"amount_in_decimal"`
-	Amount          int64                      `json:"amount"`
-	CurrencyCode    string                     `json:"currency_code"`
-	Description     string                     `json:"description"`
-	CreditType      enum.CreditType            `json:"credit_type"`
-	Reference       string                     `json:"reference"`
-	ClosingBalance  int64                      `json:"closing_balance"`
-	DoneBy          string                     `json:"done_by"`
-	CreatedAt       int64                      `json:"created_at"`
-	Object          string                     `json:"object"`
+	Id               string                     `json:"id"`
+	CustomerId       string                     `json:"customer_id"`
+	Type             promotionalCreditEnum.Type `json:"type"`
+	AmountInDecimal  string                     `json:"amount_in_decimal"`
+	Amount           int64                      `json:"amount"`
+	CurrencyCode     string                     `json:"currency_code"`
+	Description      string                     `json:"description"`
+	CreditType       enum.CreditType            `json:"credit_type"`
+	Reference        string                     `json:"reference"`
+	ClosingBalance   int64                      `json:"closing_balance"`
+	DoneBy           string                     `json:"done_by"`
+	CreatedAt        int64                      `json:"created_at"`
+	BusinessEntityId string                     `json:"business_entity_id"`
+	Object           string                     `json:"object"`
 }
 type AddRequestParams struct {
 	CustomerId      string          `json:"customer_id"`

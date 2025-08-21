@@ -478,6 +478,7 @@ type RecordExcessPaymentRequestParams struct {
 	Comment     string                                `json:"comment,omitempty"`
 }
 type RecordExcessPaymentTransactionParams struct {
+	Id                    string             `json:"id,omitempty"`
 	Amount                *int64             `json:"amount"`
 	CurrencyCode          string             `json:"currency_code,omitempty"`
 	Date                  *int64             `json:"date"`

@@ -210,6 +210,7 @@ type Discount struct {
 	Type          subscriptionEnum.DiscountType `json:"type"`
 	Percentage    float64                       `json:"percentage"`
 	Amount        int64                         `json:"amount"`
+	Quantity      int32                         `json:"quantity"`
 	CurrencyCode  string                        `json:"currency_code"`
 	DurationType  enum.DurationType             `json:"duration_type"`
 	Period        int32                         `json:"period"`
@@ -619,6 +620,7 @@ type CreateWithItemsDiscountParams struct {
 	PeriodUnit    enum.PeriodUnit   `json:"period_unit,omitempty"`
 	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`
 	ItemPriceId   string            `json:"item_price_id,omitempty"`
+	Quantity      *int32            `json:"quantity,omitempty"`
 }
 type CreateWithItemsItemTierParams struct {
 	ItemPriceId           string           `json:"item_price_id,omitempty"`
@@ -961,6 +963,7 @@ type UpdateForItemsDiscountParams struct {
 	PeriodUnit    enum.PeriodUnit    `json:"period_unit,omitempty"`
 	IncludedInMrr *bool              `json:"included_in_mrr,omitempty"`
 	ItemPriceId   string             `json:"item_price_id,omitempty"`
+	Quantity      *int32             `json:"quantity,omitempty"`
 	OperationType enum.OperationType `json:"operation_type"`
 	Id            string             `json:"id,omitempty"`
 }
@@ -1546,6 +1549,7 @@ type ImportForItemsDiscountParams struct {
 	PeriodUnit    enum.PeriodUnit   `json:"period_unit,omitempty"`
 	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`
 	ItemPriceId   string            `json:"item_price_id,omitempty"`
+	Quantity      *int32            `json:"quantity,omitempty"`
 }
 type ImportForItemsChargedItemParams struct {
 	ItemPriceId   string `json:"item_price_id,omitempty"`

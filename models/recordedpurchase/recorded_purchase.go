@@ -14,11 +14,16 @@ type RecordedPurchase struct {
 	CreatedAt                      int64                            `json:"created_at"`
 	ResourceVersion                int64                            `json:"resource_version"`
 	LinkedOmnichannelSubscriptions []*LinkedOmnichannelSubscription `json:"linked_omnichannel_subscriptions"`
+	LinkedOmnichannelOneTimeOrders []*LinkedOmnichannelOneTimeOrder `json:"linked_omnichannel_one_time_orders"`
 	ErrorDetail                    *ErrorDetail                     `json:"error_detail"`
 	Object                         string                           `json:"object"`
 }
 type LinkedOmnichannelSubscription struct {
 	OmnichannelSubscriptionId string `json:"omnichannel_subscription_id"`
+	Object                    string `json:"object"`
+}
+type LinkedOmnichannelOneTimeOrder struct {
+	OmnichannelOneTimeOrderId string `json:"omnichannel_one_time_order_id"`
 	Object                    string `json:"object"`
 }
 type ErrorDetail struct {
@@ -42,6 +47,8 @@ type CreateAppleAppStoreParams struct {
 }
 type CreateGooglePlayStoreParams struct {
 	PurchaseToken string `json:"purchase_token,omitempty"`
+	ProductId     string `json:"product_id,omitempty"`
+	OrderId       string `json:"order_id,omitempty"`
 }
 type CreateOmnichannelSubscriptionParams struct {
 	Id string `json:"id,omitempty"`

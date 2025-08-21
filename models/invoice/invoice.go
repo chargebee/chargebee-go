@@ -14,36 +14,37 @@ import (
 
 type Invoice struct {
 	Id                        string                    `json:"id"`
-	PoNumber                  string                    `json:"po_number"`
 	CustomerId                string                    `json:"customer_id"`
+	PaymentOwner              string                    `json:"payment_owner"`
 	SubscriptionId            string                    `json:"subscription_id"`
 	Recurring                 bool                      `json:"recurring"`
 	Status                    invoiceEnum.Status        `json:"status"`
-	VatNumber                 string                    `json:"vat_number"`
-	PriceType                 enum.PriceType            `json:"price_type"`
 	Date                      int64                     `json:"date"`
 	DueDate                   int64                     `json:"due_date"`
 	NetTermDays               int32                     `json:"net_term_days"`
+	PoNumber                  string                    `json:"po_number"`
+	VatNumber                 string                    `json:"vat_number"`
+	PriceType                 enum.PriceType            `json:"price_type"`
 	ExchangeRate              float64                   `json:"exchange_rate"`
+	LocalCurrencyExchangeRate float64                   `json:"local_currency_exchange_rate"`
 	CurrencyCode              string                    `json:"currency_code"`
+	LocalCurrencyCode         string                    `json:"local_currency_code"`
+	Tax                       int64                     `json:"tax"`
+	SubTotal                  int64                     `json:"sub_total"`
+	SubTotalInLocalCurrency   int64                     `json:"sub_total_in_local_currency"`
 	Total                     int64                     `json:"total"`
-	AmountPaid                int64                     `json:"amount_paid"`
+	TotalInLocalCurrency      int64                     `json:"total_in_local_currency"`
+	AmountDue                 int64                     `json:"amount_due"`
 	AmountAdjusted            int64                     `json:"amount_adjusted"`
+	AmountPaid                int64                     `json:"amount_paid"`
+	PaidAt                    int64                     `json:"paid_at"`
 	WriteOffAmount            int64                     `json:"write_off_amount"`
 	CreditsApplied            int64                     `json:"credits_applied"`
-	AmountDue                 int64                     `json:"amount_due"`
-	PaidAt                    int64                     `json:"paid_at"`
 	DunningStatus             invoiceEnum.DunningStatus `json:"dunning_status"`
 	NextRetryAt               int64                     `json:"next_retry_at"`
 	VoidedAt                  int64                     `json:"voided_at"`
 	ResourceVersion           int64                     `json:"resource_version"`
 	UpdatedAt                 int64                     `json:"updated_at"`
-	SubTotal                  int64                     `json:"sub_total"`
-	SubTotalInLocalCurrency   int64                     `json:"sub_total_in_local_currency"`
-	TotalInLocalCurrency      int64                     `json:"total_in_local_currency"`
-	LocalCurrencyCode         string                    `json:"local_currency_code"`
-	Tax                       int64                     `json:"tax"`
-	LocalCurrencyExchangeRate float64                   `json:"local_currency_exchange_rate"`
 	FirstInvoice              bool                      `json:"first_invoice"`
 	NewSalesAmount            int64                     `json:"new_sales_amount"`
 	HasAdvanceCharges         bool                      `json:"has_advance_charges"`
@@ -54,12 +55,14 @@ type Invoice struct {
 	AmountToCollect           int64                     `json:"amount_to_collect"`
 	RoundOffAmount            int64                     `json:"round_off_amount"`
 	LineItems                 []*LineItem               `json:"line_items"`
-	Discounts                 []*Discount               `json:"discounts"`
+	LineItemTiers             []*LineItemTier           `json:"line_item_tiers"`
 	LineItemDiscounts         []*LineItemDiscount       `json:"line_item_discounts"`
-	Taxes                     []*Tax                    `json:"taxes"`
 	LineItemTaxes             []*LineItemTax            `json:"line_item_taxes"`
 	LineItemCredits           []*LineItemCredit         `json:"line_item_credits"`
-	LineItemTiers             []*LineItemTier           `json:"line_item_tiers"`
+	LineItemAddresses         []*LineItemAddress        `json:"line_item_addresses"`
+	Discounts                 []*Discount               `json:"discounts"`
+	Taxes                     []*Tax                    `json:"taxes"`
+	TaxOrigin                 *TaxOrigin                `json:"tax_origin"`
 	LinkedPayments            []*LinkedPayment          `json:"linked_payments"`
 	DunningAttempts           []*DunningAttempt         `json:"dunning_attempts"`
 	AppliedCredits            []*AppliedCredit          `json:"applied_credits"`
@@ -68,10 +71,9 @@ type Invoice struct {
 	LinkedOrders              []*LinkedOrder            `json:"linked_orders"`
 	Notes                     []*Note                   `json:"notes"`
 	ShippingAddress           *ShippingAddress          `json:"shipping_address"`
-	StatementDescriptor       *StatementDescriptor      `json:"statement_descriptor"`
 	BillingAddress            *BillingAddress           `json:"billing_address"`
+	StatementDescriptor       *StatementDescriptor      `json:"statement_descriptor"`
 	Einvoice                  *Einvoice                 `json:"einvoice"`
-	PaymentOwner              string                    `json:"payment_owner"`
 	VoidReasonCode            string                    `json:"void_reason_code"`
 	Deleted                   bool                      `json:"deleted"`
 	TaxCategory               string                    `json:"tax_category"`
@@ -79,8 +81,6 @@ type Invoice struct {
 	Channel                   enum.Channel              `json:"channel"`
 	BusinessEntityId          string                    `json:"business_entity_id"`
 	SiteDetailsAtCreation     *SiteDetailsAtCreation    `json:"site_details_at_creation"`
-	TaxOrigin                 *TaxOrigin                `json:"tax_origin"`
-	LineItemAddresses         []*LineItemAddress        `json:"line_item_addresses"`
 	Object                    string                    `json:"object"`
 }
 type LineItem struct {
@@ -111,14 +111,19 @@ type LineItem struct {
 	CustomerId              string                         `json:"customer_id"`
 	Object                  string                         `json:"object"`
 }
-type Discount struct {
-	Amount        int64                            `json:"amount"`
-	Description   string                           `json:"description"`
-	EntityType    invoiceEnum.DiscountEntityType   `json:"entity_type"`
-	DiscountType  invoiceEnum.DiscountDiscountType `json:"discount_type"`
-	EntityId      string                           `json:"entity_id"`
-	CouponSetCode string                           `json:"coupon_set_code"`
-	Object        string                           `json:"object"`
+type LineItemTier struct {
+	LineItemId            string           `json:"line_item_id"`
+	StartingUnit          int32            `json:"starting_unit"`
+	EndingUnit            int32            `json:"ending_unit"`
+	QuantityUsed          int32            `json:"quantity_used"`
+	UnitAmount            int64            `json:"unit_amount"`
+	StartingUnitInDecimal string           `json:"starting_unit_in_decimal"`
+	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal"`
+	QuantityUsedInDecimal string           `json:"quantity_used_in_decimal"`
+	UnitAmountInDecimal   string           `json:"unit_amount_in_decimal"`
+	PricingType           enum.PricingType `json:"pricing_type"`
+	PackageSize           int32            `json:"package_size"`
+	Object                string           `json:"object"`
 }
 type LineItemDiscount struct {
 	LineItemId     string                                   `json:"line_item_id"`
@@ -127,12 +132,6 @@ type LineItemDiscount struct {
 	EntityId       string                                   `json:"entity_id"`
 	DiscountAmount int64                                    `json:"discount_amount"`
 	Object         string                                   `json:"object"`
-}
-type Tax struct {
-	Name        string `json:"name"`
-	Amount      int64  `json:"amount"`
-	Description string `json:"description"`
-	Object      string `json:"object"`
 }
 type LineItemTax struct {
 	LineItemId               string            `json:"line_item_id"`
@@ -158,19 +157,43 @@ type LineItemCredit struct {
 	LineItemId    string  `json:"line_item_id"`
 	Object        string  `json:"object"`
 }
-type LineItemTier struct {
-	LineItemId            string           `json:"line_item_id"`
-	StartingUnit          int32            `json:"starting_unit"`
-	EndingUnit            int32            `json:"ending_unit"`
-	QuantityUsed          int32            `json:"quantity_used"`
-	UnitAmount            int64            `json:"unit_amount"`
-	StartingUnitInDecimal string           `json:"starting_unit_in_decimal"`
-	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal"`
-	QuantityUsedInDecimal string           `json:"quantity_used_in_decimal"`
-	UnitAmountInDecimal   string           `json:"unit_amount_in_decimal"`
-	PricingType           enum.PricingType `json:"pricing_type"`
-	PackageSize           int32            `json:"package_size"`
-	Object                string           `json:"object"`
+type LineItemAddress struct {
+	LineItemId       string                `json:"line_item_id"`
+	FirstName        string                `json:"first_name"`
+	LastName         string                `json:"last_name"`
+	Email            string                `json:"email"`
+	Company          string                `json:"company"`
+	Phone            string                `json:"phone"`
+	Line1            string                `json:"line1"`
+	Line2            string                `json:"line2"`
+	Line3            string                `json:"line3"`
+	City             string                `json:"city"`
+	StateCode        string                `json:"state_code"`
+	State            string                `json:"state"`
+	Country          string                `json:"country"`
+	Zip              string                `json:"zip"`
+	ValidationStatus enum.ValidationStatus `json:"validation_status"`
+	Object           string                `json:"object"`
+}
+type Discount struct {
+	Amount        int64                            `json:"amount"`
+	Description   string                           `json:"description"`
+	EntityType    invoiceEnum.DiscountEntityType   `json:"entity_type"`
+	DiscountType  invoiceEnum.DiscountDiscountType `json:"discount_type"`
+	EntityId      string                           `json:"entity_id"`
+	CouponSetCode string                           `json:"coupon_set_code"`
+	Object        string                           `json:"object"`
+}
+type Tax struct {
+	Name        string `json:"name"`
+	Amount      int64  `json:"amount"`
+	Description string `json:"description"`
+	Object      string `json:"object"`
+}
+type TaxOrigin struct {
+	Country            string `json:"country"`
+	RegistrationNumber string `json:"registration_number"`
+	Object             string `json:"object"`
 }
 type LinkedPayment struct {
 	TxnId         string                 `json:"txn_id"`
@@ -254,11 +277,6 @@ type ShippingAddress struct {
 	Index            int32                 `json:"index"`
 	Object           string                `json:"object"`
 }
-type StatementDescriptor struct {
-	Id         string `json:"id"`
-	Descriptor string `json:"descriptor"`
-	Object     string `json:"object"`
-}
 type BillingAddress struct {
 	FirstName        string                `json:"first_name"`
 	LastName         string                `json:"last_name"`
@@ -276,6 +294,11 @@ type BillingAddress struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status"`
 	Object           string                `json:"object"`
 }
+type StatementDescriptor struct {
+	Id         string `json:"id"`
+	Descriptor string `json:"descriptor"`
+	Object     string `json:"object"`
+}
 type Einvoice struct {
 	Id              string                     `json:"id"`
 	ReferenceNumber string                     `json:"reference_number"`
@@ -287,29 +310,6 @@ type SiteDetailsAtCreation struct {
 	Timezone            string          `json:"timezone"`
 	OrganizationAddress json.RawMessage `json:"organization_address"`
 	Object              string          `json:"object"`
-}
-type TaxOrigin struct {
-	Country            string `json:"country"`
-	RegistrationNumber string `json:"registration_number"`
-	Object             string `json:"object"`
-}
-type LineItemAddress struct {
-	LineItemId       string                `json:"line_item_id"`
-	FirstName        string                `json:"first_name"`
-	LastName         string                `json:"last_name"`
-	Email            string                `json:"email"`
-	Company          string                `json:"company"`
-	Phone            string                `json:"phone"`
-	Line1            string                `json:"line1"`
-	Line2            string                `json:"line2"`
-	Line3            string                `json:"line3"`
-	City             string                `json:"city"`
-	StateCode        string                `json:"state_code"`
-	State            string                `json:"state"`
-	Country          string                `json:"country"`
-	Zip              string                `json:"zip"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status"`
-	Object           string                `json:"object"`
 }
 type CreateRequestParams struct {
 	CustomerId                  string                           `json:"customer_id,omitempty"`
@@ -526,6 +526,7 @@ type CreateForChargeItemsAndChargesTaxProvidersFieldParams struct {
 type CreateForChargeItemsAndChargesDiscountParams struct {
 	Percentage  *float64     `json:"percentage,omitempty"`
 	Amount      *int64       `json:"amount,omitempty"`
+	Quantity    *int32       `json:"quantity,omitempty"`
 	ApplyOn     enum.ApplyOn `json:"apply_on"`
 	ItemPriceId string       `json:"item_price_id,omitempty"`
 }
@@ -798,6 +799,7 @@ type ImportInvoiceCreditNoteParams struct {
 	Id string `json:"id,omitempty"`
 }
 type ImportInvoicePaymentParams struct {
+	Id              string             `json:"id,omitempty"`
 	Amount          *int64             `json:"amount"`
 	PaymentMethod   enum.PaymentMethod `json:"payment_method"`
 	Date            *int64             `json:"date,omitempty"`

@@ -66,15 +66,17 @@ type Discount struct {
 	Object        string                            `json:"object"`
 }
 type ItemTier struct {
-	ItemPriceId           string `json:"item_price_id"`
-	StartingUnit          int32  `json:"starting_unit"`
-	EndingUnit            int32  `json:"ending_unit"`
-	Price                 int64  `json:"price"`
-	StartingUnitInDecimal string `json:"starting_unit_in_decimal"`
-	EndingUnitInDecimal   string `json:"ending_unit_in_decimal"`
-	PriceInDecimal        string `json:"price_in_decimal"`
-	RampTierId            string `json:"ramp_tier_id"`
-	Object                string `json:"object"`
+	ItemPriceId           string           `json:"item_price_id"`
+	StartingUnit          int32            `json:"starting_unit"`
+	EndingUnit            int32            `json:"ending_unit"`
+	Price                 int64            `json:"price"`
+	StartingUnitInDecimal string           `json:"starting_unit_in_decimal"`
+	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal"`
+	PriceInDecimal        string           `json:"price_in_decimal"`
+	RampTierId            string           `json:"ramp_tier_id"`
+	PricingType           enum.PricingType `json:"pricing_type"`
+	PackageSize           int32            `json:"package_size"`
+	Object                string           `json:"object"`
 }
 type CouponApplicabilityMapping struct {
 	CouponId               string   `json:"coupon_id"`

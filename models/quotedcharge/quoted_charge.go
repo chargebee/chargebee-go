@@ -5,12 +5,13 @@ import (
 )
 
 type QuotedCharge struct {
-	Charges      []*Charge      `json:"charges"`
-	Addons       []*Addon       `json:"addons"`
-	InvoiceItems []*InvoiceItem `json:"invoice_items"`
-	ItemTiers    []*ItemTier    `json:"item_tiers"`
-	Coupons      []*Coupon      `json:"coupons"`
-	Object       string         `json:"object"`
+	Charges                     []*Charge                     `json:"charges"`
+	Addons                      []*Addon                      `json:"addons"`
+	InvoiceItems                []*InvoiceItem                `json:"invoice_items"`
+	ItemTiers                   []*ItemTier                   `json:"item_tiers"`
+	Coupons                     []*Coupon                     `json:"coupons"`
+	CouponApplicabilityMappings []*CouponApplicabilityMapping `json:"coupon_applicability_mappings"`
+	Object                      string                        `json:"object"`
 }
 type Charge struct {
 	Amount                 int64                `json:"amount"`
@@ -47,6 +48,11 @@ type ItemTier struct {
 type Coupon struct {
 	CouponId string `json:"coupon_id"`
 	Object   string `json:"object"`
+}
+type CouponApplicabilityMapping struct {
+	CouponId               string   `json:"coupon_id"`
+	ApplicableItemPriceIds []string `json:"applicable_item_price_ids"`
+	Object                 string   `json:"object"`
 }
 type Addon struct {
 	Id                 string             `json:"id"`

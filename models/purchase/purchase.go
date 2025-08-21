@@ -68,6 +68,7 @@ type CreateDiscountParams struct {
 	Index         *int32   `json:"index,omitempty"`
 	CouponId      string   `json:"coupon_id,omitempty"`
 	Percentage    *float64 `json:"percentage,omitempty"`
+	Quantity      *int32   `json:"quantity,omitempty"`
 	Amount        *int64   `json:"amount,omitempty"`
 	IncludedInMrr *bool    `json:"included_in_mrr,omitempty"`
 }
@@ -153,6 +154,7 @@ type EstimateDiscountParams struct {
 	Index         *int32   `json:"index,omitempty"`
 	CouponId      string   `json:"coupon_id,omitempty"`
 	Percentage    *float64 `json:"percentage,omitempty"`
+	Quantity      *int32   `json:"quantity,omitempty"`
 	Amount        *int64   `json:"amount,omitempty"`
 	IncludedInMrr *bool    `json:"included_in_mrr,omitempty"`
 }

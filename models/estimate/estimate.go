@@ -170,6 +170,7 @@ type CreateSubItemEstimateDiscountParams struct {
 	PeriodUnit    enum.PeriodUnit   `json:"period_unit,omitempty"`
 	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`
 	ItemPriceId   string            `json:"item_price_id,omitempty"`
+	Quantity      *int32            `json:"quantity,omitempty"`
 }
 type CreateSubItemEstimateItemTierParams struct {
 	ItemPriceId           string           `json:"item_price_id,omitempty"`
@@ -338,6 +339,7 @@ type CreateSubItemForCustomerEstimateDiscountParams struct {
 	PeriodUnit    enum.PeriodUnit   `json:"period_unit,omitempty"`
 	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`
 	ItemPriceId   string            `json:"item_price_id,omitempty"`
+	Quantity      *int32            `json:"quantity,omitempty"`
 }
 type CreateSubItemForCustomerEstimateItemTierParams struct {
 	ItemPriceId           string           `json:"item_price_id,omitempty"`
@@ -534,6 +536,7 @@ type UpdateSubscriptionForItemsDiscountParams struct {
 	PeriodUnit    enum.PeriodUnit    `json:"period_unit,omitempty"`
 	IncludedInMrr *bool              `json:"included_in_mrr,omitempty"`
 	ItemPriceId   string             `json:"item_price_id,omitempty"`
+	Quantity      *int32             `json:"quantity,omitempty"`
 	OperationType enum.OperationType `json:"operation_type"`
 	Id            string             `json:"id,omitempty"`
 }
@@ -928,6 +931,7 @@ type CreateInvoiceForItemsNotesToRemoveParams struct {
 type CreateInvoiceForItemsDiscountParams struct {
 	Percentage  *float64     `json:"percentage,omitempty"`
 	Amount      *int64       `json:"amount,omitempty"`
+	Quantity    *int32       `json:"quantity,omitempty"`
 	ApplyOn     enum.ApplyOn `json:"apply_on"`
 	ItemPriceId string       `json:"item_price_id,omitempty"`
 }

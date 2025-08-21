@@ -27,7 +27,7 @@ type UploadDetail struct {
 	ExpiresAt int64  `json:"expires_at"`
 	Object    string `json:"object"`
 }
-type UploadRequestParams struct {
+type UploadUrlRequestParams struct {
 	FileName string `json:"file_name"`
 	MimeType string `json:"mime_type"`
 }
