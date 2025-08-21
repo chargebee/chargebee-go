@@ -38,4 +38,7 @@ const (
 	EntityTypeRecordedPurchase                           EntityType = "recorded_purchase"
 	EntityTypeOmnichannelSubscriptionItemScheduledChange EntityType = "omnichannel_subscription_item_scheduled_change"
 	EntityTypeSalesOrder                                 EntityType = "sales_order"
+	EntityTypeOmnichannelOneTimeOrder                    EntityType = "omnichannel_one_time_order"
+	EntityTypeOmnichannelOneTimeOrderItem                EntityType = "omnichannel_one_time_order_item"
+	EntityTypeUsageFile                                  EntityType = "usage_file"
 )

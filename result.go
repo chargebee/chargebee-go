@@ -35,6 +35,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/gift"
 	"github.com/chargebee/chargebee-go/v3/models/hierarchy"
 	"github.com/chargebee/chargebee-go/v3/models/hostedpage"
+	"github.com/chargebee/chargebee-go/v3/models/impactedcustomer"
 	"github.com/chargebee/chargebee-go/v3/models/impacteditem"
 	"github.com/chargebee/chargebee-go/v3/models/impacteditemprice"
 	"github.com/chargebee/chargebee-go/v3/models/impactedsubscription"
@@ -45,6 +46,8 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/itemfamily"
 	"github.com/chargebee/chargebee-go/v3/models/itemprice"
 	"github.com/chargebee/chargebee-go/v3/models/metadata"
+	"github.com/chargebee/chargebee-go/v3/models/omnichannelonetimeorder"
+	"github.com/chargebee/chargebee-go/v3/models/omnichannelonetimeorderitem"
 	"github.com/chargebee/chargebee-go/v3/models/omnichannelsubscription"
 	"github.com/chargebee/chargebee-go/v3/models/omnichannelsubscriptionitem"
 	"github.com/chargebee/chargebee-go/v3/models/omnichannelsubscriptionitemscheduledchange"
@@ -74,6 +77,8 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/sitemigrationdetail"
 	"github.com/chargebee/chargebee-go/v3/models/subscription"
 	"github.com/chargebee/chargebee-go/v3/models/subscriptionentitlement"
+	"github.com/chargebee/chargebee-go/v3/models/subscriptionentitlementscreateddetail"
+	"github.com/chargebee/chargebee-go/v3/models/subscriptionentitlementsupdateddetail"
 	"github.com/chargebee/chargebee-go/v3/models/taxwithheld"
 	"github.com/chargebee/chargebee-go/v3/models/thirdpartypaymentmethod"
 	"github.com/chargebee/chargebee-go/v3/models/timemachine"
@@ -84,6 +89,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/usageevent"
 	"github.com/chargebee/chargebee-go/v3/models/usagefile"
 	"github.com/chargebee/chargebee-go/v3/models/virtualbankaccount"
+	"github.com/chargebee/chargebee-go/v3/models/webhookendpoint"
 	"net/http"
 	"strconv"
 )
@@ -173,11 +179,17 @@ type Result struct {
 	OmnichannelTransaction                     *omnichanneltransaction.OmnichannelTransaction                                         `json:"omnichannel_transaction,omitempty"`
 	OmnichannelSubscriptionItem                *omnichannelsubscriptionitem.OmnichannelSubscriptionItem                               `json:"omnichannel_subscription_item,omitempty"`
 	RecordedPurchase                           *recordedpurchase.RecordedPurchase                                                     `json:"recorded_purchase,omitempty"`
+	OmnichannelOneTimeOrder                    *omnichannelonetimeorder.OmnichannelOneTimeOrder                                       `json:"omnichannel_one_time_order,omitempty"`
+	OmnichannelOneTimeOrderItem                *omnichannelonetimeorderitem.OmnichannelOneTimeOrderItem                               `json:"omnichannel_one_time_order_item,omitempty"`
 	Rule                                       *rule.Rule                                                                             `json:"rule,omitempty"`
 	UsageEvent                                 *usageevent.UsageEvent                                                                 `json:"usage_event,omitempty"`
 	OmnichannelSubscriptionItemScheduledChange *omnichannelsubscriptionitemscheduledchange.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
 	UsageFile                                  *usagefile.UsageFile                                                                   `json:"usage_file,omitempty"`
 	Brand                                      *brand.Brand                                                                           `json:"brand,omitempty"`
+	WebhookEndpoint                            *webhookendpoint.WebhookEndpoint                                                       `json:"webhook_endpoint,omitempty"`
+	ImpactedCustomer                           *impactedcustomer.ImpactedCustomer                                                     `json:"impacted_customer,omitempty"`
+	SubscriptionEntitlementsUpdatedDetail      *subscriptionentitlementsupdateddetail.SubscriptionEntitlementsUpdatedDetail           `json:"subscription_entitlements_updated_detail,omitempty"`
+	SubscriptionEntitlementsCreatedDetail      *subscriptionentitlementscreateddetail.SubscriptionEntitlementsCreatedDetail           `json:"subscription_entitlements_created_detail,omitempty"`
 	AdvanceInvoiceSchedules                    []*advanceinvoiceschedule.AdvanceInvoiceSchedule                                       `json:"advance_invoice_schedules,omitempty"`
 	Hierarchies                                []*hierarchy.Hierarchy                                                                 `json:"hierarchies,omitempty"`
 	Invoices                                   []*invoice.Invoice                                                                     `json:"invoices,omitempty"`

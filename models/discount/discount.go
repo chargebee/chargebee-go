@@ -11,6 +11,7 @@ type Discount struct {
 	Type          discountEnum.Type `json:"type"`
 	Percentage    float64           `json:"percentage"`
 	Amount        int64             `json:"amount"`
+	Quantity      int32             `json:"quantity"`
 	CurrencyCode  string            `json:"currency_code"`
 	DurationType  enum.DurationType `json:"duration_type"`
 	Period        int32             `json:"period"`

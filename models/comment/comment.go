@@ -7,14 +7,15 @@ import (
 )
 
 type Comment struct {
-	Id         string           `json:"id"`
-	EntityType enum.EntityType  `json:"entity_type"`
-	AddedBy    string           `json:"added_by"`
-	Notes      string           `json:"notes"`
-	CreatedAt  int64            `json:"created_at"`
-	Type       commentEnum.Type `json:"type"`
-	EntityId   string           `json:"entity_id"`
-	Object     string           `json:"object"`
+	Id               string           `json:"id"`
+	EntityType       enum.EntityType  `json:"entity_type"`
+	AddedBy          string           `json:"added_by"`
+	Notes            string           `json:"notes"`
+	CreatedAt        int64            `json:"created_at"`
+	Type             commentEnum.Type `json:"type"`
+	EntityId         string           `json:"entity_id"`
+	BusinessEntityId string           `json:"business_entity_id"`
+	Object           string           `json:"object"`
 }
 type CreateRequestParams struct {
 	EntityType enum.EntityType `json:"entity_type"`

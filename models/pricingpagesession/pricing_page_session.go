@@ -45,6 +45,7 @@ type CreateForNewSubscriptionDiscountParams struct {
 	PeriodUnit    enum.PeriodUnit   `json:"period_unit,omitempty"`
 	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`
 	ItemPriceId   string            `json:"item_price_id,omitempty"`
+	Quantity      *int32            `json:"quantity,omitempty"`
 	Label         string            `json:"label,omitempty"`
 }
 type CreateForNewSubscriptionBillingAddressParams struct {
@@ -100,5 +101,6 @@ type CreateForExistingSubscriptionDiscountParams struct {
 	PeriodUnit    enum.PeriodUnit   `json:"period_unit,omitempty"`
 	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`
 	ItemPriceId   string            `json:"item_price_id,omitempty"`
+	Quantity      *int32            `json:"quantity,omitempty"`
 	Label         string            `json:"label,omitempty"`
 }

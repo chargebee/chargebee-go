@@ -10,6 +10,7 @@ type CustomerEntitlement struct {
 	Object         string `json:"object"`
 }
 type EntitlementsForCustomerRequestParams struct {
-	Limit  *int32 `json:"limit,omitempty"`
-	Offset string `json:"offset,omitempty"`
+	Limit                   *int32 `json:"limit,omitempty"`
+	Offset                  string `json:"offset,omitempty"`
+	ConsolidateEntitlements *bool  `json:"consolidate_entitlements,omitempty"`
 }

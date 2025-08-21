@@ -662,6 +662,7 @@ type CreateSubItemsForCustomerQuoteDiscountParams struct {
 	PeriodUnit    enum.PeriodUnit   `json:"period_unit,omitempty"`
 	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`
 	ItemPriceId   string            `json:"item_price_id,omitempty"`
+	Quantity      *int32            `json:"quantity,omitempty"`
 	StartDate     *int64            `json:"start_date,omitempty"`
 	EndDate       *int64            `json:"end_date,omitempty"`
 }
@@ -771,6 +772,7 @@ type EditCreateSubCustomerQuoteForItemsDiscountParams struct {
 	PeriodUnit    enum.PeriodUnit   `json:"period_unit,omitempty"`
 	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`
 	ItemPriceId   string            `json:"item_price_id,omitempty"`
+	Quantity      *int32            `json:"quantity,omitempty"`
 	StartDate     *int64            `json:"start_date,omitempty"`
 	EndDate       *int64            `json:"end_date,omitempty"`
 }
@@ -890,6 +892,7 @@ type UpdateSubscriptionQuoteForItemsDiscountParams struct {
 	PeriodUnit    enum.PeriodUnit    `json:"period_unit,omitempty"`
 	IncludedInMrr *bool              `json:"included_in_mrr,omitempty"`
 	ItemPriceId   string             `json:"item_price_id,omitempty"`
+	Quantity      *int32             `json:"quantity,omitempty"`
 	OperationType enum.OperationType `json:"operation_type"`
 	Id            string             `json:"id,omitempty"`
 	StartDate     *int64             `json:"start_date,omitempty"`
@@ -1014,6 +1017,7 @@ type EditUpdateSubscriptionQuoteForItemsDiscountParams struct {
 	PeriodUnit    enum.PeriodUnit    `json:"period_unit,omitempty"`
 	IncludedInMrr *bool              `json:"included_in_mrr,omitempty"`
 	ItemPriceId   string             `json:"item_price_id,omitempty"`
+	Quantity      *int32             `json:"quantity,omitempty"`
 	OperationType enum.OperationType `json:"operation_type"`
 	Id            string             `json:"id,omitempty"`
 	StartDate     *int64             `json:"start_date,omitempty"`
@@ -1156,6 +1160,7 @@ type CreateForChargeItemsAndChargesShippingAddressParams struct {
 }
 type CreateForChargeItemsAndChargesDiscountParams struct {
 	Percentage  *float64     `json:"percentage,omitempty"`
+	Quantity    *int32       `json:"quantity,omitempty"`
 	Amount      *int64       `json:"amount,omitempty"`
 	ApplyOn     enum.ApplyOn `json:"apply_on"`
 	ItemPriceId string       `json:"item_price_id,omitempty"`
@@ -1242,6 +1247,7 @@ type EditForChargeItemsAndChargesShippingAddressParams struct {
 }
 type EditForChargeItemsAndChargesDiscountParams struct {
 	Percentage  *float64     `json:"percentage,omitempty"`
+	Quantity    *int32       `json:"quantity,omitempty"`
 	Amount      *int64       `json:"amount,omitempty"`
 	ApplyOn     enum.ApplyOn `json:"apply_on"`
 	ItemPriceId string       `json:"item_price_id,omitempty"`
