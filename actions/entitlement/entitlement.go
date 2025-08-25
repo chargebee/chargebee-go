@@ -6,7 +6,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/entitlement"
 )
 
-func List(params *entitlement.ListRequestParams) chargebee.RequestObj {
+func List(params *entitlement.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/entitlements"), params)
 }
 func Create(params *entitlement.CreateRequestParams) chargebee.RequestObj {

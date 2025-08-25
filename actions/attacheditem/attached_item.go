@@ -19,6 +19,6 @@ func Retrieve(id string, params *attacheditem.RetrieveRequestParams) chargebee.R
 func Delete(id string, params *attacheditem.DeleteRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/attached_items/%v/delete", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func List(id string, params *attacheditem.ListRequestParams) chargebee.RequestObj {
+func List(id string, params *attacheditem.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/items/%v/attached_items", url.PathEscape(id)), params)
 }

@@ -46,10 +46,10 @@ func CreateForChargeItemsAndCharges(params *quote.CreateForChargeItemsAndCharges
 func EditForChargeItemsAndCharges(id string, params *quote.EditForChargeItemsAndChargesRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/quotes/%v/edit_for_charge_items_and_charges", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func List(params *quote.ListRequestParams) chargebee.RequestObj {
+func List(params *quote.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/quotes"), params)
 }
-func QuoteLineGroupsForQuote(id string, params *quote.QuoteLineGroupsForQuoteRequestParams) chargebee.RequestObj {
+func QuoteLineGroupsForQuote(id string, params *quote.QuoteLineGroupsForQuoteRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/quotes/%v/quote_line_groups", url.PathEscape(id)), params)
 }
 func Convert(id string, params *quote.ConvertRequestParams) chargebee.RequestObj {

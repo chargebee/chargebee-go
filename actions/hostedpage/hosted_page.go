@@ -62,7 +62,7 @@ func Acknowledge(id string) chargebee.RequestObj {
 func Retrieve(id string) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/hosted_pages/%v", url.PathEscape(id)), nil)
 }
-func List(params *hostedpage.ListRequestParams) chargebee.RequestObj {
+func List(params *hostedpage.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/hosted_pages"), params)
 }
 func PreCancel(params *hostedpage.PreCancelRequestParams) chargebee.RequestObj {

@@ -46,13 +46,13 @@ func DeleteLineItems(id string, params *invoice.DeleteLineItemsRequestParams) ch
 func ApplyCredits(id string, params *invoice.ApplyCreditsRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/apply_credits", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func List(params *invoice.ListRequestParams) chargebee.RequestObj {
+func List(params *invoice.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/invoices"), params)
 }
-func InvoicesForCustomer(id string, params *invoice.InvoicesForCustomerRequestParams) chargebee.RequestObj {
+func InvoicesForCustomer(id string, params *invoice.InvoicesForCustomerRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/customers/%v/invoices", url.PathEscape(id)), params)
 }
-func InvoicesForSubscription(id string, params *invoice.InvoicesForSubscriptionRequestParams) chargebee.RequestObj {
+func InvoicesForSubscription(id string, params *invoice.InvoicesForSubscriptionRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/subscriptions/%v/invoices", url.PathEscape(id)), params)
 }
 func Retrieve(id string, params *invoice.RetrieveRequestParams) chargebee.RequestObj {
@@ -64,7 +64,7 @@ func Pdf(id string, params *invoice.PdfRequestParams) chargebee.RequestObj {
 func DownloadEinvoice(id string) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/invoices/%v/download_einvoice", url.PathEscape(id)), nil)
 }
-func ListPaymentReferenceNumbers(params *invoice.ListPaymentReferenceNumbersRequestParams) chargebee.RequestObj {
+func ListPaymentReferenceNumbers(params *invoice.ListPaymentReferenceNumbersRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/invoices/payment_reference_numbers"), params)
 }
 func AddCharge(id string, params *invoice.AddChargeRequestParams) chargebee.RequestObj {

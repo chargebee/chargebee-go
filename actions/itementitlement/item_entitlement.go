@@ -7,10 +7,10 @@ import (
 	"net/url"
 )
 
-func ItemEntitlementsForItem(id string, params *itementitlement.ItemEntitlementsForItemRequestParams) chargebee.RequestObj {
+func ItemEntitlementsForItem(id string, params *itementitlement.ItemEntitlementsForItemRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/items/%v/item_entitlements", url.PathEscape(id)), params)
 }
-func ItemEntitlementsForFeature(id string, params *itementitlement.ItemEntitlementsForFeatureRequestParams) chargebee.RequestObj {
+func ItemEntitlementsForFeature(id string, params *itementitlement.ItemEntitlementsForFeatureRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/features/%v/item_entitlements", url.PathEscape(id)), params)
 }
 func AddItemEntitlements(id string, params *itementitlement.AddItemEntitlementsRequestParams) chargebee.RequestObj {

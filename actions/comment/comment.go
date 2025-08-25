@@ -13,7 +13,7 @@ func Create(params *comment.CreateRequestParams) chargebee.RequestObj {
 func Retrieve(id string) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/comments/%v", url.PathEscape(id)), nil)
 }
-func List(params *comment.ListRequestParams) chargebee.RequestObj {
+func List(params *comment.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/comments"), params)
 }
 func Delete(id string) chargebee.RequestObj {

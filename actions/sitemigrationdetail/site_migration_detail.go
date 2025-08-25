@@ -6,6 +6,6 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/sitemigrationdetail"
 )
 
-func List(params *sitemigrationdetail.ListRequestParams) chargebee.RequestObj {
+func List(params *sitemigrationdetail.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/site_migration_details"), params)
 }

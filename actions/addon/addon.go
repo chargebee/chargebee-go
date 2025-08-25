@@ -13,7 +13,7 @@ func Create(params *addon.CreateRequestParams) chargebee.RequestObj {
 func Update(id string, params *addon.UpdateRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/addons/%v", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func List(params *addon.ListRequestParams) chargebee.RequestObj {
+func List(params *addon.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/addons"), params)
 }
 func Retrieve(id string) chargebee.RequestObj {

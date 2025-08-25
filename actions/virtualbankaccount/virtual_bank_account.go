@@ -16,7 +16,7 @@ func Create(params *virtualbankaccount.CreateRequestParams) chargebee.RequestObj
 func Retrieve(id string) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/virtual_bank_accounts/%v", url.PathEscape(id)), nil)
 }
-func List(params *virtualbankaccount.ListRequestParams) chargebee.RequestObj {
+func List(params *virtualbankaccount.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/virtual_bank_accounts"), params)
 }
 func Delete(id string) chargebee.RequestObj {

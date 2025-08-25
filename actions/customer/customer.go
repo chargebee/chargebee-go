@@ -10,7 +10,7 @@ import (
 func Create(params *customer.CreateRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/customers"), params).SetIdempotency(true)
 }
-func List(params *customer.ListRequestParams) chargebee.RequestObj {
+func List(params *customer.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/customers"), params)
 }
 func Retrieve(id string) chargebee.RequestObj {
@@ -25,7 +25,7 @@ func UpdatePaymentMethod(id string, params *customer.UpdatePaymentMethodRequestP
 func UpdateBillingInfo(id string, params *customer.UpdateBillingInfoRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/customers/%v/update_billing_info", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func ContactsForCustomer(id string, params *customer.ContactsForCustomerRequestParams) chargebee.RequestObj {
+func ContactsForCustomer(id string, params *customer.ContactsForCustomerRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/customers/%v/contacts", url.PathEscape(id)), params)
 }
 func AssignPaymentRole(id string, params *customer.AssignPaymentRoleRequestParams) chargebee.RequestObj {
@@ -79,7 +79,7 @@ func DeleteRelationship(id string) chargebee.RequestObj {
 func Hierarchy(id string, params *customer.HierarchyRequestParams) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/customers/%v/hierarchy", url.PathEscape(id)), params)
 }
-func ListHierarchyDetail(id string, params *customer.ListHierarchyDetailRequestParams) chargebee.RequestObj {
+func ListHierarchyDetail(id string, params *customer.ListHierarchyDetailRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/customers/%v/hierarchy_detail", url.PathEscape(id)), params)
 }
 func UpdateHierarchySettings(id string, params *customer.UpdateHierarchySettingsRequestParams) chargebee.RequestObj {

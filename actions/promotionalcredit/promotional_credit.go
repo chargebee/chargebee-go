@@ -16,7 +16,7 @@ func Deduct(params *promotionalcredit.DeductRequestParams) chargebee.RequestObj 
 func Set(params *promotionalcredit.SetRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/promotional_credits/set"), params).SetIdempotency(true)
 }
-func List(params *promotionalcredit.ListRequestParams) chargebee.RequestObj {
+func List(params *promotionalcredit.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/promotional_credits"), params)
 }
 func Retrieve(id string) chargebee.RequestObj {

@@ -40,7 +40,7 @@ func VerifyBankAccount(id string, params *paymentsource.VerifyBankAccountRequest
 func Retrieve(id string) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/payment_sources/%v", url.PathEscape(id)), nil)
 }
-func List(params *paymentsource.ListRequestParams) chargebee.RequestObj {
+func List(params *paymentsource.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/payment_sources"), params)
 }
 func SwitchGatewayAccount(id string, params *paymentsource.SwitchGatewayAccountRequestParams) chargebee.RequestObj {

@@ -34,10 +34,10 @@ func Retrieve(id string) chargebee.RequestObj {
 func Delete(id string) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/orders/%v/delete", url.PathEscape(id)), nil).SetIdempotency(true)
 }
-func List(params *order.ListRequestParams) chargebee.RequestObj {
+func List(params *order.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/orders"), params)
 }
-func OrdersForInvoice(id string, params *order.OrdersForInvoiceRequestParams) chargebee.RequestObj {
+func OrdersForInvoice(id string, params *order.OrdersForInvoiceRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/invoices/%v/orders", url.PathEscape(id)), params)
 }
 func Resend(id string, params *order.ResendRequestParams) chargebee.RequestObj {

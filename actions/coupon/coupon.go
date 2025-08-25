@@ -16,7 +16,7 @@ func CreateForItems(params *coupon.CreateForItemsRequestParams) chargebee.Reques
 func UpdateForItems(id string, params *coupon.UpdateForItemsRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/coupons/%v/update_for_items", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func List(params *coupon.ListRequestParams) chargebee.RequestObj {
+func List(params *coupon.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/coupons"), params)
 }
 func Retrieve(id string) chargebee.RequestObj {

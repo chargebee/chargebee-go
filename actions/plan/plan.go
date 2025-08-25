@@ -13,7 +13,7 @@ func Create(params *plan.CreateRequestParams) chargebee.RequestObj {
 func Update(id string, params *plan.UpdateRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/plans/%v", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func List(params *plan.ListRequestParams) chargebee.RequestObj {
+func List(params *plan.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/plans"), params)
 }
 func Retrieve(id string) chargebee.RequestObj {

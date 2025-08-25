@@ -7,7 +7,7 @@ import (
 	"net/url"
 )
 
-func List(params *feature.ListRequestParams) chargebee.RequestObj {
+func List(params *feature.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/features"), params)
 }
 func Create(params *feature.CreateRequestParams) chargebee.RequestObj {

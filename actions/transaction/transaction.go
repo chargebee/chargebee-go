@@ -22,16 +22,16 @@ func Reconcile(id string, params *transaction.ReconcileRequestParams) chargebee.
 func Refund(id string, params *transaction.RefundRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/transactions/%v/refund", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func List(params *transaction.ListRequestParams) chargebee.RequestObj {
+func List(params *transaction.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/transactions"), params)
 }
-func TransactionsForCustomer(id string, params *transaction.TransactionsForCustomerRequestParams) chargebee.RequestObj {
+func TransactionsForCustomer(id string, params *transaction.TransactionsForCustomerRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/customers/%v/transactions", url.PathEscape(id)), params)
 }
-func TransactionsForSubscription(id string, params *transaction.TransactionsForSubscriptionRequestParams) chargebee.RequestObj {
+func TransactionsForSubscription(id string, params *transaction.TransactionsForSubscriptionRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/subscriptions/%v/transactions", url.PathEscape(id)), params)
 }
-func PaymentsForInvoice(id string, params *transaction.PaymentsForInvoiceRequestParams) chargebee.RequestObj {
+func PaymentsForInvoice(id string, params *transaction.PaymentsForInvoiceRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/invoices/%v/payments", url.PathEscape(id)), params)
 }
 func Retrieve(id string) chargebee.RequestObj {

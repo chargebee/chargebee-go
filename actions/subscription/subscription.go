@@ -16,16 +16,16 @@ func CreateForCustomer(id string, params *subscription.CreateForCustomerRequestP
 func CreateWithItems(id string, params *subscription.CreateWithItemsRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/customers/%v/subscription_for_items", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func List(params *subscription.ListRequestParams) chargebee.RequestObj {
+func List(params *subscription.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/subscriptions"), params)
 }
-func SubscriptionsForCustomer(id string, params *subscription.SubscriptionsForCustomerRequestParams) chargebee.RequestObj {
+func SubscriptionsForCustomer(id string, params *subscription.SubscriptionsForCustomerRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/customers/%v/subscriptions", url.PathEscape(id)), params)
 }
-func ContractTermsForSubscription(id string, params *subscription.ContractTermsForSubscriptionRequestParams) chargebee.RequestObj {
+func ContractTermsForSubscription(id string, params *subscription.ContractTermsForSubscriptionRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/subscriptions/%v/contract_terms", url.PathEscape(id)), params)
 }
-func ListDiscounts(id string, params *subscription.ListDiscountsRequestParams) chargebee.RequestObj {
+func ListDiscounts(id string, params *subscription.ListDiscountsRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/subscriptions/%v/discounts", url.PathEscape(id)), params)
 }
 func Retrieve(id string) chargebee.RequestObj {

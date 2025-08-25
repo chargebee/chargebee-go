@@ -13,7 +13,7 @@ func Create(params *itemfamily.CreateRequestParams) chargebee.RequestObj {
 func Retrieve(id string) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/item_families/%v", url.PathEscape(id)), nil)
 }
-func List(params *itemfamily.ListRequestParams) chargebee.RequestObj {
+func List(params *itemfamily.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/item_families"), params)
 }
 func Update(id string, params *itemfamily.UpdateRequestParams) chargebee.RequestObj {

@@ -19,7 +19,7 @@ func InvoiceUnbilledCharges(params *unbilledcharge.InvoiceUnbilledChargesRequest
 func Delete(id string) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/unbilled_charges/%v/delete", url.PathEscape(id)), nil).SetIdempotency(true)
 }
-func List(params *unbilledcharge.ListRequestParams) chargebee.RequestObj {
+func List(params *unbilledcharge.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/unbilled_charges"), params)
 }
 func InvoiceNowEstimate(params *unbilledcharge.InvoiceNowEstimateRequestParams) chargebee.RequestObj {

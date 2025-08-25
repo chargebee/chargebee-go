@@ -19,6 +19,6 @@ func Update(id string, params *pricevariant.UpdateRequestParams) chargebee.Reque
 func Delete(id string) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/price_variants/%v/delete", url.PathEscape(id)), nil).SetIdempotency(true)
 }
-func List(params *pricevariant.ListRequestParams) chargebee.RequestObj {
+func List(params *pricevariant.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/price_variants"), params)
 }

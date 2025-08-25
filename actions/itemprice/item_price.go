@@ -16,15 +16,15 @@ func Retrieve(id string) chargebee.RequestObj {
 func Update(id string, params *itemprice.UpdateRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/item_prices/%v", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func List(params *itemprice.ListRequestParams) chargebee.RequestObj {
+func List(params *itemprice.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/item_prices"), params)
 }
 func Delete(id string) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/item_prices/%v/delete", url.PathEscape(id)), nil).SetIdempotency(true)
 }
-func FindApplicableItems(id string, params *itemprice.FindApplicableItemsRequestParams) chargebee.RequestObj {
+func FindApplicableItems(id string, params *itemprice.FindApplicableItemsRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/item_prices/%v/applicable_items", url.PathEscape(id)), params)
 }
-func FindApplicableItemPrices(id string, params *itemprice.FindApplicableItemPricesRequestParams) chargebee.RequestObj {
+func FindApplicableItemPrices(id string, params *itemprice.FindApplicableItemPricesRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/item_prices/%v/applicable_item_prices", url.PathEscape(id)), params)
 }

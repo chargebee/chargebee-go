@@ -7,6 +7,6 @@ import (
 	"net/url"
 )
 
-func EntitlementsForCustomer(id string, params *customerentitlement.EntitlementsForCustomerRequestParams) chargebee.RequestObj {
+func EntitlementsForCustomer(id string, params *customerentitlement.EntitlementsForCustomerRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/customers/%v/customer_entitlements", url.PathEscape(id)), params)
 }

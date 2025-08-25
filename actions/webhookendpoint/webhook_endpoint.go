@@ -19,6 +19,6 @@ func Retrieve(id string) chargebee.RequestObj {
 func Delete(id string) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/webhook_endpoints/%v/delete", url.PathEscape(id)), nil).SetIdempotency(true)
 }
-func List(params *webhookendpoint.ListRequestParams) chargebee.RequestObj {
+func List(params *webhookendpoint.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/webhook_endpoints"), params)
 }

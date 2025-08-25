@@ -16,7 +16,7 @@ func Retrieve(id string) chargebee.RequestObj {
 func Update(id string, params *item.UpdateRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/items/%v", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func List(params *item.ListRequestParams) chargebee.RequestObj {
+func List(params *item.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/items"), params)
 }
 func Delete(id string) chargebee.RequestObj {

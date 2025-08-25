@@ -16,7 +16,7 @@ func Retrieve(id string, params *usage.RetrieveRequestParams) chargebee.RequestO
 func Delete(id string, params *usage.DeleteRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/subscriptions/%v/delete_usage", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func List(params *usage.ListRequestParams) chargebee.RequestObj {
+func List(params *usage.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/usages"), params)
 }
 func Pdf(params *usage.PdfRequestParams) chargebee.RequestObj {

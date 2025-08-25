@@ -28,10 +28,10 @@ func RecordRefund(id string, params *creditnote.RecordRefundRequestParams) charg
 func VoidCreditNote(id string, params *creditnote.VoidCreditNoteRequestParams) chargebee.RequestObj {
 	return chargebee.Send("POST", fmt.Sprintf("/credit_notes/%v/void", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func List(params *creditnote.ListRequestParams) chargebee.RequestObj {
+func List(params *creditnote.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/credit_notes"), params)
 }
-func CreditNotesForCustomer(id string, params *creditnote.CreditNotesForCustomerRequestParams) chargebee.RequestObj {
+func CreditNotesForCustomer(id string, params *creditnote.CreditNotesForCustomerRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/customers/%v/credit_notes", url.PathEscape(id)), params)
 }
 func Delete(id string, params *creditnote.DeleteRequestParams) chargebee.RequestObj {

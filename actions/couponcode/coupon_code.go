@@ -13,7 +13,7 @@ func Create(params *couponcode.CreateRequestParams) chargebee.RequestObj {
 func Retrieve(id string) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/coupon_codes/%v", url.PathEscape(id)), nil)
 }
-func List(params *couponcode.ListRequestParams) chargebee.RequestObj {
+func List(params *couponcode.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/coupon_codes"), params)
 }
 func Archive(id string) chargebee.RequestObj {

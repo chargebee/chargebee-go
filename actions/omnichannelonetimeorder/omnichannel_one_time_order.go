@@ -10,6 +10,6 @@ import (
 func Retrieve(id string) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/omnichannel_one_time_orders/%v", url.PathEscape(id)), nil)
 }
-func List(params *omnichannelonetimeorder.ListRequestParams) chargebee.RequestObj {
+func List(params *omnichannelonetimeorder.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/omnichannel_one_time_orders"), params)
 }

@@ -16,7 +16,7 @@ func CreateForItems(params *gift.CreateForItemsRequestParams) chargebee.RequestO
 func Retrieve(id string) chargebee.RequestObj {
 	return chargebee.Send("GET", fmt.Sprintf("/gifts/%v", url.PathEscape(id)), nil)
 }
-func List(params *gift.ListRequestParams) chargebee.RequestObj {
+func List(params *gift.ListRequestParams) chargebee.ListRequestObj {
 	return chargebee.SendList("GET", fmt.Sprintf("/gifts"), params)
 }
 func Claim(id string) chargebee.RequestObj {
