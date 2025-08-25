@@ -1,10 +1,10 @@
 package chargebee
 
-func (request RequestObj) ListRequest() (*ResultList, error) {
+func (request ListRequestObj) ListRequest() (*ResultList, error) {
 	result, err := request.ListRequestWithEnv(DefaultConfig())
 	return result, err
 }
-func (request RequestObj) ListRequestWithEnv(env Environment) (*ResultList, error) {
+func (request ListRequestObj) ListRequestWithEnv(env Environment) (*ResultList, error) {
 	path, body := getBody(request.Method, request.Path, request.Params)
 	req, err := newRequest(env, request.Method, path, body, request.Header, request.subDomain, false)
 	if err != nil {

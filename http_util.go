@@ -5,17 +5,31 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/google/uuid"
 	"io"
 	"net/http"
 	"net/url"
 	"runtime"
 	"strconv"
 	"strings"
+
+	"github.com/google/uuid"
 )
 
-// RequestObj is the structure that contains the properties of any request data.
+// RequestObj is the structure that contains the properties of regular request data.
 type RequestObj struct {
+	Params        *url.Values
+	Method        string
+	Path          string
+	Header        map[string]string
+	Context       context.Context `form:"-"`
+	subDomain     string
+	isJsonRequest bool
+	JsonBody      string
+	idempotent    bool
+}
+
+// ListRequestObj is the structure that contains the properties of list request data.
+type ListRequestObj struct {
 	Params        *url.Values
 	Method        string
 	Path          string
@@ -68,14 +82,14 @@ func SendJsonRequest(method string, path string, params interface{}) RequestObj 
 	}
 }
 
-// SendList prepares a RequestObj for ListRequest operation.
-func SendList(method string, path string, params interface{}) RequestObj {
+// SendList prepares a ListRequestObj for ListRequest operation.
+func SendList(method string, path string, params interface{}) ListRequestObj {
 	var form *url.Values
 	if params != nil {
 		form = SerializeListParams(params)
 	}
 
-	return RequestObj{
+	return ListRequestObj{
 		Params: form,
 		Method: method,
 		Path:   path,
@@ -125,6 +139,54 @@ func (request RequestObj) Contexts(ctx context.Context) RequestObj {
 	request.Context = ctx
 	return request
 }
+
+// ListRequestObj methods
+
+// AddParams add a new key-value pair to the ListRequestObj.Params.
+// This is used to add extra/custom_field params in the request data.
+func (request ListRequestObj) AddParams(key string, value interface{}) ListRequestObj {
+	request.Params.Set(key, fmt.Sprintf("%v", value))
+	return request
+}
+
+// Headers add a new key-value pair to the ListRequestObj.Header.
+// This is used to add custom headers.
+func (request ListRequestObj) Headers(key string, value string) ListRequestObj {
+	if request.Header == nil {
+		request.Header = make(map[string]string)
+	}
+	request.Header[key] = value
+	return request
+}
+
+// SetIdempotencyKey is used to add idempotency key.
+func (request ListRequestObj) SetIdempotencyKey(idempotencyKey string) ListRequestObj {
+	if request.Header == nil {
+		request.Header = make(map[string]string)
+	}
+	request.Header[IdempotencyHeader] = idempotencyKey
+	return request
+}
+
+func (request ListRequestObj) SetSubDomain(subDomain string) ListRequestObj {
+	request.subDomain = subDomain
+	return request
+}
+
+func (request ListRequestObj) SetIdempotency(idempotent bool) ListRequestObj {
+	request.idempotent = idempotent
+	return request
+}
+
+// Context used for request. It may carry deadlines, cancelation signals,
+// and other request-scoped values across API boundaries and between
+// processes.
+func (request ListRequestObj) Contexts(ctx context.Context) ListRequestObj {
+	request.Context = ctx
+	return request
+}
+
+// Common utility functions
 
 func newRequest(env Environment, method string, path string, body io.Reader, headers map[string]string, subDomain string, isJsonRequest bool) (*http.Request, error) {
 	if !strings.HasPrefix(path, "/") {
