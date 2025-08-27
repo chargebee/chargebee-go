@@ -3,7 +3,7 @@
 
 ### New Enhancement:
 * Introduced proper separation between `RequestObj` and `ListRequestObj` for better type safety and API clarity.
-* Added clean type aliases: `Request` for `RequestObj` and `ListRequest` for `ListRequestObj`.
+* Added type aliases `Request` and `ListRequest`
 * Updated all methods to use the new aliases while maintaining full backwards compatibility.
 
 ### v3.36.0 (2025-07-18) 
