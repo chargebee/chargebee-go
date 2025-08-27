@@ -7,18 +7,18 @@ import (
 	"net/url"
 )
 
-func Create(id string, params *attacheditem.CreateRequestParams) chargebee.RequestObj {
+func Create(id string, params *attacheditem.CreateRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/items/%v/attached_items", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func Update(id string, params *attacheditem.UpdateRequestParams) chargebee.RequestObj {
+func Update(id string, params *attacheditem.UpdateRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/attached_items/%v", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func Retrieve(id string, params *attacheditem.RetrieveRequestParams) chargebee.RequestObj {
+func Retrieve(id string, params *attacheditem.RetrieveRequestParams) chargebee.Request {
 	return chargebee.Send("GET", fmt.Sprintf("/attached_items/%v", url.PathEscape(id)), params)
 }
-func Delete(id string, params *attacheditem.DeleteRequestParams) chargebee.RequestObj {
+func Delete(id string, params *attacheditem.DeleteRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/attached_items/%v/delete", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func List(id string, params *attacheditem.ListRequestParams) chargebee.RequestObj {
+func List(id string, params *attacheditem.ListRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/items/%v/attached_items", url.PathEscape(id)), params)
 }

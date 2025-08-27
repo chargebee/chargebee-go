@@ -5,16 +5,17 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/google/uuid"
 	"io"
 	"net/http"
 	"net/url"
 	"runtime"
 	"strconv"
 	"strings"
+
+	"github.com/google/uuid"
 )
 
-// RequestObj is the structure that contains the properties of any request data.
+// RequestObj is the structure that contains the properties of regular request data.
 type RequestObj struct {
 	Params        *url.Values
 	Method        string
@@ -27,26 +28,42 @@ type RequestObj struct {
 	idempotent    bool
 }
 
+// ListRequestObj is the structure that contains the properties of list request data.
+type ListRequestObj struct {
+	Params        *url.Values
+	Method        string
+	Path          string
+	Header        map[string]string
+	Context       context.Context `form:"-"`
+	subDomain     string
+	isJsonRequest bool
+	JsonBody      string
+	idempotent    bool
+}
+
+type Request = RequestObj
+type ListRequest = ListRequestObj
+
 func basicAuth(key string) string {
 	return base64.StdEncoding.EncodeToString([]byte(key))
 }
 
 // Send prepares a RequestObj for Request operation.
-func Send(method string, path string, params interface{}) RequestObj {
+func Send(method string, path string, params interface{}) Request {
 	var form *url.Values
 
 	if params != nil {
 		form = SerializeParams(params)
 	}
 
-	return RequestObj{
+	return Request{
 		Params: form,
 		Method: method,
 		Path:   path,
 	}
 }
 
-func SendJsonRequest(method string, path string, params interface{}) RequestObj {
+func SendJsonRequest(method string, path string, params interface{}) Request {
 	var body string
 
 	if params != nil {
@@ -60,7 +77,7 @@ func SendJsonRequest(method string, path string, params interface{}) RequestObj 
 
 	}
 
-	return RequestObj{
+	return Request{
 		Method:        method,
 		Path:          path,
 		JsonBody:      body,
@@ -68,14 +85,14 @@ func SendJsonRequest(method string, path string, params interface{}) RequestObj 
 	}
 }
 
-// SendList prepares a RequestObj for ListRequest operation.
-func SendList(method string, path string, params interface{}) RequestObj {
+// SendList prepares a ListRequest for ListRequest operation.
+func SendList(method string, path string, params interface{}) ListRequest {
 	var form *url.Values
 	if params != nil {
 		form = SerializeListParams(params)
 	}
 
-	return RequestObj{
+	return ListRequest{
 		Params: form,
 		Method: method,
 		Path:   path,
@@ -84,14 +101,14 @@ func SendList(method string, path string, params interface{}) RequestObj {
 
 // AddParams add a new key-value pair to the RequestObj.Params.
 // This is used to add extra/custom_field params  in the request data.
-func (request RequestObj) AddParams(key string, value interface{}) RequestObj {
+func (request Request) AddParams(key string, value interface{}) Request {
 	request.Params.Set(key, fmt.Sprintf("%v", value))
 	return request
 }
 
 // Headers add a new key-value pair to the RequestObj.Header .
 // This is used to add custom headers .
-func (request RequestObj) Headers(key string, value string) RequestObj {
+func (request Request) Headers(key string, value string) Request {
 	if request.Header == nil {
 		request.Header = make(map[string]string)
 	}
@@ -100,7 +117,7 @@ func (request RequestObj) Headers(key string, value string) RequestObj {
 }
 
 // This is used to add idempotency key .
-func (request RequestObj) SetIdempotencyKey(idempotencyKey string) RequestObj {
+func (request Request) SetIdempotencyKey(idempotencyKey string) Request {
 	if request.Header == nil {
 		request.Header = make(map[string]string)
 	}
@@ -108,12 +125,12 @@ func (request RequestObj) SetIdempotencyKey(idempotencyKey string) RequestObj {
 	return request
 }
 
-func (request RequestObj) SetSubDomain(subDomain string) RequestObj {
+func (request Request) SetSubDomain(subDomain string) Request {
 	request.subDomain = subDomain
 	return request
 }
 
-func (request RequestObj) SetIdempotency(idempotent bool) RequestObj {
+func (request Request) SetIdempotency(idempotent bool) Request {
 	request.idempotent = idempotent
 	return request
 }
@@ -121,10 +138,58 @@ func (request RequestObj) SetIdempotency(idempotent bool) RequestObj {
 // Context used for request. It may carry deadlines, cancelation signals,
 // and other request-scoped values across API boundaries and between
 // processes.
-func (request RequestObj) Contexts(ctx context.Context) RequestObj {
+func (request Request) Contexts(ctx context.Context) Request {
 	request.Context = ctx
 	return request
 }
+
+// ListRequestObj methods
+
+// AddParams add a new key-value pair to the ListRequest.Params.
+// This is used to add extra/custom_field params in the request data.
+func (request ListRequest) AddParams(key string, value interface{}) ListRequest {
+	request.Params.Set(key, fmt.Sprintf("%v", value))
+	return request
+}
+
+// Headers add a new key-value pair to the ListRequest.Header.
+// This is used to add custom headers.
+func (request ListRequest) Headers(key string, value string) ListRequest {
+	if request.Header == nil {
+		request.Header = make(map[string]string)
+	}
+	request.Header[key] = value
+	return request
+}
+
+// SetIdempotencyKey is used to add idempotency key.
+func (request ListRequest) SetIdempotencyKey(idempotencyKey string) ListRequest {
+	if request.Header == nil {
+		request.Header = make(map[string]string)
+	}
+	request.Header[IdempotencyHeader] = idempotencyKey
+	return request
+}
+
+func (request ListRequest) SetSubDomain(subDomain string) ListRequest {
+	request.subDomain = subDomain
+	return request
+}
+
+func (request ListRequest) SetIdempotency(idempotent bool) ListRequest {
+	request.idempotent = idempotent
+	return request
+}
+
+// Context used for request. It may carry deadlines, cancelation signals,
+// and other request-scoped values across API boundaries and between
+// processes.
+func (request ListRequest) Contexts(ctx context.Context) ListRequest {
+	request.Context = ctx
+	return request
+}
+
+// Common utility functions
 
 func newRequest(env Environment, method string, path string, body io.Reader, headers map[string]string, subDomain string, isJsonRequest bool) (*http.Request, error) {
 	if !strings.HasPrefix(path, "/") {

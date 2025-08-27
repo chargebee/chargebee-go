@@ -6,6 +6,6 @@ import (
 	"net/url"
 )
 
-func Retrieve(id string) chargebee.RequestObj {
+func Retrieve(id string) chargebee.Request {
 	return chargebee.Send("GET", fmt.Sprintf("/rules/%v", url.PathEscape(id)), nil)
 }

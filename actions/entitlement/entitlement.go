@@ -6,9 +6,9 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/entitlement"
 )
 
-func List(params *entitlement.ListRequestParams) chargebee.RequestObj {
+func List(params *entitlement.ListRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/entitlements"), params)
 }
-func Create(params *entitlement.CreateRequestParams) chargebee.RequestObj {
+func Create(params *entitlement.CreateRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/entitlements"), params).SetIdempotency(true)
 }

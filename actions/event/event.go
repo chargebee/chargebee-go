@@ -10,10 +10,10 @@ import (
 	"strings"
 )
 
-func List(params *event.ListRequestParams) chargebee.RequestObj {
+func List(params *event.ListRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/events"), params)
 }
-func Retrieve(id string) chargebee.RequestObj {
+func Retrieve(id string) chargebee.Request {
 	return chargebee.Send("GET", fmt.Sprintf("/events/%v", url.PathEscape(id)), nil)
 }
 func Content(event event.Event) *chargebee.Result {

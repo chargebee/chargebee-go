@@ -1,3 +1,11 @@
+### v3.37.0 (2025-07-27)
+***
+
+### New Enhancement:
+* Introduced proper separation between `RequestObj` and `ListRequestObj` for better type safety and API clarity.
+* Added type aliases `Request` and `ListRequest`
+* Updated all methods to use the new aliases while maintaining full backwards compatibility.
+
 ### v3.36.0 (2025-07-18) 
 * * * 
 

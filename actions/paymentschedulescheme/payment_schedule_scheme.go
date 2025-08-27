@@ -7,12 +7,12 @@ import (
 	"net/url"
 )
 
-func Create(params *paymentschedulescheme.CreateRequestParams) chargebee.RequestObj {
+func Create(params *paymentschedulescheme.CreateRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/payment_schedule_schemes"), params).SetIdempotency(true)
 }
-func Retrieve(id string) chargebee.RequestObj {
+func Retrieve(id string) chargebee.Request {
 	return chargebee.Send("GET", fmt.Sprintf("/payment_schedule_schemes/%v", url.PathEscape(id)), nil)
 }
-func Delete(id string) chargebee.RequestObj {
+func Delete(id string) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/payment_schedule_schemes/%v/delete", url.PathEscape(id)), nil).SetIdempotency(true)
 }

@@ -7,18 +7,18 @@ import (
 	"net/url"
 )
 
-func Create(params *webhookendpoint.CreateRequestParams) chargebee.RequestObj {
+func Create(params *webhookendpoint.CreateRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/webhook_endpoints"), params).SetIdempotency(true)
 }
-func Update(id string, params *webhookendpoint.UpdateRequestParams) chargebee.RequestObj {
+func Update(id string, params *webhookendpoint.UpdateRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/webhook_endpoints/%v", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func Retrieve(id string) chargebee.RequestObj {
+func Retrieve(id string) chargebee.Request {
 	return chargebee.Send("GET", fmt.Sprintf("/webhook_endpoints/%v", url.PathEscape(id)), nil)
 }
-func Delete(id string) chargebee.RequestObj {
+func Delete(id string) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/webhook_endpoints/%v/delete", url.PathEscape(id)), nil).SetIdempotency(true)
 }
-func List(params *webhookendpoint.ListRequestParams) chargebee.RequestObj {
+func List(params *webhookendpoint.ListRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/webhook_endpoints"), params)
 }

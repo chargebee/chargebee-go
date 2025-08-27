@@ -7,9 +7,9 @@ import (
 	"net/url"
 )
 
-func Create(params *recordedpurchase.CreateRequestParams) chargebee.RequestObj {
+func Create(params *recordedpurchase.CreateRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/recorded_purchases"), params).SetIdempotency(true)
 }
-func Retrieve(id string) chargebee.RequestObj {
+func Retrieve(id string) chargebee.Request {
 	return chargebee.Send("GET", fmt.Sprintf("/recorded_purchases/%v", url.PathEscape(id)), nil)
 }

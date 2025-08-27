@@ -7,9 +7,9 @@ import (
 	"net/url"
 )
 
-func UploadUrl(params *usagefile.UploadUrlRequestParams) chargebee.RequestObj {
+func UploadUrl(params *usagefile.UploadUrlRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/usage_files/upload_url"), params).SetSubDomain("file-ingest")
 }
-func ProcessingStatus(id string) chargebee.RequestObj {
+func ProcessingStatus(id string) chargebee.Request {
 	return chargebee.Send("GET", fmt.Sprintf("/usage_files/%v/processing_status", url.PathEscape(id)), nil).SetSubDomain("file-ingest")
 }

@@ -7,11 +7,11 @@ import (
 	"strings"
 )
 
-func (request RequestObj) Request() (*Result, error) {
+func (request Request) Request() (*Result, error) {
 	result, err := request.RequestWithEnv(DefaultConfig())
 	return result, err
 }
-func (request RequestObj) RequestWithEnv(env Environment) (*Result, error) {
+func (request Request) RequestWithEnv(env Environment) (*Result, error) {
 	var body io.Reader
 	var path string
 	if request.isJsonRequest {

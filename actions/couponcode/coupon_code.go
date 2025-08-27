@@ -7,15 +7,15 @@ import (
 	"net/url"
 )
 
-func Create(params *couponcode.CreateRequestParams) chargebee.RequestObj {
+func Create(params *couponcode.CreateRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/coupon_codes"), params).SetIdempotency(true)
 }
-func Retrieve(id string) chargebee.RequestObj {
+func Retrieve(id string) chargebee.Request {
 	return chargebee.Send("GET", fmt.Sprintf("/coupon_codes/%v", url.PathEscape(id)), nil)
 }
-func List(params *couponcode.ListRequestParams) chargebee.RequestObj {
+func List(params *couponcode.ListRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/coupon_codes"), params)
 }
-func Archive(id string) chargebee.RequestObj {
+func Archive(id string) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/coupon_codes/%v/archive", url.PathEscape(id)), nil).SetIdempotency(true)
 }

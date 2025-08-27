@@ -7,30 +7,30 @@ import (
 	"net/url"
 )
 
-func Create(params *coupon.CreateRequestParams) chargebee.RequestObj {
+func Create(params *coupon.CreateRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/coupons"), params).SetIdempotency(true)
 }
-func CreateForItems(params *coupon.CreateForItemsRequestParams) chargebee.RequestObj {
+func CreateForItems(params *coupon.CreateForItemsRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/coupons/create_for_items"), params).SetIdempotency(true)
 }
-func UpdateForItems(id string, params *coupon.UpdateForItemsRequestParams) chargebee.RequestObj {
+func UpdateForItems(id string, params *coupon.UpdateForItemsRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/coupons/%v/update_for_items", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func List(params *coupon.ListRequestParams) chargebee.RequestObj {
+func List(params *coupon.ListRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/coupons"), params)
 }
-func Retrieve(id string) chargebee.RequestObj {
+func Retrieve(id string) chargebee.Request {
 	return chargebee.Send("GET", fmt.Sprintf("/coupons/%v", url.PathEscape(id)), nil)
 }
-func Update(id string, params *coupon.UpdateRequestParams) chargebee.RequestObj {
+func Update(id string, params *coupon.UpdateRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/coupons/%v", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func Delete(id string) chargebee.RequestObj {
+func Delete(id string) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/coupons/%v/delete", url.PathEscape(id)), nil).SetIdempotency(true)
 }
-func Copy(params *coupon.CopyRequestParams) chargebee.RequestObj {
+func Copy(params *coupon.CopyRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/coupons/copy"), params).SetIdempotency(true)
 }
-func Unarchive(id string) chargebee.RequestObj {
+func Unarchive(id string) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/coupons/%v/unarchive", url.PathEscape(id)), nil).SetIdempotency(true)
 }

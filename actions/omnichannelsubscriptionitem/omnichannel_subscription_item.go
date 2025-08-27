@@ -7,6 +7,6 @@ import (
 	"net/url"
 )
 
-func ListOmniSubItemScheduleChanges(id string, params *omnichannelsubscriptionitem.ListOmniSubItemScheduleChangesRequestParams) chargebee.RequestObj {
+func ListOmniSubItemScheduleChanges(id string, params *omnichannelsubscriptionitem.ListOmniSubItemScheduleChangesRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/omnichannel_subscription_items/%v/scheduled_changes", url.PathEscape(id)), params)
 }

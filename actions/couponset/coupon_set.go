@@ -7,24 +7,24 @@ import (
 	"net/url"
 )
 
-func Create(params *couponset.CreateRequestParams) chargebee.RequestObj {
+func Create(params *couponset.CreateRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/coupon_sets"), params).SetIdempotency(true)
 }
-func AddCouponCodes(id string, params *couponset.AddCouponCodesRequestParams) chargebee.RequestObj {
+func AddCouponCodes(id string, params *couponset.AddCouponCodesRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/coupon_sets/%v/add_coupon_codes", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func List(params *couponset.ListRequestParams) chargebee.RequestObj {
+func List(params *couponset.ListRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/coupon_sets"), params)
 }
-func Retrieve(id string) chargebee.RequestObj {
+func Retrieve(id string) chargebee.Request {
 	return chargebee.Send("GET", fmt.Sprintf("/coupon_sets/%v", url.PathEscape(id)), nil)
 }
-func Update(id string, params *couponset.UpdateRequestParams) chargebee.RequestObj {
+func Update(id string, params *couponset.UpdateRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/coupon_sets/%v/update", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func Delete(id string) chargebee.RequestObj {
+func Delete(id string) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/coupon_sets/%v/delete", url.PathEscape(id)), nil).SetIdempotency(true)
 }
-func DeleteUnusedCouponCodes(id string) chargebee.RequestObj {
+func DeleteUnusedCouponCodes(id string) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/coupon_sets/%v/delete_unused_coupon_codes", url.PathEscape(id)), nil).SetIdempotency(true)
 }
