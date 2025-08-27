@@ -7,63 +7,63 @@ import (
 	"net/url"
 )
 
-func Retrieve(id string) chargebee.RequestObj {
+func Retrieve(id string) chargebee.Request {
 	return chargebee.Send("GET", fmt.Sprintf("/quotes/%v", url.PathEscape(id)), nil)
 }
-func CreateSubForCustomerQuote(id string, params *quote.CreateSubForCustomerQuoteRequestParams) chargebee.RequestObj {
+func CreateSubForCustomerQuote(id string, params *quote.CreateSubForCustomerQuoteRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/customers/%v/create_subscription_quote", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func EditCreateSubForCustomerQuote(id string, params *quote.EditCreateSubForCustomerQuoteRequestParams) chargebee.RequestObj {
+func EditCreateSubForCustomerQuote(id string, params *quote.EditCreateSubForCustomerQuoteRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/quotes/%v/edit_create_subscription_quote", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func UpdateSubscriptionQuote(params *quote.UpdateSubscriptionQuoteRequestParams) chargebee.RequestObj {
+func UpdateSubscriptionQuote(params *quote.UpdateSubscriptionQuoteRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/quotes/update_subscription_quote"), params).SetIdempotency(true)
 }
-func EditUpdateSubscriptionQuote(id string, params *quote.EditUpdateSubscriptionQuoteRequestParams) chargebee.RequestObj {
+func EditUpdateSubscriptionQuote(id string, params *quote.EditUpdateSubscriptionQuoteRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/quotes/%v/edit_update_subscription_quote", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func CreateForOnetimeCharges(params *quote.CreateForOnetimeChargesRequestParams) chargebee.RequestObj {
+func CreateForOnetimeCharges(params *quote.CreateForOnetimeChargesRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/quotes/create_for_onetime_charges"), params).SetIdempotency(true)
 }
-func EditOneTimeQuote(id string, params *quote.EditOneTimeQuoteRequestParams) chargebee.RequestObj {
+func EditOneTimeQuote(id string, params *quote.EditOneTimeQuoteRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/quotes/%v/edit_one_time_quote", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func CreateSubItemsForCustomerQuote(id string, params *quote.CreateSubItemsForCustomerQuoteRequestParams) chargebee.RequestObj {
+func CreateSubItemsForCustomerQuote(id string, params *quote.CreateSubItemsForCustomerQuoteRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/customers/%v/create_subscription_quote_for_items", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func EditCreateSubCustomerQuoteForItems(id string, params *quote.EditCreateSubCustomerQuoteForItemsRequestParams) chargebee.RequestObj {
+func EditCreateSubCustomerQuoteForItems(id string, params *quote.EditCreateSubCustomerQuoteForItemsRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/quotes/%v/edit_create_subscription_quote_for_items", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func UpdateSubscriptionQuoteForItems(params *quote.UpdateSubscriptionQuoteForItemsRequestParams) chargebee.RequestObj {
+func UpdateSubscriptionQuoteForItems(params *quote.UpdateSubscriptionQuoteForItemsRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/quotes/update_subscription_quote_for_items"), params).SetIdempotency(true)
 }
-func EditUpdateSubscriptionQuoteForItems(id string, params *quote.EditUpdateSubscriptionQuoteForItemsRequestParams) chargebee.RequestObj {
+func EditUpdateSubscriptionQuoteForItems(id string, params *quote.EditUpdateSubscriptionQuoteForItemsRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/quotes/%v/edit_update_subscription_quote_for_items", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func CreateForChargeItemsAndCharges(params *quote.CreateForChargeItemsAndChargesRequestParams) chargebee.RequestObj {
+func CreateForChargeItemsAndCharges(params *quote.CreateForChargeItemsAndChargesRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/quotes/create_for_charge_items_and_charges"), params).SetIdempotency(true)
 }
-func EditForChargeItemsAndCharges(id string, params *quote.EditForChargeItemsAndChargesRequestParams) chargebee.RequestObj {
+func EditForChargeItemsAndCharges(id string, params *quote.EditForChargeItemsAndChargesRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/quotes/%v/edit_for_charge_items_and_charges", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func List(params *quote.ListRequestParams) chargebee.ListRequestObj {
+func List(params *quote.ListRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/quotes"), params)
 }
-func QuoteLineGroupsForQuote(id string, params *quote.QuoteLineGroupsForQuoteRequestParams) chargebee.ListRequestObj {
+func QuoteLineGroupsForQuote(id string, params *quote.QuoteLineGroupsForQuoteRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/quotes/%v/quote_line_groups", url.PathEscape(id)), params)
 }
-func Convert(id string, params *quote.ConvertRequestParams) chargebee.RequestObj {
+func Convert(id string, params *quote.ConvertRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/quotes/%v/convert", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func UpdateStatus(id string, params *quote.UpdateStatusRequestParams) chargebee.RequestObj {
+func UpdateStatus(id string, params *quote.UpdateStatusRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/quotes/%v/update_status", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func ExtendExpiryDate(id string, params *quote.ExtendExpiryDateRequestParams) chargebee.RequestObj {
+func ExtendExpiryDate(id string, params *quote.ExtendExpiryDateRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/quotes/%v/extend_expiry_date", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func Delete(id string, params *quote.DeleteRequestParams) chargebee.RequestObj {
+func Delete(id string, params *quote.DeleteRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/quotes/%v/delete", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func Pdf(id string, params *quote.PdfRequestParams) chargebee.RequestObj {
+func Pdf(id string, params *quote.PdfRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/quotes/%v/pdf", url.PathEscape(id)), params).SetIdempotency(true)
 }

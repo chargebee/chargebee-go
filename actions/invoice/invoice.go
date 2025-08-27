@@ -7,123 +7,123 @@ import (
 	"net/url"
 )
 
-func Create(params *invoice.CreateRequestParams) chargebee.RequestObj {
+func Create(params *invoice.CreateRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices"), params).SetIdempotency(true)
 }
-func CreateForChargeItemsAndCharges(params *invoice.CreateForChargeItemsAndChargesRequestParams) chargebee.RequestObj {
+func CreateForChargeItemsAndCharges(params *invoice.CreateForChargeItemsAndChargesRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/create_for_charge_items_and_charges"), params).SetIdempotency(true)
 }
-func Charge(params *invoice.ChargeRequestParams) chargebee.RequestObj {
+func Charge(params *invoice.ChargeRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/charge"), params).SetIdempotency(true)
 }
-func ChargeAddon(params *invoice.ChargeAddonRequestParams) chargebee.RequestObj {
+func ChargeAddon(params *invoice.ChargeAddonRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/charge_addon"), params).SetIdempotency(true)
 }
-func CreateForChargeItem(params *invoice.CreateForChargeItemRequestParams) chargebee.RequestObj {
+func CreateForChargeItem(params *invoice.CreateForChargeItemRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/create_for_charge_item"), params).SetIdempotency(true)
 }
-func StopDunning(id string, params *invoice.StopDunningRequestParams) chargebee.RequestObj {
+func StopDunning(id string, params *invoice.StopDunningRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/stop_dunning", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func PauseDunning(id string, params *invoice.PauseDunningRequestParams) chargebee.RequestObj {
+func PauseDunning(id string, params *invoice.PauseDunningRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/pause_dunning", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func ResumeDunning(id string, params *invoice.ResumeDunningRequestParams) chargebee.RequestObj {
+func ResumeDunning(id string, params *invoice.ResumeDunningRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/resume_dunning", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func ImportInvoice(params *invoice.ImportInvoiceRequestParams) chargebee.RequestObj {
+func ImportInvoice(params *invoice.ImportInvoiceRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/import_invoice"), params).SetIdempotency(true)
 }
-func ApplyPayments(id string, params *invoice.ApplyPaymentsRequestParams) chargebee.RequestObj {
+func ApplyPayments(id string, params *invoice.ApplyPaymentsRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/apply_payments", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func SyncUsages(id string) chargebee.RequestObj {
+func SyncUsages(id string) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/sync_usages", url.PathEscape(id)), nil).SetIdempotency(true)
 }
-func DeleteLineItems(id string, params *invoice.DeleteLineItemsRequestParams) chargebee.RequestObj {
+func DeleteLineItems(id string, params *invoice.DeleteLineItemsRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/delete_line_items", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func ApplyCredits(id string, params *invoice.ApplyCreditsRequestParams) chargebee.RequestObj {
+func ApplyCredits(id string, params *invoice.ApplyCreditsRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/apply_credits", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func List(params *invoice.ListRequestParams) chargebee.ListRequestObj {
+func List(params *invoice.ListRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/invoices"), params)
 }
-func InvoicesForCustomer(id string, params *invoice.InvoicesForCustomerRequestParams) chargebee.ListRequestObj {
+func InvoicesForCustomer(id string, params *invoice.InvoicesForCustomerRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/customers/%v/invoices", url.PathEscape(id)), params)
 }
-func InvoicesForSubscription(id string, params *invoice.InvoicesForSubscriptionRequestParams) chargebee.ListRequestObj {
+func InvoicesForSubscription(id string, params *invoice.InvoicesForSubscriptionRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/subscriptions/%v/invoices", url.PathEscape(id)), params)
 }
-func Retrieve(id string, params *invoice.RetrieveRequestParams) chargebee.RequestObj {
+func Retrieve(id string, params *invoice.RetrieveRequestParams) chargebee.Request {
 	return chargebee.Send("GET", fmt.Sprintf("/invoices/%v", url.PathEscape(id)), params)
 }
-func Pdf(id string, params *invoice.PdfRequestParams) chargebee.RequestObj {
+func Pdf(id string, params *invoice.PdfRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/pdf", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func DownloadEinvoice(id string) chargebee.RequestObj {
+func DownloadEinvoice(id string) chargebee.Request {
 	return chargebee.Send("GET", fmt.Sprintf("/invoices/%v/download_einvoice", url.PathEscape(id)), nil)
 }
-func ListPaymentReferenceNumbers(params *invoice.ListPaymentReferenceNumbersRequestParams) chargebee.ListRequestObj {
+func ListPaymentReferenceNumbers(params *invoice.ListPaymentReferenceNumbersRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/invoices/payment_reference_numbers"), params)
 }
-func AddCharge(id string, params *invoice.AddChargeRequestParams) chargebee.RequestObj {
+func AddCharge(id string, params *invoice.AddChargeRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/add_charge", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func AddAddonCharge(id string, params *invoice.AddAddonChargeRequestParams) chargebee.RequestObj {
+func AddAddonCharge(id string, params *invoice.AddAddonChargeRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/add_addon_charge", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func AddChargeItem(id string, params *invoice.AddChargeItemRequestParams) chargebee.RequestObj {
+func AddChargeItem(id string, params *invoice.AddChargeItemRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/add_charge_item", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func Close(id string, params *invoice.CloseRequestParams) chargebee.RequestObj {
+func Close(id string, params *invoice.CloseRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/close", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func CollectPayment(id string, params *invoice.CollectPaymentRequestParams) chargebee.RequestObj {
+func CollectPayment(id string, params *invoice.CollectPaymentRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/collect_payment", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func RecordPayment(id string, params *invoice.RecordPaymentRequestParams) chargebee.RequestObj {
+func RecordPayment(id string, params *invoice.RecordPaymentRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/record_payment", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func RecordTaxWithheld(id string, params *invoice.RecordTaxWithheldRequestParams) chargebee.RequestObj {
+func RecordTaxWithheld(id string, params *invoice.RecordTaxWithheldRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/record_tax_withheld", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func RemoveTaxWithheld(id string, params *invoice.RemoveTaxWithheldRequestParams) chargebee.RequestObj {
+func RemoveTaxWithheld(id string, params *invoice.RemoveTaxWithheldRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/remove_tax_withheld", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func Refund(id string, params *invoice.RefundRequestParams) chargebee.RequestObj {
+func Refund(id string, params *invoice.RefundRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/refund", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func RecordRefund(id string, params *invoice.RecordRefundRequestParams) chargebee.RequestObj {
+func RecordRefund(id string, params *invoice.RecordRefundRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/record_refund", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func RemovePayment(id string, params *invoice.RemovePaymentRequestParams) chargebee.RequestObj {
+func RemovePayment(id string, params *invoice.RemovePaymentRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/remove_payment", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func RemoveCreditNote(id string, params *invoice.RemoveCreditNoteRequestParams) chargebee.RequestObj {
+func RemoveCreditNote(id string, params *invoice.RemoveCreditNoteRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/remove_credit_note", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func VoidInvoice(id string, params *invoice.VoidInvoiceRequestParams) chargebee.RequestObj {
+func VoidInvoice(id string, params *invoice.VoidInvoiceRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/void", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func WriteOff(id string, params *invoice.WriteOffRequestParams) chargebee.RequestObj {
+func WriteOff(id string, params *invoice.WriteOffRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/write_off", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func Delete(id string, params *invoice.DeleteRequestParams) chargebee.RequestObj {
+func Delete(id string, params *invoice.DeleteRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/delete", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func UpdateDetails(id string, params *invoice.UpdateDetailsRequestParams) chargebee.RequestObj {
+func UpdateDetails(id string, params *invoice.UpdateDetailsRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/update_details", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func ApplyPaymentScheduleScheme(id string, params *invoice.ApplyPaymentScheduleSchemeRequestParams) chargebee.RequestObj {
+func ApplyPaymentScheduleScheme(id string, params *invoice.ApplyPaymentScheduleSchemeRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/apply_payment_schedule_scheme", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func PaymentSchedules(id string) chargebee.RequestObj {
+func PaymentSchedules(id string) chargebee.Request {
 	return chargebee.Send("GET", fmt.Sprintf("/invoices/%v/payment_schedules", url.PathEscape(id)), nil)
 }
-func ResendEinvoice(id string) chargebee.RequestObj {
+func ResendEinvoice(id string) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/resend_einvoice", url.PathEscape(id)), nil).SetIdempotency(true)
 }
-func SendEinvoice(id string) chargebee.RequestObj {
+func SendEinvoice(id string) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/send_einvoice", url.PathEscape(id)), nil).SetIdempotency(true)
 }

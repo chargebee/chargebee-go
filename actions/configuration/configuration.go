@@ -5,6 +5,6 @@ import (
 	"github.com/chargebee/chargebee-go/v3"
 )
 
-func List() chargebee.RequestObj {
+func List() chargebee.Request {
 	return chargebee.Send("GET", fmt.Sprintf("/configurations"), nil)
 }

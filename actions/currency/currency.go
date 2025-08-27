@@ -7,21 +7,21 @@ import (
 	"net/url"
 )
 
-func List() chargebee.RequestObj {
+func List() chargebee.Request {
 	return chargebee.Send("GET", fmt.Sprintf("/currencies/list"), nil)
 }
-func Retrieve(id string) chargebee.RequestObj {
+func Retrieve(id string) chargebee.Request {
 	return chargebee.Send("GET", fmt.Sprintf("/currencies/%v", url.PathEscape(id)), nil)
 }
-func Create(params *currency.CreateRequestParams) chargebee.RequestObj {
+func Create(params *currency.CreateRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/currencies"), params).SetIdempotency(true)
 }
-func Update(id string, params *currency.UpdateRequestParams) chargebee.RequestObj {
+func Update(id string, params *currency.UpdateRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/currencies/%v", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func AddSchedule(id string, params *currency.AddScheduleRequestParams) chargebee.RequestObj {
+func AddSchedule(id string, params *currency.AddScheduleRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/currencies/%v/add_schedule", url.PathEscape(id)), params).SetIdempotency(true)
 }
-func RemoveSchedule(id string) chargebee.RequestObj {
+func RemoveSchedule(id string) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/currencies/%v/remove_schedule", url.PathEscape(id)), nil).SetIdempotency(true)
 }
