@@ -6,21 +6,24 @@ import "encoding/json"
 type ErrorType string
 
 const (
-	PaymentError         ErrorType = "payment"
-	InvalidRequestError  ErrorType = "invalid_request"
-	OperationFailedError ErrorType = "operation_failed"
+	PaymentError                         ErrorType = "payment"
+	InvalidRequestError                  ErrorType = "invalid_request"
+	OperationFailedError                 ErrorType = "operation_failed"
+	UbbBatchIngestionInvalidRequestError ErrorType = "ubb_batch_ingestion_invalid_request"
 )
 
 // Error is the Response returned when a call is unsuccessful
 type Error struct {
-	HTTPStatusCode int       `json:"http_status_code"`
-	Msg            string    `json:"message"`
-	Param          string    `json:"param"`
-	APIErrorCode   string    `json:"api_error_code"`
-	Type           ErrorType `json:"type"`
-	ErrorCode      string    `json:"error_code"`
-	Err            error     `json:"_"`
-	ErrorCauseID   string    `json:"error_cause_id,omitempty"`
+	HTTPStatusCode int           `json:"http_status_code"`
+	Msg            string        `json:"message"`
+	Param          string        `json:"param"`
+	APIErrorCode   string        `json:"api_error_code"`
+	Type           ErrorType     `json:"type"`
+	ErrorCode      string        `json:"error_code"`
+	Err            error         `json:"_"`
+	ErrorCauseID   string        `json:"error_cause_id,omitempty"`
+	BatchId        string        `json:"batch_id"`
+	FailedEvents   []interface{} `json:"failed_events"`
 }
 
 // Error Serializes the error object to JSON and return it as a string.
@@ -53,5 +56,13 @@ type operationFailedErr struct {
 }
 
 func (e *operationFailedErr) Error() string {
+	return e.cbErr.Error()
+}
+
+type ubbBatchIngestionInvalidRequestErr struct {
+	cbErr *Error
+}
+
+func (e *ubbBatchIngestionInvalidRequestErr) Error() string {
 	return e.cbErr.Error()
 }

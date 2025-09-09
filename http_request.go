@@ -181,6 +181,8 @@ func ErrorHandling(resBody []byte) error {
 		cbErr.Err = &invalidRequestErr{cbErr: cbErr}
 	case OperationFailedError:
 		cbErr.Err = &operationFailedErr{cbErr: cbErr}
+	case UbbBatchIngestionInvalidRequestError:
+		cbErr.Err = &ubbBatchIngestionInvalidRequestErr{cbErr: cbErr}
 	}
 	return cbErr
 }
