@@ -12,6 +12,7 @@ const (
 	TypeCheckoutOneTime      Type = "checkout_one_time"
 	TypePreCancel            Type = "pre_cancel"
 	TypeViewVoucher          Type = "view_voucher"
+	TypeAcceptQuote          Type = "accept_quote"
 	TypeCheckoutGift         Type = "checkout_gift"
 	TypeClaimGift            Type = "claim_gift"
 	TypeUpdateCard           Type = "update_card"

@@ -379,15 +379,16 @@ type CheckoutNewForItemsRequestParams struct {
 	ContractTerm               *CheckoutNewForItemsContractTermParams       `json:"contract_term,omitempty"`
 }
 type CheckoutNewForItemsSubscriptionParams struct {
-	Id                                string              `json:"id,omitempty"`
-	TrialEnd                          *int64              `json:"trial_end,omitempty"`
-	SetupFee                          *int64              `json:"setup_fee,omitempty"`
-	StartDate                         *int64              `json:"start_date,omitempty"`
-	Coupon                            string              `json:"coupon,omitempty"`
-	AutoCollection                    enum.AutoCollection `json:"auto_collection,omitempty"`
-	InvoiceNotes                      string              `json:"invoice_notes,omitempty"`
-	PoNumber                          string              `json:"po_number,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32              `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	Id                                string                    `json:"id,omitempty"`
+	TrialEnd                          *int64                    `json:"trial_end,omitempty"`
+	SetupFee                          *int64                    `json:"setup_fee,omitempty"`
+	StartDate                         *int64                    `json:"start_date,omitempty"`
+	Coupon                            string                    `json:"coupon,omitempty"`
+	AutoCollection                    enum.AutoCollection       `json:"auto_collection,omitempty"`
+	OfflinePaymentMethod              enum.OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	InvoiceNotes                      string                    `json:"invoice_notes,omitempty"`
+	PoNumber                          string                    `json:"po_number,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 type CheckoutNewForItemsCustomerParams struct {
 	Id                       string                `json:"id,omitempty"`

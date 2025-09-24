@@ -16,3 +16,6 @@ func List(params *omnichannelsubscription.ListRequestParams) chargebee.ListReque
 func OmnichannelTransactionsForOmnichannelSubscription(id string, params *omnichannelsubscription.OmnichannelTransactionsForOmnichannelSubscriptionRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/omnichannel_subscriptions/%v/omnichannel_transactions", url.PathEscape(id)), params)
 }
+func Move(id string, params *omnichannelsubscription.MoveRequestParams) chargebee.Request {
+	return chargebee.Send("POST", fmt.Sprintf("/omnichannel_subscriptions/%v/move", url.PathEscape(id)), params).SetIdempotency(true)
+}

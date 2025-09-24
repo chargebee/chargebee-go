@@ -137,15 +137,16 @@ type CreateSubItemEstimateRequestParams struct {
 	TaxProvidersFields     []*CreateSubItemEstimateTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
 }
 type CreateSubItemEstimateSubscriptionParams struct {
-	Id                                string              `json:"id,omitempty"`
-	TrialEnd                          *int64              `json:"trial_end,omitempty"`
-	SetupFee                          *int64              `json:"setup_fee,omitempty"`
-	StartDate                         *int64              `json:"start_date,omitempty"`
-	Coupon                            string              `json:"coupon,omitempty"`
-	FreePeriod                        *int32              `json:"free_period,omitempty"`
-	FreePeriodUnit                    enum.FreePeriodUnit `json:"free_period_unit,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32              `json:"contract_term_billing_cycle_on_renewal,omitempty"`
-	TrialEndAction                    enum.TrialEndAction `json:"trial_end_action,omitempty"`
+	Id                                string                    `json:"id,omitempty"`
+	TrialEnd                          *int64                    `json:"trial_end,omitempty"`
+	SetupFee                          *int64                    `json:"setup_fee,omitempty"`
+	StartDate                         *int64                    `json:"start_date,omitempty"`
+	Coupon                            string                    `json:"coupon,omitempty"`
+	OfflinePaymentMethod              enum.OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	FreePeriod                        *int32                    `json:"free_period,omitempty"`
+	FreePeriodUnit                    enum.FreePeriodUnit       `json:"free_period_unit,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	TrialEndAction                    enum.TrialEndAction       `json:"trial_end_action,omitempty"`
 }
 type CreateSubItemEstimateSubscriptionItemParams struct {
 	ItemPriceId        string              `json:"item_price_id"`
@@ -307,14 +308,15 @@ type CreateSubItemForCustomerEstimateRequestParams struct {
 	BillingOverride        *CreateSubItemForCustomerEstimateBillingOverrideParams    `json:"billing_override,omitempty"`
 }
 type CreateSubItemForCustomerEstimateSubscriptionParams struct {
-	Id                                string              `json:"id,omitempty"`
-	TrialEnd                          *int64              `json:"trial_end,omitempty"`
-	SetupFee                          *int64              `json:"setup_fee,omitempty"`
-	StartDate                         *int64              `json:"start_date,omitempty"`
-	FreePeriod                        *int32              `json:"free_period,omitempty"`
-	FreePeriodUnit                    enum.FreePeriodUnit `json:"free_period_unit,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32              `json:"contract_term_billing_cycle_on_renewal,omitempty"`
-	TrialEndAction                    enum.TrialEndAction `json:"trial_end_action,omitempty"`
+	Id                                string                    `json:"id,omitempty"`
+	TrialEnd                          *int64                    `json:"trial_end,omitempty"`
+	SetupFee                          *int64                    `json:"setup_fee,omitempty"`
+	StartDate                         *int64                    `json:"start_date,omitempty"`
+	OfflinePaymentMethod              enum.OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	FreePeriod                        *int32                    `json:"free_period,omitempty"`
+	FreePeriodUnit                    enum.FreePeriodUnit       `json:"free_period_unit,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	TrialEndAction                    enum.TrialEndAction       `json:"trial_end_action,omitempty"`
 }
 type CreateSubItemForCustomerEstimateSubscriptionItemParams struct {
 	ItemPriceId        string              `json:"item_price_id"`

@@ -46,6 +46,8 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/itemfamily"
 	"github.com/chargebee/chargebee-go/v3/models/itemprice"
 	"github.com/chargebee/chargebee-go/v3/models/metadata"
+	"github.com/chargebee/chargebee-go/v3/models/offerevent"
+	"github.com/chargebee/chargebee-go/v3/models/offerfulfillment"
 	"github.com/chargebee/chargebee-go/v3/models/omnichannelonetimeorder"
 	"github.com/chargebee/chargebee-go/v3/models/omnichannelonetimeorderitem"
 	"github.com/chargebee/chargebee-go/v3/models/omnichannelsubscription"
@@ -59,6 +61,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/paymentschedulescheme"
 	"github.com/chargebee/chargebee-go/v3/models/paymentsource"
 	"github.com/chargebee/chargebee-go/v3/models/paymentvoucher"
+	"github.com/chargebee/chargebee-go/v3/models/personalizedoffer"
 	"github.com/chargebee/chargebee-go/v3/models/plan"
 	"github.com/chargebee/chargebee-go/v3/models/portalsession"
 	"github.com/chargebee/chargebee-go/v3/models/pricevariant"
@@ -185,7 +188,10 @@ type Result struct {
 	UsageEvent                                 *usageevent.UsageEvent                                                                 `json:"usage_event,omitempty"`
 	OmnichannelSubscriptionItemScheduledChange *omnichannelsubscriptionitemscheduledchange.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
 	UsageFile                                  *usagefile.UsageFile                                                                   `json:"usage_file,omitempty"`
+	PersonalizedOffer                          *personalizedoffer.PersonalizedOffer                                                   `json:"personalized_offer,omitempty"`
 	Brand                                      *brand.Brand                                                                           `json:"brand,omitempty"`
+	OfferFulfillment                           *offerfulfillment.OfferFulfillment                                                     `json:"offer_fulfillment,omitempty"`
+	OfferEvent                                 *offerevent.OfferEvent                                                                 `json:"offer_event,omitempty"`
 	WebhookEndpoint                            *webhookendpoint.WebhookEndpoint                                                       `json:"webhook_endpoint,omitempty"`
 	ImpactedCustomer                           *impactedcustomer.ImpactedCustomer                                                     `json:"impacted_customer,omitempty"`
 	SubscriptionEntitlementsUpdatedDetail      *subscriptionentitlementsupdateddetail.SubscriptionEntitlementsUpdatedDetail           `json:"subscription_entitlements_updated_detail,omitempty"`
@@ -199,7 +205,9 @@ type Result struct {
 	Downloads                                  []*download.Download                                                                   `json:"downloads,omitempty"`
 	Configurations                             []*configuration.Configuration                                                         `json:"configurations,omitempty"`
 	InAppSubscriptions                         []*inappsubscription.InAppSubscription                                                 `json:"in_app_subscriptions,omitempty"`
+	PersonalizedOffers                         []*personalizedoffer.PersonalizedOffer                                                 `json:"personalized_offers,omitempty"`
 	FailedEvents                               interface{}                                                                            `json:"failed_events,omitempty"`
+	ExpiresAt                                  interface{}                                                                            `json:"expires_at,omitempty"`
 	BatchId                                    interface{}                                                                            `json:"batch_id,omitempty"`
 	Success                                    interface{}                                                                            `json:"success,omitempty"`
 	ScheduledAt                                interface{}                                                                            `json:"scheduled_at,omitempty"`

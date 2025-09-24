@@ -57,6 +57,7 @@ type CreditNote struct {
 	BillingAddress            *BillingAddress           `json:"billing_address"`
 	Einvoice                  *Einvoice                 `json:"einvoice"`
 	SiteDetailsAtCreation     *SiteDetailsAtCreation    `json:"site_details_at_creation"`
+	CustomField               map[string]interface{}    `json:"custom_field"`
 	Object                    string                    `json:"object"`
 }
 type LineItem struct {
@@ -199,7 +200,6 @@ type ShippingAddress struct {
 	Country          string                `json:"country"`
 	Zip              string                `json:"zip"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status"`
-	Index            int32                 `json:"index"`
 	Object           string                `json:"object"`
 }
 type BillingAddress struct {
