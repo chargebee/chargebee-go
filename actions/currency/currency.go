@@ -7,8 +7,8 @@ import (
 	"net/url"
 )
 
-func List() chargebee.Request {
-	return chargebee.Send("GET", fmt.Sprintf("/currencies/list"), nil)
+func List(params *currency.ListRequestParams) chargebee.ListRequest {
+	return chargebee.SendList("GET", fmt.Sprintf("/currencies/list"), params)
 }
 func Retrieve(id string) chargebee.Request {
 	return chargebee.Send("GET", fmt.Sprintf("/currencies/%v", url.PathEscape(id)), nil)

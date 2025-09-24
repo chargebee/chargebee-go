@@ -164,7 +164,6 @@ type ShippingAddress struct {
 	Country          string                `json:"country"`
 	Zip              string                `json:"zip"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status"`
-	Index            int32                 `json:"index"`
 	Object           string                `json:"object"`
 }
 type ReferralInfo struct {
@@ -572,6 +571,7 @@ type CreateWithItemsRequestParams struct {
 	AutoCollection                    enum.AutoCollection                       `json:"auto_collection,omitempty"`
 	TermsToCharge                     *int32                                    `json:"terms_to_charge,omitempty"`
 	BillingAlignmentMode              enum.BillingAlignmentMode                 `json:"billing_alignment_mode,omitempty"`
+	OfflinePaymentMethod              enum.OfflinePaymentMethod                 `json:"offline_payment_method,omitempty"`
 	PoNumber                          string                                    `json:"po_number,omitempty"`
 	CouponIds                         []string                                  `json:"coupon_ids,omitempty"`
 	PaymentSourceId                   string                                    `json:"payment_source_id,omitempty"`

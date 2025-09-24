@@ -13,6 +13,10 @@ type Currency struct {
 	ManualExchangeRate string                 `json:"manual_exchange_rate"`
 	Object             string                 `json:"object"`
 }
+type ListRequestParams struct {
+	Limit  *int32 `json:"limit,omitempty"`
+	Offset string `json:"offset,omitempty"`
+}
 type CreateRequestParams struct {
 	CurrencyCode       string                 `json:"currency_code"`
 	ForexType          currencyEnum.ForexType `json:"forex_type"`

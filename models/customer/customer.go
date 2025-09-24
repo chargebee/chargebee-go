@@ -135,6 +135,7 @@ type Balance struct {
 	UnbilledCharges     int64  `json:"unbilled_charges"`
 	CurrencyCode        string `json:"currency_code"`
 	BalanceCurrencyCode string `json:"balance_currency_code"`
+	BusinessEntityId    string `json:"business_entity_id"`
 	Object              string `json:"object"`
 }
 type EntityIdentifier struct {

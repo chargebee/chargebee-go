@@ -23,41 +23,48 @@ type Ramp struct {
 	ItemsToRemove          []string                `json:"items_to_remove"`
 	CouponsToRemove        []string                `json:"coupons_to_remove"`
 	DiscountsToRemove      []string                `json:"discounts_to_remove"`
+	ContractTerm           *ContractTerm           `json:"contract_term"`
 	Deleted                bool                    `json:"deleted"`
 	StatusTransitionReason *StatusTransitionReason `json:"status_transition_reason"`
 	Object                 string                  `json:"object"`
 }
 type ItemsToAdd struct {
-	ItemPriceId           string        `json:"item_price_id"`
-	ItemType              enum.ItemType `json:"item_type"`
-	Quantity              int32         `json:"quantity"`
-	QuantityInDecimal     string        `json:"quantity_in_decimal"`
-	UnitPrice             int64         `json:"unit_price"`
-	UnitPriceInDecimal    string        `json:"unit_price_in_decimal"`
-	Amount                int64         `json:"amount"`
-	AmountInDecimal       string        `json:"amount_in_decimal"`
-	FreeQuantity          int32         `json:"free_quantity"`
-	FreeQuantityInDecimal string        `json:"free_quantity_in_decimal"`
-	BillingCycles         int32         `json:"billing_cycles"`
-	ServicePeriodDays     int32         `json:"service_period_days"`
-	MeteredQuantity       string        `json:"metered_quantity"`
-	Object                string        `json:"object"`
+	ItemPriceId           string              `json:"item_price_id"`
+	ItemType              enum.ItemType       `json:"item_type"`
+	Quantity              int32               `json:"quantity"`
+	QuantityInDecimal     string              `json:"quantity_in_decimal"`
+	UnitPrice             int64               `json:"unit_price"`
+	UnitPriceInDecimal    string              `json:"unit_price_in_decimal"`
+	Amount                int64               `json:"amount"`
+	AmountInDecimal       string              `json:"amount_in_decimal"`
+	FreeQuantity          int32               `json:"free_quantity"`
+	FreeQuantityInDecimal string              `json:"free_quantity_in_decimal"`
+	BillingCycles         int32               `json:"billing_cycles"`
+	ServicePeriodDays     int32               `json:"service_period_days"`
+	MeteredQuantity       string              `json:"metered_quantity"`
+	ChargeOnce            bool                `json:"charge_once"`
+	ChargeOnOption        enum.ChargeOnOption `json:"charge_on_option"`
+	ChargeOnEvent         enum.ChargeOnEvent  `json:"charge_on_event"`
+	Object                string              `json:"object"`
 }
 type ItemsToUpdate struct {
-	ItemPriceId           string        `json:"item_price_id"`
-	ItemType              enum.ItemType `json:"item_type"`
-	Quantity              int32         `json:"quantity"`
-	QuantityInDecimal     string        `json:"quantity_in_decimal"`
-	UnitPrice             int64         `json:"unit_price"`
-	UnitPriceInDecimal    string        `json:"unit_price_in_decimal"`
-	Amount                int64         `json:"amount"`
-	AmountInDecimal       string        `json:"amount_in_decimal"`
-	FreeQuantity          int32         `json:"free_quantity"`
-	FreeQuantityInDecimal string        `json:"free_quantity_in_decimal"`
-	BillingCycles         int32         `json:"billing_cycles"`
-	ServicePeriodDays     int32         `json:"service_period_days"`
-	MeteredQuantity       string        `json:"metered_quantity"`
-	Object                string        `json:"object"`
+	ItemPriceId           string              `json:"item_price_id"`
+	ItemType              enum.ItemType       `json:"item_type"`
+	Quantity              int32               `json:"quantity"`
+	QuantityInDecimal     string              `json:"quantity_in_decimal"`
+	UnitPrice             int64               `json:"unit_price"`
+	UnitPriceInDecimal    string              `json:"unit_price_in_decimal"`
+	Amount                int64               `json:"amount"`
+	AmountInDecimal       string              `json:"amount_in_decimal"`
+	FreeQuantity          int32               `json:"free_quantity"`
+	FreeQuantityInDecimal string              `json:"free_quantity_in_decimal"`
+	BillingCycles         int32               `json:"billing_cycles"`
+	ServicePeriodDays     int32               `json:"service_period_days"`
+	MeteredQuantity       string              `json:"metered_quantity"`
+	ChargeOnce            bool                `json:"charge_once"`
+	ChargeOnOption        enum.ChargeOnOption `json:"charge_on_option"`
+	ChargeOnEvent         enum.ChargeOnEvent  `json:"charge_on_event"`
+	Object                string              `json:"object"`
 }
 type CouponsToAdd struct {
 	CouponId  string `json:"coupon_id"`
@@ -92,6 +99,12 @@ type ItemTier struct {
 	Index                 int32            `json:"index"`
 	Object                string           `json:"object"`
 }
+type ContractTerm struct {
+	CancellationCutoffPeriod int32                                `json:"cancellation_cutoff_period"`
+	RenewalBillingCycles     int32                                `json:"renewal_billing_cycles"`
+	ActionAtTermEnd          rampEnum.ContractTermActionAtTermEnd `json:"action_at_term_end"`
+	Object                   string                               `json:"object"`
+}
 type StatusTransitionReason struct {
 	Code    string `json:"code"`
 	Message string `json:"message"`
@@ -108,24 +121,31 @@ type CreateForSubscriptionRequestParams struct {
 	ItemTiers         []*CreateForSubscriptionItemTierParams       `json:"item_tiers,omitempty"`
 	CouponsToAdd      []*CreateForSubscriptionCouponsToAddParams   `json:"coupons_to_add,omitempty"`
 	DiscountsToAdd    []*CreateForSubscriptionDiscountsToAddParams `json:"discounts_to_add,omitempty"`
+	ContractTerm      *CreateForSubscriptionContractTermParams     `json:"contract_term,omitempty"`
 }
 type CreateForSubscriptionItemsToAddParams struct {
-	ItemPriceId        string `json:"item_price_id"`
-	Quantity           *int32 `json:"quantity,omitempty"`
-	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
-	UnitPrice          *int64 `json:"unit_price,omitempty"`
-	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
-	BillingCycles      *int32 `json:"billing_cycles,omitempty"`
-	ServicePeriodDays  *int32 `json:"service_period_days,omitempty"`
+	ItemPriceId        string              `json:"item_price_id"`
+	Quantity           *int32              `json:"quantity,omitempty"`
+	QuantityInDecimal  string              `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int64              `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string              `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32              `json:"billing_cycles,omitempty"`
+	ServicePeriodDays  *int32              `json:"service_period_days,omitempty"`
+	ChargeOnEvent      enum.ChargeOnEvent  `json:"charge_on_event,omitempty"`
+	ChargeOnce         *bool               `json:"charge_once,omitempty"`
+	ChargeOnOption     enum.ChargeOnOption `json:"charge_on_option,omitempty"`
 }
 type CreateForSubscriptionItemsToUpdateParams struct {
-	ItemPriceId        string `json:"item_price_id"`
-	Quantity           *int32 `json:"quantity,omitempty"`
-	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
-	UnitPrice          *int64 `json:"unit_price,omitempty"`
-	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
-	BillingCycles      *int32 `json:"billing_cycles,omitempty"`
-	ServicePeriodDays  *int32 `json:"service_period_days,omitempty"`
+	ItemPriceId        string              `json:"item_price_id"`
+	Quantity           *int32              `json:"quantity,omitempty"`
+	QuantityInDecimal  string              `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int64              `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string              `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32              `json:"billing_cycles,omitempty"`
+	ServicePeriodDays  *int32              `json:"service_period_days,omitempty"`
+	ChargeOnEvent      enum.ChargeOnEvent  `json:"charge_on_event,omitempty"`
+	ChargeOnce         *bool               `json:"charge_once,omitempty"`
+	ChargeOnOption     enum.ChargeOnOption `json:"charge_on_option,omitempty"`
 }
 type CreateForSubscriptionItemTierParams struct {
 	ItemPriceId           string           `json:"item_price_id,omitempty"`
@@ -152,6 +172,11 @@ type CreateForSubscriptionDiscountsToAddParams struct {
 	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`
 	ItemPriceId   string            `json:"item_price_id,omitempty"`
 }
+type CreateForSubscriptionContractTermParams struct {
+	ActionAtTermEnd          rampEnum.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                               `json:"cancellation_cutoff_period,omitempty"`
+	RenewalBillingCycles     *int32                               `json:"renewal_billing_cycles,omitempty"`
+}
 type UpdateRequestParams struct {
 	EffectiveFrom     *int64                        `json:"effective_from"`
 	Description       string                        `json:"description,omitempty"`
@@ -163,24 +188,31 @@ type UpdateRequestParams struct {
 	ItemTiers         []*UpdateItemTierParams       `json:"item_tiers,omitempty"`
 	CouponsToAdd      []*UpdateCouponsToAddParams   `json:"coupons_to_add,omitempty"`
 	DiscountsToAdd    []*UpdateDiscountsToAddParams `json:"discounts_to_add,omitempty"`
+	ContractTerm      *UpdateContractTermParams     `json:"contract_term,omitempty"`
 }
 type UpdateItemsToAddParams struct {
-	ItemPriceId        string `json:"item_price_id"`
-	Quantity           *int32 `json:"quantity,omitempty"`
-	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
-	UnitPrice          *int64 `json:"unit_price,omitempty"`
-	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
-	BillingCycles      *int32 `json:"billing_cycles,omitempty"`
-	ServicePeriodDays  *int32 `json:"service_period_days,omitempty"`
+	ItemPriceId        string              `json:"item_price_id"`
+	Quantity           *int32              `json:"quantity,omitempty"`
+	QuantityInDecimal  string              `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int64              `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string              `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32              `json:"billing_cycles,omitempty"`
+	ServicePeriodDays  *int32              `json:"service_period_days,omitempty"`
+	ChargeOnEvent      enum.ChargeOnEvent  `json:"charge_on_event,omitempty"`
+	ChargeOnce         *bool               `json:"charge_once,omitempty"`
+	ChargeOnOption     enum.ChargeOnOption `json:"charge_on_option,omitempty"`
 }
 type UpdateItemsToUpdateParams struct {
-	ItemPriceId        string `json:"item_price_id"`
-	Quantity           *int32 `json:"quantity,omitempty"`
-	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
-	UnitPrice          *int64 `json:"unit_price,omitempty"`
-	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
-	BillingCycles      *int32 `json:"billing_cycles,omitempty"`
-	ServicePeriodDays  *int32 `json:"service_period_days,omitempty"`
+	ItemPriceId        string              `json:"item_price_id"`
+	Quantity           *int32              `json:"quantity,omitempty"`
+	QuantityInDecimal  string              `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int64              `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string              `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32              `json:"billing_cycles,omitempty"`
+	ServicePeriodDays  *int32              `json:"service_period_days,omitempty"`
+	ChargeOnEvent      enum.ChargeOnEvent  `json:"charge_on_event,omitempty"`
+	ChargeOnce         *bool               `json:"charge_once,omitempty"`
+	ChargeOnOption     enum.ChargeOnOption `json:"charge_on_option,omitempty"`
 }
 type UpdateItemTierParams struct {
 	ItemPriceId           string           `json:"item_price_id,omitempty"`
@@ -206,6 +238,11 @@ type UpdateDiscountsToAddParams struct {
 	PeriodUnit    enum.PeriodUnit   `json:"period_unit,omitempty"`
 	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`
 	ItemPriceId   string            `json:"item_price_id,omitempty"`
+}
+type UpdateContractTermParams struct {
+	ActionAtTermEnd          rampEnum.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                               `json:"cancellation_cutoff_period,omitempty"`
+	RenewalBillingCycles     *int32                               `json:"renewal_billing_cycles,omitempty"`
 }
 type ListRequestParams struct {
 	Limit          *int32                  `json:"limit,omitempty"`

@@ -16,10 +16,10 @@ type QuoteLineGroup struct {
 	ChargeEvent        quoteLineGroupEnum.ChargeEvent `json:"charge_event"`
 	BillingCycleNumber int32                          `json:"billing_cycle_number"`
 	LineItems          []*LineItem                    `json:"line_items"`
-	Discounts          []*Discount                    `json:"discounts"`
 	LineItemDiscounts  []*LineItemDiscount            `json:"line_item_discounts"`
-	Taxes              []*Tax                         `json:"taxes"`
 	LineItemTaxes      []*LineItemTax                 `json:"line_item_taxes"`
+	Discounts          []*Discount                    `json:"discounts"`
+	Taxes              []*Tax                         `json:"taxes"`
 	Object             string                         `json:"object"`
 }
 type LineItem struct {
@@ -50,15 +50,6 @@ type LineItem struct {
 	CustomerId              string                                `json:"customer_id"`
 	Object                  string                                `json:"object"`
 }
-type Discount struct {
-	Amount        int64                                   `json:"amount"`
-	Description   string                                  `json:"description"`
-	EntityType    quoteLineGroupEnum.DiscountEntityType   `json:"entity_type"`
-	DiscountType  quoteLineGroupEnum.DiscountDiscountType `json:"discount_type"`
-	EntityId      string                                  `json:"entity_id"`
-	CouponSetCode string                                  `json:"coupon_set_code"`
-	Object        string                                  `json:"object"`
-}
 type LineItemDiscount struct {
 	LineItemId     string                                          `json:"line_item_id"`
 	DiscountType   quoteLineGroupEnum.LineItemDiscountDiscountType `json:"discount_type"`
@@ -66,12 +57,6 @@ type LineItemDiscount struct {
 	EntityId       string                                          `json:"entity_id"`
 	DiscountAmount int64                                           `json:"discount_amount"`
 	Object         string                                          `json:"object"`
-}
-type Tax struct {
-	Name        string `json:"name"`
-	Amount      int64  `json:"amount"`
-	Description string `json:"description"`
-	Object      string `json:"object"`
 }
 type LineItemTax struct {
 	LineItemId               string            `json:"line_item_id"`
@@ -90,4 +75,19 @@ type LineItemTax struct {
 	TaxAmountInLocalCurrency int64             `json:"tax_amount_in_local_currency"`
 	LocalCurrencyCode        string            `json:"local_currency_code"`
 	Object                   string            `json:"object"`
+}
+type Discount struct {
+	Amount        int64                                   `json:"amount"`
+	Description   string                                  `json:"description"`
+	EntityType    quoteLineGroupEnum.DiscountEntityType   `json:"entity_type"`
+	DiscountType  quoteLineGroupEnum.DiscountDiscountType `json:"discount_type"`
+	EntityId      string                                  `json:"entity_id"`
+	CouponSetCode string                                  `json:"coupon_set_code"`
+	Object        string                                  `json:"object"`
+}
+type Tax struct {
+	Name        string `json:"name"`
+	Amount      int64  `json:"amount"`
+	Description string `json:"description"`
+	Object      string `json:"object"`
 }

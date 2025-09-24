@@ -32,7 +32,6 @@ type ShippingAddress struct {
 	Country          string                `json:"country"`
 	Zip              string                `json:"zip"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status"`
-	Index            int32                 `json:"index"`
 	Object           string                `json:"object"`
 }
 type ContractTerm struct {

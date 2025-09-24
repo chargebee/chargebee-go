@@ -3,6 +3,7 @@ package chargebee
 import (
 	"bytes"
 	"io"
+	"net/http"
 	"net/url"
 	"strings"
 )
@@ -32,12 +33,11 @@ func (request Request) RequestWithEnv(env Environment) (*Result, error) {
 		return result, requestError
 	}
 
-	if err := UnmarshalJSON(res.Body, result); err != nil {
+	if err := UnmarshalJSON(res.Body, result); err != nil && res.StatusCode != http.StatusNoContent {
 		return result, nil
 	}
 	result.responseHeaders = res.Headers
 	result.httpStatusCode = res.StatusCode
-
 	return result, requestError
 }
 func getBody(method string, path string, form *url.Values) (string, io.Reader) {

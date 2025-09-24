@@ -15,5 +15,6 @@ type GatewayErrorDetail struct {
 	ProcessorErrorCode    string `json:"processor_error_code"`
 	ProcessorErrorMessage string `json:"processor_error_message"`
 	ErrorCauseId          string `json:"error_cause_id"`
+	ProcessorAdviceCode   string `json:"processor_advice_code"`
 	Object                string `json:"object"`
 }

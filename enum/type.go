@@ -28,4 +28,7 @@ const (
 	TypeKlarnaPayNow          Type = "klarna_pay_now"
 	TypeOnlineBankingPoland   Type = "online_banking_poland"
 	TypePayconiqByBancontact  Type = "payconiq_by_bancontact"
+	TypeFreeTrial             Type = "free_trial"
+	TypePayUpFront            Type = "pay_up_front"
+	TypePayAsYouGo            Type = "pay_as_you_go"
 )
