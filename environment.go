@@ -1,6 +1,7 @@
 package chargebee
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"net/http"
@@ -39,6 +40,10 @@ const (
 )
 
 const cbEnvKey cbCtxKey = "cb_env"
+
+func WithEnvironment(ctx context.Context, env Environment) context.Context {
+	return context.WithValue(ctx, cbEnvKey, env)
+}
 
 func Configure(key string, siteName string) {
 	if key == "" || siteName == "" {
