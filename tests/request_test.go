@@ -2,9 +2,7 @@ package tests
 
 import (
 	"bytes"
-	"context"
 	_ "encoding/json"
-	"github.com/chargebee/chargebee-go/v3"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -12,7 +10,21 @@ import (
 	"sync/atomic"
 	"testing"
 	"time"
+
+	"github.com/chargebee/chargebee-go/v3"
 )
+
+type mockTransport struct {
+	server *httptest.Server
+}
+
+func (m *mockTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+	mockReq := req.Clone(req.Context())
+	mockReq.URL.Scheme = "http"
+	mockReq.URL.Host = strings.TrimPrefix(m.server.URL, "http://")
+	mockReq.RequestURI = ""
+	return http.DefaultTransport.RoundTrip(mockReq)
+}
 
 func TestDo_SuccessFirstTry(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -22,7 +34,7 @@ func TestDo_SuccessFirstTry(t *testing.T) {
 	defer server.Close()
 
 	req, _ := http.NewRequest("GET", server.URL, nil)
-	resp, err := chargebee.Do(req)
+	resp, err := chargebee.Do(req, true)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -42,7 +54,7 @@ func TestDo_RetryOn503(t *testing.T) {
 	defer server.Close()
 
 	req, _ := http.NewRequest("GET", server.URL, nil)
-	ctx := context.WithValue(req.Context(), "cb_env", chargebee.Environment{
+	ctx := chargebee.WithEnvironment(req.Context(), chargebee.Environment{
 		RetryConfig: &chargebee.RetryConfig{
 			Enabled:    true,
 			MaxRetries: 2,
@@ -52,7 +64,7 @@ func TestDo_RetryOn503(t *testing.T) {
 	})
 	req = req.WithContext(ctx)
 
-	_, err := chargebee.Do(req)
+	_, err := chargebee.Do(req, true)
 	if err == nil || !strings.Contains(err.Error(), "operation_failed") {
 		t.Errorf("expected retryable error, got: %v", err)
 	}
@@ -81,7 +93,7 @@ func TestDo_RetryAfterHeader(t *testing.T) {
 	defer server.Close()
 
 	req, _ := http.NewRequest("GET", server.URL, nil)
-	ctx := context.WithValue(req.Context(), "cb_env", chargebee.Environment{
+	ctx := chargebee.WithEnvironment(req.Context(), chargebee.Environment{
 		RetryConfig: &chargebee.RetryConfig{
 			Enabled:    true,
 			MaxRetries: 2,
@@ -91,7 +103,7 @@ func TestDo_RetryAfterHeader(t *testing.T) {
 	})
 	req = req.WithContext(ctx)
 
-	resp, err := chargebee.Do(req)
+	resp, err := chargebee.Do(req, false)
 	if err != nil {
 		t.Fatalf("expected success after retry, got error: %v", err)
 	}
@@ -116,7 +128,7 @@ func TestDo_RetryDisabled(t *testing.T) {
 	defer server.Close()
 
 	req, _ := http.NewRequest("GET", server.URL, nil)
-	ctx := context.WithValue(req.Context(), "cb_env", chargebee.Environment{
+	ctx := chargebee.WithEnvironment(req.Context(), chargebee.Environment{
 		RetryConfig: &chargebee.RetryConfig{
 			Enabled:    false,
 			MaxRetries: 5,
@@ -126,11 +138,45 @@ func TestDo_RetryDisabled(t *testing.T) {
 	})
 	req = req.WithContext(ctx)
 
-	_, err := chargebee.Do(req)
+	_, err := chargebee.Do(req, false)
 	if err == nil || !strings.Contains(err.Error(), "disabled_retry") {
 		t.Errorf("expected error without retries, got: %v", err)
 	}
 	if atomic.LoadInt32(&callCount) != 1 {
 		t.Errorf("expected 1 attempt, got: %d", callCount)
+	}
+}
+
+func TestRequestWithEnv_RetryOverride(t *testing.T) {
+	var count int32
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		atomic.AddInt32(&count, 1)
+		w.WriteHeader(503)
+		io.WriteString(w, `{"type":"operation_failed","api_error_code":"temporary_failure"}`)
+	}))
+	defer server.Close()
+	req := chargebee.Send("GET", "/customers", nil)
+	mockClient := &http.Client{
+		Transport: &mockTransport{server: server},
+	}
+	chargebee.WithHTTPClient(mockClient)
+
+	env := chargebee.Environment{
+		Key:      "test_key",
+		SiteName: "test_site",
+		RetryConfig: &chargebee.RetryConfig{
+			Enabled:    true,
+			MaxRetries: 3,
+			DelayMs:    10,
+			RetryOn:    map[int]struct{}{503: {}},
+		},
+	}
+
+	_, err := req.RequestWithEnv(env)
+	if err == nil || !strings.Contains(err.Error(), "operation_failed") {
+		t.Errorf("expected retryable error, got: %v", err)
+	}
+	if atomic.LoadInt32(&count) != 4 { // 1 initial + 3 retries
+		t.Errorf("expected 4 attempts, got: %d", count)
 	}
 }

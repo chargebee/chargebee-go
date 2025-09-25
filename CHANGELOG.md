@@ -1,3 +1,8 @@
+### v3.38.1 (2025-09-25)
+
+#### Bug fixes:
+* Fixed retry behavior to respect configuration passed via .RequestWithEnv(per-request-config).
+
 ### v3.38.0 (2025-09-24)
 ***
 

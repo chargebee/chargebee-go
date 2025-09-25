@@ -22,7 +22,7 @@ func Do(req *http.Request, isIdempotent bool) (*CBResponse, error) {
 
 	env := DefaultEnv
 	if req.Context() != nil {
-		if v := req.Context().Value("cb_env"); v != nil {
+		if v := req.Context().Value(cbEnvKey); v != nil {
 			if e, ok := v.(Environment); ok {
 				env = e
 			}

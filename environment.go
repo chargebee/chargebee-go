@@ -1,6 +1,7 @@
 package chargebee
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"net/http"
@@ -23,6 +24,8 @@ type Environment struct {
 	EnableDebugLogs bool
 }
 
+type cbCtxKey string
+
 var (
 	TotalHTTPTimeout      = 80 * time.Second
 	ExportWaitInSecs      = 3 * time.Second
@@ -35,6 +38,12 @@ const (
 	APIVersion = "v2"
 	Charset    = "UTF-8"
 )
+
+const cbEnvKey cbCtxKey = "cb_env"
+
+func WithEnvironment(ctx context.Context, env Environment) context.Context {
+	return context.WithValue(ctx, cbEnvKey, env)
+}
 
 func Configure(key string, siteName string) {
 	if key == "" || siteName == "" {
