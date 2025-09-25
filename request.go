@@ -2,6 +2,7 @@ package chargebee
 
 import (
 	"bytes"
+	"context"
 	"io"
 	"net/http"
 	"net/url"
@@ -25,7 +26,9 @@ func (request Request) RequestWithEnv(env Environment) (*Result, error) {
 		panic(err)
 	}
 	if request.Context != nil {
-		req = req.WithContext(request.Context)
+		req = req.WithContext(context.WithValue(request.Context, cbEnvKey, env))
+	} else {
+		req = req.WithContext(context.WithValue(req.Context(), cbEnvKey, env))
 	}
 	res, requestError := Do(req, request.idempotent)
 	result := &Result{}

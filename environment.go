@@ -23,6 +23,8 @@ type Environment struct {
 	EnableDebugLogs bool
 }
 
+type cbCtxKey string
+
 var (
 	TotalHTTPTimeout      = 80 * time.Second
 	ExportWaitInSecs      = 3 * time.Second
@@ -35,6 +37,8 @@ const (
 	APIVersion = "v2"
 	Charset    = "UTF-8"
 )
+
+const cbEnvKey cbCtxKey = "cb_env"
 
 func Configure(key string, siteName string) {
 	if key == "" || siteName == "" {

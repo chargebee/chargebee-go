@@ -1,5 +1,7 @@
 package chargebee
 
+import "context"
+
 func (request ListRequest) ListRequest() (*ResultList, error) {
 	result, err := request.ListRequestWithEnv(DefaultConfig())
 	return result, err
@@ -11,9 +13,11 @@ func (request ListRequest) ListRequestWithEnv(env Environment) (*ResultList, err
 		panic(err)
 	}
 	if request.Context != nil {
-		req = req.WithContext(request.Context)
+		req = req.WithContext(context.WithValue(request.Context, cbEnvKey, env))
+	} else {
+		req = req.WithContext(context.WithValue(req.Context(), cbEnvKey, env))
 	}
-	res, requestError := Do(req, request.isJsonRequest)
+	res, requestError := Do(req, request.idempotent)
 	result := &ResultList{}
 
 	if requestError != nil {
