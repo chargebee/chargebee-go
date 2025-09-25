@@ -14,6 +14,18 @@ import (
 	"github.com/chargebee/chargebee-go/v3"
 )
 
+type mockTransport struct {
+	server *httptest.Server
+}
+
+func (m *mockTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+	mockReq := req.Clone(req.Context())
+	mockReq.URL.Scheme = "http"
+	mockReq.URL.Host = strings.TrimPrefix(m.server.URL, "http://")
+	mockReq.RequestURI = ""
+	return http.DefaultTransport.RoundTrip(mockReq)
+}
+
 func TestDo_SuccessFirstTry(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(200)
@@ -132,5 +144,39 @@ func TestDo_RetryDisabled(t *testing.T) {
 	}
 	if atomic.LoadInt32(&callCount) != 1 {
 		t.Errorf("expected 1 attempt, got: %d", callCount)
+	}
+}
+
+func TestRequestWithEnv_RetryOverride(t *testing.T) {
+	var count int32
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		atomic.AddInt32(&count, 1)
+		w.WriteHeader(503)
+		io.WriteString(w, `{"type":"operation_failed","api_error_code":"temporary_failure"}`)
+	}))
+	defer server.Close()
+	req := chargebee.Send("GET", "/customers", nil)
+	mockClient := &http.Client{
+		Transport: &mockTransport{server: server},
+	}
+	chargebee.WithHTTPClient(mockClient)
+
+	env := chargebee.Environment{
+		Key:      "test_key",
+		SiteName: "test_site",
+		RetryConfig: &chargebee.RetryConfig{
+			Enabled:    true,
+			MaxRetries: 3,
+			DelayMs:    10,
+			RetryOn:    map[int]struct{}{503: {}},
+		},
+	}
+
+	_, err := req.RequestWithEnv(env)
+	if err == nil || !strings.Contains(err.Error(), "operation_failed") {
+		t.Errorf("expected retryable error, got: %v", err)
+	}
+	if atomic.LoadInt32(&count) != 4 { // 1 initial + 3 retries
+		t.Errorf("expected 4 attempts, got: %d", count)
 	}
 }
