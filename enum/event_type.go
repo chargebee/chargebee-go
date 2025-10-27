@@ -211,6 +211,7 @@ const (
 	EventTypeUsageFileIngested                                       EventType = "usage_file_ingested"
 	EventTypeOmnichannelSubscriptionItemPauseScheduled               EventType = "omnichannel_subscription_item_pause_scheduled"
 	EventTypeOmnichannelSubscriptionMovedIn                          EventType = "omnichannel_subscription_moved_in"
+	EventTypeOmnichannelTransactionCreated                           EventType = "omnichannel_transaction_created"
 	EventTypePlanCreated                                             EventType = "plan_created"
 	EventTypePlanUpdated                                             EventType = "plan_updated"
 	EventTypePlanDeleted                                             EventType = "plan_deleted"

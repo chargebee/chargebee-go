@@ -121,6 +121,7 @@ type LineItemAddress struct {
 type Discount struct {
 	Amount        int64                                    `json:"amount"`
 	Description   string                                   `json:"description"`
+	LineItemId    string                                   `json:"line_item_id"`
 	EntityType    invoiceEstimateEnum.DiscountEntityType   `json:"entity_type"`
 	DiscountType  invoiceEstimateEnum.DiscountDiscountType `json:"discount_type"`
 	EntityId      string                                   `json:"entity_id"`

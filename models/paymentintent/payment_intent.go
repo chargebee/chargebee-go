@@ -23,6 +23,7 @@ type PaymentIntent struct {
 	CustomerId           string                              `json:"customer_id"`
 	Gateway              string                              `json:"gateway"`
 	ActivePaymentAttempt *PaymentAttempt                     `json:"active_payment_attempt"`
+	PaymentAttempts      []*PaymentAttempt                   `json:"payment_attempts"`
 	BusinessEntityId     string                              `json:"business_entity_id"`
 	Object               string                              `json:"object"`
 }
@@ -33,6 +34,7 @@ type PaymentAttempt struct {
 	IdAtGateway       string                                 `json:"id_at_gateway"`
 	ErrorCode         string                                 `json:"error_code"`
 	ErrorText         string                                 `json:"error_text"`
+	CheckoutDetails   string                                 `json:"checkout_details"`
 	CreatedAt         int64                                  `json:"created_at"`
 	ModifiedAt        int64                                  `json:"modified_at"`
 	ErrorDetail       *gatewayerrordetail.GatewayErrorDetail `json:"error_detail"`

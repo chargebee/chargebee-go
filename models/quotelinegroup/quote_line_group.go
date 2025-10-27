@@ -79,6 +79,7 @@ type LineItemTax struct {
 type Discount struct {
 	Amount        int64                                   `json:"amount"`
 	Description   string                                  `json:"description"`
+	LineItemId    string                                  `json:"line_item_id"`
 	EntityType    quoteLineGroupEnum.DiscountEntityType   `json:"entity_type"`
 	DiscountType  quoteLineGroupEnum.DiscountDiscountType `json:"discount_type"`
 	EntityId      string                                  `json:"entity_id"`
