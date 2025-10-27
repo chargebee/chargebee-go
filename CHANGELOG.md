@@ -1,3 +1,8 @@
+### v3.38.2 (2025-10-17)
+
+#### Bug fixes:
+* Fixed an issue in request.go where JSON parse errors were ignored instead of returned.
+
 ### v3.38.1 (2025-09-25)
 
 #### Bug fixes:
