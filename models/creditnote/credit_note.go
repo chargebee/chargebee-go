@@ -149,6 +149,7 @@ type LineItemAddress struct {
 type Discount struct {
 	Amount        int64                               `json:"amount"`
 	Description   string                              `json:"description"`
+	LineItemId    string                              `json:"line_item_id"`
 	EntityType    creditNoteEnum.DiscountEntityType   `json:"entity_type"`
 	DiscountType  creditNoteEnum.DiscountDiscountType `json:"discount_type"`
 	EntityId      string                              `json:"entity_id"`
@@ -404,6 +405,7 @@ type ImportCreditNoteLineItemTierParams struct {
 	UnitAmountInDecimal   string `json:"unit_amount_in_decimal,omitempty"`
 }
 type ImportCreditNoteDiscountParams struct {
+	LineItemId  string                            `json:"line_item_id,omitempty"`
 	EntityType  creditNoteEnum.DiscountEntityType `json:"entity_type"`
 	EntityId    string                            `json:"entity_id,omitempty"`
 	Description string                            `json:"description,omitempty"`

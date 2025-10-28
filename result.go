@@ -211,6 +211,7 @@ type Result struct {
 	BatchId                                    interface{}                                                                            `json:"batch_id,omitempty"`
 	Success                                    interface{}                                                                            `json:"success,omitempty"`
 	ScheduledAt                                interface{}                                                                            `json:"scheduled_at,omitempty"`
+	List                                       interface{}                                                                            `json:"list,omitempty"`
 	responseHeaders                            http.Header
 	httpStatusCode                             int
 }

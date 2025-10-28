@@ -56,6 +56,7 @@ const (
 	GatewaySolidgate             Gateway = "solidgate"
 	GatewayPaystack              Gateway = "paystack"
 	GatewayJpMorgan              Gateway = "jp_morgan"
+	GatewayDeutscheBank          Gateway = "deutsche_bank"
 	GatewayGocardless            Gateway = "gocardless"
 	GatewayNotApplicable         Gateway = "not_applicable"
 )

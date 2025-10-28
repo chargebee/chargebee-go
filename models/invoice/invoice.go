@@ -64,6 +64,7 @@ type Invoice struct {
 	Taxes                     []*Tax                    `json:"taxes"`
 	TaxOrigin                 *TaxOrigin                `json:"tax_origin"`
 	LinkedPayments            []*LinkedPayment          `json:"linked_payments"`
+	ReferenceTransactions     []*ReferenceTransaction   `json:"reference_transactions"`
 	DunningAttempts           []*DunningAttempt         `json:"dunning_attempts"`
 	AppliedCredits            []*AppliedCredit          `json:"applied_credits"`
 	AdjustmentCreditNotes     []*AdjustmentCreditNote   `json:"adjustment_credit_notes"`
@@ -179,6 +180,7 @@ type LineItemAddress struct {
 type Discount struct {
 	Amount        int64                            `json:"amount"`
 	Description   string                           `json:"description"`
+	LineItemId    string                           `json:"line_item_id"`
 	EntityType    invoiceEnum.DiscountEntityType   `json:"entity_type"`
 	DiscountType  invoiceEnum.DiscountDiscountType `json:"discount_type"`
 	EntityId      string                           `json:"entity_id"`
@@ -204,6 +206,18 @@ type LinkedPayment struct {
 	TxnDate       int64                  `json:"txn_date"`
 	TxnAmount     int64                  `json:"txn_amount"`
 	Object        string                 `json:"object"`
+}
+type ReferenceTransaction struct {
+	AppliedAmount       int64                               `json:"applied_amount"`
+	AppliedAt           int64                               `json:"applied_at"`
+	TxnId               string                              `json:"txn_id"`
+	TxnStatus           transactionEnum.Status              `json:"txn_status"`
+	TxnDate             int64                               `json:"txn_date"`
+	TxnAmount           int64                               `json:"txn_amount"`
+	TxnType             transactionEnum.Type                `json:"txn_type"`
+	AmountCapturable    int64                               `json:"amount_capturable"`
+	AuthorizationReason transactionEnum.AuthorizationReason `json:"authorization_reason"`
+	Object              string                              `json:"object"`
 }
 type DunningAttempt struct {
 	Attempt       int32                  `json:"attempt"`
@@ -781,6 +795,7 @@ type ImportInvoiceLineItemTierParams struct {
 	UnitAmountInDecimal   string `json:"unit_amount_in_decimal,omitempty"`
 }
 type ImportInvoiceDiscountParams struct {
+	LineItemId  string                         `json:"line_item_id,omitempty"`
 	EntityType  invoiceEnum.DiscountEntityType `json:"entity_type"`
 	EntityId    string                         `json:"entity_id,omitempty"`
 	Description string                         `json:"description,omitempty"`
