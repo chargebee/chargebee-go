@@ -2,6 +2,7 @@ package tests
 
 import (
 	"bytes"
+	"encoding/base64"
 	"errors"
 	"net/http"
 	"net/http/httptest"
@@ -226,3 +227,212 @@ func TestHTTPHandler_CustomValidator(t *testing.T) {
 	assert.True(t, validatorCalled)
 }
 
+// Helper function to create Basic Auth header value
+func makeBasicAuth(username, password string) string {
+	credentials := username + ":" + password
+	encoded := base64.StdEncoding.EncodeToString([]byte(credentials))
+	return "Basic " + encoded
+}
+
+func TestBasicAuthValidator_ValidCredentials(t *testing.T) {
+	validator := webhook.BasicAuthValidator(func(username, password string) bool {
+		return username == "testuser" && password == "testpass"
+	})
+
+	req := httptest.NewRequest(http.MethodPost, "/webhook", nil)
+	req.Header.Set("Authorization", makeBasicAuth("testuser", "testpass"))
+
+	err := validator(req)
+	assert.NoError(t, err)
+}
+
+func TestBasicAuthValidator_InvalidCredentials(t *testing.T) {
+	validator := webhook.BasicAuthValidator(func(username, password string) bool {
+		return username == "testuser" && password == "testpass"
+	})
+
+	req := httptest.NewRequest(http.MethodPost, "/webhook", nil)
+	req.Header.Set("Authorization", makeBasicAuth("wronguser", "wrongpass"))
+
+	err := validator(req)
+	assert.Error(t, err)
+	assert.Contains(t, err.Error(), "invalid credentials")
+}
+
+func TestBasicAuthValidator_MissingAuthorizationHeader(t *testing.T) {
+	validator := webhook.BasicAuthValidator(func(username, password string) bool {
+		return true
+	})
+
+	req := httptest.NewRequest(http.MethodPost, "/webhook", nil)
+	// No Authorization header set
+
+	err := validator(req)
+	assert.Error(t, err)
+	assert.Contains(t, err.Error(), "missing Authorization header")
+}
+
+func TestBasicAuthValidator_InvalidScheme(t *testing.T) {
+	validator := webhook.BasicAuthValidator(func(username, password string) bool {
+		return true
+	})
+
+	req := httptest.NewRequest(http.MethodPost, "/webhook", nil)
+	req.Header.Set("Authorization", "Bearer token123")
+
+	err := validator(req)
+	assert.Error(t, err)
+	assert.Contains(t, err.Error(), "invalid authorization scheme")
+}
+
+func TestBasicAuthValidator_InvalidBase64Encoding(t *testing.T) {
+	validator := webhook.BasicAuthValidator(func(username, password string) bool {
+		return true
+	})
+
+	req := httptest.NewRequest(http.MethodPost, "/webhook", nil)
+	req.Header.Set("Authorization", "Basic invalid-base64!!!")
+
+	err := validator(req)
+	assert.Error(t, err)
+	assert.Contains(t, err.Error(), "invalid base64 encoding")
+}
+
+func TestBasicAuthValidator_InvalidCredentialsFormat(t *testing.T) {
+	validator := webhook.BasicAuthValidator(func(username, password string) bool {
+		return true
+	})
+
+	// Encode a string without colon separator
+	encoded := base64.StdEncoding.EncodeToString([]byte("nocolonseparator"))
+	req := httptest.NewRequest(http.MethodPost, "/webhook", nil)
+	req.Header.Set("Authorization", "Basic "+encoded)
+
+	err := validator(req)
+	assert.Error(t, err)
+	assert.Contains(t, err.Error(), "invalid credentials format")
+}
+
+func TestBasicAuthValidator_EmptyCredentialsAllowed(t *testing.T) {
+	// When validateCredentials always returns true (empty credentials allowed)
+	validator := webhook.BasicAuthValidator(func(username, password string) bool {
+		return true // Allow all credentials
+	})
+
+	req := httptest.NewRequest(http.MethodPost, "/webhook", nil)
+	req.Header.Set("Authorization", makeBasicAuth("anyuser", "anypass"))
+
+	err := validator(req)
+	assert.NoError(t, err)
+}
+
+func TestBasicAuthValidator_UsernameWithColon(t *testing.T) {
+	validator := webhook.BasicAuthValidator(func(username, password string) bool {
+		// When encoding "user:name:pass:word", SplitN creates username="user" and password="name:pass:word"
+		return username == "user" && password == "name:pass:word"
+	})
+
+	// Create auth header with colon in credentials
+	credentials := "user:name:pass:word"
+	encoded := base64.StdEncoding.EncodeToString([]byte(credentials))
+	req := httptest.NewRequest(http.MethodPost, "/webhook", nil)
+	req.Header.Set("Authorization", "Basic "+encoded)
+
+	err := validator(req)
+	assert.NoError(t, err)
+}
+
+func TestBasicAuthErrorHandler_AuthError(t *testing.T) {
+	rec := httptest.NewRecorder()
+	req := httptest.NewRequest(http.MethodPost, "/webhook", nil)
+
+	// Test with missing Authorization header error
+	err := errors.New("missing Authorization header")
+	webhook.BasicAuthErrorHandler(rec, req, err)
+
+	assert.Equal(t, http.StatusUnauthorized, rec.Code)
+	assert.Equal(t, `Basic realm="Webhook"`, rec.Header().Get("WWW-Authenticate"))
+	assert.Contains(t, rec.Body.String(), "missing Authorization header")
+}
+
+func TestBasicAuthErrorHandler_InvalidCredentialsError(t *testing.T) {
+	rec := httptest.NewRecorder()
+	req := httptest.NewRequest(http.MethodPost, "/webhook", nil)
+
+	err := errors.New("invalid credentials")
+	webhook.BasicAuthErrorHandler(rec, req, err)
+
+	assert.Equal(t, http.StatusUnauthorized, rec.Code)
+	assert.Equal(t, `Basic realm="Webhook"`, rec.Header().Get("WWW-Authenticate"))
+	assert.Contains(t, rec.Body.String(), "invalid credentials")
+}
+
+func TestBasicAuthErrorHandler_InvalidSchemeError(t *testing.T) {
+	rec := httptest.NewRecorder()
+	req := httptest.NewRequest(http.MethodPost, "/webhook", nil)
+
+	err := errors.New("invalid authorization scheme, expected Basic")
+	webhook.BasicAuthErrorHandler(rec, req, err)
+
+	assert.Equal(t, http.StatusUnauthorized, rec.Code)
+	assert.Equal(t, `Basic realm="Webhook"`, rec.Header().Get("WWW-Authenticate"))
+}
+
+func TestBasicAuthErrorHandler_NonAuthError(t *testing.T) {
+	rec := httptest.NewRecorder()
+	req := httptest.NewRequest(http.MethodPost, "/webhook", nil)
+
+	// Test with a non-auth error
+	err := errors.New("internal server error")
+	webhook.BasicAuthErrorHandler(rec, req, err)
+
+	assert.Equal(t, http.StatusInternalServerError, rec.Code)
+	assert.Empty(t, rec.Header().Get("WWW-Authenticate"))
+	assert.Contains(t, rec.Body.String(), "internal server error")
+}
+
+func TestBasicAuthErrorHandler_NilError(t *testing.T) {
+	rec := httptest.NewRecorder()
+	req := httptest.NewRequest(http.MethodPost, "/webhook", nil)
+
+	webhook.BasicAuthErrorHandler(rec, req, nil)
+
+	// Should handle nil error gracefully (treats as non-auth error)
+	assert.Equal(t, http.StatusInternalServerError, rec.Code)
+	assert.Empty(t, rec.Header().Get("WWW-Authenticate"))
+	assert.Contains(t, rec.Body.String(), "unknown error")
+}
+
+func TestBasicAuthValidator_IntegrationWithWebhookHandler(t *testing.T) {
+	var callbackCalled bool
+	validator := webhook.BasicAuthValidator(func(username, password string) bool {
+		return username == "admin" && password == "secret"
+	})
+
+	h := &webhook.WebhookHandler{
+		RequestValidator: validator,
+		OnError:          webhook.BasicAuthErrorHandler,
+		OnPendingInvoiceCreated: func(e webhook.PendingInvoiceCreatedEvent) error {
+			callbackCalled = true
+			return nil
+		},
+	}
+
+	// Test with valid credentials
+	rec1 := httptest.NewRecorder()
+	req1 := httptest.NewRequest(http.MethodPost, "/webhook", bytes.NewReader(makeEventBody("pending_invoice_created", "{}")))
+	req1.Header.Set("Authorization", makeBasicAuth("admin", "secret"))
+	h.HTTPHandler().ServeHTTP(rec1, req1)
+	assert.Equal(t, http.StatusOK, rec1.Code)
+	assert.True(t, callbackCalled)
+
+	// Test with invalid credentials
+	callbackCalled = false
+	rec2 := httptest.NewRecorder()
+	req2 := httptest.NewRequest(http.MethodPost, "/webhook", bytes.NewReader(makeEventBody("pending_invoice_created", "{}")))
+	req2.Header.Set("Authorization", makeBasicAuth("wrong", "wrong"))
+	h.HTTPHandler().ServeHTTP(rec2, req2)
+	assert.Equal(t, http.StatusUnauthorized, rec2.Code)
+	assert.Equal(t, `Basic realm="Webhook"`, rec2.Header().Get("WWW-Authenticate"))
+	assert.False(t, callbackCalled)
+}
