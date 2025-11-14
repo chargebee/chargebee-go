@@ -10,7 +10,11 @@ import (
 )
 
 func (request Request) Request() (*Result, error) {
-	result, err := request.RequestWithEnv(DefaultConfig())
+	env, err := DefaultConfig()
+	if err != nil {
+		return nil, err
+	}
+	result, err := request.RequestWithEnv(env)
 	return result, err
 }
 func (request Request) RequestWithEnv(env Environment) (*Result, error) {
@@ -23,7 +27,7 @@ func (request Request) RequestWithEnv(env Environment) (*Result, error) {
 	}
 	req, err := newRequest(env, request.Method, path, body, request.Header, request.subDomain, request.isJsonRequest)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	if request.Context != nil {
 		req = req.WithContext(context.WithValue(request.Context, cbEnvKey, env))

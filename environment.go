@@ -45,11 +45,12 @@ func WithEnvironment(ctx context.Context, env Environment) context.Context {
 	return context.WithValue(ctx, cbEnvKey, env)
 }
 
-func Configure(key string, siteName string) {
+func Configure(key string, siteName string) error {
 	if key == "" || siteName == "" {
-		panic(errors.New("Key/siteName cannot be empty"))
+		return errors.New("Key/siteName cannot be empty")
 	}
 	DefaultEnv = Environment{Key: key, SiteName: siteName}
+	return nil
 }
 func WithHTTPClient(c *http.Client) {
 	if c.Timeout == 0 {
@@ -81,11 +82,11 @@ func (env *Environment) apiBaseUrl(subDomain string) string {
 	return fmt.Sprintf("https://%v.chargebee.com/api/%v", env.SiteName, APIVersion)
 }
 
-func DefaultConfig() Environment {
+func DefaultConfig() (Environment, error) {
 	if DefaultEnv == (Environment{}) {
-		panic(errors.New("The default environment has not been configured"))
+		return Environment{}, errors.New("The default environment has not been configured")
 	}
-	return DefaultEnv
+	return DefaultEnv, nil
 }
 
 func NewDefaultHTTPClient() *http.Client {

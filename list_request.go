@@ -3,14 +3,18 @@ package chargebee
 import "context"
 
 func (request ListRequest) ListRequest() (*ResultList, error) {
-	result, err := request.ListRequestWithEnv(DefaultConfig())
+	env, err := DefaultConfig()
+	if err != nil {
+		return nil, err
+	}
+	result, err := request.ListRequestWithEnv(env)
 	return result, err
 }
 func (request ListRequest) ListRequestWithEnv(env Environment) (*ResultList, error) {
 	path, body := getBody(request.Method, request.Path, request.Params)
 	req, err := newRequest(env, request.Method, path, body, request.Header, request.subDomain, false)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	if request.Context != nil {
 		req = req.WithContext(context.WithValue(request.Context, cbEnvKey, env))

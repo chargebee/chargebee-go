@@ -22,16 +22,16 @@ func getParamTypes(params interface{}) map[string]string {
 
 // SerializeParams is to used to serialize the inputParams request .
 // Eg : Customer : { FirstName : "John" } is serialized as "customer[first_name]" : "John".
-func SerializeParams(params interface{}) *url.Values {
+func SerializeParams(params interface{}) (*url.Values, error) {
 	queryParams, err := json.Marshal(params)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	data := json.NewDecoder(strings.NewReader(string(queryParams)))
 	data.UseNumber()
 	var m map[string]interface{}
 	if err := data.Decode(&m); err != nil {
-		panic(err)
+		return nil, err
 	}
 	serParams := make(map[string]interface{})
 	parseMap(m, serParams, "", "", getParamTypes(params))
@@ -39,7 +39,7 @@ func SerializeParams(params interface{}) *url.Values {
 	for k, v := range serParams {
 		body.Set(k, fmt.Sprintf("%v", v))
 	}
-	return body
+	return body, nil
 }
 
 func parseMap(aMap, serParams map[string]interface{}, prefix string, idx string, paramTypes map[string]string) {
@@ -114,16 +114,16 @@ func parseArray(anArray []interface{}, serParams map[string]interface{}, prefix 
 }
 
 // SerializeListParams is to used to serialize the inputParams of list request.
-func SerializeListParams(params interface{}) *url.Values {
+func SerializeListParams(params interface{}) (*url.Values, error) {
 	queryParams, err := json.Marshal(params)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	data := json.NewDecoder(strings.NewReader(string(queryParams)))
 	data.UseNumber()
 	var m map[string]interface{}
 	if err := data.Decode(&m); err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	serListParams := make(map[string]interface{})
@@ -144,7 +144,7 @@ func SerializeListParams(params interface{}) *url.Values {
 			body.Set(k, fmt.Sprintf("%v", v))
 		}
 	}
-	return body
+	return body, nil
 
 }
 func parseMapListParams(aMap, serListParams map[string]interface{}, prefix string) {
@@ -177,15 +177,16 @@ func camelCase(str string) string {
 }
 
 // customFieldExtraction is used extract the customFields from response and append it in Result struct
-func customFieldExtraction(v interface{}, resJSON []byte) {
+func customFieldExtraction(v interface{}, resJSON []byte) error {
 	switch v.(type) {
 	case *Result:
-		prepareResultCF(resJSON, v)
+		return prepareResultCF(resJSON, v)
 
 	case *ResultList:
-		prepareResultListCF(resJSON, v)
+		return prepareResultListCF(resJSON, v)
 
 	}
+	return nil
 }
 
 func customMapping(val interface{}) map[string]interface{} {
@@ -200,12 +201,12 @@ func customMapping(val interface{}) map[string]interface{} {
 	return custom
 }
 
-func prepareResultCF(resbody []byte, v interface{}) {
+func prepareResultCF(resbody []byte, v interface{}) error {
 	data := json.NewDecoder(strings.NewReader(string(resbody)))
 	data.UseNumber()
 	var m map[string]interface{}
 	if err := data.Decode(&m); err != nil {
-		panic(err)
+		return err
 	}
 
 	for key, val := range m {
@@ -226,15 +227,16 @@ func prepareResultCF(resbody []byte, v interface{}) {
 		}
 
 	}
+	return nil
 
 }
 
-func prepareResultListCF(resbody []byte, v interface{}) {
+func prepareResultListCF(resbody []byte, v interface{}) error {
 	data := json.NewDecoder(strings.NewReader(string(resbody)))
 	data.UseNumber()
 	var m map[string]interface{}
 	if err := data.Decode(&m); err != nil {
-		panic(err)
+		return err
 	}
 	for index, val := range m["list"].([]interface{}) {
 		for key, value := range val.(map[string]interface{}) {
@@ -256,6 +258,7 @@ func prepareResultListCF(resbody []byte, v interface{}) {
 
 		}
 	}
+	return nil
 }
 
 // Bool returns a pointer to the bool value passed.

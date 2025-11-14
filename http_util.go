@@ -49,28 +49,32 @@ func basicAuth(key string) string {
 }
 
 // Send prepares a RequestObj for Request operation.
-func Send(method string, path string, params interface{}) Request {
+func Send(method string, path string, params interface{}) (Request, error) {
 	var form *url.Values
 
 	if params != nil {
-		form = SerializeParams(params)
+		var err error
+		form, err = SerializeParams(params)
+		if err != nil {
+			return Request{}, err
+		}
 	}
 
 	return Request{
 		Params: form,
 		Method: method,
 		Path:   path,
-	}
+	}, nil
 }
 
-func SendJsonRequest(method string, path string, params interface{}) Request {
+func SendJsonRequest(method string, path string, params interface{}) (Request, error) {
 	var body string
 
 	if params != nil {
 		if strings.ToUpper(method) == "POST" {
 			jsonData, err := json.Marshal(params)
 			if err != nil {
-				panic(err)
+				return Request{}, err
 			}
 			body = string(jsonData)
 		}
@@ -82,21 +86,25 @@ func SendJsonRequest(method string, path string, params interface{}) Request {
 		Path:          path,
 		JsonBody:      body,
 		isJsonRequest: true,
-	}
+	}, nil
 }
 
 // SendList prepares a ListRequest for ListRequest operation.
-func SendList(method string, path string, params interface{}) ListRequest {
+func SendList(method string, path string, params interface{}) (ListRequest, error) {
 	var form *url.Values
 	if params != nil {
-		form = SerializeListParams(params)
+		var err error
+		form, err = SerializeListParams(params)
+		if err != nil {
+			return ListRequest{}, err
+		}
 	}
 
 	return ListRequest{
 		Params: form,
 		Method: method,
 		Path:   path,
-	}
+	}, nil
 }
 
 // AddParams add a new key-value pair to the RequestObj.Params.
@@ -198,11 +206,11 @@ func newRequest(env Environment, method string, path string, body io.Reader, hea
 	path = env.apiBaseUrl(subDomain) + path
 	httpReq, err := http.NewRequest(method, path, body)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	addHeaders(httpReq, env, isJsonRequest)
 	addCustomHeaders(httpReq, headers)
-	return httpReq, err
+	return httpReq, nil
 }
 func addHeaders(httpReq *http.Request, env Environment, isJsonRequest bool) {
 	httpReq.Header.Add("Accept-Charset", Charset)
@@ -238,17 +246,19 @@ func UnmarshalJSON(response []byte, result interface{}) error {
 	if err != nil {
 		return err
 	}
-	customFieldExtraction(result, response)
+	if err := customFieldExtraction(result, response); err != nil {
+		return err
+	}
 	return nil
 }
 
 // GetMap is used to unmarshal the json.RawMessage to map[string]interface{}.
-func GetMap(rawMessage json.RawMessage) map[string]interface{} {
+func GetMap(rawMessage json.RawMessage) (map[string]interface{}, error) {
 	data := json.NewDecoder(strings.NewReader(string(rawMessage)))
 	data.UseNumber()
 	var m map[string]interface{}
 	if err := data.Decode(&m); err != nil {
-		panic(err)
+		return nil, err
 	}
-	return m
+	return m, nil
 }
