@@ -4,29 +4,22 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/chargebee/chargebee-go/v3"
-	"github.com/chargebee/chargebee-go/v3/models/event"
+	"github.com/chargebee/chargebee-go/v3/enum"
 	"strings"
 )
 
-func Content(event event.Event) *chargebee.Result {
-	content := &chargebee.Result{}
-	err1 := json.Unmarshal(event.Content, content)
-	if err1 != nil {
-		panic(err1)
+// ParseEventType reads only the event_type (and validates api_version) from the webhook payload
+func ParseEventType(body []byte) (enum.EventType, error) {
+	var envelope struct {
+		EventType  enum.EventType `json:"event_type"`
+		ApiVersion string         `json:"api_version"`
 	}
-	return content
-}
-
-func Deserialize(jsonObj string) *event.Event {
-	event := &event.Event{}
-	err := json.Unmarshal([]byte(jsonObj), event)
-	if err != nil {
-		panic(errors.New("Response not in JSON format. Might not be a ChargeBee webhook call"))
+	if err := json.Unmarshal(body, &envelope); err != nil {
+		return "", err
 	}
-	apiVersion := event.ApiVersion
 	envVersion := chargebee.APIVersion
-	if apiVersion != "" && strings.ToUpper(string(apiVersion)) != strings.ToUpper(envVersion) {
-		panic(errors.New("API version [" + strings.ToUpper(string(apiVersion)) + "] in response does not match with client library API version [" + strings.ToUpper(envVersion) + "]"))
+	if envelope.ApiVersion != "" && strings.ToUpper(envelope.ApiVersion) != strings.ToUpper(envVersion) {
+		return "", errors.New("API version [" + strings.ToUpper(envelope.ApiVersion) + "] in response does not match with client library API version [" + strings.ToUpper(envVersion) + "]")
 	}
-	return event
+	return envelope.EventType, nil
 }
