@@ -3,6 +3,8 @@ package webhook
 import (
 	"time"
 
+	"github.com/chargebee/chargebee-go/v3/models/addon"
+
 	"github.com/chargebee/chargebee-go/v3/models/advanceinvoiceschedule"
 
 	"github.com/chargebee/chargebee-go/v3/models/attacheditem"
@@ -74,6 +76,8 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/paymentsource"
 
 	"github.com/chargebee/chargebee-go/v3/models/paymentvoucher"
+
+	"github.com/chargebee/chargebee-go/v3/models/plan"
 
 	"github.com/chargebee/chargebee-go/v3/models/pricevariant"
 
@@ -152,6 +156,9 @@ type UnbilledChargesDeletedContent struct {
 
 type CouponUpdatedContent struct {
 	Coupon *coupon.Coupon `json:"coupon,omitempty"`
+}
+
+type ProductUpdatedContent struct {
 }
 
 type OmnichannelSubscriptionItemReactivatedContent struct {
@@ -394,6 +401,9 @@ type SubscriptionChangedWithBackdatingContent struct {
 	CreditNote *creditnote.CreditNote `json:"credit_note,omitempty"`
 
 	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+}
+
+type VariantCreatedContent struct {
 }
 
 type OmnichannelSubscriptionItemChangedContent struct {
@@ -686,6 +696,9 @@ type TransactionUpdatedContent struct {
 	Transaction *transaction.Transaction `json:"transaction,omitempty"`
 }
 
+type VariantDeletedContent struct {
+}
+
 type MrrUpdatedContent struct {
 	Subscription *subscription.Subscription `json:"subscription,omitempty"`
 }
@@ -792,6 +805,10 @@ type SubscriptionRenewalReminderContent struct {
 	AdvanceInvoiceSchedule *advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
 }
 
+type NetdPaymentDueReminderContent struct {
+	Invoice *invoice.Invoice `json:"invoice,omitempty"`
+}
+
 type OrderDeliveredContent struct {
 	Order *order.Order `json:"order,omitempty"`
 }
@@ -842,6 +859,9 @@ type SubscriptionScheduledChangesRemovedContent struct {
 
 type PendingInvoiceCreatedContent struct {
 	Invoice *invoice.Invoice `json:"invoice,omitempty"`
+}
+
+type ProductDeletedContent struct {
 }
 
 type EntitlementOverridesAutoRemovedContent struct {
@@ -920,6 +940,9 @@ type CardDeletedContent struct {
 
 type OrderReadyToShipContent struct {
 	Order *order.Order `json:"order,omitempty"`
+}
+
+type VariantUpdatedContent struct {
 }
 
 type SubscriptionMovedOutContent struct {
@@ -1100,6 +1123,9 @@ type UsageFileIngestedContent struct {
 	UsageFile *usagefile.UsageFile `json:"usage_file,omitempty"`
 }
 
+type ProductCreatedContent struct {
+}
+
 type OmnichannelSubscriptionMovedInContent struct {
 	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
 
@@ -1112,6 +1138,14 @@ type DifferentialPriceCreatedContent struct {
 
 type TransactionCreatedContent struct {
 	Transaction *transaction.Transaction `json:"transaction,omitempty"`
+}
+
+type OmnichannelSubscriptionItemDowngradeScheduledContent struct {
+	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
+
+	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
+
+	Customer *customer.Customer `json:"customer,omitempty"`
 }
 
 type PaymentSucceededContent struct {
@@ -1361,6 +1395,14 @@ type OrderResentContent struct {
 	Order *order.Order `json:"order,omitempty"`
 }
 
+type OmnichannelSubscriptionItemScheduledDowngradeRemovedContent struct {
+	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
+
+	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
+
+	Customer *customer.Customer `json:"customer,omitempty"`
+}
+
 type OmnichannelSubscriptionCreatedContent struct {
 	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
 
@@ -1480,6 +1522,30 @@ type SubscriptionRampDeletedContent struct {
 	Ramp *ramp.Ramp `json:"ramp,omitempty"`
 }
 
+type PlanDeletedContent struct {
+	Plan *plan.Plan `json:"plan,omitempty"`
+}
+
+type AddonDeletedContent struct {
+	Addon *addon.Addon `json:"addon,omitempty"`
+}
+
+type AddonUpdatedContent struct {
+	Addon *addon.Addon `json:"addon,omitempty"`
+}
+
+type AddonCreatedContent struct {
+	Addon *addon.Addon `json:"addon,omitempty"`
+}
+
+type PlanCreatedContent struct {
+	Plan *plan.Plan `json:"plan,omitempty"`
+}
+
+type PlanUpdatedContent struct {
+	Plan *plan.Plan `json:"plan,omitempty"`
+}
+
 // Generated event types for each webhook event
 
 // SubscriptionPauseScheduledEvent represents a subscription_pause_scheduled webhook event
@@ -1559,6 +1625,16 @@ type CouponUpdatedEvent struct {
 }
 
 func (e *CouponUpdatedEvent) GetOccurredAtTime() time.Time { return time.Unix(e.OccurredAt, 0) }
+
+// ProductUpdatedEvent represents a product_updated webhook event
+type ProductUpdatedEvent struct {
+	Id         string                 `json:"id"`
+	OccurredAt int64                  `json:"occurred_at"`
+	EventType  string                 `json:"event_type"`
+	Content    *ProductUpdatedContent `json:"content"`
+}
+
+func (e *ProductUpdatedEvent) GetOccurredAtTime() time.Time { return time.Unix(e.OccurredAt, 0) }
 
 // OmnichannelSubscriptionItemReactivatedEvent represents a omnichannel_subscription_item_reactivated webhook event
 type OmnichannelSubscriptionItemReactivatedEvent struct {
@@ -1925,6 +2001,16 @@ type SubscriptionChangedWithBackdatingEvent struct {
 func (e *SubscriptionChangedWithBackdatingEvent) GetOccurredAtTime() time.Time {
 	return time.Unix(e.OccurredAt, 0)
 }
+
+// VariantCreatedEvent represents a variant_created webhook event
+type VariantCreatedEvent struct {
+	Id         string                 `json:"id"`
+	OccurredAt int64                  `json:"occurred_at"`
+	EventType  string                 `json:"event_type"`
+	Content    *VariantCreatedContent `json:"content"`
+}
+
+func (e *VariantCreatedEvent) GetOccurredAtTime() time.Time { return time.Unix(e.OccurredAt, 0) }
 
 // OmnichannelSubscriptionItemChangedEvent represents a omnichannel_subscription_item_changed webhook event
 type OmnichannelSubscriptionItemChangedEvent struct {
@@ -2420,6 +2506,16 @@ type TransactionUpdatedEvent struct {
 
 func (e *TransactionUpdatedEvent) GetOccurredAtTime() time.Time { return time.Unix(e.OccurredAt, 0) }
 
+// VariantDeletedEvent represents a variant_deleted webhook event
+type VariantDeletedEvent struct {
+	Id         string                 `json:"id"`
+	OccurredAt int64                  `json:"occurred_at"`
+	EventType  string                 `json:"event_type"`
+	Content    *VariantDeletedContent `json:"content"`
+}
+
+func (e *VariantDeletedEvent) GetOccurredAtTime() time.Time { return time.Unix(e.OccurredAt, 0) }
+
 // MrrUpdatedEvent represents a mrr_updated webhook event
 type MrrUpdatedEvent struct {
 	Id         string             `json:"id"`
@@ -2590,6 +2686,18 @@ func (e *SubscriptionRenewalReminderEvent) GetOccurredAtTime() time.Time {
 	return time.Unix(e.OccurredAt, 0)
 }
 
+// NetdPaymentDueReminderEvent represents a netd_payment_due_reminder webhook event
+type NetdPaymentDueReminderEvent struct {
+	Id         string                         `json:"id"`
+	OccurredAt int64                          `json:"occurred_at"`
+	EventType  string                         `json:"event_type"`
+	Content    *NetdPaymentDueReminderContent `json:"content"`
+}
+
+func (e *NetdPaymentDueReminderEvent) GetOccurredAtTime() time.Time {
+	return time.Unix(e.OccurredAt, 0)
+}
+
 // OrderDeliveredEvent represents a order_delivered webhook event
 type OrderDeliveredEvent struct {
 	Id         string                 `json:"id"`
@@ -2685,6 +2793,16 @@ type PendingInvoiceCreatedEvent struct {
 }
 
 func (e *PendingInvoiceCreatedEvent) GetOccurredAtTime() time.Time { return time.Unix(e.OccurredAt, 0) }
+
+// ProductDeletedEvent represents a product_deleted webhook event
+type ProductDeletedEvent struct {
+	Id         string                 `json:"id"`
+	OccurredAt int64                  `json:"occurred_at"`
+	EventType  string                 `json:"event_type"`
+	Content    *ProductDeletedContent `json:"content"`
+}
+
+func (e *ProductDeletedEvent) GetOccurredAtTime() time.Time { return time.Unix(e.OccurredAt, 0) }
 
 // EntitlementOverridesAutoRemovedEvent represents a entitlement_overrides_auto_removed webhook event
 type EntitlementOverridesAutoRemovedEvent struct {
@@ -2807,6 +2925,16 @@ type OrderReadyToShipEvent struct {
 }
 
 func (e *OrderReadyToShipEvent) GetOccurredAtTime() time.Time { return time.Unix(e.OccurredAt, 0) }
+
+// VariantUpdatedEvent represents a variant_updated webhook event
+type VariantUpdatedEvent struct {
+	Id         string                 `json:"id"`
+	OccurredAt int64                  `json:"occurred_at"`
+	EventType  string                 `json:"event_type"`
+	Content    *VariantUpdatedContent `json:"content"`
+}
+
+func (e *VariantUpdatedEvent) GetOccurredAtTime() time.Time { return time.Unix(e.OccurredAt, 0) }
 
 // SubscriptionMovedOutEvent represents a subscription_moved_out webhook event
 type SubscriptionMovedOutEvent struct {
@@ -3086,6 +3214,16 @@ type UsageFileIngestedEvent struct {
 
 func (e *UsageFileIngestedEvent) GetOccurredAtTime() time.Time { return time.Unix(e.OccurredAt, 0) }
 
+// ProductCreatedEvent represents a product_created webhook event
+type ProductCreatedEvent struct {
+	Id         string                 `json:"id"`
+	OccurredAt int64                  `json:"occurred_at"`
+	EventType  string                 `json:"event_type"`
+	Content    *ProductCreatedContent `json:"content"`
+}
+
+func (e *ProductCreatedEvent) GetOccurredAtTime() time.Time { return time.Unix(e.OccurredAt, 0) }
+
 // OmnichannelSubscriptionMovedInEvent represents a omnichannel_subscription_moved_in webhook event
 type OmnichannelSubscriptionMovedInEvent struct {
 	Id         string                                 `json:"id"`
@@ -3119,6 +3257,18 @@ type TransactionCreatedEvent struct {
 }
 
 func (e *TransactionCreatedEvent) GetOccurredAtTime() time.Time { return time.Unix(e.OccurredAt, 0) }
+
+// OmnichannelSubscriptionItemDowngradeScheduledEvent represents a omnichannel_subscription_item_downgrade_scheduled webhook event
+type OmnichannelSubscriptionItemDowngradeScheduledEvent struct {
+	Id         string                                                `json:"id"`
+	OccurredAt int64                                                 `json:"occurred_at"`
+	EventType  string                                                `json:"event_type"`
+	Content    *OmnichannelSubscriptionItemDowngradeScheduledContent `json:"content"`
+}
+
+func (e *OmnichannelSubscriptionItemDowngradeScheduledEvent) GetOccurredAtTime() time.Time {
+	return time.Unix(e.OccurredAt, 0)
+}
 
 // PaymentSucceededEvent represents a payment_succeeded webhook event
 type PaymentSucceededEvent struct {
@@ -3530,6 +3680,18 @@ type OrderResentEvent struct {
 
 func (e *OrderResentEvent) GetOccurredAtTime() time.Time { return time.Unix(e.OccurredAt, 0) }
 
+// OmnichannelSubscriptionItemScheduledDowngradeRemovedEvent represents a omnichannel_subscription_item_scheduled_downgrade_removed webhook event
+type OmnichannelSubscriptionItemScheduledDowngradeRemovedEvent struct {
+	Id         string                                                       `json:"id"`
+	OccurredAt int64                                                        `json:"occurred_at"`
+	EventType  string                                                       `json:"event_type"`
+	Content    *OmnichannelSubscriptionItemScheduledDowngradeRemovedContent `json:"content"`
+}
+
+func (e *OmnichannelSubscriptionItemScheduledDowngradeRemovedEvent) GetOccurredAtTime() time.Time {
+	return time.Unix(e.OccurredAt, 0)
+}
+
 // OmnichannelSubscriptionCreatedEvent represents a omnichannel_subscription_created webhook event
 type OmnichannelSubscriptionCreatedEvent struct {
 	Id         string                                 `json:"id"`
@@ -3743,3 +3905,63 @@ type SubscriptionRampDeletedEvent struct {
 func (e *SubscriptionRampDeletedEvent) GetOccurredAtTime() time.Time {
 	return time.Unix(e.OccurredAt, 0)
 }
+
+// PlanDeletedEvent represents a plan_deleted webhook event
+type PlanDeletedEvent struct {
+	Id         string              `json:"id"`
+	OccurredAt int64               `json:"occurred_at"`
+	EventType  string              `json:"event_type"`
+	Content    *PlanDeletedContent `json:"content"`
+}
+
+func (e *PlanDeletedEvent) GetOccurredAtTime() time.Time { return time.Unix(e.OccurredAt, 0) }
+
+// AddonDeletedEvent represents a addon_deleted webhook event
+type AddonDeletedEvent struct {
+	Id         string               `json:"id"`
+	OccurredAt int64                `json:"occurred_at"`
+	EventType  string               `json:"event_type"`
+	Content    *AddonDeletedContent `json:"content"`
+}
+
+func (e *AddonDeletedEvent) GetOccurredAtTime() time.Time { return time.Unix(e.OccurredAt, 0) }
+
+// AddonUpdatedEvent represents a addon_updated webhook event
+type AddonUpdatedEvent struct {
+	Id         string               `json:"id"`
+	OccurredAt int64                `json:"occurred_at"`
+	EventType  string               `json:"event_type"`
+	Content    *AddonUpdatedContent `json:"content"`
+}
+
+func (e *AddonUpdatedEvent) GetOccurredAtTime() time.Time { return time.Unix(e.OccurredAt, 0) }
+
+// AddonCreatedEvent represents a addon_created webhook event
+type AddonCreatedEvent struct {
+	Id         string               `json:"id"`
+	OccurredAt int64                `json:"occurred_at"`
+	EventType  string               `json:"event_type"`
+	Content    *AddonCreatedContent `json:"content"`
+}
+
+func (e *AddonCreatedEvent) GetOccurredAtTime() time.Time { return time.Unix(e.OccurredAt, 0) }
+
+// PlanCreatedEvent represents a plan_created webhook event
+type PlanCreatedEvent struct {
+	Id         string              `json:"id"`
+	OccurredAt int64               `json:"occurred_at"`
+	EventType  string              `json:"event_type"`
+	Content    *PlanCreatedContent `json:"content"`
+}
+
+func (e *PlanCreatedEvent) GetOccurredAtTime() time.Time { return time.Unix(e.OccurredAt, 0) }
+
+// PlanUpdatedEvent represents a plan_updated webhook event
+type PlanUpdatedEvent struct {
+	Id         string              `json:"id"`
+	OccurredAt int64               `json:"occurred_at"`
+	EventType  string              `json:"event_type"`
+	Content    *PlanUpdatedContent `json:"content"`
+}
+
+func (e *PlanUpdatedEvent) GetOccurredAtTime() time.Time { return time.Unix(e.OccurredAt, 0) }

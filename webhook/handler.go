@@ -14,6 +14,12 @@ type WebhookHandler struct {
 
 	OnAddUsagesReminder func(AddUsagesReminderEvent) error
 
+	OnAddonCreated func(AddonCreatedEvent) error
+
+	OnAddonDeleted func(AddonDeletedEvent) error
+
+	OnAddonUpdated func(AddonUpdatedEvent) error
+
 	OnAttachedItemCreated func(AttachedItemCreatedEvent) error
 
 	OnAttachedItemDeleted func(AttachedItemDeletedEvent) error
@@ -168,6 +174,8 @@ type WebhookHandler struct {
 
 	OnMrrUpdated func(MrrUpdatedEvent) error
 
+	OnNetdPaymentDueReminder func(NetdPaymentDueReminderEvent) error
+
 	OnOmnichannelOneTimeOrderCreated func(OmnichannelOneTimeOrderCreatedEvent) error
 
 	OnOmnichannelOneTimeOrderItemCancelled func(OmnichannelOneTimeOrderItemCancelledEvent) error
@@ -183,6 +191,8 @@ type WebhookHandler struct {
 	OnOmnichannelSubscriptionItemChangeScheduled func(OmnichannelSubscriptionItemChangeScheduledEvent) error
 
 	OnOmnichannelSubscriptionItemChanged func(OmnichannelSubscriptionItemChangedEvent) error
+
+	OnOmnichannelSubscriptionItemDowngradeScheduled func(OmnichannelSubscriptionItemDowngradeScheduledEvent) error
 
 	OnOmnichannelSubscriptionItemDowngraded func(OmnichannelSubscriptionItemDowngradedEvent) error
 
@@ -211,6 +221,8 @@ type WebhookHandler struct {
 	OnOmnichannelSubscriptionItemScheduledCancellationRemoved func(OmnichannelSubscriptionItemScheduledCancellationRemovedEvent) error
 
 	OnOmnichannelSubscriptionItemScheduledChangeRemoved func(OmnichannelSubscriptionItemScheduledChangeRemovedEvent) error
+
+	OnOmnichannelSubscriptionItemScheduledDowngradeRemoved func(OmnichannelSubscriptionItemScheduledDowngradeRemovedEvent) error
 
 	OnOmnichannelSubscriptionItemUpgraded func(OmnichannelSubscriptionItemUpgradedEvent) error
 
@@ -272,11 +284,23 @@ type WebhookHandler struct {
 
 	OnPendingInvoiceUpdated func(PendingInvoiceUpdatedEvent) error
 
+	OnPlanCreated func(PlanCreatedEvent) error
+
+	OnPlanDeleted func(PlanDeletedEvent) error
+
+	OnPlanUpdated func(PlanUpdatedEvent) error
+
 	OnPriceVariantCreated func(PriceVariantCreatedEvent) error
 
 	OnPriceVariantDeleted func(PriceVariantDeletedEvent) error
 
 	OnPriceVariantUpdated func(PriceVariantUpdatedEvent) error
+
+	OnProductCreated func(ProductCreatedEvent) error
+
+	OnProductDeleted func(ProductDeletedEvent) error
+
+	OnProductUpdated func(ProductUpdatedEvent) error
 
 	OnPromotionalCreditsAdded func(PromotionalCreditsAddedEvent) error
 
@@ -418,6 +442,12 @@ type WebhookHandler struct {
 
 	OnUsageFileIngested func(UsageFileIngestedEvent) error
 
+	OnVariantCreated func(VariantCreatedEvent) error
+
+	OnVariantDeleted func(VariantDeletedEvent) error
+
+	OnVariantUpdated func(VariantUpdatedEvent) error
+
 	OnVirtualBankAccountAdded func(VirtualBankAccountAddedEvent) error
 
 	OnVirtualBankAccountDeleted func(VirtualBankAccountDeletedEvent) error
@@ -464,6 +494,45 @@ func (h *WebhookHandler) HTTPHandler() http.Handler {
 					return
 				}
 				if err := h.OnAddUsagesReminder(e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+			}
+
+		case enum.EventTypeAddonCreated:
+			if h.OnAddonCreated != nil {
+				var e AddonCreatedEvent
+				if err := json.Unmarshal(body, &e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+				if err := h.OnAddonCreated(e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+			}
+
+		case enum.EventTypeAddonDeleted:
+			if h.OnAddonDeleted != nil {
+				var e AddonDeletedEvent
+				if err := json.Unmarshal(body, &e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+				if err := h.OnAddonDeleted(e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+			}
+
+		case enum.EventTypeAddonUpdated:
+			if h.OnAddonUpdated != nil {
+				var e AddonUpdatedEvent
+				if err := json.Unmarshal(body, &e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+				if err := h.OnAddonUpdated(e); err != nil {
 					h.handleError(w, r, err)
 					return
 				}
@@ -1470,6 +1539,19 @@ func (h *WebhookHandler) HTTPHandler() http.Handler {
 				}
 			}
 
+		case enum.EventTypeNetdPaymentDueReminder:
+			if h.OnNetdPaymentDueReminder != nil {
+				var e NetdPaymentDueReminderEvent
+				if err := json.Unmarshal(body, &e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+				if err := h.OnNetdPaymentDueReminder(e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+			}
+
 		case enum.EventTypeOmnichannelOneTimeOrderCreated:
 			if h.OnOmnichannelOneTimeOrderCreated != nil {
 				var e OmnichannelOneTimeOrderCreatedEvent
@@ -1569,6 +1651,19 @@ func (h *WebhookHandler) HTTPHandler() http.Handler {
 					return
 				}
 				if err := h.OnOmnichannelSubscriptionItemChanged(e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+			}
+
+		case enum.EventTypeOmnichannelSubscriptionItemDowngradeScheduled:
+			if h.OnOmnichannelSubscriptionItemDowngradeScheduled != nil {
+				var e OmnichannelSubscriptionItemDowngradeScheduledEvent
+				if err := json.Unmarshal(body, &e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+				if err := h.OnOmnichannelSubscriptionItemDowngradeScheduled(e); err != nil {
 					h.handleError(w, r, err)
 					return
 				}
@@ -1751,6 +1846,19 @@ func (h *WebhookHandler) HTTPHandler() http.Handler {
 					return
 				}
 				if err := h.OnOmnichannelSubscriptionItemScheduledChangeRemoved(e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+			}
+
+		case enum.EventTypeOmnichannelSubscriptionItemScheduledDowngradeRemoved:
+			if h.OnOmnichannelSubscriptionItemScheduledDowngradeRemoved != nil {
+				var e OmnichannelSubscriptionItemScheduledDowngradeRemovedEvent
+				if err := json.Unmarshal(body, &e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+				if err := h.OnOmnichannelSubscriptionItemScheduledDowngradeRemoved(e); err != nil {
 					h.handleError(w, r, err)
 					return
 				}
@@ -2146,6 +2254,45 @@ func (h *WebhookHandler) HTTPHandler() http.Handler {
 				}
 			}
 
+		case enum.EventTypePlanCreated:
+			if h.OnPlanCreated != nil {
+				var e PlanCreatedEvent
+				if err := json.Unmarshal(body, &e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+				if err := h.OnPlanCreated(e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+			}
+
+		case enum.EventTypePlanDeleted:
+			if h.OnPlanDeleted != nil {
+				var e PlanDeletedEvent
+				if err := json.Unmarshal(body, &e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+				if err := h.OnPlanDeleted(e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+			}
+
+		case enum.EventTypePlanUpdated:
+			if h.OnPlanUpdated != nil {
+				var e PlanUpdatedEvent
+				if err := json.Unmarshal(body, &e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+				if err := h.OnPlanUpdated(e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+			}
+
 		case enum.EventTypePriceVariantCreated:
 			if h.OnPriceVariantCreated != nil {
 				var e PriceVariantCreatedEvent
@@ -2180,6 +2327,45 @@ func (h *WebhookHandler) HTTPHandler() http.Handler {
 					return
 				}
 				if err := h.OnPriceVariantUpdated(e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+			}
+
+		case enum.EventTypeProductCreated:
+			if h.OnProductCreated != nil {
+				var e ProductCreatedEvent
+				if err := json.Unmarshal(body, &e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+				if err := h.OnProductCreated(e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+			}
+
+		case enum.EventTypeProductDeleted:
+			if h.OnProductDeleted != nil {
+				var e ProductDeletedEvent
+				if err := json.Unmarshal(body, &e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+				if err := h.OnProductDeleted(e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+			}
+
+		case enum.EventTypeProductUpdated:
+			if h.OnProductUpdated != nil {
+				var e ProductUpdatedEvent
+				if err := json.Unmarshal(body, &e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+				if err := h.OnProductUpdated(e); err != nil {
 					h.handleError(w, r, err)
 					return
 				}
@@ -3090,6 +3276,45 @@ func (h *WebhookHandler) HTTPHandler() http.Handler {
 					return
 				}
 				if err := h.OnUsageFileIngested(e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+			}
+
+		case enum.EventTypeVariantCreated:
+			if h.OnVariantCreated != nil {
+				var e VariantCreatedEvent
+				if err := json.Unmarshal(body, &e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+				if err := h.OnVariantCreated(e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+			}
+
+		case enum.EventTypeVariantDeleted:
+			if h.OnVariantDeleted != nil {
+				var e VariantDeletedEvent
+				if err := json.Unmarshal(body, &e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+				if err := h.OnVariantDeleted(e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+			}
+
+		case enum.EventTypeVariantUpdated:
+			if h.OnVariantUpdated != nil {
+				var e VariantUpdatedEvent
+				if err := json.Unmarshal(body, &e); err != nil {
+					h.handleError(w, r, err)
+					return
+				}
+				if err := h.OnVariantUpdated(e); err != nil {
 					h.handleError(w, r, err)
 					return
 				}
