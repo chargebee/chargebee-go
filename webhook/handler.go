@@ -3,6 +3,7 @@ package webhook
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"net/http"
 
@@ -12,6 +13,7 @@ import (
 type WebhookHandler struct {
 	RequestValidator func(*http.Request) error
 	OnError          func(http.ResponseWriter, *http.Request, error)
+	OnUnhandledEvent func(enum.EventType, []byte) error
 
 	OnAddUsagesReminder func(AddUsagesReminderEvent) error
 
@@ -481,6 +483,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnAddUsagesReminder(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeAddonCreated:
@@ -492,6 +496,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnAddonCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeAddonDeleted:
@@ -503,6 +509,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnAddonDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeAddonUpdated:
@@ -514,6 +522,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnAddonUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeAttachedItemCreated:
@@ -525,6 +535,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnAttachedItemCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeAttachedItemDeleted:
@@ -536,6 +548,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnAttachedItemDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeAttachedItemUpdated:
@@ -547,6 +561,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnAttachedItemUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeAuthorizationSucceeded:
@@ -558,6 +574,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnAuthorizationSucceeded(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeAuthorizationVoided:
@@ -569,6 +587,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnAuthorizationVoided(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeBusinessEntityCreated:
@@ -580,6 +600,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnBusinessEntityCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeBusinessEntityDeleted:
@@ -591,6 +613,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnBusinessEntityDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeBusinessEntityUpdated:
@@ -602,6 +626,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnBusinessEntityUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCardAdded:
@@ -613,6 +639,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCardAdded(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCardDeleted:
@@ -624,6 +652,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCardDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCardExpired:
@@ -635,6 +665,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCardExpired(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCardExpiryReminder:
@@ -646,6 +678,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCardExpiryReminder(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCardUpdated:
@@ -657,6 +691,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCardUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeContractTermCancelled:
@@ -668,6 +704,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnContractTermCancelled(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeContractTermCompleted:
@@ -679,6 +717,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnContractTermCompleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeContractTermCreated:
@@ -690,6 +730,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnContractTermCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeContractTermRenewed:
@@ -701,6 +743,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnContractTermRenewed(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeContractTermTerminated:
@@ -712,6 +756,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnContractTermTerminated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCouponCodesAdded:
@@ -723,6 +769,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCouponCodesAdded(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCouponCodesDeleted:
@@ -734,6 +782,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCouponCodesDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCouponCodesUpdated:
@@ -745,6 +795,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCouponCodesUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCouponCreated:
@@ -756,6 +808,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCouponCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCouponDeleted:
@@ -767,6 +821,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCouponDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCouponSetCreated:
@@ -778,6 +834,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCouponSetCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCouponSetDeleted:
@@ -789,6 +847,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCouponSetDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCouponSetUpdated:
@@ -800,6 +860,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCouponSetUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCouponUpdated:
@@ -811,6 +873,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCouponUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCreditNoteCreated:
@@ -822,6 +886,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCreditNoteCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCreditNoteCreatedWithBackdating:
@@ -833,6 +899,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCreditNoteCreatedWithBackdating(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCreditNoteDeleted:
@@ -844,6 +912,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCreditNoteDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCreditNoteUpdated:
@@ -855,6 +925,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCreditNoteUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCustomerBusinessEntityChanged:
@@ -866,6 +938,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCustomerBusinessEntityChanged(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCustomerChanged:
@@ -877,6 +951,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCustomerChanged(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCustomerCreated:
@@ -888,6 +964,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCustomerCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCustomerDeleted:
@@ -899,6 +977,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCustomerDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCustomerEntitlementsUpdated:
@@ -910,6 +990,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCustomerEntitlementsUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCustomerMovedIn:
@@ -921,6 +1003,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCustomerMovedIn(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeCustomerMovedOut:
@@ -932,6 +1016,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnCustomerMovedOut(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeDifferentialPriceCreated:
@@ -943,6 +1029,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnDifferentialPriceCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeDifferentialPriceDeleted:
@@ -954,6 +1042,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnDifferentialPriceDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeDifferentialPriceUpdated:
@@ -965,6 +1055,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnDifferentialPriceUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeDunningUpdated:
@@ -976,6 +1068,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnDunningUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeEntitlementOverridesAutoRemoved:
@@ -987,6 +1081,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnEntitlementOverridesAutoRemoved(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeEntitlementOverridesRemoved:
@@ -998,6 +1094,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnEntitlementOverridesRemoved(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeEntitlementOverridesUpdated:
@@ -1009,6 +1107,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnEntitlementOverridesUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeFeatureActivated:
@@ -1020,6 +1120,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnFeatureActivated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeFeatureArchived:
@@ -1031,6 +1133,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnFeatureArchived(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeFeatureCreated:
@@ -1042,6 +1146,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnFeatureCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeFeatureDeleted:
@@ -1053,6 +1159,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnFeatureDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeFeatureReactivated:
@@ -1064,6 +1172,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnFeatureReactivated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeFeatureUpdated:
@@ -1075,6 +1185,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnFeatureUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeGiftCancelled:
@@ -1086,6 +1198,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnGiftCancelled(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeGiftClaimed:
@@ -1097,6 +1211,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnGiftClaimed(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeGiftExpired:
@@ -1108,6 +1224,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnGiftExpired(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeGiftScheduled:
@@ -1119,6 +1237,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnGiftScheduled(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeGiftUnclaimed:
@@ -1130,6 +1250,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnGiftUnclaimed(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeGiftUpdated:
@@ -1141,6 +1263,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnGiftUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeHierarchyCreated:
@@ -1152,6 +1276,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnHierarchyCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeHierarchyDeleted:
@@ -1163,6 +1289,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnHierarchyDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeInvoiceDeleted:
@@ -1174,6 +1302,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnInvoiceDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeInvoiceGenerated:
@@ -1185,6 +1315,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnInvoiceGenerated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeInvoiceGeneratedWithBackdating:
@@ -1196,6 +1328,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnInvoiceGeneratedWithBackdating(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeInvoiceUpdated:
@@ -1207,6 +1341,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnInvoiceUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeItemCreated:
@@ -1218,6 +1354,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnItemCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeItemDeleted:
@@ -1229,6 +1367,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnItemDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeItemEntitlementsRemoved:
@@ -1240,6 +1380,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnItemEntitlementsRemoved(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeItemEntitlementsUpdated:
@@ -1251,6 +1393,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnItemEntitlementsUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeItemFamilyCreated:
@@ -1262,6 +1406,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnItemFamilyCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeItemFamilyDeleted:
@@ -1273,6 +1419,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnItemFamilyDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeItemFamilyUpdated:
@@ -1284,6 +1432,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnItemFamilyUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeItemPriceCreated:
@@ -1295,6 +1445,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnItemPriceCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeItemPriceDeleted:
@@ -1306,6 +1458,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnItemPriceDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeItemPriceEntitlementsRemoved:
@@ -1317,6 +1471,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnItemPriceEntitlementsRemoved(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeItemPriceEntitlementsUpdated:
@@ -1328,6 +1484,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnItemPriceEntitlementsUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeItemPriceUpdated:
@@ -1339,6 +1497,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnItemPriceUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeItemUpdated:
@@ -1350,6 +1510,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnItemUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeMrrUpdated:
@@ -1361,6 +1523,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnMrrUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeNetdPaymentDueReminder:
@@ -1372,6 +1536,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnNetdPaymentDueReminder(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelOneTimeOrderCreated:
@@ -1383,6 +1549,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelOneTimeOrderCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelOneTimeOrderItemCancelled:
@@ -1394,6 +1562,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelOneTimeOrderItemCancelled(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionCreated:
@@ -1405,6 +1575,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionImported:
@@ -1416,6 +1588,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionImported(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionItemCancellationScheduled:
@@ -1427,6 +1601,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionItemCancellationScheduled(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionItemCancelled:
@@ -1438,6 +1614,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionItemCancelled(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionItemChangeScheduled:
@@ -1449,6 +1627,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionItemChangeScheduled(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionItemChanged:
@@ -1460,6 +1640,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionItemChanged(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionItemDowngradeScheduled:
@@ -1471,6 +1653,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionItemDowngradeScheduled(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionItemDowngraded:
@@ -1482,6 +1666,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionItemDowngraded(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionItemDunningExpired:
@@ -1493,6 +1679,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionItemDunningExpired(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionItemDunningStarted:
@@ -1504,6 +1692,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionItemDunningStarted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionItemExpired:
@@ -1515,6 +1705,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionItemExpired(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionItemGracePeriodExpired:
@@ -1526,6 +1718,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionItemGracePeriodExpired(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionItemGracePeriodStarted:
@@ -1537,6 +1731,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionItemGracePeriodStarted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionItemPauseScheduled:
@@ -1548,6 +1744,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionItemPauseScheduled(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionItemPaused:
@@ -1559,6 +1757,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionItemPaused(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionItemReactivated:
@@ -1570,6 +1770,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionItemReactivated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionItemRenewed:
@@ -1581,6 +1783,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionItemRenewed(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionItemResubscribed:
@@ -1592,6 +1796,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionItemResubscribed(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionItemResumed:
@@ -1603,6 +1809,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionItemResumed(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionItemScheduledCancellationRemoved:
@@ -1614,6 +1822,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionItemScheduledCancellationRemoved(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionItemScheduledChangeRemoved:
@@ -1625,6 +1835,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionItemScheduledChangeRemoved(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionItemScheduledDowngradeRemoved:
@@ -1636,6 +1848,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionItemScheduledDowngradeRemoved(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionItemUpgraded:
@@ -1647,6 +1861,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionItemUpgraded(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelSubscriptionMovedIn:
@@ -1658,6 +1874,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelSubscriptionMovedIn(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOmnichannelTransactionCreated:
@@ -1669,6 +1887,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOmnichannelTransactionCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOrderCancelled:
@@ -1680,6 +1900,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOrderCancelled(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOrderCreated:
@@ -1691,6 +1913,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOrderCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOrderDeleted:
@@ -1702,6 +1926,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOrderDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOrderDelivered:
@@ -1713,6 +1939,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOrderDelivered(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOrderReadyToProcess:
@@ -1724,6 +1952,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOrderReadyToProcess(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOrderReadyToShip:
@@ -1735,6 +1965,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOrderReadyToShip(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOrderResent:
@@ -1746,6 +1978,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOrderResent(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOrderReturned:
@@ -1757,6 +1991,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOrderReturned(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeOrderUpdated:
@@ -1768,6 +2004,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnOrderUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePaymentFailed:
@@ -1779,6 +2017,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPaymentFailed(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePaymentInitiated:
@@ -1790,6 +2030,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPaymentInitiated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePaymentIntentCreated:
@@ -1801,6 +2043,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPaymentIntentCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePaymentIntentUpdated:
@@ -1812,6 +2056,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPaymentIntentUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePaymentRefunded:
@@ -1823,6 +2069,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPaymentRefunded(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePaymentScheduleSchemeCreated:
@@ -1834,6 +2082,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPaymentScheduleSchemeCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePaymentScheduleSchemeDeleted:
@@ -1845,6 +2095,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPaymentScheduleSchemeDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePaymentSchedulesCreated:
@@ -1856,6 +2108,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPaymentSchedulesCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePaymentSchedulesUpdated:
@@ -1867,6 +2121,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPaymentSchedulesUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePaymentSourceAdded:
@@ -1878,6 +2134,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPaymentSourceAdded(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePaymentSourceDeleted:
@@ -1889,6 +2147,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPaymentSourceDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePaymentSourceExpired:
@@ -1900,6 +2160,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPaymentSourceExpired(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePaymentSourceExpiring:
@@ -1911,6 +2173,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPaymentSourceExpiring(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePaymentSourceLocallyDeleted:
@@ -1922,6 +2186,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPaymentSourceLocallyDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePaymentSourceUpdated:
@@ -1933,6 +2199,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPaymentSourceUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePaymentSucceeded:
@@ -1944,6 +2212,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPaymentSucceeded(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePendingInvoiceCreated:
@@ -1955,6 +2225,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPendingInvoiceCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePendingInvoiceUpdated:
@@ -1966,6 +2238,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPendingInvoiceUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePlanCreated:
@@ -1977,6 +2251,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPlanCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePlanDeleted:
@@ -1988,6 +2264,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPlanDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePlanUpdated:
@@ -1999,6 +2277,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPlanUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePriceVariantCreated:
@@ -2010,6 +2290,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPriceVariantCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePriceVariantDeleted:
@@ -2021,6 +2303,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPriceVariantDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePriceVariantUpdated:
@@ -2032,6 +2316,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPriceVariantUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeProductCreated:
@@ -2043,6 +2329,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnProductCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeProductDeleted:
@@ -2054,6 +2342,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnProductDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeProductUpdated:
@@ -2065,6 +2355,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnProductUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePromotionalCreditsAdded:
@@ -2076,6 +2368,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPromotionalCreditsAdded(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePromotionalCreditsDeducted:
@@ -2087,6 +2381,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPromotionalCreditsDeducted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypePurchaseCreated:
@@ -2098,6 +2394,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnPurchaseCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeQuoteCreated:
@@ -2109,6 +2407,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnQuoteCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeQuoteDeleted:
@@ -2120,6 +2420,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnQuoteDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeQuoteUpdated:
@@ -2131,6 +2433,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnQuoteUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeRecordPurchaseFailed:
@@ -2142,6 +2446,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnRecordPurchaseFailed(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeRefundInitiated:
@@ -2153,6 +2459,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnRefundInitiated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeRuleCreated:
@@ -2164,6 +2472,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnRuleCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeRuleDeleted:
@@ -2175,6 +2485,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnRuleDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeRuleUpdated:
@@ -2186,6 +2498,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnRuleUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSalesOrderCreated:
@@ -2197,6 +2511,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSalesOrderCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSalesOrderUpdated:
@@ -2208,6 +2524,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSalesOrderUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionActivated:
@@ -2219,6 +2537,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionActivated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionActivatedWithBackdating:
@@ -2230,6 +2550,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionActivatedWithBackdating(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionAdvanceInvoiceScheduleAdded:
@@ -2241,6 +2563,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionAdvanceInvoiceScheduleAdded(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionAdvanceInvoiceScheduleRemoved:
@@ -2252,6 +2576,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionAdvanceInvoiceScheduleRemoved(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionAdvanceInvoiceScheduleUpdated:
@@ -2263,6 +2589,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionAdvanceInvoiceScheduleUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionBusinessEntityChanged:
@@ -2274,6 +2602,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionBusinessEntityChanged(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionCanceledWithBackdating:
@@ -2285,6 +2615,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionCanceledWithBackdating(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionCancellationReminder:
@@ -2296,6 +2628,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionCancellationReminder(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionCancellationScheduled:
@@ -2307,6 +2641,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionCancellationScheduled(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionCancelled:
@@ -2318,6 +2654,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionCancelled(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionChanged:
@@ -2329,6 +2667,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionChanged(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionChangedWithBackdating:
@@ -2340,6 +2680,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionChangedWithBackdating(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionChangesScheduled:
@@ -2351,6 +2693,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionChangesScheduled(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionCreated:
@@ -2362,6 +2706,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionCreatedWithBackdating:
@@ -2373,6 +2719,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionCreatedWithBackdating(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionDeleted:
@@ -2384,6 +2732,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionEntitlementsCreated:
@@ -2395,6 +2745,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionEntitlementsCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionEntitlementsUpdated:
@@ -2406,6 +2758,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionEntitlementsUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionItemsRenewed:
@@ -2417,6 +2771,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionItemsRenewed(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionMovedIn:
@@ -2428,6 +2784,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionMovedIn(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionMovedOut:
@@ -2439,6 +2797,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionMovedOut(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionMovementFailed:
@@ -2450,6 +2810,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionMovementFailed(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionPauseScheduled:
@@ -2461,6 +2823,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionPauseScheduled(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionPaused:
@@ -2472,6 +2836,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionPaused(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionRampApplied:
@@ -2483,6 +2849,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionRampApplied(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionRampCreated:
@@ -2494,6 +2862,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionRampCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionRampDeleted:
@@ -2505,6 +2875,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionRampDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionRampDrafted:
@@ -2516,6 +2888,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionRampDrafted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionRampUpdated:
@@ -2527,6 +2901,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionRampUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionReactivated:
@@ -2538,6 +2914,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionReactivated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionReactivatedWithBackdating:
@@ -2549,6 +2927,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionReactivatedWithBackdating(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionRenewalReminder:
@@ -2560,6 +2940,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionRenewalReminder(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionRenewed:
@@ -2571,6 +2953,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionRenewed(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionResumed:
@@ -2582,6 +2966,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionResumed(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionResumptionScheduled:
@@ -2593,6 +2979,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionResumptionScheduled(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionScheduledCancellationRemoved:
@@ -2604,6 +2992,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionScheduledCancellationRemoved(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionScheduledChangesRemoved:
@@ -2615,6 +3005,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionScheduledChangesRemoved(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionScheduledPauseRemoved:
@@ -2626,6 +3018,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionScheduledPauseRemoved(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionScheduledResumptionRemoved:
@@ -2637,6 +3031,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionScheduledResumptionRemoved(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionShippingAddressUpdated:
@@ -2648,6 +3044,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionShippingAddressUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionStarted:
@@ -2659,6 +3057,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionStarted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionTrialEndReminder:
@@ -2670,6 +3070,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionTrialEndReminder(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeSubscriptionTrialExtended:
@@ -2681,6 +3083,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnSubscriptionTrialExtended(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeTaxWithheldDeleted:
@@ -2692,6 +3096,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnTaxWithheldDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeTaxWithheldRecorded:
@@ -2703,6 +3109,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnTaxWithheldRecorded(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeTaxWithheldRefunded:
@@ -2714,6 +3122,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnTaxWithheldRefunded(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeTokenConsumed:
@@ -2725,6 +3135,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnTokenConsumed(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeTokenCreated:
@@ -2736,6 +3148,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnTokenCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeTokenExpired:
@@ -2747,6 +3161,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnTokenExpired(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeTransactionCreated:
@@ -2758,6 +3174,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnTransactionCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeTransactionDeleted:
@@ -2769,6 +3187,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnTransactionDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeTransactionUpdated:
@@ -2780,6 +3200,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnTransactionUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeUnbilledChargesCreated:
@@ -2791,6 +3213,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnUnbilledChargesCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeUnbilledChargesDeleted:
@@ -2802,6 +3226,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnUnbilledChargesDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeUnbilledChargesInvoiced:
@@ -2813,6 +3239,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnUnbilledChargesInvoiced(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeUnbilledChargesVoided:
@@ -2824,6 +3252,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnUnbilledChargesVoided(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeUsageFileIngested:
@@ -2835,6 +3265,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnUsageFileIngested(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeVariantCreated:
@@ -2846,6 +3278,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnVariantCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeVariantDeleted:
@@ -2857,6 +3291,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnVariantDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeVariantUpdated:
@@ -2868,6 +3304,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnVariantUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeVirtualBankAccountAdded:
@@ -2879,6 +3317,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnVirtualBankAccountAdded(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeVirtualBankAccountDeleted:
@@ -2890,6 +3330,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnVirtualBankAccountDeleted(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeVirtualBankAccountUpdated:
@@ -2901,6 +3343,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnVirtualBankAccountUpdated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeVoucherCreateFailed:
@@ -2912,6 +3356,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnVoucherCreateFailed(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeVoucherCreated:
@@ -2923,6 +3369,8 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnVoucherCreated(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	case enum.EventTypeVoucherExpired:
@@ -2934,10 +3382,12 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := h.OnVoucherExpired(e); err != nil {
 				return err
 			}
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
 		}
 
 	default:
-		// Unknown or unhandled event type; treat as success
+		return h.handleUnhandledEvent(eventType, body)
 	}
 	return nil
 }
@@ -2974,4 +3424,11 @@ func (h *WebhookHandler) handleError(w http.ResponseWriter, r *http.Request, err
 		return
 	}
 	http.Error(w, err.Error(), http.StatusInternalServerError)
+}
+
+func (h *WebhookHandler) handleUnhandledEvent(eventType enum.EventType, body []byte) error {
+	if h.OnUnhandledEvent != nil {
+		return h.OnUnhandledEvent(eventType, body)
+	}
+	return fmt.Errorf("unhandled event type: %s", eventType)
 }
