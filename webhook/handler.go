@@ -480,9 +480,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnAddUsagesReminder(e); err != nil {
-				return err
-			}
+			return h.OnAddUsagesReminder(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -493,9 +491,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnAddonCreated(e); err != nil {
-				return err
-			}
+			return h.OnAddonCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -506,9 +502,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnAddonDeleted(e); err != nil {
-				return err
-			}
+			return h.OnAddonDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -519,9 +513,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnAddonUpdated(e); err != nil {
-				return err
-			}
+			return h.OnAddonUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -532,9 +524,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnAttachedItemCreated(e); err != nil {
-				return err
-			}
+			return h.OnAttachedItemCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -545,9 +535,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnAttachedItemDeleted(e); err != nil {
-				return err
-			}
+			return h.OnAttachedItemDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -558,9 +546,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnAttachedItemUpdated(e); err != nil {
-				return err
-			}
+			return h.OnAttachedItemUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -571,9 +557,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnAuthorizationSucceeded(e); err != nil {
-				return err
-			}
+			return h.OnAuthorizationSucceeded(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -584,9 +568,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnAuthorizationVoided(e); err != nil {
-				return err
-			}
+			return h.OnAuthorizationVoided(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -597,9 +579,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnBusinessEntityCreated(e); err != nil {
-				return err
-			}
+			return h.OnBusinessEntityCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -610,9 +590,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnBusinessEntityDeleted(e); err != nil {
-				return err
-			}
+			return h.OnBusinessEntityDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -623,9 +601,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnBusinessEntityUpdated(e); err != nil {
-				return err
-			}
+			return h.OnBusinessEntityUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -636,9 +612,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCardAdded(e); err != nil {
-				return err
-			}
+			return h.OnCardAdded(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -649,9 +623,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCardDeleted(e); err != nil {
-				return err
-			}
+			return h.OnCardDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -662,9 +634,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCardExpired(e); err != nil {
-				return err
-			}
+			return h.OnCardExpired(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -675,9 +645,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCardExpiryReminder(e); err != nil {
-				return err
-			}
+			return h.OnCardExpiryReminder(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -688,9 +656,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCardUpdated(e); err != nil {
-				return err
-			}
+			return h.OnCardUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -701,9 +667,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnContractTermCancelled(e); err != nil {
-				return err
-			}
+			return h.OnContractTermCancelled(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -714,9 +678,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnContractTermCompleted(e); err != nil {
-				return err
-			}
+			return h.OnContractTermCompleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -727,9 +689,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnContractTermCreated(e); err != nil {
-				return err
-			}
+			return h.OnContractTermCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -740,9 +700,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnContractTermRenewed(e); err != nil {
-				return err
-			}
+			return h.OnContractTermRenewed(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -753,9 +711,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnContractTermTerminated(e); err != nil {
-				return err
-			}
+			return h.OnContractTermTerminated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -766,9 +722,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCouponCodesAdded(e); err != nil {
-				return err
-			}
+			return h.OnCouponCodesAdded(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -779,9 +733,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCouponCodesDeleted(e); err != nil {
-				return err
-			}
+			return h.OnCouponCodesDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -792,9 +744,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCouponCodesUpdated(e); err != nil {
-				return err
-			}
+			return h.OnCouponCodesUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -805,9 +755,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCouponCreated(e); err != nil {
-				return err
-			}
+			return h.OnCouponCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -818,9 +766,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCouponDeleted(e); err != nil {
-				return err
-			}
+			return h.OnCouponDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -831,9 +777,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCouponSetCreated(e); err != nil {
-				return err
-			}
+			return h.OnCouponSetCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -844,9 +788,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCouponSetDeleted(e); err != nil {
-				return err
-			}
+			return h.OnCouponSetDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -857,9 +799,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCouponSetUpdated(e); err != nil {
-				return err
-			}
+			return h.OnCouponSetUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -870,9 +810,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCouponUpdated(e); err != nil {
-				return err
-			}
+			return h.OnCouponUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -883,9 +821,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCreditNoteCreated(e); err != nil {
-				return err
-			}
+			return h.OnCreditNoteCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -896,9 +832,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCreditNoteCreatedWithBackdating(e); err != nil {
-				return err
-			}
+			return h.OnCreditNoteCreatedWithBackdating(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -909,9 +843,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCreditNoteDeleted(e); err != nil {
-				return err
-			}
+			return h.OnCreditNoteDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -922,9 +854,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCreditNoteUpdated(e); err != nil {
-				return err
-			}
+			return h.OnCreditNoteUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -935,9 +865,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCustomerBusinessEntityChanged(e); err != nil {
-				return err
-			}
+			return h.OnCustomerBusinessEntityChanged(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -948,9 +876,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCustomerChanged(e); err != nil {
-				return err
-			}
+			return h.OnCustomerChanged(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -961,9 +887,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCustomerCreated(e); err != nil {
-				return err
-			}
+			return h.OnCustomerCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -974,9 +898,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCustomerDeleted(e); err != nil {
-				return err
-			}
+			return h.OnCustomerDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -987,9 +909,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCustomerEntitlementsUpdated(e); err != nil {
-				return err
-			}
+			return h.OnCustomerEntitlementsUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1000,9 +920,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCustomerMovedIn(e); err != nil {
-				return err
-			}
+			return h.OnCustomerMovedIn(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1013,9 +931,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnCustomerMovedOut(e); err != nil {
-				return err
-			}
+			return h.OnCustomerMovedOut(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1026,9 +942,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnDifferentialPriceCreated(e); err != nil {
-				return err
-			}
+			return h.OnDifferentialPriceCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1039,9 +953,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnDifferentialPriceDeleted(e); err != nil {
-				return err
-			}
+			return h.OnDifferentialPriceDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1052,9 +964,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnDifferentialPriceUpdated(e); err != nil {
-				return err
-			}
+			return h.OnDifferentialPriceUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1065,9 +975,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnDunningUpdated(e); err != nil {
-				return err
-			}
+			return h.OnDunningUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1078,9 +986,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnEntitlementOverridesAutoRemoved(e); err != nil {
-				return err
-			}
+			return h.OnEntitlementOverridesAutoRemoved(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1091,9 +997,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnEntitlementOverridesRemoved(e); err != nil {
-				return err
-			}
+			return h.OnEntitlementOverridesRemoved(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1104,9 +1008,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnEntitlementOverridesUpdated(e); err != nil {
-				return err
-			}
+			return h.OnEntitlementOverridesUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1117,9 +1019,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnFeatureActivated(e); err != nil {
-				return err
-			}
+			return h.OnFeatureActivated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1130,9 +1030,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnFeatureArchived(e); err != nil {
-				return err
-			}
+			return h.OnFeatureArchived(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1143,9 +1041,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnFeatureCreated(e); err != nil {
-				return err
-			}
+			return h.OnFeatureCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1156,9 +1052,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnFeatureDeleted(e); err != nil {
-				return err
-			}
+			return h.OnFeatureDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1169,9 +1063,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnFeatureReactivated(e); err != nil {
-				return err
-			}
+			return h.OnFeatureReactivated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1182,9 +1074,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnFeatureUpdated(e); err != nil {
-				return err
-			}
+			return h.OnFeatureUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1195,9 +1085,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnGiftCancelled(e); err != nil {
-				return err
-			}
+			return h.OnGiftCancelled(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1208,9 +1096,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnGiftClaimed(e); err != nil {
-				return err
-			}
+			return h.OnGiftClaimed(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1221,9 +1107,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnGiftExpired(e); err != nil {
-				return err
-			}
+			return h.OnGiftExpired(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1234,9 +1118,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnGiftScheduled(e); err != nil {
-				return err
-			}
+			return h.OnGiftScheduled(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1247,9 +1129,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnGiftUnclaimed(e); err != nil {
-				return err
-			}
+			return h.OnGiftUnclaimed(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1260,9 +1140,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnGiftUpdated(e); err != nil {
-				return err
-			}
+			return h.OnGiftUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1273,9 +1151,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnHierarchyCreated(e); err != nil {
-				return err
-			}
+			return h.OnHierarchyCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1286,9 +1162,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnHierarchyDeleted(e); err != nil {
-				return err
-			}
+			return h.OnHierarchyDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1299,9 +1173,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnInvoiceDeleted(e); err != nil {
-				return err
-			}
+			return h.OnInvoiceDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1312,9 +1184,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnInvoiceGenerated(e); err != nil {
-				return err
-			}
+			return h.OnInvoiceGenerated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1325,9 +1195,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnInvoiceGeneratedWithBackdating(e); err != nil {
-				return err
-			}
+			return h.OnInvoiceGeneratedWithBackdating(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1338,9 +1206,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnInvoiceUpdated(e); err != nil {
-				return err
-			}
+			return h.OnInvoiceUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1351,9 +1217,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnItemCreated(e); err != nil {
-				return err
-			}
+			return h.OnItemCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1364,9 +1228,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnItemDeleted(e); err != nil {
-				return err
-			}
+			return h.OnItemDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1377,9 +1239,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnItemEntitlementsRemoved(e); err != nil {
-				return err
-			}
+			return h.OnItemEntitlementsRemoved(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1390,9 +1250,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnItemEntitlementsUpdated(e); err != nil {
-				return err
-			}
+			return h.OnItemEntitlementsUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1403,9 +1261,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnItemFamilyCreated(e); err != nil {
-				return err
-			}
+			return h.OnItemFamilyCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1416,9 +1272,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnItemFamilyDeleted(e); err != nil {
-				return err
-			}
+			return h.OnItemFamilyDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1429,9 +1283,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnItemFamilyUpdated(e); err != nil {
-				return err
-			}
+			return h.OnItemFamilyUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1442,9 +1294,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnItemPriceCreated(e); err != nil {
-				return err
-			}
+			return h.OnItemPriceCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1455,9 +1305,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnItemPriceDeleted(e); err != nil {
-				return err
-			}
+			return h.OnItemPriceDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1468,9 +1316,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnItemPriceEntitlementsRemoved(e); err != nil {
-				return err
-			}
+			return h.OnItemPriceEntitlementsRemoved(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1481,9 +1327,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnItemPriceEntitlementsUpdated(e); err != nil {
-				return err
-			}
+			return h.OnItemPriceEntitlementsUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1494,9 +1338,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnItemPriceUpdated(e); err != nil {
-				return err
-			}
+			return h.OnItemPriceUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1507,9 +1349,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnItemUpdated(e); err != nil {
-				return err
-			}
+			return h.OnItemUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1520,9 +1360,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnMrrUpdated(e); err != nil {
-				return err
-			}
+			return h.OnMrrUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1533,9 +1371,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnNetdPaymentDueReminder(e); err != nil {
-				return err
-			}
+			return h.OnNetdPaymentDueReminder(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1546,9 +1382,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelOneTimeOrderCreated(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelOneTimeOrderCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1559,9 +1393,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelOneTimeOrderItemCancelled(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelOneTimeOrderItemCancelled(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1572,9 +1404,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionCreated(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1585,9 +1415,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionImported(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionImported(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1598,9 +1426,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionItemCancellationScheduled(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionItemCancellationScheduled(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1611,9 +1437,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionItemCancelled(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionItemCancelled(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1624,9 +1448,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionItemChangeScheduled(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionItemChangeScheduled(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1637,9 +1459,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionItemChanged(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionItemChanged(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1650,9 +1470,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionItemDowngradeScheduled(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionItemDowngradeScheduled(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1663,9 +1481,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionItemDowngraded(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionItemDowngraded(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1676,9 +1492,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionItemDunningExpired(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionItemDunningExpired(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1689,9 +1503,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionItemDunningStarted(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionItemDunningStarted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1702,9 +1514,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionItemExpired(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionItemExpired(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1715,9 +1525,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionItemGracePeriodExpired(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionItemGracePeriodExpired(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1728,9 +1536,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionItemGracePeriodStarted(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionItemGracePeriodStarted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1741,9 +1547,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionItemPauseScheduled(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionItemPauseScheduled(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1754,9 +1558,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionItemPaused(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionItemPaused(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1767,9 +1569,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionItemReactivated(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionItemReactivated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1780,9 +1580,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionItemRenewed(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionItemRenewed(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1793,9 +1591,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionItemResubscribed(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionItemResubscribed(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1806,9 +1602,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionItemResumed(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionItemResumed(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1819,9 +1613,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionItemScheduledCancellationRemoved(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionItemScheduledCancellationRemoved(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1832,9 +1624,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionItemScheduledChangeRemoved(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionItemScheduledChangeRemoved(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1845,9 +1635,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionItemScheduledDowngradeRemoved(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionItemScheduledDowngradeRemoved(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1858,9 +1646,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionItemUpgraded(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionItemUpgraded(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1871,9 +1657,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelSubscriptionMovedIn(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelSubscriptionMovedIn(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1884,9 +1668,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOmnichannelTransactionCreated(e); err != nil {
-				return err
-			}
+			return h.OnOmnichannelTransactionCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1897,9 +1679,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOrderCancelled(e); err != nil {
-				return err
-			}
+			return h.OnOrderCancelled(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1910,9 +1690,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOrderCreated(e); err != nil {
-				return err
-			}
+			return h.OnOrderCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1923,9 +1701,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOrderDeleted(e); err != nil {
-				return err
-			}
+			return h.OnOrderDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1936,9 +1712,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOrderDelivered(e); err != nil {
-				return err
-			}
+			return h.OnOrderDelivered(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1949,9 +1723,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOrderReadyToProcess(e); err != nil {
-				return err
-			}
+			return h.OnOrderReadyToProcess(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1962,9 +1734,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOrderReadyToShip(e); err != nil {
-				return err
-			}
+			return h.OnOrderReadyToShip(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1975,9 +1745,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOrderResent(e); err != nil {
-				return err
-			}
+			return h.OnOrderResent(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1988,9 +1756,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOrderReturned(e); err != nil {
-				return err
-			}
+			return h.OnOrderReturned(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2001,9 +1767,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnOrderUpdated(e); err != nil {
-				return err
-			}
+			return h.OnOrderUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2014,9 +1778,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPaymentFailed(e); err != nil {
-				return err
-			}
+			return h.OnPaymentFailed(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2027,9 +1789,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPaymentInitiated(e); err != nil {
-				return err
-			}
+			return h.OnPaymentInitiated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2040,9 +1800,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPaymentIntentCreated(e); err != nil {
-				return err
-			}
+			return h.OnPaymentIntentCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2053,9 +1811,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPaymentIntentUpdated(e); err != nil {
-				return err
-			}
+			return h.OnPaymentIntentUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2066,9 +1822,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPaymentRefunded(e); err != nil {
-				return err
-			}
+			return h.OnPaymentRefunded(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2079,9 +1833,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPaymentScheduleSchemeCreated(e); err != nil {
-				return err
-			}
+			return h.OnPaymentScheduleSchemeCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2092,9 +1844,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPaymentScheduleSchemeDeleted(e); err != nil {
-				return err
-			}
+			return h.OnPaymentScheduleSchemeDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2105,9 +1855,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPaymentSchedulesCreated(e); err != nil {
-				return err
-			}
+			return h.OnPaymentSchedulesCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2118,9 +1866,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPaymentSchedulesUpdated(e); err != nil {
-				return err
-			}
+			return h.OnPaymentSchedulesUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2131,9 +1877,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPaymentSourceAdded(e); err != nil {
-				return err
-			}
+			return h.OnPaymentSourceAdded(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2144,9 +1888,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPaymentSourceDeleted(e); err != nil {
-				return err
-			}
+			return h.OnPaymentSourceDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2157,9 +1899,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPaymentSourceExpired(e); err != nil {
-				return err
-			}
+			return h.OnPaymentSourceExpired(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2170,9 +1910,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPaymentSourceExpiring(e); err != nil {
-				return err
-			}
+			return h.OnPaymentSourceExpiring(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2183,9 +1921,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPaymentSourceLocallyDeleted(e); err != nil {
-				return err
-			}
+			return h.OnPaymentSourceLocallyDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2196,9 +1932,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPaymentSourceUpdated(e); err != nil {
-				return err
-			}
+			return h.OnPaymentSourceUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2209,9 +1943,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPaymentSucceeded(e); err != nil {
-				return err
-			}
+			return h.OnPaymentSucceeded(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2222,9 +1954,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPendingInvoiceCreated(e); err != nil {
-				return err
-			}
+			return h.OnPendingInvoiceCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2235,9 +1965,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPendingInvoiceUpdated(e); err != nil {
-				return err
-			}
+			return h.OnPendingInvoiceUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2248,9 +1976,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPlanCreated(e); err != nil {
-				return err
-			}
+			return h.OnPlanCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2261,9 +1987,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPlanDeleted(e); err != nil {
-				return err
-			}
+			return h.OnPlanDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2274,9 +1998,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPlanUpdated(e); err != nil {
-				return err
-			}
+			return h.OnPlanUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2287,9 +2009,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPriceVariantCreated(e); err != nil {
-				return err
-			}
+			return h.OnPriceVariantCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2300,9 +2020,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPriceVariantDeleted(e); err != nil {
-				return err
-			}
+			return h.OnPriceVariantDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2313,9 +2031,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPriceVariantUpdated(e); err != nil {
-				return err
-			}
+			return h.OnPriceVariantUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2326,9 +2042,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnProductCreated(e); err != nil {
-				return err
-			}
+			return h.OnProductCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2339,9 +2053,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnProductDeleted(e); err != nil {
-				return err
-			}
+			return h.OnProductDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2352,9 +2064,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnProductUpdated(e); err != nil {
-				return err
-			}
+			return h.OnProductUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2365,9 +2075,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPromotionalCreditsAdded(e); err != nil {
-				return err
-			}
+			return h.OnPromotionalCreditsAdded(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2378,9 +2086,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPromotionalCreditsDeducted(e); err != nil {
-				return err
-			}
+			return h.OnPromotionalCreditsDeducted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2391,9 +2097,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnPurchaseCreated(e); err != nil {
-				return err
-			}
+			return h.OnPurchaseCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2404,9 +2108,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnQuoteCreated(e); err != nil {
-				return err
-			}
+			return h.OnQuoteCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2417,9 +2119,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnQuoteDeleted(e); err != nil {
-				return err
-			}
+			return h.OnQuoteDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2430,9 +2130,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnQuoteUpdated(e); err != nil {
-				return err
-			}
+			return h.OnQuoteUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2443,9 +2141,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnRecordPurchaseFailed(e); err != nil {
-				return err
-			}
+			return h.OnRecordPurchaseFailed(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2456,9 +2152,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnRefundInitiated(e); err != nil {
-				return err
-			}
+			return h.OnRefundInitiated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2469,9 +2163,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnRuleCreated(e); err != nil {
-				return err
-			}
+			return h.OnRuleCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2482,9 +2174,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnRuleDeleted(e); err != nil {
-				return err
-			}
+			return h.OnRuleDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2495,9 +2185,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnRuleUpdated(e); err != nil {
-				return err
-			}
+			return h.OnRuleUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2508,9 +2196,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSalesOrderCreated(e); err != nil {
-				return err
-			}
+			return h.OnSalesOrderCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2521,9 +2207,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSalesOrderUpdated(e); err != nil {
-				return err
-			}
+			return h.OnSalesOrderUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2534,9 +2218,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionActivated(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionActivated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2547,9 +2229,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionActivatedWithBackdating(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionActivatedWithBackdating(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2560,9 +2240,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionAdvanceInvoiceScheduleAdded(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionAdvanceInvoiceScheduleAdded(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2573,9 +2251,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionAdvanceInvoiceScheduleRemoved(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionAdvanceInvoiceScheduleRemoved(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2586,9 +2262,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionAdvanceInvoiceScheduleUpdated(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionAdvanceInvoiceScheduleUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2599,9 +2273,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionBusinessEntityChanged(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionBusinessEntityChanged(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2612,9 +2284,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionCanceledWithBackdating(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionCanceledWithBackdating(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2625,9 +2295,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionCancellationReminder(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionCancellationReminder(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2638,9 +2306,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionCancellationScheduled(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionCancellationScheduled(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2651,9 +2317,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionCancelled(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionCancelled(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2664,9 +2328,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionChanged(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionChanged(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2677,9 +2339,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionChangedWithBackdating(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionChangedWithBackdating(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2690,9 +2350,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionChangesScheduled(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionChangesScheduled(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2703,9 +2361,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionCreated(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2716,9 +2372,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionCreatedWithBackdating(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionCreatedWithBackdating(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2729,9 +2383,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionDeleted(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2742,9 +2394,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionEntitlementsCreated(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionEntitlementsCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2755,9 +2405,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionEntitlementsUpdated(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionEntitlementsUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2768,9 +2416,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionItemsRenewed(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionItemsRenewed(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2781,9 +2427,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionMovedIn(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionMovedIn(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2794,9 +2438,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionMovedOut(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionMovedOut(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2807,9 +2449,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionMovementFailed(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionMovementFailed(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2820,9 +2460,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionPauseScheduled(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionPauseScheduled(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2833,9 +2471,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionPaused(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionPaused(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2846,9 +2482,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionRampApplied(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionRampApplied(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2859,9 +2493,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionRampCreated(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionRampCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2872,9 +2504,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionRampDeleted(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionRampDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2885,9 +2515,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionRampDrafted(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionRampDrafted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2898,9 +2526,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionRampUpdated(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionRampUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2911,9 +2537,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionReactivated(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionReactivated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2924,9 +2548,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionReactivatedWithBackdating(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionReactivatedWithBackdating(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2937,9 +2559,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionRenewalReminder(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionRenewalReminder(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2950,9 +2570,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionRenewed(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionRenewed(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2963,9 +2581,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionResumed(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionResumed(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2976,9 +2592,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionResumptionScheduled(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionResumptionScheduled(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2989,9 +2603,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionScheduledCancellationRemoved(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionScheduledCancellationRemoved(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3002,9 +2614,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionScheduledChangesRemoved(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionScheduledChangesRemoved(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3015,9 +2625,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionScheduledPauseRemoved(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionScheduledPauseRemoved(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3028,9 +2636,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionScheduledResumptionRemoved(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionScheduledResumptionRemoved(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3041,9 +2647,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionShippingAddressUpdated(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionShippingAddressUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3054,9 +2658,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionStarted(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionStarted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3067,9 +2669,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionTrialEndReminder(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionTrialEndReminder(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3080,9 +2680,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnSubscriptionTrialExtended(e); err != nil {
-				return err
-			}
+			return h.OnSubscriptionTrialExtended(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3093,9 +2691,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnTaxWithheldDeleted(e); err != nil {
-				return err
-			}
+			return h.OnTaxWithheldDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3106,9 +2702,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnTaxWithheldRecorded(e); err != nil {
-				return err
-			}
+			return h.OnTaxWithheldRecorded(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3119,9 +2713,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnTaxWithheldRefunded(e); err != nil {
-				return err
-			}
+			return h.OnTaxWithheldRefunded(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3132,9 +2724,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnTokenConsumed(e); err != nil {
-				return err
-			}
+			return h.OnTokenConsumed(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3145,9 +2735,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnTokenCreated(e); err != nil {
-				return err
-			}
+			return h.OnTokenCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3158,9 +2746,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnTokenExpired(e); err != nil {
-				return err
-			}
+			return h.OnTokenExpired(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3171,9 +2757,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnTransactionCreated(e); err != nil {
-				return err
-			}
+			return h.OnTransactionCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3184,9 +2768,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnTransactionDeleted(e); err != nil {
-				return err
-			}
+			return h.OnTransactionDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3197,9 +2779,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnTransactionUpdated(e); err != nil {
-				return err
-			}
+			return h.OnTransactionUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3210,9 +2790,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnUnbilledChargesCreated(e); err != nil {
-				return err
-			}
+			return h.OnUnbilledChargesCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3223,9 +2801,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnUnbilledChargesDeleted(e); err != nil {
-				return err
-			}
+			return h.OnUnbilledChargesDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3236,9 +2812,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnUnbilledChargesInvoiced(e); err != nil {
-				return err
-			}
+			return h.OnUnbilledChargesInvoiced(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3249,9 +2823,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnUnbilledChargesVoided(e); err != nil {
-				return err
-			}
+			return h.OnUnbilledChargesVoided(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3262,9 +2834,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnUsageFileIngested(e); err != nil {
-				return err
-			}
+			return h.OnUsageFileIngested(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3275,9 +2845,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnVariantCreated(e); err != nil {
-				return err
-			}
+			return h.OnVariantCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3288,9 +2856,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnVariantDeleted(e); err != nil {
-				return err
-			}
+			return h.OnVariantDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3301,9 +2867,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnVariantUpdated(e); err != nil {
-				return err
-			}
+			return h.OnVariantUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3314,9 +2878,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnVirtualBankAccountAdded(e); err != nil {
-				return err
-			}
+			return h.OnVirtualBankAccountAdded(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3327,9 +2889,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnVirtualBankAccountDeleted(e); err != nil {
-				return err
-			}
+			return h.OnVirtualBankAccountDeleted(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3340,9 +2900,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnVirtualBankAccountUpdated(e); err != nil {
-				return err
-			}
+			return h.OnVirtualBankAccountUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3353,9 +2911,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnVoucherCreateFailed(e); err != nil {
-				return err
-			}
+			return h.OnVoucherCreateFailed(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3366,9 +2922,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnVoucherCreated(e); err != nil {
-				return err
-			}
+			return h.OnVoucherCreated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -3379,9 +2933,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			if err := json.Unmarshal(body, &e); err != nil {
 				return err
 			}
-			if err := h.OnVoucherExpired(e); err != nil {
-				return err
-			}
+			return h.OnVoucherExpired(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
