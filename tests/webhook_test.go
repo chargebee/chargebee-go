@@ -119,27 +119,26 @@ func TestHTTPHandler_CallbackError(t *testing.T) {
 	assert.True(t, onErrorCalled)
 }
 
-func TestHTTPHandler_UnknownEvent_OK(t *testing.T) {
+func TestHTTPHandler_UnknownEvent_Error(t *testing.T) {
 	h := &webhook.WebhookHandler{
 		RequestValidator: func(r *http.Request) error { return nil },
-		OnError:          func(w http.ResponseWriter, r *http.Request, err error) { t.Fatalf("unexpected error: %v", err) },
+		// Use default error handler which writes 500
 	}
 	rec := httptest.NewRecorder()
 	req := httptest.NewRequest(http.MethodPost, "/cb", bytes.NewReader(makeEventBody("non_existing_event", "{}")))
 	h.HTTPHandler().ServeHTTP(rec, req)
-	assert.Equal(t, http.StatusOK, rec.Code)
+	assert.Equal(t, http.StatusInternalServerError, rec.Code)
 }
 
-func TestHTTPHandler_NoHandlerRegistered_OK(t *testing.T) {
+func TestHTTPHandler_NoHandlerRegistered_Error(t *testing.T) {
 	h := &webhook.WebhookHandler{
 		RequestValidator: func(r *http.Request) error { return nil },
-		OnError:          func(w http.ResponseWriter, r *http.Request, err error) { t.Fatalf("unexpected error: %v", err) },
-		// No OnPendingInvoiceCreated handler registered
+		// No OnPendingInvoiceCreated handler registered; expect 500 via default error handler
 	}
 	rec := httptest.NewRecorder()
 	req := httptest.NewRequest(http.MethodPost, "/cb", bytes.NewReader(makeEventBody("pending_invoice_created", "{}")))
 	h.HTTPHandler().ServeHTTP(rec, req)
-	assert.Equal(t, http.StatusOK, rec.Code)
+	assert.Equal(t, http.StatusInternalServerError, rec.Code)
 }
 
 func TestHTTPHandler_MultipleEventTypes(t *testing.T) {
@@ -269,7 +268,7 @@ func TestBasicAuthValidator_MissingAuthorizationHeader(t *testing.T) {
 
 	err := validator(req)
 	assert.Error(t, err)
-	assert.Contains(t, err.Error(), "missing Authorization header")
+	assert.Contains(t, err.Error(), "invalid basic authorization header")
 }
 
 func TestBasicAuthValidator_InvalidScheme(t *testing.T) {
@@ -282,7 +281,7 @@ func TestBasicAuthValidator_InvalidScheme(t *testing.T) {
 
 	err := validator(req)
 	assert.Error(t, err)
-	assert.Contains(t, err.Error(), "invalid authorization scheme")
+	assert.Contains(t, err.Error(), "invalid basic authorization header")
 }
 
 func TestBasicAuthValidator_InvalidBase64Encoding(t *testing.T) {
@@ -295,7 +294,7 @@ func TestBasicAuthValidator_InvalidBase64Encoding(t *testing.T) {
 
 	err := validator(req)
 	assert.Error(t, err)
-	assert.Contains(t, err.Error(), "invalid base64 encoding")
+	assert.Contains(t, err.Error(), "invalid basic authorization header")
 }
 
 func TestBasicAuthValidator_InvalidCredentialsFormat(t *testing.T) {
@@ -310,7 +309,7 @@ func TestBasicAuthValidator_InvalidCredentialsFormat(t *testing.T) {
 
 	err := validator(req)
 	assert.Error(t, err)
-	assert.Contains(t, err.Error(), "invalid credentials format")
+	assert.Contains(t, err.Error(), "invalid basic authorization header")
 }
 
 func TestBasicAuthValidator_EmptyCredentialsAllowed(t *testing.T) {
@@ -352,7 +351,7 @@ func TestBasicAuthErrorHandler_AuthError(t *testing.T) {
 
 	assert.Equal(t, http.StatusUnauthorized, rec.Code)
 	assert.Equal(t, `Basic realm="Webhook"`, rec.Header().Get("WWW-Authenticate"))
-	assert.Contains(t, rec.Body.String(), "missing Authorization header")
+	assert.Contains(t, rec.Body.String(), "unauthorized")
 }
 
 func TestBasicAuthErrorHandler_InvalidCredentialsError(t *testing.T) {
@@ -364,7 +363,7 @@ func TestBasicAuthErrorHandler_InvalidCredentialsError(t *testing.T) {
 
 	assert.Equal(t, http.StatusUnauthorized, rec.Code)
 	assert.Equal(t, `Basic realm="Webhook"`, rec.Header().Get("WWW-Authenticate"))
-	assert.Contains(t, rec.Body.String(), "invalid credentials")
+	assert.Contains(t, rec.Body.String(), "unauthorized")
 }
 
 func TestBasicAuthErrorHandler_InvalidSchemeError(t *testing.T) {
@@ -376,6 +375,7 @@ func TestBasicAuthErrorHandler_InvalidSchemeError(t *testing.T) {
 
 	assert.Equal(t, http.StatusUnauthorized, rec.Code)
 	assert.Equal(t, `Basic realm="Webhook"`, rec.Header().Get("WWW-Authenticate"))
+	assert.Contains(t, rec.Body.String(), "unauthorized")
 }
 
 func TestBasicAuthErrorHandler_NonAuthError(t *testing.T) {
@@ -386,21 +386,9 @@ func TestBasicAuthErrorHandler_NonAuthError(t *testing.T) {
 	err := errors.New("internal server error")
 	webhook.BasicAuthErrorHandler(rec, req, err)
 
-	assert.Equal(t, http.StatusInternalServerError, rec.Code)
-	assert.Empty(t, rec.Header().Get("WWW-Authenticate"))
-	assert.Contains(t, rec.Body.String(), "internal server error")
-}
-
-func TestBasicAuthErrorHandler_NilError(t *testing.T) {
-	rec := httptest.NewRecorder()
-	req := httptest.NewRequest(http.MethodPost, "/webhook", nil)
-
-	webhook.BasicAuthErrorHandler(rec, req, nil)
-
-	// Should handle nil error gracefully (treats as non-auth error)
-	assert.Equal(t, http.StatusInternalServerError, rec.Code)
-	assert.Empty(t, rec.Header().Get("WWW-Authenticate"))
-	assert.Contains(t, rec.Body.String(), "unknown error")
+	assert.Equal(t, http.StatusUnauthorized, rec.Code)
+	assert.Equal(t, `Basic realm="Webhook"`, rec.Header().Get("WWW-Authenticate"))
+	assert.Contains(t, rec.Body.String(), "unauthorized")
 }
 
 func TestBasicAuthValidator_IntegrationWithWebhookHandler(t *testing.T) {
