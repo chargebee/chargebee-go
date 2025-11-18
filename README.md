@@ -253,8 +253,109 @@ func main() {
 ```
 `IsIdempotencyReplayed()` method can be accessed to differentiate between original and replayed requests.
 
+### Handle webhooks
 
+Use the `webhook` package to parse and route webhook payloads from Chargebee.
 
+High-level: route events with callbacks using `WebhookHandler`:
+
+```go
+package main
+
+import (
+	"log"
+	"net/http"
+
+	"github.com/chargebee/chargebee-go/v3/webhook"
+)
+
+func main() {
+	handler := &webhook.WebhookHandler{
+		// Optional: protect endpoint (e.g., Basic Auth)
+		RequestValidator: webhook.BasicAuthValidator(func(user, pass string) bool {
+			return user == "admin" && pass == "secret"
+		}),
+		OnError: webhook.BasicAuthErrorHandler, // Optional: standard auth error responses
+
+		// Register only the events you care about
+		OnSubscriptionCreated: func(e webhook.SubscriptionCreatedEvent) error {
+			log.Printf("Subscription created event %s", e.Id)
+			return nil
+		},
+		OnPaymentSucceeded: func(e webhook.PaymentSucceededEvent) error {
+			log.Printf("Payment succeeded for customer: %v", e.Content.Customer)
+			return nil
+		},
+	}
+
+	http.Handle("/chargebee/webhooks", handler.HTTPHandler())
+	log.Fatal(http.ListenAndServe(":8080", nil))
+}
+```
+
+Low-level: parse just the event type and unmarshal yourself:
+
+```go
+package main
+
+import (
+	"encoding/json"
+	"io"
+	"net/http"
+
+	"github.com/chargebee/chargebee-go/v3/enum"
+	"github.com/chargebee/chargebee-go/v3/webhook"
+)
+
+func cbWebhook(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	evtType, err := webhook.ParseEventType(body) // validates api_version too
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	switch evtType {
+	case enum.EventTypeSubscriptionCreated:
+		var e webhook.SubscriptionCreatedEvent
+		if err := json.Unmarshal(body, &e); err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+		// handle e
+	default:
+		// ignore or log
+	}
+	w.WriteHeader(http.StatusOK)
+}
+```
+
+#### Unhandled events
+
+By default, if an incoming webhook’s event type is unknown or you have not registered a corresponding handler on `WebhookHandler`, the SDK treats it as an error. When using `HTTPHandler()`, this results in a 500 response unless you provide a custom `OnError` handler.
+
+If you prefer to acknowledge unknown/unregistered events (return 200) and just log them, set `OnUnhandledEvent` to a function that returns `nil`:
+
+```go
+import (
+	"log"
+	"github.com/chargebee/chargebee-go/v3/enum"
+	"github.com/chargebee/chargebee-go/v3/webhook"
+)
+
+handler := &webhook.WebhookHandler{
+	OnUnhandledEvent: func(t enum.EventType, body []byte) error {
+		log.Printf("Ignoring unhandled event: %s", t)
+		return nil // swallow as OK
+	},
+}
+```
 
 ## Use the test suite
 ***
