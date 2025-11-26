@@ -28,3 +28,6 @@ func FindApplicableItems(id string, params *itemprice.FindApplicableItemsRequest
 func FindApplicableItemPrices(id string, params *itemprice.FindApplicableItemPricesRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/item_prices/%v/applicable_item_prices", url.PathEscape(id)), params)
 }
+func MoveItemPrice(id string, params *itemprice.MoveItemPriceRequestParams) chargebee.Request {
+	return chargebee.Send("POST", fmt.Sprintf("/item_prices/%v/move", url.PathEscape(id)), params).SetIdempotency(true)
+}

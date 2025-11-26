@@ -45,6 +45,7 @@ type Invoice struct {
 	VoidedAt                  int64                     `json:"voided_at"`
 	ResourceVersion           int64                     `json:"resource_version"`
 	UpdatedAt                 int64                     `json:"updated_at"`
+	LineItemsNextOffset       string                    `json:"line_items_next_offset"`
 	FirstInvoice              bool                      `json:"first_invoice"`
 	NewSalesAmount            int64                     `json:"new_sales_amount"`
 	HasAdvanceCharges         bool                      `json:"has_advance_charges"`
@@ -934,7 +935,9 @@ type InvoicesForSubscriptionRequestParams struct {
 	Offset string `json:"offset,omitempty"`
 }
 type RetrieveRequestParams struct {
-	LineItem *RetrieveLineItemParams `json:"line_item,omitempty"`
+	LineItem        *RetrieveLineItemParams `json:"line_item,omitempty"`
+	LineItemsLimit  *int32                  `json:"line_items_limit,omitempty"`
+	LineItemsOffset string                  `json:"line_items_offset,omitempty"`
 }
 type RetrieveLineItemParams struct {
 	SubscriptionId *filter.StringFilter `json:"subscription_id,omitempty"`

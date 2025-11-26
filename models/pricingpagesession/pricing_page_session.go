@@ -12,14 +12,15 @@ type PricingPageSession struct {
 	Object    string `json:"object"`
 }
 type CreateForNewSubscriptionRequestParams struct {
-	RedirectUrl      string                                         `json:"redirect_url,omitempty"`
-	PricingPage      *CreateForNewSubscriptionPricingPageParams     `json:"pricing_page,omitempty"`
-	Subscription     *CreateForNewSubscriptionSubscriptionParams    `json:"subscription,omitempty"`
-	BusinessEntityId string                                         `json:"business_entity_id,omitempty"`
-	Customer         *CreateForNewSubscriptionCustomerParams        `json:"customer,omitempty"`
-	Discounts        []*CreateForNewSubscriptionDiscountParams      `json:"discounts,omitempty"`
-	BillingAddress   *CreateForNewSubscriptionBillingAddressParams  `json:"billing_address,omitempty"`
-	ShippingAddress  *CreateForNewSubscriptionShippingAddressParams `json:"shipping_address,omitempty"`
+	RedirectUrl             string                                         `json:"redirect_url,omitempty"`
+	PricingPage             *CreateForNewSubscriptionPricingPageParams     `json:"pricing_page,omitempty"`
+	Subscription            *CreateForNewSubscriptionSubscriptionParams    `json:"subscription,omitempty"`
+	BusinessEntityId        string                                         `json:"business_entity_id,omitempty"`
+	AutoSelectLocalCurrency *bool                                          `json:"auto_select_local_currency,omitempty"`
+	Customer                *CreateForNewSubscriptionCustomerParams        `json:"customer,omitempty"`
+	Discounts               []*CreateForNewSubscriptionDiscountParams      `json:"discounts,omitempty"`
+	BillingAddress          *CreateForNewSubscriptionBillingAddressParams  `json:"billing_address,omitempty"`
+	ShippingAddress         *CreateForNewSubscriptionShippingAddressParams `json:"shipping_address,omitempty"`
 }
 type CreateForNewSubscriptionPricingPageParams struct {
 	Id string `json:"id"`

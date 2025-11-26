@@ -41,4 +41,6 @@ const (
 	EntityTypeOmnichannelOneTimeOrder                    EntityType = "omnichannel_one_time_order"
 	EntityTypeOmnichannelOneTimeOrderItem                EntityType = "omnichannel_one_time_order_item"
 	EntityTypeUsageFile                                  EntityType = "usage_file"
+	EntityTypeBusinessRule                               EntityType = "business_rule"
+	EntityTypeRuleset                                    EntityType = "ruleset"
 )
