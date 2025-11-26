@@ -763,15 +763,27 @@ type CheckoutGiftForItemsRequestParams struct {
 	Gifter            *CheckoutGiftForItemsGifterParams             `json:"gifter,omitempty"`
 	RedirectUrl       string                                        `json:"redirect_url,omitempty"`
 	SubscriptionItems []*CheckoutGiftForItemsSubscriptionItemParams `json:"subscription_items,omitempty"`
+	ItemTiers         []*CheckoutGiftForItemsItemTierParams         `json:"item_tiers,omitempty"`
 	CouponIds         []string                                      `json:"coupon_ids,omitempty"`
 }
 type CheckoutGiftForItemsGifterParams struct {
 	CustomerId string `json:"customer_id,omitempty"`
 }
 type CheckoutGiftForItemsSubscriptionItemParams struct {
-	ItemPriceId       string `json:"item_price_id,omitempty"`
-	Quantity          *int32 `json:"quantity,omitempty"`
-	QuantityInDecimal string `json:"quantity_in_decimal,omitempty"`
+	ItemPriceId        string `json:"item_price_id,omitempty"`
+	Quantity           *int32 `json:"quantity,omitempty"`
+	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int64 `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
+}
+type CheckoutGiftForItemsItemTierParams struct {
+	ItemPriceId           string `json:"item_price_id,omitempty"`
+	StartingUnit          *int32 `json:"starting_unit,omitempty"`
+	EndingUnit            *int32 `json:"ending_unit,omitempty"`
+	Price                 *int64 `json:"price,omitempty"`
+	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
 type ClaimGiftRequestParams struct {
 	Gift        *ClaimGiftGiftParams     `json:"gift,omitempty"`

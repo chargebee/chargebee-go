@@ -25,6 +25,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/differentialprice"
 	"github.com/chargebee/chargebee-go/v3/models/discount"
 	"github.com/chargebee/chargebee-go/v3/models/download"
+	"github.com/chargebee/chargebee-go/v3/models/einvoice"
 	"github.com/chargebee/chargebee-go/v3/models/entitlement"
 	"github.com/chargebee/chargebee-go/v3/models/entitlementoverride"
 	"github.com/chargebee/chargebee-go/v3/models/estimate"
@@ -70,6 +71,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/purchase"
 	"github.com/chargebee/chargebee-go/v3/models/quote"
 	"github.com/chargebee/chargebee-go/v3/models/quotedcharge"
+	"github.com/chargebee/chargebee-go/v3/models/quoteddeltaramp"
 	"github.com/chargebee/chargebee-go/v3/models/quotedramp"
 	"github.com/chargebee/chargebee-go/v3/models/quotedsubscription"
 	"github.com/chargebee/chargebee-go/v3/models/quotelinegroup"
@@ -121,6 +123,7 @@ type Result struct {
 	Invoice                                    *invoice.Invoice                                                                       `json:"invoice,omitempty"`
 	PaymentReferenceNumber                     *paymentreferencenumber.PaymentReferenceNumber                                         `json:"payment_reference_number,omitempty"`
 	PaymentSchedule                            *paymentschedule.PaymentSchedule                                                       `json:"payment_schedule,omitempty"`
+	Einvoice                                   *einvoice.Einvoice                                                                     `json:"einvoice,omitempty"`
 	TaxWithheld                                *taxwithheld.TaxWithheld                                                               `json:"tax_withheld,omitempty"`
 	CreditNote                                 *creditnote.CreditNote                                                                 `json:"credit_note,omitempty"`
 	UnbilledCharge                             *unbilledcharge.UnbilledCharge                                                         `json:"unbilled_charge,omitempty"`
@@ -133,6 +136,7 @@ type Result struct {
 	QuotedSubscription                         *quotedsubscription.QuotedSubscription                                                 `json:"quoted_subscription,omitempty"`
 	QuotedCharge                               *quotedcharge.QuotedCharge                                                             `json:"quoted_charge,omitempty"`
 	QuotedRamp                                 *quotedramp.QuotedRamp                                                                 `json:"quoted_ramp,omitempty"`
+	QuotedDeltaRamp                            *quoteddeltaramp.QuotedDeltaRamp                                                       `json:"quoted_delta_ramp,omitempty"`
 	BillingConfiguration                       *billingconfiguration.BillingConfiguration                                             `json:"billing_configuration,omitempty"`
 	QuoteLineGroup                             *quotelinegroup.QuoteLineGroup                                                         `json:"quote_line_group,omitempty"`
 	Plan                                       *plan.Plan                                                                             `json:"plan,omitempty"`

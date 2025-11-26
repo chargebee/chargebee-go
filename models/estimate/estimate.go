@@ -746,6 +746,7 @@ type GiftSubscriptionForItemsRequestParams struct {
 	PaymentIntent     *GiftSubscriptionForItemsPaymentIntentParams      `json:"payment_intent,omitempty"`
 	ShippingAddress   *GiftSubscriptionForItemsShippingAddressParams    `json:"shipping_address,omitempty"`
 	SubscriptionItems []*GiftSubscriptionForItemsSubscriptionItemParams `json:"subscription_items,omitempty"`
+	ItemTiers         []*GiftSubscriptionForItemsItemTierParams         `json:"item_tiers,omitempty"`
 }
 type GiftSubscriptionForItemsGiftParams struct {
 	ScheduledAt     *int64 `json:"scheduled_at,omitempty"`
@@ -791,9 +792,20 @@ type GiftSubscriptionForItemsShippingAddressParams struct {
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
 type GiftSubscriptionForItemsSubscriptionItemParams struct {
-	ItemPriceId       string `json:"item_price_id,omitempty"`
-	Quantity          *int32 `json:"quantity,omitempty"`
-	QuantityInDecimal string `json:"quantity_in_decimal,omitempty"`
+	ItemPriceId        string `json:"item_price_id,omitempty"`
+	Quantity           *int32 `json:"quantity,omitempty"`
+	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int64 `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
+}
+type GiftSubscriptionForItemsItemTierParams struct {
+	ItemPriceId           string `json:"item_price_id,omitempty"`
+	StartingUnit          *int32 `json:"starting_unit,omitempty"`
+	EndingUnit            *int32 `json:"ending_unit,omitempty"`
+	Price                 *int64 `json:"price,omitempty"`
+	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
 type CreateInvoiceRequestParams struct {
 	Invoice                    *CreateInvoiceInvoiceParams             `json:"invoice,omitempty"`

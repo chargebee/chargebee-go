@@ -31,6 +31,7 @@ type CreditNote struct {
 	ResourceVersion           int64                     `json:"resource_version"`
 	UpdatedAt                 int64                     `json:"updated_at"`
 	Channel                   enum.Channel              `json:"channel"`
+	LineItemsNextOffset       string                    `json:"line_items_next_offset"`
 	SubTotal                  int64                     `json:"sub_total"`
 	SubTotalInLocalCurrency   int64                     `json:"sub_total_in_local_currency"`
 	TotalInLocalCurrency      int64                     `json:"total_in_local_currency"`
@@ -259,7 +260,9 @@ type CreateLineItemParams struct {
 	EntityId            string                            `json:"entity_id,omitempty"`
 }
 type RetrieveRequestParams struct {
-	LineItem *RetrieveLineItemParams `json:"line_item,omitempty"`
+	LineItem        *RetrieveLineItemParams `json:"line_item,omitempty"`
+	LineItemsLimit  *int32                  `json:"line_items_limit,omitempty"`
+	LineItemsOffset string                  `json:"line_items_offset,omitempty"`
 }
 type RetrieveLineItemParams struct {
 	SubscriptionId *filter.StringFilter `json:"subscription_id,omitempty"`
