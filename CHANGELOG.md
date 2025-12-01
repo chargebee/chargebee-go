@@ -1,3 +1,9 @@
+### v3.41.0 (2025-12-01)
+***
+
+### New Enhancement:
+* Added a webhook parser to automatically convert event JSON payloads into Chargebee objects.
+
 ### v3.40.0 (2025-11-26)
 * * * 
 
