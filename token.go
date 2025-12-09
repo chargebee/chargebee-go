@@ -1,0 +1,32 @@
+package chargebee
+
+type Status string
+
+const (
+	StatusNew      Status = "new"
+	StatusExpired  Status = "expired"
+	StatusConsumed Status = "consumed"
+)
+
+type Vault string
+
+const (
+	VaultSpreedly Vault = "spreedly"
+	VaultGateway  Vault = "gateway"
+)
+
+type Token struct {
+	Id                string                 `json:"id"`
+	Gateway           enum.Gateway           `json:"gateway"`
+	GatewayAccountId  string                 `json:"gateway_account_id"`
+	PaymentMethodType enum.PaymentMethodType `json:"payment_method_type"`
+	Status            Status                 `json:"status"`
+	IdAtVault         string                 `json:"id_at_vault"`
+	Vault             Vault                  `json:"vault"`
+	IpAddress         string                 `json:"ip_address"`
+	ResourceVersion   int64                  `json:"resource_version"`
+	UpdatedAt         int64                  `json:"updated_at"`
+	CreatedAt         int64                  `json:"created_at"`
+	ExpiredAt         int64                  `json:"expired_at"`
+	Object            string                 `json:"object"`
+}

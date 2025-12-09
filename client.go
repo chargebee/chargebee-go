@@ -1,6 +1,8 @@
 package chargebee
 
-import "net/http"
+import (
+	"net/http"
+)
 
 type Transport struct {
 	apiKey     string

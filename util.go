@@ -208,6 +208,7 @@ func prepareResultCF(resbody []byte, v interface{}) {
 		panic(err)
 	}
 
+	// TODO: fix custom field json decoding with a CustomField = any type
 	for key, val := range m {
 		if key == "customer" {
 			v.(*Result).Customer.CustomField = customMapping(val)

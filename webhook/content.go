@@ -3,113 +3,113 @@ package webhook
 import (
 	"time"
 
-	"github.com/chargebee/chargebee-go/v3/models/addon"
+	"github.com/chargebee/chargebee-go/v3/addon"
 
-	"github.com/chargebee/chargebee-go/v3/models/advanceinvoiceschedule"
+	"github.com/chargebee/chargebee-go/v3/advanceinvoiceschedule"
 
-	"github.com/chargebee/chargebee-go/v3/models/attacheditem"
+	"github.com/chargebee/chargebee-go/v3/attacheditem"
 
-	"github.com/chargebee/chargebee-go/v3/models/attribute"
+	"github.com/chargebee/chargebee-go/v3/attribute"
 
-	"github.com/chargebee/chargebee-go/v3/models/businessentity"
+	"github.com/chargebee/chargebee-go/v3/businessentity"
 
-	"github.com/chargebee/chargebee-go/v3/models/businessentitytransfer"
+	"github.com/chargebee/chargebee-go/v3/businessentitytransfer"
 
-	"github.com/chargebee/chargebee-go/v3/models/card"
+	"github.com/chargebee/chargebee-go/v3/card"
 
-	"github.com/chargebee/chargebee-go/v3/models/contractterm"
+	"github.com/chargebee/chargebee-go/v3/contractterm"
 
-	"github.com/chargebee/chargebee-go/v3/models/coupon"
+	"github.com/chargebee/chargebee-go/v3/coupon"
 
-	"github.com/chargebee/chargebee-go/v3/models/couponcode"
+	"github.com/chargebee/chargebee-go/v3/couponcode"
 
-	"github.com/chargebee/chargebee-go/v3/models/couponset"
+	"github.com/chargebee/chargebee-go/v3/couponset"
 
-	"github.com/chargebee/chargebee-go/v3/models/creditnote"
+	"github.com/chargebee/chargebee-go/v3/creditnote"
 
-	"github.com/chargebee/chargebee-go/v3/models/customer"
+	"github.com/chargebee/chargebee-go/v3/customer"
 
-	"github.com/chargebee/chargebee-go/v3/models/differentialprice"
+	"github.com/chargebee/chargebee-go/v3/differentialprice"
 
-	"github.com/chargebee/chargebee-go/v3/models/feature"
+	"github.com/chargebee/chargebee-go/v3/feature"
 
-	"github.com/chargebee/chargebee-go/v3/models/gift"
+	"github.com/chargebee/chargebee-go/v3/gift"
 
-	"github.com/chargebee/chargebee-go/v3/models/impactedcustomer"
+	"github.com/chargebee/chargebee-go/v3/impactedcustomer"
 
-	"github.com/chargebee/chargebee-go/v3/models/impacteditem"
+	"github.com/chargebee/chargebee-go/v3/impacteditem"
 
-	"github.com/chargebee/chargebee-go/v3/models/impacteditemprice"
+	"github.com/chargebee/chargebee-go/v3/impacteditemprice"
 
-	"github.com/chargebee/chargebee-go/v3/models/impactedsubscription"
+	"github.com/chargebee/chargebee-go/v3/impactedsubscription"
 
-	"github.com/chargebee/chargebee-go/v3/models/invoice"
+	"github.com/chargebee/chargebee-go/v3/invoice"
 
-	"github.com/chargebee/chargebee-go/v3/models/item"
+	"github.com/chargebee/chargebee-go/v3/item"
 
-	"github.com/chargebee/chargebee-go/v3/models/itemfamily"
+	"github.com/chargebee/chargebee-go/v3/itemfamily"
 
-	"github.com/chargebee/chargebee-go/v3/models/itemprice"
+	"github.com/chargebee/chargebee-go/v3/itemprice"
 
-	"github.com/chargebee/chargebee-go/v3/models/metadata"
+	"github.com/chargebee/chargebee-go/v3/metadata"
 
-	"github.com/chargebee/chargebee-go/v3/models/omnichannelonetimeorder"
+	"github.com/chargebee/chargebee-go/v3/omnichannelonetimeorder"
 
-	"github.com/chargebee/chargebee-go/v3/models/omnichannelonetimeorderitem"
+	"github.com/chargebee/chargebee-go/v3/omnichannelonetimeorderitem"
 
-	"github.com/chargebee/chargebee-go/v3/models/omnichannelsubscription"
+	"github.com/chargebee/chargebee-go/v3/omnichannelsubscription"
 
-	"github.com/chargebee/chargebee-go/v3/models/omnichannelsubscriptionitem"
+	"github.com/chargebee/chargebee-go/v3/omnichannelsubscriptionitem"
 
-	"github.com/chargebee/chargebee-go/v3/models/omnichannelsubscriptionitemscheduledchange"
+	"github.com/chargebee/chargebee-go/v3/omnichannelsubscriptionitemscheduledchange"
 
-	"github.com/chargebee/chargebee-go/v3/models/omnichanneltransaction"
+	"github.com/chargebee/chargebee-go/v3/omnichanneltransaction"
 
-	"github.com/chargebee/chargebee-go/v3/models/order"
+	"github.com/chargebee/chargebee-go/v3/order"
 
-	"github.com/chargebee/chargebee-go/v3/models/paymentintent"
+	"github.com/chargebee/chargebee-go/v3/paymentintent"
 
-	"github.com/chargebee/chargebee-go/v3/models/paymentschedule"
+	"github.com/chargebee/chargebee-go/v3/paymentschedule"
 
-	"github.com/chargebee/chargebee-go/v3/models/paymentschedulescheme"
+	"github.com/chargebee/chargebee-go/v3/paymentschedulescheme"
 
-	"github.com/chargebee/chargebee-go/v3/models/paymentsource"
+	"github.com/chargebee/chargebee-go/v3/paymentsource"
 
-	"github.com/chargebee/chargebee-go/v3/models/paymentvoucher"
+	"github.com/chargebee/chargebee-go/v3/paymentvoucher"
 
-	"github.com/chargebee/chargebee-go/v3/models/plan"
+	"github.com/chargebee/chargebee-go/v3/plan"
 
-	"github.com/chargebee/chargebee-go/v3/models/pricevariant"
+	"github.com/chargebee/chargebee-go/v3/pricevariant"
 
-	"github.com/chargebee/chargebee-go/v3/models/promotionalcredit"
+	"github.com/chargebee/chargebee-go/v3/promotionalcredit"
 
-	"github.com/chargebee/chargebee-go/v3/models/purchase"
+	"github.com/chargebee/chargebee-go/v3/purchase"
 
-	"github.com/chargebee/chargebee-go/v3/models/quote"
+	"github.com/chargebee/chargebee-go/v3/quote"
 
-	"github.com/chargebee/chargebee-go/v3/models/ramp"
+	"github.com/chargebee/chargebee-go/v3/ramp"
 
-	"github.com/chargebee/chargebee-go/v3/models/recordedpurchase"
+	"github.com/chargebee/chargebee-go/v3/recordedpurchase"
 
-	"github.com/chargebee/chargebee-go/v3/models/rule"
+	"github.com/chargebee/chargebee-go/v3/rule"
 
-	"github.com/chargebee/chargebee-go/v3/models/subscription"
+	"github.com/chargebee/chargebee-go/v3/subscription"
 
-	"github.com/chargebee/chargebee-go/v3/models/subscriptionentitlementscreateddetail"
+	"github.com/chargebee/chargebee-go/v3/subscriptionentitlementscreateddetail"
 
-	"github.com/chargebee/chargebee-go/v3/models/subscriptionentitlementsupdateddetail"
+	"github.com/chargebee/chargebee-go/v3/subscriptionentitlementsupdateddetail"
 
-	"github.com/chargebee/chargebee-go/v3/models/taxwithheld"
+	"github.com/chargebee/chargebee-go/v3/taxwithheld"
 
-	"github.com/chargebee/chargebee-go/v3/models/token"
+	"github.com/chargebee/chargebee-go/v3/token"
 
-	"github.com/chargebee/chargebee-go/v3/models/transaction"
+	"github.com/chargebee/chargebee-go/v3/transaction"
 
-	"github.com/chargebee/chargebee-go/v3/models/unbilledcharge"
+	"github.com/chargebee/chargebee-go/v3/unbilledcharge"
 
-	"github.com/chargebee/chargebee-go/v3/models/usagefile"
+	"github.com/chargebee/chargebee-go/v3/usagefile"
 
-	"github.com/chargebee/chargebee-go/v3/models/virtualbankaccount"
+	"github.com/chargebee/chargebee-go/v3/virtualbankaccount"
 )
 
 // Event content structures for each webhook type
