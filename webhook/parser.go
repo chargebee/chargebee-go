@@ -3,16 +3,16 @@ package webhook
 import (
 	"encoding/json"
 	"errors"
-	"github.com/chargebee/chargebee-go/v3"
-	"github.com/chargebee/chargebee-go/v3/enum"
 	"strings"
+
+	"github.com/chargebee/chargebee-go/v3"
 )
 
 // ParseEventType reads only the event_type (and validates api_version) from the webhook payload
-func ParseEventType(body []byte) (enum.EventType, error) {
+func ParseEventType(body []byte) (chargebee.EventType, error) {
 	var envelope struct {
-		EventType  enum.EventType `json:"event_type"`
-		ApiVersion string         `json:"api_version"`
+		EventType  chargebee.EventType `json:"event_type"`
+		ApiVersion string              `json:"api_version"`
 	}
 	if err := json.Unmarshal(body, &envelope); err != nil {
 		return "", err

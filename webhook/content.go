@@ -3,1547 +3,1169 @@ package webhook
 import (
 	"time"
 
-	"github.com/chargebee/chargebee-go/v3/addon"
-
-	"github.com/chargebee/chargebee-go/v3/advanceinvoiceschedule"
-
-	"github.com/chargebee/chargebee-go/v3/attacheditem"
-
-	"github.com/chargebee/chargebee-go/v3/attribute"
-
-	"github.com/chargebee/chargebee-go/v3/businessentity"
-
-	"github.com/chargebee/chargebee-go/v3/businessentitytransfer"
-
-	"github.com/chargebee/chargebee-go/v3/card"
-
-	"github.com/chargebee/chargebee-go/v3/contractterm"
-
-	"github.com/chargebee/chargebee-go/v3/coupon"
-
-	"github.com/chargebee/chargebee-go/v3/couponcode"
-
-	"github.com/chargebee/chargebee-go/v3/couponset"
-
-	"github.com/chargebee/chargebee-go/v3/creditnote"
-
-	"github.com/chargebee/chargebee-go/v3/customer"
-
-	"github.com/chargebee/chargebee-go/v3/differentialprice"
-
-	"github.com/chargebee/chargebee-go/v3/feature"
-
-	"github.com/chargebee/chargebee-go/v3/gift"
-
-	"github.com/chargebee/chargebee-go/v3/impactedcustomer"
-
-	"github.com/chargebee/chargebee-go/v3/impacteditem"
-
-	"github.com/chargebee/chargebee-go/v3/impacteditemprice"
-
-	"github.com/chargebee/chargebee-go/v3/impactedsubscription"
-
-	"github.com/chargebee/chargebee-go/v3/invoice"
-
-	"github.com/chargebee/chargebee-go/v3/item"
-
-	"github.com/chargebee/chargebee-go/v3/itemfamily"
-
-	"github.com/chargebee/chargebee-go/v3/itemprice"
-
-	"github.com/chargebee/chargebee-go/v3/metadata"
-
-	"github.com/chargebee/chargebee-go/v3/omnichannelonetimeorder"
-
-	"github.com/chargebee/chargebee-go/v3/omnichannelonetimeorderitem"
-
-	"github.com/chargebee/chargebee-go/v3/omnichannelsubscription"
-
-	"github.com/chargebee/chargebee-go/v3/omnichannelsubscriptionitem"
-
-	"github.com/chargebee/chargebee-go/v3/omnichannelsubscriptionitemscheduledchange"
-
-	"github.com/chargebee/chargebee-go/v3/omnichanneltransaction"
-
-	"github.com/chargebee/chargebee-go/v3/order"
-
-	"github.com/chargebee/chargebee-go/v3/paymentintent"
-
-	"github.com/chargebee/chargebee-go/v3/paymentschedule"
-
-	"github.com/chargebee/chargebee-go/v3/paymentschedulescheme"
-
-	"github.com/chargebee/chargebee-go/v3/paymentsource"
-
-	"github.com/chargebee/chargebee-go/v3/paymentvoucher"
-
-	"github.com/chargebee/chargebee-go/v3/plan"
-
-	"github.com/chargebee/chargebee-go/v3/pricevariant"
-
-	"github.com/chargebee/chargebee-go/v3/promotionalcredit"
-
-	"github.com/chargebee/chargebee-go/v3/purchase"
-
-	"github.com/chargebee/chargebee-go/v3/quote"
-
-	"github.com/chargebee/chargebee-go/v3/ramp"
-
-	"github.com/chargebee/chargebee-go/v3/recordedpurchase"
-
-	"github.com/chargebee/chargebee-go/v3/rule"
-
-	"github.com/chargebee/chargebee-go/v3/subscription"
-
-	"github.com/chargebee/chargebee-go/v3/subscriptionentitlementscreateddetail"
-
-	"github.com/chargebee/chargebee-go/v3/subscriptionentitlementsupdateddetail"
-
-	"github.com/chargebee/chargebee-go/v3/taxwithheld"
-
-	"github.com/chargebee/chargebee-go/v3/token"
-
-	"github.com/chargebee/chargebee-go/v3/transaction"
-
-	"github.com/chargebee/chargebee-go/v3/unbilledcharge"
-
-	"github.com/chargebee/chargebee-go/v3/usagefile"
-
-	"github.com/chargebee/chargebee-go/v3/virtualbankaccount"
+	"github.com/chargebee/chargebee-go/v3"
 )
 
 // Event content structures for each webhook type
 
 type SubscriptionPauseScheduledContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	AdvanceInvoiceSchedule *advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
+	Subscription           *chargebee.Subscription           `json:"subscription,omitempty"`
+	Customer               *chargebee.Customer               `json:"customer,omitempty"`
+	Card                   *chargebee.Card                   `json:"card,omitempty"`
+	AdvanceInvoiceSchedule *chargebee.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
 }
 
 type CustomerBusinessEntityChangedContent struct {
-	BusinessEntityTransfer *businessentitytransfer.BusinessEntityTransfer `json:"business_entity_transfer,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	BusinessEntityTransfer *chargebee.BusinessEntityTransfer `json:"business_entity_transfer,omitempty"`
+	Customer               *chargebee.Customer               `json:"customer,omitempty"`
 }
 
 type SubscriptionAdvanceInvoiceScheduleAddedContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	AdvanceInvoiceSchedule *advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
+	Subscription           *chargebee.Subscription           `json:"subscription,omitempty"`
+	Customer               *chargebee.Customer               `json:"customer,omitempty"`
+	AdvanceInvoiceSchedule *chargebee.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
 }
 
 type GiftExpiredContent struct {
-	Gift *gift.Gift `json:"gift,omitempty"`
+	Gift *chargebee.Gift `json:"gift,omitempty"`
 }
 
 type TaxWithheldDeletedContent struct {
-	TaxWithheld *taxwithheld.TaxWithheld `json:"tax_withheld,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
-
-	CreditNote *creditnote.CreditNote `json:"credit_note,omitempty"`
+	TaxWithheld *chargebee.TaxWithheld `json:"tax_withheld,omitempty"`
+	Invoice     *chargebee.Invoice     `json:"invoice,omitempty"`
+	CreditNote  *chargebee.CreditNote  `json:"credit_note,omitempty"`
 }
 
 type UnbilledChargesDeletedContent struct {
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	UnbilledCharge *chargebee.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type CouponUpdatedContent struct {
-	Coupon *coupon.Coupon `json:"coupon,omitempty"`
+	Coupon *chargebee.Coupon `json:"coupon,omitempty"`
 }
 
 type ProductUpdatedContent struct {
 }
 
 type OmnichannelSubscriptionItemReactivatedContent struct {
-	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
-
-	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscription     *chargebee.OmnichannelSubscription     `json:"omnichannel_subscription,omitempty"`
+	OmnichannelSubscriptionItem *chargebee.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
+	Customer                    *chargebee.Customer                    `json:"customer,omitempty"`
 }
 
 type OmnichannelSubscriptionItemRenewedContent struct {
-	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
-
-	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
-
-	OmnichannelTransaction *omnichanneltransaction.OmnichannelTransaction `json:"omnichannel_transaction,omitempty"`
-
-	OmnichannelSubscriptionItemScheduledChange *omnichannelsubscriptionitemscheduledchange.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscriptionItem                *chargebee.OmnichannelSubscriptionItem                `json:"omnichannel_subscription_item,omitempty"`
+	OmnichannelSubscription                    *chargebee.OmnichannelSubscription                    `json:"omnichannel_subscription,omitempty"`
+	OmnichannelTransaction                     *chargebee.OmnichannelTransaction                     `json:"omnichannel_transaction,omitempty"`
+	OmnichannelSubscriptionItemScheduledChange *chargebee.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
+	Customer                                   *chargebee.Customer                                   `json:"customer,omitempty"`
 }
 
 type UnbilledChargesCreatedContent struct {
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	UnbilledCharge *chargebee.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type SubscriptionResumedContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
-
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	Subscription   *chargebee.Subscription   `json:"subscription,omitempty"`
+	Customer       *chargebee.Customer       `json:"customer,omitempty"`
+	Card           *chargebee.Card           `json:"card,omitempty"`
+	Invoice        *chargebee.Invoice        `json:"invoice,omitempty"`
+	UnbilledCharge *chargebee.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type OmnichannelOneTimeOrderItemCancelledContent struct {
-	OmnichannelOneTimeOrder *omnichannelonetimeorder.OmnichannelOneTimeOrder `json:"omnichannel_one_time_order,omitempty"`
-
-	OmnichannelOneTimeOrderItem *omnichannelonetimeorderitem.OmnichannelOneTimeOrderItem `json:"omnichannel_one_time_order_item,omitempty"`
-
-	OmnichannelTransaction *omnichanneltransaction.OmnichannelTransaction `json:"omnichannel_transaction,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelOneTimeOrder     *chargebee.OmnichannelOneTimeOrder     `json:"omnichannel_one_time_order,omitempty"`
+	OmnichannelOneTimeOrderItem *chargebee.OmnichannelOneTimeOrderItem `json:"omnichannel_one_time_order_item,omitempty"`
+	OmnichannelTransaction      *chargebee.OmnichannelTransaction      `json:"omnichannel_transaction,omitempty"`
+	Customer                    *chargebee.Customer                    `json:"customer,omitempty"`
 }
 
 type SubscriptionCancelledContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
-
-	CreditNote *creditnote.CreditNote `json:"credit_note,omitempty"`
-
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	Subscription   *chargebee.Subscription   `json:"subscription,omitempty"`
+	Customer       *chargebee.Customer       `json:"customer,omitempty"`
+	Card           *chargebee.Card           `json:"card,omitempty"`
+	Invoice        *chargebee.Invoice        `json:"invoice,omitempty"`
+	CreditNote     *chargebee.CreditNote     `json:"credit_note,omitempty"`
+	UnbilledCharge *chargebee.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type ItemEntitlementsRemovedContent struct {
-	Feature *feature.Feature `json:"feature,omitempty"`
-
-	Metadata *metadata.Metadata `json:"metadata,omitempty"`
-
-	ImpactedItem *impacteditem.ImpactedItem `json:"impacted_item,omitempty"`
-
-	ImpactedSubscription *impactedsubscription.ImpactedSubscription `json:"impacted_subscription,omitempty"`
+	Feature              *chargebee.Feature              `json:"feature,omitempty"`
+	Metadata             *chargebee.Metadata             `json:"metadata,omitempty"`
+	ImpactedItem         *chargebee.ImpactedItem         `json:"impacted_item,omitempty"`
+	ImpactedSubscription *chargebee.ImpactedSubscription `json:"impacted_subscription,omitempty"`
 }
 
 type BusinessEntityCreatedContent struct {
-	BusinessEntity *businessentity.BusinessEntity `json:"business_entity,omitempty"`
+	BusinessEntity *chargebee.BusinessEntity `json:"business_entity,omitempty"`
 }
 
 type CouponSetUpdatedContent struct {
-	Coupon *coupon.Coupon `json:"coupon,omitempty"`
-
-	CouponSet *couponset.CouponSet `json:"coupon_set,omitempty"`
+	Coupon    *chargebee.Coupon    `json:"coupon,omitempty"`
+	CouponSet *chargebee.CouponSet `json:"coupon_set,omitempty"`
 }
 
 type DifferentialPriceUpdatedContent struct {
-	DifferentialPrice *differentialprice.DifferentialPrice `json:"differential_price,omitempty"`
+	DifferentialPrice *chargebee.DifferentialPrice `json:"differential_price,omitempty"`
 }
 
 type OmnichannelSubscriptionItemPausedContent struct {
-	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
-
-	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscription     *chargebee.OmnichannelSubscription     `json:"omnichannel_subscription,omitempty"`
+	OmnichannelSubscriptionItem *chargebee.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
+	Customer                    *chargebee.Customer                    `json:"customer,omitempty"`
 }
 
 type EntitlementOverridesRemovedContent struct {
-	ImpactedSubscription *impactedsubscription.ImpactedSubscription `json:"impacted_subscription,omitempty"`
-
-	Metadata *metadata.Metadata `json:"metadata,omitempty"`
+	ImpactedSubscription *chargebee.ImpactedSubscription `json:"impacted_subscription,omitempty"`
+	Metadata             *chargebee.Metadata             `json:"metadata,omitempty"`
 }
 
 type SubscriptionActivatedWithBackdatingContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
-
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	Subscription   *chargebee.Subscription   `json:"subscription,omitempty"`
+	Customer       *chargebee.Customer       `json:"customer,omitempty"`
+	Card           *chargebee.Card           `json:"card,omitempty"`
+	Invoice        *chargebee.Invoice        `json:"invoice,omitempty"`
+	UnbilledCharge *chargebee.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type SubscriptionTrialEndReminderContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	AdvanceInvoiceSchedule *advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
+	Subscription           *chargebee.Subscription           `json:"subscription,omitempty"`
+	Customer               *chargebee.Customer               `json:"customer,omitempty"`
+	Card                   *chargebee.Card                   `json:"card,omitempty"`
+	AdvanceInvoiceSchedule *chargebee.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
 }
 
 type SubscriptionShippingAddressUpdatedContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	AdvanceInvoiceSchedule *advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
+	Subscription           *chargebee.Subscription           `json:"subscription,omitempty"`
+	Customer               *chargebee.Customer               `json:"customer,omitempty"`
+	Card                   *chargebee.Card                   `json:"card,omitempty"`
+	AdvanceInvoiceSchedule *chargebee.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
 }
 
 type VoucherCreateFailedContent struct {
-	PaymentVoucher *paymentvoucher.PaymentVoucher `json:"payment_voucher,omitempty"`
+	PaymentVoucher *chargebee.PaymentVoucher `json:"payment_voucher,omitempty"`
 }
 
 type GiftClaimedContent struct {
-	Gift *gift.Gift `json:"gift,omitempty"`
+	Gift *chargebee.Gift `json:"gift,omitempty"`
 }
 
 type CustomerDeletedContent struct {
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
+	Customer     *chargebee.Customer     `json:"customer,omitempty"`
+	Card         *chargebee.Card         `json:"card,omitempty"`
+	Subscription *chargebee.Subscription `json:"subscription,omitempty"`
 }
 
 type RefundInitiatedContent struct {
-	Transaction *transaction.Transaction `json:"transaction,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
-
-	CreditNote *creditnote.CreditNote `json:"credit_note,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
+	Transaction  *chargebee.Transaction  `json:"transaction,omitempty"`
+	Invoice      *chargebee.Invoice      `json:"invoice,omitempty"`
+	CreditNote   *chargebee.CreditNote   `json:"credit_note,omitempty"`
+	Customer     *chargebee.Customer     `json:"customer,omitempty"`
+	Subscription *chargebee.Subscription `json:"subscription,omitempty"`
+	Card         *chargebee.Card         `json:"card,omitempty"`
 }
 
 type InvoiceGeneratedWithBackdatingContent struct {
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
+	Invoice *chargebee.Invoice `json:"invoice,omitempty"`
 }
 
 type OmnichannelTransactionCreatedContent struct {
-	OmnichannelTransaction *omnichanneltransaction.OmnichannelTransaction `json:"omnichannel_transaction,omitempty"`
+	OmnichannelTransaction *chargebee.OmnichannelTransaction `json:"omnichannel_transaction,omitempty"`
 }
 
 type AddUsagesReminderContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	Subscription *chargebee.Subscription `json:"subscription,omitempty"`
+	Customer     *chargebee.Customer     `json:"customer,omitempty"`
 }
 
 type VoucherCreatedContent struct {
-	PaymentVoucher *paymentvoucher.PaymentVoucher `json:"payment_voucher,omitempty"`
+	PaymentVoucher *chargebee.PaymentVoucher `json:"payment_voucher,omitempty"`
 }
 
 type RuleUpdatedContent struct {
-	Rule *rule.Rule `json:"rule,omitempty"`
+	Rule *chargebee.Rule `json:"rule,omitempty"`
 }
 
 type PaymentSchedulesCreatedContent struct {
-	PaymentSchedule *paymentschedule.PaymentSchedule `json:"payment_schedule,omitempty"`
+	PaymentSchedule *chargebee.PaymentSchedule `json:"payment_schedule,omitempty"`
 }
 
 type FeatureActivatedContent struct {
-	Feature *feature.Feature `json:"feature,omitempty"`
-
-	Metadata *metadata.Metadata `json:"metadata,omitempty"`
-
-	ImpactedItem *impacteditem.ImpactedItem `json:"impacted_item,omitempty"`
-
-	ImpactedSubscription *impactedsubscription.ImpactedSubscription `json:"impacted_subscription,omitempty"`
+	Feature              *chargebee.Feature              `json:"feature,omitempty"`
+	Metadata             *chargebee.Metadata             `json:"metadata,omitempty"`
+	ImpactedItem         *chargebee.ImpactedItem         `json:"impacted_item,omitempty"`
+	ImpactedSubscription *chargebee.ImpactedSubscription `json:"impacted_subscription,omitempty"`
 }
 
 type PaymentSourceLocallyDeletedContent struct {
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	PaymentSource *paymentsource.PaymentSource `json:"payment_source,omitempty"`
+	Customer      *chargebee.Customer      `json:"customer,omitempty"`
+	PaymentSource *chargebee.PaymentSource `json:"payment_source,omitempty"`
 }
 
 type InvoiceGeneratedContent struct {
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
+	Invoice *chargebee.Invoice `json:"invoice,omitempty"`
 }
 
 type VoucherExpiredContent struct {
-	PaymentVoucher *paymentvoucher.PaymentVoucher `json:"payment_voucher,omitempty"`
+	PaymentVoucher *chargebee.PaymentVoucher `json:"payment_voucher,omitempty"`
 }
 
 type AuthorizationSucceededContent struct {
-	Transaction *transaction.Transaction `json:"transaction,omitempty"`
+	Transaction *chargebee.Transaction `json:"transaction,omitempty"`
 }
 
 type GiftScheduledContent struct {
-	Gift *gift.Gift `json:"gift,omitempty"`
+	Gift *chargebee.Gift `json:"gift,omitempty"`
 }
 
 type SubscriptionChangesScheduledContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	AdvanceInvoiceSchedule *advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
+	Subscription           *chargebee.Subscription           `json:"subscription,omitempty"`
+	Customer               *chargebee.Customer               `json:"customer,omitempty"`
+	Card                   *chargebee.Card                   `json:"card,omitempty"`
+	AdvanceInvoiceSchedule *chargebee.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
 }
 
 type SubscriptionChangedWithBackdatingContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
-
-	CreditNote *creditnote.CreditNote `json:"credit_note,omitempty"`
-
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	Subscription   *chargebee.Subscription   `json:"subscription,omitempty"`
+	Customer       *chargebee.Customer       `json:"customer,omitempty"`
+	Card           *chargebee.Card           `json:"card,omitempty"`
+	Invoice        *chargebee.Invoice        `json:"invoice,omitempty"`
+	CreditNote     *chargebee.CreditNote     `json:"credit_note,omitempty"`
+	UnbilledCharge *chargebee.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type VariantCreatedContent struct {
 }
 
 type OmnichannelSubscriptionItemChangedContent struct {
-	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
-
-	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
-
-	OmnichannelTransaction *omnichanneltransaction.OmnichannelTransaction `json:"omnichannel_transaction,omitempty"`
-
-	OmnichannelSubscriptionItemScheduledChange *omnichannelsubscriptionitemscheduledchange.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscriptionItem                *chargebee.OmnichannelSubscriptionItem                `json:"omnichannel_subscription_item,omitempty"`
+	OmnichannelSubscription                    *chargebee.OmnichannelSubscription                    `json:"omnichannel_subscription,omitempty"`
+	OmnichannelTransaction                     *chargebee.OmnichannelTransaction                     `json:"omnichannel_transaction,omitempty"`
+	OmnichannelSubscriptionItemScheduledChange *chargebee.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
+	Customer                                   *chargebee.Customer                                   `json:"customer,omitempty"`
 }
 
 type GiftUnclaimedContent struct {
-	Gift *gift.Gift `json:"gift,omitempty"`
+	Gift *chargebee.Gift `json:"gift,omitempty"`
 }
 
 type VirtualBankAccountAddedContent struct {
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	VirtualBankAccount *virtualbankaccount.VirtualBankAccount `json:"virtual_bank_account,omitempty"`
+	Customer           *chargebee.Customer           `json:"customer,omitempty"`
+	VirtualBankAccount *chargebee.VirtualBankAccount `json:"virtual_bank_account,omitempty"`
 }
 
 type PaymentIntentCreatedContent struct {
-	PaymentIntent *paymentintent.PaymentIntent `json:"payment_intent,omitempty"`
+	PaymentIntent *chargebee.PaymentIntent `json:"payment_intent,omitempty"`
 }
 
 type CreditNoteCreatedWithBackdatingContent struct {
-	CreditNote *creditnote.CreditNote `json:"credit_note,omitempty"`
+	CreditNote *chargebee.CreditNote `json:"credit_note,omitempty"`
 }
 
 type ContractTermTerminatedContent struct {
-	ContractTerm *contractterm.ContractTerm `json:"contract_term,omitempty"`
+	ContractTerm *chargebee.ContractTerm `json:"contract_term,omitempty"`
 }
 
 type ItemFamilyUpdatedContent struct {
-	ItemFamily *itemfamily.ItemFamily `json:"item_family,omitempty"`
+	ItemFamily *chargebee.ItemFamily `json:"item_family,omitempty"`
 }
 
 type OrderCreatedContent struct {
-	Order *order.Order `json:"order,omitempty"`
+	Order *chargebee.Order `json:"order,omitempty"`
 }
 
 type PriceVariantDeletedContent struct {
-	PriceVariant *pricevariant.PriceVariant `json:"price_variant,omitempty"`
-
-	Attribute *attribute.Attribute `json:"attribute,omitempty"`
+	PriceVariant *chargebee.PriceVariant `json:"price_variant,omitempty"`
+	Attribute    *chargebee.Attribute    `json:"attribute,omitempty"`
 }
 
 type SubscriptionMovementFailedContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
+	Subscription *chargebee.Subscription `json:"subscription,omitempty"`
 }
 
 type CustomerMovedInContent struct {
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
+	Customer *chargebee.Customer `json:"customer,omitempty"`
+	Card     *chargebee.Card     `json:"card,omitempty"`
 }
 
 type SubscriptionAdvanceInvoiceScheduleUpdatedContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	AdvanceInvoiceSchedule *advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
+	Subscription           *chargebee.Subscription           `json:"subscription,omitempty"`
+	Customer               *chargebee.Customer               `json:"customer,omitempty"`
+	AdvanceInvoiceSchedule *chargebee.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
 }
 
 type ItemDeletedContent struct {
-	Item *item.Item `json:"item,omitempty"`
+	Item *chargebee.Item `json:"item,omitempty"`
 }
 
 type SubscriptionRampDraftedContent struct {
-	Ramp *ramp.Ramp `json:"ramp,omitempty"`
+	Ramp *chargebee.Ramp `json:"ramp,omitempty"`
 }
 
 type DunningUpdatedContent struct {
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
+	Invoice *chargebee.Invoice `json:"invoice,omitempty"`
 }
 
 type ItemEntitlementsUpdatedContent struct {
-	Feature *feature.Feature `json:"feature,omitempty"`
-
-	Metadata *metadata.Metadata `json:"metadata,omitempty"`
-
-	ImpactedItem *impacteditem.ImpactedItem `json:"impacted_item,omitempty"`
-
-	ImpactedSubscription *impactedsubscription.ImpactedSubscription `json:"impacted_subscription,omitempty"`
+	Feature              *chargebee.Feature              `json:"feature,omitempty"`
+	Metadata             *chargebee.Metadata             `json:"metadata,omitempty"`
+	ImpactedItem         *chargebee.ImpactedItem         `json:"impacted_item,omitempty"`
+	ImpactedSubscription *chargebee.ImpactedSubscription `json:"impacted_subscription,omitempty"`
 }
 
 type TokenConsumedContent struct {
-	Token *token.Token `json:"token,omitempty"`
+	Token *chargebee.Token `json:"token,omitempty"`
 }
 
 type HierarchyDeletedContent struct {
-	Customer *customer.Customer `json:"customer,omitempty"`
+	Customer *chargebee.Customer `json:"customer,omitempty"`
 }
 
 type SubscriptionCancellationScheduledContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	AdvanceInvoiceSchedule *advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
+	Subscription           *chargebee.Subscription           `json:"subscription,omitempty"`
+	Customer               *chargebee.Customer               `json:"customer,omitempty"`
+	Card                   *chargebee.Card                   `json:"card,omitempty"`
+	AdvanceInvoiceSchedule *chargebee.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
 }
 
 type SubscriptionRenewedContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
-
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	Subscription   *chargebee.Subscription   `json:"subscription,omitempty"`
+	Customer       *chargebee.Customer       `json:"customer,omitempty"`
+	Card           *chargebee.Card           `json:"card,omitempty"`
+	Invoice        *chargebee.Invoice        `json:"invoice,omitempty"`
+	UnbilledCharge *chargebee.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type FeatureUpdatedContent struct {
-	Feature *feature.Feature `json:"feature,omitempty"`
-
-	Metadata *metadata.Metadata `json:"metadata,omitempty"`
+	Feature  *chargebee.Feature  `json:"feature,omitempty"`
+	Metadata *chargebee.Metadata `json:"metadata,omitempty"`
 }
 
 type FeatureDeletedContent struct {
-	Feature *feature.Feature `json:"feature,omitempty"`
-
-	Metadata *metadata.Metadata `json:"metadata,omitempty"`
-
-	ImpactedItem *impacteditem.ImpactedItem `json:"impacted_item,omitempty"`
-
-	ImpactedSubscription *impactedsubscription.ImpactedSubscription `json:"impacted_subscription,omitempty"`
+	Feature              *chargebee.Feature              `json:"feature,omitempty"`
+	Metadata             *chargebee.Metadata             `json:"metadata,omitempty"`
+	ImpactedItem         *chargebee.ImpactedItem         `json:"impacted_item,omitempty"`
+	ImpactedSubscription *chargebee.ImpactedSubscription `json:"impacted_subscription,omitempty"`
 }
 
 type ItemFamilyCreatedContent struct {
-	ItemFamily *itemfamily.ItemFamily `json:"item_family,omitempty"`
+	ItemFamily *chargebee.ItemFamily `json:"item_family,omitempty"`
 }
 
 type OmnichannelSubscriptionItemScheduledChangeRemovedContent struct {
-	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
-
-	OmnichannelSubscriptionItemScheduledChange *omnichannelsubscriptionitemscheduledchange.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscriptionItem                *chargebee.OmnichannelSubscriptionItem                `json:"omnichannel_subscription_item,omitempty"`
+	OmnichannelSubscriptionItemScheduledChange *chargebee.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
+	Customer                                   *chargebee.Customer                                   `json:"customer,omitempty"`
 }
 
 type OmnichannelSubscriptionItemResumedContent struct {
-	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
-
-	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscription     *chargebee.OmnichannelSubscription     `json:"omnichannel_subscription,omitempty"`
+	OmnichannelSubscriptionItem *chargebee.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
+	Customer                    *chargebee.Customer                    `json:"customer,omitempty"`
 }
 
 type PurchaseCreatedContent struct {
-	Purchase *purchase.Purchase `json:"purchase,omitempty"`
+	Purchase *chargebee.Purchase `json:"purchase,omitempty"`
 }
 
 type EntitlementOverridesUpdatedContent struct {
-	ImpactedSubscription *impactedsubscription.ImpactedSubscription `json:"impacted_subscription,omitempty"`
-
-	Metadata *metadata.Metadata `json:"metadata,omitempty"`
+	ImpactedSubscription *chargebee.ImpactedSubscription `json:"impacted_subscription,omitempty"`
+	Metadata             *chargebee.Metadata             `json:"metadata,omitempty"`
 }
 
 type ItemFamilyDeletedContent struct {
-	ItemFamily *itemfamily.ItemFamily `json:"item_family,omitempty"`
+	ItemFamily *chargebee.ItemFamily `json:"item_family,omitempty"`
 }
 
 type SubscriptionResumptionScheduledContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	AdvanceInvoiceSchedule *advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
+	Subscription           *chargebee.Subscription           `json:"subscription,omitempty"`
+	Customer               *chargebee.Customer               `json:"customer,omitempty"`
+	Card                   *chargebee.Card                   `json:"card,omitempty"`
+	AdvanceInvoiceSchedule *chargebee.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
 }
 
 type FeatureReactivatedContent struct {
-	Feature *feature.Feature `json:"feature,omitempty"`
-
-	Metadata *metadata.Metadata `json:"metadata,omitempty"`
+	Feature  *chargebee.Feature  `json:"feature,omitempty"`
+	Metadata *chargebee.Metadata `json:"metadata,omitempty"`
 }
 
 type CouponCodesDeletedContent struct {
-	Coupon *coupon.Coupon `json:"coupon,omitempty"`
-
-	CouponSet *couponset.CouponSet `json:"coupon_set,omitempty"`
-
-	CouponCode *couponcode.CouponCode `json:"coupon_code,omitempty"`
+	Coupon     *chargebee.Coupon     `json:"coupon,omitempty"`
+	CouponSet  *chargebee.CouponSet  `json:"coupon_set,omitempty"`
+	CouponCode *chargebee.CouponCode `json:"coupon_code,omitempty"`
 }
 
 type CardExpiredContent struct {
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
+	Customer *chargebee.Customer `json:"customer,omitempty"`
+	Card     *chargebee.Card     `json:"card,omitempty"`
 }
 
 type CreditNoteUpdatedContent struct {
-	CreditNote *creditnote.CreditNote `json:"credit_note,omitempty"`
+	CreditNote *chargebee.CreditNote `json:"credit_note,omitempty"`
 }
 
 type OmnichannelSubscriptionItemDowngradedContent struct {
-	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
-
-	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
-
-	OmnichannelTransaction *omnichanneltransaction.OmnichannelTransaction `json:"omnichannel_transaction,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscriptionItem *chargebee.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
+	OmnichannelSubscription     *chargebee.OmnichannelSubscription     `json:"omnichannel_subscription,omitempty"`
+	OmnichannelTransaction      *chargebee.OmnichannelTransaction      `json:"omnichannel_transaction,omitempty"`
+	Customer                    *chargebee.Customer                    `json:"customer,omitempty"`
 }
 
 type PriceVariantUpdatedContent struct {
-	PriceVariant *pricevariant.PriceVariant `json:"price_variant,omitempty"`
-
-	Attribute *attribute.Attribute `json:"attribute,omitempty"`
+	PriceVariant *chargebee.PriceVariant `json:"price_variant,omitempty"`
+	Attribute    *chargebee.Attribute    `json:"attribute,omitempty"`
 }
 
 type PromotionalCreditsDeductedContent struct {
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	PromotionalCredit *promotionalcredit.PromotionalCredit `json:"promotional_credit,omitempty"`
+	Customer          *chargebee.Customer          `json:"customer,omitempty"`
+	PromotionalCredit *chargebee.PromotionalCredit `json:"promotional_credit,omitempty"`
 }
 
 type SubscriptionRampAppliedContent struct {
-	Ramp *ramp.Ramp `json:"ramp,omitempty"`
+	Ramp *chargebee.Ramp `json:"ramp,omitempty"`
 }
 
 type SubscriptionPausedContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
-
-	CreditNote *creditnote.CreditNote `json:"credit_note,omitempty"`
-
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	Subscription   *chargebee.Subscription   `json:"subscription,omitempty"`
+	Customer       *chargebee.Customer       `json:"customer,omitempty"`
+	Card           *chargebee.Card           `json:"card,omitempty"`
+	Invoice        *chargebee.Invoice        `json:"invoice,omitempty"`
+	CreditNote     *chargebee.CreditNote     `json:"credit_note,omitempty"`
+	UnbilledCharge *chargebee.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type OrderReadyToProcessContent struct {
-	Order *order.Order `json:"order,omitempty"`
+	Order *chargebee.Order `json:"order,omitempty"`
 }
 
 type FeatureCreatedContent struct {
-	Feature *feature.Feature `json:"feature,omitempty"`
-
-	Metadata *metadata.Metadata `json:"metadata,omitempty"`
-
-	ImpactedItem *impacteditem.ImpactedItem `json:"impacted_item,omitempty"`
-
-	ImpactedSubscription *impactedsubscription.ImpactedSubscription `json:"impacted_subscription,omitempty"`
+	Feature              *chargebee.Feature              `json:"feature,omitempty"`
+	Metadata             *chargebee.Metadata             `json:"metadata,omitempty"`
+	ImpactedItem         *chargebee.ImpactedItem         `json:"impacted_item,omitempty"`
+	ImpactedSubscription *chargebee.ImpactedSubscription `json:"impacted_subscription,omitempty"`
 }
 
 type TransactionDeletedContent struct {
-	Transaction *transaction.Transaction `json:"transaction,omitempty"`
+	Transaction *chargebee.Transaction `json:"transaction,omitempty"`
 }
 
 type CreditNoteCreatedContent struct {
-	CreditNote *creditnote.CreditNote `json:"credit_note,omitempty"`
+	CreditNote *chargebee.CreditNote `json:"credit_note,omitempty"`
 }
 
 type OmnichannelSubscriptionItemResubscribedContent struct {
-	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
-
-	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
-
-	OmnichannelTransaction *omnichanneltransaction.OmnichannelTransaction `json:"omnichannel_transaction,omitempty"`
-
-	OmnichannelSubscriptionItemScheduledChange *omnichannelsubscriptionitemscheduledchange.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscriptionItem                *chargebee.OmnichannelSubscriptionItem                `json:"omnichannel_subscription_item,omitempty"`
+	OmnichannelSubscription                    *chargebee.OmnichannelSubscription                    `json:"omnichannel_subscription,omitempty"`
+	OmnichannelTransaction                     *chargebee.OmnichannelTransaction                     `json:"omnichannel_transaction,omitempty"`
+	OmnichannelSubscriptionItemScheduledChange *chargebee.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
+	Customer                                   *chargebee.Customer                                   `json:"customer,omitempty"`
 }
 
 type RecordPurchaseFailedContent struct {
-	RecordedPurchase *recordedpurchase.RecordedPurchase `json:"recorded_purchase,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	RecordedPurchase *chargebee.RecordedPurchase `json:"recorded_purchase,omitempty"`
+	Customer         *chargebee.Customer         `json:"customer,omitempty"`
 }
 
 type ItemCreatedContent struct {
-	Item *item.Item `json:"item,omitempty"`
+	Item *chargebee.Item `json:"item,omitempty"`
 }
 
 type TransactionUpdatedContent struct {
-	Transaction *transaction.Transaction `json:"transaction,omitempty"`
+	Transaction *chargebee.Transaction `json:"transaction,omitempty"`
 }
 
 type VariantDeletedContent struct {
 }
 
 type MrrUpdatedContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
+	Subscription *chargebee.Subscription `json:"subscription,omitempty"`
 }
 
 type UnbilledChargesInvoicedContent struct {
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
+	UnbilledCharge *chargebee.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	Invoice        *chargebee.Invoice        `json:"invoice,omitempty"`
 }
 
 type ItemPriceUpdatedContent struct {
-	ItemPrice *itemprice.ItemPrice `json:"item_price,omitempty"`
+	ItemPrice *chargebee.ItemPrice `json:"item_price,omitempty"`
 }
 
 type CouponCodesUpdatedContent struct {
-	Coupon *coupon.Coupon `json:"coupon,omitempty"`
-
-	CouponSet *couponset.CouponSet `json:"coupon_set,omitempty"`
+	Coupon    *chargebee.Coupon    `json:"coupon,omitempty"`
+	CouponSet *chargebee.CouponSet `json:"coupon_set,omitempty"`
 }
 
 type VirtualBankAccountUpdatedContent struct {
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	VirtualBankAccount *virtualbankaccount.VirtualBankAccount `json:"virtual_bank_account,omitempty"`
+	Customer           *chargebee.Customer           `json:"customer,omitempty"`
+	VirtualBankAccount *chargebee.VirtualBankAccount `json:"virtual_bank_account,omitempty"`
 }
 
 type ContractTermCreatedContent struct {
-	ContractTerm *contractterm.ContractTerm `json:"contract_term,omitempty"`
+	ContractTerm *chargebee.ContractTerm `json:"contract_term,omitempty"`
 }
 
 type SubscriptionChangedContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
-
-	CreditNote *creditnote.CreditNote `json:"credit_note,omitempty"`
-
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	Subscription   *chargebee.Subscription   `json:"subscription,omitempty"`
+	Customer       *chargebee.Customer       `json:"customer,omitempty"`
+	Card           *chargebee.Card           `json:"card,omitempty"`
+	Invoice        *chargebee.Invoice        `json:"invoice,omitempty"`
+	CreditNote     *chargebee.CreditNote     `json:"credit_note,omitempty"`
+	UnbilledCharge *chargebee.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type PaymentFailedContent struct {
-	Transaction *transaction.Transaction `json:"transaction,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
+	Transaction  *chargebee.Transaction  `json:"transaction,omitempty"`
+	Invoice      *chargebee.Invoice      `json:"invoice,omitempty"`
+	Customer     *chargebee.Customer     `json:"customer,omitempty"`
+	Subscription *chargebee.Subscription `json:"subscription,omitempty"`
+	Card         *chargebee.Card         `json:"card,omitempty"`
 }
 
 type CreditNoteDeletedContent struct {
-	CreditNote *creditnote.CreditNote `json:"credit_note,omitempty"`
+	CreditNote *chargebee.CreditNote `json:"credit_note,omitempty"`
 }
 
 type TaxWithheldRefundedContent struct {
-	TaxWithheld *taxwithheld.TaxWithheld `json:"tax_withheld,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
-
-	CreditNote *creditnote.CreditNote `json:"credit_note,omitempty"`
+	TaxWithheld *chargebee.TaxWithheld `json:"tax_withheld,omitempty"`
+	Invoice     *chargebee.Invoice     `json:"invoice,omitempty"`
+	CreditNote  *chargebee.CreditNote  `json:"credit_note,omitempty"`
 }
 
 type ContractTermCompletedContent struct {
-	ContractTerm *contractterm.ContractTerm `json:"contract_term,omitempty"`
+	ContractTerm *chargebee.ContractTerm `json:"contract_term,omitempty"`
 }
 
 type PaymentSchedulesUpdatedContent struct {
-	PaymentSchedule *paymentschedule.PaymentSchedule `json:"payment_schedule,omitempty"`
+	PaymentSchedule *chargebee.PaymentSchedule `json:"payment_schedule,omitempty"`
 }
 
 type OmnichannelSubscriptionItemExpiredContent struct {
-	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
-
-	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscription     *chargebee.OmnichannelSubscription     `json:"omnichannel_subscription,omitempty"`
+	OmnichannelSubscriptionItem *chargebee.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
+	Customer                    *chargebee.Customer                    `json:"customer,omitempty"`
 }
 
 type CardUpdatedContent struct {
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
+	Customer *chargebee.Customer `json:"customer,omitempty"`
+	Card     *chargebee.Card     `json:"card,omitempty"`
 }
 
 type CustomerCreatedContent struct {
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
+	Customer *chargebee.Customer `json:"customer,omitempty"`
+	Card     *chargebee.Card     `json:"card,omitempty"`
 }
 
 type SubscriptionRenewalReminderContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	AdvanceInvoiceSchedule *advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
+	Subscription           *chargebee.Subscription           `json:"subscription,omitempty"`
+	Customer               *chargebee.Customer               `json:"customer,omitempty"`
+	Card                   *chargebee.Card                   `json:"card,omitempty"`
+	AdvanceInvoiceSchedule *chargebee.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
 }
 
 type NetdPaymentDueReminderContent struct {
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
+	Invoice *chargebee.Invoice `json:"invoice,omitempty"`
 }
 
 type OrderDeliveredContent struct {
-	Order *order.Order `json:"order,omitempty"`
+	Order *chargebee.Order `json:"order,omitempty"`
 }
 
 type OmnichannelSubscriptionItemCancellationScheduledContent struct {
-	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
-
-	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscription     *chargebee.OmnichannelSubscription     `json:"omnichannel_subscription,omitempty"`
+	OmnichannelSubscriptionItem *chargebee.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
+	Customer                    *chargebee.Customer                    `json:"customer,omitempty"`
 }
 
 type OmnichannelSubscriptionItemGracePeriodExpiredContent struct {
-	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
-
-	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscription     *chargebee.OmnichannelSubscription     `json:"omnichannel_subscription,omitempty"`
+	OmnichannelSubscriptionItem *chargebee.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
+	Customer                    *chargebee.Customer                    `json:"customer,omitempty"`
 }
 
 type CouponCodesAddedContent struct {
-	Coupon *coupon.Coupon `json:"coupon,omitempty"`
-
-	CouponSet *couponset.CouponSet `json:"coupon_set,omitempty"`
+	Coupon    *chargebee.Coupon    `json:"coupon,omitempty"`
+	CouponSet *chargebee.CouponSet `json:"coupon_set,omitempty"`
 }
 
 type GiftCancelledContent struct {
-	Gift *gift.Gift `json:"gift,omitempty"`
+	Gift *chargebee.Gift `json:"gift,omitempty"`
 }
 
 type OrderCancelledContent struct {
-	Order *order.Order `json:"order,omitempty"`
+	Order *chargebee.Order `json:"order,omitempty"`
 }
 
 type CouponDeletedContent struct {
-	Coupon *coupon.Coupon `json:"coupon,omitempty"`
+	Coupon *chargebee.Coupon `json:"coupon,omitempty"`
 }
 
 type SubscriptionScheduledChangesRemovedContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	AdvanceInvoiceSchedule *advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
+	Subscription           *chargebee.Subscription           `json:"subscription,omitempty"`
+	Customer               *chargebee.Customer               `json:"customer,omitempty"`
+	Card                   *chargebee.Card                   `json:"card,omitempty"`
+	AdvanceInvoiceSchedule *chargebee.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
 }
 
 type PendingInvoiceCreatedContent struct {
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
+	Invoice *chargebee.Invoice `json:"invoice,omitempty"`
 }
 
 type ProductDeletedContent struct {
 }
 
 type EntitlementOverridesAutoRemovedContent struct {
-	Feature *feature.Feature `json:"feature,omitempty"`
-
-	Metadata *metadata.Metadata `json:"metadata,omitempty"`
-
-	ImpactedItem *impacteditem.ImpactedItem `json:"impacted_item,omitempty"`
-
-	ImpactedSubscription *impactedsubscription.ImpactedSubscription `json:"impacted_subscription,omitempty"`
+	Feature              *chargebee.Feature              `json:"feature,omitempty"`
+	Metadata             *chargebee.Metadata             `json:"metadata,omitempty"`
+	ImpactedItem         *chargebee.ImpactedItem         `json:"impacted_item,omitempty"`
+	ImpactedSubscription *chargebee.ImpactedSubscription `json:"impacted_subscription,omitempty"`
 }
 
 type OmnichannelSubscriptionItemUpgradedContent struct {
-	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
-
-	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
-
-	OmnichannelTransaction *omnichanneltransaction.OmnichannelTransaction `json:"omnichannel_transaction,omitempty"`
-
-	OmnichannelSubscriptionItemScheduledChange *omnichannelsubscriptionitemscheduledchange.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscriptionItem                *chargebee.OmnichannelSubscriptionItem                `json:"omnichannel_subscription_item,omitempty"`
+	OmnichannelSubscription                    *chargebee.OmnichannelSubscription                    `json:"omnichannel_subscription,omitempty"`
+	OmnichannelTransaction                     *chargebee.OmnichannelTransaction                     `json:"omnichannel_transaction,omitempty"`
+	OmnichannelSubscriptionItemScheduledChange *chargebee.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
+	Customer                                   *chargebee.Customer                                   `json:"customer,omitempty"`
 }
 
 type SubscriptionBusinessEntityChangedContent struct {
-	BusinessEntityTransfer *businessentitytransfer.BusinessEntityTransfer `json:"business_entity_transfer,omitempty"`
-
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
+	BusinessEntityTransfer *chargebee.BusinessEntityTransfer `json:"business_entity_transfer,omitempty"`
+	Subscription           *chargebee.Subscription           `json:"subscription,omitempty"`
 }
 
 type OmnichannelOneTimeOrderCreatedContent struct {
-	OmnichannelOneTimeOrder *omnichannelonetimeorder.OmnichannelOneTimeOrder `json:"omnichannel_one_time_order,omitempty"`
-
-	OmnichannelOneTimeOrderItem *omnichannelonetimeorderitem.OmnichannelOneTimeOrderItem `json:"omnichannel_one_time_order_item,omitempty"`
-
-	OmnichannelTransaction *omnichanneltransaction.OmnichannelTransaction `json:"omnichannel_transaction,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelOneTimeOrder     *chargebee.OmnichannelOneTimeOrder     `json:"omnichannel_one_time_order,omitempty"`
+	OmnichannelOneTimeOrderItem *chargebee.OmnichannelOneTimeOrderItem `json:"omnichannel_one_time_order_item,omitempty"`
+	OmnichannelTransaction      *chargebee.OmnichannelTransaction      `json:"omnichannel_transaction,omitempty"`
+	Customer                    *chargebee.Customer                    `json:"customer,omitempty"`
 }
 
 type PaymentSourceDeletedContent struct {
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	PaymentSource *paymentsource.PaymentSource `json:"payment_source,omitempty"`
+	Customer      *chargebee.Customer      `json:"customer,omitempty"`
+	PaymentSource *chargebee.PaymentSource `json:"payment_source,omitempty"`
 }
 
 type OmnichannelSubscriptionItemCancelledContent struct {
-	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
-
-	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscription     *chargebee.OmnichannelSubscription     `json:"omnichannel_subscription,omitempty"`
+	OmnichannelSubscriptionItem *chargebee.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
+	Customer                    *chargebee.Customer                    `json:"customer,omitempty"`
 }
 
 type QuoteDeletedContent struct {
-	Quote *quote.Quote `json:"quote,omitempty"`
+	Quote *chargebee.Quote `json:"quote,omitempty"`
 }
 
 type InvoiceUpdatedContent struct {
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
+	Invoice *chargebee.Invoice `json:"invoice,omitempty"`
 }
 
 type SubscriptionAdvanceInvoiceScheduleRemovedContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	AdvanceInvoiceSchedule *advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
+	Subscription           *chargebee.Subscription           `json:"subscription,omitempty"`
+	Customer               *chargebee.Customer               `json:"customer,omitempty"`
+	AdvanceInvoiceSchedule *chargebee.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
 }
 
 type CardDeletedContent struct {
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
+	Customer *chargebee.Customer `json:"customer,omitempty"`
+	Card     *chargebee.Card     `json:"card,omitempty"`
 }
 
 type OrderReadyToShipContent struct {
-	Order *order.Order `json:"order,omitempty"`
+	Order *chargebee.Order `json:"order,omitempty"`
 }
 
 type VariantUpdatedContent struct {
 }
 
 type SubscriptionMovedOutContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
+	Subscription *chargebee.Subscription `json:"subscription,omitempty"`
 }
 
 type PaymentScheduleSchemeCreatedContent struct {
-	PaymentScheduleScheme *paymentschedulescheme.PaymentScheduleScheme `json:"payment_schedule_scheme,omitempty"`
+	PaymentScheduleScheme *chargebee.PaymentScheduleScheme `json:"payment_schedule_scheme,omitempty"`
 }
 
 type BusinessEntityUpdatedContent struct {
-	BusinessEntity *businessentity.BusinessEntity `json:"business_entity,omitempty"`
+	BusinessEntity *chargebee.BusinessEntity `json:"business_entity,omitempty"`
 }
 
 type SubscriptionScheduledResumptionRemovedContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	AdvanceInvoiceSchedule *advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
+	Subscription           *chargebee.Subscription           `json:"subscription,omitempty"`
+	Customer               *chargebee.Customer               `json:"customer,omitempty"`
+	Card                   *chargebee.Card                   `json:"card,omitempty"`
+	AdvanceInvoiceSchedule *chargebee.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
 }
 
 type PaymentInitiatedContent struct {
-	Transaction *transaction.Transaction `json:"transaction,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
+	Transaction  *chargebee.Transaction  `json:"transaction,omitempty"`
+	Invoice      *chargebee.Invoice      `json:"invoice,omitempty"`
+	Customer     *chargebee.Customer     `json:"customer,omitempty"`
+	Subscription *chargebee.Subscription `json:"subscription,omitempty"`
+	Card         *chargebee.Card         `json:"card,omitempty"`
 }
 
 type FeatureArchivedContent struct {
-	Feature *feature.Feature `json:"feature,omitempty"`
-
-	Metadata *metadata.Metadata `json:"metadata,omitempty"`
+	Feature  *chargebee.Feature  `json:"feature,omitempty"`
+	Metadata *chargebee.Metadata `json:"metadata,omitempty"`
 }
 
 type SubscriptionReactivatedWithBackdatingContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
-
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	Subscription   *chargebee.Subscription   `json:"subscription,omitempty"`
+	Customer       *chargebee.Customer       `json:"customer,omitempty"`
+	Card           *chargebee.Card           `json:"card,omitempty"`
+	Invoice        *chargebee.Invoice        `json:"invoice,omitempty"`
+	UnbilledCharge *chargebee.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type OmnichannelSubscriptionImportedContent struct {
-	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
-
-	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
-
-	OmnichannelTransaction *omnichanneltransaction.OmnichannelTransaction `json:"omnichannel_transaction,omitempty"`
-
-	OmnichannelSubscriptionItemScheduledChange *omnichannelsubscriptionitemscheduledchange.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscriptionItem                *chargebee.OmnichannelSubscriptionItem                `json:"omnichannel_subscription_item,omitempty"`
+	OmnichannelSubscription                    *chargebee.OmnichannelSubscription                    `json:"omnichannel_subscription,omitempty"`
+	OmnichannelTransaction                     *chargebee.OmnichannelTransaction                     `json:"omnichannel_transaction,omitempty"`
+	OmnichannelSubscriptionItemScheduledChange *chargebee.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
+	Customer                                   *chargebee.Customer                                   `json:"customer,omitempty"`
 }
 
 type TokenExpiredContent struct {
-	Token *token.Token `json:"token,omitempty"`
+	Token *chargebee.Token `json:"token,omitempty"`
 }
 
 type CardAddedContent struct {
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
+	Customer *chargebee.Customer `json:"customer,omitempty"`
+	Card     *chargebee.Card     `json:"card,omitempty"`
 }
 
 type CouponCreatedContent struct {
-	Coupon *coupon.Coupon `json:"coupon,omitempty"`
+	Coupon *chargebee.Coupon `json:"coupon,omitempty"`
 }
 
 type RuleDeletedContent struct {
-	Rule *rule.Rule `json:"rule,omitempty"`
+	Rule *chargebee.Rule `json:"rule,omitempty"`
 }
 
 type ItemPriceEntitlementsUpdatedContent struct {
-	Feature *feature.Feature `json:"feature,omitempty"`
-
-	Metadata *metadata.Metadata `json:"metadata,omitempty"`
-
-	ImpactedItemPrice *impacteditemprice.ImpactedItemPrice `json:"impacted_item_price,omitempty"`
-
-	ImpactedSubscription *impactedsubscription.ImpactedSubscription `json:"impacted_subscription,omitempty"`
+	Feature              *chargebee.Feature              `json:"feature,omitempty"`
+	Metadata             *chargebee.Metadata             `json:"metadata,omitempty"`
+	ImpactedItemPrice    *chargebee.ImpactedItemPrice    `json:"impacted_item_price,omitempty"`
+	ImpactedSubscription *chargebee.ImpactedSubscription `json:"impacted_subscription,omitempty"`
 }
 
 type ItemPriceDeletedContent struct {
-	ItemPrice *itemprice.ItemPrice `json:"item_price,omitempty"`
+	ItemPrice *chargebee.ItemPrice `json:"item_price,omitempty"`
 }
 
 type VirtualBankAccountDeletedContent struct {
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	VirtualBankAccount *virtualbankaccount.VirtualBankAccount `json:"virtual_bank_account,omitempty"`
+	Customer           *chargebee.Customer           `json:"customer,omitempty"`
+	VirtualBankAccount *chargebee.VirtualBankAccount `json:"virtual_bank_account,omitempty"`
 }
 
 type PaymentScheduleSchemeDeletedContent struct {
-	PaymentScheduleScheme *paymentschedulescheme.PaymentScheduleScheme `json:"payment_schedule_scheme,omitempty"`
+	PaymentScheduleScheme *chargebee.PaymentScheduleScheme `json:"payment_schedule_scheme,omitempty"`
 }
 
 type SubscriptionCreatedContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
-
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	Subscription   *chargebee.Subscription   `json:"subscription,omitempty"`
+	Customer       *chargebee.Customer       `json:"customer,omitempty"`
+	Card           *chargebee.Card           `json:"card,omitempty"`
+	Invoice        *chargebee.Invoice        `json:"invoice,omitempty"`
+	UnbilledCharge *chargebee.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type SubscriptionEntitlementsCreatedContent struct {
-	SubscriptionEntitlementsCreatedDetail *subscriptionentitlementscreateddetail.SubscriptionEntitlementsCreatedDetail `json:"subscription_entitlements_created_detail,omitempty"`
+	SubscriptionEntitlementsCreatedDetail *chargebee.SubscriptionEntitlementsCreatedDetail `json:"subscription_entitlements_created_detail,omitempty"`
 }
 
 type OrderReturnedContent struct {
-	Order *order.Order `json:"order,omitempty"`
+	Order *chargebee.Order `json:"order,omitempty"`
 }
 
 type SubscriptionDeletedContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	AdvanceInvoiceSchedule *advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
+	Subscription           *chargebee.Subscription           `json:"subscription,omitempty"`
+	Customer               *chargebee.Customer               `json:"customer,omitempty"`
+	Card                   *chargebee.Card                   `json:"card,omitempty"`
+	AdvanceInvoiceSchedule *chargebee.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
 }
 
 type PaymentSourceAddedContent struct {
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	PaymentSource *paymentsource.PaymentSource `json:"payment_source,omitempty"`
+	Customer      *chargebee.Customer      `json:"customer,omitempty"`
+	PaymentSource *chargebee.PaymentSource `json:"payment_source,omitempty"`
 }
 
 type SubscriptionMovedInContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
+	Subscription *chargebee.Subscription `json:"subscription,omitempty"`
 }
 
 type ItemPriceCreatedContent struct {
-	ItemPrice *itemprice.ItemPrice `json:"item_price,omitempty"`
+	ItemPrice *chargebee.ItemPrice `json:"item_price,omitempty"`
 }
 
 type SubscriptionScheduledCancellationRemovedContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	AdvanceInvoiceSchedule *advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
+	Subscription           *chargebee.Subscription           `json:"subscription,omitempty"`
+	Customer               *chargebee.Customer               `json:"customer,omitempty"`
+	Card                   *chargebee.Card                   `json:"card,omitempty"`
+	AdvanceInvoiceSchedule *chargebee.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
 }
 
 type PaymentRefundedContent struct {
-	Transaction *transaction.Transaction `json:"transaction,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
-
-	CreditNote *creditnote.CreditNote `json:"credit_note,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
+	Transaction  *chargebee.Transaction  `json:"transaction,omitempty"`
+	Invoice      *chargebee.Invoice      `json:"invoice,omitempty"`
+	CreditNote   *chargebee.CreditNote   `json:"credit_note,omitempty"`
+	Customer     *chargebee.Customer     `json:"customer,omitempty"`
+	Subscription *chargebee.Subscription `json:"subscription,omitempty"`
+	Card         *chargebee.Card         `json:"card,omitempty"`
 }
 
 type UsageFileIngestedContent struct {
-	UsageFile *usagefile.UsageFile `json:"usage_file,omitempty"`
+	UsageFile *chargebee.UsageFile `json:"usage_file,omitempty"`
 }
 
 type ProductCreatedContent struct {
 }
 
 type OmnichannelSubscriptionMovedInContent struct {
-	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscription *chargebee.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
+	Customer                *chargebee.Customer                `json:"customer,omitempty"`
 }
 
 type DifferentialPriceCreatedContent struct {
-	DifferentialPrice *differentialprice.DifferentialPrice `json:"differential_price,omitempty"`
+	DifferentialPrice *chargebee.DifferentialPrice `json:"differential_price,omitempty"`
 }
 
 type TransactionCreatedContent struct {
-	Transaction *transaction.Transaction `json:"transaction,omitempty"`
+	Transaction *chargebee.Transaction `json:"transaction,omitempty"`
 }
 
 type OmnichannelSubscriptionItemDowngradeScheduledContent struct {
-	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
-
-	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscription     *chargebee.OmnichannelSubscription     `json:"omnichannel_subscription,omitempty"`
+	OmnichannelSubscriptionItem *chargebee.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
+	Customer                    *chargebee.Customer                    `json:"customer,omitempty"`
 }
 
 type PaymentSucceededContent struct {
-	Transaction *transaction.Transaction `json:"transaction,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
+	Transaction  *chargebee.Transaction  `json:"transaction,omitempty"`
+	Invoice      *chargebee.Invoice      `json:"invoice,omitempty"`
+	Customer     *chargebee.Customer     `json:"customer,omitempty"`
+	Subscription *chargebee.Subscription `json:"subscription,omitempty"`
+	Card         *chargebee.Card         `json:"card,omitempty"`
 }
 
 type SubscriptionCanceledWithBackdatingContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
-
-	CreditNote *creditnote.CreditNote `json:"credit_note,omitempty"`
-
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	Subscription   *chargebee.Subscription   `json:"subscription,omitempty"`
+	Customer       *chargebee.Customer       `json:"customer,omitempty"`
+	Card           *chargebee.Card           `json:"card,omitempty"`
+	Invoice        *chargebee.Invoice        `json:"invoice,omitempty"`
+	CreditNote     *chargebee.CreditNote     `json:"credit_note,omitempty"`
+	UnbilledCharge *chargebee.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type UnbilledChargesVoidedContent struct {
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	UnbilledCharge *chargebee.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type QuoteCreatedContent struct {
-	Quote *quote.Quote `json:"quote,omitempty"`
+	Quote *chargebee.Quote `json:"quote,omitempty"`
 }
 
 type CouponSetDeletedContent struct {
-	Coupon *coupon.Coupon `json:"coupon,omitempty"`
-
-	CouponSet *couponset.CouponSet `json:"coupon_set,omitempty"`
+	Coupon    *chargebee.Coupon    `json:"coupon,omitempty"`
+	CouponSet *chargebee.CouponSet `json:"coupon_set,omitempty"`
 }
 
 type AttachedItemCreatedContent struct {
-	AttachedItem *attacheditem.AttachedItem `json:"attached_item,omitempty"`
+	AttachedItem *chargebee.AttachedItem `json:"attached_item,omitempty"`
 }
 
 type SalesOrderCreatedContent struct {
 }
 
 type CustomerChangedContent struct {
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
+	Customer *chargebee.Customer `json:"customer,omitempty"`
+	Card     *chargebee.Card     `json:"card,omitempty"`
 }
 
 type SubscriptionStartedContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
+	Subscription *chargebee.Subscription `json:"subscription,omitempty"`
+	Customer     *chargebee.Customer     `json:"customer,omitempty"`
+	Card         *chargebee.Card         `json:"card,omitempty"`
+	Invoice      *chargebee.Invoice      `json:"invoice,omitempty"`
 }
 
 type SubscriptionActivatedContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
+	Subscription *chargebee.Subscription `json:"subscription,omitempty"`
+	Customer     *chargebee.Customer     `json:"customer,omitempty"`
+	Card         *chargebee.Card         `json:"card,omitempty"`
+	Invoice      *chargebee.Invoice      `json:"invoice,omitempty"`
 }
 
 type PaymentSourceExpiringContent struct {
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	PaymentSource *paymentsource.PaymentSource `json:"payment_source,omitempty"`
+	Customer      *chargebee.Customer      `json:"customer,omitempty"`
+	PaymentSource *chargebee.PaymentSource `json:"payment_source,omitempty"`
 }
 
 type SubscriptionReactivatedContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
-
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	Subscription   *chargebee.Subscription   `json:"subscription,omitempty"`
+	Customer       *chargebee.Customer       `json:"customer,omitempty"`
+	Card           *chargebee.Card           `json:"card,omitempty"`
+	Invoice        *chargebee.Invoice        `json:"invoice,omitempty"`
+	UnbilledCharge *chargebee.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type OrderUpdatedContent struct {
-	Order *order.Order `json:"order,omitempty"`
+	Order *chargebee.Order `json:"order,omitempty"`
 }
 
 type SubscriptionScheduledPauseRemovedContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	AdvanceInvoiceSchedule *advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
+	Subscription           *chargebee.Subscription           `json:"subscription,omitempty"`
+	Customer               *chargebee.Customer               `json:"customer,omitempty"`
+	Card                   *chargebee.Card                   `json:"card,omitempty"`
+	AdvanceInvoiceSchedule *chargebee.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
 }
 
 type SubscriptionCancellationReminderContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	AdvanceInvoiceSchedule *advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
+	Subscription           *chargebee.Subscription           `json:"subscription,omitempty"`
+	Customer               *chargebee.Customer               `json:"customer,omitempty"`
+	Card                   *chargebee.Card                   `json:"card,omitempty"`
+	AdvanceInvoiceSchedule *chargebee.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
 }
 
 type SubscriptionCreatedWithBackdatingContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
-
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	Subscription   *chargebee.Subscription   `json:"subscription,omitempty"`
+	Customer       *chargebee.Customer       `json:"customer,omitempty"`
+	Card           *chargebee.Card           `json:"card,omitempty"`
+	Invoice        *chargebee.Invoice        `json:"invoice,omitempty"`
+	UnbilledCharge *chargebee.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type SubscriptionRampCreatedContent struct {
-	Ramp *ramp.Ramp `json:"ramp,omitempty"`
+	Ramp *chargebee.Ramp `json:"ramp,omitempty"`
 }
 
 type OrderDeletedContent struct {
-	Order *order.Order `json:"order,omitempty"`
+	Order *chargebee.Order `json:"order,omitempty"`
 }
 
 type OmnichannelSubscriptionItemPauseScheduledContent struct {
-	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
-
-	OmnichannelSubscriptionItemScheduledChange *omnichannelsubscriptionitemscheduledchange.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscriptionItem                *chargebee.OmnichannelSubscriptionItem                `json:"omnichannel_subscription_item,omitempty"`
+	OmnichannelSubscriptionItemScheduledChange *chargebee.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
+	Customer                                   *chargebee.Customer                                   `json:"customer,omitempty"`
 }
 
 type GiftUpdatedContent struct {
-	Gift *gift.Gift `json:"gift,omitempty"`
+	Gift *chargebee.Gift `json:"gift,omitempty"`
 }
 
 type SubscriptionTrialExtendedContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	AdvanceInvoiceSchedule *advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
+	Subscription           *chargebee.Subscription           `json:"subscription,omitempty"`
+	Customer               *chargebee.Customer               `json:"customer,omitempty"`
+	Card                   *chargebee.Card                   `json:"card,omitempty"`
+	AdvanceInvoiceSchedule *chargebee.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
 }
 
 type OmnichannelSubscriptionItemGracePeriodStartedContent struct {
-	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
-
-	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscription     *chargebee.OmnichannelSubscription     `json:"omnichannel_subscription,omitempty"`
+	OmnichannelSubscriptionItem *chargebee.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
+	Customer                    *chargebee.Customer                    `json:"customer,omitempty"`
 }
 
 type CardExpiryReminderContent struct {
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
+	Customer *chargebee.Customer `json:"customer,omitempty"`
+	Card     *chargebee.Card     `json:"card,omitempty"`
 }
 
 type TokenCreatedContent struct {
-	Token *token.Token `json:"token,omitempty"`
+	Token *chargebee.Token `json:"token,omitempty"`
 }
 
 type PromotionalCreditsAddedContent struct {
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	PromotionalCredit *promotionalcredit.PromotionalCredit `json:"promotional_credit,omitempty"`
+	Customer          *chargebee.Customer          `json:"customer,omitempty"`
+	PromotionalCredit *chargebee.PromotionalCredit `json:"promotional_credit,omitempty"`
 }
 
 type SubscriptionRampUpdatedContent struct {
-	Ramp *ramp.Ramp `json:"ramp,omitempty"`
+	Ramp *chargebee.Ramp `json:"ramp,omitempty"`
 }
 
 type CustomerEntitlementsUpdatedContent struct {
-	ImpactedCustomer *impactedcustomer.ImpactedCustomer `json:"impacted_customer,omitempty"`
+	ImpactedCustomer *chargebee.ImpactedCustomer `json:"impacted_customer,omitempty"`
 }
 
 type PaymentSourceExpiredContent struct {
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	PaymentSource *paymentsource.PaymentSource `json:"payment_source,omitempty"`
+	Customer      *chargebee.Customer      `json:"customer,omitempty"`
+	PaymentSource *chargebee.PaymentSource `json:"payment_source,omitempty"`
 }
 
 type CustomerMovedOutContent struct {
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
+	Customer *chargebee.Customer `json:"customer,omitempty"`
+	Card     *chargebee.Card     `json:"card,omitempty"`
 }
 
 type SubscriptionEntitlementsUpdatedContent struct {
-	SubscriptionEntitlementsUpdatedDetail *subscriptionentitlementsupdateddetail.SubscriptionEntitlementsUpdatedDetail `json:"subscription_entitlements_updated_detail,omitempty"`
+	SubscriptionEntitlementsUpdatedDetail *chargebee.SubscriptionEntitlementsUpdatedDetail `json:"subscription_entitlements_updated_detail,omitempty"`
 }
 
 type OmnichannelSubscriptionItemDunningExpiredContent struct {
-	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
-
-	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscription     *chargebee.OmnichannelSubscription     `json:"omnichannel_subscription,omitempty"`
+	OmnichannelSubscriptionItem *chargebee.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
+	Customer                    *chargebee.Customer                    `json:"customer,omitempty"`
 }
 
 type HierarchyCreatedContent struct {
-	Customer *customer.Customer `json:"customer,omitempty"`
+	Customer *chargebee.Customer `json:"customer,omitempty"`
 }
 
 type AttachedItemDeletedContent struct {
-	AttachedItem *attacheditem.AttachedItem `json:"attached_item,omitempty"`
+	AttachedItem *chargebee.AttachedItem `json:"attached_item,omitempty"`
 }
 
 type OmnichannelSubscriptionItemScheduledCancellationRemovedContent struct {
-	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
-
-	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscription     *chargebee.OmnichannelSubscription     `json:"omnichannel_subscription,omitempty"`
+	OmnichannelSubscriptionItem *chargebee.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
+	Customer                    *chargebee.Customer                    `json:"customer,omitempty"`
 }
 
 type ItemUpdatedContent struct {
-	Item *item.Item `json:"item,omitempty"`
+	Item *chargebee.Item `json:"item,omitempty"`
 }
 
 type CouponSetCreatedContent struct {
-	Coupon *coupon.Coupon `json:"coupon,omitempty"`
-
-	CouponSet *couponset.CouponSet `json:"coupon_set,omitempty"`
+	Coupon    *chargebee.Coupon    `json:"coupon,omitempty"`
+	CouponSet *chargebee.CouponSet `json:"coupon_set,omitempty"`
 }
 
 type PaymentIntentUpdatedContent struct {
-	PaymentIntent *paymentintent.PaymentIntent `json:"payment_intent,omitempty"`
+	PaymentIntent *chargebee.PaymentIntent `json:"payment_intent,omitempty"`
 }
 
 type OrderResentContent struct {
-	Order *order.Order `json:"order,omitempty"`
+	Order *chargebee.Order `json:"order,omitempty"`
 }
 
 type OmnichannelSubscriptionItemScheduledDowngradeRemovedContent struct {
-	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
-
-	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscription     *chargebee.OmnichannelSubscription     `json:"omnichannel_subscription,omitempty"`
+	OmnichannelSubscriptionItem *chargebee.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
+	Customer                    *chargebee.Customer                    `json:"customer,omitempty"`
 }
 
 type OmnichannelSubscriptionCreatedContent struct {
-	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
-
-	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
-
-	OmnichannelTransaction *omnichanneltransaction.OmnichannelTransaction `json:"omnichannel_transaction,omitempty"`
-
-	OmnichannelSubscriptionItemScheduledChange *omnichannelsubscriptionitemscheduledchange.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscriptionItem                *chargebee.OmnichannelSubscriptionItem                `json:"omnichannel_subscription_item,omitempty"`
+	OmnichannelSubscription                    *chargebee.OmnichannelSubscription                    `json:"omnichannel_subscription,omitempty"`
+	OmnichannelTransaction                     *chargebee.OmnichannelTransaction                     `json:"omnichannel_transaction,omitempty"`
+	OmnichannelSubscriptionItemScheduledChange *chargebee.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
+	Customer                                   *chargebee.Customer                                   `json:"customer,omitempty"`
 }
 
 type TaxWithheldRecordedContent struct {
-	TaxWithheld *taxwithheld.TaxWithheld `json:"tax_withheld,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
-
-	CreditNote *creditnote.CreditNote `json:"credit_note,omitempty"`
+	TaxWithheld *chargebee.TaxWithheld `json:"tax_withheld,omitempty"`
+	Invoice     *chargebee.Invoice     `json:"invoice,omitempty"`
+	CreditNote  *chargebee.CreditNote  `json:"credit_note,omitempty"`
 }
 
 type PriceVariantCreatedContent struct {
-	PriceVariant *pricevariant.PriceVariant `json:"price_variant,omitempty"`
-
-	Attribute *attribute.Attribute `json:"attribute,omitempty"`
+	PriceVariant *chargebee.PriceVariant `json:"price_variant,omitempty"`
+	Attribute    *chargebee.Attribute    `json:"attribute,omitempty"`
 }
 
 type DifferentialPriceDeletedContent struct {
-	DifferentialPrice *differentialprice.DifferentialPrice `json:"differential_price,omitempty"`
+	DifferentialPrice *chargebee.DifferentialPrice `json:"differential_price,omitempty"`
 }
 
 type SubscriptionItemsRenewedContent struct {
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	Card *card.Card `json:"card,omitempty"`
-
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
-
-	CreditNote *creditnote.CreditNote `json:"credit_note,omitempty"`
-
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	Subscription   *chargebee.Subscription   `json:"subscription,omitempty"`
+	Customer       *chargebee.Customer       `json:"customer,omitempty"`
+	Card           *chargebee.Card           `json:"card,omitempty"`
+	Invoice        *chargebee.Invoice        `json:"invoice,omitempty"`
+	CreditNote     *chargebee.CreditNote     `json:"credit_note,omitempty"`
+	UnbilledCharge *chargebee.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type RuleCreatedContent struct {
-	Rule *rule.Rule `json:"rule,omitempty"`
+	Rule *chargebee.Rule `json:"rule,omitempty"`
 }
 
 type ContractTermCancelledContent struct {
-	ContractTerm *contractterm.ContractTerm `json:"contract_term,omitempty"`
+	ContractTerm *chargebee.ContractTerm `json:"contract_term,omitempty"`
 }
 
 type ContractTermRenewedContent struct {
-	ContractTerm *contractterm.ContractTerm `json:"contract_term,omitempty"`
+	ContractTerm *chargebee.ContractTerm `json:"contract_term,omitempty"`
 }
 
 type InvoiceDeletedContent struct {
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
+	Invoice *chargebee.Invoice `json:"invoice,omitempty"`
 }
 
 type ItemPriceEntitlementsRemovedContent struct {
-	Feature *feature.Feature `json:"feature,omitempty"`
-
-	Metadata *metadata.Metadata `json:"metadata,omitempty"`
-
-	ImpactedItemPrice *impacteditemprice.ImpactedItemPrice `json:"impacted_item_price,omitempty"`
-
-	ImpactedSubscription *impactedsubscription.ImpactedSubscription `json:"impacted_subscription,omitempty"`
+	Feature              *chargebee.Feature              `json:"feature,omitempty"`
+	Metadata             *chargebee.Metadata             `json:"metadata,omitempty"`
+	ImpactedItemPrice    *chargebee.ImpactedItemPrice    `json:"impacted_item_price,omitempty"`
+	ImpactedSubscription *chargebee.ImpactedSubscription `json:"impacted_subscription,omitempty"`
 }
 
 type SalesOrderUpdatedContent struct {
 }
 
 type OmnichannelSubscriptionItemDunningStartedContent struct {
-	OmnichannelSubscription *omnichannelsubscription.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
-
-	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscription     *chargebee.OmnichannelSubscription     `json:"omnichannel_subscription,omitempty"`
+	OmnichannelSubscriptionItem *chargebee.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
+	Customer                    *chargebee.Customer                    `json:"customer,omitempty"`
 }
 
 type OmnichannelSubscriptionItemChangeScheduledContent struct {
-	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
-
-	OmnichannelSubscriptionItemScheduledChange *omnichannelsubscriptionitemscheduledchange.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
-
-	Customer *customer.Customer `json:"customer,omitempty"`
+	OmnichannelSubscriptionItem                *chargebee.OmnichannelSubscriptionItem                `json:"omnichannel_subscription_item,omitempty"`
+	OmnichannelSubscriptionItemScheduledChange *chargebee.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
+	Customer                                   *chargebee.Customer                                   `json:"customer,omitempty"`
 }
 
 type PendingInvoiceUpdatedContent struct {
-	Invoice *invoice.Invoice `json:"invoice,omitempty"`
+	Invoice *chargebee.Invoice `json:"invoice,omitempty"`
 }
 
 type QuoteUpdatedContent struct {
-	Quote *quote.Quote `json:"quote,omitempty"`
+	Quote *chargebee.Quote `json:"quote,omitempty"`
 }
 
 type AttachedItemUpdatedContent struct {
-	AttachedItem *attacheditem.AttachedItem `json:"attached_item,omitempty"`
+	AttachedItem *chargebee.AttachedItem `json:"attached_item,omitempty"`
 }
 
 type PaymentSourceUpdatedContent struct {
-	Customer *customer.Customer `json:"customer,omitempty"`
-
-	PaymentSource *paymentsource.PaymentSource `json:"payment_source,omitempty"`
+	Customer      *chargebee.Customer      `json:"customer,omitempty"`
+	PaymentSource *chargebee.PaymentSource `json:"payment_source,omitempty"`
 }
 
 type BusinessEntityDeletedContent struct {
-	BusinessEntity *businessentity.BusinessEntity `json:"business_entity,omitempty"`
+	BusinessEntity *chargebee.BusinessEntity `json:"business_entity,omitempty"`
 }
 
 type AuthorizationVoidedContent struct {
-	Transaction *transaction.Transaction `json:"transaction,omitempty"`
+	Transaction *chargebee.Transaction `json:"transaction,omitempty"`
 }
 
 type SubscriptionRampDeletedContent struct {
-	Ramp *ramp.Ramp `json:"ramp,omitempty"`
+	Ramp *chargebee.Ramp `json:"ramp,omitempty"`
 }
 
 type PlanDeletedContent struct {
-	Plan *plan.Plan `json:"plan,omitempty"`
+	Plan *chargebee.Plan `json:"plan,omitempty"`
 }
 
 type AddonDeletedContent struct {
-	Addon *addon.Addon `json:"addon,omitempty"`
+	Addon *chargebee.Addon `json:"addon,omitempty"`
 }
 
 type AddonUpdatedContent struct {
-	Addon *addon.Addon `json:"addon,omitempty"`
+	Addon *chargebee.Addon `json:"addon,omitempty"`
 }
 
 type AddonCreatedContent struct {
-	Addon *addon.Addon `json:"addon,omitempty"`
+	Addon *chargebee.Addon `json:"addon,omitempty"`
 }
 
 type PlanCreatedContent struct {
-	Plan *plan.Plan `json:"plan,omitempty"`
+	Plan *chargebee.Plan `json:"plan,omitempty"`
 }
 
 type PlanUpdatedContent struct {
-	Plan *plan.Plan `json:"plan,omitempty"`
+	Plan *chargebee.Plan `json:"plan,omitempty"`
 }
 
 type BaseEvent struct {

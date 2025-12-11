@@ -7,13 +7,13 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/chargebee/chargebee-go/v3/enum"
+	"github.com/chargebee/chargebee-go/v3"
 )
 
 type WebhookHandler struct {
 	RequestValidator func(*http.Request) error
 	OnError          func(http.ResponseWriter, *http.Request, error)
-	OnUnhandledEvent func(enum.EventType, []byte) error
+	OnUnhandledEvent func(chargebee.EventType, []byte) error
 
 	OnAddUsagesReminder func(AddUsagesReminderEvent) error
 
@@ -474,7 +474,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 	}
 	switch eventType {
 
-	case enum.EventTypeAddUsagesReminder:
+	case chargebee.EventTypeAddUsagesReminder:
 		if h.OnAddUsagesReminder != nil {
 			var e AddUsagesReminderEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -485,7 +485,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeAddonCreated:
+	case chargebee.EventTypeAddonCreated:
 		if h.OnAddonCreated != nil {
 			var e AddonCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -496,7 +496,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeAddonDeleted:
+	case chargebee.EventTypeAddonDeleted:
 		if h.OnAddonDeleted != nil {
 			var e AddonDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -507,7 +507,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeAddonUpdated:
+	case chargebee.EventTypeAddonUpdated:
 		if h.OnAddonUpdated != nil {
 			var e AddonUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -518,7 +518,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeAttachedItemCreated:
+	case chargebee.EventTypeAttachedItemCreated:
 		if h.OnAttachedItemCreated != nil {
 			var e AttachedItemCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -529,7 +529,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeAttachedItemDeleted:
+	case chargebee.EventTypeAttachedItemDeleted:
 		if h.OnAttachedItemDeleted != nil {
 			var e AttachedItemDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -540,7 +540,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeAttachedItemUpdated:
+	case chargebee.EventTypeAttachedItemUpdated:
 		if h.OnAttachedItemUpdated != nil {
 			var e AttachedItemUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -551,7 +551,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeAuthorizationSucceeded:
+	case chargebee.EventTypeAuthorizationSucceeded:
 		if h.OnAuthorizationSucceeded != nil {
 			var e AuthorizationSucceededEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -562,7 +562,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeAuthorizationVoided:
+	case chargebee.EventTypeAuthorizationVoided:
 		if h.OnAuthorizationVoided != nil {
 			var e AuthorizationVoidedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -573,7 +573,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeBusinessEntityCreated:
+	case chargebee.EventTypeBusinessEntityCreated:
 		if h.OnBusinessEntityCreated != nil {
 			var e BusinessEntityCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -584,7 +584,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeBusinessEntityDeleted:
+	case chargebee.EventTypeBusinessEntityDeleted:
 		if h.OnBusinessEntityDeleted != nil {
 			var e BusinessEntityDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -595,7 +595,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeBusinessEntityUpdated:
+	case chargebee.EventTypeBusinessEntityUpdated:
 		if h.OnBusinessEntityUpdated != nil {
 			var e BusinessEntityUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -606,7 +606,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCardAdded:
+	case chargebee.EventTypeCardAdded:
 		if h.OnCardAdded != nil {
 			var e CardAddedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -617,7 +617,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCardDeleted:
+	case chargebee.EventTypeCardDeleted:
 		if h.OnCardDeleted != nil {
 			var e CardDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -628,7 +628,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCardExpired:
+	case chargebee.EventTypeCardExpired:
 		if h.OnCardExpired != nil {
 			var e CardExpiredEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -639,7 +639,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCardExpiryReminder:
+	case chargebee.EventTypeCardExpiryReminder:
 		if h.OnCardExpiryReminder != nil {
 			var e CardExpiryReminderEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -650,7 +650,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCardUpdated:
+	case chargebee.EventTypeCardUpdated:
 		if h.OnCardUpdated != nil {
 			var e CardUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -661,7 +661,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeContractTermCancelled:
+	case chargebee.EventTypeContractTermCancelled:
 		if h.OnContractTermCancelled != nil {
 			var e ContractTermCancelledEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -672,7 +672,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeContractTermCompleted:
+	case chargebee.EventTypeContractTermCompleted:
 		if h.OnContractTermCompleted != nil {
 			var e ContractTermCompletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -683,7 +683,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeContractTermCreated:
+	case chargebee.EventTypeContractTermCreated:
 		if h.OnContractTermCreated != nil {
 			var e ContractTermCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -694,7 +694,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeContractTermRenewed:
+	case chargebee.EventTypeContractTermRenewed:
 		if h.OnContractTermRenewed != nil {
 			var e ContractTermRenewedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -705,7 +705,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeContractTermTerminated:
+	case chargebee.EventTypeContractTermTerminated:
 		if h.OnContractTermTerminated != nil {
 			var e ContractTermTerminatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -716,7 +716,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCouponCodesAdded:
+	case chargebee.EventTypeCouponCodesAdded:
 		if h.OnCouponCodesAdded != nil {
 			var e CouponCodesAddedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -727,7 +727,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCouponCodesDeleted:
+	case chargebee.EventTypeCouponCodesDeleted:
 		if h.OnCouponCodesDeleted != nil {
 			var e CouponCodesDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -738,7 +738,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCouponCodesUpdated:
+	case chargebee.EventTypeCouponCodesUpdated:
 		if h.OnCouponCodesUpdated != nil {
 			var e CouponCodesUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -749,7 +749,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCouponCreated:
+	case chargebee.EventTypeCouponCreated:
 		if h.OnCouponCreated != nil {
 			var e CouponCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -760,7 +760,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCouponDeleted:
+	case chargebee.EventTypeCouponDeleted:
 		if h.OnCouponDeleted != nil {
 			var e CouponDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -771,7 +771,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCouponSetCreated:
+	case chargebee.EventTypeCouponSetCreated:
 		if h.OnCouponSetCreated != nil {
 			var e CouponSetCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -782,7 +782,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCouponSetDeleted:
+	case chargebee.EventTypeCouponSetDeleted:
 		if h.OnCouponSetDeleted != nil {
 			var e CouponSetDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -793,7 +793,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCouponSetUpdated:
+	case chargebee.EventTypeCouponSetUpdated:
 		if h.OnCouponSetUpdated != nil {
 			var e CouponSetUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -804,7 +804,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCouponUpdated:
+	case chargebee.EventTypeCouponUpdated:
 		if h.OnCouponUpdated != nil {
 			var e CouponUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -815,7 +815,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCreditNoteCreated:
+	case chargebee.EventTypeCreditNoteCreated:
 		if h.OnCreditNoteCreated != nil {
 			var e CreditNoteCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -826,7 +826,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCreditNoteCreatedWithBackdating:
+	case chargebee.EventTypeCreditNoteCreatedWithBackdating:
 		if h.OnCreditNoteCreatedWithBackdating != nil {
 			var e CreditNoteCreatedWithBackdatingEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -837,7 +837,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCreditNoteDeleted:
+	case chargebee.EventTypeCreditNoteDeleted:
 		if h.OnCreditNoteDeleted != nil {
 			var e CreditNoteDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -848,7 +848,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCreditNoteUpdated:
+	case chargebee.EventTypeCreditNoteUpdated:
 		if h.OnCreditNoteUpdated != nil {
 			var e CreditNoteUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -859,7 +859,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCustomerBusinessEntityChanged:
+	case chargebee.EventTypeCustomerBusinessEntityChanged:
 		if h.OnCustomerBusinessEntityChanged != nil {
 			var e CustomerBusinessEntityChangedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -870,7 +870,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCustomerChanged:
+	case chargebee.EventTypeCustomerChanged:
 		if h.OnCustomerChanged != nil {
 			var e CustomerChangedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -881,7 +881,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCustomerCreated:
+	case chargebee.EventTypeCustomerCreated:
 		if h.OnCustomerCreated != nil {
 			var e CustomerCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -892,7 +892,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCustomerDeleted:
+	case chargebee.EventTypeCustomerDeleted:
 		if h.OnCustomerDeleted != nil {
 			var e CustomerDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -903,7 +903,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCustomerEntitlementsUpdated:
+	case chargebee.EventTypeCustomerEntitlementsUpdated:
 		if h.OnCustomerEntitlementsUpdated != nil {
 			var e CustomerEntitlementsUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -914,7 +914,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCustomerMovedIn:
+	case chargebee.EventTypeCustomerMovedIn:
 		if h.OnCustomerMovedIn != nil {
 			var e CustomerMovedInEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -925,7 +925,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeCustomerMovedOut:
+	case chargebee.EventTypeCustomerMovedOut:
 		if h.OnCustomerMovedOut != nil {
 			var e CustomerMovedOutEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -936,7 +936,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeDifferentialPriceCreated:
+	case chargebee.EventTypeDifferentialPriceCreated:
 		if h.OnDifferentialPriceCreated != nil {
 			var e DifferentialPriceCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -947,7 +947,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeDifferentialPriceDeleted:
+	case chargebee.EventTypeDifferentialPriceDeleted:
 		if h.OnDifferentialPriceDeleted != nil {
 			var e DifferentialPriceDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -958,7 +958,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeDifferentialPriceUpdated:
+	case chargebee.EventTypeDifferentialPriceUpdated:
 		if h.OnDifferentialPriceUpdated != nil {
 			var e DifferentialPriceUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -969,7 +969,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeDunningUpdated:
+	case chargebee.EventTypeDunningUpdated:
 		if h.OnDunningUpdated != nil {
 			var e DunningUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -980,7 +980,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeEntitlementOverridesAutoRemoved:
+	case chargebee.EventTypeEntitlementOverridesAutoRemoved:
 		if h.OnEntitlementOverridesAutoRemoved != nil {
 			var e EntitlementOverridesAutoRemovedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -991,7 +991,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeEntitlementOverridesRemoved:
+	case chargebee.EventTypeEntitlementOverridesRemoved:
 		if h.OnEntitlementOverridesRemoved != nil {
 			var e EntitlementOverridesRemovedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1002,7 +1002,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeEntitlementOverridesUpdated:
+	case chargebee.EventTypeEntitlementOverridesUpdated:
 		if h.OnEntitlementOverridesUpdated != nil {
 			var e EntitlementOverridesUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1013,7 +1013,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeFeatureActivated:
+	case chargebee.EventTypeFeatureActivated:
 		if h.OnFeatureActivated != nil {
 			var e FeatureActivatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1024,7 +1024,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeFeatureArchived:
+	case chargebee.EventTypeFeatureArchived:
 		if h.OnFeatureArchived != nil {
 			var e FeatureArchivedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1035,7 +1035,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeFeatureCreated:
+	case chargebee.EventTypeFeatureCreated:
 		if h.OnFeatureCreated != nil {
 			var e FeatureCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1046,7 +1046,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeFeatureDeleted:
+	case chargebee.EventTypeFeatureDeleted:
 		if h.OnFeatureDeleted != nil {
 			var e FeatureDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1057,7 +1057,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeFeatureReactivated:
+	case chargebee.EventTypeFeatureReactivated:
 		if h.OnFeatureReactivated != nil {
 			var e FeatureReactivatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1068,7 +1068,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeFeatureUpdated:
+	case chargebee.EventTypeFeatureUpdated:
 		if h.OnFeatureUpdated != nil {
 			var e FeatureUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1079,7 +1079,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeGiftCancelled:
+	case chargebee.EventTypeGiftCancelled:
 		if h.OnGiftCancelled != nil {
 			var e GiftCancelledEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1090,7 +1090,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeGiftClaimed:
+	case chargebee.EventTypeGiftClaimed:
 		if h.OnGiftClaimed != nil {
 			var e GiftClaimedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1101,7 +1101,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeGiftExpired:
+	case chargebee.EventTypeGiftExpired:
 		if h.OnGiftExpired != nil {
 			var e GiftExpiredEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1112,7 +1112,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeGiftScheduled:
+	case chargebee.EventTypeGiftScheduled:
 		if h.OnGiftScheduled != nil {
 			var e GiftScheduledEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1123,7 +1123,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeGiftUnclaimed:
+	case chargebee.EventTypeGiftUnclaimed:
 		if h.OnGiftUnclaimed != nil {
 			var e GiftUnclaimedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1134,7 +1134,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeGiftUpdated:
+	case chargebee.EventTypeGiftUpdated:
 		if h.OnGiftUpdated != nil {
 			var e GiftUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1145,7 +1145,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeHierarchyCreated:
+	case chargebee.EventTypeHierarchyCreated:
 		if h.OnHierarchyCreated != nil {
 			var e HierarchyCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1156,7 +1156,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeHierarchyDeleted:
+	case chargebee.EventTypeHierarchyDeleted:
 		if h.OnHierarchyDeleted != nil {
 			var e HierarchyDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1167,7 +1167,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeInvoiceDeleted:
+	case chargebee.EventTypeInvoiceDeleted:
 		if h.OnInvoiceDeleted != nil {
 			var e InvoiceDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1178,7 +1178,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeInvoiceGenerated:
+	case chargebee.EventTypeInvoiceGenerated:
 		if h.OnInvoiceGenerated != nil {
 			var e InvoiceGeneratedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1189,7 +1189,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeInvoiceGeneratedWithBackdating:
+	case chargebee.EventTypeInvoiceGeneratedWithBackdating:
 		if h.OnInvoiceGeneratedWithBackdating != nil {
 			var e InvoiceGeneratedWithBackdatingEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1200,7 +1200,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeInvoiceUpdated:
+	case chargebee.EventTypeInvoiceUpdated:
 		if h.OnInvoiceUpdated != nil {
 			var e InvoiceUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1211,7 +1211,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeItemCreated:
+	case chargebee.EventTypeItemCreated:
 		if h.OnItemCreated != nil {
 			var e ItemCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1222,7 +1222,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeItemDeleted:
+	case chargebee.EventTypeItemDeleted:
 		if h.OnItemDeleted != nil {
 			var e ItemDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1233,7 +1233,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeItemEntitlementsRemoved:
+	case chargebee.EventTypeItemEntitlementsRemoved:
 		if h.OnItemEntitlementsRemoved != nil {
 			var e ItemEntitlementsRemovedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1244,7 +1244,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeItemEntitlementsUpdated:
+	case chargebee.EventTypeItemEntitlementsUpdated:
 		if h.OnItemEntitlementsUpdated != nil {
 			var e ItemEntitlementsUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1255,7 +1255,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeItemFamilyCreated:
+	case chargebee.EventTypeItemFamilyCreated:
 		if h.OnItemFamilyCreated != nil {
 			var e ItemFamilyCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1266,7 +1266,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeItemFamilyDeleted:
+	case chargebee.EventTypeItemFamilyDeleted:
 		if h.OnItemFamilyDeleted != nil {
 			var e ItemFamilyDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1277,7 +1277,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeItemFamilyUpdated:
+	case chargebee.EventTypeItemFamilyUpdated:
 		if h.OnItemFamilyUpdated != nil {
 			var e ItemFamilyUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1288,7 +1288,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeItemPriceCreated:
+	case chargebee.EventTypeItemPriceCreated:
 		if h.OnItemPriceCreated != nil {
 			var e ItemPriceCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1299,7 +1299,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeItemPriceDeleted:
+	case chargebee.EventTypeItemPriceDeleted:
 		if h.OnItemPriceDeleted != nil {
 			var e ItemPriceDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1310,7 +1310,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeItemPriceEntitlementsRemoved:
+	case chargebee.EventTypeItemPriceEntitlementsRemoved:
 		if h.OnItemPriceEntitlementsRemoved != nil {
 			var e ItemPriceEntitlementsRemovedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1321,7 +1321,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeItemPriceEntitlementsUpdated:
+	case chargebee.EventTypeItemPriceEntitlementsUpdated:
 		if h.OnItemPriceEntitlementsUpdated != nil {
 			var e ItemPriceEntitlementsUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1332,7 +1332,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeItemPriceUpdated:
+	case chargebee.EventTypeItemPriceUpdated:
 		if h.OnItemPriceUpdated != nil {
 			var e ItemPriceUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1343,7 +1343,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeItemUpdated:
+	case chargebee.EventTypeItemUpdated:
 		if h.OnItemUpdated != nil {
 			var e ItemUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1354,7 +1354,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeMrrUpdated:
+	case chargebee.EventTypeMrrUpdated:
 		if h.OnMrrUpdated != nil {
 			var e MrrUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1365,7 +1365,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeNetdPaymentDueReminder:
+	case chargebee.EventTypeNetdPaymentDueReminder:
 		if h.OnNetdPaymentDueReminder != nil {
 			var e NetdPaymentDueReminderEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1376,7 +1376,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelOneTimeOrderCreated:
+	case chargebee.EventTypeOmnichannelOneTimeOrderCreated:
 		if h.OnOmnichannelOneTimeOrderCreated != nil {
 			var e OmnichannelOneTimeOrderCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1387,7 +1387,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelOneTimeOrderItemCancelled:
+	case chargebee.EventTypeOmnichannelOneTimeOrderItemCancelled:
 		if h.OnOmnichannelOneTimeOrderItemCancelled != nil {
 			var e OmnichannelOneTimeOrderItemCancelledEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1398,7 +1398,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionCreated:
+	case chargebee.EventTypeOmnichannelSubscriptionCreated:
 		if h.OnOmnichannelSubscriptionCreated != nil {
 			var e OmnichannelSubscriptionCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1409,7 +1409,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionImported:
+	case chargebee.EventTypeOmnichannelSubscriptionImported:
 		if h.OnOmnichannelSubscriptionImported != nil {
 			var e OmnichannelSubscriptionImportedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1420,7 +1420,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionItemCancellationScheduled:
+	case chargebee.EventTypeOmnichannelSubscriptionItemCancellationScheduled:
 		if h.OnOmnichannelSubscriptionItemCancellationScheduled != nil {
 			var e OmnichannelSubscriptionItemCancellationScheduledEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1431,7 +1431,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionItemCancelled:
+	case chargebee.EventTypeOmnichannelSubscriptionItemCancelled:
 		if h.OnOmnichannelSubscriptionItemCancelled != nil {
 			var e OmnichannelSubscriptionItemCancelledEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1442,7 +1442,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionItemChangeScheduled:
+	case chargebee.EventTypeOmnichannelSubscriptionItemChangeScheduled:
 		if h.OnOmnichannelSubscriptionItemChangeScheduled != nil {
 			var e OmnichannelSubscriptionItemChangeScheduledEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1453,7 +1453,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionItemChanged:
+	case chargebee.EventTypeOmnichannelSubscriptionItemChanged:
 		if h.OnOmnichannelSubscriptionItemChanged != nil {
 			var e OmnichannelSubscriptionItemChangedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1464,7 +1464,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionItemDowngradeScheduled:
+	case chargebee.EventTypeOmnichannelSubscriptionItemDowngradeScheduled:
 		if h.OnOmnichannelSubscriptionItemDowngradeScheduled != nil {
 			var e OmnichannelSubscriptionItemDowngradeScheduledEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1475,7 +1475,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionItemDowngraded:
+	case chargebee.EventTypeOmnichannelSubscriptionItemDowngraded:
 		if h.OnOmnichannelSubscriptionItemDowngraded != nil {
 			var e OmnichannelSubscriptionItemDowngradedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1486,7 +1486,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionItemDunningExpired:
+	case chargebee.EventTypeOmnichannelSubscriptionItemDunningExpired:
 		if h.OnOmnichannelSubscriptionItemDunningExpired != nil {
 			var e OmnichannelSubscriptionItemDunningExpiredEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1497,7 +1497,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionItemDunningStarted:
+	case chargebee.EventTypeOmnichannelSubscriptionItemDunningStarted:
 		if h.OnOmnichannelSubscriptionItemDunningStarted != nil {
 			var e OmnichannelSubscriptionItemDunningStartedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1508,7 +1508,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionItemExpired:
+	case chargebee.EventTypeOmnichannelSubscriptionItemExpired:
 		if h.OnOmnichannelSubscriptionItemExpired != nil {
 			var e OmnichannelSubscriptionItemExpiredEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1519,7 +1519,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionItemGracePeriodExpired:
+	case chargebee.EventTypeOmnichannelSubscriptionItemGracePeriodExpired:
 		if h.OnOmnichannelSubscriptionItemGracePeriodExpired != nil {
 			var e OmnichannelSubscriptionItemGracePeriodExpiredEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1530,7 +1530,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionItemGracePeriodStarted:
+	case chargebee.EventTypeOmnichannelSubscriptionItemGracePeriodStarted:
 		if h.OnOmnichannelSubscriptionItemGracePeriodStarted != nil {
 			var e OmnichannelSubscriptionItemGracePeriodStartedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1541,7 +1541,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionItemPauseScheduled:
+	case chargebee.EventTypeOmnichannelSubscriptionItemPauseScheduled:
 		if h.OnOmnichannelSubscriptionItemPauseScheduled != nil {
 			var e OmnichannelSubscriptionItemPauseScheduledEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1552,7 +1552,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionItemPaused:
+	case chargebee.EventTypeOmnichannelSubscriptionItemPaused:
 		if h.OnOmnichannelSubscriptionItemPaused != nil {
 			var e OmnichannelSubscriptionItemPausedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1563,7 +1563,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionItemReactivated:
+	case chargebee.EventTypeOmnichannelSubscriptionItemReactivated:
 		if h.OnOmnichannelSubscriptionItemReactivated != nil {
 			var e OmnichannelSubscriptionItemReactivatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1574,7 +1574,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionItemRenewed:
+	case chargebee.EventTypeOmnichannelSubscriptionItemRenewed:
 		if h.OnOmnichannelSubscriptionItemRenewed != nil {
 			var e OmnichannelSubscriptionItemRenewedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1585,7 +1585,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionItemResubscribed:
+	case chargebee.EventTypeOmnichannelSubscriptionItemResubscribed:
 		if h.OnOmnichannelSubscriptionItemResubscribed != nil {
 			var e OmnichannelSubscriptionItemResubscribedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1596,7 +1596,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionItemResumed:
+	case chargebee.EventTypeOmnichannelSubscriptionItemResumed:
 		if h.OnOmnichannelSubscriptionItemResumed != nil {
 			var e OmnichannelSubscriptionItemResumedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1607,7 +1607,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionItemScheduledCancellationRemoved:
+	case chargebee.EventTypeOmnichannelSubscriptionItemScheduledCancellationRemoved:
 		if h.OnOmnichannelSubscriptionItemScheduledCancellationRemoved != nil {
 			var e OmnichannelSubscriptionItemScheduledCancellationRemovedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1618,7 +1618,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionItemScheduledChangeRemoved:
+	case chargebee.EventTypeOmnichannelSubscriptionItemScheduledChangeRemoved:
 		if h.OnOmnichannelSubscriptionItemScheduledChangeRemoved != nil {
 			var e OmnichannelSubscriptionItemScheduledChangeRemovedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1629,7 +1629,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionItemScheduledDowngradeRemoved:
+	case chargebee.EventTypeOmnichannelSubscriptionItemScheduledDowngradeRemoved:
 		if h.OnOmnichannelSubscriptionItemScheduledDowngradeRemoved != nil {
 			var e OmnichannelSubscriptionItemScheduledDowngradeRemovedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1640,7 +1640,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionItemUpgraded:
+	case chargebee.EventTypeOmnichannelSubscriptionItemUpgraded:
 		if h.OnOmnichannelSubscriptionItemUpgraded != nil {
 			var e OmnichannelSubscriptionItemUpgradedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1651,7 +1651,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelSubscriptionMovedIn:
+	case chargebee.EventTypeOmnichannelSubscriptionMovedIn:
 		if h.OnOmnichannelSubscriptionMovedIn != nil {
 			var e OmnichannelSubscriptionMovedInEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1662,7 +1662,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOmnichannelTransactionCreated:
+	case chargebee.EventTypeOmnichannelTransactionCreated:
 		if h.OnOmnichannelTransactionCreated != nil {
 			var e OmnichannelTransactionCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1673,7 +1673,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOrderCancelled:
+	case chargebee.EventTypeOrderCancelled:
 		if h.OnOrderCancelled != nil {
 			var e OrderCancelledEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1684,7 +1684,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOrderCreated:
+	case chargebee.EventTypeOrderCreated:
 		if h.OnOrderCreated != nil {
 			var e OrderCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1695,7 +1695,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOrderDeleted:
+	case chargebee.EventTypeOrderDeleted:
 		if h.OnOrderDeleted != nil {
 			var e OrderDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1706,7 +1706,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOrderDelivered:
+	case chargebee.EventTypeOrderDelivered:
 		if h.OnOrderDelivered != nil {
 			var e OrderDeliveredEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1717,7 +1717,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOrderReadyToProcess:
+	case chargebee.EventTypeOrderReadyToProcess:
 		if h.OnOrderReadyToProcess != nil {
 			var e OrderReadyToProcessEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1728,7 +1728,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOrderReadyToShip:
+	case chargebee.EventTypeOrderReadyToShip:
 		if h.OnOrderReadyToShip != nil {
 			var e OrderReadyToShipEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1739,7 +1739,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOrderResent:
+	case chargebee.EventTypeOrderResent:
 		if h.OnOrderResent != nil {
 			var e OrderResentEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1750,7 +1750,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOrderReturned:
+	case chargebee.EventTypeOrderReturned:
 		if h.OnOrderReturned != nil {
 			var e OrderReturnedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1761,7 +1761,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeOrderUpdated:
+	case chargebee.EventTypeOrderUpdated:
 		if h.OnOrderUpdated != nil {
 			var e OrderUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1772,7 +1772,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePaymentFailed:
+	case chargebee.EventTypePaymentFailed:
 		if h.OnPaymentFailed != nil {
 			var e PaymentFailedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1783,7 +1783,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePaymentInitiated:
+	case chargebee.EventTypePaymentInitiated:
 		if h.OnPaymentInitiated != nil {
 			var e PaymentInitiatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1794,7 +1794,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePaymentIntentCreated:
+	case chargebee.EventTypePaymentIntentCreated:
 		if h.OnPaymentIntentCreated != nil {
 			var e PaymentIntentCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1805,7 +1805,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePaymentIntentUpdated:
+	case chargebee.EventTypePaymentIntentUpdated:
 		if h.OnPaymentIntentUpdated != nil {
 			var e PaymentIntentUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1816,7 +1816,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePaymentRefunded:
+	case chargebee.EventTypePaymentRefunded:
 		if h.OnPaymentRefunded != nil {
 			var e PaymentRefundedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1827,7 +1827,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePaymentScheduleSchemeCreated:
+	case chargebee.EventTypePaymentScheduleSchemeCreated:
 		if h.OnPaymentScheduleSchemeCreated != nil {
 			var e PaymentScheduleSchemeCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1838,7 +1838,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePaymentScheduleSchemeDeleted:
+	case chargebee.EventTypePaymentScheduleSchemeDeleted:
 		if h.OnPaymentScheduleSchemeDeleted != nil {
 			var e PaymentScheduleSchemeDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1849,7 +1849,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePaymentSchedulesCreated:
+	case chargebee.EventTypePaymentSchedulesCreated:
 		if h.OnPaymentSchedulesCreated != nil {
 			var e PaymentSchedulesCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1860,7 +1860,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePaymentSchedulesUpdated:
+	case chargebee.EventTypePaymentSchedulesUpdated:
 		if h.OnPaymentSchedulesUpdated != nil {
 			var e PaymentSchedulesUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1871,7 +1871,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePaymentSourceAdded:
+	case chargebee.EventTypePaymentSourceAdded:
 		if h.OnPaymentSourceAdded != nil {
 			var e PaymentSourceAddedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1882,7 +1882,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePaymentSourceDeleted:
+	case chargebee.EventTypePaymentSourceDeleted:
 		if h.OnPaymentSourceDeleted != nil {
 			var e PaymentSourceDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1893,7 +1893,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePaymentSourceExpired:
+	case chargebee.EventTypePaymentSourceExpired:
 		if h.OnPaymentSourceExpired != nil {
 			var e PaymentSourceExpiredEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1904,7 +1904,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePaymentSourceExpiring:
+	case chargebee.EventTypePaymentSourceExpiring:
 		if h.OnPaymentSourceExpiring != nil {
 			var e PaymentSourceExpiringEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1915,7 +1915,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePaymentSourceLocallyDeleted:
+	case chargebee.EventTypePaymentSourceLocallyDeleted:
 		if h.OnPaymentSourceLocallyDeleted != nil {
 			var e PaymentSourceLocallyDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1926,7 +1926,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePaymentSourceUpdated:
+	case chargebee.EventTypePaymentSourceUpdated:
 		if h.OnPaymentSourceUpdated != nil {
 			var e PaymentSourceUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1937,7 +1937,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePaymentSucceeded:
+	case chargebee.EventTypePaymentSucceeded:
 		if h.OnPaymentSucceeded != nil {
 			var e PaymentSucceededEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1948,7 +1948,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePendingInvoiceCreated:
+	case chargebee.EventTypePendingInvoiceCreated:
 		if h.OnPendingInvoiceCreated != nil {
 			var e PendingInvoiceCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1959,7 +1959,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePendingInvoiceUpdated:
+	case chargebee.EventTypePendingInvoiceUpdated:
 		if h.OnPendingInvoiceUpdated != nil {
 			var e PendingInvoiceUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1970,7 +1970,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePlanCreated:
+	case chargebee.EventTypePlanCreated:
 		if h.OnPlanCreated != nil {
 			var e PlanCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1981,7 +1981,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePlanDeleted:
+	case chargebee.EventTypePlanDeleted:
 		if h.OnPlanDeleted != nil {
 			var e PlanDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -1992,7 +1992,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePlanUpdated:
+	case chargebee.EventTypePlanUpdated:
 		if h.OnPlanUpdated != nil {
 			var e PlanUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2003,7 +2003,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePriceVariantCreated:
+	case chargebee.EventTypePriceVariantCreated:
 		if h.OnPriceVariantCreated != nil {
 			var e PriceVariantCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2014,7 +2014,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePriceVariantDeleted:
+	case chargebee.EventTypePriceVariantDeleted:
 		if h.OnPriceVariantDeleted != nil {
 			var e PriceVariantDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2025,7 +2025,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePriceVariantUpdated:
+	case chargebee.EventTypePriceVariantUpdated:
 		if h.OnPriceVariantUpdated != nil {
 			var e PriceVariantUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2036,7 +2036,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeProductCreated:
+	case chargebee.EventTypeProductCreated:
 		if h.OnProductCreated != nil {
 			var e ProductCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2047,7 +2047,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeProductDeleted:
+	case chargebee.EventTypeProductDeleted:
 		if h.OnProductDeleted != nil {
 			var e ProductDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2058,7 +2058,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeProductUpdated:
+	case chargebee.EventTypeProductUpdated:
 		if h.OnProductUpdated != nil {
 			var e ProductUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2069,7 +2069,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePromotionalCreditsAdded:
+	case chargebee.EventTypePromotionalCreditsAdded:
 		if h.OnPromotionalCreditsAdded != nil {
 			var e PromotionalCreditsAddedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2080,7 +2080,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePromotionalCreditsDeducted:
+	case chargebee.EventTypePromotionalCreditsDeducted:
 		if h.OnPromotionalCreditsDeducted != nil {
 			var e PromotionalCreditsDeductedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2091,7 +2091,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypePurchaseCreated:
+	case chargebee.EventTypePurchaseCreated:
 		if h.OnPurchaseCreated != nil {
 			var e PurchaseCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2102,7 +2102,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeQuoteCreated:
+	case chargebee.EventTypeQuoteCreated:
 		if h.OnQuoteCreated != nil {
 			var e QuoteCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2113,7 +2113,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeQuoteDeleted:
+	case chargebee.EventTypeQuoteDeleted:
 		if h.OnQuoteDeleted != nil {
 			var e QuoteDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2124,7 +2124,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeQuoteUpdated:
+	case chargebee.EventTypeQuoteUpdated:
 		if h.OnQuoteUpdated != nil {
 			var e QuoteUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2135,7 +2135,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeRecordPurchaseFailed:
+	case chargebee.EventTypeRecordPurchaseFailed:
 		if h.OnRecordPurchaseFailed != nil {
 			var e RecordPurchaseFailedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2146,7 +2146,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeRefundInitiated:
+	case chargebee.EventTypeRefundInitiated:
 		if h.OnRefundInitiated != nil {
 			var e RefundInitiatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2157,7 +2157,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeRuleCreated:
+	case chargebee.EventTypeRuleCreated:
 		if h.OnRuleCreated != nil {
 			var e RuleCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2168,7 +2168,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeRuleDeleted:
+	case chargebee.EventTypeRuleDeleted:
 		if h.OnRuleDeleted != nil {
 			var e RuleDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2179,7 +2179,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeRuleUpdated:
+	case chargebee.EventTypeRuleUpdated:
 		if h.OnRuleUpdated != nil {
 			var e RuleUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2190,7 +2190,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSalesOrderCreated:
+	case chargebee.EventTypeSalesOrderCreated:
 		if h.OnSalesOrderCreated != nil {
 			var e SalesOrderCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2201,7 +2201,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSalesOrderUpdated:
+	case chargebee.EventTypeSalesOrderUpdated:
 		if h.OnSalesOrderUpdated != nil {
 			var e SalesOrderUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2212,7 +2212,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionActivated:
+	case chargebee.EventTypeSubscriptionActivated:
 		if h.OnSubscriptionActivated != nil {
 			var e SubscriptionActivatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2223,7 +2223,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionActivatedWithBackdating:
+	case chargebee.EventTypeSubscriptionActivatedWithBackdating:
 		if h.OnSubscriptionActivatedWithBackdating != nil {
 			var e SubscriptionActivatedWithBackdatingEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2234,7 +2234,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionAdvanceInvoiceScheduleAdded:
+	case chargebee.EventTypeSubscriptionAdvanceInvoiceScheduleAdded:
 		if h.OnSubscriptionAdvanceInvoiceScheduleAdded != nil {
 			var e SubscriptionAdvanceInvoiceScheduleAddedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2245,7 +2245,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionAdvanceInvoiceScheduleRemoved:
+	case chargebee.EventTypeSubscriptionAdvanceInvoiceScheduleRemoved:
 		if h.OnSubscriptionAdvanceInvoiceScheduleRemoved != nil {
 			var e SubscriptionAdvanceInvoiceScheduleRemovedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2256,7 +2256,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionAdvanceInvoiceScheduleUpdated:
+	case chargebee.EventTypeSubscriptionAdvanceInvoiceScheduleUpdated:
 		if h.OnSubscriptionAdvanceInvoiceScheduleUpdated != nil {
 			var e SubscriptionAdvanceInvoiceScheduleUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2267,7 +2267,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionBusinessEntityChanged:
+	case chargebee.EventTypeSubscriptionBusinessEntityChanged:
 		if h.OnSubscriptionBusinessEntityChanged != nil {
 			var e SubscriptionBusinessEntityChangedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2278,7 +2278,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionCanceledWithBackdating:
+	case chargebee.EventTypeSubscriptionCanceledWithBackdating:
 		if h.OnSubscriptionCanceledWithBackdating != nil {
 			var e SubscriptionCanceledWithBackdatingEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2289,7 +2289,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionCancellationReminder:
+	case chargebee.EventTypeSubscriptionCancellationReminder:
 		if h.OnSubscriptionCancellationReminder != nil {
 			var e SubscriptionCancellationReminderEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2300,7 +2300,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionCancellationScheduled:
+	case chargebee.EventTypeSubscriptionCancellationScheduled:
 		if h.OnSubscriptionCancellationScheduled != nil {
 			var e SubscriptionCancellationScheduledEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2311,7 +2311,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionCancelled:
+	case chargebee.EventTypeSubscriptionCancelled:
 		if h.OnSubscriptionCancelled != nil {
 			var e SubscriptionCancelledEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2322,7 +2322,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionChanged:
+	case chargebee.EventTypeSubscriptionChanged:
 		if h.OnSubscriptionChanged != nil {
 			var e SubscriptionChangedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2333,7 +2333,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionChangedWithBackdating:
+	case chargebee.EventTypeSubscriptionChangedWithBackdating:
 		if h.OnSubscriptionChangedWithBackdating != nil {
 			var e SubscriptionChangedWithBackdatingEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2344,7 +2344,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionChangesScheduled:
+	case chargebee.EventTypeSubscriptionChangesScheduled:
 		if h.OnSubscriptionChangesScheduled != nil {
 			var e SubscriptionChangesScheduledEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2355,7 +2355,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionCreated:
+	case chargebee.EventTypeSubscriptionCreated:
 		if h.OnSubscriptionCreated != nil {
 			var e SubscriptionCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2366,7 +2366,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionCreatedWithBackdating:
+	case chargebee.EventTypeSubscriptionCreatedWithBackdating:
 		if h.OnSubscriptionCreatedWithBackdating != nil {
 			var e SubscriptionCreatedWithBackdatingEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2377,7 +2377,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionDeleted:
+	case chargebee.EventTypeSubscriptionDeleted:
 		if h.OnSubscriptionDeleted != nil {
 			var e SubscriptionDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2388,7 +2388,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionEntitlementsCreated:
+	case chargebee.EventTypeSubscriptionEntitlementsCreated:
 		if h.OnSubscriptionEntitlementsCreated != nil {
 			var e SubscriptionEntitlementsCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2399,7 +2399,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionEntitlementsUpdated:
+	case chargebee.EventTypeSubscriptionEntitlementsUpdated:
 		if h.OnSubscriptionEntitlementsUpdated != nil {
 			var e SubscriptionEntitlementsUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2410,7 +2410,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionItemsRenewed:
+	case chargebee.EventTypeSubscriptionItemsRenewed:
 		if h.OnSubscriptionItemsRenewed != nil {
 			var e SubscriptionItemsRenewedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2421,7 +2421,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionMovedIn:
+	case chargebee.EventTypeSubscriptionMovedIn:
 		if h.OnSubscriptionMovedIn != nil {
 			var e SubscriptionMovedInEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2432,7 +2432,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionMovedOut:
+	case chargebee.EventTypeSubscriptionMovedOut:
 		if h.OnSubscriptionMovedOut != nil {
 			var e SubscriptionMovedOutEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2443,7 +2443,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionMovementFailed:
+	case chargebee.EventTypeSubscriptionMovementFailed:
 		if h.OnSubscriptionMovementFailed != nil {
 			var e SubscriptionMovementFailedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2454,7 +2454,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionPauseScheduled:
+	case chargebee.EventTypeSubscriptionPauseScheduled:
 		if h.OnSubscriptionPauseScheduled != nil {
 			var e SubscriptionPauseScheduledEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2465,7 +2465,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionPaused:
+	case chargebee.EventTypeSubscriptionPaused:
 		if h.OnSubscriptionPaused != nil {
 			var e SubscriptionPausedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2476,7 +2476,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionRampApplied:
+	case chargebee.EventTypeSubscriptionRampApplied:
 		if h.OnSubscriptionRampApplied != nil {
 			var e SubscriptionRampAppliedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2487,7 +2487,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionRampCreated:
+	case chargebee.EventTypeSubscriptionRampCreated:
 		if h.OnSubscriptionRampCreated != nil {
 			var e SubscriptionRampCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2498,7 +2498,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionRampDeleted:
+	case chargebee.EventTypeSubscriptionRampDeleted:
 		if h.OnSubscriptionRampDeleted != nil {
 			var e SubscriptionRampDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2509,7 +2509,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionRampDrafted:
+	case chargebee.EventTypeSubscriptionRampDrafted:
 		if h.OnSubscriptionRampDrafted != nil {
 			var e SubscriptionRampDraftedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2520,7 +2520,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionRampUpdated:
+	case chargebee.EventTypeSubscriptionRampUpdated:
 		if h.OnSubscriptionRampUpdated != nil {
 			var e SubscriptionRampUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2531,7 +2531,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionReactivated:
+	case chargebee.EventTypeSubscriptionReactivated:
 		if h.OnSubscriptionReactivated != nil {
 			var e SubscriptionReactivatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2542,7 +2542,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionReactivatedWithBackdating:
+	case chargebee.EventTypeSubscriptionReactivatedWithBackdating:
 		if h.OnSubscriptionReactivatedWithBackdating != nil {
 			var e SubscriptionReactivatedWithBackdatingEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2553,7 +2553,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionRenewalReminder:
+	case chargebee.EventTypeSubscriptionRenewalReminder:
 		if h.OnSubscriptionRenewalReminder != nil {
 			var e SubscriptionRenewalReminderEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2564,7 +2564,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionRenewed:
+	case chargebee.EventTypeSubscriptionRenewed:
 		if h.OnSubscriptionRenewed != nil {
 			var e SubscriptionRenewedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2575,7 +2575,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionResumed:
+	case chargebee.EventTypeSubscriptionResumed:
 		if h.OnSubscriptionResumed != nil {
 			var e SubscriptionResumedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2586,7 +2586,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionResumptionScheduled:
+	case chargebee.EventTypeSubscriptionResumptionScheduled:
 		if h.OnSubscriptionResumptionScheduled != nil {
 			var e SubscriptionResumptionScheduledEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2597,7 +2597,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionScheduledCancellationRemoved:
+	case chargebee.EventTypeSubscriptionScheduledCancellationRemoved:
 		if h.OnSubscriptionScheduledCancellationRemoved != nil {
 			var e SubscriptionScheduledCancellationRemovedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2608,7 +2608,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionScheduledChangesRemoved:
+	case chargebee.EventTypeSubscriptionScheduledChangesRemoved:
 		if h.OnSubscriptionScheduledChangesRemoved != nil {
 			var e SubscriptionScheduledChangesRemovedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2619,7 +2619,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionScheduledPauseRemoved:
+	case chargebee.EventTypeSubscriptionScheduledPauseRemoved:
 		if h.OnSubscriptionScheduledPauseRemoved != nil {
 			var e SubscriptionScheduledPauseRemovedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2630,7 +2630,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionScheduledResumptionRemoved:
+	case chargebee.EventTypeSubscriptionScheduledResumptionRemoved:
 		if h.OnSubscriptionScheduledResumptionRemoved != nil {
 			var e SubscriptionScheduledResumptionRemovedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2641,7 +2641,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionShippingAddressUpdated:
+	case chargebee.EventTypeSubscriptionShippingAddressUpdated:
 		if h.OnSubscriptionShippingAddressUpdated != nil {
 			var e SubscriptionShippingAddressUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2652,7 +2652,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionStarted:
+	case chargebee.EventTypeSubscriptionStarted:
 		if h.OnSubscriptionStarted != nil {
 			var e SubscriptionStartedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2663,7 +2663,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionTrialEndReminder:
+	case chargebee.EventTypeSubscriptionTrialEndReminder:
 		if h.OnSubscriptionTrialEndReminder != nil {
 			var e SubscriptionTrialEndReminderEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2674,7 +2674,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeSubscriptionTrialExtended:
+	case chargebee.EventTypeSubscriptionTrialExtended:
 		if h.OnSubscriptionTrialExtended != nil {
 			var e SubscriptionTrialExtendedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2685,7 +2685,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeTaxWithheldDeleted:
+	case chargebee.EventTypeTaxWithheldDeleted:
 		if h.OnTaxWithheldDeleted != nil {
 			var e TaxWithheldDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2696,7 +2696,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeTaxWithheldRecorded:
+	case chargebee.EventTypeTaxWithheldRecorded:
 		if h.OnTaxWithheldRecorded != nil {
 			var e TaxWithheldRecordedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2707,7 +2707,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeTaxWithheldRefunded:
+	case chargebee.EventTypeTaxWithheldRefunded:
 		if h.OnTaxWithheldRefunded != nil {
 			var e TaxWithheldRefundedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2718,7 +2718,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeTokenConsumed:
+	case chargebee.EventTypeTokenConsumed:
 		if h.OnTokenConsumed != nil {
 			var e TokenConsumedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2729,7 +2729,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeTokenCreated:
+	case chargebee.EventTypeTokenCreated:
 		if h.OnTokenCreated != nil {
 			var e TokenCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2740,7 +2740,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeTokenExpired:
+	case chargebee.EventTypeTokenExpired:
 		if h.OnTokenExpired != nil {
 			var e TokenExpiredEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2751,7 +2751,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeTransactionCreated:
+	case chargebee.EventTypeTransactionCreated:
 		if h.OnTransactionCreated != nil {
 			var e TransactionCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2762,7 +2762,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeTransactionDeleted:
+	case chargebee.EventTypeTransactionDeleted:
 		if h.OnTransactionDeleted != nil {
 			var e TransactionDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2773,7 +2773,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeTransactionUpdated:
+	case chargebee.EventTypeTransactionUpdated:
 		if h.OnTransactionUpdated != nil {
 			var e TransactionUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2784,7 +2784,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeUnbilledChargesCreated:
+	case chargebee.EventTypeUnbilledChargesCreated:
 		if h.OnUnbilledChargesCreated != nil {
 			var e UnbilledChargesCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2795,7 +2795,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeUnbilledChargesDeleted:
+	case chargebee.EventTypeUnbilledChargesDeleted:
 		if h.OnUnbilledChargesDeleted != nil {
 			var e UnbilledChargesDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2806,7 +2806,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeUnbilledChargesInvoiced:
+	case chargebee.EventTypeUnbilledChargesInvoiced:
 		if h.OnUnbilledChargesInvoiced != nil {
 			var e UnbilledChargesInvoicedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2817,7 +2817,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeUnbilledChargesVoided:
+	case chargebee.EventTypeUnbilledChargesVoided:
 		if h.OnUnbilledChargesVoided != nil {
 			var e UnbilledChargesVoidedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2828,7 +2828,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeUsageFileIngested:
+	case chargebee.EventTypeUsageFileIngested:
 		if h.OnUsageFileIngested != nil {
 			var e UsageFileIngestedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2839,7 +2839,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeVariantCreated:
+	case chargebee.EventTypeVariantCreated:
 		if h.OnVariantCreated != nil {
 			var e VariantCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2850,7 +2850,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeVariantDeleted:
+	case chargebee.EventTypeVariantDeleted:
 		if h.OnVariantDeleted != nil {
 			var e VariantDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2861,7 +2861,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeVariantUpdated:
+	case chargebee.EventTypeVariantUpdated:
 		if h.OnVariantUpdated != nil {
 			var e VariantUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2872,7 +2872,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeVirtualBankAccountAdded:
+	case chargebee.EventTypeVirtualBankAccountAdded:
 		if h.OnVirtualBankAccountAdded != nil {
 			var e VirtualBankAccountAddedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2883,7 +2883,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeVirtualBankAccountDeleted:
+	case chargebee.EventTypeVirtualBankAccountDeleted:
 		if h.OnVirtualBankAccountDeleted != nil {
 			var e VirtualBankAccountDeletedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2894,7 +2894,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeVirtualBankAccountUpdated:
+	case chargebee.EventTypeVirtualBankAccountUpdated:
 		if h.OnVirtualBankAccountUpdated != nil {
 			var e VirtualBankAccountUpdatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2905,7 +2905,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeVoucherCreateFailed:
+	case chargebee.EventTypeVoucherCreateFailed:
 		if h.OnVoucherCreateFailed != nil {
 			var e VoucherCreateFailedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2916,7 +2916,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeVoucherCreated:
+	case chargebee.EventTypeVoucherCreated:
 		if h.OnVoucherCreated != nil {
 			var e VoucherCreatedEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2927,7 +2927,7 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case enum.EventTypeVoucherExpired:
+	case chargebee.EventTypeVoucherExpired:
 		if h.OnVoucherExpired != nil {
 			var e VoucherExpiredEvent
 			if err := json.Unmarshal(body, &e); err != nil {
@@ -2978,7 +2978,7 @@ func (h *WebhookHandler) handleError(w http.ResponseWriter, r *http.Request, err
 	http.Error(w, err.Error(), http.StatusInternalServerError)
 }
 
-func (h *WebhookHandler) handleUnhandledEvent(eventType enum.EventType, body []byte) error {
+func (h *WebhookHandler) handleUnhandledEvent(eventType chargebee.EventType, body []byte) error {
 	if h.OnUnhandledEvent != nil {
 		return h.OnUnhandledEvent(eventType, body)
 	}
