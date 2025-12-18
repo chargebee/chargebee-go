@@ -51,12 +51,14 @@ func Configure(key string, siteName string) {
 	}
 	DefaultEnv = Environment{Key: key, SiteName: siteName}
 }
+
 func WithHTTPClient(c *http.Client) {
 	if c.Timeout == 0 {
 		c.Timeout = TotalHTTPTimeout
 	}
 	httpClient = c
 }
+
 func WithRetryConfig(c *RetryConfig) {
 	DefaultEnv.RetryConfig = c
 }

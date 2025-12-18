@@ -77,6 +77,7 @@ func parseMap(aMap, serParams map[string]interface{}, prefix string, idx string,
 		}
 	}
 }
+
 func parseArray(anArray []interface{}, serParams map[string]interface{}, prefix string, idx string, paramTypes map[string]string) {
 	if paramTypes[camelCase(prefix)] == "[]map[string]interface {}" {
 		buf := new(bytes.Buffer)
@@ -147,6 +148,7 @@ func SerializeListParams(params interface{}) *url.Values {
 	return body
 
 }
+
 func parseMapListParams(aMap, serListParams map[string]interface{}, prefix string) {
 	for key, val := range aMap {
 		switch value := val.(type) {
@@ -209,24 +211,24 @@ func prepareResultCF(resbody []byte, v interface{}) {
 	}
 
 	// TODO: fix custom field json decoding with a CustomField = any type
-	for key, val := range m {
-		if key == "customer" {
-			v.(*Result).Customer.CustomField = customMapping(val)
-		} else if key == "subscription" {
-			v.(*Result).Subscription.CustomField = customMapping(val)
-		} else if key == "addon" {
-			v.(*Result).Addon.CustomField = customMapping(val)
-		} else if key == "plan" {
-			v.(*Result).Plan.CustomField = customMapping(val)
-		} else if key == "item" {
-			v.(*Result).Item.CustomField = customMapping(val)
-		} else if key == "item_price" {
-			v.(*Result).ItemPrice.CustomField = customMapping(val)
-		} else if key == "item_family" {
-			v.(*Result).ItemFamily.CustomField = customMapping(val)
-		}
+	// for key, val := range m {
+	// 	if key == "customer" {
+	// 		v.(*Result).Customer.CustomField = customMapping(val)
+	// 	} else if key == "subscription" {
+	// 		v.(*Result).Subscription.CustomField = customMapping(val)
+	// 	} else if key == "addon" {
+	// 		v.(*Result).Addon.CustomField = customMapping(val)
+	// 	} else if key == "plan" {
+	// 		v.(*Result).Plan.CustomField = customMapping(val)
+	// 	} else if key == "item" {
+	// 		v.(*Result).Item.CustomField = customMapping(val)
+	// 	} else if key == "item_price" {
+	// 		v.(*Result).ItemPrice.CustomField = customMapping(val)
+	// 	} else if key == "item_family" {
+	// 		v.(*Result).ItemFamily.CustomField = customMapping(val)
+	// 	}
 
-	}
+	// }
 
 }
 
@@ -237,26 +239,26 @@ func prepareResultListCF(resbody []byte, v interface{}) {
 	if err := data.Decode(&m); err != nil {
 		panic(err)
 	}
-	for index, val := range m["list"].([]interface{}) {
-		for key, value := range val.(map[string]interface{}) {
-			if key == "customer" {
-				v.(*ResultList).List[index].Customer.CustomField = customMapping(value)
-			} else if key == "subscription" {
-				v.(*ResultList).List[index].Subscription.CustomField = customMapping(value)
-			} else if key == "addon" {
-				v.(*ResultList).List[index].Addon.CustomField = customMapping(value)
-			} else if key == "plan" {
-				v.(*ResultList).List[index].Plan.CustomField = customMapping(value)
-			} else if key == "item" {
-				v.(*ResultList).List[index].Item.CustomField = customMapping(value)
-			} else if key == "item_price" {
-				v.(*ResultList).List[index].ItemPrice.CustomField = customMapping(value)
-			} else if key == "item_family" {
-				v.(*ResultList).List[index].ItemFamily.CustomField = customMapping(value)
-			}
+	// for index, val := range m["list"].([]interface{}) {
+	// 	for key, value := range val.(map[string]interface{}) {
+	// 		if key == "customer" {
+	// 			v.(*ResultList).List[index].Customer.CustomField = customMapping(value)
+	// 		} else if key == "subscription" {
+	// 			v.(*ResultList).List[index].Subscription.CustomField = customMapping(value)
+	// 		} else if key == "addon" {
+	// 			v.(*ResultList).List[index].Addon.CustomField = customMapping(value)
+	// 		} else if key == "plan" {
+	// 			v.(*ResultList).List[index].Plan.CustomField = customMapping(value)
+	// 		} else if key == "item" {
+	// 			v.(*ResultList).List[index].Item.CustomField = customMapping(value)
+	// 		} else if key == "item_price" {
+	// 			v.(*ResultList).List[index].ItemPrice.CustomField = customMapping(value)
+	// 		} else if key == "item_family" {
+	// 			v.(*ResultList).List[index].ItemFamily.CustomField = customMapping(value)
+	// 		}
 
-		}
-	}
+	// 	}
+	// }
 }
 
 // Bool returns a pointer to the bool value passed.

@@ -26,12 +26,15 @@ type Result struct {
 func (rl *ResultList) GetResponseHeaders() http.Header {
 	return rl.responseHeaders
 }
+
 func (rl *ResultList) GetHttpStatusCode() int {
 	return rl.httpStatusCode
 }
+
 func (r *Result) GetResponseHeaders() http.Header {
 	return r.responseHeaders
 }
+
 func (r *Result) GetHttpStatusCode() int {
 	return r.httpStatusCode
 }
@@ -43,15 +46,4 @@ func (r *Result) IsIdempotencyReplayed() bool {
 		return false
 	}
 	return replayed
-}
-
-type ResponseMeta struct {
-	Headers    http.Header
-	Status     string
-	StatusCode int
-}
-
-type CBResponse struct {
-	Body []byte
-	ResponseMeta
 }
