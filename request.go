@@ -16,10 +16,9 @@ import (
 	"github.com/google/uuid"
 )
 
-// Request represents a ChargebeeRequest to the Chargebee API.
-// It is embedded by other concrete ChargebeeRequest types like
-// AddonCreateRequest, CustomerUpdateRequest, etc
-type ChargebeeRequest[ReqType any, ResType responseSetter] struct {
+// apiRequest represents a typed request to the Chargebee API.
+// It is embedded by other concrete types like AddonCreateRequest, CustomerUpdateRequest, etc
+type apiRequest[ReqType requestWrapper[ReqType], ResType responseWrapper] struct {
 	requestParams *ReqType
 	urlParams     *url.Values
 	method        string
@@ -33,81 +32,103 @@ type ChargebeeRequest[ReqType any, ResType responseSetter] struct {
 	isListRequest bool
 }
 
-type BlankRequest struct{}
+type requestWrapper[T any] interface {
+	payload() T
+}
 
-func NewRequest[ReqType any, ResType responseSetter](method, path string, req *ReqType) *ChargebeeRequest[ReqType, ResType] {
-	return &ChargebeeRequest[ReqType, ResType]{
+type BlankRequest[ResType responseWrapper] struct {
+	apiRequest[BlankRequest[ResType], ResType]
+}
+
+func (r BlankRequest[ResType]) payload() BlankRequest[ResType] {
+	return r
+}
+
+func NewRequest[ReqType requestWrapper[ReqType], ResType responseWrapper](method, path string, req *ReqType) *apiRequest[ReqType, ResType] {
+	return &apiRequest[ReqType, ResType]{
 		requestParams: req,
 		method:        method,
 		path:          path,
 	}
 }
 
-func (r *ChargebeeRequest[ReqType, ResType]) prepare() error {
-	if r.isJsonRequest {
-		if r.requestParams != nil && strings.ToUpper(r.method) == "POST" {
+func NewBlankRequest[ResType responseWrapper]() *apiRequest[BlankRequest[ResType], ResType] {
+	return &apiRequest[BlankRequest[ResType], ResType]{
+		requestParams: &BlankRequest[ResType]{},
+	}
+}
+
+func (r *apiRequest[ReqType, ResType]) Bind(owner requestWrapper[ReqType]) {
+	payload := owner.payload()
+	r.requestParams = &payload
+}
+
+func (r *apiRequest[ReqType, ResType]) prepare() error {
+	if r.requestParams == nil {
+		return fmt.Errorf("requestParams not initialized")
+	}
+	// if request, ok := any(r).(requestWrapper[ReqType]); ok {
+	// 	payload := request.payload()
+	// 	if any(payload) != (&BlankRequest[ResType]{}) {
+	// 		r.requestParams = &payload
+	// 	}
+	// } else {
+	// 	return fmt.Errorf("cannot get payload from request")
+	// }
+
+	// if r.requestParams != nil && (any(*r.requestParams) != (BlankRequest[ResType]{})) {
+	if r.requestParams != nil {
+		if r.isJsonRequest && strings.ToUpper(r.method) == "POST" {
 			if jsonData, err := json.Marshal(r.requestParams); err != nil {
 				return fmt.Errorf("failed to marshal params: %w", err)
 			} else {
 				r.jsonBody = string(jsonData)
 			}
-		}
-	} else if r.isListRequest {
-		if r.requestParams != nil {
-			form := SerializeListParams(r.requestParams)
-			r.urlParams = form
-		}
-	} else {
-		if r.requestParams != nil {
-			form := SerializeParams(r.requestParams)
-			r.urlParams = form
+		} else if r.isListRequest {
+			r.urlParams = SerializeListParams(r.requestParams)
+		} else {
+			r.urlParams = SerializeParams(r.requestParams)
 		}
 	}
-
 	return nil
 }
 
-// AddParams add a new key-value pair to the RequestObj.Params.
-// This is used to add extra/custom_field params  in the request data.
-func (r *ChargebeeRequest[ReqType, ResType]) AddParam(key string, value string) {
+func (r *apiRequest[ReqType, ResType]) AddParam(key string, value string) {
 	if r.urlParams == nil {
 		r.urlParams = &url.Values{}
 	}
 	r.urlParams.Set(key, value)
 }
 
-func (r *ChargebeeRequest[ReqType, ResType]) AddHeader(key string, value string) {
+func (r *apiRequest[ReqType, ResType]) AddHeader(key string, value string) {
 	if r.headers == nil {
 		r.headers = &http.Header{}
 	}
 	r.headers.Add(key, value)
 }
 
-func (r *ChargebeeRequest[ReqType, ResType]) SetIdempotencyKey(idempotencyKey string) {
+func (r *apiRequest[ReqType, ResType]) SetIdempotencyKey(idempotencyKey string) {
 	r.AddHeader(IdempotencyHeader, idempotencyKey)
 }
 
-func (r *ChargebeeRequest[ReqType, ResType]) SetSubDomain(subDomain string) {
+func (r *apiRequest[ReqType, ResType]) SetSubDomain(subDomain string) {
 	r.subDomain = subDomain
 }
 
-func (r *ChargebeeRequest[ReqType, ResType]) SetIdempotency(idempotent bool) {
+func (r *apiRequest[ReqType, ResType]) SetIdempotency(idempotent bool) {
 	r.isIdempotent = idempotent
 }
 
-// Context used for request. It may carry deadlines, cancelation signals,
-// and other request-scoped values across API boundaries and between
-// processes.
-func (r *ChargebeeRequest[ReqType, ResType]) WithContext(ctx context.Context) {
+func (r *apiRequest[ReqType, ResType]) SetContext(ctx context.Context) {
 	r.context = ctx
 }
 
-func (r *ChargebeeRequest[ReqType, ResType]) Send(transport *Transport) (ResType, error) {
-	result, err := r.SendWithEnv(transport, DefaultConfig())
-	return *result, err
-}
+// func (r *ChargebeeRequest[ReqType, ResType]) Send() (ResType, error) {
+// 	result, err := r.SendWithEnv(DefaultConfig())
+// 	return *result, err
+// }
 
-func (r *ChargebeeRequest[ReqType, ResType]) SendWithEnv(transport *Transport, env Environment) (*ResType, error) {
+func (r *apiRequest[ReqType, ResType]) Send(cfg *ClientConfig) (*ResType, error) {
 	err := r.prepare()
 	if err != nil {
 		return nil, fmt.Errorf("failed to prepare request: %w", err)
@@ -115,35 +136,34 @@ func (r *ChargebeeRequest[ReqType, ResType]) SendWithEnv(transport *Transport, e
 	var body io.Reader
 	var path string
 
-	// Now use 'request' instead of 'req' for accessing fields
 	if r.isJsonRequest {
 		path, body = getJsonBody(r.method, r.path, r.jsonBody)
 	} else {
 		path, body = getBody(r.method, r.path, r.urlParams)
 	}
 
-	reqObj, err := newRequest(env, r.method, path, body, r.headers, r.subDomain, r.isJsonRequest)
+	reqObj, err := newRequest(cfg, r.method, path, body, r.headers, r.subDomain, r.isJsonRequest)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create new chargebee request: %w", err)
 	}
 
 	if r.context != nil {
-		reqObj = reqObj.WithContext(context.WithValue(r.context, cbEnvKey, env))
+		reqObj = reqObj.WithContext(context.WithValue(r.context, cbEnvKey, cfg))
 	} else {
-		reqObj = reqObj.WithContext(context.WithValue(reqObj.Context(), cbEnvKey, env))
+		reqObj = reqObj.WithContext(context.WithValue(reqObj.Context(), cbEnvKey, cfg))
 	}
 
-	res, requestError := Do(reqObj, r.isIdempotent)
+	res, requestError := Do(reqObj, r.isIdempotent, cfg)
 	result := new(ResType)
 	if requestError != nil {
 		return result, requestError
 	}
 
-	if err := UnmarshalJSON(res.Body, result); err != nil && res.StatusCode != http.StatusNoContent {
+	if err := UnmarshalJSON(res.body, result); err != nil && res.statusCode != http.StatusNoContent {
 		return result, err
 	}
 
-	// if resultWithResponseMeta, ok := result.(responseSetter); ok {
+	// if resultWithResponseMeta, ok := result.(response); ok {
 	// 	resultWithResponseMeta.SetResponseMeta(&ResponseMeta{
 	// 		Headers:    res.Headers,
 	// 		Status:     res.Status,
@@ -151,10 +171,11 @@ func (r *ChargebeeRequest[ReqType, ResType]) SendWithEnv(transport *Transport, e
 	// 	})
 	// }
 
-	(*result).SetResponseMeta(&ResponseMeta{
-		Headers:    res.Headers,
-		Status:     res.Status,
-		StatusCode: res.StatusCode,
+	(*result).SetMetadata(&apiResponse{
+		headers:    res.headers,
+		statusText: res.statusText,
+		statusCode: res.statusCode,
+		body:       res.body,
 	})
 
 	return result, requestError
@@ -164,25 +185,25 @@ func basicAuth(key string) string {
 	return base64.StdEncoding.EncodeToString([]byte(key))
 }
 
-func newRequest(env Environment, method string, path string, body io.Reader, headers *http.Header, subDomain string, isJsonRequest bool) (*http.Request, error) {
+func newRequest(cc *ClientConfig, method string, path string, body io.Reader, headers *http.Header, subDomain string, isJsonRequest bool) (*http.Request, error) {
 	if !strings.HasPrefix(path, "/") {
 		path = "/" + path
 	}
-	path = env.apiBaseUrl(subDomain) + path
+	path = cc.apiBaseUrl(subDomain) + path
 	httpReq, err := http.NewRequest(method, path, body)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create http request: %w", err)
 	}
-	addHeaders(httpReq, env, isJsonRequest)
+	addHeaders(httpReq, cc, isJsonRequest)
 	addCustomHeaders(httpReq, headers)
 	return httpReq, err
 }
 
-func addHeaders(httpReq *http.Request, env Environment, isJsonRequest bool) {
+func addHeaders(httpReq *http.Request, cc *ClientConfig, isJsonRequest bool) {
 	httpReq.Header.Add("Accept-Charset", Charset)
 	httpReq.Header.Add("Accept", "application/json")
 	httpReq.Header.Add("User-Agent", "ChargeBee-Go-Client v"+Version)
-	httpReq.Header.Add("Authorization", "Basic "+basicAuth(env.Key))
+	httpReq.Header.Add("Authorization", "Basic "+basicAuth(string(cc.ApiKey)))
 	httpReq.Header.Add("Lang-Version", runtime.Version())
 	httpReq.Header.Add("OS-Version", runtime.GOOS+" "+runtime.GOARCH)
 	if isJsonRequest {
@@ -193,9 +214,11 @@ func addHeaders(httpReq *http.Request, env Environment, isJsonRequest bool) {
 }
 
 func addCustomHeaders(httpReq *http.Request, headers *http.Header) {
-	for k, v := range *headers {
-		for _, vv := range v {
-			httpReq.Header.Add(k, vv)
+	if headers != nil {
+		for k, v := range *headers {
+			for _, vv := range v {
+				httpReq.Header.Add(k, vv)
+			}
 		}
 	}
 }

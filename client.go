@@ -1,33 +1,16 @@
 package chargebee
 
-import (
-	"net/http"
-)
-
-type Transport struct {
-	apiKey     string
-	apiUrl     string
-	httpClient *http.Client
-}
-
-func NewTransport(apiKey string) *Transport {
-	return &Transport{
-		apiKey:     apiKey,
-		apiUrl:     "https://api.chargebee.com",
-		httpClient: NewDefaultHTTPClient(),
-	}
-}
-
 type Client struct {
-	transport *Transport
+	config *ClientConfig
 
-	Addon *AddonService
+	// Addon   *AddonService
+	Address *AddressService
 }
 
-func NewClient(apiKey string) *Client {
-	transport := NewTransport(apiKey)
+func NewClient(config *ClientConfig) *Client {
 	return &Client{
-		transport: transport,
-		Addon:     &AddonService{transport: transport},
+		config: config,
+		// Addon:   &AddonService{config: config},
+		Address: &AddressService{config: config},
 	}
 }

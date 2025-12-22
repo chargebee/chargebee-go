@@ -14,38 +14,38 @@ import (
 	"time"
 )
 
-func Do(req *http.Request, isIdempotent bool) (*CBResponse, error) {
-	client := httpClient
+func Do(req *http.Request, isIdempotent bool, cfg *ClientConfig) (*apiResponse, error) {
+	client := cfg.HTTPClient
 	if client == nil {
 		client = &http.Client{Timeout: TotalHTTPTimeout}
 	}
 
-	env := DefaultEnv
-	if req.Context() != nil {
-		if v := req.Context().Value(cbEnvKey); v != nil {
-			if e, ok := v.(Environment); ok {
-				env = e
-			}
-		}
-	}
+	// env := DefaultEnv
+	// if req.Context() != nil {
+	// 	if v := req.Context().Value(cbEnvKey); v != nil {
+	// 		if e, ok := v.(ClientConfig); ok {
+	// 			env = e
+	// 		}
+	// 	}
+	// }
 
 	// Retry config defaults
 	retryEnabled := false
 	maxRetries := 3
 	delayMs := 500
 	retryOn := map[int]struct{}{500: {}, 502: {}, 503: {}, 504: {}}
-	enableDebug := env.EnableDebugLogs
+	enableDebug := cfg.EnableDebugLogs
 
-	if cfg := env.RetryConfig; cfg != nil {
-		retryEnabled = cfg.Enabled
-		if cfg.MaxRetries > 0 {
-			maxRetries = cfg.MaxRetries
+	if retryConfig := cfg.RetryConfig; retryConfig != nil {
+		retryEnabled = retryConfig.Enabled
+		if retryConfig.MaxRetries > 0 {
+			maxRetries = retryConfig.MaxRetries
 		}
-		if cfg.DelayMs > 0 {
-			delayMs = cfg.DelayMs
+		if retryConfig.DelayMs > 0 {
+			delayMs = retryConfig.DelayMs
 		}
-		if cfg.RetryOn != nil {
-			retryOn = cfg.RetryOn
+		if retryConfig.RetryOn != nil {
+			retryOn = retryConfig.RetryOn
 		}
 	}
 
@@ -59,7 +59,7 @@ func Do(req *http.Request, isIdempotent bool) (*CBResponse, error) {
 	}
 
 	var lastErr error
-	var cbResponse *CBResponse
+	var cbResponse *apiResponse
 
 	for attempt := 1; attempt <= maxRetries+1; attempt++ {
 		ensureRetryCountHeader(req, attempt)
@@ -95,13 +95,11 @@ func Do(req *http.Request, isIdempotent bool) (*CBResponse, error) {
 			return nil, err
 		}
 
-		cbResponse = &CBResponse{
-			ResponseMeta: ResponseMeta{
-				Headers:    resp.Header,
-				Status:     resp.Status,
-				StatusCode: resp.StatusCode,
-			},
-			Body: body,
+		cbResponse = &apiResponse{
+			headers:    resp.Header,
+			statusText: resp.Status,
+			statusCode: resp.StatusCode,
+			body:       body,
 		}
 
 		if resp.StatusCode < 200 || resp.StatusCode > 299 {
