@@ -7,6 +7,7 @@ import (
 )
 
 type ApiKey string
+
 type SiteName string
 
 type ClientConfig struct {

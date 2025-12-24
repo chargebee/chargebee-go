@@ -1,4 +1,4 @@
-module github.com/chargebee/chargebee-go/v3
+module github.com/chargebee/chargebee-go/v4
 
 go 1.18
 

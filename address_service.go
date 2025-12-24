@@ -1,17 +1,20 @@
 package chargebee
 
-import (
-	"fmt"
-)
-
 type AddressService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *AddressService) Retrieve(req *RetrieveRequest) Request {
-	return s.transport.Send("GET", fmt.Sprintf("/addresses"), req)
+func (s *AddressService) Retrieve(req *AddressRetrieveRequest) (*AddressRetrieveResponse, error) {
+	req.method = "GET"
+	req.path = "/addresses"
+	res, err := send[*AddressRetrieveResponse](req, s.config)
+	return *res, err
 }
 
-func (s *AddressService) Update(req *UpdateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/addresses"), req).SetIdempotency(true)
+func (s *AddressService) Update(req *AddressUpdateRequest) (*AddressUpdateResponse, error) {
+	req.method = "POST"
+	req.path = "/addresses"
+	req.SetIdempotency(true)
+	res, err := send[*AddressUpdateResponse](req, s.config)
+	return *res, err
 }

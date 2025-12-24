@@ -16,166 +16,123 @@ import (
 	"github.com/google/uuid"
 )
 
-// apiRequest represents a typed request to the Chargebee API.
+// apiRequest represents request metadata like headers, context, etc
 // It is embedded by other concrete types like AddonCreateRequest, CustomerUpdateRequest, etc
-type apiRequest[ReqType requestWrapper[ReqType], ResType responseWrapper] struct {
-	requestParams *ReqType
-	urlParams     *url.Values
-	method        string
-	path          string
-	headers       *http.Header
-	context       context.Context `form:"-" json:"-"`
-	subDomain     string
-	jsonBody      string
-	isJsonRequest bool
-	isIdempotent  bool
-	isListRequest bool
+type apiRequest struct {
+	method    string          `json:"-" form:"-"`
+	path      string          `json:"-" form:"-"`
+	headers   *http.Header    `json:"-" form:"-"`
+	context   context.Context `json:"-" form:"-"`
+	subDomain string          `json:"-" form:"-"`
+	// request payload for all url encoded requests
+	urlParams *url.Values `json:"-" form:"-"`
+	// request payload for json requests
+	jsonBody      string `json:"-" form:"-"`
+	isJsonRequest bool   `json:"-" form:"-"`
+	isListRequest bool   `json:"-" form:"-"`
+	isIdempotent  bool   `json:"-" form:"-"`
 }
 
-type requestWrapper[T any] interface {
-	payload() T
+type requestWrapper interface {
+	request() *apiRequest
+	payload() any
 }
 
-type BlankRequest[ResType responseWrapper] struct {
-	apiRequest[BlankRequest[ResType], ResType]
-}
-
-func (r BlankRequest[ResType]) payload() BlankRequest[ResType] {
+func (r *apiRequest) request() *apiRequest {
 	return r
 }
 
-func NewRequest[ReqType requestWrapper[ReqType], ResType responseWrapper](method, path string, req *ReqType) *apiRequest[ReqType, ResType] {
-	return &apiRequest[ReqType, ResType]{
-		requestParams: req,
-		method:        method,
-		path:          path,
-	}
-}
-
-func NewBlankRequest[ResType responseWrapper]() *apiRequest[BlankRequest[ResType], ResType] {
-	return &apiRequest[BlankRequest[ResType], ResType]{
-		requestParams: &BlankRequest[ResType]{},
-	}
-}
-
-func (r *apiRequest[ReqType, ResType]) Bind(owner requestWrapper[ReqType]) {
-	payload := owner.payload()
-	r.requestParams = &payload
-}
-
-func (r *apiRequest[ReqType, ResType]) prepare() error {
-	if r.requestParams == nil {
-		return fmt.Errorf("requestParams not initialized")
-	}
-	// if request, ok := any(r).(requestWrapper[ReqType]); ok {
-	// 	payload := request.payload()
-	// 	if any(payload) != (&BlankRequest[ResType]{}) {
-	// 		r.requestParams = &payload
-	// 	}
-	// } else {
-	// 	return fmt.Errorf("cannot get payload from request")
-	// }
-
-	// if r.requestParams != nil && (any(*r.requestParams) != (BlankRequest[ResType]{})) {
-	if r.requestParams != nil {
-		if r.isJsonRequest && strings.ToUpper(r.method) == "POST" {
-			if jsonData, err := json.Marshal(r.requestParams); err != nil {
-				return fmt.Errorf("failed to marshal params: %w", err)
-			} else {
-				r.jsonBody = string(jsonData)
-			}
-		} else if r.isListRequest {
-			r.urlParams = SerializeListParams(r.requestParams)
-		} else {
-			r.urlParams = SerializeParams(r.requestParams)
-		}
-	}
-	return nil
-}
-
-func (r *apiRequest[ReqType, ResType]) AddParam(key string, value string) {
+func (r *apiRequest) AddParam(key string, value string) {
 	if r.urlParams == nil {
 		r.urlParams = &url.Values{}
 	}
 	r.urlParams.Set(key, value)
 }
 
-func (r *apiRequest[ReqType, ResType]) AddHeader(key string, value string) {
+func (r *apiRequest) AddHeader(key string, value string) {
 	if r.headers == nil {
 		r.headers = &http.Header{}
 	}
 	r.headers.Add(key, value)
 }
 
-func (r *apiRequest[ReqType, ResType]) SetIdempotencyKey(idempotencyKey string) {
+func (r *apiRequest) SetIdempotencyKey(idempotencyKey string) {
 	r.AddHeader(IdempotencyHeader, idempotencyKey)
 }
 
-func (r *apiRequest[ReqType, ResType]) SetSubDomain(subDomain string) {
+func (r *apiRequest) SetSubDomain(subDomain string) {
 	r.subDomain = subDomain
 }
 
-func (r *apiRequest[ReqType, ResType]) SetIdempotency(idempotent bool) {
+func (r *apiRequest) SetIdempotency(idempotent bool) {
 	r.isIdempotent = idempotent
 }
 
-func (r *apiRequest[ReqType, ResType]) SetContext(ctx context.Context) {
+func (r *apiRequest) SetContext(ctx context.Context) {
 	r.context = ctx
 }
 
-// func (r *ChargebeeRequest[ReqType, ResType]) Send() (ResType, error) {
-// 	result, err := r.SendWithEnv(DefaultConfig())
-// 	return *result, err
-// }
-
-func (r *apiRequest[ReqType, ResType]) Send(cfg *ClientConfig) (*ResType, error) {
-	err := r.prepare()
-	if err != nil {
-		return nil, fmt.Errorf("failed to prepare request: %w", err)
+func (r *apiRequest) prepare(payload any) error {
+	if r == nil {
+		return fmt.Errorf("request is nil")
 	}
+	if payload != nil {
+		if r.isJsonRequest && strings.ToUpper(r.method) == "POST" {
+			if jsonData, err := json.Marshal(payload); err != nil {
+				return fmt.Errorf("failed to marshal payload: %w", err)
+			} else {
+				r.jsonBody = string(jsonData)
+			}
+		} else if r.isListRequest {
+			r.urlParams = SerializeListParams(payload)
+		} else {
+			r.urlParams = SerializeParams(payload)
+		}
+	}
+	return nil
+}
+
+func send[ResType responseWrapper](rw requestWrapper, cfg *ClientConfig) (*ResType, error) {
+	req := rw.request()
+	if err := req.prepare(rw.payload()); err != nil {
+		return nil, fmt.Errorf("failed to prepare request for sending: %w", err)
+	}
+
 	var body io.Reader
 	var path string
 
-	if r.isJsonRequest {
-		path, body = getJsonBody(r.method, r.path, r.jsonBody)
+	if req.isJsonRequest {
+		path, body = getJsonBody(req.method, req.path, req.jsonBody)
 	} else {
-		path, body = getBody(r.method, r.path, r.urlParams)
+		path, body = getBody(req.method, req.path, req.urlParams)
 	}
 
-	reqObj, err := newRequest(cfg, r.method, path, body, r.headers, r.subDomain, r.isJsonRequest)
+	reqObj, err := newRequest(cfg, req.method, path, body, req.headers, req.subDomain, req.isJsonRequest)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create new chargebee request: %w", err)
 	}
 
-	if r.context != nil {
-		reqObj = reqObj.WithContext(context.WithValue(r.context, cbEnvKey, cfg))
+	if req.context != nil {
+		reqObj = reqObj.WithContext(context.WithValue(req.context, cbEnvKey, cfg))
 	} else {
 		reqObj = reqObj.WithContext(context.WithValue(reqObj.Context(), cbEnvKey, cfg))
 	}
 
-	res, requestError := Do(reqObj, r.isIdempotent, cfg)
+	res, requestError := Do(reqObj, req.isIdempotent, cfg)
 	result := new(ResType)
 	if requestError != nil {
 		return result, requestError
 	}
 
-	if err := UnmarshalJSON(res.body, result); err != nil && res.statusCode != http.StatusNoContent {
+	if err := json.Unmarshal(res.Body, result); err != nil && res.StatusCode != http.StatusNoContent {
 		return result, err
 	}
 
-	// if resultWithResponseMeta, ok := result.(response); ok {
-	// 	resultWithResponseMeta.SetResponseMeta(&ResponseMeta{
-	// 		Headers:    res.Headers,
-	// 		Status:     res.Status,
-	// 		StatusCode: res.StatusCode,
-	// 	})
-	// }
-
-	(*result).SetMetadata(&apiResponse{
-		headers:    res.headers,
-		statusText: res.statusText,
-		statusCode: res.statusCode,
-		body:       res.body,
+	(*result).setMeta(&apiResponse{
+		Headers:    res.Headers,
+		StatusText: res.StatusText,
+		StatusCode: res.StatusCode,
+		Body:       res.Body,
 	})
 
 	return result, requestError
@@ -231,16 +188,6 @@ func ensureIdempotencyKey(req *http.Request, isIdempotent bool) {
 
 func ensureRetryCountHeader(req *http.Request, attempt int) {
 	req.Header.Set("X-CB-Retry-Attempt", strconv.Itoa(attempt))
-}
-
-// UnmarshalJSON is used to unmarshal the response to Result / ResultList struct.
-func UnmarshalJSON(response []byte, result interface{}) error {
-	err := json.Unmarshal(response, result)
-	if err != nil {
-		return err
-	}
-	customFieldExtraction(result, response)
-	return nil
 }
 
 // GetMap is used to unmarshal the json.RawMessage to map[string]interface{}.

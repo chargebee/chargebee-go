@@ -96,10 +96,10 @@ func Do(req *http.Request, isIdempotent bool, cfg *ClientConfig) (*apiResponse, 
 		}
 
 		cbResponse = &apiResponse{
-			headers:    resp.Header,
-			statusText: resp.Status,
-			statusCode: resp.StatusCode,
-			body:       body,
+			Headers:    resp.Header,
+			StatusText: resp.Status,
+			StatusCode: resp.StatusCode,
+			Body:       body,
 		}
 
 		if resp.StatusCode < 200 || resp.StatusCode > 299 {

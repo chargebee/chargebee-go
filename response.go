@@ -3,26 +3,21 @@ package chargebee
 import "net/http"
 
 type responseWrapper interface {
-	SetMetadata(meta *apiResponse)
-	Meta() *apiResponse
+	setMeta(meta *apiResponse)
 }
 
 type apiResponse struct {
-	headers    http.Header
-	statusText string
-	statusCode int
-	body       []byte
+	Headers    http.Header
+	StatusText string
+	StatusCode int
+	Body       []byte
 }
 
-func (r *apiResponse) Meta() *apiResponse {
-
-}
-
-func (r *apiResponse) SetMetadata(rm *apiResponse) {
-	r.headers = rm.headers
-	r.statusText = rm.statusText
-	r.statusCode = rm.statusCode
-	r.body = rm.body
+func (r *apiResponse) setMeta(meta *apiResponse) {
+	r.Headers = meta.Headers
+	r.StatusText = meta.StatusText
+	r.StatusCode = meta.StatusCode
+	r.Body = meta.Body
 }
 
 type UnknownResponse struct {

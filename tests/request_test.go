@@ -54,7 +54,7 @@ func TestDo_RetryOn503(t *testing.T) {
 	defer server.Close()
 
 	req, _ := http.NewRequest("GET", server.URL, nil)
-	ctx := chargebee.WithEnvironment(req.Context(), chargebee.Environment{
+	ctx := chargebee.WithEnvironment(req.Context(), chargebee.ClientConfig{
 		RetryConfig: &chargebee.RetryConfig{
 			Enabled:    true,
 			MaxRetries: 2,
@@ -93,7 +93,7 @@ func TestDo_RetryAfterHeader(t *testing.T) {
 	defer server.Close()
 
 	req, _ := http.NewRequest("GET", server.URL, nil)
-	ctx := chargebee.WithEnvironment(req.Context(), chargebee.Environment{
+	ctx := chargebee.WithEnvironment(req.Context(), chargebee.ClientConfig{
 		RetryConfig: &chargebee.RetryConfig{
 			Enabled:    true,
 			MaxRetries: 2,
@@ -128,7 +128,7 @@ func TestDo_RetryDisabled(t *testing.T) {
 	defer server.Close()
 
 	req, _ := http.NewRequest("GET", server.URL, nil)
-	ctx := chargebee.WithEnvironment(req.Context(), chargebee.Environment{
+	ctx := chargebee.WithEnvironment(req.Context(), chargebee.ClientConfig{
 		RetryConfig: &chargebee.RetryConfig{
 			Enabled:    false,
 			MaxRetries: 5,
@@ -161,7 +161,7 @@ func TestRequestWithEnv_RetryOverride(t *testing.T) {
 	}
 	chargebee.WithHTTPClient(mockClient)
 
-	env := chargebee.Environment{
+	env := chargebee.ClientConfig{
 		Key:      "test_key",
 		SiteName: "test_site",
 		RetryConfig: &chargebee.RetryConfig{

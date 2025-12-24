@@ -1,44 +1,95 @@
 package chargebee
 
 import (
+	"net/url"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
-type testRequestWithPayload struct {
-	ID                                                string `json:"id"`
-	apiRequest[testRequestWithPayload, *testResponse] `json:"-"`
-}
+func TestPrepareJsonRequest(t *testing.T) {
+	type testRequest struct {
+		ID         string `json:"id"`
+		apiRequest `json:"-"`
+	}
 
-type testResponse struct {
-	ID          string
-	Name        string
-	Description string
-	apiResponse `json:"-"`
-}
-
-func (r testRequestWithPayload) payload() testRequestWithPayload { return r }
-
-func TestPrepareRequestParams(t *testing.T) {
-	req := testRequestWithPayload{
+	req := testRequest{
 		ID: "123",
 	}
-	req.isJsonRequest = true
 	req.method = "POST"
-	req.Bind(req)
-	t.Logf("req: %+v", req.payload())
+	req.isJsonRequest = true
 
-	err := req.prepare()
+	err := req.prepare(req)
 	assert.NoError(t, err)
-	assert.NotEqual(t, nil, req.requestParams)
+	assert.Nil(t, req.urlParams)
 	assert.Equal(t, `{"id":"123"}`, req.jsonBody)
 }
+func TestPrepareListRequest(t *testing.T) {
+	type testRequest struct {
+		Limit      *int32        `json:"limit,omitempty"`
+		Offset     string        `json:"offset,omitempty"`
+		Name       *StringFilter `json:"name,omitempty"`
+		apiRequest `json:"-"`
+	}
 
-func TestPrepareBlankRequestParams(t *testing.T) {
-	req := NewBlankRequest[*testResponse]()
+	req := &testRequest{
+		Limit:  Int32(10),
+		Offset: "100",
+		Name: &StringFilter{
+			StartsWith: "test",
+		},
+	}
+	req.method = "GET"
+	req.isListRequest = true
 
-	err := req.prepare()
+	err := req.prepare(req)
 	assert.NoError(t, err)
-	assert.NotEqual(t, nil, req.requestParams)
+	assert.Equal(t, &url.Values{
+		"limit":             {"10"},
+		"name[starts_with]": {"test"},
+		"offset":            {"100"},
+	}, req.urlParams)
+}
+
+func TestPrepareRequest(t *testing.T) {
+	type testRequest struct {
+		Limit      *int32        `json:"limit,omitempty"`
+		Offset     string        `json:"offset,omitempty"`
+		Name       *StringFilter `json:"name,omitempty"`
+		apiRequest `json:"-"`
+	}
+
+	req := &testRequest{
+		Limit:  Int32(10),
+		Offset: "100",
+		Name: &StringFilter{
+			StartsWith: "test",
+		},
+	}
+	req.method = "GET"
+
+	err := req.prepare(req)
+	assert.NoError(t, err)
+	assert.Equal(t, &url.Values{
+		"limit":             {"10"},
+		"name[starts_with]": {"test"},
+		"offset":            {"100"},
+	}, req.urlParams)
+}
+
+func TestPrepareNilRequest(t *testing.T) {
+	type testRequest struct {
+		Limit      *int32        `json:"limit,omitempty"`
+		Offset     string        `json:"offset,omitempty"`
+		Name       *StringFilter `json:"name,omitempty"`
+		apiRequest `json:"-"`
+	}
+
+	req := &testRequest{}
+	req.method = "GET"
+
+	err := req.prepare(nil)
+	assert.NoError(t, err)
+	assert.Nil(t, req.urlParams)
+	assert.Equal(t, "", req.jsonBody)
 }
