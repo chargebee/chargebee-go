@@ -6,33 +6,56 @@ import (
 )
 
 type AddonService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *AddonService) Create(req *CreateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/addons"), req).SetIdempotency(true)
+func (s *AddonService) Create(req *AddonCreateRequest) (*AddonCreateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/addons")
+	req.isIdempotent = true
+	return send[*AddonCreateResponse](req, s.config)
 }
 
-func (s *AddonService) Update(id string, req *UpdateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/addons/%v", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *AddonService) Update(id string, req *AddonUpdateRequest) (*AddonUpdateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/addons/%v", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*AddonUpdateResponse](req, s.config)
 }
 
-func (s *AddonService) List(req *ListRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/addons"), req)
+func (s *AddonService) List(req *AddonListRequest) (*AddonListResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/addons")
+	req.isListRequest = true
+	return send[*AddonListResponse](req, s.config)
 }
 
-func (s *AddonService) Retrieve(id string) Request {
-	return s.transport.Send("GET", fmt.Sprintf("/addons/%v", url.PathEscape(id)), nil)
+func (s *AddonService) Retrieve(id string) (*AddonRetrieveResponse, error) {
+	req := &BlankRequest{}
+	req.method = "GET"
+	req.path = fmt.Sprintf("/addons/%v", url.PathEscape(id))
+	return send[*AddonRetrieveResponse](req, s.config)
 }
 
-func (s *AddonService) Delete(id string) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/addons/%v/delete", url.PathEscape(id)), nil).SetIdempotency(true)
+func (s *AddonService) Delete(id string) (*AddonDeleteResponse, error) {
+	req := &BlankRequest{}
+	req.method = "POST"
+	req.path = fmt.Sprintf("/addons/%v/delete", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*AddonDeleteResponse](req, s.config)
 }
 
-func (s *AddonService) Copy(req *CopyRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/addons/copy"), req).SetIdempotency(true)
+func (s *AddonService) Copy(req *AddonCopyRequest) (*AddonCopyResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/addons/copy")
+	req.isIdempotent = true
+	return send[*AddonCopyResponse](req, s.config)
 }
 
-func (s *AddonService) Unarchive(id string) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/addons/%v/unarchive", url.PathEscape(id)), nil).SetIdempotency(true)
+func (s *AddonService) Unarchive(id string) (*AddonUnarchiveResponse, error) {
+	req := &BlankRequest{}
+	req.method = "POST"
+	req.path = fmt.Sprintf("/addons/%v/unarchive", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*AddonUnarchiveResponse](req, s.config)
 }

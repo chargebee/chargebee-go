@@ -1,111 +1,148 @@
 package chargebee
 
-type Status string
+type FeatureStatus string
 
 const (
-	StatusActive   Status = "active"
-	StatusArchived Status = "archived"
-	StatusDraft    Status = "draft"
+	FeatureStatusActive   FeatureStatus = "active"
+	FeatureStatusArchived FeatureStatus = "archived"
+	FeatureStatusDraft    FeatureStatus = "draft"
 )
 
-type Type string
+type FeatureType string
 
 const (
-	TypeSwitch   Type = "switch"
-	TypeCustom   Type = "custom"
-	TypeQuantity Type = "quantity"
-	TypeRange    Type = "range"
+	FeatureTypeSwitch   FeatureType = "switch"
+	FeatureTypeCustom   FeatureType = "custom"
+	FeatureTypeQuantity FeatureType = "quantity"
+	FeatureTypeRange    FeatureType = "range"
 )
 
+// just struct
 type Feature struct {
-	Id              string                 `json:"id"`
-	Name            string                 `json:"name"`
-	Description     string                 `json:"description"`
-	Status          Status                 `json:"status"`
-	Type            Type                   `json:"type"`
-	Unit            string                 `json:"unit"`
-	ResourceVersion int64                  `json:"resource_version"`
-	UpdatedAt       int64                  `json:"updated_at"`
-	CreatedAt       int64                  `json:"created_at"`
-	Levels          []*Level               `json:"levels"`
-	CustomField     map[string]interface{} `json:"custom_field"`
-	Object          string                 `json:"object"`
+	Id              string          `json:"id"`
+	Name            string          `json:"name"`
+	Description     string          `json:"description"`
+	Status          FeatureStatus   `json:"status"`
+	Type            FeatureType     `json:"type"`
+	Unit            string          `json:"unit"`
+	ResourceVersion int64           `json:"resource_version"`
+	UpdatedAt       int64           `json:"updated_at"`
+	CreatedAt       int64           `json:"created_at"`
+	Levels          []*FeatureLevel `json:"levels"`
+	CustomField     CustomField     `json:"custom_field"`
+	Object          string          `json:"object"`
 }
-type Level struct {
+
+// sub resources
+type FeatureLevel struct {
 	Name        string `json:"name"`
 	Value       string `json:"value"`
 	Level       int32  `json:"level"`
 	IsUnlimited bool   `json:"is_unlimited"`
 	Object      string `json:"object"`
 }
-type ListRequest struct {
-	Limit  *int32               `json:"limit,omitempty"`
-	Offset string               `json:"offset,omitempty"`
-	Name   *filter.StringFilter `json:"name,omitempty"`
-	Id     *filter.StringFilter `json:"id,omitempty"`
-	Status *filter.EnumFilter   `json:"status,omitempty"`
-	Type   *filter.EnumFilter   `json:"type,omitempty"`
+
+// operations
+// input params
+type FeatureListRequest struct {
+	Limit      *int32        `json:"limit,omitempty"`
+	Offset     string        `json:"offset,omitempty"`
+	Name       *StringFilter `json:"name,omitempty"`
+	Id         *StringFilter `json:"id,omitempty"`
+	Status     *EnumFilter   `json:"status,omitempty"`
+	Type       *EnumFilter   `json:"type,omitempty"`
+	apiRequest `json:"-" form:"-"`
 }
-type CreateRequest struct {
-	Id          string         `json:"id,omitempty"`
-	Name        string         `json:"name"`
-	Description string         `json:"description,omitempty"`
-	Type        Type           `json:"type,omitempty"`
-	Unit        string         `json:"unit,omitempty"`
-	Levels      []*CreateLevel `json:"levels,omitempty"`
+
+func (r *FeatureListRequest) payload() any { return r }
+
+type FeatureCreateRequest struct {
+	Id          string                `json:"id,omitempty"`
+	Name        string                `json:"name"`
+	Description string                `json:"description,omitempty"`
+	Type        FeatureType           `json:"type,omitempty"`
+	Unit        string                `json:"unit,omitempty"`
+	Levels      []*FeatureCreateLevel `json:"levels,omitempty"`
+	apiRequest  `json:"-" form:"-"`
 }
-type CreateLevel struct {
+
+func (r *FeatureCreateRequest) payload() any { return r }
+
+// input sub resource params multi
+type FeatureCreateLevel struct {
 	Name        string `json:"name,omitempty"`
 	Value       string `json:"value,omitempty"`
 	IsUnlimited *bool  `json:"is_unlimited,omitempty"`
 	Level       *int32 `json:"level,omitempty"`
 }
-type UpdateRequest struct {
-	Name        string         `json:"name,omitempty"`
-	Description string         `json:"description,omitempty"`
-	Unit        string         `json:"unit,omitempty"`
-	Levels      []*UpdateLevel `json:"levels,omitempty"`
+type FeatureUpdateRequest struct {
+	Name        string                `json:"name,omitempty"`
+	Description string                `json:"description,omitempty"`
+	Unit        string                `json:"unit,omitempty"`
+	Levels      []*FeatureUpdateLevel `json:"levels,omitempty"`
+	apiRequest  `json:"-" form:"-"`
 }
-type UpdateLevel struct {
+
+func (r *FeatureUpdateRequest) payload() any { return r }
+
+// input sub resource params multi
+type FeatureUpdateLevel struct {
 	Name        string `json:"name,omitempty"`
 	Value       string `json:"value,omitempty"`
 	IsUnlimited *bool  `json:"is_unlimited,omitempty"`
 	Level       *int32 `json:"level,omitempty"`
 }
 
-type ListFeatureResponse struct {
+// operation sub response
+type FeatureListFeatureResponse struct {
 	Feature *Feature `json:"feature,omitempty"`
 }
 
-type ListResponse struct {
-	List       []*ListFeatureResponse `json:"list,omitempty"`
-	NextOffset string                 `json:"next_offset,omitempty"`
+// operation response
+type FeatureListResponse struct {
+	List       []*FeatureListFeatureResponse `json:"list,omitempty"`
+	NextOffset string                        `json:"next_offset,omitempty"`
+	apiResponse
 }
 
-type CreateResponse struct {
+// operation response
+type FeatureCreateResponse struct {
 	Feature *Feature `json:"feature,omitempty"`
+	apiResponse
 }
 
-type UpdateResponse struct {
+// operation response
+type FeatureUpdateResponse struct {
 	Feature *Feature `json:"feature,omitempty"`
+	apiResponse
 }
 
-type RetrieveResponse struct {
+// operation response
+type FeatureRetrieveResponse struct {
 	Feature *Feature `json:"feature,omitempty"`
+	apiResponse
 }
 
-type DeleteResponse struct {
+// operation response
+type FeatureDeleteResponse struct {
 	Feature *Feature `json:"feature,omitempty"`
+	apiResponse
 }
 
-type ActivateResponse struct {
+// operation response
+type FeatureActivateResponse struct {
 	Feature *Feature `json:"feature,omitempty"`
+	apiResponse
 }
 
-type ArchiveResponse struct {
+// operation response
+type FeatureArchiveResponse struct {
 	Feature *Feature `json:"feature,omitempty"`
+	apiResponse
 }
 
-type ReactivateResponse struct {
+// operation response
+type FeatureReactivateResponse struct {
 	Feature *Feature `json:"feature,omitempty"`
+	apiResponse
 }

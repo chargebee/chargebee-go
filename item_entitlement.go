@@ -1,76 +1,113 @@
 package chargebee
 
-type ItemType string
+type ItemEntitlementItemType string
 
 const (
-	ItemTypePlan         ItemType = "plan"
-	ItemTypeAddon        ItemType = "addon"
-	ItemTypeCharge       ItemType = "charge"
-	ItemTypeSubscription ItemType = "subscription"
-	ItemTypeItem         ItemType = "item"
+	ItemEntitlementItemTypePlan         ItemEntitlementItemType = "plan"
+	ItemEntitlementItemTypeAddon        ItemEntitlementItemType = "addon"
+	ItemEntitlementItemTypeCharge       ItemEntitlementItemType = "charge"
+	ItemEntitlementItemTypeSubscription ItemEntitlementItemType = "subscription"
+	ItemEntitlementItemTypeItem         ItemEntitlementItemType = "item"
 )
 
+type ItemEntitlementAction string
+
+const (
+	ItemEntitlementActionUpsert ItemEntitlementAction = "upsert"
+	ItemEntitlementActionRemove ItemEntitlementAction = "remove"
+)
+
+// just struct
 type ItemEntitlement struct {
-	Id          string   `json:"id"`
-	ItemId      string   `json:"item_id"`
-	ItemType    ItemType `json:"item_type"`
-	FeatureId   string   `json:"feature_id"`
-	FeatureName string   `json:"feature_name"`
-	Value       string   `json:"value"`
-	Name        string   `json:"name"`
-	Object      string   `json:"object"`
+	Id          string                  `json:"id"`
+	ItemId      string                  `json:"item_id"`
+	ItemType    ItemEntitlementItemType `json:"item_type"`
+	FeatureId   string                  `json:"feature_id"`
+	FeatureName string                  `json:"feature_name"`
+	Value       string                  `json:"value"`
+	Name        string                  `json:"name"`
+	Object      string                  `json:"object"`
 }
-type ItemEntitlementsForItemRequest struct {
-	Limit         *int32 `json:"limit,omitempty"`
-	Offset        string `json:"offset,omitempty"`
-	IncludeDrafts *bool  `json:"include_drafts,omitempty"`
-	Embed         string `json:"embed,omitempty"`
+
+// sub resources
+// operations
+// input params
+type ItemEntitlementItemEntitlementsForItemRequest struct {
+	Limit      *int32 `json:"limit,omitempty"`
+	Offset     string `json:"offset,omitempty"`
+	apiRequest `json:"-" form:"-"`
 }
-type ItemEntitlementsForFeatureRequest struct {
-	Limit         *int32 `json:"limit,omitempty"`
-	Offset        string `json:"offset,omitempty"`
-	IncludeDrafts *bool  `json:"include_drafts,omitempty"`
+
+func (r *ItemEntitlementItemEntitlementsForItemRequest) payload() any { return r }
+
+type ItemEntitlementItemEntitlementsForFeatureRequest struct {
+	Limit      *int32 `json:"limit,omitempty"`
+	Offset     string `json:"offset,omitempty"`
+	apiRequest `json:"-" form:"-"`
 }
-type AddItemEntitlementsRequest struct {
-	Action           enum.Action                           `json:"action"`
-	ItemEntitlements []*AddItemEntitlementsItemEntitlement `json:"item_entitlements,omitempty"`
+
+func (r *ItemEntitlementItemEntitlementsForFeatureRequest) payload() any { return r }
+
+type ItemEntitlementAddItemEntitlementsRequest struct {
+	Action           ItemEntitlementAction                                `json:"action"`
+	ItemEntitlements []*ItemEntitlementAddItemEntitlementsItemEntitlement `json:"item_entitlements,omitempty"`
+	apiRequest       `json:"-" form:"-"`
 }
-type AddItemEntitlementsItemEntitlement struct {
-	ItemId   string                   `json:"item_id"`
-	ItemType itemEntitlement.ItemType `json:"item_type,omitempty"`
-	Value    string                   `json:"value,omitempty"`
+
+func (r *ItemEntitlementAddItemEntitlementsRequest) payload() any { return r }
+
+// input sub resource params multi
+type ItemEntitlementAddItemEntitlementsItemEntitlement struct {
+	ItemId   string   `json:"item_id"`
+	ItemType ItemType `json:"item_type,omitempty"`
+	Value    string   `json:"value,omitempty"`
 }
-type UpsertOrRemoveItemEntitlementsForItemRequest struct {
-	Action           enum.Action                                             `json:"action"`
-	ItemEntitlements []*UpsertOrRemoveItemEntitlementsForItemItemEntitlement `json:"item_entitlements,omitempty"`
+type ItemEntitlementUpsertOrRemoveItemEntitlementsForItemRequest struct {
+	Action           ItemEntitlementAction                                                  `json:"action"`
+	ItemEntitlements []*ItemEntitlementUpsertOrRemoveItemEntitlementsForItemItemEntitlement `json:"item_entitlements,omitempty"`
+	apiRequest       `json:"-" form:"-"`
 }
-type UpsertOrRemoveItemEntitlementsForItemItemEntitlement struct {
+
+func (r *ItemEntitlementUpsertOrRemoveItemEntitlementsForItemRequest) payload() any { return r }
+
+// input sub resource params multi
+type ItemEntitlementUpsertOrRemoveItemEntitlementsForItemItemEntitlement struct {
 	FeatureId string `json:"feature_id"`
 	Value     string `json:"value,omitempty"`
 }
 
-type ItemEntitlementsForItemItemEntitlementResponse struct {
+// operation sub response
+type ItemEntitlementItemEntitlementsForItemItemEntitlementResponse struct {
 	ItemEntitlement *ItemEntitlement `json:"item_entitlement,omitempty"`
 }
 
-type ItemEntitlementsForItemResponse struct {
-	List       []*ItemEntitlementsForItemItemEntitlementResponse `json:"list,omitempty"`
-	NextOffset string                                            `json:"next_offset,omitempty"`
+// operation response
+type ItemEntitlementItemEntitlementsForItemResponse struct {
+	List       []*ItemEntitlementItemEntitlementsForItemItemEntitlementResponse `json:"list,omitempty"`
+	NextOffset string                                                           `json:"next_offset,omitempty"`
+	apiResponse
 }
 
-type ItemEntitlementsForFeatureItemEntitlementResponse struct {
+// operation sub response
+type ItemEntitlementItemEntitlementsForFeatureItemEntitlementResponse struct {
 	ItemEntitlement *ItemEntitlement `json:"item_entitlement,omitempty"`
 }
 
-type ItemEntitlementsForFeatureResponse struct {
-	List       []*ItemEntitlementsForFeatureItemEntitlementResponse `json:"list,omitempty"`
-	NextOffset string                                               `json:"next_offset,omitempty"`
+// operation response
+type ItemEntitlementItemEntitlementsForFeatureResponse struct {
+	List       []*ItemEntitlementItemEntitlementsForFeatureItemEntitlementResponse `json:"list,omitempty"`
+	NextOffset string                                                              `json:"next_offset,omitempty"`
+	apiResponse
 }
 
-type AddItemEntitlementsResponse struct {
+// operation response
+type ItemEntitlementAddItemEntitlementsResponse struct {
 	ItemEntitlement *ItemEntitlement `json:"item_entitlement,omitempty"`
+	apiResponse
 }
 
-type UpsertOrRemoveItemEntitlementsForItemResponse struct {
+// operation response
+type ItemEntitlementUpsertOrRemoveItemEntitlementsForItemResponse struct {
 	ItemEntitlement *ItemEntitlement `json:"item_entitlement,omitempty"`
+	apiResponse
 }

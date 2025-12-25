@@ -1,66 +1,99 @@
 package chargebee
 
-type ForexType string
+type CurrencyForexType string
 
 const (
-	ForexTypeManual ForexType = "manual"
-	ForexTypeAuto   ForexType = "auto"
+	CurrencyForexTypeManual CurrencyForexType = "manual"
+	CurrencyForexTypeAuto   CurrencyForexType = "auto"
 )
 
+// just struct
 type Currency struct {
-	Id                 string    `json:"id"`
-	Enabled            bool      `json:"enabled"`
-	ForexType          ForexType `json:"forex_type"`
-	CurrencyCode       string    `json:"currency_code"`
-	IsBaseCurrency     bool      `json:"is_base_currency"`
-	ManualExchangeRate string    `json:"manual_exchange_rate"`
-	Object             string    `json:"object"`
+	Id                 string            `json:"id"`
+	Enabled            bool              `json:"enabled"`
+	ForexType          CurrencyForexType `json:"forex_type"`
+	CurrencyCode       string            `json:"currency_code"`
+	IsBaseCurrency     bool              `json:"is_base_currency"`
+	ManualExchangeRate string            `json:"manual_exchange_rate"`
+	Object             string            `json:"object"`
 }
-type ListRequest struct {
-	Limit  *int32 `json:"limit,omitempty"`
-	Offset string `json:"offset,omitempty"`
+
+// sub resources
+// operations
+// input params
+type CurrencyListRequest struct {
+	Limit      *int32 `json:"limit,omitempty"`
+	Offset     string `json:"offset,omitempty"`
+	apiRequest `json:"-" form:"-"`
 }
-type CreateRequest struct {
-	CurrencyCode       string    `json:"currency_code"`
-	ForexType          ForexType `json:"forex_type"`
-	ManualExchangeRate string    `json:"manual_exchange_rate,omitempty"`
+
+func (r *CurrencyListRequest) payload() any { return r }
+
+type CurrencyCreateRequest struct {
+	CurrencyCode       string            `json:"currency_code"`
+	ForexType          CurrencyForexType `json:"forex_type"`
+	ManualExchangeRate string            `json:"manual_exchange_rate,omitempty"`
+	apiRequest         `json:"-" form:"-"`
 }
-type UpdateRequest struct {
-	ForexType          ForexType `json:"forex_type"`
-	ManualExchangeRate string    `json:"manual_exchange_rate,omitempty"`
+
+func (r *CurrencyCreateRequest) payload() any { return r }
+
+type CurrencyUpdateRequest struct {
+	ForexType          CurrencyForexType `json:"forex_type"`
+	ManualExchangeRate string            `json:"manual_exchange_rate,omitempty"`
+	apiRequest         `json:"-" form:"-"`
 }
-type AddScheduleRequest struct {
+
+func (r *CurrencyUpdateRequest) payload() any { return r }
+
+type CurrencyAddScheduleRequest struct {
 	ManualExchangeRate string `json:"manual_exchange_rate"`
 	ScheduleAt         *int64 `json:"schedule_at"`
+	apiRequest         `json:"-" form:"-"`
 }
 
-type ListCurrencyResponse struct {
+func (r *CurrencyAddScheduleRequest) payload() any { return r }
+
+// operation sub response
+type CurrencyListCurrencyResponse struct {
 	Currency *Currency `json:"currency,omitempty"`
 }
 
-type ListResponse struct {
-	List       []*ListCurrencyResponse `json:"list,omitempty"`
-	NextOffset string                  `json:"next_offset,omitempty"`
+// operation response
+type CurrencyListResponse struct {
+	List       []*CurrencyListCurrencyResponse `json:"list,omitempty"`
+	NextOffset string                          `json:"next_offset,omitempty"`
+	apiResponse
 }
 
-type RetrieveResponse struct {
+// operation response
+type CurrencyRetrieveResponse struct {
 	Currency *Currency `json:"currency,omitempty"`
+	apiResponse
 }
 
-type CreateResponse struct {
+// operation response
+type CurrencyCreateResponse struct {
 	Currency *Currency `json:"currency,omitempty"`
+	apiResponse
 }
 
-type UpdateResponse struct {
+// operation response
+type CurrencyUpdateResponse struct {
 	Currency *Currency `json:"currency,omitempty"`
+	apiResponse
 }
 
-type AddScheduleResponse struct {
+// operation response
+type CurrencyAddScheduleResponse struct {
 	ScheduledAt int64     `json:"scheduled_at,omitempty"`
 	Currency    *Currency `json:"currency,omitempty"`
+	apiResponse
 }
 
-type RemoveScheduleResponse struct {
+// operation response
+type CurrencyRemoveScheduleResponse struct {
 	ScheduledAt int64     `json:"scheduled_at,omitempty"`
 	Currency    *Currency `json:"currency,omitempty"`
+	apiResponse
 }

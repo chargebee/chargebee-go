@@ -1,47 +1,79 @@
 package chargebee
 
-type Type string
-
-const (
-	TypeCheckoutNew          Type = "checkout_new"
-	TypeCheckoutExisting     Type = "checkout_existing"
-	TypeUpdatePaymentMethod  Type = "update_payment_method"
-	TypeManagePaymentSources Type = "manage_payment_sources"
-	TypeCollectNow           Type = "collect_now"
-	TypeExtendSubscription   Type = "extend_subscription"
-	TypeCheckoutOneTime      Type = "checkout_one_time"
-	TypePreCancel            Type = "pre_cancel"
-	TypeViewVoucher          Type = "view_voucher"
-	TypeAcceptQuote          Type = "accept_quote"
-	TypeCheckoutGift         Type = "checkout_gift"
-	TypeClaimGift            Type = "claim_gift"
-	TypeUpdateCard           Type = "update_card"
+import (
+	"encoding/json"
 )
 
-type State string
+type HostedPageType string
 
 const (
-	StateCreated      State = "created"
-	StateRequested    State = "requested"
-	StateSucceeded    State = "succeeded"
-	StateCancelled    State = "cancelled"
-	StateAcknowledged State = "acknowledged"
-	StateFailed       State = "failed"
+	HostedPageTypeCheckoutNew          HostedPageType = "checkout_new"
+	HostedPageTypeCheckoutExisting     HostedPageType = "checkout_existing"
+	HostedPageTypeUpdatePaymentMethod  HostedPageType = "update_payment_method"
+	HostedPageTypeManagePaymentSources HostedPageType = "manage_payment_sources"
+	HostedPageTypeCollectNow           HostedPageType = "collect_now"
+	HostedPageTypeExtendSubscription   HostedPageType = "extend_subscription"
+	HostedPageTypeCheckoutOneTime      HostedPageType = "checkout_one_time"
+	HostedPageTypePreCancel            HostedPageType = "pre_cancel"
+	HostedPageTypeViewVoucher          HostedPageType = "view_voucher"
+	HostedPageTypeAcceptQuote          HostedPageType = "accept_quote"
+	HostedPageTypeCheckoutGift         HostedPageType = "checkout_gift"
+	HostedPageTypeClaimGift            HostedPageType = "claim_gift"
+	HostedPageTypeUpdateCard           HostedPageType = "update_card"
 )
 
-type FailureReason string
+type HostedPageState string
 
 const (
-	FailureReasonCardError   FailureReason = "card_error"
-	FailureReasonServerError FailureReason = "server_error"
+	HostedPageStateCreated      HostedPageState = "created"
+	HostedPageStateRequested    HostedPageState = "requested"
+	HostedPageStateSucceeded    HostedPageState = "succeeded"
+	HostedPageStateCancelled    HostedPageState = "cancelled"
+	HostedPageStateAcknowledged HostedPageState = "acknowledged"
+	HostedPageStateFailed       HostedPageState = "failed"
 )
 
+type HostedPageFailureReason string
+
+const (
+	HostedPageFailureReasonCardError   HostedPageFailureReason = "card_error"
+	HostedPageFailureReasonServerError HostedPageFailureReason = "server_error"
+)
+
+type HostedPageBillingAlignmentMode string
+
+const (
+	HostedPageBillingAlignmentModeImmediate HostedPageBillingAlignmentMode = "immediate"
+	HostedPageBillingAlignmentModeDelayed   HostedPageBillingAlignmentMode = "delayed"
+)
+
+type HostedPageLayout string
+
+const (
+	HostedPageLayoutInApp    HostedPageLayout = "in_app"
+	HostedPageLayoutFullPage HostedPageLayout = "full_page"
+)
+
+type HostedPageChangeOption string
+
+const (
+	HostedPageChangeOptionImmediately  HostedPageChangeOption = "immediately"
+	HostedPageChangeOptionEndOfTerm    HostedPageChangeOption = "end_of_term"
+	HostedPageChangeOptionSpecificDate HostedPageChangeOption = "specific_date"
+)
+
+type HostedPageEventName string
+
+const (
+	HostedPageEventNameCancellationPageLoaded HostedPageEventName = "cancellation_page_loaded"
+)
+
+// just struct
 type HostedPage struct {
 	Id               string          `json:"id"`
-	Type             Type            `json:"type"`
+	Type             HostedPageType  `json:"type"`
 	Url              string          `json:"url"`
-	State            State           `json:"state"`
-	FailureReason    FailureReason   `json:"failure_reason"`
+	State            HostedPageState `json:"state"`
 	PassThruContent  string          `json:"pass_thru_content"`
 	Embed            bool            `json:"embed"`
 	CreatedAt        int64           `json:"created_at"`
@@ -53,58 +85,71 @@ type HostedPage struct {
 	BusinessEntityId string          `json:"business_entity_id"`
 	Object           string          `json:"object"`
 }
-type CheckoutNewRequest struct {
-	Subscription               *CheckoutNewSubscription      `json:"subscription,omitempty"`
-	Customer                   *CheckoutNewCustomer          `json:"customer,omitempty"`
-	BillingCycles              *int32                        `json:"billing_cycles,omitempty"`
-	Addons                     []*CheckoutNewAddon           `json:"addons,omitempty"`
-	EventBasedAddons           []*CheckoutNewEventBasedAddon `json:"event_based_addons,omitempty"`
-	MandatoryAddonsToRemove    []string                      `json:"mandatory_addons_to_remove,omitempty"`
-	TermsToCharge              *int32                        `json:"terms_to_charge,omitempty"`
-	BillingAlignmentMode       enum.BillingAlignmentMode     `json:"billing_alignment_mode,omitempty"`
-	CouponIds                  []string                      `json:"coupon_ids,omitempty"`
-	Card                       *CheckoutNewCard              `json:"card,omitempty"`
-	RedirectUrl                string                        `json:"redirect_url,omitempty"`
-	CancelUrl                  string                        `json:"cancel_url,omitempty"`
-	PassThruContent            string                        `json:"pass_thru_content,omitempty"`
-	Embed                      *bool                         `json:"embed,omitempty"`
-	IframeMessaging            *bool                         `json:"iframe_messaging,omitempty"`
-	AllowOfflinePaymentMethods *bool                         `json:"allow_offline_payment_methods,omitempty"`
-	BillingAddress             *CheckoutNewBillingAddress    `json:"billing_address,omitempty"`
-	ShippingAddress            *CheckoutNewShippingAddress   `json:"shipping_address,omitempty"`
-	ContractTerm               *CheckoutNewContractTerm      `json:"contract_term,omitempty"`
+
+// sub resources
+// operations
+// input params
+type HostedPageCheckoutNewRequest struct {
+	Subscription               *HostedPageCheckoutNewSubscription      `json:"subscription,omitempty"`
+	Customer                   *HostedPageCheckoutNewCustomer          `json:"customer,omitempty"`
+	BillingCycles              *int32                                  `json:"billing_cycles,omitempty"`
+	Addons                     []*HostedPageCheckoutNewAddon           `json:"addons,omitempty"`
+	EventBasedAddons           []*HostedPageCheckoutNewEventBasedAddon `json:"event_based_addons,omitempty"`
+	MandatoryAddonsToRemove    []string                                `json:"mandatory_addons_to_remove,omitempty"`
+	TermsToCharge              *int32                                  `json:"terms_to_charge,omitempty"`
+	BillingAlignmentMode       HostedPageBillingAlignmentMode          `json:"billing_alignment_mode,omitempty"`
+	CouponIds                  []string                                `json:"coupon_ids,omitempty"`
+	Card                       *HostedPageCheckoutNewCard              `json:"card,omitempty"`
+	RedirectUrl                string                                  `json:"redirect_url,omitempty"`
+	CancelUrl                  string                                  `json:"cancel_url,omitempty"`
+	PassThruContent            string                                  `json:"pass_thru_content,omitempty"`
+	Embed                      *bool                                   `json:"embed,omitempty"`
+	IframeMessaging            *bool                                   `json:"iframe_messaging,omitempty"`
+	AllowOfflinePaymentMethods *bool                                   `json:"allow_offline_payment_methods,omitempty"`
+	BillingAddress             *HostedPageCheckoutNewBillingAddress    `json:"billing_address,omitempty"`
+	ShippingAddress            *HostedPageCheckoutNewShippingAddress   `json:"shipping_address,omitempty"`
+	ContractTerm               *HostedPageCheckoutNewContractTerm      `json:"contract_term,omitempty"`
+	apiRequest                 `json:"-" form:"-"`
 }
-type CheckoutNewSubscription struct {
-	Id                                string                    `json:"id,omitempty"`
-	PlanId                            string                    `json:"plan_id"`
-	PlanQuantity                      *int32                    `json:"plan_quantity,omitempty"`
-	PlanQuantityInDecimal             string                    `json:"plan_quantity_in_decimal,omitempty"`
-	PlanUnitPrice                     *int64                    `json:"plan_unit_price,omitempty"`
-	PlanUnitPriceInDecimal            string                    `json:"plan_unit_price_in_decimal,omitempty"`
-	SetupFee                          *int64                    `json:"setup_fee,omitempty"`
-	TrialEnd                          *int64                    `json:"trial_end,omitempty"`
-	StartDate                         *int64                    `json:"start_date,omitempty"`
-	Coupon                            string                    `json:"coupon,omitempty"`
-	AutoCollection                    enum.AutoCollection       `json:"auto_collection,omitempty"`
-	OfflinePaymentMethod              enum.OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
-	InvoiceNotes                      string                    `json:"invoice_notes,omitempty"`
-	AffiliateToken                    string                    `json:"affiliate_token,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+
+func (r *HostedPageCheckoutNewRequest) payload() any { return r }
+
+// input sub resource params single
+type HostedPageCheckoutNewSubscription struct {
+	Id                                string               `json:"id,omitempty"`
+	PlanId                            string               `json:"plan_id"`
+	PlanQuantity                      *int32               `json:"plan_quantity,omitempty"`
+	PlanQuantityInDecimal             string               `json:"plan_quantity_in_decimal,omitempty"`
+	PlanUnitPrice                     *int64               `json:"plan_unit_price,omitempty"`
+	PlanUnitPriceInDecimal            string               `json:"plan_unit_price_in_decimal,omitempty"`
+	SetupFee                          *int64               `json:"setup_fee,omitempty"`
+	TrialEnd                          *int64               `json:"trial_end,omitempty"`
+	StartDate                         *int64               `json:"start_date,omitempty"`
+	Coupon                            string               `json:"coupon,omitempty"`
+	AutoCollection                    AutoCollection       `json:"auto_collection,omitempty"`
+	OfflinePaymentMethod              OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	InvoiceNotes                      string               `json:"invoice_notes,omitempty"`
+	AffiliateToken                    string               `json:"affiliate_token,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32               `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
-type CheckoutNewCustomer struct {
-	Id                    string          `json:"id,omitempty"`
-	Email                 string          `json:"email,omitempty"`
-	FirstName             string          `json:"first_name,omitempty"`
-	LastName              string          `json:"last_name,omitempty"`
-	Company               string          `json:"company,omitempty"`
-	Phone                 string          `json:"phone,omitempty"`
-	Locale                string          `json:"locale,omitempty"`
-	Taxability            enum.Taxability `json:"taxability,omitempty"`
-	VatNumber             string          `json:"vat_number,omitempty"`
-	VatNumberPrefix       string          `json:"vat_number_prefix,omitempty"`
-	ConsolidatedInvoicing *bool           `json:"consolidated_invoicing,omitempty"`
+
+// input sub resource params single
+type HostedPageCheckoutNewCustomer struct {
+	Id                    string     `json:"id,omitempty"`
+	Email                 string     `json:"email,omitempty"`
+	FirstName             string     `json:"first_name,omitempty"`
+	LastName              string     `json:"last_name,omitempty"`
+	Company               string     `json:"company,omitempty"`
+	Phone                 string     `json:"phone,omitempty"`
+	Locale                string     `json:"locale,omitempty"`
+	Taxability            Taxability `json:"taxability,omitempty"`
+	VatNumber             string     `json:"vat_number,omitempty"`
+	VatNumberPrefix       string     `json:"vat_number_prefix,omitempty"`
+	ConsolidatedInvoicing *bool      `json:"consolidated_invoicing,omitempty"`
 }
-type CheckoutNewAddon struct {
+
+// input sub resource params multi
+type HostedPageCheckoutNewAddon struct {
 	Id                 string `json:"id,omitempty"`
 	Quantity           *int32 `json:"quantity,omitempty"`
 	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
@@ -112,89 +157,105 @@ type CheckoutNewAddon struct {
 	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
 	BillingCycles      *int32 `json:"billing_cycles,omitempty"`
 }
-type CheckoutNewEventBasedAddon struct {
-	Id                  string        `json:"id,omitempty"`
-	Quantity            *int32        `json:"quantity,omitempty"`
-	UnitPrice           *int64        `json:"unit_price,omitempty"`
-	QuantityInDecimal   string        `json:"quantity_in_decimal,omitempty"`
-	UnitPriceInDecimal  string        `json:"unit_price_in_decimal,omitempty"`
-	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
-	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce          *bool         `json:"charge_once,omitempty"`
-	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
+
+// input sub resource params multi
+type HostedPageCheckoutNewEventBasedAddon struct {
+	Id                  string   `json:"id,omitempty"`
+	Quantity            *int32   `json:"quantity,omitempty"`
+	UnitPrice           *int64   `json:"unit_price,omitempty"`
+	QuantityInDecimal   string   `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal  string   `json:"unit_price_in_decimal,omitempty"`
+	ServicePeriodInDays *int32   `json:"service_period_in_days,omitempty"`
+	OnEvent             OnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool    `json:"charge_once,omitempty"`
+	ChargeOn            ChargeOn `json:"charge_on,omitempty"`
 }
-type CheckoutNewCard struct {
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
+
+// input sub resource params single
+type HostedPageCheckoutNewCard struct {
+	Gateway          Gateway `json:"gateway,omitempty"`
+	GatewayAccountId string  `json:"gateway_account_id,omitempty"`
 }
-type CheckoutNewBillingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params single
+type HostedPageCheckoutNewBillingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type CheckoutNewShippingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params single
+type HostedPageCheckoutNewShippingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type CheckoutNewContractTerm struct {
-	ActionAtTermEnd          contractTerm.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32                       `json:"cancellation_cutoff_period,omitempty"`
+
+// input sub resource params single
+type HostedPageCheckoutNewContractTerm struct {
+	ActionAtTermEnd          ActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32          `json:"cancellation_cutoff_period,omitempty"`
 }
-type CheckoutOneTimeRequest struct {
-	Customer        *CheckoutOneTimeCustomer        `json:"customer,omitempty"`
-	Addons          []*CheckoutOneTimeAddon         `json:"addons,omitempty"`
-	CurrencyCode    string                          `json:"currency_code,omitempty"`
-	Charges         []*CheckoutOneTimeCharge        `json:"charges,omitempty"`
-	InvoiceNote     string                          `json:"invoice_note,omitempty"`
-	Invoice         *CheckoutOneTimeInvoice         `json:"invoice,omitempty"`
-	Coupon          string                          `json:"coupon,omitempty"`
-	CouponIds       []string                        `json:"coupon_ids,omitempty"`
-	Card            *CheckoutOneTimeCard            `json:"card,omitempty"`
-	RedirectUrl     string                          `json:"redirect_url,omitempty"`
-	CancelUrl       string                          `json:"cancel_url,omitempty"`
-	PassThruContent string                          `json:"pass_thru_content,omitempty"`
-	Embed           *bool                           `json:"embed,omitempty"`
-	IframeMessaging *bool                           `json:"iframe_messaging,omitempty"`
-	BillingAddress  *CheckoutOneTimeBillingAddress  `json:"billing_address,omitempty"`
-	ShippingAddress *CheckoutOneTimeShippingAddress `json:"shipping_address,omitempty"`
+type HostedPageCheckoutOneTimeRequest struct {
+	Customer        *HostedPageCheckoutOneTimeCustomer        `json:"customer,omitempty"`
+	Addons          []*HostedPageCheckoutOneTimeAddon         `json:"addons,omitempty"`
+	CurrencyCode    string                                    `json:"currency_code,omitempty"`
+	Charges         []*HostedPageCheckoutOneTimeCharge        `json:"charges,omitempty"`
+	InvoiceNote     string                                    `json:"invoice_note,omitempty"`
+	Invoice         *HostedPageCheckoutOneTimeInvoice         `json:"invoice,omitempty"`
+	CouponIds       []string                                  `json:"coupon_ids,omitempty"`
+	Card            *HostedPageCheckoutOneTimeCard            `json:"card,omitempty"`
+	RedirectUrl     string                                    `json:"redirect_url,omitempty"`
+	CancelUrl       string                                    `json:"cancel_url,omitempty"`
+	PassThruContent string                                    `json:"pass_thru_content,omitempty"`
+	Embed           *bool                                     `json:"embed,omitempty"`
+	IframeMessaging *bool                                     `json:"iframe_messaging,omitempty"`
+	BillingAddress  *HostedPageCheckoutOneTimeBillingAddress  `json:"billing_address,omitempty"`
+	ShippingAddress *HostedPageCheckoutOneTimeShippingAddress `json:"shipping_address,omitempty"`
+	apiRequest      `json:"-" form:"-"`
 }
-type CheckoutOneTimeCustomer struct {
-	Id                    string          `json:"id,omitempty"`
-	Email                 string          `json:"email,omitempty"`
-	FirstName             string          `json:"first_name,omitempty"`
-	LastName              string          `json:"last_name,omitempty"`
-	Company               string          `json:"company,omitempty"`
-	Phone                 string          `json:"phone,omitempty"`
-	Locale                string          `json:"locale,omitempty"`
-	Taxability            enum.Taxability `json:"taxability,omitempty"`
-	VatNumber             string          `json:"vat_number,omitempty"`
-	VatNumberPrefix       string          `json:"vat_number_prefix,omitempty"`
-	ConsolidatedInvoicing *bool           `json:"consolidated_invoicing,omitempty"`
+
+func (r *HostedPageCheckoutOneTimeRequest) payload() any { return r }
+
+// input sub resource params single
+type HostedPageCheckoutOneTimeCustomer struct {
+	Id                    string     `json:"id,omitempty"`
+	Email                 string     `json:"email,omitempty"`
+	FirstName             string     `json:"first_name,omitempty"`
+	LastName              string     `json:"last_name,omitempty"`
+	Company               string     `json:"company,omitempty"`
+	Phone                 string     `json:"phone,omitempty"`
+	Locale                string     `json:"locale,omitempty"`
+	Taxability            Taxability `json:"taxability,omitempty"`
+	VatNumber             string     `json:"vat_number,omitempty"`
+	VatNumberPrefix       string     `json:"vat_number_prefix,omitempty"`
+	ConsolidatedInvoicing *bool      `json:"consolidated_invoicing,omitempty"`
 }
-type CheckoutOneTimeAddon struct {
+
+// input sub resource params multi
+type HostedPageCheckoutOneTimeAddon struct {
 	Id                 string `json:"id,omitempty"`
 	Quantity           *int32 `json:"quantity,omitempty"`
 	UnitPrice          *int64 `json:"unit_price,omitempty"`
@@ -203,99 +264,115 @@ type CheckoutOneTimeAddon struct {
 	DateFrom           *int64 `json:"date_from,omitempty"`
 	DateTo             *int64 `json:"date_to,omitempty"`
 }
-type CheckoutOneTimeCharge struct {
-	Amount                 *int64               `json:"amount,omitempty"`
-	AmountInDecimal        string               `json:"amount_in_decimal,omitempty"`
-	Description            string               `json:"description,omitempty"`
-	Taxable                *bool                `json:"taxable,omitempty"`
-	TaxProfileId           string               `json:"tax_profile_id,omitempty"`
-	AvalaraTaxCode         string               `json:"avalara_tax_code,omitempty"`
-	HsnCode                string               `json:"hsn_code,omitempty"`
-	TaxjarProductCode      string               `json:"taxjar_product_code,omitempty"`
-	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
-	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
-	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
-	DateFrom               *int64               `json:"date_from,omitempty"`
-	DateTo                 *int64               `json:"date_to,omitempty"`
+
+// input sub resource params multi
+type HostedPageCheckoutOneTimeCharge struct {
+	Amount                 *int64          `json:"amount,omitempty"`
+	AmountInDecimal        string          `json:"amount_in_decimal,omitempty"`
+	Description            string          `json:"description,omitempty"`
+	Taxable                *bool           `json:"taxable,omitempty"`
+	TaxProfileId           string          `json:"tax_profile_id,omitempty"`
+	AvalaraTaxCode         string          `json:"avalara_tax_code,omitempty"`
+	HsnCode                string          `json:"hsn_code,omitempty"`
+	TaxjarProductCode      string          `json:"taxjar_product_code,omitempty"`
+	AvalaraSaleType        AvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32          `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32          `json:"avalara_service_type,omitempty"`
+	DateFrom               *int64          `json:"date_from,omitempty"`
+	DateTo                 *int64          `json:"date_to,omitempty"`
 }
-type CheckoutOneTimeInvoice struct {
+
+// input sub resource params single
+type HostedPageCheckoutOneTimeInvoice struct {
 	PoNumber string `json:"po_number,omitempty"`
 }
-type CheckoutOneTimeCard struct {
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
+
+// input sub resource params single
+type HostedPageCheckoutOneTimeCard struct {
+	Gateway          Gateway `json:"gateway,omitempty"`
+	GatewayAccountId string  `json:"gateway_account_id,omitempty"`
 }
-type CheckoutOneTimeBillingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params single
+type HostedPageCheckoutOneTimeBillingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type CheckoutOneTimeShippingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params single
+type HostedPageCheckoutOneTimeShippingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type CheckoutOneTimeForItemsRequest struct {
-	BusinessEntityId  string                                     `json:"business_entity_id,omitempty"`
-	Layout            enum.Layout                                `json:"layout,omitempty"`
-	Customer          *CheckoutOneTimeForItemsCustomer           `json:"customer,omitempty"`
-	ItemPrices        []*CheckoutOneTimeForItemsItemPrice        `json:"item_prices,omitempty"`
-	ItemTiers         []*CheckoutOneTimeForItemsItemTier         `json:"item_tiers,omitempty"`
-	Charges           []*CheckoutOneTimeForItemsCharge           `json:"charges,omitempty"`
-	Discounts         []*CheckoutOneTimeForItemsDiscount         `json:"discounts,omitempty"`
-	InvoiceNote       string                                     `json:"invoice_note,omitempty"`
-	Invoice           *CheckoutOneTimeForItemsInvoice            `json:"invoice,omitempty"`
-	Coupon            string                                     `json:"coupon,omitempty"`
-	CouponIds         []string                                   `json:"coupon_ids,omitempty"`
-	CurrencyCode      string                                     `json:"currency_code,omitempty"`
-	Card              *CheckoutOneTimeForItemsCard               `json:"card,omitempty"`
-	EntityIdentifiers []*CheckoutOneTimeForItemsEntityIdentifier `json:"entity_identifiers,omitempty"`
-	RedirectUrl       string                                     `json:"redirect_url,omitempty"`
-	CancelUrl         string                                     `json:"cancel_url,omitempty"`
-	PassThruContent   string                                     `json:"pass_thru_content,omitempty"`
-	BillingAddress    *CheckoutOneTimeForItemsBillingAddress     `json:"billing_address,omitempty"`
-	ShippingAddress   *CheckoutOneTimeForItemsShippingAddress    `json:"shipping_address,omitempty"`
+type HostedPageCheckoutOneTimeForItemsRequest struct {
+	BusinessEntityId  string                                               `json:"business_entity_id,omitempty"`
+	Layout            HostedPageLayout                                     `json:"layout,omitempty"`
+	Customer          *HostedPageCheckoutOneTimeForItemsCustomer           `json:"customer,omitempty"`
+	ItemPrices        []*HostedPageCheckoutOneTimeForItemsItemPrice        `json:"item_prices,omitempty"`
+	ItemTiers         []*HostedPageCheckoutOneTimeForItemsItemTier         `json:"item_tiers,omitempty"`
+	Charges           []*HostedPageCheckoutOneTimeForItemsCharge           `json:"charges,omitempty"`
+	Discounts         []*HostedPageCheckoutOneTimeForItemsDiscount         `json:"discounts,omitempty"`
+	InvoiceNote       string                                               `json:"invoice_note,omitempty"`
+	Invoice           *HostedPageCheckoutOneTimeForItemsInvoice            `json:"invoice,omitempty"`
+	CouponIds         []string                                             `json:"coupon_ids,omitempty"`
+	CurrencyCode      string                                               `json:"currency_code,omitempty"`
+	Card              *HostedPageCheckoutOneTimeForItemsCard               `json:"card,omitempty"`
+	EntityIdentifiers []*HostedPageCheckoutOneTimeForItemsEntityIdentifier `json:"entity_identifiers,omitempty"`
+	RedirectUrl       string                                               `json:"redirect_url,omitempty"`
+	CancelUrl         string                                               `json:"cancel_url,omitempty"`
+	PassThruContent   string                                               `json:"pass_thru_content,omitempty"`
+	BillingAddress    *HostedPageCheckoutOneTimeForItemsBillingAddress     `json:"billing_address,omitempty"`
+	ShippingAddress   *HostedPageCheckoutOneTimeForItemsShippingAddress    `json:"shipping_address,omitempty"`
+	apiRequest        `json:"-" form:"-"`
 }
-type CheckoutOneTimeForItemsCustomer struct {
-	Id                       string                `json:"id,omitempty"`
-	Email                    string                `json:"email,omitempty"`
-	FirstName                string                `json:"first_name,omitempty"`
-	LastName                 string                `json:"last_name,omitempty"`
-	Company                  string                `json:"company,omitempty"`
-	Phone                    string                `json:"phone,omitempty"`
-	Locale                   string                `json:"locale,omitempty"`
-	Taxability               enum.Taxability       `json:"taxability,omitempty"`
-	VatNumber                string                `json:"vat_number,omitempty"`
-	VatNumberPrefix          string                `json:"vat_number_prefix,omitempty"`
-	EinvoicingMethod         enum.EinvoicingMethod `json:"einvoicing_method,omitempty"`
-	IsEinvoiceEnabled        *bool                 `json:"is_einvoice_enabled,omitempty"`
-	EntityIdentifierScheme   string                `json:"entity_identifier_scheme,omitempty"`
-	EntityIdentifierStandard string                `json:"entity_identifier_standard,omitempty"`
-	ConsolidatedInvoicing    *bool                 `json:"consolidated_invoicing,omitempty"`
+
+func (r *HostedPageCheckoutOneTimeForItemsRequest) payload() any { return r }
+
+// input sub resource params single
+type HostedPageCheckoutOneTimeForItemsCustomer struct {
+	Id                       string           `json:"id,omitempty"`
+	Email                    string           `json:"email,omitempty"`
+	FirstName                string           `json:"first_name,omitempty"`
+	LastName                 string           `json:"last_name,omitempty"`
+	Company                  string           `json:"company,omitempty"`
+	Phone                    string           `json:"phone,omitempty"`
+	Locale                   string           `json:"locale,omitempty"`
+	Taxability               Taxability       `json:"taxability,omitempty"`
+	VatNumber                string           `json:"vat_number,omitempty"`
+	VatNumberPrefix          string           `json:"vat_number_prefix,omitempty"`
+	EinvoicingMethod         EinvoicingMethod `json:"einvoicing_method,omitempty"`
+	IsEinvoiceEnabled        *bool            `json:"is_einvoice_enabled,omitempty"`
+	EntityIdentifierScheme   string           `json:"entity_identifier_scheme,omitempty"`
+	EntityIdentifierStandard string           `json:"entity_identifier_standard,omitempty"`
+	ConsolidatedInvoicing    *bool            `json:"consolidated_invoicing,omitempty"`
 }
-type CheckoutOneTimeForItemsItemPrice struct {
+
+// input sub resource params multi
+type HostedPageCheckoutOneTimeForItemsItemPrice struct {
 	ItemPriceId        string `json:"item_price_id,omitempty"`
 	Quantity           *int32 `json:"quantity,omitempty"`
 	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
@@ -304,261 +381,307 @@ type CheckoutOneTimeForItemsItemPrice struct {
 	DateFrom           *int64 `json:"date_from,omitempty"`
 	DateTo             *int64 `json:"date_to,omitempty"`
 }
-type CheckoutOneTimeForItemsItemTier struct {
-	ItemPriceId           string           `json:"item_price_id,omitempty"`
-	StartingUnit          *int32           `json:"starting_unit,omitempty"`
-	EndingUnit            *int32           `json:"ending_unit,omitempty"`
-	Price                 *int64           `json:"price,omitempty"`
-	StartingUnitInDecimal string           `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string           `json:"price_in_decimal,omitempty"`
-	PricingType           enum.PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32           `json:"package_size,omitempty"`
+
+// input sub resource params multi
+type HostedPageCheckoutOneTimeForItemsItemTier struct {
+	ItemPriceId           string      `json:"item_price_id,omitempty"`
+	StartingUnit          *int32      `json:"starting_unit,omitempty"`
+	EndingUnit            *int32      `json:"ending_unit,omitempty"`
+	Price                 *int64      `json:"price,omitempty"`
+	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
+	PricingType           PricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32      `json:"package_size,omitempty"`
 }
-type CheckoutOneTimeForItemsCharge struct {
-	Amount                 *int64               `json:"amount,omitempty"`
-	AmountInDecimal        string               `json:"amount_in_decimal,omitempty"`
-	Description            string               `json:"description,omitempty"`
-	Taxable                *bool                `json:"taxable,omitempty"`
-	TaxProfileId           string               `json:"tax_profile_id,omitempty"`
-	AvalaraTaxCode         string               `json:"avalara_tax_code,omitempty"`
-	HsnCode                string               `json:"hsn_code,omitempty"`
-	TaxjarProductCode      string               `json:"taxjar_product_code,omitempty"`
-	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
-	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
-	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
-	DateFrom               *int64               `json:"date_from,omitempty"`
-	DateTo                 *int64               `json:"date_to,omitempty"`
+
+// input sub resource params multi
+type HostedPageCheckoutOneTimeForItemsCharge struct {
+	Amount                 *int64          `json:"amount,omitempty"`
+	AmountInDecimal        string          `json:"amount_in_decimal,omitempty"`
+	Description            string          `json:"description,omitempty"`
+	Taxable                *bool           `json:"taxable,omitempty"`
+	TaxProfileId           string          `json:"tax_profile_id,omitempty"`
+	AvalaraTaxCode         string          `json:"avalara_tax_code,omitempty"`
+	HsnCode                string          `json:"hsn_code,omitempty"`
+	TaxjarProductCode      string          `json:"taxjar_product_code,omitempty"`
+	AvalaraSaleType        AvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32          `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32          `json:"avalara_service_type,omitempty"`
+	DateFrom               *int64          `json:"date_from,omitempty"`
+	DateTo                 *int64          `json:"date_to,omitempty"`
 }
-type CheckoutOneTimeForItemsDiscount struct {
-	Percentage  *float64     `json:"percentage,omitempty"`
-	Amount      *int64       `json:"amount,omitempty"`
-	Quantity    *int32       `json:"quantity,omitempty"`
-	ApplyOn     enum.ApplyOn `json:"apply_on"`
-	ItemPriceId string       `json:"item_price_id,omitempty"`
+
+// input sub resource params multi
+type HostedPageCheckoutOneTimeForItemsDiscount struct {
+	Percentage  *float64 `json:"percentage,omitempty"`
+	Amount      *int64   `json:"amount,omitempty"`
+	Quantity    *int32   `json:"quantity,omitempty"`
+	ApplyOn     ApplyOn  `json:"apply_on"`
+	ItemPriceId string   `json:"item_price_id,omitempty"`
 }
-type CheckoutOneTimeForItemsInvoice struct {
+
+// input sub resource params single
+type HostedPageCheckoutOneTimeForItemsInvoice struct {
 	PoNumber string `json:"po_number,omitempty"`
 }
-type CheckoutOneTimeForItemsCard struct {
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
+
+// input sub resource params single
+type HostedPageCheckoutOneTimeForItemsCard struct {
+	Gateway          Gateway `json:"gateway,omitempty"`
+	GatewayAccountId string  `json:"gateway_account_id,omitempty"`
 }
-type CheckoutOneTimeForItemsEntityIdentifier struct {
-	Id        string         `json:"id,omitempty"`
-	Scheme    string         `json:"scheme,omitempty"`
-	Value     string         `json:"value,omitempty"`
-	Operation enum.Operation `json:"operation,omitempty"`
-	Standard  string         `json:"standard,omitempty"`
+
+// input sub resource params multi
+type HostedPageCheckoutOneTimeForItemsEntityIdentifier struct {
+	Id        string    `json:"id,omitempty"`
+	Scheme    string    `json:"scheme,omitempty"`
+	Value     string    `json:"value,omitempty"`
+	Operation Operation `json:"operation,omitempty"`
+	Standard  string    `json:"standard,omitempty"`
 }
-type CheckoutOneTimeForItemsBillingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params single
+type HostedPageCheckoutOneTimeForItemsBillingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type CheckoutOneTimeForItemsShippingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params single
+type HostedPageCheckoutOneTimeForItemsShippingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type CheckoutNewForItemsRequest struct {
-	Subscription               *CheckoutNewForItemsSubscription       `json:"subscription,omitempty"`
-	Layout                     enum.Layout                            `json:"layout,omitempty"`
-	Customer                   *CheckoutNewForItemsCustomer           `json:"customer,omitempty"`
-	BusinessEntityId           string                                 `json:"business_entity_id,omitempty"`
-	BillingCycles              *int32                                 `json:"billing_cycles,omitempty"`
-	SubscriptionItems          []*CheckoutNewForItemsSubscriptionItem `json:"subscription_items,omitempty"`
-	Discounts                  []*CheckoutNewForItemsDiscount         `json:"discounts,omitempty"`
-	MandatoryItemsToRemove     []string                               `json:"mandatory_items_to_remove,omitempty"`
-	ItemTiers                  []*CheckoutNewForItemsItemTier         `json:"item_tiers,omitempty"`
-	TermsToCharge              *int32                                 `json:"terms_to_charge,omitempty"`
-	BillingAlignmentMode       enum.BillingAlignmentMode              `json:"billing_alignment_mode,omitempty"`
-	CouponIds                  []string                               `json:"coupon_ids,omitempty"`
-	Card                       *CheckoutNewForItemsCard               `json:"card,omitempty"`
-	EntityIdentifiers          []*CheckoutNewForItemsEntityIdentifier `json:"entity_identifiers,omitempty"`
-	RedirectUrl                string                                 `json:"redirect_url,omitempty"`
-	CancelUrl                  string                                 `json:"cancel_url,omitempty"`
-	PassThruContent            string                                 `json:"pass_thru_content,omitempty"`
-	AllowOfflinePaymentMethods *bool                                  `json:"allow_offline_payment_methods,omitempty"`
-	BillingAddress             *CheckoutNewForItemsBillingAddress     `json:"billing_address,omitempty"`
-	ShippingAddress            *CheckoutNewForItemsShippingAddress    `json:"shipping_address,omitempty"`
-	ContractTerm               *CheckoutNewForItemsContractTerm       `json:"contract_term,omitempty"`
+type HostedPageCheckoutNewForItemsRequest struct {
+	Subscription               *HostedPageCheckoutNewForItemsSubscription       `json:"subscription,omitempty"`
+	Layout                     HostedPageLayout                                 `json:"layout,omitempty"`
+	Customer                   *HostedPageCheckoutNewForItemsCustomer           `json:"customer,omitempty"`
+	BusinessEntityId           string                                           `json:"business_entity_id,omitempty"`
+	BillingCycles              *int32                                           `json:"billing_cycles,omitempty"`
+	SubscriptionItems          []*HostedPageCheckoutNewForItemsSubscriptionItem `json:"subscription_items,omitempty"`
+	Discounts                  []*HostedPageCheckoutNewForItemsDiscount         `json:"discounts,omitempty"`
+	MandatoryItemsToRemove     []string                                         `json:"mandatory_items_to_remove,omitempty"`
+	ItemTiers                  []*HostedPageCheckoutNewForItemsItemTier         `json:"item_tiers,omitempty"`
+	TermsToCharge              *int32                                           `json:"terms_to_charge,omitempty"`
+	BillingAlignmentMode       HostedPageBillingAlignmentMode                   `json:"billing_alignment_mode,omitempty"`
+	CouponIds                  []string                                         `json:"coupon_ids,omitempty"`
+	Card                       *HostedPageCheckoutNewForItemsCard               `json:"card,omitempty"`
+	EntityIdentifiers          []*HostedPageCheckoutNewForItemsEntityIdentifier `json:"entity_identifiers,omitempty"`
+	RedirectUrl                string                                           `json:"redirect_url,omitempty"`
+	CancelUrl                  string                                           `json:"cancel_url,omitempty"`
+	PassThruContent            string                                           `json:"pass_thru_content,omitempty"`
+	AllowOfflinePaymentMethods *bool                                            `json:"allow_offline_payment_methods,omitempty"`
+	BillingAddress             *HostedPageCheckoutNewForItemsBillingAddress     `json:"billing_address,omitempty"`
+	ShippingAddress            *HostedPageCheckoutNewForItemsShippingAddress    `json:"shipping_address,omitempty"`
+	ContractTerm               *HostedPageCheckoutNewForItemsContractTerm       `json:"contract_term,omitempty"`
+	apiRequest                 `json:"-" form:"-"`
 }
-type CheckoutNewForItemsSubscription struct {
-	Id                                string                    `json:"id,omitempty"`
-	TrialEnd                          *int64                    `json:"trial_end,omitempty"`
-	SetupFee                          *int64                    `json:"setup_fee,omitempty"`
-	StartDate                         *int64                    `json:"start_date,omitempty"`
-	Coupon                            string                    `json:"coupon,omitempty"`
-	AutoCollection                    enum.AutoCollection       `json:"auto_collection,omitempty"`
-	OfflinePaymentMethod              enum.OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
-	InvoiceNotes                      string                    `json:"invoice_notes,omitempty"`
-	PoNumber                          string                    `json:"po_number,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+
+func (r *HostedPageCheckoutNewForItemsRequest) payload() any { return r }
+
+// input sub resource params single
+type HostedPageCheckoutNewForItemsSubscription struct {
+	Id                                string               `json:"id,omitempty"`
+	TrialEnd                          *int64               `json:"trial_end,omitempty"`
+	SetupFee                          *int64               `json:"setup_fee,omitempty"`
+	StartDate                         *int64               `json:"start_date,omitempty"`
+	Coupon                            string               `json:"coupon,omitempty"`
+	AutoCollection                    AutoCollection       `json:"auto_collection,omitempty"`
+	OfflinePaymentMethod              OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	InvoiceNotes                      string               `json:"invoice_notes,omitempty"`
+	PoNumber                          string               `json:"po_number,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32               `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
-type CheckoutNewForItemsCustomer struct {
-	Id                       string                `json:"id,omitempty"`
-	Email                    string                `json:"email,omitempty"`
-	FirstName                string                `json:"first_name,omitempty"`
-	LastName                 string                `json:"last_name,omitempty"`
-	Company                  string                `json:"company,omitempty"`
-	Phone                    string                `json:"phone,omitempty"`
-	Locale                   string                `json:"locale,omitempty"`
-	Taxability               enum.Taxability       `json:"taxability,omitempty"`
-	VatNumber                string                `json:"vat_number,omitempty"`
-	VatNumberPrefix          string                `json:"vat_number_prefix,omitempty"`
-	IsEinvoiceEnabled        *bool                 `json:"is_einvoice_enabled,omitempty"`
-	EntityIdentifierScheme   string                `json:"entity_identifier_scheme,omitempty"`
-	EntityIdentifierStandard string                `json:"entity_identifier_standard,omitempty"`
-	EinvoicingMethod         enum.EinvoicingMethod `json:"einvoicing_method,omitempty"`
+
+// input sub resource params single
+type HostedPageCheckoutNewForItemsCustomer struct {
+	Id                       string           `json:"id,omitempty"`
+	Email                    string           `json:"email,omitempty"`
+	FirstName                string           `json:"first_name,omitempty"`
+	LastName                 string           `json:"last_name,omitempty"`
+	Company                  string           `json:"company,omitempty"`
+	Phone                    string           `json:"phone,omitempty"`
+	Locale                   string           `json:"locale,omitempty"`
+	Taxability               Taxability       `json:"taxability,omitempty"`
+	VatNumber                string           `json:"vat_number,omitempty"`
+	VatNumberPrefix          string           `json:"vat_number_prefix,omitempty"`
+	IsEinvoiceEnabled        *bool            `json:"is_einvoice_enabled,omitempty"`
+	EntityIdentifierScheme   string           `json:"entity_identifier_scheme,omitempty"`
+	EntityIdentifierStandard string           `json:"entity_identifier_standard,omitempty"`
+	EinvoicingMethod         EinvoicingMethod `json:"einvoicing_method,omitempty"`
 }
-type CheckoutNewForItemsSubscriptionItem struct {
-	ItemPriceId        string              `json:"item_price_id"`
-	Quantity           *int32              `json:"quantity,omitempty"`
-	QuantityInDecimal  string              `json:"quantity_in_decimal,omitempty"`
-	UnitPrice          *int64              `json:"unit_price,omitempty"`
-	UnitPriceInDecimal string              `json:"unit_price_in_decimal,omitempty"`
-	BillingCycles      *int32              `json:"billing_cycles,omitempty"`
-	TrialEnd           *int64              `json:"trial_end,omitempty"`
-	ServicePeriodDays  *int32              `json:"service_period_days,omitempty"`
-	ChargeOnEvent      enum.ChargeOnEvent  `json:"charge_on_event,omitempty"`
-	ChargeOnce         *bool               `json:"charge_once,omitempty"`
-	ItemType           enum.ItemType       `json:"item_type,omitempty"`
-	ChargeOnOption     enum.ChargeOnOption `json:"charge_on_option,omitempty"`
+
+// input sub resource params multi
+type HostedPageCheckoutNewForItemsSubscriptionItem struct {
+	ItemPriceId        string         `json:"item_price_id"`
+	Quantity           *int32         `json:"quantity,omitempty"`
+	QuantityInDecimal  string         `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int64         `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string         `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32         `json:"billing_cycles,omitempty"`
+	TrialEnd           *int64         `json:"trial_end,omitempty"`
+	ServicePeriodDays  *int32         `json:"service_period_days,omitempty"`
+	ChargeOnEvent      ChargeOnEvent  `json:"charge_on_event,omitempty"`
+	ChargeOnce         *bool          `json:"charge_once,omitempty"`
+	ItemType           ItemType       `json:"item_type,omitempty"`
+	ChargeOnOption     ChargeOnOption `json:"charge_on_option,omitempty"`
 }
-type CheckoutNewForItemsDiscount struct {
-	ApplyOn       enum.ApplyOn      `json:"apply_on,omitempty"`
-	DurationType  enum.DurationType `json:"duration_type"`
-	Percentage    *float64          `json:"percentage,omitempty"`
-	Amount        *int64            `json:"amount,omitempty"`
-	Period        *int32            `json:"period,omitempty"`
-	PeriodUnit    enum.PeriodUnit   `json:"period_unit,omitempty"`
-	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`
-	ItemPriceId   string            `json:"item_price_id,omitempty"`
-	Quantity      *int32            `json:"quantity,omitempty"`
+
+// input sub resource params multi
+type HostedPageCheckoutNewForItemsDiscount struct {
+	ApplyOn       ApplyOn      `json:"apply_on,omitempty"`
+	DurationType  DurationType `json:"duration_type"`
+	Percentage    *float64     `json:"percentage,omitempty"`
+	Amount        *int64       `json:"amount,omitempty"`
+	Period        *int32       `json:"period,omitempty"`
+	PeriodUnit    PeriodUnit   `json:"period_unit,omitempty"`
+	IncludedInMrr *bool        `json:"included_in_mrr,omitempty"`
+	ItemPriceId   string       `json:"item_price_id,omitempty"`
+	Quantity      *int32       `json:"quantity,omitempty"`
 }
-type CheckoutNewForItemsItemTier struct {
-	ItemPriceId           string           `json:"item_price_id,omitempty"`
-	StartingUnit          *int32           `json:"starting_unit,omitempty"`
-	EndingUnit            *int32           `json:"ending_unit,omitempty"`
-	Price                 *int64           `json:"price,omitempty"`
-	StartingUnitInDecimal string           `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string           `json:"price_in_decimal,omitempty"`
-	PricingType           enum.PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32           `json:"package_size,omitempty"`
+
+// input sub resource params multi
+type HostedPageCheckoutNewForItemsItemTier struct {
+	ItemPriceId           string      `json:"item_price_id,omitempty"`
+	StartingUnit          *int32      `json:"starting_unit,omitempty"`
+	EndingUnit            *int32      `json:"ending_unit,omitempty"`
+	Price                 *int64      `json:"price,omitempty"`
+	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
+	PricingType           PricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32      `json:"package_size,omitempty"`
 }
-type CheckoutNewForItemsCard struct {
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
+
+// input sub resource params single
+type HostedPageCheckoutNewForItemsCard struct {
+	Gateway          Gateway `json:"gateway,omitempty"`
+	GatewayAccountId string  `json:"gateway_account_id,omitempty"`
 }
-type CheckoutNewForItemsEntityIdentifier struct {
-	Id        string         `json:"id,omitempty"`
-	Scheme    string         `json:"scheme,omitempty"`
-	Value     string         `json:"value,omitempty"`
-	Operation enum.Operation `json:"operation,omitempty"`
-	Standard  string         `json:"standard,omitempty"`
+
+// input sub resource params multi
+type HostedPageCheckoutNewForItemsEntityIdentifier struct {
+	Id        string    `json:"id,omitempty"`
+	Scheme    string    `json:"scheme,omitempty"`
+	Value     string    `json:"value,omitempty"`
+	Operation Operation `json:"operation,omitempty"`
+	Standard  string    `json:"standard,omitempty"`
 }
-type CheckoutNewForItemsBillingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params single
+type HostedPageCheckoutNewForItemsBillingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type CheckoutNewForItemsShippingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params single
+type HostedPageCheckoutNewForItemsShippingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type CheckoutNewForItemsContractTerm struct {
-	ActionAtTermEnd          contractTerm.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32                       `json:"cancellation_cutoff_period,omitempty"`
+
+// input sub resource params single
+type HostedPageCheckoutNewForItemsContractTerm struct {
+	ActionAtTermEnd          ActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32          `json:"cancellation_cutoff_period,omitempty"`
 }
-type CheckoutExistingRequest struct {
-	Subscription               *CheckoutExistingSubscription      `json:"subscription,omitempty"`
-	Addons                     []*CheckoutExistingAddon           `json:"addons,omitempty"`
-	EventBasedAddons           []*CheckoutExistingEventBasedAddon `json:"event_based_addons,omitempty"`
-	ReplaceAddonList           *bool                              `json:"replace_addon_list,omitempty"`
-	MandatoryAddonsToRemove    []string                           `json:"mandatory_addons_to_remove,omitempty"`
-	InvoiceDate                *int64                             `json:"invoice_date,omitempty"`
-	BillingCycles              *int32                             `json:"billing_cycles,omitempty"`
-	TermsToCharge              *int32                             `json:"terms_to_charge,omitempty"`
-	ReactivateFrom             *int64                             `json:"reactivate_from,omitempty"`
-	BillingAlignmentMode       enum.BillingAlignmentMode          `json:"billing_alignment_mode,omitempty"`
-	CouponIds                  []string                           `json:"coupon_ids,omitempty"`
-	ReplaceCouponList          *bool                              `json:"replace_coupon_list,omitempty"`
-	Reactivate                 *bool                              `json:"reactivate,omitempty"`
-	ForceTermReset             *bool                              `json:"force_term_reset,omitempty"`
-	Customer                   *CheckoutExistingCustomer          `json:"customer,omitempty"`
-	Card                       *CheckoutExistingCard              `json:"card,omitempty"`
-	RedirectUrl                string                             `json:"redirect_url,omitempty"`
-	CancelUrl                  string                             `json:"cancel_url,omitempty"`
-	PassThruContent            string                             `json:"pass_thru_content,omitempty"`
-	Embed                      *bool                              `json:"embed,omitempty"`
-	IframeMessaging            *bool                              `json:"iframe_messaging,omitempty"`
-	AllowOfflinePaymentMethods *bool                              `json:"allow_offline_payment_methods,omitempty"`
-	ContractTerm               *CheckoutExistingContractTerm      `json:"contract_term,omitempty"`
+type HostedPageCheckoutExistingRequest struct {
+	Subscription               *HostedPageCheckoutExistingSubscription      `json:"subscription,omitempty"`
+	Addons                     []*HostedPageCheckoutExistingAddon           `json:"addons,omitempty"`
+	EventBasedAddons           []*HostedPageCheckoutExistingEventBasedAddon `json:"event_based_addons,omitempty"`
+	ReplaceAddonList           *bool                                        `json:"replace_addon_list,omitempty"`
+	MandatoryAddonsToRemove    []string                                     `json:"mandatory_addons_to_remove,omitempty"`
+	InvoiceDate                *int64                                       `json:"invoice_date,omitempty"`
+	BillingCycles              *int32                                       `json:"billing_cycles,omitempty"`
+	TermsToCharge              *int32                                       `json:"terms_to_charge,omitempty"`
+	ReactivateFrom             *int64                                       `json:"reactivate_from,omitempty"`
+	BillingAlignmentMode       HostedPageBillingAlignmentMode               `json:"billing_alignment_mode,omitempty"`
+	CouponIds                  []string                                     `json:"coupon_ids,omitempty"`
+	ReplaceCouponList          *bool                                        `json:"replace_coupon_list,omitempty"`
+	Reactivate                 *bool                                        `json:"reactivate,omitempty"`
+	ForceTermReset             *bool                                        `json:"force_term_reset,omitempty"`
+	Customer                   *HostedPageCheckoutExistingCustomer          `json:"customer,omitempty"`
+	Card                       *HostedPageCheckoutExistingCard              `json:"card,omitempty"`
+	RedirectUrl                string                                       `json:"redirect_url,omitempty"`
+	CancelUrl                  string                                       `json:"cancel_url,omitempty"`
+	PassThruContent            string                                       `json:"pass_thru_content,omitempty"`
+	Embed                      *bool                                        `json:"embed,omitempty"`
+	IframeMessaging            *bool                                        `json:"iframe_messaging,omitempty"`
+	AllowOfflinePaymentMethods *bool                                        `json:"allow_offline_payment_methods,omitempty"`
+	ContractTerm               *HostedPageCheckoutExistingContractTerm      `json:"contract_term,omitempty"`
+	apiRequest                 `json:"-" form:"-"`
 }
-type CheckoutExistingSubscription struct {
-	Id                                string                    `json:"id"`
-	PlanId                            string                    `json:"plan_id,omitempty"`
-	PlanQuantity                      *int32                    `json:"plan_quantity,omitempty"`
-	PlanUnitPrice                     *int64                    `json:"plan_unit_price,omitempty"`
-	SetupFee                          *int64                    `json:"setup_fee,omitempty"`
-	PlanQuantityInDecimal             string                    `json:"plan_quantity_in_decimal,omitempty"`
-	PlanUnitPriceInDecimal            string                    `json:"plan_unit_price_in_decimal,omitempty"`
-	StartDate                         *int64                    `json:"start_date,omitempty"`
-	TrialEnd                          *int64                    `json:"trial_end,omitempty"`
-	Coupon                            string                    `json:"coupon,omitempty"`
-	AutoCollection                    enum.AutoCollection       `json:"auto_collection,omitempty"`
-	OfflinePaymentMethod              enum.OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
-	InvoiceNotes                      string                    `json:"invoice_notes,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+
+func (r *HostedPageCheckoutExistingRequest) payload() any { return r }
+
+// input sub resource params single
+type HostedPageCheckoutExistingSubscription struct {
+	Id                                string               `json:"id"`
+	PlanId                            string               `json:"plan_id,omitempty"`
+	PlanQuantity                      *int32               `json:"plan_quantity,omitempty"`
+	PlanUnitPrice                     *int64               `json:"plan_unit_price,omitempty"`
+	SetupFee                          *int64               `json:"setup_fee,omitempty"`
+	PlanQuantityInDecimal             string               `json:"plan_quantity_in_decimal,omitempty"`
+	PlanUnitPriceInDecimal            string               `json:"plan_unit_price_in_decimal,omitempty"`
+	StartDate                         *int64               `json:"start_date,omitempty"`
+	TrialEnd                          *int64               `json:"trial_end,omitempty"`
+	Coupon                            string               `json:"coupon,omitempty"`
+	AutoCollection                    AutoCollection       `json:"auto_collection,omitempty"`
+	OfflinePaymentMethod              OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	InvoiceNotes                      string               `json:"invoice_notes,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32               `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
-type CheckoutExistingAddon struct {
+
+// input sub resource params multi
+type HostedPageCheckoutExistingAddon struct {
 	Id                 string `json:"id,omitempty"`
 	Quantity           *int32 `json:"quantity,omitempty"`
 	UnitPrice          *int64 `json:"unit_price,omitempty"`
@@ -566,245 +689,328 @@ type CheckoutExistingAddon struct {
 	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
 	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
 }
-type CheckoutExistingEventBasedAddon struct {
-	Id                  string        `json:"id,omitempty"`
-	Quantity            *int32        `json:"quantity,omitempty"`
-	UnitPrice           *int64        `json:"unit_price,omitempty"`
-	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
-	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
-	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce          *bool         `json:"charge_once,omitempty"`
-	QuantityInDecimal   string        `json:"quantity_in_decimal,omitempty"`
-	UnitPriceInDecimal  string        `json:"unit_price_in_decimal,omitempty"`
+
+// input sub resource params multi
+type HostedPageCheckoutExistingEventBasedAddon struct {
+	Id                  string   `json:"id,omitempty"`
+	Quantity            *int32   `json:"quantity,omitempty"`
+	UnitPrice           *int64   `json:"unit_price,omitempty"`
+	ServicePeriodInDays *int32   `json:"service_period_in_days,omitempty"`
+	ChargeOn            ChargeOn `json:"charge_on,omitempty"`
+	OnEvent             OnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool    `json:"charge_once,omitempty"`
+	QuantityInDecimal   string   `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal  string   `json:"unit_price_in_decimal,omitempty"`
 }
-type CheckoutExistingCustomer struct {
+
+// input sub resource params single
+type HostedPageCheckoutExistingCustomer struct {
 	VatNumber       string `json:"vat_number,omitempty"`
 	VatNumberPrefix string `json:"vat_number_prefix,omitempty"`
 }
-type CheckoutExistingCard struct {
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
+
+// input sub resource params single
+type HostedPageCheckoutExistingCard struct {
+	Gateway          Gateway `json:"gateway,omitempty"`
+	GatewayAccountId string  `json:"gateway_account_id,omitempty"`
 }
-type CheckoutExistingContractTerm struct {
-	ActionAtTermEnd          contractTerm.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32                       `json:"cancellation_cutoff_period,omitempty"`
+
+// input sub resource params single
+type HostedPageCheckoutExistingContractTerm struct {
+	ActionAtTermEnd          ActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32          `json:"cancellation_cutoff_period,omitempty"`
 }
-type CheckoutExistingForItemsRequest struct {
-	Layout                     enum.Layout                                 `json:"layout,omitempty"`
-	Subscription               *CheckoutExistingForItemsSubscription       `json:"subscription,omitempty"`
-	SubscriptionItems          []*CheckoutExistingForItemsSubscriptionItem `json:"subscription_items,omitempty"`
-	MandatoryItemsToRemove     []string                                    `json:"mandatory_items_to_remove,omitempty"`
-	ReplaceItemsList           *bool                                       `json:"replace_items_list,omitempty"`
-	Discounts                  []*CheckoutExistingForItemsDiscount         `json:"discounts,omitempty"`
-	ItemTiers                  []*CheckoutExistingForItemsItemTier         `json:"item_tiers,omitempty"`
-	InvoiceDate                *int64                                      `json:"invoice_date,omitempty"`
-	BillingCycles              *int32                                      `json:"billing_cycles,omitempty"`
-	TermsToCharge              *int32                                      `json:"terms_to_charge,omitempty"`
-	ReactivateFrom             *int64                                      `json:"reactivate_from,omitempty"`
-	BillingAlignmentMode       enum.BillingAlignmentMode                   `json:"billing_alignment_mode,omitempty"`
-	CouponIds                  []string                                    `json:"coupon_ids,omitempty"`
-	ReplaceCouponList          *bool                                       `json:"replace_coupon_list,omitempty"`
-	Reactivate                 *bool                                       `json:"reactivate,omitempty"`
-	ForceTermReset             *bool                                       `json:"force_term_reset,omitempty"`
-	ChangeOption               enum.ChangeOption                           `json:"change_option,omitempty"`
-	ChangesScheduledAt         *int64                                      `json:"changes_scheduled_at,omitempty"`
-	Customer                   *CheckoutExistingForItemsCustomer           `json:"customer,omitempty"`
-	EntityIdentifiers          []*CheckoutExistingForItemsEntityIdentifier `json:"entity_identifiers,omitempty"`
-	Card                       *CheckoutExistingForItemsCard               `json:"card,omitempty"`
-	RedirectUrl                string                                      `json:"redirect_url,omitempty"`
-	CancelUrl                  string                                      `json:"cancel_url,omitempty"`
-	PassThruContent            string                                      `json:"pass_thru_content,omitempty"`
-	AllowOfflinePaymentMethods *bool                                       `json:"allow_offline_payment_methods,omitempty"`
-	ContractTerm               *CheckoutExistingForItemsContractTerm       `json:"contract_term,omitempty"`
+type HostedPageCheckoutExistingForItemsRequest struct {
+	Layout                     HostedPageLayout                                      `json:"layout,omitempty"`
+	Subscription               *HostedPageCheckoutExistingForItemsSubscription       `json:"subscription,omitempty"`
+	SubscriptionItems          []*HostedPageCheckoutExistingForItemsSubscriptionItem `json:"subscription_items,omitempty"`
+	MandatoryItemsToRemove     []string                                              `json:"mandatory_items_to_remove,omitempty"`
+	ReplaceItemsList           *bool                                                 `json:"replace_items_list,omitempty"`
+	Discounts                  []*HostedPageCheckoutExistingForItemsDiscount         `json:"discounts,omitempty"`
+	ItemTiers                  []*HostedPageCheckoutExistingForItemsItemTier         `json:"item_tiers,omitempty"`
+	InvoiceDate                *int64                                                `json:"invoice_date,omitempty"`
+	BillingCycles              *int32                                                `json:"billing_cycles,omitempty"`
+	TermsToCharge              *int32                                                `json:"terms_to_charge,omitempty"`
+	ReactivateFrom             *int64                                                `json:"reactivate_from,omitempty"`
+	BillingAlignmentMode       HostedPageBillingAlignmentMode                        `json:"billing_alignment_mode,omitempty"`
+	CouponIds                  []string                                              `json:"coupon_ids,omitempty"`
+	ReplaceCouponList          *bool                                                 `json:"replace_coupon_list,omitempty"`
+	Reactivate                 *bool                                                 `json:"reactivate,omitempty"`
+	ForceTermReset             *bool                                                 `json:"force_term_reset,omitempty"`
+	ChangeOption               HostedPageChangeOption                                `json:"change_option,omitempty"`
+	ChangesScheduledAt         *int64                                                `json:"changes_scheduled_at,omitempty"`
+	Customer                   *HostedPageCheckoutExistingForItemsCustomer           `json:"customer,omitempty"`
+	EntityIdentifiers          []*HostedPageCheckoutExistingForItemsEntityIdentifier `json:"entity_identifiers,omitempty"`
+	Card                       *HostedPageCheckoutExistingForItemsCard               `json:"card,omitempty"`
+	RedirectUrl                string                                                `json:"redirect_url,omitempty"`
+	CancelUrl                  string                                                `json:"cancel_url,omitempty"`
+	PassThruContent            string                                                `json:"pass_thru_content,omitempty"`
+	AllowOfflinePaymentMethods *bool                                                 `json:"allow_offline_payment_methods,omitempty"`
+	ContractTerm               *HostedPageCheckoutExistingForItemsContractTerm       `json:"contract_term,omitempty"`
+	apiRequest                 `json:"-" form:"-"`
 }
-type CheckoutExistingForItemsSubscription struct {
-	Id                                string                    `json:"id"`
-	SetupFee                          *int64                    `json:"setup_fee,omitempty"`
-	StartDate                         *int64                    `json:"start_date,omitempty"`
-	TrialEnd                          *int64                    `json:"trial_end,omitempty"`
-	Coupon                            string                    `json:"coupon,omitempty"`
-	AutoCollection                    enum.AutoCollection       `json:"auto_collection,omitempty"`
-	OfflinePaymentMethod              enum.OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
-	InvoiceNotes                      string                    `json:"invoice_notes,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+
+func (r *HostedPageCheckoutExistingForItemsRequest) payload() any { return r }
+
+// input sub resource params single
+type HostedPageCheckoutExistingForItemsSubscription struct {
+	Id                                string               `json:"id"`
+	SetupFee                          *int64               `json:"setup_fee,omitempty"`
+	StartDate                         *int64               `json:"start_date,omitempty"`
+	TrialEnd                          *int64               `json:"trial_end,omitempty"`
+	Coupon                            string               `json:"coupon,omitempty"`
+	AutoCollection                    AutoCollection       `json:"auto_collection,omitempty"`
+	OfflinePaymentMethod              OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	InvoiceNotes                      string               `json:"invoice_notes,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32               `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
-type CheckoutExistingForItemsSubscriptionItem struct {
-	ItemPriceId        string              `json:"item_price_id"`
-	Quantity           *int32              `json:"quantity,omitempty"`
-	QuantityInDecimal  string              `json:"quantity_in_decimal,omitempty"`
-	UnitPrice          *int64              `json:"unit_price,omitempty"`
-	UnitPriceInDecimal string              `json:"unit_price_in_decimal,omitempty"`
-	BillingCycles      *int32              `json:"billing_cycles,omitempty"`
-	TrialEnd           *int64              `json:"trial_end,omitempty"`
-	ServicePeriodDays  *int32              `json:"service_period_days,omitempty"`
-	ChargeOnEvent      enum.ChargeOnEvent  `json:"charge_on_event,omitempty"`
-	ChargeOnce         *bool               `json:"charge_once,omitempty"`
-	ChargeOnOption     enum.ChargeOnOption `json:"charge_on_option,omitempty"`
-	ItemType           enum.ItemType       `json:"item_type,omitempty"`
+
+// input sub resource params multi
+type HostedPageCheckoutExistingForItemsSubscriptionItem struct {
+	ItemPriceId        string         `json:"item_price_id"`
+	Quantity           *int32         `json:"quantity,omitempty"`
+	QuantityInDecimal  string         `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int64         `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string         `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32         `json:"billing_cycles,omitempty"`
+	TrialEnd           *int64         `json:"trial_end,omitempty"`
+	ServicePeriodDays  *int32         `json:"service_period_days,omitempty"`
+	ChargeOnEvent      ChargeOnEvent  `json:"charge_on_event,omitempty"`
+	ChargeOnce         *bool          `json:"charge_once,omitempty"`
+	ChargeOnOption     ChargeOnOption `json:"charge_on_option,omitempty"`
+	ItemType           ItemType       `json:"item_type,omitempty"`
 }
-type CheckoutExistingForItemsDiscount struct {
-	ApplyOn       enum.ApplyOn       `json:"apply_on,omitempty"`
-	DurationType  enum.DurationType  `json:"duration_type"`
-	Percentage    *float64           `json:"percentage,omitempty"`
-	Amount        *int64             `json:"amount,omitempty"`
-	Period        *int32             `json:"period,omitempty"`
-	PeriodUnit    enum.PeriodUnit    `json:"period_unit,omitempty"`
-	IncludedInMrr *bool              `json:"included_in_mrr,omitempty"`
-	ItemPriceId   string             `json:"item_price_id,omitempty"`
-	Quantity      *int32             `json:"quantity,omitempty"`
-	OperationType enum.OperationType `json:"operation_type"`
-	Id            string             `json:"id,omitempty"`
+
+// input sub resource params multi
+type HostedPageCheckoutExistingForItemsDiscount struct {
+	ApplyOn       ApplyOn       `json:"apply_on,omitempty"`
+	DurationType  DurationType  `json:"duration_type"`
+	Percentage    *float64      `json:"percentage,omitempty"`
+	Amount        *int64        `json:"amount,omitempty"`
+	Period        *int32        `json:"period,omitempty"`
+	PeriodUnit    PeriodUnit    `json:"period_unit,omitempty"`
+	IncludedInMrr *bool         `json:"included_in_mrr,omitempty"`
+	ItemPriceId   string        `json:"item_price_id,omitempty"`
+	Quantity      *int32        `json:"quantity,omitempty"`
+	OperationType OperationType `json:"operation_type"`
+	Id            string        `json:"id,omitempty"`
 }
-type CheckoutExistingForItemsItemTier struct {
-	ItemPriceId           string           `json:"item_price_id,omitempty"`
-	StartingUnit          *int32           `json:"starting_unit,omitempty"`
-	EndingUnit            *int32           `json:"ending_unit,omitempty"`
-	Price                 *int64           `json:"price,omitempty"`
-	StartingUnitInDecimal string           `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string           `json:"price_in_decimal,omitempty"`
-	PricingType           enum.PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32           `json:"package_size,omitempty"`
+
+// input sub resource params multi
+type HostedPageCheckoutExistingForItemsItemTier struct {
+	ItemPriceId           string      `json:"item_price_id,omitempty"`
+	StartingUnit          *int32      `json:"starting_unit,omitempty"`
+	EndingUnit            *int32      `json:"ending_unit,omitempty"`
+	Price                 *int64      `json:"price,omitempty"`
+	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
+	PricingType           PricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32      `json:"package_size,omitempty"`
 }
-type CheckoutExistingForItemsCustomer struct {
+
+// input sub resource params single
+type HostedPageCheckoutExistingForItemsCustomer struct {
 	VatNumber                string `json:"vat_number,omitempty"`
 	VatNumberPrefix          string `json:"vat_number_prefix,omitempty"`
 	IsEinvoiceEnabled        *bool  `json:"is_einvoice_enabled,omitempty"`
 	EntityIdentifierScheme   string `json:"entity_identifier_scheme,omitempty"`
 	EntityIdentifierStandard string `json:"entity_identifier_standard,omitempty"`
 }
-type CheckoutExistingForItemsEntityIdentifier struct {
-	Id        string         `json:"id,omitempty"`
-	Scheme    string         `json:"scheme,omitempty"`
-	Value     string         `json:"value,omitempty"`
-	Operation enum.Operation `json:"operation,omitempty"`
-	Standard  string         `json:"standard,omitempty"`
+
+// input sub resource params multi
+type HostedPageCheckoutExistingForItemsEntityIdentifier struct {
+	Id        string    `json:"id,omitempty"`
+	Scheme    string    `json:"scheme,omitempty"`
+	Value     string    `json:"value,omitempty"`
+	Operation Operation `json:"operation,omitempty"`
+	Standard  string    `json:"standard,omitempty"`
 }
-type CheckoutExistingForItemsCard struct {
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
+
+// input sub resource params single
+type HostedPageCheckoutExistingForItemsCard struct {
+	Gateway          Gateway `json:"gateway,omitempty"`
+	GatewayAccountId string  `json:"gateway_account_id,omitempty"`
 }
-type CheckoutExistingForItemsContractTerm struct {
-	ActionAtTermEnd          contractTerm.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32                       `json:"cancellation_cutoff_period,omitempty"`
+
+// input sub resource params single
+type HostedPageCheckoutExistingForItemsContractTerm struct {
+	ActionAtTermEnd          ActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32          `json:"cancellation_cutoff_period,omitempty"`
 }
-type UpdateCardRequest struct {
-	Customer        *UpdateCardCustomer `json:"customer,omitempty"`
-	Card            *UpdateCardCard     `json:"card,omitempty"`
-	RedirectUrl     string              `json:"redirect_url,omitempty"`
-	CancelUrl       string              `json:"cancel_url,omitempty"`
-	PassThruContent string              `json:"pass_thru_content,omitempty"`
-	Embed           *bool               `json:"embed,omitempty"`
-	IframeMessaging *bool               `json:"iframe_messaging,omitempty"`
+type HostedPageUpdateCardRequest struct {
+	Customer        *HostedPageUpdateCardCustomer `json:"customer,omitempty"`
+	Card            *HostedPageUpdateCardCard     `json:"card,omitempty"`
+	RedirectUrl     string                        `json:"redirect_url,omitempty"`
+	CancelUrl       string                        `json:"cancel_url,omitempty"`
+	PassThruContent string                        `json:"pass_thru_content,omitempty"`
+	Embed           *bool                         `json:"embed,omitempty"`
+	IframeMessaging *bool                         `json:"iframe_messaging,omitempty"`
+	apiRequest      `json:"-" form:"-"`
 }
-type UpdateCardCustomer struct {
+
+func (r *HostedPageUpdateCardRequest) payload() any { return r }
+
+// input sub resource params single
+type HostedPageUpdateCardCustomer struct {
 	Id              string `json:"id"`
 	VatNumber       string `json:"vat_number,omitempty"`
 	VatNumberPrefix string `json:"vat_number_prefix,omitempty"`
 }
-type UpdateCardCard struct {
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
+
+// input sub resource params single
+type HostedPageUpdateCardCard struct {
+	Gateway          Gateway `json:"gateway,omitempty"`
+	GatewayAccountId string  `json:"gateway_account_id,omitempty"`
 }
-type UpdatePaymentMethodRequest struct {
-	Customer        *UpdatePaymentMethodCustomer `json:"customer,omitempty"`
-	Card            *UpdatePaymentMethodCard     `json:"card,omitempty"`
-	RedirectUrl     string                       `json:"redirect_url,omitempty"`
-	CancelUrl       string                       `json:"cancel_url,omitempty"`
-	PassThruContent string                       `json:"pass_thru_content,omitempty"`
-	Embed           *bool                        `json:"embed,omitempty"`
-	IframeMessaging *bool                        `json:"iframe_messaging,omitempty"`
+type HostedPageUpdatePaymentMethodRequest struct {
+	Customer        *HostedPageUpdatePaymentMethodCustomer `json:"customer,omitempty"`
+	Card            *HostedPageUpdatePaymentMethodCard     `json:"card,omitempty"`
+	RedirectUrl     string                                 `json:"redirect_url,omitempty"`
+	CancelUrl       string                                 `json:"cancel_url,omitempty"`
+	PassThruContent string                                 `json:"pass_thru_content,omitempty"`
+	Embed           *bool                                  `json:"embed,omitempty"`
+	IframeMessaging *bool                                  `json:"iframe_messaging,omitempty"`
+	apiRequest      `json:"-" form:"-"`
 }
-type UpdatePaymentMethodCustomer struct {
+
+func (r *HostedPageUpdatePaymentMethodRequest) payload() any { return r }
+
+// input sub resource params single
+type HostedPageUpdatePaymentMethodCustomer struct {
 	Id              string `json:"id"`
 	VatNumber       string `json:"vat_number,omitempty"`
 	VatNumberPrefix string `json:"vat_number_prefix,omitempty"`
 }
-type UpdatePaymentMethodCard struct {
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
+
+// input sub resource params single
+type HostedPageUpdatePaymentMethodCard struct {
+	Gateway          Gateway `json:"gateway,omitempty"`
+	GatewayAccountId string  `json:"gateway_account_id,omitempty"`
 }
-type ManagePaymentSourcesRequest struct {
-	Customer    *ManagePaymentSourcesCustomer `json:"customer,omitempty"`
-	RedirectUrl string                        `json:"redirect_url,omitempty"`
-	Card        *ManagePaymentSourcesCard     `json:"card,omitempty"`
+type HostedPageManagePaymentSourcesRequest struct {
+	Customer    *HostedPageManagePaymentSourcesCustomer `json:"customer,omitempty"`
+	RedirectUrl string                                  `json:"redirect_url,omitempty"`
+	Card        *HostedPageManagePaymentSourcesCard     `json:"card,omitempty"`
+	apiRequest  `json:"-" form:"-"`
 }
-type ManagePaymentSourcesCustomer struct {
+
+func (r *HostedPageManagePaymentSourcesRequest) payload() any { return r }
+
+// input sub resource params single
+type HostedPageManagePaymentSourcesCustomer struct {
 	Id string `json:"id"`
 }
-type ManagePaymentSourcesCard struct {
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
+
+// input sub resource params single
+type HostedPageManagePaymentSourcesCard struct {
+	Gateway          Gateway `json:"gateway,omitempty"`
+	GatewayAccountId string  `json:"gateway_account_id,omitempty"`
 }
-type CollectNowRequest struct {
-	Customer     *CollectNowCustomer `json:"customer,omitempty"`
-	RedirectUrl  string              `json:"redirect_url,omitempty"`
-	Card         *CollectNowCard     `json:"card,omitempty"`
-	CurrencyCode string              `json:"currency_code,omitempty"`
+type HostedPageCollectNowRequest struct {
+	Customer     *HostedPageCollectNowCustomer `json:"customer,omitempty"`
+	RedirectUrl  string                        `json:"redirect_url,omitempty"`
+	Card         *HostedPageCollectNowCard     `json:"card,omitempty"`
+	CurrencyCode string                        `json:"currency_code,omitempty"`
+	apiRequest   `json:"-" form:"-"`
 }
-type CollectNowCustomer struct {
+
+func (r *HostedPageCollectNowRequest) payload() any { return r }
+
+// input sub resource params single
+type HostedPageCollectNowCustomer struct {
 	Id string `json:"id"`
 }
-type CollectNowCard struct {
-	Gateway          enum.Gateway `json:"gateway,omitempty"`
-	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
+
+// input sub resource params single
+type HostedPageCollectNowCard struct {
+	Gateway          Gateway `json:"gateway,omitempty"`
+	GatewayAccountId string  `json:"gateway_account_id,omitempty"`
 }
-type AcceptQuoteRequest struct {
-	Quote       *AcceptQuoteQuote `json:"quote,omitempty"`
-	RedirectUrl string            `json:"redirect_url,omitempty"`
-	Layout      enum.Layout       `json:"layout,omitempty"`
+type HostedPageAcceptQuoteRequest struct {
+	Quote       *HostedPageAcceptQuoteQuote `json:"quote,omitempty"`
+	RedirectUrl string                      `json:"redirect_url,omitempty"`
+	Layout      HostedPageLayout            `json:"layout,omitempty"`
+	apiRequest  `json:"-" form:"-"`
 }
-type AcceptQuoteQuote struct {
+
+func (r *HostedPageAcceptQuoteRequest) payload() any { return r }
+
+// input sub resource params single
+type HostedPageAcceptQuoteQuote struct {
 	Id string `json:"id"`
 }
-type ExtendSubscriptionRequest struct {
-	Subscription *ExtendSubscriptionSubscription `json:"subscription,omitempty"`
-	Expiry       *int32                          `json:"expiry,omitempty"`
-	BillingCycle *int32                          `json:"billing_cycle,omitempty"`
+type HostedPageExtendSubscriptionRequest struct {
+	Subscription *HostedPageExtendSubscriptionSubscription `json:"subscription,omitempty"`
+	Expiry       *int32                                    `json:"expiry,omitempty"`
+	BillingCycle *int32                                    `json:"billing_cycle,omitempty"`
+	apiRequest   `json:"-" form:"-"`
 }
-type ExtendSubscriptionSubscription struct {
+
+func (r *HostedPageExtendSubscriptionRequest) payload() any { return r }
+
+// input sub resource params single
+type HostedPageExtendSubscriptionSubscription struct {
 	Id string `json:"id"`
 }
-type CheckoutGiftRequest struct {
-	Gifter       *CheckoutGiftGifter       `json:"gifter,omitempty"`
-	RedirectUrl  string                    `json:"redirect_url,omitempty"`
-	Subscription *CheckoutGiftSubscription `json:"subscription,omitempty"`
-	Addons       []*CheckoutGiftAddon      `json:"addons,omitempty"`
-	CouponIds    []string                  `json:"coupon_ids,omitempty"`
+type HostedPageCheckoutGiftRequest struct {
+	Gifter       *HostedPageCheckoutGiftGifter       `json:"gifter,omitempty"`
+	RedirectUrl  string                              `json:"redirect_url,omitempty"`
+	Subscription *HostedPageCheckoutGiftSubscription `json:"subscription,omitempty"`
+	Addons       []*HostedPageCheckoutGiftAddon      `json:"addons,omitempty"`
+	CouponIds    []string                            `json:"coupon_ids,omitempty"`
+	apiRequest   `json:"-" form:"-"`
 }
-type CheckoutGiftGifter struct {
+
+func (r *HostedPageCheckoutGiftRequest) payload() any { return r }
+
+// input sub resource params single
+type HostedPageCheckoutGiftGifter struct {
 	CustomerId string `json:"customer_id,omitempty"`
 }
-type CheckoutGiftSubscription struct {
+
+// input sub resource params single
+type HostedPageCheckoutGiftSubscription struct {
 	PlanId                string `json:"plan_id"`
 	PlanQuantity          *int32 `json:"plan_quantity,omitempty"`
 	PlanQuantityInDecimal string `json:"plan_quantity_in_decimal,omitempty"`
 	Coupon                string `json:"coupon,omitempty"`
 }
-type CheckoutGiftAddon struct {
+
+// input sub resource params multi
+type HostedPageCheckoutGiftAddon struct {
 	Id                string `json:"id,omitempty"`
 	Quantity          *int32 `json:"quantity,omitempty"`
 	QuantityInDecimal string `json:"quantity_in_decimal,omitempty"`
 }
-type CheckoutGiftForItemsRequest struct {
-	BusinessEntityId  string                                  `json:"business_entity_id,omitempty"`
-	Gifter            *CheckoutGiftForItemsGifter             `json:"gifter,omitempty"`
-	RedirectUrl       string                                  `json:"redirect_url,omitempty"`
-	SubscriptionItems []*CheckoutGiftForItemsSubscriptionItem `json:"subscription_items,omitempty"`
-	ItemTiers         []*CheckoutGiftForItemsItemTier         `json:"item_tiers,omitempty"`
-	CouponIds         []string                                `json:"coupon_ids,omitempty"`
+type HostedPageCheckoutGiftForItemsRequest struct {
+	BusinessEntityId  string                                            `json:"business_entity_id,omitempty"`
+	Gifter            *HostedPageCheckoutGiftForItemsGifter             `json:"gifter,omitempty"`
+	RedirectUrl       string                                            `json:"redirect_url,omitempty"`
+	SubscriptionItems []*HostedPageCheckoutGiftForItemsSubscriptionItem `json:"subscription_items,omitempty"`
+	ItemTiers         []*HostedPageCheckoutGiftForItemsItemTier         `json:"item_tiers,omitempty"`
+	CouponIds         []string                                          `json:"coupon_ids,omitempty"`
+	apiRequest        `json:"-" form:"-"`
 }
-type CheckoutGiftForItemsGifter struct {
+
+func (r *HostedPageCheckoutGiftForItemsRequest) payload() any { return r }
+
+// input sub resource params single
+type HostedPageCheckoutGiftForItemsGifter struct {
 	CustomerId string `json:"customer_id,omitempty"`
 }
-type CheckoutGiftForItemsSubscriptionItem struct {
+
+// input sub resource params multi
+type HostedPageCheckoutGiftForItemsSubscriptionItem struct {
 	ItemPriceId        string `json:"item_price_id,omitempty"`
 	Quantity           *int32 `json:"quantity,omitempty"`
 	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
 	UnitPrice          *int64 `json:"unit_price,omitempty"`
 	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
 }
-type CheckoutGiftForItemsItemTier struct {
+
+// input sub resource params multi
+type HostedPageCheckoutGiftForItemsItemTier struct {
 	ItemPriceId           string `json:"item_price_id,omitempty"`
 	StartingUnit          *int32 `json:"starting_unit,omitempty"`
 	EndingUnit            *int32 `json:"ending_unit,omitempty"`
@@ -813,142 +1019,218 @@ type CheckoutGiftForItemsItemTier struct {
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
-type ClaimGiftRequest struct {
-	Gift        *ClaimGiftGift     `json:"gift,omitempty"`
-	RedirectUrl string             `json:"redirect_url,omitempty"`
-	Customer    *ClaimGiftCustomer `json:"customer,omitempty"`
+type HostedPageClaimGiftRequest struct {
+	Gift        *HostedPageClaimGiftGift     `json:"gift,omitempty"`
+	RedirectUrl string                       `json:"redirect_url,omitempty"`
+	Customer    *HostedPageClaimGiftCustomer `json:"customer,omitempty"`
+	apiRequest  `json:"-" form:"-"`
 }
-type ClaimGiftGift struct {
+
+func (r *HostedPageClaimGiftRequest) payload() any { return r }
+
+// input sub resource params single
+type HostedPageClaimGiftGift struct {
 	Id string `json:"id"`
 }
-type ClaimGiftCustomer struct {
+
+// input sub resource params single
+type HostedPageClaimGiftCustomer struct {
 	Locale string `json:"locale,omitempty"`
 }
-type RetrieveAgreementPdfRequest struct {
+type HostedPageRetrieveAgreementPdfRequest struct {
 	PaymentSourceId string `json:"payment_source_id"`
+	apiRequest      `json:"-" form:"-"`
 }
-type ListRequest struct {
-	Limit     *int32                  `json:"limit,omitempty"`
-	Offset    string                  `json:"offset,omitempty"`
-	Id        *filter.StringFilter    `json:"id,omitempty"`
-	Type      *filter.EnumFilter      `json:"type,omitempty"`
-	State     *filter.EnumFilter      `json:"state,omitempty"`
-	UpdatedAt *filter.TimestampFilter `json:"updated_at,omitempty"`
+
+func (r *HostedPageRetrieveAgreementPdfRequest) payload() any { return r }
+
+type HostedPageListRequest struct {
+	Limit      *int32           `json:"limit,omitempty"`
+	Offset     string           `json:"offset,omitempty"`
+	Id         *StringFilter    `json:"id,omitempty"`
+	Type       *EnumFilter      `json:"type,omitempty"`
+	State      *EnumFilter      `json:"state,omitempty"`
+	UpdatedAt  *TimestampFilter `json:"updated_at,omitempty"`
+	apiRequest `json:"-" form:"-"`
 }
-type PreCancelRequest struct {
-	Subscription    *PreCancelSubscription `json:"subscription,omitempty"`
-	PassThruContent string                 `json:"pass_thru_content,omitempty"`
-	CancelUrl       string                 `json:"cancel_url,omitempty"`
-	RedirectUrl     string                 `json:"redirect_url,omitempty"`
+
+func (r *HostedPageListRequest) payload() any { return r }
+
+type HostedPagePreCancelRequest struct {
+	Subscription    *HostedPagePreCancelSubscription `json:"subscription,omitempty"`
+	PassThruContent string                           `json:"pass_thru_content,omitempty"`
+	CancelUrl       string                           `json:"cancel_url,omitempty"`
+	RedirectUrl     string                           `json:"redirect_url,omitempty"`
+	apiRequest      `json:"-" form:"-"`
 }
-type PreCancelSubscription struct {
+
+func (r *HostedPagePreCancelRequest) payload() any { return r }
+
+// input sub resource params single
+type HostedPagePreCancelSubscription struct {
 	Id string `json:"id"`
 }
-type EventsRequest struct {
-	EventName  enum.EventName         `json:"event_name"`
+type HostedPageEventsRequest struct {
+	EventName  HostedPageEventName    `json:"event_name"`
 	OccurredAt *int64                 `json:"occurred_at,omitempty"`
 	EventData  map[string]interface{} `json:"event_data"`
+	apiRequest `json:"-" form:"-"`
 }
-type ViewVoucherRequest struct {
-	PaymentVoucher *ViewVoucherPaymentVoucher `json:"payment_voucher,omitempty"`
-	Customer       *ViewVoucherCustomer       `json:"customer,omitempty"`
+
+func (r *HostedPageEventsRequest) payload() any { return r }
+
+type HostedPageViewVoucherRequest struct {
+	PaymentVoucher *HostedPageViewVoucherPaymentVoucher `json:"payment_voucher,omitempty"`
+	Customer       *HostedPageViewVoucherCustomer       `json:"customer,omitempty"`
+	apiRequest     `json:"-" form:"-"`
 }
-type ViewVoucherPaymentVoucher struct {
+
+func (r *HostedPageViewVoucherRequest) payload() any { return r }
+
+// input sub resource params single
+type HostedPageViewVoucherPaymentVoucher struct {
 	Id string `json:"id"`
 }
-type ViewVoucherCustomer struct {
+
+// input sub resource params single
+type HostedPageViewVoucherCustomer struct {
 	Locale string `json:"locale,omitempty"`
 }
 
-type CheckoutNewResponse struct {
+// operation response
+type HostedPageCheckoutNewResponse struct {
+	HostedPage *HostedPage `json:"hosted_page,omitempty"`
+	apiResponse
+}
+
+// operation response
+type HostedPageCheckoutOneTimeResponse struct {
+	HostedPage *HostedPage `json:"hosted_page,omitempty"`
+	apiResponse
+}
+
+// operation response
+type HostedPageCheckoutOneTimeForItemsResponse struct {
+	HostedPage *HostedPage `json:"hosted_page,omitempty"`
+	apiResponse
+}
+
+// operation response
+type HostedPageCheckoutNewForItemsResponse struct {
+	HostedPage *HostedPage `json:"hosted_page,omitempty"`
+	apiResponse
+}
+
+// operation response
+type HostedPageCheckoutExistingResponse struct {
+	HostedPage *HostedPage `json:"hosted_page,omitempty"`
+	apiResponse
+}
+
+// operation response
+type HostedPageCheckoutExistingForItemsResponse struct {
+	HostedPage *HostedPage `json:"hosted_page,omitempty"`
+	apiResponse
+}
+
+// operation response
+type HostedPageUpdateCardResponse struct {
+	HostedPage *HostedPage `json:"hosted_page,omitempty"`
+	apiResponse
+}
+
+// operation response
+type HostedPageUpdatePaymentMethodResponse struct {
+	HostedPage *HostedPage `json:"hosted_page,omitempty"`
+	apiResponse
+}
+
+// operation response
+type HostedPageManagePaymentSourcesResponse struct {
+	HostedPage *HostedPage `json:"hosted_page,omitempty"`
+	apiResponse
+}
+
+// operation response
+type HostedPageCollectNowResponse struct {
+	HostedPage *HostedPage `json:"hosted_page,omitempty"`
+	apiResponse
+}
+
+// operation response
+type HostedPageAcceptQuoteResponse struct {
+	HostedPage *HostedPage `json:"hosted_page,omitempty"`
+	apiResponse
+}
+
+// operation response
+type HostedPageExtendSubscriptionResponse struct {
+	HostedPage *HostedPage `json:"hosted_page,omitempty"`
+	apiResponse
+}
+
+// operation response
+type HostedPageCheckoutGiftResponse struct {
+	HostedPage *HostedPage `json:"hosted_page,omitempty"`
+	apiResponse
+}
+
+// operation response
+type HostedPageCheckoutGiftForItemsResponse struct {
+	HostedPage *HostedPage `json:"hosted_page,omitempty"`
+	apiResponse
+}
+
+// operation response
+type HostedPageClaimGiftResponse struct {
+	HostedPage *HostedPage `json:"hosted_page,omitempty"`
+	apiResponse
+}
+
+// operation response
+type HostedPageRetrieveAgreementPdfResponse struct {
+	HostedPage *HostedPage `json:"hosted_page,omitempty"`
+	apiResponse
+}
+
+// operation response
+type HostedPageAcknowledgeResponse struct {
+	HostedPage *HostedPage `json:"hosted_page,omitempty"`
+	apiResponse
+}
+
+// operation response
+type HostedPageRetrieveResponse struct {
+	HostedPage *HostedPage `json:"hosted_page,omitempty"`
+	apiResponse
+}
+
+// operation sub response
+type HostedPageListHostedPageResponse struct {
 	HostedPage *HostedPage `json:"hosted_page,omitempty"`
 }
 
-type CheckoutOneTimeResponse struct {
+// operation response
+type HostedPageListResponse struct {
+	List       []*HostedPageListHostedPageResponse `json:"list,omitempty"`
+	NextOffset string                              `json:"next_offset,omitempty"`
+	apiResponse
+}
+
+// operation response
+type HostedPagePreCancelResponse struct {
 	HostedPage *HostedPage `json:"hosted_page,omitempty"`
+	apiResponse
 }
 
-type CheckoutOneTimeForItemsResponse struct {
-	HostedPage *HostedPage `json:"hosted_page,omitempty"`
-}
-
-type CheckoutNewForItemsResponse struct {
-	HostedPage *HostedPage `json:"hosted_page,omitempty"`
-}
-
-type CheckoutExistingResponse struct {
-	HostedPage *HostedPage `json:"hosted_page,omitempty"`
-}
-
-type CheckoutExistingForItemsResponse struct {
-	HostedPage *HostedPage `json:"hosted_page,omitempty"`
-}
-
-type UpdateCardResponse struct {
-	HostedPage *HostedPage `json:"hosted_page,omitempty"`
-}
-
-type UpdatePaymentMethodResponse struct {
-	HostedPage *HostedPage `json:"hosted_page,omitempty"`
-}
-
-type ManagePaymentSourcesResponse struct {
-	HostedPage *HostedPage `json:"hosted_page,omitempty"`
-}
-
-type CollectNowResponse struct {
-	HostedPage *HostedPage `json:"hosted_page,omitempty"`
-}
-
-type AcceptQuoteResponse struct {
-	HostedPage *HostedPage `json:"hosted_page,omitempty"`
-}
-
-type ExtendSubscriptionResponse struct {
-	HostedPage *HostedPage `json:"hosted_page,omitempty"`
-}
-
-type CheckoutGiftResponse struct {
-	HostedPage *HostedPage `json:"hosted_page,omitempty"`
-}
-
-type CheckoutGiftForItemsResponse struct {
-	HostedPage *HostedPage `json:"hosted_page,omitempty"`
-}
-
-type ClaimGiftResponse struct {
-	HostedPage *HostedPage `json:"hosted_page,omitempty"`
-}
-
-type RetrieveAgreementPdfResponse struct {
-	HostedPage *HostedPage `json:"hosted_page,omitempty"`
-}
-
-type AcknowledgeResponse struct {
-	HostedPage *HostedPage `json:"hosted_page,omitempty"`
-}
-
-type RetrieveResponse struct {
-	HostedPage *HostedPage `json:"hosted_page,omitempty"`
-}
-
-type ListHostedPageResponse struct {
-	HostedPage *HostedPage `json:"hosted_page,omitempty"`
-}
-
-type ListResponse struct {
-	List       []*ListHostedPageResponse `json:"list,omitempty"`
-	NextOffset string                    `json:"next_offset,omitempty"`
-}
-
-type PreCancelResponse struct {
-	HostedPage *HostedPage `json:"hosted_page,omitempty"`
-}
-
-type EventsResponse struct {
+// operation response
+type HostedPageEventsResponse struct {
 	Success bool `json:"success,omitempty"`
+	apiResponse
 }
 
-type ViewVoucherResponse struct {
+// operation response
+type HostedPageViewVoucherResponse struct {
 	HostedPage *HostedPage `json:"hosted_page,omitempty"`
+	apiResponse
 }

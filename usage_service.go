@@ -6,25 +6,39 @@ import (
 )
 
 type UsageService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *UsageService) Create(id string, req *CreateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/subscriptions/%v/usages", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *UsageService) Create(id string, req *UsageCreateRequest) (*UsageCreateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/subscriptions/%v/usages", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*UsageCreateResponse](req, s.config)
 }
 
-func (s *UsageService) Retrieve(id string, req *RetrieveRequest) Request {
-	return s.transport.Send("GET", fmt.Sprintf("/subscriptions/%v/usages", url.PathEscape(id)), req)
+func (s *UsageService) Retrieve(id string, req *UsageRetrieveRequest) (*UsageRetrieveResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/subscriptions/%v/usages", url.PathEscape(id))
+	return send[*UsageRetrieveResponse](req, s.config)
 }
 
-func (s *UsageService) Delete(id string, req *DeleteRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/subscriptions/%v/delete_usage", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *UsageService) Delete(id string, req *UsageDeleteRequest) (*UsageDeleteResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/subscriptions/%v/delete_usage", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*UsageDeleteResponse](req, s.config)
 }
 
-func (s *UsageService) List(req *ListRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/usages"), req)
+func (s *UsageService) List(req *UsageListRequest) (*UsageListResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/usages")
+	req.isListRequest = true
+	return send[*UsageListResponse](req, s.config)
 }
 
-func (s *UsageService) Pdf(req *PdfRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/usages/pdf"), req).SetIdempotency(true)
+func (s *UsageService) Pdf(req *UsagePdfRequest) (*UsagePdfResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/usages/pdf")
+	req.isIdempotent = true
+	return send[*UsagePdfResponse](req, s.config)
 }

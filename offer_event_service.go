@@ -5,9 +5,12 @@ import (
 )
 
 type OfferEventService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *OfferEventService) OfferEvents(req *OfferEventsRequest) Request {
-	return s.transport.SendJsonRequest("POST", fmt.Sprintf("/offer_events"), req).SetSubDomain("grow")
+func (s *OfferEventService) OfferEvents(req *OfferEventOfferEventsRequest) (*OfferEventOfferEventsResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/offer_events")
+	req.isJsonRequest = true
+	return send[*OfferEventOfferEventsResponse](req, s.config)
 }

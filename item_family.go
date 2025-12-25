@@ -1,66 +1,101 @@
 package chargebee
 
-type Status string
+type ItemFamilyStatus string
 
 const (
-	StatusActive  Status = "active"
-	StatusDeleted Status = "deleted"
+	ItemFamilyStatusActive  ItemFamilyStatus = "active"
+	ItemFamilyStatusDeleted ItemFamilyStatus = "deleted"
 )
 
+type ItemFamilyChannel string
+
+const (
+	ItemFamilyChannelWeb       ItemFamilyChannel = "web"
+	ItemFamilyChannelAppStore  ItemFamilyChannel = "app_store"
+	ItemFamilyChannelPlayStore ItemFamilyChannel = "play_store"
+)
+
+// just struct
 type ItemFamily struct {
-	Id               string                 `json:"id"`
-	Name             string                 `json:"name"`
-	Description      string                 `json:"description"`
-	Status           Status                 `json:"status"`
-	ResourceVersion  int64                  `json:"resource_version"`
-	UpdatedAt        int64                  `json:"updated_at"`
-	Channel          enum.Channel           `json:"channel"`
-	BusinessEntityId string                 `json:"business_entity_id"`
-	Deleted          bool                   `json:"deleted"`
-	CustomField      map[string]interface{} `json:"custom_field"`
-	Object           string                 `json:"object"`
+	Id               string            `json:"id"`
+	Name             string            `json:"name"`
+	Description      string            `json:"description"`
+	Status           ItemFamilyStatus  `json:"status"`
+	ResourceVersion  int64             `json:"resource_version"`
+	UpdatedAt        int64             `json:"updated_at"`
+	Channel          ItemFamilyChannel `json:"channel"`
+	BusinessEntityId string            `json:"business_entity_id"`
+	Deleted          bool              `json:"deleted"`
+	CustomField      CustomField       `json:"custom_field"`
+	Object           string            `json:"object"`
 }
-type CreateRequest struct {
+
+// sub resources
+// operations
+// input params
+type ItemFamilyCreateRequest struct {
 	Id               string `json:"id"`
 	Name             string `json:"name"`
 	Description      string `json:"description,omitempty"`
 	BusinessEntityId string `json:"business_entity_id,omitempty"`
+	apiRequest       `json:"-" form:"-"`
 }
-type ListRequest struct {
-	Limit                     *int32                  `json:"limit,omitempty"`
-	Offset                    string                  `json:"offset,omitempty"`
-	Id                        *filter.StringFilter    `json:"id,omitempty"`
-	Name                      *filter.StringFilter    `json:"name,omitempty"`
-	UpdatedAt                 *filter.TimestampFilter `json:"updated_at,omitempty"`
-	BusinessEntityId          *filter.StringFilter    `json:"business_entity_id,omitempty"`
-	IncludeSiteLevelResources *filter.BooleanFilter   `json:"include_site_level_resources,omitempty"`
+
+func (r *ItemFamilyCreateRequest) payload() any { return r }
+
+type ItemFamilyListRequest struct {
+	Limit                     *int32           `json:"limit,omitempty"`
+	Offset                    string           `json:"offset,omitempty"`
+	Id                        *StringFilter    `json:"id,omitempty"`
+	Name                      *StringFilter    `json:"name,omitempty"`
+	UpdatedAt                 *TimestampFilter `json:"updated_at,omitempty"`
+	BusinessEntityId          *StringFilter    `json:"business_entity_id,omitempty"`
+	IncludeSiteLevelResources *BooleanFilter   `json:"include_site_level_resources,omitempty"`
+	apiRequest                `json:"-" form:"-"`
 }
-type UpdateRequest struct {
+
+func (r *ItemFamilyListRequest) payload() any { return r }
+
+type ItemFamilyUpdateRequest struct {
 	Name        string `json:"name,omitempty"`
 	Description string `json:"description,omitempty"`
+	apiRequest  `json:"-" form:"-"`
 }
 
-type CreateResponse struct {
+func (r *ItemFamilyUpdateRequest) payload() any { return r }
+
+// operation response
+type ItemFamilyCreateResponse struct {
+	ItemFamily *ItemFamily `json:"item_family,omitempty"`
+	apiResponse
+}
+
+// operation response
+type ItemFamilyRetrieveResponse struct {
+	ItemFamily *ItemFamily `json:"item_family,omitempty"`
+	apiResponse
+}
+
+// operation sub response
+type ItemFamilyListItemFamilyResponse struct {
 	ItemFamily *ItemFamily `json:"item_family,omitempty"`
 }
 
-type RetrieveResponse struct {
-	ItemFamily *ItemFamily `json:"item_family,omitempty"`
+// operation response
+type ItemFamilyListResponse struct {
+	List       []*ItemFamilyListItemFamilyResponse `json:"list,omitempty"`
+	NextOffset string                              `json:"next_offset,omitempty"`
+	apiResponse
 }
 
-type ListItemFamilyResponse struct {
+// operation response
+type ItemFamilyUpdateResponse struct {
 	ItemFamily *ItemFamily `json:"item_family,omitempty"`
+	apiResponse
 }
 
-type ListResponse struct {
-	List       []*ListItemFamilyResponse `json:"list,omitempty"`
-	NextOffset string                    `json:"next_offset,omitempty"`
-}
-
-type UpdateResponse struct {
+// operation response
+type ItemFamilyDeleteResponse struct {
 	ItemFamily *ItemFamily `json:"item_family,omitempty"`
-}
-
-type DeleteResponse struct {
-	ItemFamily *ItemFamily `json:"item_family,omitempty"`
+	apiResponse
 }

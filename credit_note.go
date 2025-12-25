@@ -1,193 +1,318 @@
 package chargebee
 
-type Type string
-
-const (
-	TypeAdjustment Type = "adjustment"
-	TypeRefundable Type = "refundable"
-	TypeStore      Type = "store"
+import (
+	"encoding/json"
 )
 
-type ReasonCode string
+type CreditNoteType string
 
 const (
-	ReasonCodeWriteOff                 ReasonCode = "write_off"
-	ReasonCodeSubscriptionChange       ReasonCode = "subscription_change"
-	ReasonCodeSubscriptionCancellation ReasonCode = "subscription_cancellation"
-	ReasonCodeSubscriptionPause        ReasonCode = "subscription_pause"
-	ReasonCodeChargeback               ReasonCode = "chargeback"
-	ReasonCodeProductUnsatisfactory    ReasonCode = "product_unsatisfactory"
-	ReasonCodeServiceUnsatisfactory    ReasonCode = "service_unsatisfactory"
-	ReasonCodeOrderChange              ReasonCode = "order_change"
-	ReasonCodeOrderCancellation        ReasonCode = "order_cancellation"
-	ReasonCodeWaiver                   ReasonCode = "waiver"
-	ReasonCodeOther                    ReasonCode = "other"
-	ReasonCodeFraudulent               ReasonCode = "fraudulent"
+	CreditNoteTypeAdjustment CreditNoteType = "adjustment"
+	CreditNoteTypeRefundable CreditNoteType = "refundable"
+	CreditNoteTypeStore      CreditNoteType = "store"
 )
 
-type Status string
+type CreditNoteReasonCode string
 
 const (
-	StatusAdjusted  Status = "adjusted"
-	StatusRefunded  Status = "refunded"
-	StatusRefundDue Status = "refund_due"
-	StatusVoided    Status = "voided"
+	CreditNoteReasonCodeWriteOff                 CreditNoteReasonCode = "write_off"
+	CreditNoteReasonCodeSubscriptionChange       CreditNoteReasonCode = "subscription_change"
+	CreditNoteReasonCodeSubscriptionCancellation CreditNoteReasonCode = "subscription_cancellation"
+	CreditNoteReasonCodeSubscriptionPause        CreditNoteReasonCode = "subscription_pause"
+	CreditNoteReasonCodeChargeback               CreditNoteReasonCode = "chargeback"
+	CreditNoteReasonCodeProductUnsatisfactory    CreditNoteReasonCode = "product_unsatisfactory"
+	CreditNoteReasonCodeServiceUnsatisfactory    CreditNoteReasonCode = "service_unsatisfactory"
+	CreditNoteReasonCodeOrderChange              CreditNoteReasonCode = "order_change"
+	CreditNoteReasonCodeOrderCancellation        CreditNoteReasonCode = "order_cancellation"
+	CreditNoteReasonCodeWaiver                   CreditNoteReasonCode = "waiver"
+	CreditNoteReasonCodeOther                    CreditNoteReasonCode = "other"
+	CreditNoteReasonCodeFraudulent               CreditNoteReasonCode = "fraudulent"
 )
 
-type LineItemEntityType string
+type CreditNoteStatus string
 
 const (
-	LineItemEntityTypeAdhoc           LineItemEntityType = "adhoc"
-	LineItemEntityTypePlanItemPrice   LineItemEntityType = "plan_item_price"
-	LineItemEntityTypeAddonItemPrice  LineItemEntityType = "addon_item_price"
-	LineItemEntityTypeChargeItemPrice LineItemEntityType = "charge_item_price"
-	LineItemEntityTypePlanSetup       LineItemEntityType = "plan_setup"
-	LineItemEntityTypePlan            LineItemEntityType = "plan"
-	LineItemEntityTypeAddon           LineItemEntityType = "addon"
+	CreditNoteStatusAdjusted  CreditNoteStatus = "adjusted"
+	CreditNoteStatusRefunded  CreditNoteStatus = "refunded"
+	CreditNoteStatusRefundDue CreditNoteStatus = "refund_due"
+	CreditNoteStatusVoided    CreditNoteStatus = "voided"
 )
 
-type LineItemDiscountDiscountType string
+type CreditNotePriceType string
 
 const (
-	LineItemDiscountDiscountTypeItemLevelCoupon       LineItemDiscountDiscountType = "item_level_coupon"
-	LineItemDiscountDiscountTypeDocumentLevelCoupon   LineItemDiscountDiscountType = "document_level_coupon"
-	LineItemDiscountDiscountTypePromotionalCredits    LineItemDiscountDiscountType = "promotional_credits"
-	LineItemDiscountDiscountTypeProratedCredits       LineItemDiscountDiscountType = "prorated_credits"
-	LineItemDiscountDiscountTypeItemLevelDiscount     LineItemDiscountDiscountType = "item_level_discount"
-	LineItemDiscountDiscountTypeDocumentLevelDiscount LineItemDiscountDiscountType = "document_level_discount"
+	CreditNotePriceTypeTaxExclusive CreditNotePriceType = "tax_exclusive"
+	CreditNotePriceTypeTaxInclusive CreditNotePriceType = "tax_inclusive"
 )
 
-type DiscountEntityType string
+type CreditNoteChannel string
 
 const (
-	DiscountEntityTypeItemLevelCoupon       DiscountEntityType = "item_level_coupon"
-	DiscountEntityTypeDocumentLevelCoupon   DiscountEntityType = "document_level_coupon"
-	DiscountEntityTypePromotionalCredits    DiscountEntityType = "promotional_credits"
-	DiscountEntityTypeProratedCredits       DiscountEntityType = "prorated_credits"
-	DiscountEntityTypeItemLevelDiscount     DiscountEntityType = "item_level_discount"
-	DiscountEntityTypeDocumentLevelDiscount DiscountEntityType = "document_level_discount"
+	CreditNoteChannelWeb       CreditNoteChannel = "web"
+	CreditNoteChannelAppStore  CreditNoteChannel = "app_store"
+	CreditNoteChannelPlayStore CreditNoteChannel = "play_store"
 )
 
-type DiscountDiscountType string
+type CreditNoteLineItemPricingModel string
 
 const (
-	DiscountDiscountTypeFixedAmount DiscountDiscountType = "fixed_amount"
-	DiscountDiscountTypePercentage  DiscountDiscountType = "percentage"
+	CreditNoteLineItemPricingModelFlatFee   CreditNoteLineItemPricingModel = "flat_fee"
+	CreditNoteLineItemPricingModelPerUnit   CreditNoteLineItemPricingModel = "per_unit"
+	CreditNoteLineItemPricingModelTiered    CreditNoteLineItemPricingModel = "tiered"
+	CreditNoteLineItemPricingModelVolume    CreditNoteLineItemPricingModel = "volume"
+	CreditNoteLineItemPricingModelStairstep CreditNoteLineItemPricingModel = "stairstep"
 )
 
-type AppliedCreditTaxApplication string
+type CreditNoteLineItemEntityType string
 
 const (
-	AppliedCreditTaxApplicationPreTax  AppliedCreditTaxApplication = "pre_tax"
-	AppliedCreditTaxApplicationPostTax AppliedCreditTaxApplication = "post_tax"
+	CreditNoteLineItemEntityTypeAdhoc           CreditNoteLineItemEntityType = "adhoc"
+	CreditNoteLineItemEntityTypePlanItemPrice   CreditNoteLineItemEntityType = "plan_item_price"
+	CreditNoteLineItemEntityTypeAddonItemPrice  CreditNoteLineItemEntityType = "addon_item_price"
+	CreditNoteLineItemEntityTypeChargeItemPrice CreditNoteLineItemEntityType = "charge_item_price"
+	CreditNoteLineItemEntityTypePlanSetup       CreditNoteLineItemEntityType = "plan_setup"
+	CreditNoteLineItemEntityTypePlan            CreditNoteLineItemEntityType = "plan"
+	CreditNoteLineItemEntityTypeAddon           CreditNoteLineItemEntityType = "addon"
 )
 
-type EinvoiceStatus string
+type CreditNoteLineItemTaxExemptReason string
 
 const (
-	EinvoiceStatusScheduled  EinvoiceStatus = "scheduled"
-	EinvoiceStatusSkipped    EinvoiceStatus = "skipped"
-	EinvoiceStatusInProgress EinvoiceStatus = "in_progress"
-	EinvoiceStatusSuccess    EinvoiceStatus = "success"
-	EinvoiceStatusFailed     EinvoiceStatus = "failed"
-	EinvoiceStatusRegistered EinvoiceStatus = "registered"
+	CreditNoteLineItemTaxExemptReasonTaxNotConfigured                 CreditNoteLineItemTaxExemptReason = "tax_not_configured"
+	CreditNoteLineItemTaxExemptReasonRegionNonTaxable                 CreditNoteLineItemTaxExemptReason = "region_non_taxable"
+	CreditNoteLineItemTaxExemptReasonExport                           CreditNoteLineItemTaxExemptReason = "export"
+	CreditNoteLineItemTaxExemptReasonCustomerExempt                   CreditNoteLineItemTaxExemptReason = "customer_exempt"
+	CreditNoteLineItemTaxExemptReasonProductExempt                    CreditNoteLineItemTaxExemptReason = "product_exempt"
+	CreditNoteLineItemTaxExemptReasonZeroRated                        CreditNoteLineItemTaxExemptReason = "zero_rated"
+	CreditNoteLineItemTaxExemptReasonReverseCharge                    CreditNoteLineItemTaxExemptReason = "reverse_charge"
+	CreditNoteLineItemTaxExemptReasonHighValuePhysicalGoods           CreditNoteLineItemTaxExemptReason = "high_value_physical_goods"
+	CreditNoteLineItemTaxExemptReasonZeroValueItem                    CreditNoteLineItemTaxExemptReason = "zero_value_item"
+	CreditNoteLineItemTaxExemptReasonTaxNotConfiguredExternalProvider CreditNoteLineItemTaxExemptReason = "tax_not_configured_external_provider"
 )
 
+type CreditNoteLineItemTierPricingType string
+
+const (
+	CreditNoteLineItemTierPricingTypePerUnit CreditNoteLineItemTierPricingType = "per_unit"
+	CreditNoteLineItemTierPricingTypeFlatFee CreditNoteLineItemTierPricingType = "flat_fee"
+	CreditNoteLineItemTierPricingTypePackage CreditNoteLineItemTierPricingType = "package"
+)
+
+type CreditNoteLineItemDiscountDiscountType string
+
+const (
+	CreditNoteLineItemDiscountDiscountTypeItemLevelCoupon       CreditNoteLineItemDiscountDiscountType = "item_level_coupon"
+	CreditNoteLineItemDiscountDiscountTypeDocumentLevelCoupon   CreditNoteLineItemDiscountDiscountType = "document_level_coupon"
+	CreditNoteLineItemDiscountDiscountTypePromotionalCredits    CreditNoteLineItemDiscountDiscountType = "promotional_credits"
+	CreditNoteLineItemDiscountDiscountTypeProratedCredits       CreditNoteLineItemDiscountDiscountType = "prorated_credits"
+	CreditNoteLineItemDiscountDiscountTypeItemLevelDiscount     CreditNoteLineItemDiscountDiscountType = "item_level_discount"
+	CreditNoteLineItemDiscountDiscountTypeDocumentLevelDiscount CreditNoteLineItemDiscountDiscountType = "document_level_discount"
+)
+
+type CreditNoteLineItemTaxTaxJurisType string
+
+const (
+	CreditNoteLineItemTaxTaxJurisTypeCountry        CreditNoteLineItemTaxTaxJurisType = "country"
+	CreditNoteLineItemTaxTaxJurisTypeFederal        CreditNoteLineItemTaxTaxJurisType = "federal"
+	CreditNoteLineItemTaxTaxJurisTypeState          CreditNoteLineItemTaxTaxJurisType = "state"
+	CreditNoteLineItemTaxTaxJurisTypeCounty         CreditNoteLineItemTaxTaxJurisType = "county"
+	CreditNoteLineItemTaxTaxJurisTypeCity           CreditNoteLineItemTaxTaxJurisType = "city"
+	CreditNoteLineItemTaxTaxJurisTypeSpecial        CreditNoteLineItemTaxTaxJurisType = "special"
+	CreditNoteLineItemTaxTaxJurisTypeUnincorporated CreditNoteLineItemTaxTaxJurisType = "unincorporated"
+	CreditNoteLineItemTaxTaxJurisTypeOther          CreditNoteLineItemTaxTaxJurisType = "other"
+)
+
+type CreditNoteLineItemAddressValidationStatus string
+
+const (
+	CreditNoteLineItemAddressValidationStatusNotValidated   CreditNoteLineItemAddressValidationStatus = "not_validated"
+	CreditNoteLineItemAddressValidationStatusValid          CreditNoteLineItemAddressValidationStatus = "valid"
+	CreditNoteLineItemAddressValidationStatusPartiallyValid CreditNoteLineItemAddressValidationStatus = "partially_valid"
+	CreditNoteLineItemAddressValidationStatusInvalid        CreditNoteLineItemAddressValidationStatus = "invalid"
+)
+
+type CreditNoteDiscountEntityType string
+
+const (
+	CreditNoteDiscountEntityTypeItemLevelCoupon       CreditNoteDiscountEntityType = "item_level_coupon"
+	CreditNoteDiscountEntityTypeDocumentLevelCoupon   CreditNoteDiscountEntityType = "document_level_coupon"
+	CreditNoteDiscountEntityTypePromotionalCredits    CreditNoteDiscountEntityType = "promotional_credits"
+	CreditNoteDiscountEntityTypeProratedCredits       CreditNoteDiscountEntityType = "prorated_credits"
+	CreditNoteDiscountEntityTypeItemLevelDiscount     CreditNoteDiscountEntityType = "item_level_discount"
+	CreditNoteDiscountEntityTypeDocumentLevelDiscount CreditNoteDiscountEntityType = "document_level_discount"
+)
+
+type CreditNoteDiscountDiscountType string
+
+const (
+	CreditNoteDiscountDiscountTypeFixedAmount CreditNoteDiscountDiscountType = "fixed_amount"
+	CreditNoteDiscountDiscountTypePercentage  CreditNoteDiscountDiscountType = "percentage"
+)
+
+type CreditNoteCreditNoteTransactionTxnStatus string
+
+const (
+	CreditNoteCreditNoteTransactionTxnStatusInProgress     CreditNoteCreditNoteTransactionTxnStatus = "in_progress"
+	CreditNoteCreditNoteTransactionTxnStatusSuccess        CreditNoteCreditNoteTransactionTxnStatus = "success"
+	CreditNoteCreditNoteTransactionTxnStatusVoided         CreditNoteCreditNoteTransactionTxnStatus = "voided"
+	CreditNoteCreditNoteTransactionTxnStatusFailure        CreditNoteCreditNoteTransactionTxnStatus = "failure"
+	CreditNoteCreditNoteTransactionTxnStatusTimeout        CreditNoteCreditNoteTransactionTxnStatus = "timeout"
+	CreditNoteCreditNoteTransactionTxnStatusNeedsAttention CreditNoteCreditNoteTransactionTxnStatus = "needs_attention"
+	CreditNoteCreditNoteTransactionTxnStatusLateFailure    CreditNoteCreditNoteTransactionTxnStatus = "late_failure"
+)
+
+type CreditNoteAppliedCreditInvoiceStatus string
+
+const (
+	CreditNoteAppliedCreditInvoiceStatusPaid       CreditNoteAppliedCreditInvoiceStatus = "paid"
+	CreditNoteAppliedCreditInvoiceStatusPosted     CreditNoteAppliedCreditInvoiceStatus = "posted"
+	CreditNoteAppliedCreditInvoiceStatusPaymentDue CreditNoteAppliedCreditInvoiceStatus = "payment_due"
+	CreditNoteAppliedCreditInvoiceStatusNotPaid    CreditNoteAppliedCreditInvoiceStatus = "not_paid"
+	CreditNoteAppliedCreditInvoiceStatusVoided     CreditNoteAppliedCreditInvoiceStatus = "voided"
+	CreditNoteAppliedCreditInvoiceStatusPending    CreditNoteAppliedCreditInvoiceStatus = "pending"
+)
+
+type CreditNoteAppliedCreditTaxApplication string
+
+const (
+	CreditNoteAppliedCreditTaxApplicationPreTax  CreditNoteAppliedCreditTaxApplication = "pre_tax"
+	CreditNoteAppliedCreditTaxApplicationPostTax CreditNoteAppliedCreditTaxApplication = "post_tax"
+)
+
+type CreditNoteShippingAddressValidationStatus string
+
+const (
+	CreditNoteShippingAddressValidationStatusNotValidated   CreditNoteShippingAddressValidationStatus = "not_validated"
+	CreditNoteShippingAddressValidationStatusValid          CreditNoteShippingAddressValidationStatus = "valid"
+	CreditNoteShippingAddressValidationStatusPartiallyValid CreditNoteShippingAddressValidationStatus = "partially_valid"
+	CreditNoteShippingAddressValidationStatusInvalid        CreditNoteShippingAddressValidationStatus = "invalid"
+)
+
+type CreditNoteBillingAddressValidationStatus string
+
+const (
+	CreditNoteBillingAddressValidationStatusNotValidated   CreditNoteBillingAddressValidationStatus = "not_validated"
+	CreditNoteBillingAddressValidationStatusValid          CreditNoteBillingAddressValidationStatus = "valid"
+	CreditNoteBillingAddressValidationStatusPartiallyValid CreditNoteBillingAddressValidationStatus = "partially_valid"
+	CreditNoteBillingAddressValidationStatusInvalid        CreditNoteBillingAddressValidationStatus = "invalid"
+)
+
+type CreditNoteEinvoiceStatus string
+
+const (
+	CreditNoteEinvoiceStatusScheduled  CreditNoteEinvoiceStatus = "scheduled"
+	CreditNoteEinvoiceStatusSkipped    CreditNoteEinvoiceStatus = "skipped"
+	CreditNoteEinvoiceStatusInProgress CreditNoteEinvoiceStatus = "in_progress"
+	CreditNoteEinvoiceStatusSuccess    CreditNoteEinvoiceStatus = "success"
+	CreditNoteEinvoiceStatusFailed     CreditNoteEinvoiceStatus = "failed"
+	CreditNoteEinvoiceStatusRegistered CreditNoteEinvoiceStatus = "registered"
+)
+
+type CreditNoteDispositionType string
+
+const (
+	CreditNoteDispositionTypeAttachment CreditNoteDispositionType = "attachment"
+	CreditNoteDispositionTypeInline     CreditNoteDispositionType = "inline"
+)
+
+// just struct
 type CreditNote struct {
-	Id                        string                 `json:"id"`
-	CustomerId                string                 `json:"customer_id"`
-	SubscriptionId            string                 `json:"subscription_id"`
-	ReferenceInvoiceId        string                 `json:"reference_invoice_id"`
-	Type                      Type                   `json:"type"`
-	ReasonCode                ReasonCode             `json:"reason_code"`
-	Status                    Status                 `json:"status"`
-	VatNumber                 string                 `json:"vat_number"`
-	Date                      int64                  `json:"date"`
-	PriceType                 enum.PriceType         `json:"price_type"`
-	CurrencyCode              string                 `json:"currency_code"`
-	Total                     int64                  `json:"total"`
-	AmountAllocated           int64                  `json:"amount_allocated"`
-	AmountRefunded            int64                  `json:"amount_refunded"`
-	AmountAvailable           int64                  `json:"amount_available"`
-	RefundedAt                int64                  `json:"refunded_at"`
-	VoidedAt                  int64                  `json:"voided_at"`
-	GeneratedAt               int64                  `json:"generated_at"`
-	ResourceVersion           int64                  `json:"resource_version"`
-	UpdatedAt                 int64                  `json:"updated_at"`
-	Channel                   enum.Channel           `json:"channel"`
-	LineItemsNextOffset       string                 `json:"line_items_next_offset"`
-	SubTotal                  int64                  `json:"sub_total"`
-	SubTotalInLocalCurrency   int64                  `json:"sub_total_in_local_currency"`
-	TotalInLocalCurrency      int64                  `json:"total_in_local_currency"`
-	LocalCurrencyCode         string                 `json:"local_currency_code"`
-	RoundOffAmount            int64                  `json:"round_off_amount"`
-	FractionalCorrection      int64                  `json:"fractional_correction"`
-	LineItems                 []*LineItem            `json:"line_items"`
-	LineItemTiers             []*LineItemTier        `json:"line_item_tiers"`
-	LineItemDiscounts         []*LineItemDiscount    `json:"line_item_discounts"`
-	LineItemTaxes             []*LineItemTax         `json:"line_item_taxes"`
-	LineItemAddresses         []*LineItemAddress     `json:"line_item_addresses"`
-	Discounts                 []*Discount            `json:"discounts"`
-	Taxes                     []*Tax                 `json:"taxes"`
-	TaxOrigin                 *TaxOrigin             `json:"tax_origin"`
-	LinkedRefunds             []*LinkedRefund        `json:"linked_refunds"`
-	Allocations               []*Allocation          `json:"allocations"`
-	Deleted                   bool                   `json:"deleted"`
-	TaxCategory               string                 `json:"tax_category"`
-	LocalCurrencyExchangeRate float64                `json:"local_currency_exchange_rate"`
-	CreateReasonCode          string                 `json:"create_reason_code"`
-	VatNumberPrefix           string                 `json:"vat_number_prefix"`
-	BusinessEntityId          string                 `json:"business_entity_id"`
-	ShippingAddress           *ShippingAddress       `json:"shipping_address"`
-	BillingAddress            *BillingAddress        `json:"billing_address"`
-	Einvoice                  *Einvoice              `json:"einvoice"`
-	SiteDetailsAtCreation     *SiteDetailsAtCreation `json:"site_details_at_creation"`
-	CustomField               map[string]interface{} `json:"custom_field"`
-	Object                    string                 `json:"object"`
+	Id                        string                        `json:"id"`
+	CustomerId                string                        `json:"customer_id"`
+	SubscriptionId            string                        `json:"subscription_id"`
+	ReferenceInvoiceId        string                        `json:"reference_invoice_id"`
+	Type                      CreditNoteType                `json:"type"`
+	ReasonCode                CreditNoteReasonCode          `json:"reason_code"`
+	Status                    CreditNoteStatus              `json:"status"`
+	VatNumber                 string                        `json:"vat_number"`
+	Date                      int64                         `json:"date"`
+	PriceType                 CreditNotePriceType           `json:"price_type"`
+	CurrencyCode              string                        `json:"currency_code"`
+	Total                     int64                         `json:"total"`
+	AmountAllocated           int64                         `json:"amount_allocated"`
+	AmountRefunded            int64                         `json:"amount_refunded"`
+	AmountAvailable           int64                         `json:"amount_available"`
+	RefundedAt                int64                         `json:"refunded_at"`
+	VoidedAt                  int64                         `json:"voided_at"`
+	GeneratedAt               int64                         `json:"generated_at"`
+	ResourceVersion           int64                         `json:"resource_version"`
+	UpdatedAt                 int64                         `json:"updated_at"`
+	Channel                   CreditNoteChannel             `json:"channel"`
+	LineItemsNextOffset       string                        `json:"line_items_next_offset"`
+	SubTotal                  int64                         `json:"sub_total"`
+	SubTotalInLocalCurrency   int64                         `json:"sub_total_in_local_currency"`
+	TotalInLocalCurrency      int64                         `json:"total_in_local_currency"`
+	LocalCurrencyCode         string                        `json:"local_currency_code"`
+	RoundOffAmount            int64                         `json:"round_off_amount"`
+	FractionalCorrection      int64                         `json:"fractional_correction"`
+	LineItems                 []*CreditNoteLineItem         `json:"line_items"`
+	LineItemTiers             []*CreditNoteLineItemTier     `json:"line_item_tiers"`
+	LineItemDiscounts         []*CreditNoteLineItemDiscount `json:"line_item_discounts"`
+	LineItemTaxes             []*CreditNoteLineItemTax      `json:"line_item_taxes"`
+	LineItemAddresses         []*CreditNoteLineItemAddress  `json:"line_item_addresses"`
+	Discounts                 []*CreditNoteDiscount         `json:"discounts"`
+	Taxes                     []*CreditNoteTax              `json:"taxes"`
+	TaxOrigin                 *TaxOrigin                    `json:"tax_origin"`
+	LinkedRefunds             []*CreditNoteLinkedRefund     `json:"linked_refunds"`
+	Allocations               []*CreditNoteAllocation       `json:"allocations"`
+	Deleted                   bool                          `json:"deleted"`
+	TaxCategory               string                        `json:"tax_category"`
+	LocalCurrencyExchangeRate float64                       `json:"local_currency_exchange_rate"`
+	CreateReasonCode          string                        `json:"create_reason_code"`
+	VatNumberPrefix           string                        `json:"vat_number_prefix"`
+	BusinessEntityId          string                        `json:"business_entity_id"`
+	ShippingAddress           *ShippingAddress              `json:"shipping_address"`
+	BillingAddress            *BillingAddress               `json:"billing_address"`
+	Einvoice                  *Einvoice                     `json:"einvoice"`
+	SiteDetailsAtCreation     *SiteDetailsAtCreation        `json:"site_details_at_creation"`
+	CustomField               CustomField                   `json:"custom_field"`
+	Object                    string                        `json:"object"`
 }
-type LineItem struct {
-	Id                      string               `json:"id"`
-	SubscriptionId          string               `json:"subscription_id"`
-	DateFrom                int64                `json:"date_from"`
-	DateTo                  int64                `json:"date_to"`
-	UnitAmount              int64                `json:"unit_amount"`
-	Quantity                int32                `json:"quantity"`
-	Amount                  int64                `json:"amount"`
-	PricingModel            enum.PricingModel    `json:"pricing_model"`
-	IsTaxed                 bool                 `json:"is_taxed"`
-	TaxAmount               int64                `json:"tax_amount"`
-	TaxRate                 float64              `json:"tax_rate"`
-	UnitAmountInDecimal     string               `json:"unit_amount_in_decimal"`
-	QuantityInDecimal       string               `json:"quantity_in_decimal"`
-	AmountInDecimal         string               `json:"amount_in_decimal"`
-	DiscountAmount          int64                `json:"discount_amount"`
-	ItemLevelDiscountAmount int64                `json:"item_level_discount_amount"`
-	Metered                 bool                 `json:"metered"`
-	IsPercentagePricing     bool                 `json:"is_percentage_pricing"`
-	ReferenceLineItemId     string               `json:"reference_line_item_id"`
-	Description             string               `json:"description"`
-	EntityDescription       string               `json:"entity_description"`
-	EntityType              LineItemEntityType   `json:"entity_type"`
-	TaxExemptReason         enum.TaxExemptReason `json:"tax_exempt_reason"`
-	EntityId                string               `json:"entity_id"`
-	CustomerId              string               `json:"customer_id"`
-	Object                  string               `json:"object"`
+
+// sub resources
+type CreditNoteLineItem struct {
+	Id                      string                            `json:"id"`
+	SubscriptionId          string                            `json:"subscription_id"`
+	DateFrom                int64                             `json:"date_from"`
+	DateTo                  int64                             `json:"date_to"`
+	UnitAmount              int64                             `json:"unit_amount"`
+	Quantity                int32                             `json:"quantity"`
+	Amount                  int64                             `json:"amount"`
+	PricingModel            CreditNoteLineItemPricingModel    `json:"pricing_model"`
+	IsTaxed                 bool                              `json:"is_taxed"`
+	TaxAmount               int64                             `json:"tax_amount"`
+	TaxRate                 float64                           `json:"tax_rate"`
+	UnitAmountInDecimal     string                            `json:"unit_amount_in_decimal"`
+	QuantityInDecimal       string                            `json:"quantity_in_decimal"`
+	AmountInDecimal         string                            `json:"amount_in_decimal"`
+	DiscountAmount          int64                             `json:"discount_amount"`
+	ItemLevelDiscountAmount int64                             `json:"item_level_discount_amount"`
+	Metered                 bool                              `json:"metered"`
+	IsPercentagePricing     bool                              `json:"is_percentage_pricing"`
+	ReferenceLineItemId     string                            `json:"reference_line_item_id"`
+	Description             string                            `json:"description"`
+	EntityDescription       string                            `json:"entity_description"`
+	EntityType              LineItemEntityType                `json:"entity_type"`
+	TaxExemptReason         CreditNoteLineItemTaxExemptReason `json:"tax_exempt_reason"`
+	EntityId                string                            `json:"entity_id"`
+	CustomerId              string                            `json:"customer_id"`
+	Object                  string                            `json:"object"`
 }
-type LineItemTier struct {
-	LineItemId            string           `json:"line_item_id"`
-	StartingUnit          int32            `json:"starting_unit"`
-	EndingUnit            int32            `json:"ending_unit"`
-	QuantityUsed          int32            `json:"quantity_used"`
-	UnitAmount            int64            `json:"unit_amount"`
-	StartingUnitInDecimal string           `json:"starting_unit_in_decimal"`
-	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal"`
-	QuantityUsedInDecimal string           `json:"quantity_used_in_decimal"`
-	UnitAmountInDecimal   string           `json:"unit_amount_in_decimal"`
-	PricingType           enum.PricingType `json:"pricing_type"`
-	PackageSize           int32            `json:"package_size"`
-	Object                string           `json:"object"`
+type CreditNoteLineItemTier struct {
+	LineItemId            string                            `json:"line_item_id"`
+	StartingUnit          int32                             `json:"starting_unit"`
+	EndingUnit            int32                             `json:"ending_unit"`
+	QuantityUsed          int32                             `json:"quantity_used"`
+	UnitAmount            int64                             `json:"unit_amount"`
+	StartingUnitInDecimal string                            `json:"starting_unit_in_decimal"`
+	EndingUnitInDecimal   string                            `json:"ending_unit_in_decimal"`
+	QuantityUsedInDecimal string                            `json:"quantity_used_in_decimal"`
+	UnitAmountInDecimal   string                            `json:"unit_amount_in_decimal"`
+	PricingType           CreditNoteLineItemTierPricingType `json:"pricing_type"`
+	PackageSize           int32                             `json:"package_size"`
+	Object                string                            `json:"object"`
 }
-type LineItemDiscount struct {
+type CreditNoteLineItemDiscount struct {
 	LineItemId     string                       `json:"line_item_id"`
 	DiscountType   LineItemDiscountDiscountType `json:"discount_type"`
 	CouponId       string                       `json:"coupon_id"`
@@ -195,43 +320,43 @@ type LineItemDiscount struct {
 	DiscountAmount int64                        `json:"discount_amount"`
 	Object         string                       `json:"object"`
 }
-type LineItemTax struct {
-	LineItemId               string            `json:"line_item_id"`
-	TaxName                  string            `json:"tax_name"`
-	TaxRate                  float64           `json:"tax_rate"`
-	DateTo                   int64             `json:"date_to"`
-	DateFrom                 int64             `json:"date_from"`
-	ProratedTaxableAmount    float64           `json:"prorated_taxable_amount"`
-	IsPartialTaxApplied      bool              `json:"is_partial_tax_applied"`
-	IsNonComplianceTax       bool              `json:"is_non_compliance_tax"`
-	TaxableAmount            int64             `json:"taxable_amount"`
-	TaxAmount                int64             `json:"tax_amount"`
-	TaxJurisType             enum.TaxJurisType `json:"tax_juris_type"`
-	TaxJurisName             string            `json:"tax_juris_name"`
-	TaxJurisCode             string            `json:"tax_juris_code"`
-	TaxAmountInLocalCurrency int64             `json:"tax_amount_in_local_currency"`
-	LocalCurrencyCode        string            `json:"local_currency_code"`
-	Object                   string            `json:"object"`
+type CreditNoteLineItemTax struct {
+	LineItemId               string                            `json:"line_item_id"`
+	TaxName                  string                            `json:"tax_name"`
+	TaxRate                  float64                           `json:"tax_rate"`
+	DateTo                   int64                             `json:"date_to"`
+	DateFrom                 int64                             `json:"date_from"`
+	ProratedTaxableAmount    float64                           `json:"prorated_taxable_amount"`
+	IsPartialTaxApplied      bool                              `json:"is_partial_tax_applied"`
+	IsNonComplianceTax       bool                              `json:"is_non_compliance_tax"`
+	TaxableAmount            int64                             `json:"taxable_amount"`
+	TaxAmount                int64                             `json:"tax_amount"`
+	TaxJurisType             CreditNoteLineItemTaxTaxJurisType `json:"tax_juris_type"`
+	TaxJurisName             string                            `json:"tax_juris_name"`
+	TaxJurisCode             string                            `json:"tax_juris_code"`
+	TaxAmountInLocalCurrency int64                             `json:"tax_amount_in_local_currency"`
+	LocalCurrencyCode        string                            `json:"local_currency_code"`
+	Object                   string                            `json:"object"`
 }
-type LineItemAddress struct {
-	LineItemId       string                `json:"line_item_id"`
-	FirstName        string                `json:"first_name"`
-	LastName         string                `json:"last_name"`
-	Email            string                `json:"email"`
-	Company          string                `json:"company"`
-	Phone            string                `json:"phone"`
-	Line1            string                `json:"line1"`
-	Line2            string                `json:"line2"`
-	Line3            string                `json:"line3"`
-	City             string                `json:"city"`
-	StateCode        string                `json:"state_code"`
-	State            string                `json:"state"`
-	Country          string                `json:"country"`
-	Zip              string                `json:"zip"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status"`
-	Object           string                `json:"object"`
+type CreditNoteLineItemAddress struct {
+	LineItemId       string                                    `json:"line_item_id"`
+	FirstName        string                                    `json:"first_name"`
+	LastName         string                                    `json:"last_name"`
+	Email            string                                    `json:"email"`
+	Company          string                                    `json:"company"`
+	Phone            string                                    `json:"phone"`
+	Line1            string                                    `json:"line1"`
+	Line2            string                                    `json:"line2"`
+	Line3            string                                    `json:"line3"`
+	City             string                                    `json:"city"`
+	StateCode        string                                    `json:"state_code"`
+	State            string                                    `json:"state"`
+	Country          string                                    `json:"country"`
+	Zip              string                                    `json:"zip"`
+	ValidationStatus CreditNoteLineItemAddressValidationStatus `json:"validation_status"`
+	Object           string                                    `json:"object"`
 }
-type Discount struct {
+type CreditNoteDiscount struct {
 	Amount        int64                `json:"amount"`
 	Description   string               `json:"description"`
 	LineItemId    string               `json:"line_item_id"`
@@ -241,18 +366,18 @@ type Discount struct {
 	CouponSetCode string               `json:"coupon_set_code"`
 	Object        string               `json:"object"`
 }
-type Tax struct {
+type CreditNoteTax struct {
 	Name        string `json:"name"`
 	Amount      int64  `json:"amount"`
 	Description string `json:"description"`
 	Object      string `json:"object"`
 }
-type TaxOrigin struct {
+type CreditNoteTaxOrigin struct {
 	Country            string `json:"country"`
 	RegistrationNumber string `json:"registration_number"`
 	Object             string `json:"object"`
 }
-type LinkedRefund struct {
+type CreditNoteLinkedRefund struct {
 	TxnId            string             `json:"txn_id"`
 	AppliedAmount    int64              `json:"applied_amount"`
 	AppliedAt        int64              `json:"applied_at"`
@@ -262,7 +387,7 @@ type LinkedRefund struct {
 	RefundReasonCode string             `json:"refund_reason_code"`
 	Object           string             `json:"object"`
 }
-type Allocation struct {
+type CreditNoteAllocation struct {
 	InvoiceId       string                   `json:"invoice_id"`
 	AllocatedAmount int64                    `json:"allocated_amount"`
 	AllocatedAt     int64                    `json:"allocated_at"`
@@ -271,216 +396,270 @@ type Allocation struct {
 	TaxApplication  AllocationTaxApplication `json:"tax_application"`
 	Object          string                   `json:"object"`
 }
-type ShippingAddress struct {
-	FirstName        string                `json:"first_name"`
-	LastName         string                `json:"last_name"`
-	Email            string                `json:"email"`
-	Company          string                `json:"company"`
-	Phone            string                `json:"phone"`
-	Line1            string                `json:"line1"`
-	Line2            string                `json:"line2"`
-	Line3            string                `json:"line3"`
-	City             string                `json:"city"`
-	StateCode        string                `json:"state_code"`
-	State            string                `json:"state"`
-	Country          string                `json:"country"`
-	Zip              string                `json:"zip"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status"`
-	Object           string                `json:"object"`
+type CreditNoteShippingAddress struct {
+	FirstName        string                                    `json:"first_name"`
+	LastName         string                                    `json:"last_name"`
+	Email            string                                    `json:"email"`
+	Company          string                                    `json:"company"`
+	Phone            string                                    `json:"phone"`
+	Line1            string                                    `json:"line1"`
+	Line2            string                                    `json:"line2"`
+	Line3            string                                    `json:"line3"`
+	City             string                                    `json:"city"`
+	StateCode        string                                    `json:"state_code"`
+	State            string                                    `json:"state"`
+	Country          string                                    `json:"country"`
+	Zip              string                                    `json:"zip"`
+	ValidationStatus CreditNoteShippingAddressValidationStatus `json:"validation_status"`
+	Object           string                                    `json:"object"`
 }
-type BillingAddress struct {
-	FirstName        string                `json:"first_name"`
-	LastName         string                `json:"last_name"`
-	Email            string                `json:"email"`
-	Company          string                `json:"company"`
-	Phone            string                `json:"phone"`
-	Line1            string                `json:"line1"`
-	Line2            string                `json:"line2"`
-	Line3            string                `json:"line3"`
-	City             string                `json:"city"`
-	StateCode        string                `json:"state_code"`
-	State            string                `json:"state"`
-	Country          string                `json:"country"`
-	Zip              string                `json:"zip"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status"`
-	Object           string                `json:"object"`
+type CreditNoteBillingAddress struct {
+	FirstName        string                                   `json:"first_name"`
+	LastName         string                                   `json:"last_name"`
+	Email            string                                   `json:"email"`
+	Company          string                                   `json:"company"`
+	Phone            string                                   `json:"phone"`
+	Line1            string                                   `json:"line1"`
+	Line2            string                                   `json:"line2"`
+	Line3            string                                   `json:"line3"`
+	City             string                                   `json:"city"`
+	StateCode        string                                   `json:"state_code"`
+	State            string                                   `json:"state"`
+	Country          string                                   `json:"country"`
+	Zip              string                                   `json:"zip"`
+	ValidationStatus CreditNoteBillingAddressValidationStatus `json:"validation_status"`
+	Object           string                                   `json:"object"`
 }
-type Einvoice struct {
+type CreditNoteEinvoice struct {
 	Id              string         `json:"id"`
 	ReferenceNumber string         `json:"reference_number"`
 	Status          EinvoiceStatus `json:"status"`
 	Message         string         `json:"message"`
 	Object          string         `json:"object"`
 }
-type SiteDetailsAtCreation struct {
+type CreditNoteSiteDetailsAtCreation struct {
 	Timezone            string          `json:"timezone"`
 	OrganizationAddress json.RawMessage `json:"organization_address"`
 	Object              string          `json:"object"`
 }
-type CreateRequest struct {
-	ReferenceInvoiceId string            `json:"reference_invoice_id,omitempty"`
-	CustomerId         string            `json:"customer_id,omitempty"`
-	Total              *int64            `json:"total,omitempty"`
-	Type               Type              `json:"type"`
-	ReasonCode         ReasonCode        `json:"reason_code,omitempty"`
-	CreateReasonCode   string            `json:"create_reason_code,omitempty"`
-	Date               *int64            `json:"date,omitempty"`
-	CustomerNotes      string            `json:"customer_notes,omitempty"`
-	CurrencyCode       string            `json:"currency_code,omitempty"`
-	LineItems          []*CreateLineItem `json:"line_items,omitempty"`
-	Comment            string            `json:"comment,omitempty"`
+
+// operations
+// input params
+type CreditNoteCreateRequest struct {
+	ReferenceInvoiceId string                      `json:"reference_invoice_id,omitempty"`
+	CustomerId         string                      `json:"customer_id,omitempty"`
+	Total              *int64                      `json:"total,omitempty"`
+	Type               CreditNoteType              `json:"type"`
+	ReasonCode         CreditNoteReasonCode        `json:"reason_code,omitempty"`
+	CreateReasonCode   string                      `json:"create_reason_code,omitempty"`
+	Date               *int64                      `json:"date,omitempty"`
+	CustomerNotes      string                      `json:"customer_notes,omitempty"`
+	CurrencyCode       string                      `json:"currency_code,omitempty"`
+	LineItems          []*CreditNoteCreateLineItem `json:"line_items,omitempty"`
+	Comment            string                      `json:"comment,omitempty"`
+	apiRequest         `json:"-" form:"-"`
 }
-type CreateLineItem struct {
-	ReferenceLineItemId string                        `json:"reference_line_item_id,omitempty"`
-	UnitAmount          *int64                        `json:"unit_amount,omitempty"`
-	UnitAmountInDecimal string                        `json:"unit_amount_in_decimal,omitempty"`
-	Quantity            *int32                        `json:"quantity,omitempty"`
-	QuantityInDecimal   string                        `json:"quantity_in_decimal,omitempty"`
-	Amount              *int64                        `json:"amount,omitempty"`
-	DateFrom            *int64                        `json:"date_from,omitempty"`
-	DateTo              *int64                        `json:"date_to,omitempty"`
-	Description         string                        `json:"description,omitempty"`
-	EntityType          creditNote.LineItemEntityType `json:"entity_type,omitempty"`
-	EntityId            string                        `json:"entity_id,omitempty"`
+
+func (r *CreditNoteCreateRequest) payload() any { return r }
+
+// input sub resource params multi
+type CreditNoteCreateLineItem struct {
+	ReferenceLineItemId string             `json:"reference_line_item_id,omitempty"`
+	UnitAmount          *int64             `json:"unit_amount,omitempty"`
+	UnitAmountInDecimal string             `json:"unit_amount_in_decimal,omitempty"`
+	Quantity            *int32             `json:"quantity,omitempty"`
+	QuantityInDecimal   string             `json:"quantity_in_decimal,omitempty"`
+	Amount              *int64             `json:"amount,omitempty"`
+	DateFrom            *int64             `json:"date_from,omitempty"`
+	DateTo              *int64             `json:"date_to,omitempty"`
+	Description         string             `json:"description,omitempty"`
+	EntityType          LineItemEntityType `json:"entity_type,omitempty"`
+	EntityId            string             `json:"entity_id,omitempty"`
 }
-type RetrieveRequest struct {
-	LineItem        *RetrieveLineItem `json:"line_item,omitempty"`
-	LineItemsLimit  *int32            `json:"line_items_limit,omitempty"`
-	LineItemsOffset string            `json:"line_items_offset,omitempty"`
+type CreditNoteRetrieveRequest struct {
+	LineItemsLimit  *int32 `json:"line_items_limit,omitempty"`
+	LineItemsOffset string `json:"line_items_offset,omitempty"`
+	apiRequest      `json:"-" form:"-"`
 }
-type RetrieveLineItem struct {
-	SubscriptionId *filter.StringFilter `json:"subscription_id,omitempty"`
-	CustomerId     *filter.StringFilter `json:"customer_id,omitempty"`
+
+func (r *CreditNoteRetrieveRequest) payload() any { return r }
+
+// input sub resource params single
+type CreditNoteRetrieveLineItem struct {
+	SubscriptionId *StringFilter `json:"subscription_id,omitempty"`
+	CustomerId     *StringFilter `json:"customer_id,omitempty"`
 }
-type PdfRequest struct {
-	DispositionType enum.DispositionType `json:"disposition_type,omitempty"`
+type CreditNotePdfRequest struct {
+	DispositionType CreditNoteDispositionType `json:"disposition_type,omitempty"`
+	apiRequest      `json:"-" form:"-"`
 }
-type RefundRequest struct {
+
+func (r *CreditNotePdfRequest) payload() any { return r }
+
+type CreditNoteRefundRequest struct {
 	RefundAmount     *int64 `json:"refund_amount,omitempty"`
 	CustomerNotes    string `json:"customer_notes,omitempty"`
 	RefundReasonCode string `json:"refund_reason_code,omitempty"`
+	apiRequest       `json:"-" form:"-"`
 }
-type RecordRefundRequest struct {
-	Transaction      *RecordRefundTransaction `json:"transaction,omitempty"`
-	RefundReasonCode string                   `json:"refund_reason_code,omitempty"`
-	Comment          string                   `json:"comment,omitempty"`
+
+func (r *CreditNoteRefundRequest) payload() any { return r }
+
+type CreditNoteRecordRefundRequest struct {
+	Transaction      *CreditNoteRecordRefundTransaction `json:"transaction,omitempty"`
+	RefundReasonCode string                             `json:"refund_reason_code,omitempty"`
+	Comment          string                             `json:"comment,omitempty"`
+	apiRequest       `json:"-" form:"-"`
 }
-type RecordRefundTransaction struct {
-	Id                    string             `json:"id,omitempty"`
-	Amount                *int64             `json:"amount,omitempty"`
-	PaymentMethod         enum.PaymentMethod `json:"payment_method"`
-	ReferenceNumber       string             `json:"reference_number,omitempty"`
-	CustomPaymentMethodId string             `json:"custom_payment_method_id,omitempty"`
-	Date                  *int64             `json:"date"`
+
+func (r *CreditNoteRecordRefundRequest) payload() any { return r }
+
+// input sub resource params single
+type CreditNoteRecordRefundTransaction struct {
+	Id                    string        `json:"id,omitempty"`
+	Amount                *int64        `json:"amount,omitempty"`
+	PaymentMethod         PaymentMethod `json:"payment_method"`
+	ReferenceNumber       string        `json:"reference_number,omitempty"`
+	CustomPaymentMethodId string        `json:"custom_payment_method_id,omitempty"`
+	Date                  *int64        `json:"date"`
 }
-type VoidCreditNoteRequest struct {
-	Comment string `json:"comment,omitempty"`
+type CreditNoteVoidCreditNoteRequest struct {
+	Comment    string `json:"comment,omitempty"`
+	apiRequest `json:"-" form:"-"`
 }
-type ListRequest struct {
-	Limit              *int32                  `json:"limit,omitempty"`
-	Offset             string                  `json:"offset,omitempty"`
-	Einvoice           *ListEinvoice           `json:"einvoice,omitempty"`
-	IncludeDeleted     *bool                   `json:"include_deleted,omitempty"`
-	Id                 *filter.StringFilter    `json:"id,omitempty"`
-	CustomerId         *filter.StringFilter    `json:"customer_id,omitempty"`
-	SubscriptionId     *filter.StringFilter    `json:"subscription_id,omitempty"`
-	ReferenceInvoiceId *filter.StringFilter    `json:"reference_invoice_id,omitempty"`
-	Type               *filter.EnumFilter      `json:"type,omitempty"`
-	ReasonCode         *filter.EnumFilter      `json:"reason_code,omitempty"`
-	CreateReasonCode   *filter.StringFilter    `json:"create_reason_code,omitempty"`
-	Status             *filter.EnumFilter      `json:"status,omitempty"`
-	Date               *filter.TimestampFilter `json:"date,omitempty"`
-	Total              *filter.NumberFilter    `json:"total,omitempty"`
-	PriceType          *filter.EnumFilter      `json:"price_type,omitempty"`
-	AmountAllocated    *filter.NumberFilter    `json:"amount_allocated,omitempty"`
-	AmountRefunded     *filter.NumberFilter    `json:"amount_refunded,omitempty"`
-	AmountAvailable    *filter.NumberFilter    `json:"amount_available,omitempty"`
-	VoidedAt           *filter.TimestampFilter `json:"voided_at,omitempty"`
-	UpdatedAt          *filter.TimestampFilter `json:"updated_at,omitempty"`
-	SortBy             *filter.SortFilter      `json:"sort_by,omitempty"`
-	Channel            *filter.EnumFilter      `json:"channel,omitempty"`
+
+func (r *CreditNoteVoidCreditNoteRequest) payload() any { return r }
+
+type CreditNoteListRequest struct {
+	Limit              *int32           `json:"limit,omitempty"`
+	Offset             string           `json:"offset,omitempty"`
+	Einvoice           *ListEinvoice    `json:"einvoice,omitempty"`
+	IncludeDeleted     *bool            `json:"include_deleted,omitempty"`
+	Id                 *StringFilter    `json:"id,omitempty"`
+	CustomerId         *StringFilter    `json:"customer_id,omitempty"`
+	SubscriptionId     *StringFilter    `json:"subscription_id,omitempty"`
+	ReferenceInvoiceId *StringFilter    `json:"reference_invoice_id,omitempty"`
+	Type               *EnumFilter      `json:"type,omitempty"`
+	ReasonCode         *EnumFilter      `json:"reason_code,omitempty"`
+	CreateReasonCode   *StringFilter    `json:"create_reason_code,omitempty"`
+	Status             *EnumFilter      `json:"status,omitempty"`
+	Date               *TimestampFilter `json:"date,omitempty"`
+	Total              *NumberFilter    `json:"total,omitempty"`
+	PriceType          *EnumFilter      `json:"price_type,omitempty"`
+	AmountAllocated    *NumberFilter    `json:"amount_allocated,omitempty"`
+	AmountRefunded     *NumberFilter    `json:"amount_refunded,omitempty"`
+	AmountAvailable    *NumberFilter    `json:"amount_available,omitempty"`
+	VoidedAt           *TimestampFilter `json:"voided_at,omitempty"`
+	UpdatedAt          *TimestampFilter `json:"updated_at,omitempty"`
+	SortBy             *SortFilter      `json:"sort_by,omitempty"`
+	Channel            *EnumFilter      `json:"channel,omitempty"`
+	apiRequest         `json:"-" form:"-"`
 }
-type ListEinvoice struct {
-	Status *filter.EnumFilter `json:"status,omitempty"`
+
+func (r *CreditNoteListRequest) payload() any { return r }
+
+// input sub resource params single
+type CreditNoteListEinvoice struct {
+	Status *EnumFilter `json:"status,omitempty"`
 }
-type CreditNotesForCustomerRequest struct {
-	Limit  *int32 `json:"limit,omitempty"`
-	Offset string `json:"offset,omitempty"`
+type CreditNoteCreditNotesForCustomerRequest struct {
+	Limit      *int32 `json:"limit,omitempty"`
+	Offset     string `json:"offset,omitempty"`
+	apiRequest `json:"-" form:"-"`
 }
-type DeleteRequest struct {
-	Comment string `json:"comment,omitempty"`
+
+func (r *CreditNoteCreditNotesForCustomerRequest) payload() any { return r }
+
+type CreditNoteDeleteRequest struct {
+	Comment    string `json:"comment,omitempty"`
+	apiRequest `json:"-" form:"-"`
 }
-type RemoveTaxWithheldRefundRequest struct {
-	TaxWithheld *RemoveTaxWithheldRefundTaxWithheld `json:"tax_withheld,omitempty"`
+
+func (r *CreditNoteDeleteRequest) payload() any { return r }
+
+type CreditNoteRemoveTaxWithheldRefundRequest struct {
+	TaxWithheld *CreditNoteRemoveTaxWithheldRefundTaxWithheld `json:"tax_withheld,omitempty"`
+	apiRequest  `json:"-" form:"-"`
 }
-type RemoveTaxWithheldRefundTaxWithheld struct {
+
+func (r *CreditNoteRemoveTaxWithheldRefundRequest) payload() any { return r }
+
+// input sub resource params single
+type CreditNoteRemoveTaxWithheldRefundTaxWithheld struct {
 	Id string `json:"id"`
 }
-type ImportCreditNoteRequest struct {
-	Id                   string                          `json:"id"`
-	CustomerId           string                          `json:"customer_id,omitempty"`
-	SubscriptionId       string                          `json:"subscription_id,omitempty"`
-	ReferenceInvoiceId   string                          `json:"reference_invoice_id"`
-	Type                 Type                            `json:"type"`
-	CurrencyCode         string                          `json:"currency_code,omitempty"`
-	CreateReasonCode     string                          `json:"create_reason_code"`
-	Date                 *int64                          `json:"date"`
-	Status               Status                          `json:"status,omitempty"`
-	Total                *int64                          `json:"total,omitempty"`
-	RefundedAt           *int64                          `json:"refunded_at,omitempty"`
-	VoidedAt             *int64                          `json:"voided_at,omitempty"`
-	SubTotal             *int64                          `json:"sub_total,omitempty"`
-	RoundOffAmount       *int64                          `json:"round_off_amount,omitempty"`
-	FractionalCorrection *int64                          `json:"fractional_correction,omitempty"`
-	VatNumberPrefix      string                          `json:"vat_number_prefix,omitempty"`
-	LineItems            []*ImportCreditNoteLineItem     `json:"line_items,omitempty"`
-	LineItemTiers        []*ImportCreditNoteLineItemTier `json:"line_item_tiers,omitempty"`
-	Discounts            []*ImportCreditNoteDiscount     `json:"discounts,omitempty"`
-	Taxes                []*ImportCreditNoteTax          `json:"taxes,omitempty"`
-	Allocations          []*ImportCreditNoteAllocation   `json:"allocations,omitempty"`
-	LinkedRefunds        []*ImportCreditNoteLinkedRefund `json:"linked_refunds,omitempty"`
+type CreditNoteImportCreditNoteRequest struct {
+	Id                   string                                    `json:"id"`
+	CustomerId           string                                    `json:"customer_id,omitempty"`
+	SubscriptionId       string                                    `json:"subscription_id,omitempty"`
+	ReferenceInvoiceId   string                                    `json:"reference_invoice_id"`
+	Type                 CreditNoteType                            `json:"type"`
+	CurrencyCode         string                                    `json:"currency_code,omitempty"`
+	CreateReasonCode     string                                    `json:"create_reason_code"`
+	Date                 *int64                                    `json:"date"`
+	Status               CreditNoteStatus                          `json:"status,omitempty"`
+	Total                *int64                                    `json:"total,omitempty"`
+	RefundedAt           *int64                                    `json:"refunded_at,omitempty"`
+	VoidedAt             *int64                                    `json:"voided_at,omitempty"`
+	SubTotal             *int64                                    `json:"sub_total,omitempty"`
+	RoundOffAmount       *int64                                    `json:"round_off_amount,omitempty"`
+	FractionalCorrection *int64                                    `json:"fractional_correction,omitempty"`
+	VatNumberPrefix      string                                    `json:"vat_number_prefix,omitempty"`
+	LineItems            []*CreditNoteImportCreditNoteLineItem     `json:"line_items,omitempty"`
+	LineItemTiers        []*CreditNoteImportCreditNoteLineItemTier `json:"line_item_tiers,omitempty"`
+	Discounts            []*CreditNoteImportCreditNoteDiscount     `json:"discounts,omitempty"`
+	Taxes                []*CreditNoteImportCreditNoteTax          `json:"taxes,omitempty"`
+	Allocations          []*CreditNoteImportCreditNoteAllocation   `json:"allocations,omitempty"`
+	LinkedRefunds        []*CreditNoteImportCreditNoteLinkedRefund `json:"linked_refunds,omitempty"`
+	apiRequest           `json:"-" form:"-"`
 }
-type ImportCreditNoteLineItem struct {
-	ReferenceLineItemId        string                        `json:"reference_line_item_id,omitempty"`
-	Id                         string                        `json:"id,omitempty"`
-	DateFrom                   *int64                        `json:"date_from,omitempty"`
-	DateTo                     *int64                        `json:"date_to,omitempty"`
-	SubscriptionId             string                        `json:"subscription_id,omitempty"`
-	Description                string                        `json:"description"`
-	UnitAmount                 *int64                        `json:"unit_amount,omitempty"`
-	Quantity                   *int32                        `json:"quantity,omitempty"`
-	Amount                     *int64                        `json:"amount,omitempty"`
-	UnitAmountInDecimal        string                        `json:"unit_amount_in_decimal,omitempty"`
-	QuantityInDecimal          string                        `json:"quantity_in_decimal,omitempty"`
-	AmountInDecimal            string                        `json:"amount_in_decimal,omitempty"`
-	EntityType                 creditNote.LineItemEntityType `json:"entity_type,omitempty"`
-	EntityId                   string                        `json:"entity_id,omitempty"`
-	ItemLevelDiscount1EntityId string                        `json:"item_level_discount1_entity_id,omitempty"`
-	ItemLevelDiscount1Amount   *int64                        `json:"item_level_discount1_amount,omitempty"`
-	ItemLevelDiscount2EntityId string                        `json:"item_level_discount2_entity_id,omitempty"`
-	ItemLevelDiscount2Amount   *int64                        `json:"item_level_discount2_amount,omitempty"`
-	Tax1Name                   string                        `json:"tax1_name,omitempty"`
-	Tax1Amount                 *int64                        `json:"tax1_amount,omitempty"`
-	Tax2Name                   string                        `json:"tax2_name,omitempty"`
-	Tax2Amount                 *int64                        `json:"tax2_amount,omitempty"`
-	Tax3Name                   string                        `json:"tax3_name,omitempty"`
-	Tax3Amount                 *int64                        `json:"tax3_amount,omitempty"`
-	Tax4Name                   string                        `json:"tax4_name,omitempty"`
-	Tax4Amount                 *int64                        `json:"tax4_amount,omitempty"`
-	Tax5Name                   string                        `json:"tax5_name,omitempty"`
-	Tax5Amount                 *int64                        `json:"tax5_amount,omitempty"`
-	Tax6Name                   string                        `json:"tax6_name,omitempty"`
-	Tax6Amount                 *int64                        `json:"tax6_amount,omitempty"`
-	Tax7Name                   string                        `json:"tax7_name,omitempty"`
-	Tax7Amount                 *int64                        `json:"tax7_amount,omitempty"`
-	Tax8Name                   string                        `json:"tax8_name,omitempty"`
-	Tax8Amount                 *int64                        `json:"tax8_amount,omitempty"`
-	Tax9Name                   string                        `json:"tax9_name,omitempty"`
-	Tax9Amount                 *int64                        `json:"tax9_amount,omitempty"`
-	Tax10Name                  string                        `json:"tax10_name,omitempty"`
-	Tax10Amount                *int64                        `json:"tax10_amount,omitempty"`
+
+func (r *CreditNoteImportCreditNoteRequest) payload() any { return r }
+
+// input sub resource params multi
+type CreditNoteImportCreditNoteLineItem struct {
+	ReferenceLineItemId        string             `json:"reference_line_item_id,omitempty"`
+	Id                         string             `json:"id,omitempty"`
+	DateFrom                   *int64             `json:"date_from,omitempty"`
+	DateTo                     *int64             `json:"date_to,omitempty"`
+	SubscriptionId             string             `json:"subscription_id,omitempty"`
+	Description                string             `json:"description"`
+	UnitAmount                 *int64             `json:"unit_amount,omitempty"`
+	Quantity                   *int32             `json:"quantity,omitempty"`
+	Amount                     *int64             `json:"amount,omitempty"`
+	UnitAmountInDecimal        string             `json:"unit_amount_in_decimal,omitempty"`
+	QuantityInDecimal          string             `json:"quantity_in_decimal,omitempty"`
+	AmountInDecimal            string             `json:"amount_in_decimal,omitempty"`
+	EntityType                 LineItemEntityType `json:"entity_type,omitempty"`
+	EntityId                   string             `json:"entity_id,omitempty"`
+	ItemLevelDiscount1EntityId string             `json:"item_level_discount1_entity_id,omitempty"`
+	ItemLevelDiscount1Amount   *int64             `json:"item_level_discount1_amount,omitempty"`
+	ItemLevelDiscount2EntityId string             `json:"item_level_discount2_entity_id,omitempty"`
+	ItemLevelDiscount2Amount   *int64             `json:"item_level_discount2_amount,omitempty"`
+	Tax1Name                   string             `json:"tax1_name,omitempty"`
+	Tax1Amount                 *int64             `json:"tax1_amount,omitempty"`
+	Tax2Name                   string             `json:"tax2_name,omitempty"`
+	Tax2Amount                 *int64             `json:"tax2_amount,omitempty"`
+	Tax3Name                   string             `json:"tax3_name,omitempty"`
+	Tax3Amount                 *int64             `json:"tax3_amount,omitempty"`
+	Tax4Name                   string             `json:"tax4_name,omitempty"`
+	Tax4Amount                 *int64             `json:"tax4_amount,omitempty"`
+	Tax5Name                   string             `json:"tax5_name,omitempty"`
+	Tax5Amount                 *int64             `json:"tax5_amount,omitempty"`
+	Tax6Name                   string             `json:"tax6_name,omitempty"`
+	Tax6Amount                 *int64             `json:"tax6_amount,omitempty"`
+	Tax7Name                   string             `json:"tax7_name,omitempty"`
+	Tax7Amount                 *int64             `json:"tax7_amount,omitempty"`
+	Tax8Name                   string             `json:"tax8_name,omitempty"`
+	Tax8Amount                 *int64             `json:"tax8_amount,omitempty"`
+	Tax9Name                   string             `json:"tax9_name,omitempty"`
+	Tax9Amount                 *int64             `json:"tax9_amount,omitempty"`
+	Tax10Name                  string             `json:"tax10_name,omitempty"`
+	Tax10Amount                *int64             `json:"tax10_amount,omitempty"`
 }
-type ImportCreditNoteLineItemTier struct {
+
+// input sub resource params multi
+type CreditNoteImportCreditNoteLineItemTier struct {
 	LineItemId            string `json:"line_item_id"`
 	StartingUnit          *int32 `json:"starting_unit,omitempty"`
 	EndingUnit            *int32 `json:"ending_unit,omitempty"`
@@ -491,14 +670,18 @@ type ImportCreditNoteLineItemTier struct {
 	QuantityUsedInDecimal string `json:"quantity_used_in_decimal,omitempty"`
 	UnitAmountInDecimal   string `json:"unit_amount_in_decimal,omitempty"`
 }
-type ImportCreditNoteDiscount struct {
-	LineItemId  string                        `json:"line_item_id,omitempty"`
-	EntityType  creditNote.DiscountEntityType `json:"entity_type"`
-	EntityId    string                        `json:"entity_id,omitempty"`
-	Description string                        `json:"description,omitempty"`
-	Amount      *int64                        `json:"amount"`
+
+// input sub resource params multi
+type CreditNoteImportCreditNoteDiscount struct {
+	LineItemId  string             `json:"line_item_id,omitempty"`
+	EntityType  DiscountEntityType `json:"entity_type"`
+	EntityId    string             `json:"entity_id,omitempty"`
+	Description string             `json:"description,omitempty"`
+	Amount      *int64             `json:"amount"`
 }
-type ImportCreditNoteTax struct {
+
+// input sub resource params multi
+type CreditNoteImportCreditNoteTax struct {
 	Name        string            `json:"name"`
 	Rate        *float64          `json:"rate"`
 	Amount      *int64            `json:"amount,omitempty"`
@@ -507,84 +690,118 @@ type ImportCreditNoteTax struct {
 	JurisName   string            `json:"juris_name,omitempty"`
 	JurisCode   string            `json:"juris_code,omitempty"`
 }
-type ImportCreditNoteAllocation struct {
+
+// input sub resource params multi
+type CreditNoteImportCreditNoteAllocation struct {
 	InvoiceId       string `json:"invoice_id"`
 	AllocatedAmount *int64 `json:"allocated_amount"`
 	AllocatedAt     *int64 `json:"allocated_at"`
 }
-type ImportCreditNoteLinkedRefund struct {
-	Id              string             `json:"id,omitempty"`
-	Amount          *int64             `json:"amount"`
-	PaymentMethod   enum.PaymentMethod `json:"payment_method"`
-	Date            *int64             `json:"date"`
-	ReferenceNumber string             `json:"reference_number,omitempty"`
+
+// input sub resource params multi
+type CreditNoteImportCreditNoteLinkedRefund struct {
+	Id              string        `json:"id,omitempty"`
+	Amount          *int64        `json:"amount"`
+	PaymentMethod   PaymentMethod `json:"payment_method"`
+	Date            *int64        `json:"date"`
+	ReferenceNumber string        `json:"reference_number,omitempty"`
 }
 
-type CreateResponse struct {
-	CreditNote *CreditNote      `json:"credit_note,omitempty"`
-	Invoice    *invoice.Invoice `json:"invoice,omitempty"`
+// operation response
+type CreditNoteCreateResponse struct {
+	CreditNote *CreditNote `json:"credit_note,omitempty"`
+	Invoice    Invoice     `json:"invoice,omitempty"`
+	apiResponse
 }
 
-type RetrieveResponse struct {
+// operation response
+type CreditNoteRetrieveResponse struct {
+	CreditNote *CreditNote `json:"credit_note,omitempty"`
+	apiResponse
+}
+
+// operation response
+type CreditNotePdfResponse struct {
+	Download Download `json:"download,omitempty"`
+	apiResponse
+}
+
+// operation response
+type CreditNoteDownloadEinvoiceResponse struct {
+	Downloads []Download `json:"downloads,omitempty"`
+	apiResponse
+}
+
+// operation response
+type CreditNoteRefundResponse struct {
+	CreditNote  *CreditNote `json:"credit_note,omitempty"`
+	Transaction Transaction `json:"transaction,omitempty"`
+	apiResponse
+}
+
+// operation response
+type CreditNoteRecordRefundResponse struct {
+	CreditNote  *CreditNote `json:"credit_note,omitempty"`
+	Transaction Transaction `json:"transaction,omitempty"`
+	apiResponse
+}
+
+// operation response
+type CreditNoteVoidCreditNoteResponse struct {
+	CreditNote *CreditNote `json:"credit_note,omitempty"`
+	apiResponse
+}
+
+// operation sub response
+type CreditNoteListCreditNoteResponse struct {
 	CreditNote *CreditNote `json:"credit_note,omitempty"`
 }
 
-type PdfResponse struct {
-	Download *download.Download `json:"download,omitempty"`
+// operation response
+type CreditNoteListResponse struct {
+	List       []*CreditNoteListCreditNoteResponse `json:"list,omitempty"`
+	NextOffset string                              `json:"next_offset,omitempty"`
+	apiResponse
 }
 
-type DownloadEinvoiceResponse struct {
-	Downloads []*download.Download `json:"downloads,omitempty"`
-}
-
-type RefundResponse struct {
-	CreditNote  *CreditNote              `json:"credit_note,omitempty"`
-	Transaction *transaction.Transaction `json:"transaction,omitempty"`
-}
-
-type RecordRefundResponse struct {
-	CreditNote  *CreditNote              `json:"credit_note,omitempty"`
-	Transaction *transaction.Transaction `json:"transaction,omitempty"`
-}
-
-type VoidCreditNoteResponse struct {
+// operation sub response
+type CreditNoteCreditNotesForCustomerCreditNoteResponse struct {
 	CreditNote *CreditNote `json:"credit_note,omitempty"`
 }
 
-type ListCreditNoteResponse struct {
+// operation response
+type CreditNoteCreditNotesForCustomerResponse struct {
+	List       []*CreditNoteCreditNotesForCustomerCreditNoteResponse `json:"list,omitempty"`
+	NextOffset string                                                `json:"next_offset,omitempty"`
+	apiResponse
+}
+
+// operation response
+type CreditNoteDeleteResponse struct {
 	CreditNote *CreditNote `json:"credit_note,omitempty"`
+	apiResponse
 }
 
-type ListResponse struct {
-	List       []*ListCreditNoteResponse `json:"list,omitempty"`
-	NextOffset string                    `json:"next_offset,omitempty"`
-}
-
-type CreditNotesForCustomerCreditNoteResponse struct {
+// operation response
+type CreditNoteRemoveTaxWithheldRefundResponse struct {
 	CreditNote *CreditNote `json:"credit_note,omitempty"`
+	apiResponse
 }
 
-type CreditNotesForCustomerResponse struct {
-	List       []*CreditNotesForCustomerCreditNoteResponse `json:"list,omitempty"`
-	NextOffset string                                      `json:"next_offset,omitempty"`
-}
-
-type DeleteResponse struct {
+// operation response
+type CreditNoteResendEinvoiceResponse struct {
 	CreditNote *CreditNote `json:"credit_note,omitempty"`
+	apiResponse
 }
 
-type RemoveTaxWithheldRefundResponse struct {
+// operation response
+type CreditNoteSendEinvoiceResponse struct {
 	CreditNote *CreditNote `json:"credit_note,omitempty"`
+	apiResponse
 }
 
-type ResendEinvoiceResponse struct {
+// operation response
+type CreditNoteImportCreditNoteResponse struct {
 	CreditNote *CreditNote `json:"credit_note,omitempty"`
-}
-
-type SendEinvoiceResponse struct {
-	CreditNote *CreditNote `json:"credit_note,omitempty"`
-}
-
-type ImportCreditNoteResponse struct {
-	CreditNote *CreditNote `json:"credit_note,omitempty"`
+	apiResponse
 }

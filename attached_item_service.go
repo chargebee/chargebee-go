@@ -6,25 +6,39 @@ import (
 )
 
 type AttachedItemService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *AttachedItemService) Create(id string, req *CreateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/items/%v/attached_items", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *AttachedItemService) Create(id string, req *AttachedItemCreateRequest) (*AttachedItemCreateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/items/%v/attached_items", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*AttachedItemCreateResponse](req, s.config)
 }
 
-func (s *AttachedItemService) Update(id string, req *UpdateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/attached_items/%v", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *AttachedItemService) Update(id string, req *AttachedItemUpdateRequest) (*AttachedItemUpdateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/attached_items/%v", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*AttachedItemUpdateResponse](req, s.config)
 }
 
-func (s *AttachedItemService) Retrieve(id string, req *RetrieveRequest) Request {
-	return s.transport.Send("GET", fmt.Sprintf("/attached_items/%v", url.PathEscape(id)), req)
+func (s *AttachedItemService) Retrieve(id string, req *AttachedItemRetrieveRequest) (*AttachedItemRetrieveResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/attached_items/%v", url.PathEscape(id))
+	return send[*AttachedItemRetrieveResponse](req, s.config)
 }
 
-func (s *AttachedItemService) Delete(id string, req *DeleteRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/attached_items/%v/delete", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *AttachedItemService) Delete(id string, req *AttachedItemDeleteRequest) (*AttachedItemDeleteResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/attached_items/%v/delete", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*AttachedItemDeleteResponse](req, s.config)
 }
 
-func (s *AttachedItemService) List(id string, req *ListRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/items/%v/attached_items", url.PathEscape(id)), req)
+func (s *AttachedItemService) List(id string, req *AttachedItemListRequest) (*AttachedItemListResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/items/%v/attached_items", url.PathEscape(id))
+	req.isListRequest = true
+	return send[*AttachedItemListResponse](req, s.config)
 }

@@ -6,25 +6,41 @@ import (
 )
 
 type WebhookEndpointService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *WebhookEndpointService) Create(req *CreateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/webhook_endpoints"), req).SetIdempotency(true)
+func (s *WebhookEndpointService) Create(req *WebhookEndpointCreateRequest) (*WebhookEndpointCreateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/webhook_endpoints")
+	req.isIdempotent = true
+	return send[*WebhookEndpointCreateResponse](req, s.config)
 }
 
-func (s *WebhookEndpointService) Update(id string, req *UpdateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/webhook_endpoints/%v", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *WebhookEndpointService) Update(id string, req *WebhookEndpointUpdateRequest) (*WebhookEndpointUpdateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/webhook_endpoints/%v", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*WebhookEndpointUpdateResponse](req, s.config)
 }
 
-func (s *WebhookEndpointService) Retrieve(id string) Request {
-	return s.transport.Send("GET", fmt.Sprintf("/webhook_endpoints/%v", url.PathEscape(id)), nil)
+func (s *WebhookEndpointService) Retrieve(id string) (*WebhookEndpointRetrieveResponse, error) {
+	req := &BlankRequest{}
+	req.method = "GET"
+	req.path = fmt.Sprintf("/webhook_endpoints/%v", url.PathEscape(id))
+	return send[*WebhookEndpointRetrieveResponse](req, s.config)
 }
 
-func (s *WebhookEndpointService) Delete(id string) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/webhook_endpoints/%v/delete", url.PathEscape(id)), nil).SetIdempotency(true)
+func (s *WebhookEndpointService) Delete(id string) (*WebhookEndpointDeleteResponse, error) {
+	req := &BlankRequest{}
+	req.method = "POST"
+	req.path = fmt.Sprintf("/webhook_endpoints/%v/delete", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*WebhookEndpointDeleteResponse](req, s.config)
 }
 
-func (s *WebhookEndpointService) List(req *ListRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/webhook_endpoints"), req)
+func (s *WebhookEndpointService) List(req *WebhookEndpointListRequest) (*WebhookEndpointListResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/webhook_endpoints")
+	req.isListRequest = true
+	return send[*WebhookEndpointListResponse](req, s.config)
 }

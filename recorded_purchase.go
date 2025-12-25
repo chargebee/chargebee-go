@@ -1,76 +1,97 @@
 package chargebee
 
-type Source string
+type RecordedPurchaseSource string
 
 const (
-	SourceAppleAppStore   Source = "apple_app_store"
-	SourceGooglePlayStore Source = "google_play_store"
+	RecordedPurchaseSourceAppleAppStore   RecordedPurchaseSource = "apple_app_store"
+	RecordedPurchaseSourceGooglePlayStore RecordedPurchaseSource = "google_play_store"
 )
 
-type Status string
+type RecordedPurchaseStatus string
 
 const (
-	StatusInProcess Status = "in_process"
-	StatusCompleted Status = "completed"
-	StatusFailed    Status = "failed"
-	StatusIgnored   Status = "ignored"
+	RecordedPurchaseStatusInProcess RecordedPurchaseStatus = "in_process"
+	RecordedPurchaseStatusCompleted RecordedPurchaseStatus = "completed"
+	RecordedPurchaseStatusFailed    RecordedPurchaseStatus = "failed"
+	RecordedPurchaseStatusIgnored   RecordedPurchaseStatus = "ignored"
 )
 
+// just struct
 type RecordedPurchase struct {
-	Id                             string                           `json:"id"`
-	CustomerId                     string                           `json:"customer_id"`
-	AppId                          string                           `json:"app_id"`
-	Source                         Source                           `json:"source"`
-	Status                         Status                           `json:"status"`
-	OmnichannelTransactionId       string                           `json:"omnichannel_transaction_id"`
-	CreatedAt                      int64                            `json:"created_at"`
-	ResourceVersion                int64                            `json:"resource_version"`
-	LinkedOmnichannelSubscriptions []*LinkedOmnichannelSubscription `json:"linked_omnichannel_subscriptions"`
-	LinkedOmnichannelOneTimeOrders []*LinkedOmnichannelOneTimeOrder `json:"linked_omnichannel_one_time_orders"`
-	ErrorDetail                    *ErrorDetail                     `json:"error_detail"`
-	Object                         string                           `json:"object"`
+	Id                             string                                           `json:"id"`
+	CustomerId                     string                                           `json:"customer_id"`
+	AppId                          string                                           `json:"app_id"`
+	Source                         RecordedPurchaseSource                           `json:"source"`
+	Status                         RecordedPurchaseStatus                           `json:"status"`
+	OmnichannelTransactionId       string                                           `json:"omnichannel_transaction_id"`
+	CreatedAt                      int64                                            `json:"created_at"`
+	ResourceVersion                int64                                            `json:"resource_version"`
+	LinkedOmnichannelSubscriptions []*RecordedPurchaseLinkedOmnichannelSubscription `json:"linked_omnichannel_subscriptions"`
+	LinkedOmnichannelOneTimeOrders []*RecordedPurchaseLinkedOmnichannelOneTimeOrder `json:"linked_omnichannel_one_time_orders"`
+	ErrorDetail                    *ErrorDetail                                     `json:"error_detail"`
+	Object                         string                                           `json:"object"`
 }
-type LinkedOmnichannelSubscription struct {
+
+// sub resources
+type RecordedPurchaseLinkedOmnichannelSubscription struct {
 	OmnichannelSubscriptionId string `json:"omnichannel_subscription_id"`
 	Object                    string `json:"object"`
 }
-type LinkedOmnichannelOneTimeOrder struct {
+type RecordedPurchaseLinkedOmnichannelOneTimeOrder struct {
 	OmnichannelOneTimeOrderId string `json:"omnichannel_one_time_order_id"`
 	Object                    string `json:"object"`
 }
-type ErrorDetail struct {
+type RecordedPurchaseErrorDetail struct {
 	ErrorMessage string `json:"error_message"`
 	Object       string `json:"object"`
 }
-type CreateRequest struct {
-	AppId                   string                         `json:"app_id"`
-	Customer                *CreateCustomer                `json:"customer,omitempty"`
-	AppleAppStore           *CreateAppleAppStore           `json:"apple_app_store,omitempty"`
-	GooglePlayStore         *CreateGooglePlayStore         `json:"google_play_store,omitempty"`
-	OmnichannelSubscription *CreateOmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
+
+// operations
+// input params
+type RecordedPurchaseCreateRequest struct {
+	AppId                   string                                         `json:"app_id"`
+	Customer                *RecordedPurchaseCreateCustomer                `json:"customer,omitempty"`
+	AppleAppStore           *RecordedPurchaseCreateAppleAppStore           `json:"apple_app_store,omitempty"`
+	GooglePlayStore         *RecordedPurchaseCreateGooglePlayStore         `json:"google_play_store,omitempty"`
+	OmnichannelSubscription *RecordedPurchaseCreateOmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
+	apiRequest              `json:"-" form:"-"`
 }
-type CreateCustomer struct {
+
+func (r *RecordedPurchaseCreateRequest) payload() any { return r }
+
+// input sub resource params single
+type RecordedPurchaseCreateCustomer struct {
 	Id string `json:"id"`
 }
-type CreateAppleAppStore struct {
+
+// input sub resource params single
+type RecordedPurchaseCreateAppleAppStore struct {
 	TransactionId string `json:"transaction_id,omitempty"`
 	Receipt       string `json:"receipt,omitempty"`
 	ProductId     string `json:"product_id,omitempty"`
 }
-type CreateGooglePlayStore struct {
+
+// input sub resource params single
+type RecordedPurchaseCreateGooglePlayStore struct {
 	PurchaseToken string `json:"purchase_token,omitempty"`
 	ProductId     string `json:"product_id,omitempty"`
 	OrderId       string `json:"order_id,omitempty"`
 }
-type CreateOmnichannelSubscription struct {
+
+// input sub resource params single
+type RecordedPurchaseCreateOmnichannelSubscription struct {
 	Id string `json:"id,omitempty"`
 }
 
-type CreateResponse struct {
-	RecordedPurchase *RecordedPurchase  `json:"recorded_purchase,omitempty"`
-	Customer         *customer.Customer `json:"customer,omitempty"`
+// operation response
+type RecordedPurchaseCreateResponse struct {
+	RecordedPurchase *RecordedPurchase `json:"recorded_purchase,omitempty"`
+	Customer         Customer          `json:"customer,omitempty"`
+	apiResponse
 }
 
-type RetrieveResponse struct {
+// operation response
+type RecordedPurchaseRetrieveResponse struct {
 	RecordedPurchase *RecordedPurchase `json:"recorded_purchase,omitempty"`
+	apiResponse
 }

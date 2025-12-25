@@ -1,97 +1,151 @@
 package chargebee
 
-type Type string
+type AttachedItemType string
 
 const (
-	TypeRecommended Type = "recommended"
-	TypeMandatory   Type = "mandatory"
-	TypeOptional    Type = "optional"
+	AttachedItemTypeRecommended AttachedItemType = "recommended"
+	AttachedItemTypeMandatory   AttachedItemType = "mandatory"
+	AttachedItemTypeOptional    AttachedItemType = "optional"
 )
 
-type Status string
+type AttachedItemStatus string
 
 const (
-	StatusActive   Status = "active"
-	StatusArchived Status = "archived"
-	StatusDeleted  Status = "deleted"
+	AttachedItemStatusActive   AttachedItemStatus = "active"
+	AttachedItemStatusArchived AttachedItemStatus = "archived"
+	AttachedItemStatusDeleted  AttachedItemStatus = "deleted"
 )
 
+type AttachedItemChargeOnEvent string
+
+const (
+	AttachedItemChargeOnEventSubscriptionCreation   AttachedItemChargeOnEvent = "subscription_creation"
+	AttachedItemChargeOnEventSubscriptionTrialStart AttachedItemChargeOnEvent = "subscription_trial_start"
+	AttachedItemChargeOnEventPlanActivation         AttachedItemChargeOnEvent = "plan_activation"
+	AttachedItemChargeOnEventSubscriptionActivation AttachedItemChargeOnEvent = "subscription_activation"
+	AttachedItemChargeOnEventContractTermination    AttachedItemChargeOnEvent = "contract_termination"
+	AttachedItemChargeOnEventOnDemand               AttachedItemChargeOnEvent = "on_demand"
+)
+
+type AttachedItemChannel string
+
+const (
+	AttachedItemChannelWeb       AttachedItemChannel = "web"
+	AttachedItemChannelAppStore  AttachedItemChannel = "app_store"
+	AttachedItemChannelPlayStore AttachedItemChannel = "play_store"
+)
+
+// just struct
 type AttachedItem struct {
-	Id                string             `json:"id"`
-	ParentItemId      string             `json:"parent_item_id"`
-	ItemId            string             `json:"item_id"`
-	Type              Type               `json:"type"`
-	Status            Status             `json:"status"`
-	Quantity          int32              `json:"quantity"`
-	QuantityInDecimal string             `json:"quantity_in_decimal"`
-	BillingCycles     int32              `json:"billing_cycles"`
-	ChargeOnEvent     enum.ChargeOnEvent `json:"charge_on_event"`
-	ChargeOnce        bool               `json:"charge_once"`
-	CreatedAt         int64              `json:"created_at"`
-	ResourceVersion   int64              `json:"resource_version"`
-	UpdatedAt         int64              `json:"updated_at"`
-	Channel           enum.Channel       `json:"channel"`
-	BusinessEntityId  string             `json:"business_entity_id"`
-	Deleted           bool               `json:"deleted"`
-	Object            string             `json:"object"`
+	Id                string                    `json:"id"`
+	ParentItemId      string                    `json:"parent_item_id"`
+	ItemId            string                    `json:"item_id"`
+	Type              AttachedItemType          `json:"type"`
+	Status            AttachedItemStatus        `json:"status"`
+	Quantity          int32                     `json:"quantity"`
+	QuantityInDecimal string                    `json:"quantity_in_decimal"`
+	BillingCycles     int32                     `json:"billing_cycles"`
+	ChargeOnEvent     AttachedItemChargeOnEvent `json:"charge_on_event"`
+	ChargeOnce        bool                      `json:"charge_once"`
+	CreatedAt         int64                     `json:"created_at"`
+	ResourceVersion   int64                     `json:"resource_version"`
+	UpdatedAt         int64                     `json:"updated_at"`
+	Channel           AttachedItemChannel       `json:"channel"`
+	BusinessEntityId  string                    `json:"business_entity_id"`
+	Deleted           bool                      `json:"deleted"`
+	Object            string                    `json:"object"`
 }
-type CreateRequest struct {
-	ItemId            string             `json:"item_id"`
-	Type              Type               `json:"type,omitempty"`
-	BillingCycles     *int32             `json:"billing_cycles,omitempty"`
-	Quantity          *int32             `json:"quantity,omitempty"`
-	QuantityInDecimal string             `json:"quantity_in_decimal,omitempty"`
-	ChargeOnEvent     enum.ChargeOnEvent `json:"charge_on_event,omitempty"`
-	ChargeOnce        *bool              `json:"charge_once,omitempty"`
-	BusinessEntityId  string             `json:"business_entity_id,omitempty"`
+
+// sub resources
+// operations
+// input params
+type AttachedItemCreateRequest struct {
+	ItemId            string                    `json:"item_id"`
+	Type              AttachedItemType          `json:"type,omitempty"`
+	BillingCycles     *int32                    `json:"billing_cycles,omitempty"`
+	Quantity          *int32                    `json:"quantity,omitempty"`
+	QuantityInDecimal string                    `json:"quantity_in_decimal,omitempty"`
+	ChargeOnEvent     AttachedItemChargeOnEvent `json:"charge_on_event,omitempty"`
+	ChargeOnce        *bool                     `json:"charge_once,omitempty"`
+	BusinessEntityId  string                    `json:"business_entity_id,omitempty"`
+	apiRequest        `json:"-" form:"-"`
 }
-type UpdateRequest struct {
-	ParentItemId      string             `json:"parent_item_id"`
-	Type              Type               `json:"type,omitempty"`
-	BillingCycles     *int32             `json:"billing_cycles,omitempty"`
-	Quantity          *int32             `json:"quantity,omitempty"`
-	QuantityInDecimal string             `json:"quantity_in_decimal,omitempty"`
-	ChargeOnEvent     enum.ChargeOnEvent `json:"charge_on_event,omitempty"`
-	ChargeOnce        *bool              `json:"charge_once,omitempty"`
+
+func (r *AttachedItemCreateRequest) payload() any { return r }
+
+type AttachedItemUpdateRequest struct {
+	ParentItemId      string                    `json:"parent_item_id"`
+	Type              AttachedItemType          `json:"type,omitempty"`
+	BillingCycles     *int32                    `json:"billing_cycles,omitempty"`
+	Quantity          *int32                    `json:"quantity,omitempty"`
+	QuantityInDecimal string                    `json:"quantity_in_decimal,omitempty"`
+	ChargeOnEvent     AttachedItemChargeOnEvent `json:"charge_on_event,omitempty"`
+	ChargeOnce        *bool                     `json:"charge_once,omitempty"`
+	apiRequest        `json:"-" form:"-"`
 }
-type RetrieveRequest struct {
+
+func (r *AttachedItemUpdateRequest) payload() any { return r }
+
+type AttachedItemRetrieveRequest struct {
 	ParentItemId string `json:"parent_item_id"`
+	apiRequest   `json:"-" form:"-"`
 }
-type DeleteRequest struct {
+
+func (r *AttachedItemRetrieveRequest) payload() any { return r }
+
+type AttachedItemDeleteRequest struct {
 	ParentItemId string `json:"parent_item_id"`
-}
-type ListRequest struct {
-	Limit         *int32                  `json:"limit,omitempty"`
-	Offset        string                  `json:"offset,omitempty"`
-	Id            *filter.StringFilter    `json:"id,omitempty"`
-	ItemId        *filter.StringFilter    `json:"item_id,omitempty"`
-	Type          *filter.EnumFilter      `json:"type,omitempty"`
-	ItemType      *filter.EnumFilter      `json:"item_type,omitempty"`
-	ChargeOnEvent *filter.EnumFilter      `json:"charge_on_event,omitempty"`
-	UpdatedAt     *filter.TimestampFilter `json:"updated_at,omitempty"`
+	apiRequest   `json:"-" form:"-"`
 }
 
-type CreateResponse struct {
+func (r *AttachedItemDeleteRequest) payload() any { return r }
+
+type AttachedItemListRequest struct {
+	Limit         *int32           `json:"limit,omitempty"`
+	Offset        string           `json:"offset,omitempty"`
+	Id            *StringFilter    `json:"id,omitempty"`
+	ItemId        *StringFilter    `json:"item_id,omitempty"`
+	Type          *EnumFilter      `json:"type,omitempty"`
+	ItemType      *EnumFilter      `json:"item_type,omitempty"`
+	ChargeOnEvent *EnumFilter      `json:"charge_on_event,omitempty"`
+	UpdatedAt     *TimestampFilter `json:"updated_at,omitempty"`
+	apiRequest    `json:"-" form:"-"`
+}
+
+func (r *AttachedItemListRequest) payload() any { return r }
+
+// operation response
+type AttachedItemCreateResponse struct {
+	AttachedItem *AttachedItem `json:"attached_item,omitempty"`
+	apiResponse
+}
+
+// operation response
+type AttachedItemUpdateResponse struct {
+	AttachedItem *AttachedItem `json:"attached_item,omitempty"`
+	apiResponse
+}
+
+// operation response
+type AttachedItemRetrieveResponse struct {
+	AttachedItem *AttachedItem `json:"attached_item,omitempty"`
+	apiResponse
+}
+
+// operation response
+type AttachedItemDeleteResponse struct {
+	AttachedItem *AttachedItem `json:"attached_item,omitempty"`
+	apiResponse
+}
+
+// operation sub response
+type AttachedItemListAttachedItemResponse struct {
 	AttachedItem *AttachedItem `json:"attached_item,omitempty"`
 }
 
-type UpdateResponse struct {
-	AttachedItem *AttachedItem `json:"attached_item,omitempty"`
-}
-
-type RetrieveResponse struct {
-	AttachedItem *AttachedItem `json:"attached_item,omitempty"`
-}
-
-type DeleteResponse struct {
-	AttachedItem *AttachedItem `json:"attached_item,omitempty"`
-}
-
-type ListAttachedItemResponse struct {
-	AttachedItem *AttachedItem `json:"attached_item,omitempty"`
-}
-
-type ListResponse struct {
-	List       []*ListAttachedItemResponse `json:"list,omitempty"`
-	NextOffset string                      `json:"next_offset,omitempty"`
+// operation response
+type AttachedItemListResponse struct {
+	List       []*AttachedItemListAttachedItemResponse `json:"list,omitempty"`
+	NextOffset string                                  `json:"next_offset,omitempty"`
+	apiResponse
 }

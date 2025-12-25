@@ -1,35 +1,38 @@
 package chargebee
 
-type OptionProcessingType string
+type PersonalizedOfferOptionProcessingType string
 
 const (
-	OptionProcessingTypeBillingUpdate OptionProcessingType = "billing_update"
-	OptionProcessingTypeCheckout      OptionProcessingType = "checkout"
-	OptionProcessingTypeUrlRedirect   OptionProcessingType = "url_redirect"
-	OptionProcessingTypeWebhook       OptionProcessingType = "webhook"
-	OptionProcessingTypeEmail         OptionProcessingType = "email"
+	PersonalizedOfferOptionProcessingTypeBillingUpdate PersonalizedOfferOptionProcessingType = "billing_update"
+	PersonalizedOfferOptionProcessingTypeCheckout      PersonalizedOfferOptionProcessingType = "checkout"
+	PersonalizedOfferOptionProcessingTypeUrlRedirect   PersonalizedOfferOptionProcessingType = "url_redirect"
+	PersonalizedOfferOptionProcessingTypeWebhook       PersonalizedOfferOptionProcessingType = "webhook"
+	PersonalizedOfferOptionProcessingTypeEmail         PersonalizedOfferOptionProcessingType = "email"
 )
 
-type OptionProcessingLayout string
+type PersonalizedOfferOptionProcessingLayout string
 
 const (
-	OptionProcessingLayoutInApp    OptionProcessingLayout = "in_app"
-	OptionProcessingLayoutFullPage OptionProcessingLayout = "full_page"
+	PersonalizedOfferOptionProcessingLayoutInApp    PersonalizedOfferOptionProcessingLayout = "in_app"
+	PersonalizedOfferOptionProcessingLayoutFullPage PersonalizedOfferOptionProcessingLayout = "full_page"
 )
 
+// just struct
 type PersonalizedOffer struct {
-	Id      string    `json:"id"`
-	OfferId string    `json:"offer_id"`
-	Content *Content  `json:"content"`
-	Options []*Option `json:"options"`
-	Object  string    `json:"object"`
+	Id      string                     `json:"id"`
+	OfferId string                     `json:"offer_id"`
+	Content *Content                   `json:"content"`
+	Options []*PersonalizedOfferOption `json:"options"`
+	Object  string                     `json:"object"`
 }
-type Content struct {
+
+// sub resources
+type PersonalizedOfferContent struct {
 	Title       string `json:"title"`
 	Description string `json:"description"`
 	Object      string `json:"object"`
 }
-type Option struct {
+type PersonalizedOfferOption struct {
 	Id               string                 `json:"id"`
 	Label            string                 `json:"label"`
 	ProcessingType   OptionProcessingType   `json:"processing_type"`
@@ -37,18 +40,26 @@ type Option struct {
 	RedirectUrl      string                 `json:"redirect_url"`
 	Object           string                 `json:"object"`
 }
-type PersonalizedOffersRequest struct {
-	FirstName      string                            `json:"first_name,omitempty"`
-	LastName       string                            `json:"last_name,omitempty"`
-	Email          string                            `json:"email,omitempty"`
-	Roles          []string                          `json:"roles,omitempty"`
-	ExternalUserId string                            `json:"external_user_id,omitempty"`
-	SubscriptionId string                            `json:"subscription_id,omitempty"`
-	CustomerId     string                            `json:"customer_id"`
-	Custom         map[string]interface{}            `json:"custom,omitempty"`
-	RequestContext *PersonalizedOffersRequestContext `json:"request_context,omitempty"`
+
+// operations
+// input params
+type PersonalizedOfferPersonalizedOffersRequest struct {
+	FirstName      string                                             `json:"first_name,omitempty"`
+	LastName       string                                             `json:"last_name,omitempty"`
+	Email          string                                             `json:"email,omitempty"`
+	Roles          []string                                           `json:"roles,omitempty"`
+	ExternalUserId string                                             `json:"external_user_id,omitempty"`
+	SubscriptionId string                                             `json:"subscription_id,omitempty"`
+	CustomerId     string                                             `json:"customer_id"`
+	Custom         map[string]interface{}                             `json:"custom,omitempty"`
+	RequestContext *PersonalizedOfferPersonalizedOffersRequestContext `json:"request_context,omitempty"`
+	apiRequest     `json:"-" form:"-"`
 }
-type PersonalizedOffersRequestContext struct {
+
+func (r *PersonalizedOfferPersonalizedOffersRequest) payload() any { return r }
+
+// input sub resource params single
+type PersonalizedOfferPersonalizedOffersRequestContext struct {
 	UserAgent   string `json:"user_agent,omitempty"`
 	Locale      string `json:"locale,omitempty"`
 	Timezone    string `json:"timezone,omitempty"`
@@ -56,8 +67,10 @@ type PersonalizedOffersRequestContext struct {
 	ReferrerUrl string `json:"referrer_url,omitempty"`
 }
 
-type PersonalizedOffersResponse struct {
+// operation response
+type PersonalizedOfferPersonalizedOffersResponse struct {
 	PersonalizedOffers []*PersonalizedOffer `json:"personalized_offers,omitempty"`
 	ExpiresAt          int64                `json:"expires_at,omitempty"`
-	Brand              *brand.Brand         `json:"brand,omitempty"`
+	Brand              Brand                `json:"brand,omitempty"`
+	apiResponse
 }

@@ -5,9 +5,12 @@ import (
 )
 
 type SiteMigrationDetailService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *SiteMigrationDetailService) List(req *ListRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/site_migration_details"), req)
+func (s *SiteMigrationDetailService) List(req *SiteMigrationDetailListRequest) (*SiteMigrationDetailListResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/site_migration_details")
+	req.isListRequest = true
+	return send[*SiteMigrationDetailListResponse](req, s.config)
 }

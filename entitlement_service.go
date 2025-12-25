@@ -5,13 +5,19 @@ import (
 )
 
 type EntitlementService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *EntitlementService) List(req *ListRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/entitlements"), req)
+func (s *EntitlementService) List(req *EntitlementListRequest) (*EntitlementListResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/entitlements")
+	req.isListRequest = true
+	return send[*EntitlementListResponse](req, s.config)
 }
 
-func (s *EntitlementService) Create(req *CreateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/entitlements"), req).SetIdempotency(true)
+func (s *EntitlementService) Create(req *EntitlementCreateRequest) (*EntitlementCreateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/entitlements")
+	req.isIdempotent = true
+	return send[*EntitlementCreateResponse](req, s.config)
 }

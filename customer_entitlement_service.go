@@ -6,9 +6,12 @@ import (
 )
 
 type CustomerEntitlementService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *CustomerEntitlementService) EntitlementsForCustomer(id string, req *EntitlementsForCustomerRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/customers/%v/customer_entitlements", url.PathEscape(id)), req)
+func (s *CustomerEntitlementService) EntitlementsForCustomer(id string, req *CustomerEntitlementEntitlementsForCustomerRequest) (*CustomerEntitlementEntitlementsForCustomerResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/customers/%v/customer_entitlements", url.PathEscape(id))
+	req.isListRequest = true
+	return send[*CustomerEntitlementEntitlementsForCustomerResponse](req, s.config)
 }

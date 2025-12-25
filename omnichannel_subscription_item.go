@@ -1,83 +1,119 @@
 package chargebee
 
-type Status string
+type OmnichannelSubscriptionItemStatus string
 
 const (
-	StatusActive        Status = "active"
-	StatusExpired       Status = "expired"
-	StatusCancelled     Status = "cancelled"
-	StatusInDunning     Status = "in_dunning"
-	StatusInGracePeriod Status = "in_grace_period"
-	StatusPaused        Status = "paused"
+	OmnichannelSubscriptionItemStatusActive        OmnichannelSubscriptionItemStatus = "active"
+	OmnichannelSubscriptionItemStatusExpired       OmnichannelSubscriptionItemStatus = "expired"
+	OmnichannelSubscriptionItemStatusCancelled     OmnichannelSubscriptionItemStatus = "cancelled"
+	OmnichannelSubscriptionItemStatusInDunning     OmnichannelSubscriptionItemStatus = "in_dunning"
+	OmnichannelSubscriptionItemStatusInGracePeriod OmnichannelSubscriptionItemStatus = "in_grace_period"
+	OmnichannelSubscriptionItemStatusPaused        OmnichannelSubscriptionItemStatus = "paused"
 )
 
-type AutoRenewStatus string
+type OmnichannelSubscriptionItemAutoRenewStatus string
 
 const (
-	AutoRenewStatusOff AutoRenewStatus = "off"
-	AutoRenewStatusOn  AutoRenewStatus = "on"
+	OmnichannelSubscriptionItemAutoRenewStatusOff OmnichannelSubscriptionItemAutoRenewStatus = "off"
+	OmnichannelSubscriptionItemAutoRenewStatusOn  OmnichannelSubscriptionItemAutoRenewStatus = "on"
 )
 
-type ExpirationReason string
+type OmnichannelSubscriptionItemExpirationReason string
 
 const (
-	ExpirationReasonBillingError        ExpirationReason = "billing_error"
-	ExpirationReasonProductNotAvailable ExpirationReason = "product_not_available"
-	ExpirationReasonOther               ExpirationReason = "other"
+	OmnichannelSubscriptionItemExpirationReasonBillingError        OmnichannelSubscriptionItemExpirationReason = "billing_error"
+	OmnichannelSubscriptionItemExpirationReasonProductNotAvailable OmnichannelSubscriptionItemExpirationReason = "product_not_available"
+	OmnichannelSubscriptionItemExpirationReasonOther               OmnichannelSubscriptionItemExpirationReason = "other"
 )
 
-type CancellationReason string
+type OmnichannelSubscriptionItemCancellationReason string
 
 const (
-	CancellationReasonCustomerCancelled                    CancellationReason = "customer_cancelled"
-	CancellationReasonCustomerDidNotConsentToPriceIncrease CancellationReason = "customer_did_not_consent_to_price_increase"
-	CancellationReasonRefundedDueToAppIssue                CancellationReason = "refunded_due_to_app_issue"
-	CancellationReasonRefundedForOtherReason               CancellationReason = "refunded_for_other_reason"
-	CancellationReasonMerchantRevoked                      CancellationReason = "merchant_revoked"
+	OmnichannelSubscriptionItemCancellationReasonCustomerCancelled                    OmnichannelSubscriptionItemCancellationReason = "customer_cancelled"
+	OmnichannelSubscriptionItemCancellationReasonCustomerDidNotConsentToPriceIncrease OmnichannelSubscriptionItemCancellationReason = "customer_did_not_consent_to_price_increase"
+	OmnichannelSubscriptionItemCancellationReasonRefundedDueToAppIssue                OmnichannelSubscriptionItemCancellationReason = "refunded_due_to_app_issue"
+	OmnichannelSubscriptionItemCancellationReasonRefundedForOtherReason               OmnichannelSubscriptionItemCancellationReason = "refunded_for_other_reason"
+	OmnichannelSubscriptionItemCancellationReasonMerchantRevoked                      OmnichannelSubscriptionItemCancellationReason = "merchant_revoked"
 )
 
+type OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferCategory string
+
+const (
+	OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferCategoryIntroductory        OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferCategory = "introductory"
+	OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferCategoryPromotional         OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferCategory = "promotional"
+	OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferCategoryDeveloperDetermined OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferCategory = "developer_determined"
+)
+
+type OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferType string
+
+const (
+	OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferTypeFreeTrial  OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferType = "free_trial"
+	OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferTypePayUpFront OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferType = "pay_up_front"
+	OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferTypePayAsYouGo OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferType = "pay_as_you_go"
+)
+
+type OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferDiscountType string
+
+const (
+	OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferDiscountTypeFixedAmount OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferDiscountType = "fixed_amount"
+	OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferDiscountTypePercentage  OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferDiscountType = "percentage"
+	OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferDiscountTypePrice       OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferDiscountType = "price"
+)
+
+// just struct
 type OmnichannelSubscriptionItem struct {
-	Id                                string                                                               `json:"id"`
-	ItemIdAtSource                    string                                                               `json:"item_id_at_source"`
-	ItemParentIdAtSource              string                                                               `json:"item_parent_id_at_source"`
-	Status                            Status                                                               `json:"status"`
-	AutoRenewStatus                   AutoRenewStatus                                                      `json:"auto_renew_status"`
-	CurrentTermStart                  int64                                                                `json:"current_term_start"`
-	CurrentTermEnd                    int64                                                                `json:"current_term_end"`
-	ExpiredAt                         int64                                                                `json:"expired_at"`
-	ExpirationReason                  ExpirationReason                                                     `json:"expiration_reason"`
-	CancelledAt                       int64                                                                `json:"cancelled_at"`
-	CancellationReason                CancellationReason                                                   `json:"cancellation_reason"`
-	GracePeriodExpiresAt              int64                                                                `json:"grace_period_expires_at"`
-	ResumesAt                         int64                                                                `json:"resumes_at"`
-	HasScheduledChanges               bool                                                                 `json:"has_scheduled_changes"`
-	ResourceVersion                   int64                                                                `json:"resource_version"`
-	OmnichannelSubscriptionItemOffers []*omnichannelsubscriptionitemoffer.OmnichannelSubscriptionItemOffer `json:"omnichannel_subscription_item_offers"`
-	UpcomingRenewal                   UpcomingRenewal                                                      `json:"upcoming_renewal"`
-	LinkedItem                        LinkedItem                                                           `json:"linked_item"`
-	Object                            string                                                               `json:"object"`
+	Id                                string                                        `json:"id"`
+	ItemIdAtSource                    string                                        `json:"item_id_at_source"`
+	ItemParentIdAtSource              string                                        `json:"item_parent_id_at_source"`
+	Status                            OmnichannelSubscriptionItemStatus             `json:"status"`
+	AutoRenewStatus                   OmnichannelSubscriptionItemAutoRenewStatus    `json:"auto_renew_status"`
+	CurrentTermStart                  int64                                         `json:"current_term_start"`
+	CurrentTermEnd                    int64                                         `json:"current_term_end"`
+	ExpiredAt                         int64                                         `json:"expired_at"`
+	ExpirationReason                  OmnichannelSubscriptionItemExpirationReason   `json:"expiration_reason"`
+	CancelledAt                       int64                                         `json:"cancelled_at"`
+	CancellationReason                OmnichannelSubscriptionItemCancellationReason `json:"cancellation_reason"`
+	GracePeriodExpiresAt              int64                                         `json:"grace_period_expires_at"`
+	ResumesAt                         int64                                         `json:"resumes_at"`
+	HasScheduledChanges               bool                                          `json:"has_scheduled_changes"`
+	ResourceVersion                   int64                                         `json:"resource_version"`
+	OmnichannelSubscriptionItemOffers []*OmnichannelSubscriptionItemOffer           `json:"omnichannel_subscription_item_offers"`
+	UpcomingRenewal                   UpcomingRenewal                               `json:"upcoming_renewal"`
+	LinkedItem                        LinkedItem                                    `json:"linked_item"`
+	Object                            string                                        `json:"object"`
 }
-type UpcomingRenewal struct {
+
+// sub resources
+type OmnichannelSubscriptionItemUpcomingRenewal struct {
 	PriceCurrency string `json:"price_currency"`
 	PriceUnits    int64  `json:"price_units"`
 	PriceNanos    int64  `json:"price_nanos"`
 	Object        string `json:"object"`
 }
-type LinkedItem struct {
+type OmnichannelSubscriptionItemLinkedItem struct {
 	Id       string `json:"id"`
 	LinkedAt int64  `json:"linked_at"`
 	Object   string `json:"object"`
 }
-type ListOmniSubItemScheduleChangesRequest struct {
-	Limit  *int32 `json:"limit,omitempty"`
-	Offset string `json:"offset,omitempty"`
+
+// operations
+// input params
+type OmnichannelSubscriptionItemListOmniSubItemScheduleChangesRequest struct {
+	Limit      *int32 `json:"limit,omitempty"`
+	Offset     string `json:"offset,omitempty"`
+	apiRequest `json:"-" form:"-"`
 }
 
-type ListOmniSubItemScheduleChangesOmnichannelSubscriptionItemResponse struct {
-	OmnichannelSubscriptionItemScheduledChange *omnichannelsubscriptionitemscheduledchange.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
+func (r *OmnichannelSubscriptionItemListOmniSubItemScheduleChangesRequest) payload() any { return r }
+
+// operation sub response
+type OmnichannelSubscriptionItemListOmniSubItemScheduleChangesOmnichannelSubscriptionItemResponse struct {
+	OmnichannelSubscriptionItemScheduledChange OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
 }
 
-type ListOmniSubItemScheduleChangesResponse struct {
-	List       []*ListOmniSubItemScheduleChangesOmnichannelSubscriptionItemResponse `json:"list,omitempty"`
-	NextOffset string                                                               `json:"next_offset,omitempty"`
+// operation response
+type OmnichannelSubscriptionItemListOmniSubItemScheduleChangesResponse struct {
+	List       []*OmnichannelSubscriptionItemListOmniSubItemScheduleChangesOmnichannelSubscriptionItemResponse `json:"list,omitempty"`
+	NextOffset string                                                                                          `json:"next_offset,omitempty"`
+	apiResponse
 }

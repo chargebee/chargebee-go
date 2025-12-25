@@ -39,12 +39,9 @@ type AddressRetrieveRequest struct {
 	apiRequest     `json:"-" form:"-"`
 }
 
-func (r *AddressRetrieveRequest) payload() any {
-	return r
-}
+func (r *AddressRetrieveRequest) payload() any { return r }
 
 type AddressUpdateRequest struct {
-	apiRequest       `json:"-" form:"-"`
 	SubscriptionId   string                  `json:"subscription_id"`
 	Label            string                  `json:"label"`
 	FirstName        string                  `json:"first_name,omitempty"`
@@ -61,20 +58,19 @@ type AddressUpdateRequest struct {
 	Zip              string                  `json:"zip,omitempty"`
 	Country          string                  `json:"country,omitempty"`
 	ValidationStatus AddressValidationStatus `json:"validation_status,omitempty"`
+	apiRequest       `json:"-" form:"-"`
 }
 
-func (r *AddressUpdateRequest) payload() any {
-	return r
-}
+func (r *AddressUpdateRequest) payload() any { return r }
 
 // operation response
 type AddressRetrieveResponse struct {
-	Address     *Address `json:"address,omitempty"`
-	apiResponse `json:"-"`
+	Address *Address `json:"address,omitempty"`
+	apiResponse
 }
 
 // operation response
 type AddressUpdateResponse struct {
-	Address     *Address `json:"address,omitempty"`
-	apiResponse `json:"-"`
+	Address *Address `json:"address,omitempty"`
+	apiResponse
 }

@@ -1,5 +1,6 @@
 package chargebee
 
+// just struct
 type GatewayErrorDetail struct {
 	RequestId             string `json:"request_id"`
 	ErrorCategory         string `json:"error_category"`
@@ -18,3 +19,7 @@ type GatewayErrorDetail struct {
 	ProcessorAdviceCode   string `json:"processor_advice_code"`
 	Object                string `json:"object"`
 }
+
+// sub resources
+// operations
+// input params

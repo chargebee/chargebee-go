@@ -1,48 +1,63 @@
 package chargebee
 
-type Status string
+type BusinessEntityStatus string
 
 const (
-	StatusActive   Status = "active"
-	StatusInactive Status = "inactive"
+	BusinessEntityStatusActive   BusinessEntityStatus = "active"
+	BusinessEntityStatusInactive BusinessEntityStatus = "inactive"
 )
 
+// just struct
 type BusinessEntity struct {
-	Id              string `json:"id"`
-	Name            string `json:"name"`
-	Status          Status `json:"status"`
-	Deleted         bool   `json:"deleted"`
-	CreatedAt       int64  `json:"created_at"`
-	ResourceVersion int64  `json:"resource_version"`
-	UpdatedAt       int64  `json:"updated_at"`
-	Object          string `json:"object"`
+	Id              string               `json:"id"`
+	Name            string               `json:"name"`
+	Status          BusinessEntityStatus `json:"status"`
+	Deleted         bool                 `json:"deleted"`
+	CreatedAt       int64                `json:"created_at"`
+	ResourceVersion int64                `json:"resource_version"`
+	UpdatedAt       int64                `json:"updated_at"`
+	Object          string               `json:"object"`
 }
-type CreateTransfersRequest struct {
+
+// sub resources
+// operations
+// input params
+type BusinessEntityCreateTransfersRequest struct {
 	ActiveResourceIds            []string `json:"active_resource_ids"`
 	DestinationBusinessEntityIds []string `json:"destination_business_entity_ids"`
-	SourceBusinessEntityIds      []string `json:"source_business_entity_ids,omitempty"`
-	ResourceTypes                []string `json:"resource_types"`
 	ReasonCodes                  []string `json:"reason_codes"`
-}
-type GetTransfersRequest struct {
-	Limit            *int32                  `json:"limit,omitempty"`
-	Offset           string                  `json:"offset,omitempty"`
-	ResourceType     *filter.StringFilter    `json:"resource_type,omitempty"`
-	ResourceId       *filter.StringFilter    `json:"resource_id,omitempty"`
-	ActiveResourceId *filter.StringFilter    `json:"active_resource_id,omitempty"`
-	CreatedAt        *filter.TimestampFilter `json:"created_at,omitempty"`
-	SortBy           *filter.SortFilter      `json:"sort_by,omitempty"`
+	apiRequest                   `json:"-" form:"-"`
 }
 
-type CreateTransfersResponse struct {
-	BusinessEntityTransfer *businessentitytransfer.BusinessEntityTransfer `json:"business_entity_transfer,omitempty"`
+func (r *BusinessEntityCreateTransfersRequest) payload() any { return r }
+
+type BusinessEntityGetTransfersRequest struct {
+	Limit            *int32           `json:"limit,omitempty"`
+	Offset           string           `json:"offset,omitempty"`
+	ResourceType     *StringFilter    `json:"resource_type,omitempty"`
+	ResourceId       *StringFilter    `json:"resource_id,omitempty"`
+	ActiveResourceId *StringFilter    `json:"active_resource_id,omitempty"`
+	CreatedAt        *TimestampFilter `json:"created_at,omitempty"`
+	SortBy           *SortFilter      `json:"sort_by,omitempty"`
+	apiRequest       `json:"-" form:"-"`
 }
 
-type GetTransfersBusinessEntityResponse struct {
-	BusinessEntityTransfer *businessentitytransfer.BusinessEntityTransfer `json:"business_entity_transfer,omitempty"`
+func (r *BusinessEntityGetTransfersRequest) payload() any { return r }
+
+// operation response
+type BusinessEntityCreateTransfersResponse struct {
+	BusinessEntityTransfer BusinessEntityTransfer `json:"business_entity_transfer,omitempty"`
+	apiResponse
 }
 
-type GetTransfersResponse struct {
-	List       []*GetTransfersBusinessEntityResponse `json:"list,omitempty"`
-	NextOffset string                                `json:"next_offset,omitempty"`
+// operation sub response
+type BusinessEntityGetTransfersBusinessEntityResponse struct {
+	BusinessEntityTransfer BusinessEntityTransfer `json:"business_entity_transfer,omitempty"`
+}
+
+// operation response
+type BusinessEntityGetTransfersResponse struct {
+	List       []*BusinessEntityGetTransfersBusinessEntityResponse `json:"list,omitempty"`
+	NextOffset string                                              `json:"next_offset,omitempty"`
+	apiResponse
 }

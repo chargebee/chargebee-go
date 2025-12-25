@@ -1,93 +1,123 @@
 package chargebee
 
-type Status string
+type PriceVariantStatus string
 
 const (
-	StatusActive   Status = "active"
-	StatusArchived Status = "archived"
-	StatusDeleted  Status = "deleted"
+	PriceVariantStatusActive   PriceVariantStatus = "active"
+	PriceVariantStatusArchived PriceVariantStatus = "archived"
+	PriceVariantStatusDeleted  PriceVariantStatus = "deleted"
 )
 
+// just struct
 type PriceVariant struct {
-	Id               string       `json:"id"`
-	Name             string       `json:"name"`
-	ExternalName     string       `json:"external_name"`
-	VariantGroup     string       `json:"variant_group"`
-	Description      string       `json:"description"`
-	Status           Status       `json:"status"`
-	CreatedAt        int64        `json:"created_at"`
-	ResourceVersion  int64        `json:"resource_version"`
-	UpdatedAt        int64        `json:"updated_at"`
-	ArchivedAt       int64        `json:"archived_at"`
-	Attributes       []*Attribute `json:"attributes"`
-	BusinessEntityId string       `json:"business_entity_id"`
-	Deleted          bool         `json:"deleted"`
-	Object           string       `json:"object"`
+	Id               string                   `json:"id"`
+	Name             string                   `json:"name"`
+	ExternalName     string                   `json:"external_name"`
+	VariantGroup     string                   `json:"variant_group"`
+	Description      string                   `json:"description"`
+	Status           PriceVariantStatus       `json:"status"`
+	CreatedAt        int64                    `json:"created_at"`
+	ResourceVersion  int64                    `json:"resource_version"`
+	UpdatedAt        int64                    `json:"updated_at"`
+	ArchivedAt       int64                    `json:"archived_at"`
+	Attributes       []*PriceVariantAttribute `json:"attributes"`
+	BusinessEntityId string                   `json:"business_entity_id"`
+	Deleted          bool                     `json:"deleted"`
+	Object           string                   `json:"object"`
 }
-type Attribute struct {
+
+// sub resources
+type PriceVariantAttribute struct {
 	Name   string `json:"name"`
 	Value  string `json:"value"`
 	Object string `json:"object"`
 }
-type CreateRequest struct {
-	Id               string             `json:"id"`
-	Name             string             `json:"name"`
-	ExternalName     string             `json:"external_name,omitempty"`
-	Description      string             `json:"description,omitempty"`
-	VariantGroup     string             `json:"variant_group,omitempty"`
-	BusinessEntityId string             `json:"business_entity_id,omitempty"`
-	Attributes       []*CreateAttribute `json:"attributes,omitempty"`
+
+// operations
+// input params
+type PriceVariantCreateRequest struct {
+	Id               string                         `json:"id"`
+	Name             string                         `json:"name"`
+	ExternalName     string                         `json:"external_name,omitempty"`
+	Description      string                         `json:"description,omitempty"`
+	VariantGroup     string                         `json:"variant_group,omitempty"`
+	BusinessEntityId string                         `json:"business_entity_id,omitempty"`
+	Attributes       []*PriceVariantCreateAttribute `json:"attributes,omitempty"`
+	apiRequest       `json:"-" form:"-"`
 }
-type CreateAttribute struct {
+
+func (r *PriceVariantCreateRequest) payload() any { return r }
+
+// input sub resource params multi
+type PriceVariantCreateAttribute struct {
 	Name  string `json:"name"`
 	Value string `json:"value"`
 }
-type UpdateRequest struct {
-	Name         string             `json:"name,omitempty"`
-	ExternalName string             `json:"external_name,omitempty"`
-	Description  string             `json:"description,omitempty"`
-	VariantGroup string             `json:"variant_group,omitempty"`
-	Status       Status             `json:"status,omitempty"`
-	Attributes   []*UpdateAttribute `json:"attributes,omitempty"`
+type PriceVariantUpdateRequest struct {
+	Name         string                         `json:"name,omitempty"`
+	ExternalName string                         `json:"external_name,omitempty"`
+	Description  string                         `json:"description,omitempty"`
+	VariantGroup string                         `json:"variant_group,omitempty"`
+	Status       PriceVariantStatus             `json:"status,omitempty"`
+	Attributes   []*PriceVariantUpdateAttribute `json:"attributes,omitempty"`
+	apiRequest   `json:"-" form:"-"`
 }
-type UpdateAttribute struct {
+
+func (r *PriceVariantUpdateRequest) payload() any { return r }
+
+// input sub resource params multi
+type PriceVariantUpdateAttribute struct {
 	Name  string `json:"name"`
 	Value string `json:"value"`
 }
-type ListRequest struct {
-	Limit                     *int32                  `json:"limit,omitempty"`
-	Offset                    string                  `json:"offset,omitempty"`
-	Id                        *filter.StringFilter    `json:"id,omitempty"`
-	Name                      *filter.StringFilter    `json:"name,omitempty"`
-	Status                    *filter.EnumFilter      `json:"status,omitempty"`
-	UpdatedAt                 *filter.TimestampFilter `json:"updated_at,omitempty"`
-	CreatedAt                 *filter.TimestampFilter `json:"created_at,omitempty"`
-	BusinessEntityId          *filter.StringFilter    `json:"business_entity_id,omitempty"`
-	IncludeSiteLevelResources *filter.BooleanFilter   `json:"include_site_level_resources,omitempty"`
-	SortBy                    *filter.SortFilter      `json:"sort_by,omitempty"`
+type PriceVariantListRequest struct {
+	Limit                     *int32           `json:"limit,omitempty"`
+	Offset                    string           `json:"offset,omitempty"`
+	Id                        *StringFilter    `json:"id,omitempty"`
+	Name                      *StringFilter    `json:"name,omitempty"`
+	Status                    *EnumFilter      `json:"status,omitempty"`
+	UpdatedAt                 *TimestampFilter `json:"updated_at,omitempty"`
+	CreatedAt                 *TimestampFilter `json:"created_at,omitempty"`
+	BusinessEntityId          *StringFilter    `json:"business_entity_id,omitempty"`
+	IncludeSiteLevelResources *BooleanFilter   `json:"include_site_level_resources,omitempty"`
+	SortBy                    *SortFilter      `json:"sort_by,omitempty"`
+	apiRequest                `json:"-" form:"-"`
 }
 
-type CreateResponse struct {
+func (r *PriceVariantListRequest) payload() any { return r }
+
+// operation response
+type PriceVariantCreateResponse struct {
+	PriceVariant *PriceVariant `json:"price_variant,omitempty"`
+	apiResponse
+}
+
+// operation response
+type PriceVariantRetrieveResponse struct {
+	PriceVariant *PriceVariant `json:"price_variant,omitempty"`
+	apiResponse
+}
+
+// operation response
+type PriceVariantUpdateResponse struct {
+	PriceVariant *PriceVariant `json:"price_variant,omitempty"`
+	apiResponse
+}
+
+// operation response
+type PriceVariantDeleteResponse struct {
+	PriceVariant *PriceVariant `json:"price_variant,omitempty"`
+	apiResponse
+}
+
+// operation sub response
+type PriceVariantListPriceVariantResponse struct {
 	PriceVariant *PriceVariant `json:"price_variant,omitempty"`
 }
 
-type RetrieveResponse struct {
-	PriceVariant *PriceVariant `json:"price_variant,omitempty"`
-}
-
-type UpdateResponse struct {
-	PriceVariant *PriceVariant `json:"price_variant,omitempty"`
-}
-
-type DeleteResponse struct {
-	PriceVariant *PriceVariant `json:"price_variant,omitempty"`
-}
-
-type ListPriceVariantResponse struct {
-	PriceVariant *PriceVariant `json:"price_variant,omitempty"`
-}
-
-type ListResponse struct {
-	List       []*ListPriceVariantResponse `json:"list,omitempty"`
-	NextOffset string                      `json:"next_offset,omitempty"`
+// operation response
+type PriceVariantListResponse struct {
+	List       []*PriceVariantListPriceVariantResponse `json:"list,omitempty"`
+	NextOffset string                                  `json:"next_offset,omitempty"`
+	apiResponse
 }

@@ -6,13 +6,19 @@ import (
 )
 
 type SubscriptionEntitlementService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *SubscriptionEntitlementService) SubscriptionEntitlementsForSubscription(id string, req *SubscriptionEntitlementsForSubscriptionRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/subscriptions/%v/subscription_entitlements", url.PathEscape(id)), req)
+func (s *SubscriptionEntitlementService) SubscriptionEntitlementsForSubscription(id string, req *SubscriptionEntitlementSubscriptionEntitlementsForSubscriptionRequest) (*SubscriptionEntitlementSubscriptionEntitlementsForSubscriptionResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/subscriptions/%v/subscription_entitlements", url.PathEscape(id))
+	req.isListRequest = true
+	return send[*SubscriptionEntitlementSubscriptionEntitlementsForSubscriptionResponse](req, s.config)
 }
 
-func (s *SubscriptionEntitlementService) SetSubscriptionEntitlementAvailability(id string, req *SetSubscriptionEntitlementAvailabilityRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/subscriptions/%v/subscription_entitlements/set_availability", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *SubscriptionEntitlementService) SetSubscriptionEntitlementAvailability(id string, req *SubscriptionEntitlementSetSubscriptionEntitlementAvailabilityRequest) (*SubscriptionEntitlementSetSubscriptionEntitlementAvailabilityResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/subscriptions/%v/subscription_entitlements/set_availability", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*SubscriptionEntitlementSetSubscriptionEntitlementAvailabilityResponse](req, s.config)
 }

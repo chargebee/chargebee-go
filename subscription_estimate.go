@@ -1,65 +1,86 @@
 package chargebee
 
-type Status string
+type SubscriptionEstimateStatus string
 
 const (
-	StatusFuture      Status = "future"
-	StatusInTrial     Status = "in_trial"
-	StatusActive      Status = "active"
-	StatusNonRenewing Status = "non_renewing"
-	StatusPaused      Status = "paused"
-	StatusCancelled   Status = "cancelled"
-	StatusTransferred Status = "transferred"
+	SubscriptionEstimateStatusFuture      SubscriptionEstimateStatus = "future"
+	SubscriptionEstimateStatusInTrial     SubscriptionEstimateStatus = "in_trial"
+	SubscriptionEstimateStatusActive      SubscriptionEstimateStatus = "active"
+	SubscriptionEstimateStatusNonRenewing SubscriptionEstimateStatus = "non_renewing"
+	SubscriptionEstimateStatusPaused      SubscriptionEstimateStatus = "paused"
+	SubscriptionEstimateStatusCancelled   SubscriptionEstimateStatus = "cancelled"
+	SubscriptionEstimateStatusTransferred SubscriptionEstimateStatus = "transferred"
 )
 
-type ContractTermStatus string
+type SubscriptionEstimateTrialEndAction string
 
 const (
-	ContractTermStatusActive     ContractTermStatus = "active"
-	ContractTermStatusCompleted  ContractTermStatus = "completed"
-	ContractTermStatusCancelled  ContractTermStatus = "cancelled"
-	ContractTermStatusTerminated ContractTermStatus = "terminated"
+	SubscriptionEstimateTrialEndActionSiteDefault          SubscriptionEstimateTrialEndAction = "site_default"
+	SubscriptionEstimateTrialEndActionPlanDefault          SubscriptionEstimateTrialEndAction = "plan_default"
+	SubscriptionEstimateTrialEndActionActivateSubscription SubscriptionEstimateTrialEndAction = "activate_subscription"
+	SubscriptionEstimateTrialEndActionCancelSubscription   SubscriptionEstimateTrialEndAction = "cancel_subscription"
 )
 
-type ContractTermActionAtTermEnd string
+type SubscriptionEstimateShippingAddressValidationStatus string
 
 const (
-	ContractTermActionAtTermEndRenew     ContractTermActionAtTermEnd = "renew"
-	ContractTermActionAtTermEndEvergreen ContractTermActionAtTermEnd = "evergreen"
-	ContractTermActionAtTermEndCancel    ContractTermActionAtTermEnd = "cancel"
-	ContractTermActionAtTermEndRenewOnce ContractTermActionAtTermEnd = "renew_once"
+	SubscriptionEstimateShippingAddressValidationStatusNotValidated   SubscriptionEstimateShippingAddressValidationStatus = "not_validated"
+	SubscriptionEstimateShippingAddressValidationStatusValid          SubscriptionEstimateShippingAddressValidationStatus = "valid"
+	SubscriptionEstimateShippingAddressValidationStatusPartiallyValid SubscriptionEstimateShippingAddressValidationStatus = "partially_valid"
+	SubscriptionEstimateShippingAddressValidationStatusInvalid        SubscriptionEstimateShippingAddressValidationStatus = "invalid"
 )
 
+type SubscriptionEstimateContractTermStatus string
+
+const (
+	SubscriptionEstimateContractTermStatusActive     SubscriptionEstimateContractTermStatus = "active"
+	SubscriptionEstimateContractTermStatusCompleted  SubscriptionEstimateContractTermStatus = "completed"
+	SubscriptionEstimateContractTermStatusCancelled  SubscriptionEstimateContractTermStatus = "cancelled"
+	SubscriptionEstimateContractTermStatusTerminated SubscriptionEstimateContractTermStatus = "terminated"
+)
+
+type SubscriptionEstimateContractTermActionAtTermEnd string
+
+const (
+	SubscriptionEstimateContractTermActionAtTermEndRenew     SubscriptionEstimateContractTermActionAtTermEnd = "renew"
+	SubscriptionEstimateContractTermActionAtTermEndEvergreen SubscriptionEstimateContractTermActionAtTermEnd = "evergreen"
+	SubscriptionEstimateContractTermActionAtTermEndCancel    SubscriptionEstimateContractTermActionAtTermEnd = "cancel"
+	SubscriptionEstimateContractTermActionAtTermEndRenewOnce SubscriptionEstimateContractTermActionAtTermEnd = "renew_once"
+)
+
+// just struct
 type SubscriptionEstimate struct {
-	Id              string              `json:"id"`
-	CurrencyCode    string              `json:"currency_code"`
-	Status          Status              `json:"status"`
-	TrialEndAction  enum.TrialEndAction `json:"trial_end_action"`
-	NextBillingAt   int64               `json:"next_billing_at"`
-	PauseDate       int64               `json:"pause_date"`
-	ResumeDate      int64               `json:"resume_date"`
-	ShippingAddress *ShippingAddress    `json:"shipping_address"`
-	ContractTerm    *ContractTerm       `json:"contract_term"`
-	Object          string              `json:"object"`
+	Id              string                             `json:"id"`
+	CurrencyCode    string                             `json:"currency_code"`
+	Status          SubscriptionEstimateStatus         `json:"status"`
+	TrialEndAction  SubscriptionEstimateTrialEndAction `json:"trial_end_action"`
+	NextBillingAt   int64                              `json:"next_billing_at"`
+	PauseDate       int64                              `json:"pause_date"`
+	ResumeDate      int64                              `json:"resume_date"`
+	ShippingAddress *ShippingAddress                   `json:"shipping_address"`
+	ContractTerm    *ContractTerm                      `json:"contract_term"`
+	Object          string                             `json:"object"`
 }
-type ShippingAddress struct {
-	FirstName        string                `json:"first_name"`
-	LastName         string                `json:"last_name"`
-	Email            string                `json:"email"`
-	Company          string                `json:"company"`
-	Phone            string                `json:"phone"`
-	Line1            string                `json:"line1"`
-	Line2            string                `json:"line2"`
-	Line3            string                `json:"line3"`
-	City             string                `json:"city"`
-	StateCode        string                `json:"state_code"`
-	State            string                `json:"state"`
-	Country          string                `json:"country"`
-	Zip              string                `json:"zip"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status"`
-	Object           string                `json:"object"`
+
+// sub resources
+type SubscriptionEstimateShippingAddress struct {
+	FirstName        string                                              `json:"first_name"`
+	LastName         string                                              `json:"last_name"`
+	Email            string                                              `json:"email"`
+	Company          string                                              `json:"company"`
+	Phone            string                                              `json:"phone"`
+	Line1            string                                              `json:"line1"`
+	Line2            string                                              `json:"line2"`
+	Line3            string                                              `json:"line3"`
+	City             string                                              `json:"city"`
+	StateCode        string                                              `json:"state_code"`
+	State            string                                              `json:"state"`
+	Country          string                                              `json:"country"`
+	Zip              string                                              `json:"zip"`
+	ValidationStatus SubscriptionEstimateShippingAddressValidationStatus `json:"validation_status"`
+	Object           string                                              `json:"object"`
 }
-type ContractTerm struct {
+type SubscriptionEstimateContractTerm struct {
 	Id                          string                      `json:"id"`
 	Status                      ContractTermStatus          `json:"status"`
 	ContractStart               int64                       `json:"contract_start"`
@@ -74,3 +95,6 @@ type ContractTerm struct {
 	RemainingBillingCycles      int32                       `json:"remaining_billing_cycles"`
 	Object                      string                      `json:"object"`
 }
+
+// operations
+// input params

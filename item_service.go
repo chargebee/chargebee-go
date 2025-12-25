@@ -6,25 +6,41 @@ import (
 )
 
 type ItemService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *ItemService) Create(req *CreateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/items"), req).SetIdempotency(true)
+func (s *ItemService) Create(req *ItemCreateRequest) (*ItemCreateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/items")
+	req.isIdempotent = true
+	return send[*ItemCreateResponse](req, s.config)
 }
 
-func (s *ItemService) Retrieve(id string) Request {
-	return s.transport.Send("GET", fmt.Sprintf("/items/%v", url.PathEscape(id)), nil)
+func (s *ItemService) Retrieve(id string) (*ItemRetrieveResponse, error) {
+	req := &BlankRequest{}
+	req.method = "GET"
+	req.path = fmt.Sprintf("/items/%v", url.PathEscape(id))
+	return send[*ItemRetrieveResponse](req, s.config)
 }
 
-func (s *ItemService) Update(id string, req *UpdateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/items/%v", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *ItemService) Update(id string, req *ItemUpdateRequest) (*ItemUpdateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/items/%v", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*ItemUpdateResponse](req, s.config)
 }
 
-func (s *ItemService) List(req *ListRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/items"), req)
+func (s *ItemService) List(req *ItemListRequest) (*ItemListResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/items")
+	req.isListRequest = true
+	return send[*ItemListResponse](req, s.config)
 }
 
-func (s *ItemService) Delete(id string) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/items/%v/delete", url.PathEscape(id)), nil).SetIdempotency(true)
+func (s *ItemService) Delete(id string) (*ItemDeleteResponse, error) {
+	req := &BlankRequest{}
+	req.method = "POST"
+	req.path = fmt.Sprintf("/items/%v/delete", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*ItemDeleteResponse](req, s.config)
 }

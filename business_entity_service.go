@@ -5,13 +5,19 @@ import (
 )
 
 type BusinessEntityService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *BusinessEntityService) CreateTransfers(req *CreateTransfersRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/business_entities/transfers"), req).SetIdempotency(true)
+func (s *BusinessEntityService) CreateTransfers(req *BusinessEntityCreateTransfersRequest) (*BusinessEntityCreateTransfersResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/business_entities/transfers")
+	req.isIdempotent = true
+	return send[*BusinessEntityCreateTransfersResponse](req, s.config)
 }
 
-func (s *BusinessEntityService) GetTransfers(req *GetTransfersRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/business_entities/transfers"), req)
+func (s *BusinessEntityService) GetTransfers(req *BusinessEntityGetTransfersRequest) (*BusinessEntityGetTransfersResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/business_entities/transfers")
+	req.isListRequest = true
+	return send[*BusinessEntityGetTransfersResponse](req, s.config)
 }

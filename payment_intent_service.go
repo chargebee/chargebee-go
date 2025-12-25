@@ -6,17 +6,26 @@ import (
 )
 
 type PaymentIntentService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *PaymentIntentService) Create(req *CreateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/payment_intents"), req).SetIdempotency(true)
+func (s *PaymentIntentService) Create(req *PaymentIntentCreateRequest) (*PaymentIntentCreateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/payment_intents")
+	req.isIdempotent = true
+	return send[*PaymentIntentCreateResponse](req, s.config)
 }
 
-func (s *PaymentIntentService) Update(id string, req *UpdateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/payment_intents/%v", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *PaymentIntentService) Update(id string, req *PaymentIntentUpdateRequest) (*PaymentIntentUpdateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/payment_intents/%v", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*PaymentIntentUpdateResponse](req, s.config)
 }
 
-func (s *PaymentIntentService) Retrieve(id string) Request {
-	return s.transport.Send("GET", fmt.Sprintf("/payment_intents/%v", url.PathEscape(id)), nil)
+func (s *PaymentIntentService) Retrieve(id string) (*PaymentIntentRetrieveResponse, error) {
+	req := &BlankRequest{}
+	req.method = "GET"
+	req.path = fmt.Sprintf("/payment_intents/%v", url.PathEscape(id))
+	return send[*PaymentIntentRetrieveResponse](req, s.config)
 }

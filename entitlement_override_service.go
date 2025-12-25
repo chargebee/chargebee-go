@@ -6,13 +6,19 @@ import (
 )
 
 type EntitlementOverrideService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *EntitlementOverrideService) AddEntitlementOverrideForSubscription(id string, req *AddEntitlementOverrideForSubscriptionRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/subscriptions/%v/entitlement_overrides", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *EntitlementOverrideService) AddEntitlementOverrideForSubscription(id string, req *EntitlementOverrideAddEntitlementOverrideForSubscriptionRequest) (*EntitlementOverrideAddEntitlementOverrideForSubscriptionResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/subscriptions/%v/entitlement_overrides", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*EntitlementOverrideAddEntitlementOverrideForSubscriptionResponse](req, s.config)
 }
 
-func (s *EntitlementOverrideService) ListEntitlementOverrideForSubscription(id string, req *ListEntitlementOverrideForSubscriptionRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/subscriptions/%v/entitlement_overrides", url.PathEscape(id)), req)
+func (s *EntitlementOverrideService) ListEntitlementOverrideForSubscription(id string, req *EntitlementOverrideListEntitlementOverrideForSubscriptionRequest) (*EntitlementOverrideListEntitlementOverrideForSubscriptionResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/subscriptions/%v/entitlement_overrides", url.PathEscape(id))
+	req.isListRequest = true
+	return send[*EntitlementOverrideListEntitlementOverrideForSubscriptionResponse](req, s.config)
 }

@@ -5,9 +5,12 @@ import (
 )
 
 type ConfigurationService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *ConfigurationService) List() Request {
-	return s.transport.Send("GET", fmt.Sprintf("/configurations"), nil)
+func (s *ConfigurationService) List() (*ConfigurationListResponse, error) {
+	req := &BlankRequest{}
+	req.method = "GET"
+	req.path = fmt.Sprintf("/configurations")
+	return send[*ConfigurationListResponse](req, s.config)
 }

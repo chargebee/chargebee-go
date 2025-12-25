@@ -1,5 +1,6 @@
 package chargebee
 
+// just struct
 type Hierarchy struct {
 	CustomerId     string   `json:"customer_id"`
 	ParentId       string   `json:"parent_id"`
@@ -9,3 +10,7 @@ type Hierarchy struct {
 	ChildrenIds    []string `json:"children_ids"`
 	Object         string   `json:"object"`
 }
+
+// sub resources
+// operations
+// input params

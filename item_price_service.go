@@ -6,37 +6,62 @@ import (
 )
 
 type ItemPriceService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *ItemPriceService) Create(req *CreateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/item_prices"), req).SetIdempotency(true)
+func (s *ItemPriceService) Create(req *ItemPriceCreateRequest) (*ItemPriceCreateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/item_prices")
+	req.isIdempotent = true
+	return send[*ItemPriceCreateResponse](req, s.config)
 }
 
-func (s *ItemPriceService) Retrieve(id string) Request {
-	return s.transport.Send("GET", fmt.Sprintf("/item_prices/%v", url.PathEscape(id)), nil)
+func (s *ItemPriceService) Retrieve(id string) (*ItemPriceRetrieveResponse, error) {
+	req := &BlankRequest{}
+	req.method = "GET"
+	req.path = fmt.Sprintf("/item_prices/%v", url.PathEscape(id))
+	return send[*ItemPriceRetrieveResponse](req, s.config)
 }
 
-func (s *ItemPriceService) Update(id string, req *UpdateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/item_prices/%v", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *ItemPriceService) Update(id string, req *ItemPriceUpdateRequest) (*ItemPriceUpdateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/item_prices/%v", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*ItemPriceUpdateResponse](req, s.config)
 }
 
-func (s *ItemPriceService) List(req *ListRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/item_prices"), req)
+func (s *ItemPriceService) List(req *ItemPriceListRequest) (*ItemPriceListResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/item_prices")
+	req.isListRequest = true
+	return send[*ItemPriceListResponse](req, s.config)
 }
 
-func (s *ItemPriceService) Delete(id string) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/item_prices/%v/delete", url.PathEscape(id)), nil).SetIdempotency(true)
+func (s *ItemPriceService) Delete(id string) (*ItemPriceDeleteResponse, error) {
+	req := &BlankRequest{}
+	req.method = "POST"
+	req.path = fmt.Sprintf("/item_prices/%v/delete", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*ItemPriceDeleteResponse](req, s.config)
 }
 
-func (s *ItemPriceService) FindApplicableItems(id string, req *FindApplicableItemsRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/item_prices/%v/applicable_items", url.PathEscape(id)), req)
+func (s *ItemPriceService) FindApplicableItems(id string, req *ItemPriceFindApplicableItemsRequest) (*ItemPriceFindApplicableItemsResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/item_prices/%v/applicable_items", url.PathEscape(id))
+	req.isListRequest = true
+	return send[*ItemPriceFindApplicableItemsResponse](req, s.config)
 }
 
-func (s *ItemPriceService) FindApplicableItemPrices(id string, req *FindApplicableItemPricesRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/item_prices/%v/applicable_item_prices", url.PathEscape(id)), req)
+func (s *ItemPriceService) FindApplicableItemPrices(id string, req *ItemPriceFindApplicableItemPricesRequest) (*ItemPriceFindApplicableItemPricesResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/item_prices/%v/applicable_item_prices", url.PathEscape(id))
+	req.isListRequest = true
+	return send[*ItemPriceFindApplicableItemPricesResponse](req, s.config)
 }
 
-func (s *ItemPriceService) MoveItemPrice(id string, req *MoveItemPriceRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/item_prices/%v/move", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *ItemPriceService) MoveItemPrice(id string, req *ItemPriceMoveItemPriceRequest) (*ItemPriceMoveItemPriceResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/item_prices/%v/move", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*ItemPriceMoveItemPriceResponse](req, s.config)
 }

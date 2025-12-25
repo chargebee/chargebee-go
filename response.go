@@ -10,7 +10,7 @@ type apiResponse struct {
 	Headers    http.Header
 	StatusText string
 	StatusCode int
-	Body       []byte
+	Body       []byte `json:"-"`
 }
 
 func (r *apiResponse) setMeta(meta *apiResponse) {

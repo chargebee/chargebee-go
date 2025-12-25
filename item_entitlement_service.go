@@ -6,21 +6,33 @@ import (
 )
 
 type ItemEntitlementService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *ItemEntitlementService) ItemEntitlementsForItem(id string, req *ItemEntitlementsForItemRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/items/%v/item_entitlements", url.PathEscape(id)), req)
+func (s *ItemEntitlementService) ItemEntitlementsForItem(id string, req *ItemEntitlementItemEntitlementsForItemRequest) (*ItemEntitlementItemEntitlementsForItemResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/items/%v/item_entitlements", url.PathEscape(id))
+	req.isListRequest = true
+	return send[*ItemEntitlementItemEntitlementsForItemResponse](req, s.config)
 }
 
-func (s *ItemEntitlementService) ItemEntitlementsForFeature(id string, req *ItemEntitlementsForFeatureRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/features/%v/item_entitlements", url.PathEscape(id)), req)
+func (s *ItemEntitlementService) ItemEntitlementsForFeature(id string, req *ItemEntitlementItemEntitlementsForFeatureRequest) (*ItemEntitlementItemEntitlementsForFeatureResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/features/%v/item_entitlements", url.PathEscape(id))
+	req.isListRequest = true
+	return send[*ItemEntitlementItemEntitlementsForFeatureResponse](req, s.config)
 }
 
-func (s *ItemEntitlementService) AddItemEntitlements(id string, req *AddItemEntitlementsRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/features/%v/item_entitlements", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *ItemEntitlementService) AddItemEntitlements(id string, req *ItemEntitlementAddItemEntitlementsRequest) (*ItemEntitlementAddItemEntitlementsResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/features/%v/item_entitlements", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*ItemEntitlementAddItemEntitlementsResponse](req, s.config)
 }
 
-func (s *ItemEntitlementService) UpsertOrRemoveItemEntitlementsForItem(id string, req *UpsertOrRemoveItemEntitlementsForItemRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/items/%v/item_entitlements", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *ItemEntitlementService) UpsertOrRemoveItemEntitlementsForItem(id string, req *ItemEntitlementUpsertOrRemoveItemEntitlementsForItemRequest) (*ItemEntitlementUpsertOrRemoveItemEntitlementsForItemResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/items/%v/item_entitlements", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*ItemEntitlementUpsertOrRemoveItemEntitlementsForItemResponse](req, s.config)
 }

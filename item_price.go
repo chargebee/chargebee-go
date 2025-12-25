@@ -1,129 +1,184 @@
 package chargebee
 
-type Status string
-
-const (
-	StatusActive   Status = "active"
-	StatusArchived Status = "archived"
-	StatusDeleted  Status = "deleted"
+import (
+	"encoding/json"
 )
 
-type ProrationType string
+type ItemPriceStatus string
 
 const (
-	ProrationTypeSiteDefault ProrationType = "site_default"
-	ProrationTypePartialTerm ProrationType = "partial_term"
-	ProrationTypeFullTerm    ProrationType = "full_term"
+	ItemPriceStatusActive   ItemPriceStatus = "active"
+	ItemPriceStatusArchived ItemPriceStatus = "archived"
+	ItemPriceStatusDeleted  ItemPriceStatus = "deleted"
 )
 
-type PeriodUnit string
+type ItemPriceProrationType string
 
 const (
-	PeriodUnitDay   PeriodUnit = "day"
-	PeriodUnitWeek  PeriodUnit = "week"
-	PeriodUnitMonth PeriodUnit = "month"
-	PeriodUnitYear  PeriodUnit = "year"
+	ItemPriceProrationTypeSiteDefault ItemPriceProrationType = "site_default"
+	ItemPriceProrationTypePartialTerm ItemPriceProrationType = "partial_term"
+	ItemPriceProrationTypeFullTerm    ItemPriceProrationType = "full_term"
 )
 
-type TrialPeriodUnit string
+type ItemPricePricingModel string
 
 const (
-	TrialPeriodUnitDay   TrialPeriodUnit = "day"
-	TrialPeriodUnitMonth TrialPeriodUnit = "month"
+	ItemPricePricingModelFlatFee   ItemPricePricingModel = "flat_fee"
+	ItemPricePricingModelPerUnit   ItemPricePricingModel = "per_unit"
+	ItemPricePricingModelTiered    ItemPricePricingModel = "tiered"
+	ItemPricePricingModelVolume    ItemPricePricingModel = "volume"
+	ItemPricePricingModelStairstep ItemPricePricingModel = "stairstep"
 )
 
-type TrialEndAction string
+type ItemPricePeriodUnit string
 
 const (
-	TrialEndActionSiteDefault          TrialEndAction = "site_default"
-	TrialEndActionActivateSubscription TrialEndAction = "activate_subscription"
-	TrialEndActionCancelSubscription   TrialEndAction = "cancel_subscription"
+	ItemPricePeriodUnitDay   ItemPricePeriodUnit = "day"
+	ItemPricePeriodUnitWeek  ItemPricePeriodUnit = "week"
+	ItemPricePeriodUnitMonth ItemPricePeriodUnit = "month"
+	ItemPricePeriodUnitYear  ItemPricePeriodUnit = "year"
 )
 
-type ShippingPeriodUnit string
+type ItemPriceTrialPeriodUnit string
 
 const (
-	ShippingPeriodUnitDay   ShippingPeriodUnit = "day"
-	ShippingPeriodUnitWeek  ShippingPeriodUnit = "week"
-	ShippingPeriodUnitMonth ShippingPeriodUnit = "month"
-	ShippingPeriodUnitYear  ShippingPeriodUnit = "year"
+	ItemPriceTrialPeriodUnitDay   ItemPriceTrialPeriodUnit = "day"
+	ItemPriceTrialPeriodUnitMonth ItemPriceTrialPeriodUnit = "month"
 )
 
+type ItemPriceTrialEndAction string
+
+const (
+	ItemPriceTrialEndActionSiteDefault          ItemPriceTrialEndAction = "site_default"
+	ItemPriceTrialEndActionActivateSubscription ItemPriceTrialEndAction = "activate_subscription"
+	ItemPriceTrialEndActionCancelSubscription   ItemPriceTrialEndAction = "cancel_subscription"
+)
+
+type ItemPriceShippingPeriodUnit string
+
+const (
+	ItemPriceShippingPeriodUnitDay   ItemPriceShippingPeriodUnit = "day"
+	ItemPriceShippingPeriodUnitWeek  ItemPriceShippingPeriodUnit = "week"
+	ItemPriceShippingPeriodUnitMonth ItemPriceShippingPeriodUnit = "month"
+	ItemPriceShippingPeriodUnitYear  ItemPriceShippingPeriodUnit = "year"
+)
+
+type ItemPriceChannel string
+
+const (
+	ItemPriceChannelWeb       ItemPriceChannel = "web"
+	ItemPriceChannelAppStore  ItemPriceChannel = "app_store"
+	ItemPriceChannelPlayStore ItemPriceChannel = "play_store"
+)
+
+type ItemPriceUsageAccumulationResetFrequency string
+
+const (
+	ItemPriceUsageAccumulationResetFrequencyNever                        ItemPriceUsageAccumulationResetFrequency = "never"
+	ItemPriceUsageAccumulationResetFrequencySubscriptionBillingFrequency ItemPriceUsageAccumulationResetFrequency = "subscription_billing_frequency"
+)
+
+type ItemPriceItemType string
+
+const (
+	ItemPriceItemTypePlan   ItemPriceItemType = "plan"
+	ItemPriceItemTypeAddon  ItemPriceItemType = "addon"
+	ItemPriceItemTypeCharge ItemPriceItemType = "charge"
+)
+
+type ItemPriceTierPricingType string
+
+const (
+	ItemPriceTierPricingTypePerUnit ItemPriceTierPricingType = "per_unit"
+	ItemPriceTierPricingTypeFlatFee ItemPriceTierPricingType = "flat_fee"
+	ItemPriceTierPricingTypePackage ItemPriceTierPricingType = "package"
+)
+
+type ItemPriceTaxDetailAvalaraSaleType string
+
+const (
+	ItemPriceTaxDetailAvalaraSaleTypeWholesale ItemPriceTaxDetailAvalaraSaleType = "wholesale"
+	ItemPriceTaxDetailAvalaraSaleTypeRetail    ItemPriceTaxDetailAvalaraSaleType = "retail"
+	ItemPriceTaxDetailAvalaraSaleTypeConsumed  ItemPriceTaxDetailAvalaraSaleType = "consumed"
+	ItemPriceTaxDetailAvalaraSaleTypeVendorUse ItemPriceTaxDetailAvalaraSaleType = "vendor_use"
+)
+
+// just struct
 type ItemPrice struct {
-	Id                              string                               `json:"id"`
-	Name                            string                               `json:"name"`
-	ItemFamilyId                    string                               `json:"item_family_id"`
-	ItemId                          string                               `json:"item_id"`
-	Description                     string                               `json:"description"`
-	Status                          Status                               `json:"status"`
-	ExternalName                    string                               `json:"external_name"`
-	PriceVariantId                  string                               `json:"price_variant_id"`
-	ProrationType                   ProrationType                        `json:"proration_type"`
-	PricingModel                    enum.PricingModel                    `json:"pricing_model"`
-	Price                           int64                                `json:"price"`
-	PriceInDecimal                  string                               `json:"price_in_decimal"`
-	Period                          int32                                `json:"period"`
-	CurrencyCode                    string                               `json:"currency_code"`
-	PeriodUnit                      PeriodUnit                           `json:"period_unit"`
-	TrialPeriod                     int32                                `json:"trial_period"`
-	TrialPeriodUnit                 TrialPeriodUnit                      `json:"trial_period_unit"`
-	TrialEndAction                  TrialEndAction                       `json:"trial_end_action"`
-	ShippingPeriod                  int32                                `json:"shipping_period"`
-	ShippingPeriodUnit              ShippingPeriodUnit                   `json:"shipping_period_unit"`
-	BillingCycles                   int32                                `json:"billing_cycles"`
-	FreeQuantity                    int32                                `json:"free_quantity"`
-	FreeQuantityInDecimal           string                               `json:"free_quantity_in_decimal"`
-	Channel                         enum.Channel                         `json:"channel"`
-	ResourceVersion                 int64                                `json:"resource_version"`
-	UpdatedAt                       int64                                `json:"updated_at"`
-	CreatedAt                       int64                                `json:"created_at"`
-	UsageAccumulationResetFrequency enum.UsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency"`
-	ArchivedAt                      int64                                `json:"archived_at"`
-	InvoiceNotes                    string                               `json:"invoice_notes"`
-	Tiers                           []*Tier                              `json:"tiers"`
-	IsTaxable                       bool                                 `json:"is_taxable"`
-	TaxDetail                       *TaxDetail                           `json:"tax_detail"`
-	TaxProvidersFields              []*TaxProvidersField                 `json:"tax_providers_fields"`
-	AccountingDetail                *AccountingDetail                    `json:"accounting_detail"`
-	Metadata                        json.RawMessage                      `json:"metadata"`
-	ItemType                        enum.ItemType                        `json:"item_type"`
-	Archivable                      bool                                 `json:"archivable"`
-	ParentItemId                    string                               `json:"parent_item_id"`
-	ShowDescriptionInInvoices       bool                                 `json:"show_description_in_invoices"`
-	ShowDescriptionInQuotes         bool                                 `json:"show_description_in_quotes"`
-	Deleted                         bool                                 `json:"deleted"`
-	BusinessEntityId                string                               `json:"business_entity_id"`
-	CustomField                     map[string]interface{}               `json:"custom_field"`
-	Object                          string                               `json:"object"`
+	Id                              string                                   `json:"id"`
+	Name                            string                                   `json:"name"`
+	ItemFamilyId                    string                                   `json:"item_family_id"`
+	ItemId                          string                                   `json:"item_id"`
+	Description                     string                                   `json:"description"`
+	Status                          ItemPriceStatus                          `json:"status"`
+	ExternalName                    string                                   `json:"external_name"`
+	PriceVariantId                  string                                   `json:"price_variant_id"`
+	ProrationType                   ItemPriceProrationType                   `json:"proration_type"`
+	PricingModel                    ItemPricePricingModel                    `json:"pricing_model"`
+	Price                           int64                                    `json:"price"`
+	PriceInDecimal                  string                                   `json:"price_in_decimal"`
+	Period                          int32                                    `json:"period"`
+	CurrencyCode                    string                                   `json:"currency_code"`
+	PeriodUnit                      ItemPricePeriodUnit                      `json:"period_unit"`
+	TrialPeriod                     int32                                    `json:"trial_period"`
+	TrialPeriodUnit                 ItemPriceTrialPeriodUnit                 `json:"trial_period_unit"`
+	TrialEndAction                  ItemPriceTrialEndAction                  `json:"trial_end_action"`
+	ShippingPeriod                  int32                                    `json:"shipping_period"`
+	ShippingPeriodUnit              ItemPriceShippingPeriodUnit              `json:"shipping_period_unit"`
+	BillingCycles                   int32                                    `json:"billing_cycles"`
+	FreeQuantity                    int32                                    `json:"free_quantity"`
+	FreeQuantityInDecimal           string                                   `json:"free_quantity_in_decimal"`
+	Channel                         ItemPriceChannel                         `json:"channel"`
+	ResourceVersion                 int64                                    `json:"resource_version"`
+	UpdatedAt                       int64                                    `json:"updated_at"`
+	CreatedAt                       int64                                    `json:"created_at"`
+	UsageAccumulationResetFrequency ItemPriceUsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency"`
+	ArchivedAt                      int64                                    `json:"archived_at"`
+	InvoiceNotes                    string                                   `json:"invoice_notes"`
+	Tiers                           []*ItemPriceTier                         `json:"tiers"`
+	IsTaxable                       bool                                     `json:"is_taxable"`
+	TaxDetail                       *TaxDetail                               `json:"tax_detail"`
+	TaxProvidersFields              []*ItemPriceTaxProvidersField            `json:"tax_providers_fields"`
+	AccountingDetail                *AccountingDetail                        `json:"accounting_detail"`
+	Metadata                        json.RawMessage                          `json:"metadata"`
+	ItemType                        ItemPriceItemType                        `json:"item_type"`
+	ShowDescriptionInInvoices       bool                                     `json:"show_description_in_invoices"`
+	ShowDescriptionInQuotes         bool                                     `json:"show_description_in_quotes"`
+	Deleted                         bool                                     `json:"deleted"`
+	BusinessEntityId                string                                   `json:"business_entity_id"`
+	CustomField                     CustomField                              `json:"custom_field"`
+	Object                          string                                   `json:"object"`
 }
-type Tier struct {
-	StartingUnit          int32            `json:"starting_unit"`
-	EndingUnit            int32            `json:"ending_unit"`
-	Price                 int64            `json:"price"`
-	StartingUnitInDecimal string           `json:"starting_unit_in_decimal"`
-	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal"`
-	PriceInDecimal        string           `json:"price_in_decimal"`
-	PricingType           enum.PricingType `json:"pricing_type"`
-	PackageSize           int32            `json:"package_size"`
-	Object                string           `json:"object"`
+
+// sub resources
+type ItemPriceTier struct {
+	StartingUnit          int32                    `json:"starting_unit"`
+	EndingUnit            int32                    `json:"ending_unit"`
+	Price                 int64                    `json:"price"`
+	StartingUnitInDecimal string                   `json:"starting_unit_in_decimal"`
+	EndingUnitInDecimal   string                   `json:"ending_unit_in_decimal"`
+	PriceInDecimal        string                   `json:"price_in_decimal"`
+	PricingType           ItemPriceTierPricingType `json:"pricing_type"`
+	PackageSize           int32                    `json:"package_size"`
+	Object                string                   `json:"object"`
 }
-type TaxDetail struct {
-	TaxProfileId           string               `json:"tax_profile_id"`
-	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type"`
-	AvalaraTransactionType int32                `json:"avalara_transaction_type"`
-	AvalaraServiceType     int32                `json:"avalara_service_type"`
-	AvalaraTaxCode         string               `json:"avalara_tax_code"`
-	HsnCode                string               `json:"hsn_code"`
-	TaxjarProductCode      string               `json:"taxjar_product_code"`
-	Object                 string               `json:"object"`
+type ItemPriceTaxDetail struct {
+	TaxProfileId           string                            `json:"tax_profile_id"`
+	AvalaraSaleType        ItemPriceTaxDetailAvalaraSaleType `json:"avalara_sale_type"`
+	AvalaraTransactionType int32                             `json:"avalara_transaction_type"`
+	AvalaraServiceType     int32                             `json:"avalara_service_type"`
+	AvalaraTaxCode         string                            `json:"avalara_tax_code"`
+	HsnCode                string                            `json:"hsn_code"`
+	TaxjarProductCode      string                            `json:"taxjar_product_code"`
+	Object                 string                            `json:"object"`
 }
-type TaxProvidersField struct {
+type ItemPriceTaxProvidersField struct {
 	ProviderName string `json:"provider_name"`
 	FieldId      string `json:"field_id"`
 	FieldValue   string `json:"field_value"`
 	Object       string `json:"object"`
 }
-type AccountingDetail struct {
+type ItemPriceAccountingDetail struct {
 	Sku                 string `json:"sku"`
 	AccountingCode      string `json:"accounting_code"`
 	AccountingCategory1 string `json:"accounting_category1"`
@@ -132,65 +187,79 @@ type AccountingDetail struct {
 	AccountingCategory4 string `json:"accounting_category4"`
 	Object              string `json:"object"`
 }
-type CreateRequest struct {
-	Id                              string                               `json:"id"`
-	Name                            string                               `json:"name"`
-	Description                     string                               `json:"description,omitempty"`
-	ItemId                          string                               `json:"item_id"`
-	InvoiceNotes                    string                               `json:"invoice_notes,omitempty"`
-	ProrationType                   ProrationType                        `json:"proration_type,omitempty"`
-	ExternalName                    string                               `json:"external_name,omitempty"`
-	CurrencyCode                    string                               `json:"currency_code,omitempty"`
-	PriceVariantId                  string                               `json:"price_variant_id,omitempty"`
-	IsTaxable                       *bool                                `json:"is_taxable,omitempty"`
-	FreeQuantity                    *int32                               `json:"free_quantity,omitempty"`
-	FreeQuantityInDecimal           string                               `json:"free_quantity_in_decimal,omitempty"`
-	Metadata                        map[string]interface{}               `json:"metadata,omitempty"`
-	ShowDescriptionInInvoices       *bool                                `json:"show_description_in_invoices,omitempty"`
-	ShowDescriptionInQuotes         *bool                                `json:"show_description_in_quotes,omitempty"`
-	UsageAccumulationResetFrequency enum.UsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency,omitempty"`
-	BusinessEntityId                string                               `json:"business_entity_id,omitempty"`
-	PricingModel                    enum.PricingModel                    `json:"pricing_model,omitempty"`
-	Tiers                           []*CreateTier                        `json:"tiers,omitempty"`
-	Price                           *int64                               `json:"price,omitempty"`
-	PriceInDecimal                  string                               `json:"price_in_decimal,omitempty"`
-	PeriodUnit                      PeriodUnit                           `json:"period_unit,omitempty"`
-	Period                          *int32                               `json:"period,omitempty"`
-	TrialPeriodUnit                 TrialPeriodUnit                      `json:"trial_period_unit,omitempty"`
-	TrialPeriod                     *int32                               `json:"trial_period,omitempty"`
-	ShippingPeriod                  *int32                               `json:"shipping_period,omitempty"`
-	ShippingPeriodUnit              ShippingPeriodUnit                   `json:"shipping_period_unit,omitempty"`
-	BillingCycles                   *int32                               `json:"billing_cycles,omitempty"`
-	TrialEndAction                  TrialEndAction                       `json:"trial_end_action,omitempty"`
-	TaxDetail                       *CreateTaxDetail                     `json:"tax_detail,omitempty"`
-	TaxProvidersFields              []*CreateTaxProvidersField           `json:"tax_providers_fields,omitempty"`
-	AccountingDetail                *CreateAccountingDetail              `json:"accounting_detail,omitempty"`
+
+// operations
+// input params
+type ItemPriceCreateRequest struct {
+	Id                              string                                   `json:"id"`
+	Name                            string                                   `json:"name"`
+	Description                     string                                   `json:"description,omitempty"`
+	ItemId                          string                                   `json:"item_id"`
+	InvoiceNotes                    string                                   `json:"invoice_notes,omitempty"`
+	ProrationType                   ItemPriceProrationType                   `json:"proration_type,omitempty"`
+	ExternalName                    string                                   `json:"external_name,omitempty"`
+	CurrencyCode                    string                                   `json:"currency_code,omitempty"`
+	PriceVariantId                  string                                   `json:"price_variant_id,omitempty"`
+	IsTaxable                       *bool                                    `json:"is_taxable,omitempty"`
+	FreeQuantity                    *int32                                   `json:"free_quantity,omitempty"`
+	FreeQuantityInDecimal           string                                   `json:"free_quantity_in_decimal,omitempty"`
+	Metadata                        map[string]interface{}                   `json:"metadata,omitempty"`
+	ShowDescriptionInInvoices       *bool                                    `json:"show_description_in_invoices,omitempty"`
+	ShowDescriptionInQuotes         *bool                                    `json:"show_description_in_quotes,omitempty"`
+	UsageAccumulationResetFrequency ItemPriceUsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency,omitempty"`
+	BusinessEntityId                string                                   `json:"business_entity_id,omitempty"`
+	PricingModel                    ItemPricePricingModel                    `json:"pricing_model,omitempty"`
+	Tiers                           []*ItemPriceCreateTier                   `json:"tiers,omitempty"`
+	Price                           *int64                                   `json:"price,omitempty"`
+	PriceInDecimal                  string                                   `json:"price_in_decimal,omitempty"`
+	PeriodUnit                      ItemPricePeriodUnit                      `json:"period_unit,omitempty"`
+	Period                          *int32                                   `json:"period,omitempty"`
+	TrialPeriodUnit                 ItemPriceTrialPeriodUnit                 `json:"trial_period_unit,omitempty"`
+	TrialPeriod                     *int32                                   `json:"trial_period,omitempty"`
+	ShippingPeriod                  *int32                                   `json:"shipping_period,omitempty"`
+	ShippingPeriodUnit              ItemPriceShippingPeriodUnit              `json:"shipping_period_unit,omitempty"`
+	BillingCycles                   *int32                                   `json:"billing_cycles,omitempty"`
+	TrialEndAction                  ItemPriceTrialEndAction                  `json:"trial_end_action,omitempty"`
+	TaxDetail                       *ItemPriceCreateTaxDetail                `json:"tax_detail,omitempty"`
+	TaxProvidersFields              []*ItemPriceCreateTaxProvidersField      `json:"tax_providers_fields,omitempty"`
+	AccountingDetail                *ItemPriceCreateAccountingDetail         `json:"accounting_detail,omitempty"`
+	apiRequest                      `json:"-" form:"-"`
 }
-type CreateTier struct {
-	StartingUnit          *int32           `json:"starting_unit,omitempty"`
-	EndingUnit            *int32           `json:"ending_unit,omitempty"`
-	Price                 *int64           `json:"price,omitempty"`
-	StartingUnitInDecimal string           `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string           `json:"price_in_decimal,omitempty"`
-	PricingType           enum.PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32           `json:"package_size,omitempty"`
+
+func (r *ItemPriceCreateRequest) payload() any { return r }
+
+// input sub resource params multi
+type ItemPriceCreateTier struct {
+	StartingUnit          *int32      `json:"starting_unit,omitempty"`
+	EndingUnit            *int32      `json:"ending_unit,omitempty"`
+	Price                 *int64      `json:"price,omitempty"`
+	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
+	PricingType           PricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32      `json:"package_size,omitempty"`
 }
-type CreateTaxDetail struct {
-	TaxProfileId           string               `json:"tax_profile_id,omitempty"`
-	AvalaraTaxCode         string               `json:"avalara_tax_code,omitempty"`
-	HsnCode                string               `json:"hsn_code,omitempty"`
-	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
-	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
-	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
-	TaxjarProductCode      string               `json:"taxjar_product_code,omitempty"`
+
+// input sub resource params single
+type ItemPriceCreateTaxDetail struct {
+	TaxProfileId           string          `json:"tax_profile_id,omitempty"`
+	AvalaraTaxCode         string          `json:"avalara_tax_code,omitempty"`
+	HsnCode                string          `json:"hsn_code,omitempty"`
+	AvalaraSaleType        AvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32          `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32          `json:"avalara_service_type,omitempty"`
+	TaxjarProductCode      string          `json:"taxjar_product_code,omitempty"`
 }
-type CreateTaxProvidersField struct {
+
+// input sub resource params multi
+type ItemPriceCreateTaxProvidersField struct {
 	ProviderName string `json:"provider_name"`
 	FieldId      string `json:"field_id"`
 	FieldValue   string `json:"field_value"`
 }
-type CreateAccountingDetail struct {
+
+// input sub resource params single
+type ItemPriceCreateAccountingDetail struct {
 	Sku                 string `json:"sku,omitempty"`
 	AccountingCode      string `json:"accounting_code,omitempty"`
 	AccountingCategory1 string `json:"accounting_category1,omitempty"`
@@ -198,63 +267,74 @@ type CreateAccountingDetail struct {
 	AccountingCategory3 string `json:"accounting_category3,omitempty"`
 	AccountingCategory4 string `json:"accounting_category4,omitempty"`
 }
-type UpdateRequest struct {
-	Name                            string                               `json:"name,omitempty"`
-	Description                     string                               `json:"description,omitempty"`
-	ProrationType                   ProrationType                        `json:"proration_type,omitempty"`
-	PriceVariantId                  string                               `json:"price_variant_id,omitempty"`
-	Status                          Status                               `json:"status,omitempty"`
-	ExternalName                    string                               `json:"external_name,omitempty"`
-	UsageAccumulationResetFrequency enum.UsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency,omitempty"`
-	CurrencyCode                    string                               `json:"currency_code,omitempty"`
-	InvoiceNotes                    string                               `json:"invoice_notes,omitempty"`
-	IsTaxable                       *bool                                `json:"is_taxable,omitempty"`
-	FreeQuantity                    *int32                               `json:"free_quantity,omitempty"`
-	FreeQuantityInDecimal           string                               `json:"free_quantity_in_decimal,omitempty"`
-	Metadata                        map[string]interface{}               `json:"metadata,omitempty"`
-	PricingModel                    enum.PricingModel                    `json:"pricing_model,omitempty"`
-	Tiers                           []*UpdateTier                        `json:"tiers,omitempty"`
-	Price                           *int64                               `json:"price,omitempty"`
-	PriceInDecimal                  string                               `json:"price_in_decimal,omitempty"`
-	PeriodUnit                      PeriodUnit                           `json:"period_unit,omitempty"`
-	Period                          *int32                               `json:"period,omitempty"`
-	TrialPeriodUnit                 TrialPeriodUnit                      `json:"trial_period_unit,omitempty"`
-	TrialPeriod                     *int32                               `json:"trial_period,omitempty"`
-	ShippingPeriod                  *int32                               `json:"shipping_period,omitempty"`
-	ShippingPeriodUnit              ShippingPeriodUnit                   `json:"shipping_period_unit,omitempty"`
-	BillingCycles                   *int32                               `json:"billing_cycles,omitempty"`
-	TrialEndAction                  TrialEndAction                       `json:"trial_end_action,omitempty"`
-	TaxDetail                       *UpdateTaxDetail                     `json:"tax_detail,omitempty"`
-	TaxProvidersFields              []*UpdateTaxProvidersField           `json:"tax_providers_fields,omitempty"`
-	AccountingDetail                *UpdateAccountingDetail              `json:"accounting_detail,omitempty"`
-	ShowDescriptionInInvoices       *bool                                `json:"show_description_in_invoices,omitempty"`
-	ShowDescriptionInQuotes         *bool                                `json:"show_description_in_quotes,omitempty"`
+type ItemPriceUpdateRequest struct {
+	Name                            string                                   `json:"name,omitempty"`
+	Description                     string                                   `json:"description,omitempty"`
+	ProrationType                   ItemPriceProrationType                   `json:"proration_type,omitempty"`
+	PriceVariantId                  string                                   `json:"price_variant_id,omitempty"`
+	Status                          ItemPriceStatus                          `json:"status,omitempty"`
+	ExternalName                    string                                   `json:"external_name,omitempty"`
+	UsageAccumulationResetFrequency ItemPriceUsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency,omitempty"`
+	CurrencyCode                    string                                   `json:"currency_code,omitempty"`
+	InvoiceNotes                    string                                   `json:"invoice_notes,omitempty"`
+	IsTaxable                       *bool                                    `json:"is_taxable,omitempty"`
+	FreeQuantity                    *int32                                   `json:"free_quantity,omitempty"`
+	FreeQuantityInDecimal           string                                   `json:"free_quantity_in_decimal,omitempty"`
+	Metadata                        map[string]interface{}                   `json:"metadata,omitempty"`
+	PricingModel                    ItemPricePricingModel                    `json:"pricing_model,omitempty"`
+	Tiers                           []*ItemPriceUpdateTier                   `json:"tiers,omitempty"`
+	Price                           *int64                                   `json:"price,omitempty"`
+	PriceInDecimal                  string                                   `json:"price_in_decimal,omitempty"`
+	PeriodUnit                      ItemPricePeriodUnit                      `json:"period_unit,omitempty"`
+	Period                          *int32                                   `json:"period,omitempty"`
+	TrialPeriodUnit                 ItemPriceTrialPeriodUnit                 `json:"trial_period_unit,omitempty"`
+	TrialPeriod                     *int32                                   `json:"trial_period,omitempty"`
+	ShippingPeriod                  *int32                                   `json:"shipping_period,omitempty"`
+	ShippingPeriodUnit              ItemPriceShippingPeriodUnit              `json:"shipping_period_unit,omitempty"`
+	BillingCycles                   *int32                                   `json:"billing_cycles,omitempty"`
+	TrialEndAction                  ItemPriceTrialEndAction                  `json:"trial_end_action,omitempty"`
+	TaxDetail                       *ItemPriceUpdateTaxDetail                `json:"tax_detail,omitempty"`
+	TaxProvidersFields              []*ItemPriceUpdateTaxProvidersField      `json:"tax_providers_fields,omitempty"`
+	AccountingDetail                *ItemPriceUpdateAccountingDetail         `json:"accounting_detail,omitempty"`
+	ShowDescriptionInInvoices       *bool                                    `json:"show_description_in_invoices,omitempty"`
+	ShowDescriptionInQuotes         *bool                                    `json:"show_description_in_quotes,omitempty"`
+	apiRequest                      `json:"-" form:"-"`
 }
-type UpdateTier struct {
-	StartingUnit          *int32           `json:"starting_unit,omitempty"`
-	EndingUnit            *int32           `json:"ending_unit,omitempty"`
-	Price                 *int64           `json:"price,omitempty"`
-	StartingUnitInDecimal string           `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string           `json:"price_in_decimal,omitempty"`
-	PricingType           enum.PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32           `json:"package_size,omitempty"`
+
+func (r *ItemPriceUpdateRequest) payload() any { return r }
+
+// input sub resource params multi
+type ItemPriceUpdateTier struct {
+	StartingUnit          *int32      `json:"starting_unit,omitempty"`
+	EndingUnit            *int32      `json:"ending_unit,omitempty"`
+	Price                 *int64      `json:"price,omitempty"`
+	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
+	PricingType           PricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32      `json:"package_size,omitempty"`
 }
-type UpdateTaxDetail struct {
-	TaxProfileId           string               `json:"tax_profile_id,omitempty"`
-	AvalaraTaxCode         string               `json:"avalara_tax_code,omitempty"`
-	HsnCode                string               `json:"hsn_code,omitempty"`
-	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
-	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
-	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
-	TaxjarProductCode      string               `json:"taxjar_product_code,omitempty"`
+
+// input sub resource params single
+type ItemPriceUpdateTaxDetail struct {
+	TaxProfileId           string          `json:"tax_profile_id,omitempty"`
+	AvalaraTaxCode         string          `json:"avalara_tax_code,omitempty"`
+	HsnCode                string          `json:"hsn_code,omitempty"`
+	AvalaraSaleType        AvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32          `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32          `json:"avalara_service_type,omitempty"`
+	TaxjarProductCode      string          `json:"taxjar_product_code,omitempty"`
 }
-type UpdateTaxProvidersField struct {
+
+// input sub resource params multi
+type ItemPriceUpdateTaxProvidersField struct {
 	ProviderName string `json:"provider_name"`
 	FieldId      string `json:"field_id"`
 	FieldValue   string `json:"field_value"`
 }
-type UpdateAccountingDetail struct {
+
+// input sub resource params single
+type ItemPriceUpdateAccountingDetail struct {
 	Sku                 string `json:"sku,omitempty"`
 	AccountingCode      string `json:"accounting_code,omitempty"`
 	AccountingCategory1 string `json:"accounting_category1,omitempty"`
@@ -262,86 +342,120 @@ type UpdateAccountingDetail struct {
 	AccountingCategory3 string `json:"accounting_category3,omitempty"`
 	AccountingCategory4 string `json:"accounting_category4,omitempty"`
 }
-type ListRequest struct {
-	Limit                     *int32                  `json:"limit,omitempty"`
-	Offset                    string                  `json:"offset,omitempty"`
-	Id                        *filter.StringFilter    `json:"id,omitempty"`
-	Name                      *filter.StringFilter    `json:"name,omitempty"`
-	PricingModel              *filter.EnumFilter      `json:"pricing_model,omitempty"`
-	ItemId                    *filter.StringFilter    `json:"item_id,omitempty"`
-	ItemFamilyId              *filter.StringFilter    `json:"item_family_id,omitempty"`
-	ItemType                  *filter.EnumFilter      `json:"item_type,omitempty"`
-	CurrencyCode              *filter.StringFilter    `json:"currency_code,omitempty"`
-	PriceVariantId            *filter.StringFilter    `json:"price_variant_id,omitempty"`
-	TrialPeriod               *filter.NumberFilter    `json:"trial_period,omitempty"`
-	TrialPeriodUnit           *filter.EnumFilter      `json:"trial_period_unit,omitempty"`
-	Status                    *filter.EnumFilter      `json:"status,omitempty"`
-	UpdatedAt                 *filter.TimestampFilter `json:"updated_at,omitempty"`
-	BusinessEntityId          *filter.StringFilter    `json:"business_entity_id,omitempty"`
-	IncludeSiteLevelResources *filter.BooleanFilter   `json:"include_site_level_resources,omitempty"`
-	PeriodUnit                *filter.EnumFilter      `json:"period_unit,omitempty"`
-	Period                    *filter.NumberFilter    `json:"period,omitempty"`
-	Channel                   *filter.EnumFilter      `json:"channel,omitempty"`
-	SortBy                    *filter.SortFilter      `json:"sort_by,omitempty"`
+type ItemPriceListRequest struct {
+	Limit                     *int32           `json:"limit,omitempty"`
+	Offset                    string           `json:"offset,omitempty"`
+	Id                        *StringFilter    `json:"id,omitempty"`
+	Name                      *StringFilter    `json:"name,omitempty"`
+	PricingModel              *EnumFilter      `json:"pricing_model,omitempty"`
+	ItemId                    *StringFilter    `json:"item_id,omitempty"`
+	ItemFamilyId              *StringFilter    `json:"item_family_id,omitempty"`
+	ItemType                  *EnumFilter      `json:"item_type,omitempty"`
+	CurrencyCode              *StringFilter    `json:"currency_code,omitempty"`
+	PriceVariantId            *StringFilter    `json:"price_variant_id,omitempty"`
+	TrialPeriod               *NumberFilter    `json:"trial_period,omitempty"`
+	TrialPeriodUnit           *EnumFilter      `json:"trial_period_unit,omitempty"`
+	Status                    *EnumFilter      `json:"status,omitempty"`
+	UpdatedAt                 *TimestampFilter `json:"updated_at,omitempty"`
+	BusinessEntityId          *StringFilter    `json:"business_entity_id,omitempty"`
+	IncludeSiteLevelResources *BooleanFilter   `json:"include_site_level_resources,omitempty"`
+	PeriodUnit                *EnumFilter      `json:"period_unit,omitempty"`
+	Period                    *NumberFilter    `json:"period,omitempty"`
+	Channel                   *EnumFilter      `json:"channel,omitempty"`
+	SortBy                    *SortFilter      `json:"sort_by,omitempty"`
+	apiRequest                `json:"-" form:"-"`
 }
-type FindApplicableItemsRequest struct {
-	Limit  *int32             `json:"limit,omitempty"`
-	Offset string             `json:"offset,omitempty"`
-	SortBy *filter.SortFilter `json:"sort_by,omitempty"`
+
+func (r *ItemPriceListRequest) payload() any { return r }
+
+type ItemPriceFindApplicableItemsRequest struct {
+	Limit      *int32      `json:"limit,omitempty"`
+	Offset     string      `json:"offset,omitempty"`
+	SortBy     *SortFilter `json:"sort_by,omitempty"`
+	apiRequest `json:"-" form:"-"`
 }
-type FindApplicableItemPricesRequest struct {
-	Limit  *int32             `json:"limit,omitempty"`
-	Offset string             `json:"offset,omitempty"`
-	ItemId string             `json:"item_id,omitempty"`
-	SortBy *filter.SortFilter `json:"sort_by,omitempty"`
+
+func (r *ItemPriceFindApplicableItemsRequest) payload() any { return r }
+
+type ItemPriceFindApplicableItemPricesRequest struct {
+	Limit      *int32      `json:"limit,omitempty"`
+	Offset     string      `json:"offset,omitempty"`
+	ItemId     string      `json:"item_id,omitempty"`
+	SortBy     *SortFilter `json:"sort_by,omitempty"`
+	apiRequest `json:"-" form:"-"`
 }
-type MoveItemPriceRequest struct {
+
+func (r *ItemPriceFindApplicableItemPricesRequest) payload() any { return r }
+
+type ItemPriceMoveItemPriceRequest struct {
 	DestinationItemId string `json:"destination_item_id"`
+	apiRequest        `json:"-" form:"-"`
 }
 
-type CreateResponse struct {
+func (r *ItemPriceMoveItemPriceRequest) payload() any { return r }
+
+// operation response
+type ItemPriceCreateResponse struct {
+	ItemPrice *ItemPrice `json:"item_price,omitempty"`
+	apiResponse
+}
+
+// operation response
+type ItemPriceRetrieveResponse struct {
+	ItemPrice *ItemPrice `json:"item_price,omitempty"`
+	apiResponse
+}
+
+// operation response
+type ItemPriceUpdateResponse struct {
+	ItemPrice *ItemPrice `json:"item_price,omitempty"`
+	apiResponse
+}
+
+// operation sub response
+type ItemPriceListItemPriceResponse struct {
 	ItemPrice *ItemPrice `json:"item_price,omitempty"`
 }
 
-type RetrieveResponse struct {
+// operation response
+type ItemPriceListResponse struct {
+	List       []*ItemPriceListItemPriceResponse `json:"list,omitempty"`
+	NextOffset string                            `json:"next_offset,omitempty"`
+	apiResponse
+}
+
+// operation response
+type ItemPriceDeleteResponse struct {
+	ItemPrice *ItemPrice `json:"item_price,omitempty"`
+	apiResponse
+}
+
+// operation sub response
+type ItemPriceFindApplicableItemsItemPriceResponse struct {
+	Item Item `json:"item,omitempty"`
+}
+
+// operation response
+type ItemPriceFindApplicableItemsResponse struct {
+	List       []*ItemPriceFindApplicableItemsItemPriceResponse `json:"list,omitempty"`
+	NextOffset string                                           `json:"next_offset,omitempty"`
+	apiResponse
+}
+
+// operation sub response
+type ItemPriceFindApplicableItemPricesItemPriceResponse struct {
 	ItemPrice *ItemPrice `json:"item_price,omitempty"`
 }
 
-type UpdateResponse struct {
+// operation response
+type ItemPriceFindApplicableItemPricesResponse struct {
+	List       []*ItemPriceFindApplicableItemPricesItemPriceResponse `json:"list,omitempty"`
+	NextOffset string                                                `json:"next_offset,omitempty"`
+	apiResponse
+}
+
+// operation response
+type ItemPriceMoveItemPriceResponse struct {
 	ItemPrice *ItemPrice `json:"item_price,omitempty"`
-}
-
-type ListItemPriceResponse struct {
-	ItemPrice *ItemPrice `json:"item_price,omitempty"`
-}
-
-type ListResponse struct {
-	List       []*ListItemPriceResponse `json:"list,omitempty"`
-	NextOffset string                   `json:"next_offset,omitempty"`
-}
-
-type DeleteResponse struct {
-	ItemPrice *ItemPrice `json:"item_price,omitempty"`
-}
-
-type FindApplicableItemsItemPriceResponse struct {
-	Item *item.Item `json:"item,omitempty"`
-}
-
-type FindApplicableItemsResponse struct {
-	List       []*FindApplicableItemsItemPriceResponse `json:"list,omitempty"`
-	NextOffset string                                  `json:"next_offset,omitempty"`
-}
-
-type FindApplicableItemPricesItemPriceResponse struct {
-	ItemPrice *ItemPrice `json:"item_price,omitempty"`
-}
-
-type FindApplicableItemPricesResponse struct {
-	List       []*FindApplicableItemPricesItemPriceResponse `json:"list,omitempty"`
-	NextOffset string                                       `json:"next_offset,omitempty"`
-}
-
-type MoveItemPriceResponse struct {
-	ItemPrice *ItemPrice `json:"item_price,omitempty"`
+	apiResponse
 }

@@ -24,6 +24,7 @@ func TestPrepareJsonRequest(t *testing.T) {
 	assert.Nil(t, req.urlParams)
 	assert.Equal(t, `{"id":"123"}`, req.jsonBody)
 }
+
 func TestPrepareListRequest(t *testing.T) {
 	type testRequest struct {
 		Limit      *int32        `json:"limit,omitempty"`

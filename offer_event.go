@@ -1,19 +1,29 @@
 package chargebee
 
-type Type string
+type OfferEventType string
 
 const (
-	TypeViewed    Type = "viewed"
-	TypeDismissed Type = "dismissed"
+	OfferEventTypeViewed    OfferEventType = "viewed"
+	OfferEventTypeDismissed OfferEventType = "dismissed"
 )
 
+// just struct
 type OfferEvent struct {
 	Object string `json:"object"`
 }
-type OfferEventsRequest struct {
-	PersonalizedOfferId string `json:"personalized_offer_id"`
-	Type                Type   `json:"type"`
+
+// sub resources
+// operations
+// input params
+type OfferEventOfferEventsRequest struct {
+	PersonalizedOfferId string         `json:"personalized_offer_id"`
+	Type                OfferEventType `json:"type"`
+	apiRequest          `json:"-" form:"-"`
 }
 
-type OfferEventsResponse struct {
+func (r *OfferEventOfferEventsRequest) payload() any { return r }
+
+// operation response
+type OfferEventOfferEventsResponse struct {
+	apiResponse
 }

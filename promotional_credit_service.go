@@ -6,25 +6,40 @@ import (
 )
 
 type PromotionalCreditService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *PromotionalCreditService) Add(req *AddRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/promotional_credits/add"), req).SetIdempotency(true)
+func (s *PromotionalCreditService) Add(req *PromotionalCreditAddRequest) (*PromotionalCreditAddResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/promotional_credits/add")
+	req.isIdempotent = true
+	return send[*PromotionalCreditAddResponse](req, s.config)
 }
 
-func (s *PromotionalCreditService) Deduct(req *DeductRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/promotional_credits/deduct"), req).SetIdempotency(true)
+func (s *PromotionalCreditService) Deduct(req *PromotionalCreditDeductRequest) (*PromotionalCreditDeductResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/promotional_credits/deduct")
+	req.isIdempotent = true
+	return send[*PromotionalCreditDeductResponse](req, s.config)
 }
 
-func (s *PromotionalCreditService) Set(req *SetRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/promotional_credits/set"), req).SetIdempotency(true)
+func (s *PromotionalCreditService) Set(req *PromotionalCreditSetRequest) (*PromotionalCreditSetResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/promotional_credits/set")
+	req.isIdempotent = true
+	return send[*PromotionalCreditSetResponse](req, s.config)
 }
 
-func (s *PromotionalCreditService) List(req *ListRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/promotional_credits"), req)
+func (s *PromotionalCreditService) List(req *PromotionalCreditListRequest) (*PromotionalCreditListResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/promotional_credits")
+	req.isListRequest = true
+	return send[*PromotionalCreditListResponse](req, s.config)
 }
 
-func (s *PromotionalCreditService) Retrieve(id string) Request {
-	return s.transport.Send("GET", fmt.Sprintf("/promotional_credits/%v", url.PathEscape(id)), nil)
+func (s *PromotionalCreditService) Retrieve(id string) (*PromotionalCreditRetrieveResponse, error) {
+	req := &BlankRequest{}
+	req.method = "GET"
+	req.path = fmt.Sprintf("/promotional_credits/%v", url.PathEscape(id))
+	return send[*PromotionalCreditRetrieveResponse](req, s.config)
 }

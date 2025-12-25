@@ -1,5 +1,6 @@
 package chargebee
 
+// just struct
 type CustomerEntitlement struct {
 	CustomerId     string `json:"customer_id"`
 	SubscriptionId string `json:"subscription_id"`
@@ -9,17 +10,27 @@ type CustomerEntitlement struct {
 	IsEnabled      bool   `json:"is_enabled"`
 	Object         string `json:"object"`
 }
-type EntitlementsForCustomerRequest struct {
+
+// sub resources
+// operations
+// input params
+type CustomerEntitlementEntitlementsForCustomerRequest struct {
 	Limit                   *int32 `json:"limit,omitempty"`
 	Offset                  string `json:"offset,omitempty"`
 	ConsolidateEntitlements *bool  `json:"consolidate_entitlements,omitempty"`
+	apiRequest              `json:"-" form:"-"`
 }
 
-type EntitlementsForCustomerCustomerEntitlementResponse struct {
+func (r *CustomerEntitlementEntitlementsForCustomerRequest) payload() any { return r }
+
+// operation sub response
+type CustomerEntitlementEntitlementsForCustomerCustomerEntitlementResponse struct {
 	CustomerEntitlement *CustomerEntitlement `json:"customer_entitlement,omitempty"`
 }
 
-type EntitlementsForCustomerResponse struct {
-	List       []*EntitlementsForCustomerCustomerEntitlementResponse `json:"list,omitempty"`
-	NextOffset string                                                `json:"next_offset,omitempty"`
+// operation response
+type CustomerEntitlementEntitlementsForCustomerResponse struct {
+	List       []*CustomerEntitlementEntitlementsForCustomerCustomerEntitlementResponse `json:"list,omitempty"`
+	NextOffset string                                                                   `json:"next_offset,omitempty"`
+	apiResponse
 }

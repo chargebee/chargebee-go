@@ -1,39 +1,57 @@
 package chargebee
 
-type TimeTravelStatus string
+type TimeMachineTimeTravelStatus string
 
 const (
-	TimeTravelStatusNotEnabled TimeTravelStatus = "not_enabled"
-	TimeTravelStatusInProgress TimeTravelStatus = "in_progress"
-	TimeTravelStatusSucceeded  TimeTravelStatus = "succeeded"
-	TimeTravelStatusFailed     TimeTravelStatus = "failed"
+	TimeMachineTimeTravelStatusNotEnabled TimeMachineTimeTravelStatus = "not_enabled"
+	TimeMachineTimeTravelStatusInProgress TimeMachineTimeTravelStatus = "in_progress"
+	TimeMachineTimeTravelStatusSucceeded  TimeMachineTimeTravelStatus = "succeeded"
+	TimeMachineTimeTravelStatusFailed     TimeMachineTimeTravelStatus = "failed"
 )
 
+// just struct
 type TimeMachine struct {
-	Name             string           `json:"name"`
-	TimeTravelStatus TimeTravelStatus `json:"time_travel_status"`
-	GenesisTime      int64            `json:"genesis_time"`
-	DestinationTime  int64            `json:"destination_time"`
-	FailureCode      string           `json:"failure_code"`
-	FailureReason    string           `json:"failure_reason"`
-	ErrorJson        string           `json:"error_json"`
-	Object           string           `json:"object"`
+	Name             string                      `json:"name"`
+	TimeTravelStatus TimeMachineTimeTravelStatus `json:"time_travel_status"`
+	GenesisTime      int64                       `json:"genesis_time"`
+	DestinationTime  int64                       `json:"destination_time"`
+	FailureCode      string                      `json:"failure_code"`
+	FailureReason    string                      `json:"failure_reason"`
+	ErrorJson        string                      `json:"error_json"`
+	Object           string                      `json:"object"`
 }
-type StartAfreshRequest struct {
+
+// sub resources
+// operations
+// input params
+type TimeMachineStartAfreshRequest struct {
 	GenesisTime *int64 `json:"genesis_time,omitempty"`
+	apiRequest  `json:"-" form:"-"`
 }
-type TravelForwardRequest struct {
+
+func (r *TimeMachineStartAfreshRequest) payload() any { return r }
+
+type TimeMachineTravelForwardRequest struct {
 	DestinationTime *int64 `json:"destination_time,omitempty"`
+	apiRequest      `json:"-" form:"-"`
 }
 
-type RetrieveResponse struct {
+func (r *TimeMachineTravelForwardRequest) payload() any { return r }
+
+// operation response
+type TimeMachineRetrieveResponse struct {
 	TimeMachine *TimeMachine `json:"time_machine,omitempty"`
+	apiResponse
 }
 
-type StartAfreshResponse struct {
+// operation response
+type TimeMachineStartAfreshResponse struct {
 	TimeMachine *TimeMachine `json:"time_machine,omitempty"`
+	apiResponse
 }
 
-type TravelForwardResponse struct {
+// operation response
+type TimeMachineTravelForwardResponse struct {
 	TimeMachine *TimeMachine `json:"time_machine,omitempty"`
+	apiResponse
 }

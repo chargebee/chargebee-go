@@ -1,29 +1,38 @@
 package chargebee
 
-type StoreStatus string
+type InAppSubscriptionStoreStatus string
 
 const (
-	StoreStatusInTrial   StoreStatus = "in_trial"
-	StoreStatusActive    StoreStatus = "active"
-	StoreStatusCancelled StoreStatus = "cancelled"
-	StoreStatusPaused    StoreStatus = "paused"
+	InAppSubscriptionStoreStatusInTrial   InAppSubscriptionStoreStatus = "in_trial"
+	InAppSubscriptionStoreStatusActive    InAppSubscriptionStoreStatus = "active"
+	InAppSubscriptionStoreStatusCancelled InAppSubscriptionStoreStatus = "cancelled"
+	InAppSubscriptionStoreStatusPaused    InAppSubscriptionStoreStatus = "paused"
 )
 
+// just struct
 type InAppSubscription struct {
-	AppId          string      `json:"app_id"`
-	SubscriptionId string      `json:"subscription_id"`
-	CustomerId     string      `json:"customer_id"`
-	PlanId         string      `json:"plan_id"`
-	StoreStatus    StoreStatus `json:"store_status"`
-	InvoiceId      string      `json:"invoice_id"`
-	Object         string      `json:"object"`
+	SubscriptionId string                       `json:"subscription_id"`
+	CustomerId     string                       `json:"customer_id"`
+	PlanId         string                       `json:"plan_id"`
+	StoreStatus    InAppSubscriptionStoreStatus `json:"store_status"`
+	InvoiceId      string                       `json:"invoice_id"`
+	Object         string                       `json:"object"`
 }
-type ProcessReceiptRequest struct {
-	Receipt  string                  `json:"receipt"`
-	Product  *ProcessReceiptProduct  `json:"product,omitempty"`
-	Customer *ProcessReceiptCustomer `json:"customer,omitempty"`
+
+// sub resources
+// operations
+// input params
+type InAppSubscriptionProcessReceiptRequest struct {
+	Receipt    string                                   `json:"receipt"`
+	Product    *InAppSubscriptionProcessReceiptProduct  `json:"product,omitempty"`
+	Customer   *InAppSubscriptionProcessReceiptCustomer `json:"customer,omitempty"`
+	apiRequest `json:"-" form:"-"`
 }
-type ProcessReceiptProduct struct {
+
+func (r *InAppSubscriptionProcessReceiptRequest) payload() any { return r }
+
+// input sub resource params single
+type InAppSubscriptionProcessReceiptProduct struct {
 	Id             string `json:"id"`
 	CurrencyCode   string `json:"currency_code"`
 	Price          *int64 `json:"price"`
@@ -32,29 +41,43 @@ type ProcessReceiptProduct struct {
 	Period         string `json:"period,omitempty"`
 	PeriodUnit     string `json:"period_unit,omitempty"`
 }
-type ProcessReceiptCustomer struct {
+
+// input sub resource params single
+type InAppSubscriptionProcessReceiptCustomer struct {
 	Id        string `json:"id,omitempty"`
 	Email     string `json:"email,omitempty"`
 	FirstName string `json:"first_name,omitempty"`
 	LastName  string `json:"last_name,omitempty"`
 }
-type ImportReceiptRequest struct {
-	Receipt  string                 `json:"receipt"`
-	Product  *ImportReceiptProduct  `json:"product,omitempty"`
-	Customer *ImportReceiptCustomer `json:"customer,omitempty"`
+type InAppSubscriptionImportReceiptRequest struct {
+	Receipt    string                                  `json:"receipt"`
+	Product    *InAppSubscriptionImportReceiptProduct  `json:"product,omitempty"`
+	Customer   *InAppSubscriptionImportReceiptCustomer `json:"customer,omitempty"`
+	apiRequest `json:"-" form:"-"`
 }
-type ImportReceiptProduct struct {
+
+func (r *InAppSubscriptionImportReceiptRequest) payload() any { return r }
+
+// input sub resource params single
+type InAppSubscriptionImportReceiptProduct struct {
 	CurrencyCode string `json:"currency_code"`
 }
-type ImportReceiptCustomer struct {
+
+// input sub resource params single
+type InAppSubscriptionImportReceiptCustomer struct {
 	Id    string `json:"id,omitempty"`
 	Email string `json:"email,omitempty"`
 }
-type ImportSubscriptionRequest struct {
-	Subscription *ImportSubscriptionSubscription `json:"subscription,omitempty"`
-	Customer     *ImportSubscriptionCustomer     `json:"customer,omitempty"`
+type InAppSubscriptionImportSubscriptionRequest struct {
+	Subscription *InAppSubscriptionImportSubscriptionSubscription `json:"subscription,omitempty"`
+	Customer     *InAppSubscriptionImportSubscriptionCustomer     `json:"customer,omitempty"`
+	apiRequest   `json:"-" form:"-"`
 }
-type ImportSubscriptionSubscription struct {
+
+func (r *InAppSubscriptionImportSubscriptionRequest) payload() any { return r }
+
+// input sub resource params single
+type InAppSubscriptionImportSubscriptionSubscription struct {
 	Id            string `json:"id"`
 	StartedAt     *int64 `json:"started_at"`
 	TermStart     *int64 `json:"term_start"`
@@ -64,26 +87,39 @@ type ImportSubscriptionSubscription struct {
 	TransactionId string `json:"transaction_id"`
 	IsTrial       *bool  `json:"is_trial,omitempty"`
 }
-type ImportSubscriptionCustomer struct {
+
+// input sub resource params single
+type InAppSubscriptionImportSubscriptionCustomer struct {
 	Id    string `json:"id,omitempty"`
 	Email string `json:"email,omitempty"`
 }
-type RetrieveStoreSubsRequest struct {
-	Receipt string `json:"receipt"`
+type InAppSubscriptionRetrieveStoreSubsRequest struct {
+	Receipt    string `json:"receipt"`
+	apiRequest `json:"-" form:"-"`
 }
 
-type ProcessReceiptResponse struct {
+func (r *InAppSubscriptionRetrieveStoreSubsRequest) payload() any { return r }
+
+// operation response
+type InAppSubscriptionProcessReceiptResponse struct {
 	InAppSubscription *InAppSubscription `json:"in_app_subscription,omitempty"`
+	apiResponse
 }
 
-type ImportReceiptResponse struct {
+// operation response
+type InAppSubscriptionImportReceiptResponse struct {
 	InAppSubscriptions []*InAppSubscription `json:"in_app_subscriptions,omitempty"`
+	apiResponse
 }
 
-type ImportSubscriptionResponse struct {
+// operation response
+type InAppSubscriptionImportSubscriptionResponse struct {
 	InAppSubscription *InAppSubscription `json:"in_app_subscription,omitempty"`
+	apiResponse
 }
 
-type RetrieveStoreSubsResponse struct {
+// operation response
+type InAppSubscriptionRetrieveStoreSubsResponse struct {
 	InAppSubscriptions []*InAppSubscription `json:"in_app_subscriptions,omitempty"`
+	apiResponse
 }

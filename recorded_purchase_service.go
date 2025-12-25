@@ -6,13 +6,19 @@ import (
 )
 
 type RecordedPurchaseService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *RecordedPurchaseService) Create(req *CreateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/recorded_purchases"), req).SetIdempotency(true)
+func (s *RecordedPurchaseService) Create(req *RecordedPurchaseCreateRequest) (*RecordedPurchaseCreateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/recorded_purchases")
+	req.isIdempotent = true
+	return send[*RecordedPurchaseCreateResponse](req, s.config)
 }
 
-func (s *RecordedPurchaseService) Retrieve(id string) Request {
-	return s.transport.Send("GET", fmt.Sprintf("/recorded_purchases/%v", url.PathEscape(id)), nil)
+func (s *RecordedPurchaseService) Retrieve(id string) (*RecordedPurchaseRetrieveResponse, error) {
+	req := &BlankRequest{}
+	req.method = "GET"
+	req.path = fmt.Sprintf("/recorded_purchases/%v", url.PathEscape(id))
+	return send[*RecordedPurchaseRetrieveResponse](req, s.config)
 }

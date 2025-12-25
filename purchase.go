@@ -1,5 +1,6 @@
 package chargebee
 
+// just struct
 type Purchase struct {
 	Id              string   `json:"id"`
 	CustomerId      string   `json:"customer_id"`
@@ -9,22 +10,31 @@ type Purchase struct {
 	InvoiceIds      []string `json:"invoice_ids"`
 	Object          string   `json:"object"`
 }
-type CreateRequest struct {
-	PurchaseItems               []*CreatePurchaseItem      `json:"purchase_items,omitempty"`
-	ItemTiers                   []*CreateItemTier          `json:"item_tiers,omitempty"`
-	ShippingAddresses           []*CreateShippingAddress   `json:"shipping_addresses,omitempty"`
-	Discounts                   []*CreateDiscount          `json:"discounts,omitempty"`
-	SubscriptionInfo            []*CreateSubscriptionInfo  `json:"subscription_info,omitempty"`
-	ContractTerms               []*CreateContractTerm      `json:"contract_terms,omitempty"`
-	InvoiceInfo                 *CreateInvoiceInfo         `json:"invoice_info,omitempty"`
-	PaymentSchedule             *CreatePaymentSchedule     `json:"payment_schedule,omitempty"`
-	StatementDescriptor         *CreateStatementDescriptor `json:"statement_descriptor,omitempty"`
-	CustomerId                  string                     `json:"customer_id"`
-	PaymentSourceId             string                     `json:"payment_source_id,omitempty"`
-	PaymentIntent               *CreatePaymentIntent       `json:"payment_intent,omitempty"`
-	ReplacePrimaryPaymentSource *bool                      `json:"replace_primary_payment_source,omitempty"`
+
+// sub resources
+// operations
+// input params
+type PurchaseCreateRequest struct {
+	PurchaseItems               []*PurchaseCreatePurchaseItem      `json:"purchase_items,omitempty"`
+	ItemTiers                   []*PurchaseCreateItemTier          `json:"item_tiers,omitempty"`
+	ShippingAddresses           []*PurchaseCreateShippingAddress   `json:"shipping_addresses,omitempty"`
+	Discounts                   []*PurchaseCreateDiscount          `json:"discounts,omitempty"`
+	SubscriptionInfo            []*PurchaseCreateSubscriptionInfo  `json:"subscription_info,omitempty"`
+	ContractTerms               []*PurchaseCreateContractTerm      `json:"contract_terms,omitempty"`
+	InvoiceInfo                 *PurchaseCreateInvoiceInfo         `json:"invoice_info,omitempty"`
+	PaymentSchedule             *PurchaseCreatePaymentSchedule     `json:"payment_schedule,omitempty"`
+	StatementDescriptor         *PurchaseCreateStatementDescriptor `json:"statement_descriptor,omitempty"`
+	CustomerId                  string                             `json:"customer_id"`
+	PaymentSourceId             string                             `json:"payment_source_id,omitempty"`
+	PaymentIntent               *PurchaseCreatePaymentIntent       `json:"payment_intent,omitempty"`
+	ReplacePrimaryPaymentSource *bool                              `json:"replace_primary_payment_source,omitempty"`
+	apiRequest                  `json:"-" form:"-"`
 }
-type CreatePurchaseItem struct {
+
+func (r *PurchaseCreateRequest) payload() any { return r }
+
+// input sub resource params multi
+type PurchaseCreatePurchaseItem struct {
 	Index               *int32 `json:"index"`
 	ItemPriceId         string `json:"item_price_id"`
 	Quantity            *int32 `json:"quantity,omitempty"`
@@ -32,7 +42,9 @@ type CreatePurchaseItem struct {
 	UnitAmountInDecimal string `json:"unit_amount_in_decimal,omitempty"`
 	QuantityInDecimal   string `json:"quantity_in_decimal,omitempty"`
 }
-type CreateItemTier struct {
+
+// input sub resource params multi
+type PurchaseCreateItemTier struct {
 	Index                 *int32 `json:"index"`
 	ItemPriceId           string `json:"item_price_id,omitempty"`
 	StartingUnit          *int32 `json:"starting_unit,omitempty"`
@@ -42,23 +54,27 @@ type CreateItemTier struct {
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
-type CreateShippingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	State            string                `json:"state,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params multi
+type PurchaseCreateShippingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	State            string           `json:"state,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type CreateDiscount struct {
+
+// input sub resource params multi
+type PurchaseCreateDiscount struct {
 	Index         *int32   `json:"index,omitempty"`
 	CouponId      string   `json:"coupon_id,omitempty"`
 	Percentage    *float64 `json:"percentage,omitempty"`
@@ -66,51 +82,68 @@ type CreateDiscount struct {
 	Amount        *int64   `json:"amount,omitempty"`
 	IncludedInMrr *bool    `json:"included_in_mrr,omitempty"`
 }
-type CreateSubscriptionInfo struct {
+
+// input sub resource params multi
+type PurchaseCreateSubscriptionInfo struct {
 	Index                             *int32                 `json:"index"`
 	SubscriptionId                    string                 `json:"subscription_id,omitempty"`
 	BillingCycles                     *int32                 `json:"billing_cycles,omitempty"`
 	ContractTermBillingCycleOnRenewal *int32                 `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 	MetaData                          map[string]interface{} `json:"meta_data,omitempty"`
 }
-type CreateContractTerm struct {
-	Index                    *int32                       `json:"index"`
-	ActionAtTermEnd          contractTerm.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32                       `json:"cancellation_cutoff_period,omitempty"`
+
+// input sub resource params multi
+type PurchaseCreateContractTerm struct {
+	Index                    *int32          `json:"index"`
+	ActionAtTermEnd          ActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32          `json:"cancellation_cutoff_period,omitempty"`
 }
-type CreateInvoiceInfo struct {
+
+// input sub resource params single
+type PurchaseCreateInvoiceInfo struct {
 	PoNumber string `json:"po_number,omitempty"`
 	Notes    string `json:"notes,omitempty"`
 }
-type CreatePaymentSchedule struct {
+
+// input sub resource params single
+type PurchaseCreatePaymentSchedule struct {
 	SchemeId string `json:"scheme_id,omitempty"`
 	Amount   *int64 `json:"amount,omitempty"`
 }
-type CreateStatementDescriptor struct {
+
+// input sub resource params single
+type PurchaseCreateStatementDescriptor struct {
 	Descriptor string `json:"descriptor,omitempty"`
 }
-type CreatePaymentIntent struct {
-	Id                    string                          `json:"id,omitempty"`
-	GatewayAccountId      string                          `json:"gateway_account_id,omitempty"`
-	GwToken               string                          `json:"gw_token,omitempty"`
-	PaymentMethodType     paymentIntent.PaymentMethodType `json:"payment_method_type,omitempty"`
-	ReferenceId           string                          `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                          `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{}          `json:"additional_information,omitempty"`
+
+// input sub resource params single
+type PurchaseCreatePaymentIntent struct {
+	Id                    string                 `json:"id,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                 `json:"gw_token,omitempty"`
+	PaymentMethodType     PaymentMethodType      `json:"payment_method_type,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
-type EstimateRequest struct {
-	PurchaseItems     []*EstimatePurchaseItem     `json:"purchase_items,omitempty"`
-	ItemTiers         []*EstimateItemTier         `json:"item_tiers,omitempty"`
-	ShippingAddresses []*EstimateShippingAddress  `json:"shipping_addresses,omitempty"`
-	Discounts         []*EstimateDiscount         `json:"discounts,omitempty"`
-	SubscriptionInfo  []*EstimateSubscriptionInfo `json:"subscription_info,omitempty"`
-	ContractTerms     []*EstimateContractTerm     `json:"contract_terms,omitempty"`
-	Customer          *EstimateCustomer           `json:"customer,omitempty"`
-	BillingAddress    *EstimateBillingAddress     `json:"billing_address,omitempty"`
-	ClientProfileId   string                      `json:"client_profile_id,omitempty"`
-	CustomerId        string                      `json:"customer_id,omitempty"`
+type PurchaseEstimateRequest struct {
+	PurchaseItems     []*PurchaseEstimatePurchaseItem     `json:"purchase_items,omitempty"`
+	ItemTiers         []*PurchaseEstimateItemTier         `json:"item_tiers,omitempty"`
+	ShippingAddresses []*PurchaseEstimateShippingAddress  `json:"shipping_addresses,omitempty"`
+	Discounts         []*PurchaseEstimateDiscount         `json:"discounts,omitempty"`
+	SubscriptionInfo  []*PurchaseEstimateSubscriptionInfo `json:"subscription_info,omitempty"`
+	ContractTerms     []*PurchaseEstimateContractTerm     `json:"contract_terms,omitempty"`
+	Customer          *PurchaseEstimateCustomer           `json:"customer,omitempty"`
+	BillingAddress    *PurchaseEstimateBillingAddress     `json:"billing_address,omitempty"`
+	ClientProfileId   string                              `json:"client_profile_id,omitempty"`
+	CustomerId        string                              `json:"customer_id,omitempty"`
+	apiRequest        `json:"-" form:"-"`
 }
-type EstimatePurchaseItem struct {
+
+func (r *PurchaseEstimateRequest) payload() any { return r }
+
+// input sub resource params multi
+type PurchaseEstimatePurchaseItem struct {
 	Index               *int32 `json:"index"`
 	ItemPriceId         string `json:"item_price_id"`
 	Quantity            *int32 `json:"quantity,omitempty"`
@@ -118,7 +151,9 @@ type EstimatePurchaseItem struct {
 	UnitAmountInDecimal string `json:"unit_amount_in_decimal,omitempty"`
 	QuantityInDecimal   string `json:"quantity_in_decimal,omitempty"`
 }
-type EstimateItemTier struct {
+
+// input sub resource params multi
+type PurchaseEstimateItemTier struct {
 	Index                 *int32 `json:"index"`
 	ItemPriceId           string `json:"item_price_id,omitempty"`
 	StartingUnit          *int32 `json:"starting_unit,omitempty"`
@@ -128,23 +163,27 @@ type EstimateItemTier struct {
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
-type EstimateShippingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	State            string                `json:"state,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params multi
+type PurchaseEstimateShippingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	State            string           `json:"state,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type EstimateDiscount struct {
+
+// input sub resource params multi
+type PurchaseEstimateDiscount struct {
 	Index         *int32   `json:"index,omitempty"`
 	CouponId      string   `json:"coupon_id,omitempty"`
 	Percentage    *float64 `json:"percentage,omitempty"`
@@ -152,42 +191,54 @@ type EstimateDiscount struct {
 	Amount        *int64   `json:"amount,omitempty"`
 	IncludedInMrr *bool    `json:"included_in_mrr,omitempty"`
 }
-type EstimateSubscriptionInfo struct {
+
+// input sub resource params multi
+type PurchaseEstimateSubscriptionInfo struct {
 	Index                             *int32 `json:"index"`
 	SubscriptionId                    string `json:"subscription_id,omitempty"`
 	BillingCycles                     *int32 `json:"billing_cycles,omitempty"`
 	ContractTermBillingCycleOnRenewal *int32 `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
-type EstimateContractTerm struct {
-	Index                    *int32                       `json:"index"`
-	ActionAtTermEnd          contractTerm.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32                       `json:"cancellation_cutoff_period,omitempty"`
+
+// input sub resource params multi
+type PurchaseEstimateContractTerm struct {
+	Index                    *int32          `json:"index"`
+	ActionAtTermEnd          ActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32          `json:"cancellation_cutoff_period,omitempty"`
 }
-type EstimateCustomer struct {
+
+// input sub resource params single
+type PurchaseEstimateCustomer struct {
 	VatNumber        string                   `json:"vat_number,omitempty"`
 	VatNumberPrefix  string                   `json:"vat_number_prefix,omitempty"`
 	RegisteredForGst *bool                    `json:"registered_for_gst,omitempty"`
-	Taxability       enum.Taxability          `json:"taxability,omitempty"`
-	EntityCode       enum.EntityCode          `json:"entity_code,omitempty"`
+	Taxability       Taxability               `json:"taxability,omitempty"`
+	EntityCode       EntityCode               `json:"entity_code,omitempty"`
 	ExemptNumber     string                   `json:"exempt_number,omitempty"`
 	ExemptionDetails []map[string]interface{} `json:"exemption_details,omitempty"`
-	CustomerType     enum.CustomerType        `json:"customer_type,omitempty"`
-}
-type EstimateBillingAddress struct {
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+	CustomerType     CustomerType             `json:"customer_type,omitempty"`
 }
 
-type CreateResponse struct {
+// input sub resource params single
+type PurchaseEstimateBillingAddress struct {
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+}
+
+// operation response
+type PurchaseCreateResponse struct {
 	Purchase *Purchase `json:"purchase,omitempty"`
+	apiResponse
 }
 
-type EstimateResponse struct {
-	Estimate *estimate.Estimate `json:"estimate,omitempty"`
+// operation response
+type PurchaseEstimateResponse struct {
+	Estimate Estimate `json:"estimate,omitempty"`
+	apiResponse
 }

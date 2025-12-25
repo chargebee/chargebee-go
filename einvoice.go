@@ -1,20 +1,25 @@
 package chargebee
 
-type Status string
+type EinvoiceStatus string
 
 const (
-	StatusScheduled  Status = "scheduled"
-	StatusSkipped    Status = "skipped"
-	StatusInProgress Status = "in_progress"
-	StatusSuccess    Status = "success"
-	StatusFailed     Status = "failed"
-	StatusRegistered Status = "registered"
+	EinvoiceStatusScheduled  EinvoiceStatus = "scheduled"
+	EinvoiceStatusSkipped    EinvoiceStatus = "skipped"
+	EinvoiceStatusInProgress EinvoiceStatus = "in_progress"
+	EinvoiceStatusSuccess    EinvoiceStatus = "success"
+	EinvoiceStatusFailed     EinvoiceStatus = "failed"
+	EinvoiceStatusRegistered EinvoiceStatus = "registered"
 )
 
+// just struct
 type Einvoice struct {
-	Id              string `json:"id"`
-	ReferenceNumber string `json:"reference_number"`
-	Status          Status `json:"status"`
-	Message         string `json:"message"`
-	Object          string `json:"object"`
+	Id              string         `json:"id"`
+	ReferenceNumber string         `json:"reference_number"`
+	Status          EinvoiceStatus `json:"status"`
+	Message         string         `json:"message"`
+	Object          string         `json:"object"`
 }
+
+// sub resources
+// operations
+// input params

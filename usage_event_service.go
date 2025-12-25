@@ -5,13 +5,19 @@ import (
 )
 
 type UsageEventService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *UsageEventService) Create(req *CreateRequest) Request {
-	return s.transport.SendJsonRequest("POST", fmt.Sprintf("/usage_events"), req).SetSubDomain("ingest")
+func (s *UsageEventService) Create(req *UsageEventCreateRequest) (*UsageEventCreateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/usage_events")
+	req.isJsonRequest = true
+	return send[*UsageEventCreateResponse](req, s.config)
 }
 
-func (s *UsageEventService) BatchIngest(req *BatchIngestRequest) Request {
-	return s.transport.SendJsonRequest("POST", fmt.Sprintf("/batch/usage_events"), req).SetSubDomain("ingest")
+func (s *UsageEventService) BatchIngest(req *UsageEventBatchIngestRequest) (*UsageEventBatchIngestResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/batch/usage_events")
+	req.isJsonRequest = true
+	return send[*UsageEventBatchIngestResponse](req, s.config)
 }

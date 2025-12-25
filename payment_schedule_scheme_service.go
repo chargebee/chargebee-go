@@ -6,17 +6,27 @@ import (
 )
 
 type PaymentScheduleSchemeService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *PaymentScheduleSchemeService) Create(req *CreateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/payment_schedule_schemes"), req).SetIdempotency(true)
+func (s *PaymentScheduleSchemeService) Create(req *PaymentScheduleSchemeCreateRequest) (*PaymentScheduleSchemeCreateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/payment_schedule_schemes")
+	req.isIdempotent = true
+	return send[*PaymentScheduleSchemeCreateResponse](req, s.config)
 }
 
-func (s *PaymentScheduleSchemeService) Retrieve(id string) Request {
-	return s.transport.Send("GET", fmt.Sprintf("/payment_schedule_schemes/%v", url.PathEscape(id)), nil)
+func (s *PaymentScheduleSchemeService) Retrieve(id string) (*PaymentScheduleSchemeRetrieveResponse, error) {
+	req := &BlankRequest{}
+	req.method = "GET"
+	req.path = fmt.Sprintf("/payment_schedule_schemes/%v", url.PathEscape(id))
+	return send[*PaymentScheduleSchemeRetrieveResponse](req, s.config)
 }
 
-func (s *PaymentScheduleSchemeService) Delete(id string) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/payment_schedule_schemes/%v/delete", url.PathEscape(id)), nil).SetIdempotency(true)
+func (s *PaymentScheduleSchemeService) Delete(id string) (*PaymentScheduleSchemeDeleteResponse, error) {
+	req := &BlankRequest{}
+	req.method = "POST"
+	req.path = fmt.Sprintf("/payment_schedule_schemes/%v/delete", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*PaymentScheduleSchemeDeleteResponse](req, s.config)
 }

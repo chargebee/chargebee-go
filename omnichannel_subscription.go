@@ -1,103 +1,131 @@
 package chargebee
 
-type Source string
+type OmnichannelSubscriptionSource string
 
 const (
-	SourceAppleAppStore   Source = "apple_app_store"
-	SourceGooglePlayStore Source = "google_play_store"
+	OmnichannelSubscriptionSourceAppleAppStore   OmnichannelSubscriptionSource = "apple_app_store"
+	OmnichannelSubscriptionSourceGooglePlayStore OmnichannelSubscriptionSource = "google_play_store"
 )
 
-type OmnichannelSubscriptionItemStatus string
+type OmnichannelSubscriptionOmnichannelSubscriptionItemStatus string
 
 const (
-	OmnichannelSubscriptionItemStatusActive        OmnichannelSubscriptionItemStatus = "active"
-	OmnichannelSubscriptionItemStatusExpired       OmnichannelSubscriptionItemStatus = "expired"
-	OmnichannelSubscriptionItemStatusCancelled     OmnichannelSubscriptionItemStatus = "cancelled"
-	OmnichannelSubscriptionItemStatusInDunning     OmnichannelSubscriptionItemStatus = "in_dunning"
-	OmnichannelSubscriptionItemStatusInGracePeriod OmnichannelSubscriptionItemStatus = "in_grace_period"
-	OmnichannelSubscriptionItemStatusPaused        OmnichannelSubscriptionItemStatus = "paused"
+	OmnichannelSubscriptionOmnichannelSubscriptionItemStatusActive        OmnichannelSubscriptionOmnichannelSubscriptionItemStatus = "active"
+	OmnichannelSubscriptionOmnichannelSubscriptionItemStatusExpired       OmnichannelSubscriptionOmnichannelSubscriptionItemStatus = "expired"
+	OmnichannelSubscriptionOmnichannelSubscriptionItemStatusCancelled     OmnichannelSubscriptionOmnichannelSubscriptionItemStatus = "cancelled"
+	OmnichannelSubscriptionOmnichannelSubscriptionItemStatusInDunning     OmnichannelSubscriptionOmnichannelSubscriptionItemStatus = "in_dunning"
+	OmnichannelSubscriptionOmnichannelSubscriptionItemStatusInGracePeriod OmnichannelSubscriptionOmnichannelSubscriptionItemStatus = "in_grace_period"
+	OmnichannelSubscriptionOmnichannelSubscriptionItemStatusPaused        OmnichannelSubscriptionOmnichannelSubscriptionItemStatus = "paused"
 )
 
-type OmnichannelSubscriptionItemAutoRenewStatus string
+type OmnichannelSubscriptionOmnichannelSubscriptionItemAutoRenewStatus string
 
 const (
-	OmnichannelSubscriptionItemAutoRenewStatusOff OmnichannelSubscriptionItemAutoRenewStatus = "off"
-	OmnichannelSubscriptionItemAutoRenewStatusOn  OmnichannelSubscriptionItemAutoRenewStatus = "on"
+	OmnichannelSubscriptionOmnichannelSubscriptionItemAutoRenewStatusOff OmnichannelSubscriptionOmnichannelSubscriptionItemAutoRenewStatus = "off"
+	OmnichannelSubscriptionOmnichannelSubscriptionItemAutoRenewStatusOn  OmnichannelSubscriptionOmnichannelSubscriptionItemAutoRenewStatus = "on"
 )
 
-type OmnichannelSubscriptionItemExpirationReason string
+type OmnichannelSubscriptionOmnichannelSubscriptionItemExpirationReason string
 
 const (
-	OmnichannelSubscriptionItemExpirationReasonBillingError        OmnichannelSubscriptionItemExpirationReason = "billing_error"
-	OmnichannelSubscriptionItemExpirationReasonProductNotAvailable OmnichannelSubscriptionItemExpirationReason = "product_not_available"
-	OmnichannelSubscriptionItemExpirationReasonOther               OmnichannelSubscriptionItemExpirationReason = "other"
+	OmnichannelSubscriptionOmnichannelSubscriptionItemExpirationReasonBillingError        OmnichannelSubscriptionOmnichannelSubscriptionItemExpirationReason = "billing_error"
+	OmnichannelSubscriptionOmnichannelSubscriptionItemExpirationReasonProductNotAvailable OmnichannelSubscriptionOmnichannelSubscriptionItemExpirationReason = "product_not_available"
+	OmnichannelSubscriptionOmnichannelSubscriptionItemExpirationReasonOther               OmnichannelSubscriptionOmnichannelSubscriptionItemExpirationReason = "other"
 )
 
-type OmnichannelSubscriptionItemCancellationReason string
+type OmnichannelSubscriptionOmnichannelSubscriptionItemCancellationReason string
 
 const (
-	OmnichannelSubscriptionItemCancellationReasonCustomerCancelled                    OmnichannelSubscriptionItemCancellationReason = "customer_cancelled"
-	OmnichannelSubscriptionItemCancellationReasonCustomerDidNotConsentToPriceIncrease OmnichannelSubscriptionItemCancellationReason = "customer_did_not_consent_to_price_increase"
-	OmnichannelSubscriptionItemCancellationReasonRefundedDueToAppIssue                OmnichannelSubscriptionItemCancellationReason = "refunded_due_to_app_issue"
-	OmnichannelSubscriptionItemCancellationReasonRefundedForOtherReason               OmnichannelSubscriptionItemCancellationReason = "refunded_for_other_reason"
-	OmnichannelSubscriptionItemCancellationReasonMerchantRevoked                      OmnichannelSubscriptionItemCancellationReason = "merchant_revoked"
+	OmnichannelSubscriptionOmnichannelSubscriptionItemCancellationReasonCustomerCancelled                    OmnichannelSubscriptionOmnichannelSubscriptionItemCancellationReason = "customer_cancelled"
+	OmnichannelSubscriptionOmnichannelSubscriptionItemCancellationReasonCustomerDidNotConsentToPriceIncrease OmnichannelSubscriptionOmnichannelSubscriptionItemCancellationReason = "customer_did_not_consent_to_price_increase"
+	OmnichannelSubscriptionOmnichannelSubscriptionItemCancellationReasonRefundedDueToAppIssue                OmnichannelSubscriptionOmnichannelSubscriptionItemCancellationReason = "refunded_due_to_app_issue"
+	OmnichannelSubscriptionOmnichannelSubscriptionItemCancellationReasonRefundedForOtherReason               OmnichannelSubscriptionOmnichannelSubscriptionItemCancellationReason = "refunded_for_other_reason"
+	OmnichannelSubscriptionOmnichannelSubscriptionItemCancellationReasonMerchantRevoked                      OmnichannelSubscriptionOmnichannelSubscriptionItemCancellationReason = "merchant_revoked"
 )
 
-type OmnichannelTransactionType string
+type OmnichannelSubscriptionOmnichannelTransactionType string
 
 const (
-	OmnichannelTransactionTypePurchase OmnichannelTransactionType = "purchase"
-	OmnichannelTransactionTypeRenewal  OmnichannelTransactionType = "renewal"
+	OmnichannelSubscriptionOmnichannelTransactionTypePurchase OmnichannelSubscriptionOmnichannelTransactionType = "purchase"
+	OmnichannelSubscriptionOmnichannelTransactionTypeRenewal  OmnichannelSubscriptionOmnichannelTransactionType = "renewal"
 )
 
+// just struct
 type OmnichannelSubscription struct {
-	Id                           string                                                     `json:"id"`
-	IdAtSource                   string                                                     `json:"id_at_source"`
-	AppId                        string                                                     `json:"app_id"`
-	Source                       Source                                                     `json:"source"`
-	CustomerId                   string                                                     `json:"customer_id"`
-	CreatedAt                    int64                                                      `json:"created_at"`
-	ResourceVersion              int64                                                      `json:"resource_version"`
-	OmnichannelSubscriptionItems []*omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_items"`
-	InitialPurchaseTransaction   *omnichanneltransaction.OmnichannelTransaction             `json:"initial_purchase_transaction"`
-	Object                       string                                                     `json:"object"`
+	Id                           string                         `json:"id"`
+	IdAtSource                   string                         `json:"id_at_source"`
+	AppId                        string                         `json:"app_id"`
+	Source                       OmnichannelSubscriptionSource  `json:"source"`
+	CustomerId                   string                         `json:"customer_id"`
+	CreatedAt                    int64                          `json:"created_at"`
+	ResourceVersion              int64                          `json:"resource_version"`
+	OmnichannelSubscriptionItems []*OmnichannelSubscriptionItem `json:"omnichannel_subscription_items"`
+	InitialPurchaseTransaction   *OmnichannelTransaction        `json:"initial_purchase_transaction"`
+	Object                       string                         `json:"object"`
 }
-type ListRequest struct {
-	Limit      *int32               `json:"limit,omitempty"`
-	Offset     string               `json:"offset,omitempty"`
-	Source     *filter.EnumFilter   `json:"source,omitempty"`
-	CustomerId *filter.StringFilter `json:"customer_id,omitempty"`
+
+// sub resources
+// operations
+// input params
+type OmnichannelSubscriptionListRequest struct {
+	Limit      *int32        `json:"limit,omitempty"`
+	Offset     string        `json:"offset,omitempty"`
+	Source     *EnumFilter   `json:"source,omitempty"`
+	CustomerId *StringFilter `json:"customer_id,omitempty"`
+	apiRequest `json:"-" form:"-"`
 }
-type OmnichannelTransactionsForOmnichannelSubscriptionRequest struct {
-	Limit  *int32 `json:"limit,omitempty"`
-	Offset string `json:"offset,omitempty"`
+
+func (r *OmnichannelSubscriptionListRequest) payload() any { return r }
+
+type OmnichannelSubscriptionOmnichannelTransactionsForOmnichannelSubscriptionRequest struct {
+	Limit      *int32 `json:"limit,omitempty"`
+	Offset     string `json:"offset,omitempty"`
+	apiRequest `json:"-" form:"-"`
 }
-type MoveRequest struct {
+
+func (r *OmnichannelSubscriptionOmnichannelTransactionsForOmnichannelSubscriptionRequest) payload() any {
+	return r
+}
+
+type OmnichannelSubscriptionMoveRequest struct {
 	ToCustomerId string `json:"to_customer_id"`
+	apiRequest   `json:"-" form:"-"`
 }
 
-type RetrieveResponse struct {
+func (r *OmnichannelSubscriptionMoveRequest) payload() any { return r }
+
+// operation response
+type OmnichannelSubscriptionRetrieveResponse struct {
+	OmnichannelSubscription *OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
+	apiResponse
+}
+
+// operation sub response
+type OmnichannelSubscriptionListOmnichannelSubscriptionResponse struct {
 	OmnichannelSubscription *OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
 }
 
-type ListOmnichannelSubscriptionResponse struct {
+// operation response
+type OmnichannelSubscriptionListResponse struct {
+	List       []*OmnichannelSubscriptionListOmnichannelSubscriptionResponse `json:"list,omitempty"`
+	NextOffset string                                                        `json:"next_offset,omitempty"`
+	apiResponse
+}
+
+// operation sub response
+type OmnichannelSubscriptionOmnichannelTransactionsForOmnichannelSubscriptionOmnichannelSubscriptionResponse struct {
+	OmnichannelTransaction OmnichannelTransaction `json:"omnichannel_transaction,omitempty"`
+}
+
+// operation response
+type OmnichannelSubscriptionOmnichannelTransactionsForOmnichannelSubscriptionResponse struct {
+	List       []*OmnichannelSubscriptionOmnichannelTransactionsForOmnichannelSubscriptionOmnichannelSubscriptionResponse `json:"list,omitempty"`
+	NextOffset string                                                                                                     `json:"next_offset,omitempty"`
+	apiResponse
+}
+
+// operation response
+type OmnichannelSubscriptionMoveResponse struct {
 	OmnichannelSubscription *OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
-}
-
-type ListResponse struct {
-	List       []*ListOmnichannelSubscriptionResponse `json:"list,omitempty"`
-	NextOffset string                                 `json:"next_offset,omitempty"`
-}
-
-type OmnichannelTransactionsForOmnichannelSubscriptionOmnichannelSubscriptionResponse struct {
-	OmnichannelTransaction *omnichanneltransaction.OmnichannelTransaction `json:"omnichannel_transaction,omitempty"`
-}
-
-type OmnichannelTransactionsForOmnichannelSubscriptionResponse struct {
-	List       []*OmnichannelTransactionsForOmnichannelSubscriptionOmnichannelSubscriptionResponse `json:"list,omitempty"`
-	NextOffset string                                                                              `json:"next_offset,omitempty"`
-}
-
-type MoveResponse struct {
-	OmnichannelSubscription *OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
+	apiResponse
 }

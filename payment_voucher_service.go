@@ -6,31 +6,33 @@ import (
 )
 
 type PaymentVoucherService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *PaymentVoucherService) Create(req *CreateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/payment_vouchers"), req).SetIdempotency(true)
+func (s *PaymentVoucherService) Create(req *PaymentVoucherCreateRequest) (*PaymentVoucherCreateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/payment_vouchers")
+	req.isIdempotent = true
+	return send[*PaymentVoucherCreateResponse](req, s.config)
 }
 
-func (s *PaymentVoucherService) Retrieve(id string) Request {
-	return s.transport.Send("GET", fmt.Sprintf("/payment_vouchers/%v", url.PathEscape(id)), nil)
+func (s *PaymentVoucherService) Retrieve(id string) (*PaymentVoucherRetrieveResponse, error) {
+	req := &BlankRequest{}
+	req.method = "GET"
+	req.path = fmt.Sprintf("/payment_vouchers/%v", url.PathEscape(id))
+	return send[*PaymentVoucherRetrieveResponse](req, s.config)
 }
 
-func (s *PaymentVoucherService) PaymentVouchersForInvoice(id string, req *PaymentVouchersForInvoiceRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/invoices/%v/payment_vouchers", url.PathEscape(id)), req)
+func (s *PaymentVoucherService) PaymentVouchersForInvoice(id string, req *PaymentVoucherPaymentVouchersForInvoiceRequest) (*PaymentVoucherPaymentVouchersForInvoiceResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/invoices/%v/payment_vouchers", url.PathEscape(id))
+	req.isListRequest = true
+	return send[*PaymentVoucherPaymentVouchersForInvoiceResponse](req, s.config)
 }
 
-func (s *PaymentVoucherService) PaymentVouchersForCustomer(id string, req *PaymentVouchersForCustomerRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/customers/%v/payment_vouchers", url.PathEscape(id)), req)
-}
-
-// Deprecated: This function is deprecated. Please use PaymentVouchersForInvoice instead.
-func Payment_vouchersForInvoice(id string, params *paymentvoucher.PaymentVouchersForInvoiceRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/invoices/%v/payment_vouchers", url.PathEscape(id)), params)
-}
-
-// Deprecated: This function is deprecated. Please use PaymentVouchersForCustomer instead.
-func Payment_vouchersForCustomer(id string, params *paymentvoucher.PaymentVouchersForCustomerRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/customers/%v/payment_vouchers", url.PathEscape(id)), params)
+func (s *PaymentVoucherService) PaymentVouchersForCustomer(id string, req *PaymentVoucherPaymentVouchersForCustomerRequest) (*PaymentVoucherPaymentVouchersForCustomerResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/customers/%v/payment_vouchers", url.PathEscape(id))
+	req.isListRequest = true
+	return send[*PaymentVoucherPaymentVouchersForCustomerResponse](req, s.config)
 }

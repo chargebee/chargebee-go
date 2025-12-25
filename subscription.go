@@ -1,250 +1,585 @@
 package chargebee
 
-type Status string
-
-const (
-	StatusFuture      Status = "future"
-	StatusInTrial     Status = "in_trial"
-	StatusActive      Status = "active"
-	StatusNonRenewing Status = "non_renewing"
-	StatusPaused      Status = "paused"
-	StatusCancelled   Status = "cancelled"
-	StatusTransferred Status = "transferred"
+import (
+	"encoding/json"
 )
 
-type CancelReason string
+type SubscriptionStatus string
 
 const (
-	CancelReasonNotPaid                         CancelReason = "not_paid"
-	CancelReasonNoCard                          CancelReason = "no_card"
-	CancelReasonFraudReviewFailed               CancelReason = "fraud_review_failed"
-	CancelReasonNonCompliantEuCustomer          CancelReason = "non_compliant_eu_customer"
-	CancelReasonTaxCalculationFailed            CancelReason = "tax_calculation_failed"
-	CancelReasonCurrencyIncompatibleWithGateway CancelReason = "currency_incompatible_with_gateway"
-	CancelReasonNonCompliantCustomer            CancelReason = "non_compliant_customer"
+	SubscriptionStatusFuture      SubscriptionStatus = "future"
+	SubscriptionStatusInTrial     SubscriptionStatus = "in_trial"
+	SubscriptionStatusActive      SubscriptionStatus = "active"
+	SubscriptionStatusNonRenewing SubscriptionStatus = "non_renewing"
+	SubscriptionStatusPaused      SubscriptionStatus = "paused"
+	SubscriptionStatusCancelled   SubscriptionStatus = "cancelled"
+	SubscriptionStatusTransferred SubscriptionStatus = "transferred"
 )
 
-type BillingPeriodUnit string
+type SubscriptionTrialEndAction string
 
 const (
-	BillingPeriodUnitDay   BillingPeriodUnit = "day"
-	BillingPeriodUnitWeek  BillingPeriodUnit = "week"
-	BillingPeriodUnitMonth BillingPeriodUnit = "month"
-	BillingPeriodUnitYear  BillingPeriodUnit = "year"
+	SubscriptionTrialEndActionSiteDefault          SubscriptionTrialEndAction = "site_default"
+	SubscriptionTrialEndActionPlanDefault          SubscriptionTrialEndAction = "plan_default"
+	SubscriptionTrialEndActionActivateSubscription SubscriptionTrialEndAction = "activate_subscription"
+	SubscriptionTrialEndActionCancelSubscription   SubscriptionTrialEndAction = "cancel_subscription"
 )
 
-type ReferralInfoRewardStatus string
+type SubscriptionCancelReason string
 
 const (
-	ReferralInfoRewardStatusPending ReferralInfoRewardStatus = "pending"
-	ReferralInfoRewardStatusPaid    ReferralInfoRewardStatus = "paid"
-	ReferralInfoRewardStatusInvalid ReferralInfoRewardStatus = "invalid"
+	SubscriptionCancelReasonNotPaid                         SubscriptionCancelReason = "not_paid"
+	SubscriptionCancelReasonNoCard                          SubscriptionCancelReason = "no_card"
+	SubscriptionCancelReasonFraudReviewFailed               SubscriptionCancelReason = "fraud_review_failed"
+	SubscriptionCancelReasonNonCompliantEuCustomer          SubscriptionCancelReason = "non_compliant_eu_customer"
+	SubscriptionCancelReasonTaxCalculationFailed            SubscriptionCancelReason = "tax_calculation_failed"
+	SubscriptionCancelReasonCurrencyIncompatibleWithGateway SubscriptionCancelReason = "currency_incompatible_with_gateway"
+	SubscriptionCancelReasonNonCompliantCustomer            SubscriptionCancelReason = "non_compliant_customer"
 )
 
-type ContractTermStatus string
+type SubscriptionOfflinePaymentMethod string
 
 const (
-	ContractTermStatusActive     ContractTermStatus = "active"
-	ContractTermStatusCompleted  ContractTermStatus = "completed"
-	ContractTermStatusCancelled  ContractTermStatus = "cancelled"
-	ContractTermStatusTerminated ContractTermStatus = "terminated"
+	SubscriptionOfflinePaymentMethodNoPreference            SubscriptionOfflinePaymentMethod = "no_preference"
+	SubscriptionOfflinePaymentMethodCash                    SubscriptionOfflinePaymentMethod = "cash"
+	SubscriptionOfflinePaymentMethodCheck                   SubscriptionOfflinePaymentMethod = "check"
+	SubscriptionOfflinePaymentMethodBankTransfer            SubscriptionOfflinePaymentMethod = "bank_transfer"
+	SubscriptionOfflinePaymentMethodAchCredit               SubscriptionOfflinePaymentMethod = "ach_credit"
+	SubscriptionOfflinePaymentMethodSepaCredit              SubscriptionOfflinePaymentMethod = "sepa_credit"
+	SubscriptionOfflinePaymentMethodBoleto                  SubscriptionOfflinePaymentMethod = "boleto"
+	SubscriptionOfflinePaymentMethodUsAutomatedBankTransfer SubscriptionOfflinePaymentMethod = "us_automated_bank_transfer"
+	SubscriptionOfflinePaymentMethodEuAutomatedBankTransfer SubscriptionOfflinePaymentMethod = "eu_automated_bank_transfer"
+	SubscriptionOfflinePaymentMethodUkAutomatedBankTransfer SubscriptionOfflinePaymentMethod = "uk_automated_bank_transfer"
+	SubscriptionOfflinePaymentMethodJpAutomatedBankTransfer SubscriptionOfflinePaymentMethod = "jp_automated_bank_transfer"
+	SubscriptionOfflinePaymentMethodMxAutomatedBankTransfer SubscriptionOfflinePaymentMethod = "mx_automated_bank_transfer"
+	SubscriptionOfflinePaymentMethodCustom                  SubscriptionOfflinePaymentMethod = "custom"
 )
 
-type ContractTermActionAtTermEnd string
+type SubscriptionChannel string
 
 const (
-	ContractTermActionAtTermEndRenew     ContractTermActionAtTermEnd = "renew"
-	ContractTermActionAtTermEndEvergreen ContractTermActionAtTermEnd = "evergreen"
-	ContractTermActionAtTermEndCancel    ContractTermActionAtTermEnd = "cancel"
-	ContractTermActionAtTermEndRenewOnce ContractTermActionAtTermEnd = "renew_once"
+	SubscriptionChannelWeb       SubscriptionChannel = "web"
+	SubscriptionChannelAppStore  SubscriptionChannel = "app_store"
+	SubscriptionChannelPlayStore SubscriptionChannel = "play_store"
 )
 
-type DiscountType string
+type SubscriptionFreePeriodUnit string
 
 const (
-	DiscountTypeFixedAmount   DiscountType = "fixed_amount"
-	DiscountTypePercentage    DiscountType = "percentage"
-	DiscountTypeOfferQuantity DiscountType = "offer_quantity"
+	SubscriptionFreePeriodUnitDay   SubscriptionFreePeriodUnit = "day"
+	SubscriptionFreePeriodUnitWeek  SubscriptionFreePeriodUnit = "week"
+	SubscriptionFreePeriodUnitMonth SubscriptionFreePeriodUnit = "month"
+	SubscriptionFreePeriodUnitYear  SubscriptionFreePeriodUnit = "year"
 )
 
+type SubscriptionBillingPeriodUnit string
+
+const (
+	SubscriptionBillingPeriodUnitDay   SubscriptionBillingPeriodUnit = "day"
+	SubscriptionBillingPeriodUnitWeek  SubscriptionBillingPeriodUnit = "week"
+	SubscriptionBillingPeriodUnitMonth SubscriptionBillingPeriodUnit = "month"
+	SubscriptionBillingPeriodUnitYear  SubscriptionBillingPeriodUnit = "year"
+)
+
+type SubscriptionAutoCollection string
+
+const (
+	SubscriptionAutoCollectionOn  SubscriptionAutoCollection = "on"
+	SubscriptionAutoCollectionOff SubscriptionAutoCollection = "off"
+)
+
+type SubscriptionSubscriptionItemItemType string
+
+const (
+	SubscriptionSubscriptionItemItemTypePlan   SubscriptionSubscriptionItemItemType = "plan"
+	SubscriptionSubscriptionItemItemTypeAddon  SubscriptionSubscriptionItemItemType = "addon"
+	SubscriptionSubscriptionItemItemTypeCharge SubscriptionSubscriptionItemItemType = "charge"
+)
+
+type SubscriptionSubscriptionItemBillingPeriodUnit string
+
+const (
+	SubscriptionSubscriptionItemBillingPeriodUnitDay   SubscriptionSubscriptionItemBillingPeriodUnit = "day"
+	SubscriptionSubscriptionItemBillingPeriodUnitWeek  SubscriptionSubscriptionItemBillingPeriodUnit = "week"
+	SubscriptionSubscriptionItemBillingPeriodUnitMonth SubscriptionSubscriptionItemBillingPeriodUnit = "month"
+	SubscriptionSubscriptionItemBillingPeriodUnitYear  SubscriptionSubscriptionItemBillingPeriodUnit = "year"
+)
+
+type SubscriptionSubscriptionItemChargeOnEvent string
+
+const (
+	SubscriptionSubscriptionItemChargeOnEventSubscriptionCreation   SubscriptionSubscriptionItemChargeOnEvent = "subscription_creation"
+	SubscriptionSubscriptionItemChargeOnEventSubscriptionTrialStart SubscriptionSubscriptionItemChargeOnEvent = "subscription_trial_start"
+	SubscriptionSubscriptionItemChargeOnEventPlanActivation         SubscriptionSubscriptionItemChargeOnEvent = "plan_activation"
+	SubscriptionSubscriptionItemChargeOnEventSubscriptionActivation SubscriptionSubscriptionItemChargeOnEvent = "subscription_activation"
+	SubscriptionSubscriptionItemChargeOnEventContractTermination    SubscriptionSubscriptionItemChargeOnEvent = "contract_termination"
+)
+
+type SubscriptionSubscriptionItemChargeOnOption string
+
+const (
+	SubscriptionSubscriptionItemChargeOnOptionImmediately SubscriptionSubscriptionItemChargeOnOption = "immediately"
+	SubscriptionSubscriptionItemChargeOnOptionOnEvent     SubscriptionSubscriptionItemChargeOnOption = "on_event"
+)
+
+type SubscriptionSubscriptionItemProrationType string
+
+const (
+	SubscriptionSubscriptionItemProrationTypeFullTerm    SubscriptionSubscriptionItemProrationType = "full_term"
+	SubscriptionSubscriptionItemProrationTypePartialTerm SubscriptionSubscriptionItemProrationType = "partial_term"
+	SubscriptionSubscriptionItemProrationTypeNone        SubscriptionSubscriptionItemProrationType = "none"
+)
+
+type SubscriptionSubscriptionItemUsageAccumulationResetFrequency string
+
+const (
+	SubscriptionSubscriptionItemUsageAccumulationResetFrequencyNever                        SubscriptionSubscriptionItemUsageAccumulationResetFrequency = "never"
+	SubscriptionSubscriptionItemUsageAccumulationResetFrequencySubscriptionBillingFrequency SubscriptionSubscriptionItemUsageAccumulationResetFrequency = "subscription_billing_frequency"
+)
+
+type SubscriptionItemTierPricingType string
+
+const (
+	SubscriptionItemTierPricingTypePerUnit SubscriptionItemTierPricingType = "per_unit"
+	SubscriptionItemTierPricingTypeFlatFee SubscriptionItemTierPricingType = "flat_fee"
+	SubscriptionItemTierPricingTypePackage SubscriptionItemTierPricingType = "package"
+)
+
+type SubscriptionShippingAddressValidationStatus string
+
+const (
+	SubscriptionShippingAddressValidationStatusNotValidated   SubscriptionShippingAddressValidationStatus = "not_validated"
+	SubscriptionShippingAddressValidationStatusValid          SubscriptionShippingAddressValidationStatus = "valid"
+	SubscriptionShippingAddressValidationStatusPartiallyValid SubscriptionShippingAddressValidationStatus = "partially_valid"
+	SubscriptionShippingAddressValidationStatusInvalid        SubscriptionShippingAddressValidationStatus = "invalid"
+)
+
+type SubscriptionReferralInfoRewardStatus string
+
+const (
+	SubscriptionReferralInfoRewardStatusPending SubscriptionReferralInfoRewardStatus = "pending"
+	SubscriptionReferralInfoRewardStatusPaid    SubscriptionReferralInfoRewardStatus = "paid"
+	SubscriptionReferralInfoRewardStatusInvalid SubscriptionReferralInfoRewardStatus = "invalid"
+)
+
+type SubscriptionReferralInfoReferralSystem string
+
+const (
+	SubscriptionReferralInfoReferralSystemReferralCandy      SubscriptionReferralInfoReferralSystem = "referral_candy"
+	SubscriptionReferralInfoReferralSystemReferralSaasquatch SubscriptionReferralInfoReferralSystem = "referral_saasquatch"
+	SubscriptionReferralInfoReferralSystemFriendbuy          SubscriptionReferralInfoReferralSystem = "friendbuy"
+)
+
+type SubscriptionReferralInfoFriendOfferType string
+
+const (
+	SubscriptionReferralInfoFriendOfferTypeNone       SubscriptionReferralInfoFriendOfferType = "none"
+	SubscriptionReferralInfoFriendOfferTypeCoupon     SubscriptionReferralInfoFriendOfferType = "coupon"
+	SubscriptionReferralInfoFriendOfferTypeCouponCode SubscriptionReferralInfoFriendOfferType = "coupon_code"
+)
+
+type SubscriptionReferralInfoReferrerRewardType string
+
+const (
+	SubscriptionReferralInfoReferrerRewardTypeNone                      SubscriptionReferralInfoReferrerRewardType = "none"
+	SubscriptionReferralInfoReferrerRewardTypeReferralDirectReward      SubscriptionReferralInfoReferrerRewardType = "referral_direct_reward"
+	SubscriptionReferralInfoReferrerRewardTypeCustomPromotionalCredit   SubscriptionReferralInfoReferrerRewardType = "custom_promotional_credit"
+	SubscriptionReferralInfoReferrerRewardTypeCustomRevenuePercentBased SubscriptionReferralInfoReferrerRewardType = "custom_revenue_percent_based"
+)
+
+type SubscriptionReferralInfoNotifyReferralSystem string
+
+const (
+	SubscriptionReferralInfoNotifyReferralSystemNone                SubscriptionReferralInfoNotifyReferralSystem = "none"
+	SubscriptionReferralInfoNotifyReferralSystemFirstPaidConversion SubscriptionReferralInfoNotifyReferralSystem = "first_paid_conversion"
+	SubscriptionReferralInfoNotifyReferralSystemAllInvoices         SubscriptionReferralInfoNotifyReferralSystem = "all_invoices"
+)
+
+type SubscriptionContractTermStatus string
+
+const (
+	SubscriptionContractTermStatusActive     SubscriptionContractTermStatus = "active"
+	SubscriptionContractTermStatusCompleted  SubscriptionContractTermStatus = "completed"
+	SubscriptionContractTermStatusCancelled  SubscriptionContractTermStatus = "cancelled"
+	SubscriptionContractTermStatusTerminated SubscriptionContractTermStatus = "terminated"
+)
+
+type SubscriptionContractTermActionAtTermEnd string
+
+const (
+	SubscriptionContractTermActionAtTermEndRenew     SubscriptionContractTermActionAtTermEnd = "renew"
+	SubscriptionContractTermActionAtTermEndEvergreen SubscriptionContractTermActionAtTermEnd = "evergreen"
+	SubscriptionContractTermActionAtTermEndCancel    SubscriptionContractTermActionAtTermEnd = "cancel"
+	SubscriptionContractTermActionAtTermEndRenewOnce SubscriptionContractTermActionAtTermEnd = "renew_once"
+)
+
+type SubscriptionDiscountType string
+
+const (
+	SubscriptionDiscountTypeFixedAmount   SubscriptionDiscountType = "fixed_amount"
+	SubscriptionDiscountTypePercentage    SubscriptionDiscountType = "percentage"
+	SubscriptionDiscountTypeOfferQuantity SubscriptionDiscountType = "offer_quantity"
+)
+
+type SubscriptionDiscountDurationType string
+
+const (
+	SubscriptionDiscountDurationTypeOneTime       SubscriptionDiscountDurationType = "one_time"
+	SubscriptionDiscountDurationTypeForever       SubscriptionDiscountDurationType = "forever"
+	SubscriptionDiscountDurationTypeLimitedPeriod SubscriptionDiscountDurationType = "limited_period"
+)
+
+type SubscriptionDiscountPeriodUnit string
+
+const (
+	SubscriptionDiscountPeriodUnitDay   SubscriptionDiscountPeriodUnit = "day"
+	SubscriptionDiscountPeriodUnitWeek  SubscriptionDiscountPeriodUnit = "week"
+	SubscriptionDiscountPeriodUnitMonth SubscriptionDiscountPeriodUnit = "month"
+	SubscriptionDiscountPeriodUnitYear  SubscriptionDiscountPeriodUnit = "year"
+)
+
+type SubscriptionDiscountApplyOn string
+
+const (
+	SubscriptionDiscountApplyOnInvoiceAmount     SubscriptionDiscountApplyOn = "invoice_amount"
+	SubscriptionDiscountApplyOnSpecificItemPrice SubscriptionDiscountApplyOn = "specific_item_price"
+)
+
+type SubscriptionAddonProrationType string
+
+const (
+	SubscriptionAddonProrationTypeFullTerm    SubscriptionAddonProrationType = "full_term"
+	SubscriptionAddonProrationTypePartialTerm SubscriptionAddonProrationType = "partial_term"
+	SubscriptionAddonProrationTypeNone        SubscriptionAddonProrationType = "none"
+)
+
+type SubscriptionEventBasedAddonOnEvent string
+
+const (
+	SubscriptionEventBasedAddonOnEventSubscriptionCreation   SubscriptionEventBasedAddonOnEvent = "subscription_creation"
+	SubscriptionEventBasedAddonOnEventSubscriptionTrialStart SubscriptionEventBasedAddonOnEvent = "subscription_trial_start"
+	SubscriptionEventBasedAddonOnEventPlanActivation         SubscriptionEventBasedAddonOnEvent = "plan_activation"
+	SubscriptionEventBasedAddonOnEventSubscriptionActivation SubscriptionEventBasedAddonOnEvent = "subscription_activation"
+	SubscriptionEventBasedAddonOnEventContractTermination    SubscriptionEventBasedAddonOnEvent = "contract_termination"
+)
+
+type SubscriptionBillingAlignmentMode string
+
+const (
+	SubscriptionBillingAlignmentModeImmediate SubscriptionBillingAlignmentMode = "immediate"
+	SubscriptionBillingAlignmentModeDelayed   SubscriptionBillingAlignmentMode = "delayed"
+)
+
+type SubscriptionPaymentInitiator string
+
+const (
+	SubscriptionPaymentInitiatorCustomer SubscriptionPaymentInitiator = "customer"
+	SubscriptionPaymentInitiatorMerchant SubscriptionPaymentInitiator = "merchant"
+)
+
+type SubscriptionChangeOption string
+
+const (
+	SubscriptionChangeOptionImmediately  SubscriptionChangeOption = "immediately"
+	SubscriptionChangeOptionEndOfTerm    SubscriptionChangeOption = "end_of_term"
+	SubscriptionChangeOptionSpecificDate SubscriptionChangeOption = "specific_date"
+)
+
+type SubscriptionAvalaraSaleType string
+
+const (
+	SubscriptionAvalaraSaleTypeWholesale SubscriptionAvalaraSaleType = "wholesale"
+	SubscriptionAvalaraSaleTypeRetail    SubscriptionAvalaraSaleType = "retail"
+	SubscriptionAvalaraSaleTypeConsumed  SubscriptionAvalaraSaleType = "consumed"
+	SubscriptionAvalaraSaleTypeVendorUse SubscriptionAvalaraSaleType = "vendor_use"
+)
+
+type SubscriptionScheduleType string
+
+const (
+	SubscriptionScheduleTypeImmediate      SubscriptionScheduleType = "immediate"
+	SubscriptionScheduleTypeSpecificDates  SubscriptionScheduleType = "specific_dates"
+	SubscriptionScheduleTypeFixedIntervals SubscriptionScheduleType = "fixed_intervals"
+)
+
+type SubscriptionScheduleType string
+
+const (
+	SubscriptionScheduleTypeSpecificDates  SubscriptionScheduleType = "specific_dates"
+	SubscriptionScheduleTypeFixedIntervals SubscriptionScheduleType = "fixed_intervals"
+)
+
+type SubscriptionPauseOption string
+
+const (
+	SubscriptionPauseOptionImmediately   SubscriptionPauseOption = "immediately"
+	SubscriptionPauseOptionEndOfTerm     SubscriptionPauseOption = "end_of_term"
+	SubscriptionPauseOptionSpecificDate  SubscriptionPauseOption = "specific_date"
+	SubscriptionPauseOptionBillingCycles SubscriptionPauseOption = "billing_cycles"
+)
+
+type SubscriptionUnbilledChargesHandling string
+
+const (
+	SubscriptionUnbilledChargesHandlingNoAction SubscriptionUnbilledChargesHandling = "no_action"
+	SubscriptionUnbilledChargesHandlingInvoice  SubscriptionUnbilledChargesHandling = "invoice"
+)
+
+type SubscriptionInvoiceDunningHandling string
+
+const (
+	SubscriptionInvoiceDunningHandlingContinue SubscriptionInvoiceDunningHandling = "continue"
+	SubscriptionInvoiceDunningHandlingStop     SubscriptionInvoiceDunningHandling = "stop"
+)
+
+type SubscriptionCancelOption string
+
+const (
+	SubscriptionCancelOptionImmediately      SubscriptionCancelOption = "immediately"
+	SubscriptionCancelOptionEndOfTerm        SubscriptionCancelOption = "end_of_term"
+	SubscriptionCancelOptionSpecificDate     SubscriptionCancelOption = "specific_date"
+	SubscriptionCancelOptionEndOfBillingTerm SubscriptionCancelOption = "end_of_billing_term"
+)
+
+type SubscriptionCreditOptionForCurrentTermCharges string
+
+const (
+	SubscriptionCreditOptionForCurrentTermChargesNone    SubscriptionCreditOptionForCurrentTermCharges = "none"
+	SubscriptionCreditOptionForCurrentTermChargesProrate SubscriptionCreditOptionForCurrentTermCharges = "prorate"
+	SubscriptionCreditOptionForCurrentTermChargesFull    SubscriptionCreditOptionForCurrentTermCharges = "full"
+)
+
+type SubscriptionUnbilledChargesOption string
+
+const (
+	SubscriptionUnbilledChargesOptionInvoice SubscriptionUnbilledChargesOption = "invoice"
+	SubscriptionUnbilledChargesOptionDelete  SubscriptionUnbilledChargesOption = "delete"
+)
+
+type SubscriptionAccountReceivablesHandling string
+
+const (
+	SubscriptionAccountReceivablesHandlingNoAction                  SubscriptionAccountReceivablesHandling = "no_action"
+	SubscriptionAccountReceivablesHandlingSchedulePaymentCollection SubscriptionAccountReceivablesHandling = "schedule_payment_collection"
+	SubscriptionAccountReceivablesHandlingWriteOff                  SubscriptionAccountReceivablesHandling = "write_off"
+)
+
+type SubscriptionRefundableCreditsHandling string
+
+const (
+	SubscriptionRefundableCreditsHandlingNoAction       SubscriptionRefundableCreditsHandling = "no_action"
+	SubscriptionRefundableCreditsHandlingScheduleRefund SubscriptionRefundableCreditsHandling = "schedule_refund"
+)
+
+type SubscriptionContractTermCancelOption string
+
+const (
+	SubscriptionContractTermCancelOptionTerminateImmediately         SubscriptionContractTermCancelOption = "terminate_immediately"
+	SubscriptionContractTermCancelOptionEndOfContractTerm            SubscriptionContractTermCancelOption = "end_of_contract_term"
+	SubscriptionContractTermCancelOptionSpecificDate                 SubscriptionContractTermCancelOption = "specific_date"
+	SubscriptionContractTermCancelOptionEndOfSubscriptionBillingTerm SubscriptionContractTermCancelOption = "end_of_subscription_billing_term"
+)
+
+type SubscriptionResumeOption string
+
+const (
+	SubscriptionResumeOptionImmediately  SubscriptionResumeOption = "immediately"
+	SubscriptionResumeOptionSpecificDate SubscriptionResumeOption = "specific_date"
+)
+
+type SubscriptionChargesHandling string
+
+const (
+	SubscriptionChargesHandlingInvoiceImmediately   SubscriptionChargesHandling = "invoice_immediately"
+	SubscriptionChargesHandlingAddToUnbilledCharges SubscriptionChargesHandling = "add_to_unbilled_charges"
+)
+
+type SubscriptionUnpaidInvoicesHandling string
+
+const (
+	SubscriptionUnpaidInvoicesHandlingNoAction                  SubscriptionUnpaidInvoicesHandling = "no_action"
+	SubscriptionUnpaidInvoicesHandlingSchedulePaymentCollection SubscriptionUnpaidInvoicesHandling = "schedule_payment_collection"
+)
+
+// just struct
 type Subscription struct {
-	Id                                string                    `json:"id"`
-	CurrencyCode                      string                    `json:"currency_code"`
-	PlanId                            string                    `json:"plan_id"`
-	PlanQuantity                      int32                     `json:"plan_quantity"`
-	PlanUnitPrice                     int64                     `json:"plan_unit_price"`
-	SetupFee                          int64                     `json:"setup_fee"`
-	BillingPeriod                     int32                     `json:"billing_period"`
-	BillingPeriodUnit                 BillingPeriodUnit         `json:"billing_period_unit"`
-	StartDate                         int64                     `json:"start_date"`
-	TrialEnd                          int64                     `json:"trial_end"`
-	RemainingBillingCycles            int32                     `json:"remaining_billing_cycles"`
-	PoNumber                          string                    `json:"po_number"`
-	AutoCollection                    enum.AutoCollection       `json:"auto_collection"`
-	PlanQuantityInDecimal             string                    `json:"plan_quantity_in_decimal"`
-	PlanUnitPriceInDecimal            string                    `json:"plan_unit_price_in_decimal"`
-	CustomerId                        string                    `json:"customer_id"`
-	PlanAmount                        int64                     `json:"plan_amount"`
-	PlanFreeQuantity                  int32                     `json:"plan_free_quantity"`
-	Status                            Status                    `json:"status"`
-	TrialStart                        int64                     `json:"trial_start"`
-	TrialEndAction                    enum.TrialEndAction       `json:"trial_end_action"`
-	CurrentTermStart                  int64                     `json:"current_term_start"`
-	CurrentTermEnd                    int64                     `json:"current_term_end"`
-	NextBillingAt                     int64                     `json:"next_billing_at"`
-	CreatedAt                         int64                     `json:"created_at"`
-	StartedAt                         int64                     `json:"started_at"`
-	ActivatedAt                       int64                     `json:"activated_at"`
-	GiftId                            string                    `json:"gift_id"`
-	ContractTermBillingCycleOnRenewal int32                     `json:"contract_term_billing_cycle_on_renewal"`
-	OverrideRelationship              bool                      `json:"override_relationship"`
-	PauseDate                         int64                     `json:"pause_date"`
-	ResumeDate                        int64                     `json:"resume_date"`
-	CancelledAt                       int64                     `json:"cancelled_at"`
-	CancelReason                      CancelReason              `json:"cancel_reason"`
-	AffiliateToken                    string                    `json:"affiliate_token"`
-	CreatedFromIp                     string                    `json:"created_from_ip"`
-	ResourceVersion                   int64                     `json:"resource_version"`
-	UpdatedAt                         int64                     `json:"updated_at"`
-	HasScheduledAdvanceInvoices       bool                      `json:"has_scheduled_advance_invoices"`
-	HasScheduledChanges               bool                      `json:"has_scheduled_changes"`
-	PaymentSourceId                   string                    `json:"payment_source_id"`
-	PlanFreeQuantityInDecimal         string                    `json:"plan_free_quantity_in_decimal"`
-	PlanAmountInDecimal               string                    `json:"plan_amount_in_decimal"`
-	CancelScheduleCreatedAt           int64                     `json:"cancel_schedule_created_at"`
-	OfflinePaymentMethod              enum.OfflinePaymentMethod `json:"offline_payment_method"`
-	Channel                           enum.Channel              `json:"channel"`
-	NetTermDays                       int32                     `json:"net_term_days"`
-	ActiveId                          string                    `json:"active_id"`
-	SubscriptionItems                 []*SubscriptionItem       `json:"subscription_items"`
-	ItemTiers                         []*ItemTier               `json:"item_tiers"`
-	ChargedItems                      []*ChargedItem            `json:"charged_items"`
-	DueInvoicesCount                  int32                     `json:"due_invoices_count"`
-	DueSince                          int64                     `json:"due_since"`
-	TotalDues                         int64                     `json:"total_dues"`
-	Mrr                               int64                     `json:"mrr"`
-	Arr                               int64                     `json:"arr"`
-	ExchangeRate                      float64                   `json:"exchange_rate"`
-	BaseCurrencyCode                  string                    `json:"base_currency_code"`
-	Addons                            []*Addon                  `json:"addons"`
-	EventBasedAddons                  []*EventBasedAddon        `json:"event_based_addons"`
-	ChargedEventBasedAddons           []*ChargedEventBasedAddon `json:"charged_event_based_addons"`
-	Coupon                            string                    `json:"coupon"`
-	Coupons                           []*Coupon                 `json:"coupons"`
-	ShippingAddress                   *ShippingAddress          `json:"shipping_address"`
-	ReferralInfo                      *ReferralInfo             `json:"referral_info"`
-	BillingOverride                   *BillingOverride          `json:"billing_override"`
-	InvoiceNotes                      string                    `json:"invoice_notes"`
-	MetaData                          json.RawMessage           `json:"meta_data"`
-	Deleted                           bool                      `json:"deleted"`
-	ChangesScheduledAt                int64                     `json:"changes_scheduled_at"`
-	ContractTerm                      *ContractTerm             `json:"contract_term"`
-	CancelReasonCode                  string                    `json:"cancel_reason_code"`
-	FreePeriod                        int32                     `json:"free_period"`
-	FreePeriodUnit                    enum.FreePeriodUnit       `json:"free_period_unit"`
-	CreatePendingInvoices             bool                      `json:"create_pending_invoices"`
-	AutoCloseInvoices                 bool                      `json:"auto_close_invoices"`
-	Discounts                         []*Discount               `json:"discounts"`
-	BusinessEntityId                  string                    `json:"business_entity_id"`
-	CustomField                       map[string]interface{}    `json:"custom_field"`
-	Object                            string                    `json:"object"`
+	Id                                string                                `json:"id"`
+	CurrencyCode                      string                                `json:"currency_code"`
+	PlanId                            string                                `json:"plan_id"`
+	PlanQuantity                      int32                                 `json:"plan_quantity"`
+	PlanUnitPrice                     int64                                 `json:"plan_unit_price"`
+	SetupFee                          int64                                 `json:"setup_fee"`
+	BillingPeriod                     int32                                 `json:"billing_period"`
+	BillingPeriodUnit                 SubscriptionBillingPeriodUnit         `json:"billing_period_unit"`
+	StartDate                         int64                                 `json:"start_date"`
+	TrialEnd                          int64                                 `json:"trial_end"`
+	RemainingBillingCycles            int32                                 `json:"remaining_billing_cycles"`
+	PoNumber                          string                                `json:"po_number"`
+	AutoCollection                    SubscriptionAutoCollection            `json:"auto_collection"`
+	PlanQuantityInDecimal             string                                `json:"plan_quantity_in_decimal"`
+	PlanUnitPriceInDecimal            string                                `json:"plan_unit_price_in_decimal"`
+	CustomerId                        string                                `json:"customer_id"`
+	PlanAmount                        int64                                 `json:"plan_amount"`
+	PlanFreeQuantity                  int32                                 `json:"plan_free_quantity"`
+	Status                            SubscriptionStatus                    `json:"status"`
+	TrialStart                        int64                                 `json:"trial_start"`
+	TrialEndAction                    SubscriptionTrialEndAction            `json:"trial_end_action"`
+	CurrentTermStart                  int64                                 `json:"current_term_start"`
+	CurrentTermEnd                    int64                                 `json:"current_term_end"`
+	NextBillingAt                     int64                                 `json:"next_billing_at"`
+	CreatedAt                         int64                                 `json:"created_at"`
+	StartedAt                         int64                                 `json:"started_at"`
+	ActivatedAt                       int64                                 `json:"activated_at"`
+	GiftId                            string                                `json:"gift_id"`
+	ContractTermBillingCycleOnRenewal int32                                 `json:"contract_term_billing_cycle_on_renewal"`
+	OverrideRelationship              bool                                  `json:"override_relationship"`
+	PauseDate                         int64                                 `json:"pause_date"`
+	ResumeDate                        int64                                 `json:"resume_date"`
+	CancelledAt                       int64                                 `json:"cancelled_at"`
+	CancelReason                      SubscriptionCancelReason              `json:"cancel_reason"`
+	AffiliateToken                    string                                `json:"affiliate_token"`
+	CreatedFromIp                     string                                `json:"created_from_ip"`
+	ResourceVersion                   int64                                 `json:"resource_version"`
+	UpdatedAt                         int64                                 `json:"updated_at"`
+	HasScheduledAdvanceInvoices       bool                                  `json:"has_scheduled_advance_invoices"`
+	HasScheduledChanges               bool                                  `json:"has_scheduled_changes"`
+	PaymentSourceId                   string                                `json:"payment_source_id"`
+	PlanFreeQuantityInDecimal         string                                `json:"plan_free_quantity_in_decimal"`
+	PlanAmountInDecimal               string                                `json:"plan_amount_in_decimal"`
+	CancelScheduleCreatedAt           int64                                 `json:"cancel_schedule_created_at"`
+	OfflinePaymentMethod              SubscriptionOfflinePaymentMethod      `json:"offline_payment_method"`
+	Channel                           SubscriptionChannel                   `json:"channel"`
+	NetTermDays                       int32                                 `json:"net_term_days"`
+	ActiveId                          string                                `json:"active_id"`
+	SubscriptionItems                 []*SubscriptionSubscriptionItem       `json:"subscription_items"`
+	ItemTiers                         []*SubscriptionItemTier               `json:"item_tiers"`
+	ChargedItems                      []*SubscriptionChargedItem            `json:"charged_items"`
+	DueInvoicesCount                  int32                                 `json:"due_invoices_count"`
+	DueSince                          int64                                 `json:"due_since"`
+	TotalDues                         int64                                 `json:"total_dues"`
+	Mrr                               int64                                 `json:"mrr"`
+	ExchangeRate                      float64                               `json:"exchange_rate"`
+	BaseCurrencyCode                  string                                `json:"base_currency_code"`
+	Addons                            []*SubscriptionAddon                  `json:"addons"`
+	EventBasedAddons                  []*SubscriptionEventBasedAddon        `json:"event_based_addons"`
+	ChargedEventBasedAddons           []*SubscriptionChargedEventBasedAddon `json:"charged_event_based_addons"`
+	Coupons                           []*SubscriptionCoupon                 `json:"coupons"`
+	ShippingAddress                   *ShippingAddress                      `json:"shipping_address"`
+	ReferralInfo                      *ReferralInfo                         `json:"referral_info"`
+	BillingOverride                   *BillingOverride                      `json:"billing_override"`
+	InvoiceNotes                      string                                `json:"invoice_notes"`
+	MetaData                          json.RawMessage                       `json:"meta_data"`
+	Deleted                           bool                                  `json:"deleted"`
+	ChangesScheduledAt                int64                                 `json:"changes_scheduled_at"`
+	ContractTerm                      *ContractTerm                         `json:"contract_term"`
+	CancelReasonCode                  string                                `json:"cancel_reason_code"`
+	FreePeriod                        int32                                 `json:"free_period"`
+	FreePeriodUnit                    SubscriptionFreePeriodUnit            `json:"free_period_unit"`
+	CreatePendingInvoices             bool                                  `json:"create_pending_invoices"`
+	AutoCloseInvoices                 bool                                  `json:"auto_close_invoices"`
+	Discounts                         []*SubscriptionDiscount               `json:"discounts"`
+	BusinessEntityId                  string                                `json:"business_entity_id"`
+	CustomField                       CustomField                           `json:"custom_field"`
+	Object                            string                                `json:"object"`
 
 	// Deprecated: MetaData is deprecated please use MetaData instead.
 	Metadata json.RawMessage `json:"metadata"`
 }
-type SubscriptionItem struct {
-	ItemPriceId                     string                               `json:"item_price_id"`
-	ItemType                        enum.ItemType                        `json:"item_type"`
-	Quantity                        int32                                `json:"quantity"`
-	QuantityInDecimal               string                               `json:"quantity_in_decimal"`
-	MeteredQuantity                 string                               `json:"metered_quantity"`
-	LastCalculatedAt                int64                                `json:"last_calculated_at"`
-	UnitPrice                       int64                                `json:"unit_price"`
-	UnitPriceInDecimal              string                               `json:"unit_price_in_decimal"`
-	Amount                          int64                                `json:"amount"`
-	CurrentTermStart                int64                                `json:"current_term_start"`
-	CurrentTermEnd                  int64                                `json:"current_term_end"`
-	NextBillingAt                   int64                                `json:"next_billing_at"`
-	AmountInDecimal                 string                               `json:"amount_in_decimal"`
-	BillingPeriod                   int32                                `json:"billing_period"`
-	BillingPeriodUnit               subscriptionEnum.BillingPeriodUnit   `json:"billing_period_unit"`
-	FreeQuantity                    int32                                `json:"free_quantity"`
-	FreeQuantityInDecimal           string                               `json:"free_quantity_in_decimal"`
-	TrialEnd                        int64                                `json:"trial_end"`
-	BillingCycles                   int32                                `json:"billing_cycles"`
-	ServicePeriodDays               int32                                `json:"service_period_days"`
-	ChargeOnEvent                   enum.ChargeOnEvent                   `json:"charge_on_event"`
-	ChargeOnce                      bool                                 `json:"charge_once"`
-	ChargeOnOption                  enum.ChargeOnOption                  `json:"charge_on_option"`
-	ProrationType                   enum.ProrationType                   `json:"proration_type"`
-	UsageAccumulationResetFrequency enum.UsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency"`
-	Object                          string                               `json:"object"`
+
+// sub resources
+type SubscriptionSubscriptionItem struct {
+	ItemPriceId                     string                                                      `json:"item_price_id"`
+	ItemType                        SubscriptionSubscriptionItemItemType                        `json:"item_type"`
+	Quantity                        int32                                                       `json:"quantity"`
+	QuantityInDecimal               string                                                      `json:"quantity_in_decimal"`
+	MeteredQuantity                 string                                                      `json:"metered_quantity"`
+	LastCalculatedAt                int64                                                       `json:"last_calculated_at"`
+	UnitPrice                       int64                                                       `json:"unit_price"`
+	UnitPriceInDecimal              string                                                      `json:"unit_price_in_decimal"`
+	Amount                          int64                                                       `json:"amount"`
+	CurrentTermStart                int64                                                       `json:"current_term_start"`
+	CurrentTermEnd                  int64                                                       `json:"current_term_end"`
+	NextBillingAt                   int64                                                       `json:"next_billing_at"`
+	AmountInDecimal                 string                                                      `json:"amount_in_decimal"`
+	BillingPeriod                   int32                                                       `json:"billing_period"`
+	BillingPeriodUnit               SubscriptionSubscriptionItemBillingPeriodUnit               `json:"billing_period_unit"`
+	FreeQuantity                    int32                                                       `json:"free_quantity"`
+	FreeQuantityInDecimal           string                                                      `json:"free_quantity_in_decimal"`
+	TrialEnd                        int64                                                       `json:"trial_end"`
+	BillingCycles                   int32                                                       `json:"billing_cycles"`
+	ServicePeriodDays               int32                                                       `json:"service_period_days"`
+	ChargeOnEvent                   SubscriptionSubscriptionItemChargeOnEvent                   `json:"charge_on_event"`
+	ChargeOnce                      bool                                                        `json:"charge_once"`
+	ChargeOnOption                  SubscriptionSubscriptionItemChargeOnOption                  `json:"charge_on_option"`
+	ProrationType                   SubscriptionSubscriptionItemProrationType                   `json:"proration_type"`
+	UsageAccumulationResetFrequency SubscriptionSubscriptionItemUsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency"`
+	Object                          string                                                      `json:"object"`
 }
-type ItemTier struct {
-	ItemPriceId           string           `json:"item_price_id"`
-	StartingUnit          int32            `json:"starting_unit"`
-	EndingUnit            int32            `json:"ending_unit"`
-	Price                 int64            `json:"price"`
-	StartingUnitInDecimal string           `json:"starting_unit_in_decimal"`
-	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal"`
-	PriceInDecimal        string           `json:"price_in_decimal"`
-	PricingType           enum.PricingType `json:"pricing_type"`
-	PackageSize           int32            `json:"package_size"`
-	Index                 int32            `json:"index"`
-	Object                string           `json:"object"`
+type SubscriptionItemTier struct {
+	ItemPriceId           string                          `json:"item_price_id"`
+	StartingUnit          int32                           `json:"starting_unit"`
+	EndingUnit            int32                           `json:"ending_unit"`
+	Price                 int64                           `json:"price"`
+	StartingUnitInDecimal string                          `json:"starting_unit_in_decimal"`
+	EndingUnitInDecimal   string                          `json:"ending_unit_in_decimal"`
+	PriceInDecimal        string                          `json:"price_in_decimal"`
+	PricingType           SubscriptionItemTierPricingType `json:"pricing_type"`
+	PackageSize           int32                           `json:"package_size"`
+	Index                 int32                           `json:"index"`
+	Object                string                          `json:"object"`
 }
-type ChargedItem struct {
+type SubscriptionChargedItem struct {
 	ItemPriceId   string `json:"item_price_id"`
 	LastChargedAt int64  `json:"last_charged_at"`
 	Object        string `json:"object"`
 }
-type Coupon struct {
+type SubscriptionCoupon struct {
 	CouponId     string `json:"coupon_id"`
 	ApplyTill    int64  `json:"apply_till"`
 	AppliedCount int32  `json:"applied_count"`
 	CouponCode   string `json:"coupon_code"`
 	Object       string `json:"object"`
 }
-type ShippingAddress struct {
-	FirstName        string                `json:"first_name"`
-	LastName         string                `json:"last_name"`
-	Email            string                `json:"email"`
-	Company          string                `json:"company"`
-	Phone            string                `json:"phone"`
-	Line1            string                `json:"line1"`
-	Line2            string                `json:"line2"`
-	Line3            string                `json:"line3"`
-	City             string                `json:"city"`
-	StateCode        string                `json:"state_code"`
-	State            string                `json:"state"`
-	Country          string                `json:"country"`
-	Zip              string                `json:"zip"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status"`
-	Object           string                `json:"object"`
+type SubscriptionShippingAddress struct {
+	FirstName        string                                      `json:"first_name"`
+	LastName         string                                      `json:"last_name"`
+	Email            string                                      `json:"email"`
+	Company          string                                      `json:"company"`
+	Phone            string                                      `json:"phone"`
+	Line1            string                                      `json:"line1"`
+	Line2            string                                      `json:"line2"`
+	Line3            string                                      `json:"line3"`
+	City             string                                      `json:"city"`
+	StateCode        string                                      `json:"state_code"`
+	State            string                                      `json:"state"`
+	Country          string                                      `json:"country"`
+	Zip              string                                      `json:"zip"`
+	ValidationStatus SubscriptionShippingAddressValidationStatus `json:"validation_status"`
+	Object           string                                      `json:"object"`
 }
-type ReferralInfo struct {
-	ReferralCode              string                    `json:"referral_code"`
-	CouponCode                string                    `json:"coupon_code"`
-	ReferrerId                string                    `json:"referrer_id"`
-	ExternalReferenceId       string                    `json:"external_reference_id"`
-	RewardStatus              ReferralInfoRewardStatus  `json:"reward_status"`
-	ReferralSystem            enum.ReferralSystem       `json:"referral_system"`
-	AccountId                 string                    `json:"account_id"`
-	CampaignId                string                    `json:"campaign_id"`
-	ExternalCampaignId        string                    `json:"external_campaign_id"`
-	FriendOfferType           enum.FriendOfferType      `json:"friend_offer_type"`
-	ReferrerRewardType        enum.ReferrerRewardType   `json:"referrer_reward_type"`
-	NotifyReferralSystem      enum.NotifyReferralSystem `json:"notify_referral_system"`
-	DestinationUrl            string                    `json:"destination_url"`
-	PostPurchaseWidgetEnabled bool                      `json:"post_purchase_widget_enabled"`
-	Object                    string                    `json:"object"`
+type SubscriptionReferralInfo struct {
+	ReferralCode              string                                       `json:"referral_code"`
+	CouponCode                string                                       `json:"coupon_code"`
+	ReferrerId                string                                       `json:"referrer_id"`
+	ExternalReferenceId       string                                       `json:"external_reference_id"`
+	RewardStatus              ReferralInfoRewardStatus                     `json:"reward_status"`
+	ReferralSystem            SubscriptionReferralInfoReferralSystem       `json:"referral_system"`
+	AccountId                 string                                       `json:"account_id"`
+	CampaignId                string                                       `json:"campaign_id"`
+	ExternalCampaignId        string                                       `json:"external_campaign_id"`
+	FriendOfferType           SubscriptionReferralInfoFriendOfferType      `json:"friend_offer_type"`
+	ReferrerRewardType        SubscriptionReferralInfoReferrerRewardType   `json:"referrer_reward_type"`
+	NotifyReferralSystem      SubscriptionReferralInfoNotifyReferralSystem `json:"notify_referral_system"`
+	DestinationUrl            string                                       `json:"destination_url"`
+	PostPurchaseWidgetEnabled bool                                         `json:"post_purchase_widget_enabled"`
+	Object                    string                                       `json:"object"`
 }
-type BillingOverride struct {
+type SubscriptionBillingOverride struct {
 	MaxExcessPaymentUsage     int64  `json:"max_excess_payment_usage"`
 	MaxRefundableCreditsUsage int64  `json:"max_refundable_credits_usage"`
 	Object                    string `json:"object"`
 }
-type ContractTerm struct {
+type SubscriptionContractTerm struct {
 	Id                          string                      `json:"id"`
 	Status                      ContractTermStatus          `json:"status"`
 	ContractStart               int64                       `json:"contract_start"`
@@ -259,143 +594,155 @@ type ContractTerm struct {
 	RemainingBillingCycles      int32                       `json:"remaining_billing_cycles"`
 	Object                      string                      `json:"object"`
 }
-type Discount struct {
-	Id            string            `json:"id"`
-	InvoiceName   string            `json:"invoice_name"`
-	Type          DiscountType      `json:"type"`
-	Percentage    float64           `json:"percentage"`
-	Amount        int64             `json:"amount"`
-	Quantity      int32             `json:"quantity"`
-	CurrencyCode  string            `json:"currency_code"`
-	DurationType  enum.DurationType `json:"duration_type"`
-	Period        int32             `json:"period"`
-	PeriodUnit    enum.PeriodUnit   `json:"period_unit"`
-	IncludedInMrr bool              `json:"included_in_mrr"`
-	ApplyOn       enum.ApplyOn      `json:"apply_on"`
-	ItemPriceId   string            `json:"item_price_id"`
-	CreatedAt     int64             `json:"created_at"`
-	ApplyTill     int64             `json:"apply_till"`
-	AppliedCount  int32             `json:"applied_count"`
-	CouponId      string            `json:"coupon_id"`
-	Index         int32             `json:"index"`
-	Object        string            `json:"object"`
+type SubscriptionDiscount struct {
+	Id            string                           `json:"id"`
+	InvoiceName   string                           `json:"invoice_name"`
+	Type          DiscountType                     `json:"type"`
+	Percentage    float64                          `json:"percentage"`
+	Amount        int64                            `json:"amount"`
+	Quantity      int32                            `json:"quantity"`
+	CurrencyCode  string                           `json:"currency_code"`
+	DurationType  SubscriptionDiscountDurationType `json:"duration_type"`
+	Period        int32                            `json:"period"`
+	PeriodUnit    SubscriptionDiscountPeriodUnit   `json:"period_unit"`
+	IncludedInMrr bool                             `json:"included_in_mrr"`
+	ApplyOn       SubscriptionDiscountApplyOn      `json:"apply_on"`
+	ItemPriceId   string                           `json:"item_price_id"`
+	CreatedAt     int64                            `json:"created_at"`
+	ApplyTill     int64                            `json:"apply_till"`
+	AppliedCount  int32                            `json:"applied_count"`
+	CouponId      string                           `json:"coupon_id"`
+	Index         int32                            `json:"index"`
+	Object        string                           `json:"object"`
 }
-type Addon struct {
-	Id                     string             `json:"id"`
-	Quantity               int32              `json:"quantity"`
-	UnitPrice              int64              `json:"unit_price"`
-	Amount                 int64              `json:"amount"`
-	TrialEnd               int64              `json:"trial_end"`
-	RemainingBillingCycles int32              `json:"remaining_billing_cycles"`
-	QuantityInDecimal      string             `json:"quantity_in_decimal"`
-	UnitPriceInDecimal     string             `json:"unit_price_in_decimal"`
-	AmountInDecimal        string             `json:"amount_in_decimal"`
-	ProrationType          enum.ProrationType `json:"proration_type"`
-	Object                 string             `json:"object"`
+type SubscriptionAddon struct {
+	Id                     string                         `json:"id"`
+	Quantity               int32                          `json:"quantity"`
+	UnitPrice              int64                          `json:"unit_price"`
+	Amount                 int64                          `json:"amount"`
+	TrialEnd               int64                          `json:"trial_end"`
+	RemainingBillingCycles int32                          `json:"remaining_billing_cycles"`
+	QuantityInDecimal      string                         `json:"quantity_in_decimal"`
+	UnitPriceInDecimal     string                         `json:"unit_price_in_decimal"`
+	AmountInDecimal        string                         `json:"amount_in_decimal"`
+	ProrationType          SubscriptionAddonProrationType `json:"proration_type"`
+	Object                 string                         `json:"object"`
 }
-type ChargedEventBasedAddon struct {
+type SubscriptionChargedEventBasedAddon struct {
 	Id            string `json:"id"`
 	LastChargedAt int64  `json:"last_charged_at"`
 	Object        string `json:"object"`
 }
-type EventBasedAddon struct {
-	Id                  string       `json:"id"`
-	Quantity            int32        `json:"quantity"`
-	UnitPrice           int64        `json:"unit_price"`
-	ServicePeriodInDays int32        `json:"service_period_in_days"`
-	OnEvent             enum.OnEvent `json:"on_event"`
-	ChargeOnce          bool         `json:"charge_once"`
-	QuantityInDecimal   string       `json:"quantity_in_decimal"`
-	UnitPriceInDecimal  string       `json:"unit_price_in_decimal"`
-	Object              string       `json:"object"`
+type SubscriptionEventBasedAddon struct {
+	Id                  string                             `json:"id"`
+	Quantity            int32                              `json:"quantity"`
+	UnitPrice           int64                              `json:"unit_price"`
+	ServicePeriodInDays int32                              `json:"service_period_in_days"`
+	OnEvent             SubscriptionEventBasedAddonOnEvent `json:"on_event"`
+	ChargeOnce          bool                               `json:"charge_once"`
+	QuantityInDecimal   string                             `json:"quantity_in_decimal"`
+	UnitPriceInDecimal  string                             `json:"unit_price_in_decimal"`
+	Object              string                             `json:"object"`
 }
-type CreateRequest struct {
-	Id                                string                     `json:"id,omitempty"`
-	Customer                          *CreateCustomer            `json:"customer,omitempty"`
-	EntityIdentifiers                 []*CreateEntityIdentifier  `json:"entity_identifiers,omitempty"`
-	TaxProvidersFields                []*CreateTaxProvidersField `json:"tax_providers_fields,omitempty"`
-	PlanId                            string                     `json:"plan_id"`
-	PlanQuantity                      *int32                     `json:"plan_quantity,omitempty"`
-	PlanQuantityInDecimal             string                     `json:"plan_quantity_in_decimal,omitempty"`
-	PlanUnitPrice                     *int64                     `json:"plan_unit_price,omitempty"`
-	PlanUnitPriceInDecimal            string                     `json:"plan_unit_price_in_decimal,omitempty"`
-	SetupFee                          *int64                     `json:"setup_fee,omitempty"`
-	TrialEnd                          *int64                     `json:"trial_end,omitempty"`
-	BillingCycles                     *int32                     `json:"billing_cycles,omitempty"`
-	Addons                            []*CreateAddon             `json:"addons,omitempty"`
-	EventBasedAddons                  []*CreateEventBasedAddon   `json:"event_based_addons,omitempty"`
-	MandatoryAddonsToRemove           []string                   `json:"mandatory_addons_to_remove,omitempty"`
-	StartDate                         *int64                     `json:"start_date,omitempty"`
-	Coupon                            string                     `json:"coupon,omitempty"`
-	AutoCollection                    enum.AutoCollection        `json:"auto_collection,omitempty"`
-	TermsToCharge                     *int32                     `json:"terms_to_charge,omitempty"`
-	BillingAlignmentMode              enum.BillingAlignmentMode  `json:"billing_alignment_mode,omitempty"`
-	OfflinePaymentMethod              enum.OfflinePaymentMethod  `json:"offline_payment_method,omitempty"`
-	PoNumber                          string                     `json:"po_number,omitempty"`
-	CouponIds                         []string                   `json:"coupon_ids,omitempty"`
-	Card                              *CreateCard                `json:"card,omitempty"`
-	BankAccount                       *CreateBankAccount         `json:"bank_account,omitempty"`
-	TokenId                           string                     `json:"token_id,omitempty"`
-	PaymentMethod                     *CreatePaymentMethod       `json:"payment_method,omitempty"`
-	PaymentIntent                     *CreatePaymentIntent       `json:"payment_intent,omitempty"`
-	BillingAddress                    *CreateBillingAddress      `json:"billing_address,omitempty"`
-	ShippingAddress                   *CreateShippingAddress     `json:"shipping_address,omitempty"`
-	StatementDescriptor               *CreateStatementDescriptor `json:"statement_descriptor,omitempty"`
-	AffiliateToken                    string                     `json:"affiliate_token,omitempty"`
-	CreatedFromIp                     string                     `json:"created_from_ip,omitempty"`
-	InvoiceNotes                      string                     `json:"invoice_notes,omitempty"`
-	InvoiceDate                       *int64                     `json:"invoice_date,omitempty"`
-	MetaData                          map[string]interface{}     `json:"meta_data,omitempty"`
-	InvoiceImmediately                *bool                      `json:"invoice_immediately,omitempty"`
-	FreePeriod                        *int32                     `json:"free_period,omitempty"`
-	FreePeriodUnit                    enum.FreePeriodUnit        `json:"free_period_unit,omitempty"`
-	ContractTerm                      *CreateContractTerm        `json:"contract_term,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32                     `json:"contract_term_billing_cycle_on_renewal,omitempty"`
-	TrialEndAction                    enum.TrialEndAction        `json:"trial_end_action,omitempty"`
-	ClientProfileId                   string                     `json:"client_profile_id,omitempty"`
-	PaymentInitiator                  enum.PaymentInitiator      `json:"payment_initiator,omitempty"`
-	Coupons                           []*CreateCoupon            `json:"coupons,omitempty"`
+
+// operations
+// input params
+type SubscriptionCreateRequest struct {
+	Id                                string                                 `json:"id,omitempty"`
+	Customer                          *SubscriptionCreateCustomer            `json:"customer,omitempty"`
+	EntityIdentifiers                 []*SubscriptionCreateEntityIdentifier  `json:"entity_identifiers,omitempty"`
+	TaxProvidersFields                []*SubscriptionCreateTaxProvidersField `json:"tax_providers_fields,omitempty"`
+	PlanId                            string                                 `json:"plan_id"`
+	PlanQuantity                      *int32                                 `json:"plan_quantity,omitempty"`
+	PlanQuantityInDecimal             string                                 `json:"plan_quantity_in_decimal,omitempty"`
+	PlanUnitPrice                     *int64                                 `json:"plan_unit_price,omitempty"`
+	PlanUnitPriceInDecimal            string                                 `json:"plan_unit_price_in_decimal,omitempty"`
+	SetupFee                          *int64                                 `json:"setup_fee,omitempty"`
+	TrialEnd                          *int64                                 `json:"trial_end,omitempty"`
+	BillingCycles                     *int32                                 `json:"billing_cycles,omitempty"`
+	Addons                            []*SubscriptionCreateAddon             `json:"addons,omitempty"`
+	EventBasedAddons                  []*SubscriptionCreateEventBasedAddon   `json:"event_based_addons,omitempty"`
+	MandatoryAddonsToRemove           []string                               `json:"mandatory_addons_to_remove,omitempty"`
+	StartDate                         *int64                                 `json:"start_date,omitempty"`
+	AutoCollection                    SubscriptionAutoCollection             `json:"auto_collection,omitempty"`
+	TermsToCharge                     *int32                                 `json:"terms_to_charge,omitempty"`
+	BillingAlignmentMode              SubscriptionBillingAlignmentMode       `json:"billing_alignment_mode,omitempty"`
+	OfflinePaymentMethod              SubscriptionOfflinePaymentMethod       `json:"offline_payment_method,omitempty"`
+	PoNumber                          string                                 `json:"po_number,omitempty"`
+	CouponIds                         []string                               `json:"coupon_ids,omitempty"`
+	Card                              *SubscriptionCreateCard                `json:"card,omitempty"`
+	BankAccount                       *SubscriptionCreateBankAccount         `json:"bank_account,omitempty"`
+	TokenId                           string                                 `json:"token_id,omitempty"`
+	PaymentMethod                     *SubscriptionCreatePaymentMethod       `json:"payment_method,omitempty"`
+	PaymentIntent                     *SubscriptionCreatePaymentIntent       `json:"payment_intent,omitempty"`
+	BillingAddress                    *SubscriptionCreateBillingAddress      `json:"billing_address,omitempty"`
+	ShippingAddress                   *SubscriptionCreateShippingAddress     `json:"shipping_address,omitempty"`
+	StatementDescriptor               *SubscriptionCreateStatementDescriptor `json:"statement_descriptor,omitempty"`
+	AffiliateToken                    string                                 `json:"affiliate_token,omitempty"`
+	InvoiceNotes                      string                                 `json:"invoice_notes,omitempty"`
+	InvoiceDate                       *int64                                 `json:"invoice_date,omitempty"`
+	MetaData                          map[string]interface{}                 `json:"meta_data,omitempty"`
+	InvoiceImmediately                *bool                                  `json:"invoice_immediately,omitempty"`
+	FreePeriod                        *int32                                 `json:"free_period,omitempty"`
+	FreePeriodUnit                    SubscriptionFreePeriodUnit             `json:"free_period_unit,omitempty"`
+	ContractTerm                      *SubscriptionCreateContractTerm        `json:"contract_term,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                 `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	TrialEndAction                    SubscriptionTrialEndAction             `json:"trial_end_action,omitempty"`
+	ClientProfileId                   string                                 `json:"client_profile_id,omitempty"`
+	PaymentInitiator                  SubscriptionPaymentInitiator           `json:"payment_initiator,omitempty"`
+	Coupons                           []*SubscriptionCreateCoupon            `json:"coupons,omitempty"`
+	apiRequest                        `json:"-" form:"-"`
 }
-type CreateCustomer struct {
-	Id                               string                       `json:"id,omitempty"`
-	Email                            string                       `json:"email,omitempty"`
-	FirstName                        string                       `json:"first_name,omitempty"`
-	LastName                         string                       `json:"last_name,omitempty"`
-	Company                          string                       `json:"company,omitempty"`
-	Phone                            string                       `json:"phone,omitempty"`
-	Locale                           string                       `json:"locale,omitempty"`
-	Taxability                       enum.Taxability              `json:"taxability,omitempty"`
-	EntityCode                       enum.EntityCode              `json:"entity_code,omitempty"`
-	ExemptNumber                     string                       `json:"exempt_number,omitempty"`
-	NetTermDays                      *int32                       `json:"net_term_days,omitempty"`
-	TaxjarExemptionCategory          enum.TaxjarExemptionCategory `json:"taxjar_exemption_category,omitempty"`
-	AutoCollection                   enum.AutoCollection          `json:"auto_collection,omitempty"`
-	OfflinePaymentMethod             enum.OfflinePaymentMethod    `json:"offline_payment_method,omitempty"`
-	AllowDirectDebit                 *bool                        `json:"allow_direct_debit,omitempty"`
-	ConsolidatedInvoicing            *bool                        `json:"consolidated_invoicing,omitempty"`
-	VatNumber                        string                       `json:"vat_number,omitempty"`
-	VatNumberPrefix                  string                       `json:"vat_number_prefix,omitempty"`
-	EntityIdentifierScheme           string                       `json:"entity_identifier_scheme,omitempty"`
-	EntityIdentifierStandard         string                       `json:"entity_identifier_standard,omitempty"`
-	IsEinvoiceEnabled                *bool                        `json:"is_einvoice_enabled,omitempty"`
-	EinvoicingMethod                 enum.EinvoicingMethod        `json:"einvoicing_method,omitempty"`
-	RegisteredForGst                 *bool                        `json:"registered_for_gst,omitempty"`
-	BusinessCustomerWithoutVatNumber *bool                        `json:"business_customer_without_vat_number,omitempty"`
-	ExemptionDetails                 []map[string]interface{}     `json:"exemption_details,omitempty"`
-	CustomerType                     enum.CustomerType            `json:"customer_type,omitempty"`
+
+func (r *SubscriptionCreateRequest) payload() any { return r }
+
+// input sub resource params single
+type SubscriptionCreateCustomer struct {
+	Id                               string                   `json:"id,omitempty"`
+	Email                            string                   `json:"email,omitempty"`
+	FirstName                        string                   `json:"first_name,omitempty"`
+	LastName                         string                   `json:"last_name,omitempty"`
+	Company                          string                   `json:"company,omitempty"`
+	Phone                            string                   `json:"phone,omitempty"`
+	Locale                           string                   `json:"locale,omitempty"`
+	Taxability                       Taxability               `json:"taxability,omitempty"`
+	EntityCode                       EntityCode               `json:"entity_code,omitempty"`
+	ExemptNumber                     string                   `json:"exempt_number,omitempty"`
+	NetTermDays                      *int32                   `json:"net_term_days,omitempty"`
+	TaxjarExemptionCategory          TaxjarExemptionCategory  `json:"taxjar_exemption_category,omitempty"`
+	AutoCollection                   AutoCollection           `json:"auto_collection,omitempty"`
+	OfflinePaymentMethod             OfflinePaymentMethod     `json:"offline_payment_method,omitempty"`
+	AllowDirectDebit                 *bool                    `json:"allow_direct_debit,omitempty"`
+	ConsolidatedInvoicing            *bool                    `json:"consolidated_invoicing,omitempty"`
+	VatNumber                        string                   `json:"vat_number,omitempty"`
+	VatNumberPrefix                  string                   `json:"vat_number_prefix,omitempty"`
+	EntityIdentifierScheme           string                   `json:"entity_identifier_scheme,omitempty"`
+	EntityIdentifierStandard         string                   `json:"entity_identifier_standard,omitempty"`
+	IsEinvoiceEnabled                *bool                    `json:"is_einvoice_enabled,omitempty"`
+	EinvoicingMethod                 EinvoicingMethod         `json:"einvoicing_method,omitempty"`
+	RegisteredForGst                 *bool                    `json:"registered_for_gst,omitempty"`
+	BusinessCustomerWithoutVatNumber *bool                    `json:"business_customer_without_vat_number,omitempty"`
+	ExemptionDetails                 []map[string]interface{} `json:"exemption_details,omitempty"`
+	CustomerType                     CustomerType             `json:"customer_type,omitempty"`
 }
-type CreateEntityIdentifier struct {
+
+// input sub resource params multi
+type SubscriptionCreateEntityIdentifier struct {
 	Id       string `json:"id,omitempty"`
 	Scheme   string `json:"scheme,omitempty"`
 	Value    string `json:"value,omitempty"`
 	Standard string `json:"standard,omitempty"`
 }
-type CreateTaxProvidersField struct {
+
+// input sub resource params multi
+type SubscriptionCreateTaxProvidersField struct {
 	ProviderName string `json:"provider_name,omitempty"`
 	FieldId      string `json:"field_id,omitempty"`
 	FieldValue   string `json:"field_value,omitempty"`
 }
-type CreateAddon struct {
+
+// input sub resource params multi
+type SubscriptionCreateAddon struct {
 	Id                 string `json:"id,omitempty"`
 	Quantity           *int32 `json:"quantity,omitempty"`
 	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
@@ -404,19 +751,23 @@ type CreateAddon struct {
 	BillingCycles      *int32 `json:"billing_cycles,omitempty"`
 	TrialEnd           *int64 `json:"trial_end,omitempty"`
 }
-type CreateEventBasedAddon struct {
-	Id                  string        `json:"id,omitempty"`
-	Quantity            *int32        `json:"quantity,omitempty"`
-	UnitPrice           *int64        `json:"unit_price,omitempty"`
-	QuantityInDecimal   string        `json:"quantity_in_decimal,omitempty"`
-	UnitPriceInDecimal  string        `json:"unit_price_in_decimal,omitempty"`
-	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
-	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce          *bool         `json:"charge_once,omitempty"`
-	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
+
+// input sub resource params multi
+type SubscriptionCreateEventBasedAddon struct {
+	Id                  string   `json:"id,omitempty"`
+	Quantity            *int32   `json:"quantity,omitempty"`
+	UnitPrice           *int64   `json:"unit_price,omitempty"`
+	QuantityInDecimal   string   `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal  string   `json:"unit_price_in_decimal,omitempty"`
+	ServicePeriodInDays *int32   `json:"service_period_in_days,omitempty"`
+	OnEvent             OnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool    `json:"charge_once,omitempty"`
+	ChargeOn            ChargeOn `json:"charge_on,omitempty"`
 }
-type CreateCard struct {
-	Gateway               enum.Gateway           `json:"gateway,omitempty"`
+
+// input sub resource params single
+type SubscriptionCreateCard struct {
+	Gateway               Gateway                `json:"gateway,omitempty"`
 	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
 	TmpToken              string                 `json:"tmp_token,omitempty"`
 	FirstName             string                 `json:"first_name,omitempty"`
@@ -425,7 +776,7 @@ type CreateCard struct {
 	ExpiryMonth           *int32                 `json:"expiry_month,omitempty"`
 	ExpiryYear            *int32                 `json:"expiry_year,omitempty"`
 	Cvv                   string                 `json:"cvv,omitempty"`
-	PreferredScheme       card.PreferredScheme   `json:"preferred_scheme,omitempty"`
+	PreferredScheme       PreferredScheme        `json:"preferred_scheme,omitempty"`
 	BillingAddr1          string                 `json:"billing_addr1,omitempty"`
 	BillingAddr2          string                 `json:"billing_addr2,omitempty"`
 	BillingCity           string                 `json:"billing_city,omitempty"`
@@ -436,7 +787,9 @@ type CreateCard struct {
 	IpAddress             string                 `json:"ip_address,omitempty"`
 	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
-type CreateBankAccount struct {
+
+// input sub resource params single
+type SubscriptionCreateBankAccount struct {
 	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
 	Iban                  string                 `json:"iban,omitempty"`
 	FirstName             string                 `json:"first_name,omitempty"`
@@ -448,114 +801,132 @@ type CreateBankAccount struct {
 	AccountNumber         string                 `json:"account_number,omitempty"`
 	RoutingNumber         string                 `json:"routing_number,omitempty"`
 	BankCode              string                 `json:"bank_code,omitempty"`
-	AccountType           enum.AccountType       `json:"account_type,omitempty"`
-	AccountHolderType     enum.AccountHolderType `json:"account_holder_type,omitempty"`
-	EcheckType            enum.EcheckType        `json:"echeck_type,omitempty"`
+	AccountType           AccountType            `json:"account_type,omitempty"`
+	AccountHolderType     AccountHolderType      `json:"account_holder_type,omitempty"`
+	EcheckType            EcheckType             `json:"echeck_type,omitempty"`
 	IssuingCountry        string                 `json:"issuing_country,omitempty"`
 	SwedishIdentityNumber string                 `json:"swedish_identity_number,omitempty"`
 	BillingAddress        map[string]interface{} `json:"billing_address,omitempty"`
 }
-type CreatePaymentMethod struct {
-	Type                  enum.Type              `json:"type,omitempty"`
-	Gateway               enum.Gateway           `json:"gateway,omitempty"`
+
+// input sub resource params single
+type SubscriptionCreatePaymentMethod struct {
+	Type                  Type                   `json:"type,omitempty"`
+	Gateway               Gateway                `json:"gateway,omitempty"`
 	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
 	ReferenceId           string                 `json:"reference_id,omitempty"`
 	TmpToken              string                 `json:"tmp_token,omitempty"`
 	IssuingCountry        string                 `json:"issuing_country,omitempty"`
 	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
-type CreatePaymentIntent struct {
-	Id                    string                          `json:"id,omitempty"`
-	GatewayAccountId      string                          `json:"gateway_account_id,omitempty"`
-	GwToken               string                          `json:"gw_token,omitempty"`
-	PaymentMethodType     paymentIntent.PaymentMethodType `json:"payment_method_type,omitempty"`
-	ReferenceId           string                          `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                          `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{}          `json:"additional_information,omitempty"`
+
+// input sub resource params single
+type SubscriptionCreatePaymentIntent struct {
+	Id                    string                 `json:"id,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                 `json:"gw_token,omitempty"`
+	PaymentMethodType     PaymentMethodType      `json:"payment_method_type,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
-type CreateBillingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params single
+type SubscriptionCreateBillingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type CreateShippingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params single
+type SubscriptionCreateShippingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type CreateStatementDescriptor struct {
+
+// input sub resource params single
+type SubscriptionCreateStatementDescriptor struct {
 	Descriptor string `json:"descriptor,omitempty"`
 }
-type CreateContractTerm struct {
-	ActionAtTermEnd          subscription.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32                                   `json:"cancellation_cutoff_period,omitempty"`
+
+// input sub resource params single
+type SubscriptionCreateContractTerm struct {
+	ActionAtTermEnd          ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                      `json:"cancellation_cutoff_period,omitempty"`
 }
-type CreateCoupon struct {
+
+// input sub resource params multi
+type SubscriptionCreateCoupon struct {
 	CouponId  string `json:"coupon_id,omitempty"`
 	ApplyTill *int64 `json:"apply_till,omitempty"`
 }
-type CreateForCustomerRequest struct {
-	Id                                string                                `json:"id,omitempty"`
-	PlanId                            string                                `json:"plan_id"`
-	PlanQuantity                      *int32                                `json:"plan_quantity,omitempty"`
-	PlanQuantityInDecimal             string                                `json:"plan_quantity_in_decimal,omitempty"`
-	PlanUnitPrice                     *int64                                `json:"plan_unit_price,omitempty"`
-	PlanUnitPriceInDecimal            string                                `json:"plan_unit_price_in_decimal,omitempty"`
-	SetupFee                          *int64                                `json:"setup_fee,omitempty"`
-	TrialEnd                          *int64                                `json:"trial_end,omitempty"`
-	BillingCycles                     *int32                                `json:"billing_cycles,omitempty"`
-	Addons                            []*CreateForCustomerAddon             `json:"addons,omitempty"`
-	EventBasedAddons                  []*CreateForCustomerEventBasedAddon   `json:"event_based_addons,omitempty"`
-	MandatoryAddonsToRemove           []string                              `json:"mandatory_addons_to_remove,omitempty"`
-	StartDate                         *int64                                `json:"start_date,omitempty"`
-	Coupon                            string                                `json:"coupon,omitempty"`
-	AutoCollection                    enum.AutoCollection                   `json:"auto_collection,omitempty"`
-	TermsToCharge                     *int32                                `json:"terms_to_charge,omitempty"`
-	BillingAlignmentMode              enum.BillingAlignmentMode             `json:"billing_alignment_mode,omitempty"`
-	OfflinePaymentMethod              enum.OfflinePaymentMethod             `json:"offline_payment_method,omitempty"`
-	PoNumber                          string                                `json:"po_number,omitempty"`
-	CouponIds                         []string                              `json:"coupon_ids,omitempty"`
-	PaymentSourceId                   string                                `json:"payment_source_id,omitempty"`
-	OverrideRelationship              *bool                                 `json:"override_relationship,omitempty"`
-	ShippingAddress                   *CreateForCustomerShippingAddress     `json:"shipping_address,omitempty"`
-	StatementDescriptor               *CreateForCustomerStatementDescriptor `json:"statement_descriptor,omitempty"`
-	InvoiceNotes                      string                                `json:"invoice_notes,omitempty"`
-	InvoiceDate                       *int64                                `json:"invoice_date,omitempty"`
-	MetaData                          map[string]interface{}                `json:"meta_data,omitempty"`
-	InvoiceImmediately                *bool                                 `json:"invoice_immediately,omitempty"`
-	ReplacePrimaryPaymentSource       *bool                                 `json:"replace_primary_payment_source,omitempty"`
-	PaymentIntent                     *CreateForCustomerPaymentIntent       `json:"payment_intent,omitempty"`
-	FreePeriod                        *int32                                `json:"free_period,omitempty"`
-	FreePeriodUnit                    enum.FreePeriodUnit                   `json:"free_period_unit,omitempty"`
-	ContractTerm                      *CreateForCustomerContractTerm        `json:"contract_term,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32                                `json:"contract_term_billing_cycle_on_renewal,omitempty"`
-	TrialEndAction                    enum.TrialEndAction                   `json:"trial_end_action,omitempty"`
-	PaymentInitiator                  enum.PaymentInitiator                 `json:"payment_initiator,omitempty"`
-	Coupons                           []*CreateForCustomerCoupon            `json:"coupons,omitempty"`
+type SubscriptionCreateForCustomerRequest struct {
+	Id                                string                                            `json:"id,omitempty"`
+	PlanId                            string                                            `json:"plan_id"`
+	PlanQuantity                      *int32                                            `json:"plan_quantity,omitempty"`
+	PlanQuantityInDecimal             string                                            `json:"plan_quantity_in_decimal,omitempty"`
+	PlanUnitPrice                     *int64                                            `json:"plan_unit_price,omitempty"`
+	PlanUnitPriceInDecimal            string                                            `json:"plan_unit_price_in_decimal,omitempty"`
+	SetupFee                          *int64                                            `json:"setup_fee,omitempty"`
+	TrialEnd                          *int64                                            `json:"trial_end,omitempty"`
+	BillingCycles                     *int32                                            `json:"billing_cycles,omitempty"`
+	Addons                            []*SubscriptionCreateForCustomerAddon             `json:"addons,omitempty"`
+	EventBasedAddons                  []*SubscriptionCreateForCustomerEventBasedAddon   `json:"event_based_addons,omitempty"`
+	MandatoryAddonsToRemove           []string                                          `json:"mandatory_addons_to_remove,omitempty"`
+	StartDate                         *int64                                            `json:"start_date,omitempty"`
+	AutoCollection                    SubscriptionAutoCollection                        `json:"auto_collection,omitempty"`
+	TermsToCharge                     *int32                                            `json:"terms_to_charge,omitempty"`
+	BillingAlignmentMode              SubscriptionBillingAlignmentMode                  `json:"billing_alignment_mode,omitempty"`
+	OfflinePaymentMethod              SubscriptionOfflinePaymentMethod                  `json:"offline_payment_method,omitempty"`
+	PoNumber                          string                                            `json:"po_number,omitempty"`
+	CouponIds                         []string                                          `json:"coupon_ids,omitempty"`
+	PaymentSourceId                   string                                            `json:"payment_source_id,omitempty"`
+	OverrideRelationship              *bool                                             `json:"override_relationship,omitempty"`
+	ShippingAddress                   *SubscriptionCreateForCustomerShippingAddress     `json:"shipping_address,omitempty"`
+	StatementDescriptor               *SubscriptionCreateForCustomerStatementDescriptor `json:"statement_descriptor,omitempty"`
+	InvoiceNotes                      string                                            `json:"invoice_notes,omitempty"`
+	InvoiceDate                       *int64                                            `json:"invoice_date,omitempty"`
+	MetaData                          map[string]interface{}                            `json:"meta_data,omitempty"`
+	InvoiceImmediately                *bool                                             `json:"invoice_immediately,omitempty"`
+	ReplacePrimaryPaymentSource       *bool                                             `json:"replace_primary_payment_source,omitempty"`
+	PaymentIntent                     *SubscriptionCreateForCustomerPaymentIntent       `json:"payment_intent,omitempty"`
+	FreePeriod                        *int32                                            `json:"free_period,omitempty"`
+	FreePeriodUnit                    SubscriptionFreePeriodUnit                        `json:"free_period_unit,omitempty"`
+	ContractTerm                      *SubscriptionCreateForCustomerContractTerm        `json:"contract_term,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                            `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	TrialEndAction                    SubscriptionTrialEndAction                        `json:"trial_end_action,omitempty"`
+	PaymentInitiator                  SubscriptionPaymentInitiator                      `json:"payment_initiator,omitempty"`
+	Coupons                           []*SubscriptionCreateForCustomerCoupon            `json:"coupons,omitempty"`
+	apiRequest                        `json:"-" form:"-"`
 }
-type CreateForCustomerAddon struct {
+
+func (r *SubscriptionCreateForCustomerRequest) payload() any { return r }
+
+// input sub resource params multi
+type SubscriptionCreateForCustomerAddon struct {
 	Id                 string `json:"id,omitempty"`
 	Quantity           *int32 `json:"quantity,omitempty"`
 	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
@@ -564,295 +935,359 @@ type CreateForCustomerAddon struct {
 	BillingCycles      *int32 `json:"billing_cycles,omitempty"`
 	TrialEnd           *int64 `json:"trial_end,omitempty"`
 }
-type CreateForCustomerEventBasedAddon struct {
-	Id                  string        `json:"id,omitempty"`
-	Quantity            *int32        `json:"quantity,omitempty"`
-	UnitPrice           *int64        `json:"unit_price,omitempty"`
-	QuantityInDecimal   string        `json:"quantity_in_decimal,omitempty"`
-	UnitPriceInDecimal  string        `json:"unit_price_in_decimal,omitempty"`
-	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
-	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce          *bool         `json:"charge_once,omitempty"`
-	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
+
+// input sub resource params multi
+type SubscriptionCreateForCustomerEventBasedAddon struct {
+	Id                  string   `json:"id,omitempty"`
+	Quantity            *int32   `json:"quantity,omitempty"`
+	UnitPrice           *int64   `json:"unit_price,omitempty"`
+	QuantityInDecimal   string   `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal  string   `json:"unit_price_in_decimal,omitempty"`
+	ServicePeriodInDays *int32   `json:"service_period_in_days,omitempty"`
+	OnEvent             OnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool    `json:"charge_once,omitempty"`
+	ChargeOn            ChargeOn `json:"charge_on,omitempty"`
 }
-type CreateForCustomerShippingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params single
+type SubscriptionCreateForCustomerShippingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type CreateForCustomerStatementDescriptor struct {
+
+// input sub resource params single
+type SubscriptionCreateForCustomerStatementDescriptor struct {
 	Descriptor string `json:"descriptor,omitempty"`
 }
-type CreateForCustomerPaymentIntent struct {
-	Id                    string                          `json:"id,omitempty"`
-	GatewayAccountId      string                          `json:"gateway_account_id,omitempty"`
-	GwToken               string                          `json:"gw_token,omitempty"`
-	PaymentMethodType     paymentIntent.PaymentMethodType `json:"payment_method_type,omitempty"`
-	ReferenceId           string                          `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                          `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{}          `json:"additional_information,omitempty"`
+
+// input sub resource params single
+type SubscriptionCreateForCustomerPaymentIntent struct {
+	Id                    string                 `json:"id,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                 `json:"gw_token,omitempty"`
+	PaymentMethodType     PaymentMethodType      `json:"payment_method_type,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
-type CreateForCustomerContractTerm struct {
-	ActionAtTermEnd          subscription.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32                                   `json:"cancellation_cutoff_period,omitempty"`
+
+// input sub resource params single
+type SubscriptionCreateForCustomerContractTerm struct {
+	ActionAtTermEnd          ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                      `json:"cancellation_cutoff_period,omitempty"`
 }
-type CreateForCustomerCoupon struct {
+
+// input sub resource params multi
+type SubscriptionCreateForCustomerCoupon struct {
 	CouponId  string `json:"coupon_id,omitempty"`
 	ApplyTill *int64 `json:"apply_till,omitempty"`
 }
-type CreateWithItemsRequest struct {
-	Id                                string                              `json:"id,omitempty"`
-	BusinessEntityId                  string                              `json:"business_entity_id,omitempty"`
-	TrialEnd                          *int64                              `json:"trial_end,omitempty"`
-	BillingCycles                     *int32                              `json:"billing_cycles,omitempty"`
-	SubscriptionItems                 []*CreateWithItemsSubscriptionItem  `json:"subscription_items,omitempty"`
-	SetupFee                          *int64                              `json:"setup_fee,omitempty"`
-	Discounts                         []*CreateWithItemsDiscount          `json:"discounts,omitempty"`
-	MandatoryItemsToRemove            []string                            `json:"mandatory_items_to_remove,omitempty"`
-	ItemTiers                         []*CreateWithItemsItemTier          `json:"item_tiers,omitempty"`
-	NetTermDays                       *int32                              `json:"net_term_days,omitempty"`
-	StartDate                         *int64                              `json:"start_date,omitempty"`
-	Coupon                            string                              `json:"coupon,omitempty"`
-	AutoCollection                    enum.AutoCollection                 `json:"auto_collection,omitempty"`
-	TermsToCharge                     *int32                              `json:"terms_to_charge,omitempty"`
-	BillingAlignmentMode              enum.BillingAlignmentMode           `json:"billing_alignment_mode,omitempty"`
-	OfflinePaymentMethod              enum.OfflinePaymentMethod           `json:"offline_payment_method,omitempty"`
-	PoNumber                          string                              `json:"po_number,omitempty"`
-	CouponIds                         []string                            `json:"coupon_ids,omitempty"`
-	PaymentSourceId                   string                              `json:"payment_source_id,omitempty"`
-	OverrideRelationship              *bool                               `json:"override_relationship,omitempty"`
-	ShippingAddress                   *CreateWithItemsShippingAddress     `json:"shipping_address,omitempty"`
-	StatementDescriptor               *CreateWithItemsStatementDescriptor `json:"statement_descriptor,omitempty"`
-	InvoiceNotes                      string                              `json:"invoice_notes,omitempty"`
-	InvoiceDate                       *int64                              `json:"invoice_date,omitempty"`
-	MetaData                          map[string]interface{}              `json:"meta_data,omitempty"`
-	InvoiceImmediately                *bool                               `json:"invoice_immediately,omitempty"`
-	ReplacePrimaryPaymentSource       *bool                               `json:"replace_primary_payment_source,omitempty"`
-	PaymentIntent                     *CreateWithItemsPaymentIntent       `json:"payment_intent,omitempty"`
-	FreePeriod                        *int32                              `json:"free_period,omitempty"`
-	FreePeriodUnit                    enum.FreePeriodUnit                 `json:"free_period_unit,omitempty"`
-	ContractTerm                      *CreateWithItemsContractTerm        `json:"contract_term,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32                              `json:"contract_term_billing_cycle_on_renewal,omitempty"`
-	CreatePendingInvoices             *bool                               `json:"create_pending_invoices,omitempty"`
-	AutoCloseInvoices                 *bool                               `json:"auto_close_invoices,omitempty"`
-	FirstInvoicePending               *bool                               `json:"first_invoice_pending,omitempty"`
-	TrialEndAction                    enum.TrialEndAction                 `json:"trial_end_action,omitempty"`
-	PaymentInitiator                  enum.PaymentInitiator               `json:"payment_initiator,omitempty"`
-	Coupons                           []*CreateWithItemsCoupon            `json:"coupons,omitempty"`
-	BillingOverride                   *CreateWithItemsBillingOverride     `json:"billing_override,omitempty"`
+type SubscriptionCreateWithItemsRequest struct {
+	Id                                string                                          `json:"id,omitempty"`
+	BusinessEntityId                  string                                          `json:"business_entity_id,omitempty"`
+	TrialEnd                          *int64                                          `json:"trial_end,omitempty"`
+	BillingCycles                     *int32                                          `json:"billing_cycles,omitempty"`
+	SubscriptionItems                 []*SubscriptionCreateWithItemsSubscriptionItem  `json:"subscription_items,omitempty"`
+	Discounts                         []*SubscriptionCreateWithItemsDiscount          `json:"discounts,omitempty"`
+	MandatoryItemsToRemove            []string                                        `json:"mandatory_items_to_remove,omitempty"`
+	ItemTiers                         []*SubscriptionCreateWithItemsItemTier          `json:"item_tiers,omitempty"`
+	NetTermDays                       *int32                                          `json:"net_term_days,omitempty"`
+	StartDate                         *int64                                          `json:"start_date,omitempty"`
+	AutoCollection                    SubscriptionAutoCollection                      `json:"auto_collection,omitempty"`
+	TermsToCharge                     *int32                                          `json:"terms_to_charge,omitempty"`
+	BillingAlignmentMode              SubscriptionBillingAlignmentMode                `json:"billing_alignment_mode,omitempty"`
+	OfflinePaymentMethod              SubscriptionOfflinePaymentMethod                `json:"offline_payment_method,omitempty"`
+	PoNumber                          string                                          `json:"po_number,omitempty"`
+	CouponIds                         []string                                        `json:"coupon_ids,omitempty"`
+	PaymentSourceId                   string                                          `json:"payment_source_id,omitempty"`
+	OverrideRelationship              *bool                                           `json:"override_relationship,omitempty"`
+	ShippingAddress                   *SubscriptionCreateWithItemsShippingAddress     `json:"shipping_address,omitempty"`
+	StatementDescriptor               *SubscriptionCreateWithItemsStatementDescriptor `json:"statement_descriptor,omitempty"`
+	InvoiceNotes                      string                                          `json:"invoice_notes,omitempty"`
+	InvoiceDate                       *int64                                          `json:"invoice_date,omitempty"`
+	MetaData                          map[string]interface{}                          `json:"meta_data,omitempty"`
+	InvoiceImmediately                *bool                                           `json:"invoice_immediately,omitempty"`
+	ReplacePrimaryPaymentSource       *bool                                           `json:"replace_primary_payment_source,omitempty"`
+	PaymentIntent                     *SubscriptionCreateWithItemsPaymentIntent       `json:"payment_intent,omitempty"`
+	FreePeriod                        *int32                                          `json:"free_period,omitempty"`
+	FreePeriodUnit                    SubscriptionFreePeriodUnit                      `json:"free_period_unit,omitempty"`
+	ContractTerm                      *SubscriptionCreateWithItemsContractTerm        `json:"contract_term,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                          `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	CreatePendingInvoices             *bool                                           `json:"create_pending_invoices,omitempty"`
+	AutoCloseInvoices                 *bool                                           `json:"auto_close_invoices,omitempty"`
+	FirstInvoicePending               *bool                                           `json:"first_invoice_pending,omitempty"`
+	TrialEndAction                    SubscriptionTrialEndAction                      `json:"trial_end_action,omitempty"`
+	PaymentInitiator                  SubscriptionPaymentInitiator                    `json:"payment_initiator,omitempty"`
+	Coupons                           []*SubscriptionCreateWithItemsCoupon            `json:"coupons,omitempty"`
+	BillingOverride                   *SubscriptionCreateWithItemsBillingOverride     `json:"billing_override,omitempty"`
+	apiRequest                        `json:"-" form:"-"`
 }
-type CreateWithItemsSubscriptionItem struct {
-	ItemPriceId                     string                               `json:"item_price_id"`
-	Quantity                        *int32                               `json:"quantity,omitempty"`
-	QuantityInDecimal               string                               `json:"quantity_in_decimal,omitempty"`
-	UnitPrice                       *int64                               `json:"unit_price,omitempty"`
-	UnitPriceInDecimal              string                               `json:"unit_price_in_decimal,omitempty"`
-	BillingCycles                   *int32                               `json:"billing_cycles,omitempty"`
-	TrialEnd                        *int64                               `json:"trial_end,omitempty"`
-	ServicePeriodDays               *int32                               `json:"service_period_days,omitempty"`
-	ChargeOnEvent                   enum.ChargeOnEvent                   `json:"charge_on_event,omitempty"`
-	ChargeOnce                      *bool                                `json:"charge_once,omitempty"`
-	ItemType                        enum.ItemType                        `json:"item_type,omitempty"`
-	ChargeOnOption                  enum.ChargeOnOption                  `json:"charge_on_option,omitempty"`
-	UsageAccumulationResetFrequency enum.UsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency,omitempty"`
+
+func (r *SubscriptionCreateWithItemsRequest) payload() any { return r }
+
+// input sub resource params multi
+type SubscriptionCreateWithItemsSubscriptionItem struct {
+	ItemPriceId                     string                          `json:"item_price_id"`
+	Quantity                        *int32                          `json:"quantity,omitempty"`
+	QuantityInDecimal               string                          `json:"quantity_in_decimal,omitempty"`
+	UnitPrice                       *int64                          `json:"unit_price,omitempty"`
+	UnitPriceInDecimal              string                          `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles                   *int32                          `json:"billing_cycles,omitempty"`
+	TrialEnd                        *int64                          `json:"trial_end,omitempty"`
+	ServicePeriodDays               *int32                          `json:"service_period_days,omitempty"`
+	ChargeOnEvent                   ChargeOnEvent                   `json:"charge_on_event,omitempty"`
+	ChargeOnce                      *bool                           `json:"charge_once,omitempty"`
+	ItemType                        ItemType                        `json:"item_type,omitempty"`
+	ChargeOnOption                  ChargeOnOption                  `json:"charge_on_option,omitempty"`
+	UsageAccumulationResetFrequency UsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency,omitempty"`
 }
-type CreateWithItemsDiscount struct {
-	ApplyOn       enum.ApplyOn      `json:"apply_on,omitempty"`
-	DurationType  enum.DurationType `json:"duration_type"`
-	Percentage    *float64          `json:"percentage,omitempty"`
-	Amount        *int64            `json:"amount,omitempty"`
-	Period        *int32            `json:"period,omitempty"`
-	PeriodUnit    enum.PeriodUnit   `json:"period_unit,omitempty"`
-	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`
-	ItemPriceId   string            `json:"item_price_id,omitempty"`
-	Quantity      *int32            `json:"quantity,omitempty"`
+
+// input sub resource params multi
+type SubscriptionCreateWithItemsDiscount struct {
+	ApplyOn       ApplyOn      `json:"apply_on,omitempty"`
+	DurationType  DurationType `json:"duration_type"`
+	Percentage    *float64     `json:"percentage,omitempty"`
+	Amount        *int64       `json:"amount,omitempty"`
+	Period        *int32       `json:"period,omitempty"`
+	PeriodUnit    PeriodUnit   `json:"period_unit,omitempty"`
+	IncludedInMrr *bool        `json:"included_in_mrr,omitempty"`
+	ItemPriceId   string       `json:"item_price_id,omitempty"`
+	Quantity      *int32       `json:"quantity,omitempty"`
 }
-type CreateWithItemsItemTier struct {
-	ItemPriceId           string           `json:"item_price_id,omitempty"`
-	StartingUnit          *int32           `json:"starting_unit,omitempty"`
-	EndingUnit            *int32           `json:"ending_unit,omitempty"`
-	Price                 *int64           `json:"price,omitempty"`
-	StartingUnitInDecimal string           `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string           `json:"price_in_decimal,omitempty"`
-	PricingType           enum.PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32           `json:"package_size,omitempty"`
+
+// input sub resource params multi
+type SubscriptionCreateWithItemsItemTier struct {
+	ItemPriceId           string      `json:"item_price_id,omitempty"`
+	StartingUnit          *int32      `json:"starting_unit,omitempty"`
+	EndingUnit            *int32      `json:"ending_unit,omitempty"`
+	Price                 *int64      `json:"price,omitempty"`
+	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
+	PricingType           PricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32      `json:"package_size,omitempty"`
 }
-type CreateWithItemsShippingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params single
+type SubscriptionCreateWithItemsShippingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type CreateWithItemsStatementDescriptor struct {
+
+// input sub resource params single
+type SubscriptionCreateWithItemsStatementDescriptor struct {
 	Descriptor string `json:"descriptor,omitempty"`
 }
-type CreateWithItemsPaymentIntent struct {
-	Id                    string                          `json:"id,omitempty"`
-	GatewayAccountId      string                          `json:"gateway_account_id,omitempty"`
-	GwToken               string                          `json:"gw_token,omitempty"`
-	PaymentMethodType     paymentIntent.PaymentMethodType `json:"payment_method_type,omitempty"`
-	ReferenceId           string                          `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                          `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{}          `json:"additional_information,omitempty"`
+
+// input sub resource params single
+type SubscriptionCreateWithItemsPaymentIntent struct {
+	Id                    string                 `json:"id,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                 `json:"gw_token,omitempty"`
+	PaymentMethodType     PaymentMethodType      `json:"payment_method_type,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
-type CreateWithItemsContractTerm struct {
-	ActionAtTermEnd          subscription.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	ContractStart            *int64                                   `json:"contract_start,omitempty"`
-	CancellationCutoffPeriod *int32                                   `json:"cancellation_cutoff_period,omitempty"`
+
+// input sub resource params single
+type SubscriptionCreateWithItemsContractTerm struct {
+	ActionAtTermEnd          ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	ContractStart            *int64                      `json:"contract_start,omitempty"`
+	CancellationCutoffPeriod *int32                      `json:"cancellation_cutoff_period,omitempty"`
 }
-type CreateWithItemsCoupon struct {
+
+// input sub resource params multi
+type SubscriptionCreateWithItemsCoupon struct {
 	CouponId  string `json:"coupon_id,omitempty"`
 	ApplyTill *int64 `json:"apply_till,omitempty"`
 }
-type CreateWithItemsBillingOverride struct {
+
+// input sub resource params single
+type SubscriptionCreateWithItemsBillingOverride struct {
 	MaxExcessPaymentUsage     *int64 `json:"max_excess_payment_usage,omitempty"`
 	MaxRefundableCreditsUsage *int64 `json:"max_refundable_credits_usage,omitempty"`
 }
-type ListRequest struct {
-	Limit                  *int32                  `json:"limit,omitempty"`
-	Offset                 string                  `json:"offset,omitempty"`
-	IncludeDeleted         *bool                   `json:"include_deleted,omitempty"`
-	Id                     *filter.StringFilter    `json:"id,omitempty"`
-	CustomerId             *filter.StringFilter    `json:"customer_id,omitempty"`
-	PlanId                 *filter.StringFilter    `json:"plan_id,omitempty"`
-	ItemId                 *filter.StringFilter    `json:"item_id,omitempty"`
-	ItemPriceId            *filter.StringFilter    `json:"item_price_id,omitempty"`
-	Status                 *filter.EnumFilter      `json:"status,omitempty"`
-	CancelReason           *filter.EnumFilter      `json:"cancel_reason,omitempty"`
-	CancelReasonCode       *filter.StringFilter    `json:"cancel_reason_code,omitempty"`
-	RemainingBillingCycles *filter.NumberFilter    `json:"remaining_billing_cycles,omitempty"`
-	CreatedAt              *filter.TimestampFilter `json:"created_at,omitempty"`
-	ActivatedAt            *filter.TimestampFilter `json:"activated_at,omitempty"`
-	NextBillingAt          *filter.TimestampFilter `json:"next_billing_at,omitempty"`
-	CancelledAt            *filter.TimestampFilter `json:"cancelled_at,omitempty"`
-	HasScheduledChanges    *filter.BooleanFilter   `json:"has_scheduled_changes,omitempty"`
-	UpdatedAt              *filter.TimestampFilter `json:"updated_at,omitempty"`
-	OfflinePaymentMethod   *filter.EnumFilter      `json:"offline_payment_method,omitempty"`
-	AutoCloseInvoices      *filter.BooleanFilter   `json:"auto_close_invoices,omitempty"`
-	OverrideRelationship   *filter.BooleanFilter   `json:"override_relationship,omitempty"`
-	SortBy                 *filter.SortFilter      `json:"sort_by,omitempty"`
-	BusinessEntityId       *filter.StringFilter    `json:"business_entity_id,omitempty"`
-	Channel                *filter.EnumFilter      `json:"channel,omitempty"`
+type SubscriptionListRequest struct {
+	Limit                  *int32           `json:"limit,omitempty"`
+	Offset                 string           `json:"offset,omitempty"`
+	IncludeDeleted         *bool            `json:"include_deleted,omitempty"`
+	Id                     *StringFilter    `json:"id,omitempty"`
+	CustomerId             *StringFilter    `json:"customer_id,omitempty"`
+	PlanId                 *StringFilter    `json:"plan_id,omitempty"`
+	ItemId                 *StringFilter    `json:"item_id,omitempty"`
+	ItemPriceId            *StringFilter    `json:"item_price_id,omitempty"`
+	Status                 *EnumFilter      `json:"status,omitempty"`
+	CancelReason           *EnumFilter      `json:"cancel_reason,omitempty"`
+	CancelReasonCode       *StringFilter    `json:"cancel_reason_code,omitempty"`
+	RemainingBillingCycles *NumberFilter    `json:"remaining_billing_cycles,omitempty"`
+	CreatedAt              *TimestampFilter `json:"created_at,omitempty"`
+	ActivatedAt            *TimestampFilter `json:"activated_at,omitempty"`
+	NextBillingAt          *TimestampFilter `json:"next_billing_at,omitempty"`
+	CancelledAt            *TimestampFilter `json:"cancelled_at,omitempty"`
+	HasScheduledChanges    *BooleanFilter   `json:"has_scheduled_changes,omitempty"`
+	UpdatedAt              *TimestampFilter `json:"updated_at,omitempty"`
+	OfflinePaymentMethod   *EnumFilter      `json:"offline_payment_method,omitempty"`
+	AutoCloseInvoices      *BooleanFilter   `json:"auto_close_invoices,omitempty"`
+	OverrideRelationship   *BooleanFilter   `json:"override_relationship,omitempty"`
+	SortBy                 *SortFilter      `json:"sort_by,omitempty"`
+	BusinessEntityId       *StringFilter    `json:"business_entity_id,omitempty"`
+	Channel                *EnumFilter      `json:"channel,omitempty"`
+	apiRequest             `json:"-" form:"-"`
 }
-type SubscriptionsForCustomerRequest struct {
-	Limit  *int32 `json:"limit,omitempty"`
-	Offset string `json:"offset,omitempty"`
+
+func (r *SubscriptionListRequest) payload() any { return r }
+
+type SubscriptionSubscriptionsForCustomerRequest struct {
+	Limit      *int32 `json:"limit,omitempty"`
+	Offset     string `json:"offset,omitempty"`
+	apiRequest `json:"-" form:"-"`
 }
-type ContractTermsForSubscriptionRequest struct {
-	Limit  *int32             `json:"limit,omitempty"`
-	Offset string             `json:"offset,omitempty"`
-	SortBy *filter.SortFilter `json:"sort_by,omitempty"`
+
+func (r *SubscriptionSubscriptionsForCustomerRequest) payload() any { return r }
+
+type SubscriptionContractTermsForSubscriptionRequest struct {
+	Limit      *int32      `json:"limit,omitempty"`
+	Offset     string      `json:"offset,omitempty"`
+	SortBy     *SortFilter `json:"sort_by,omitempty"`
+	apiRequest `json:"-" form:"-"`
 }
-type ListDiscountsRequest struct {
-	Limit  *int32 `json:"limit,omitempty"`
-	Offset string `json:"offset,omitempty"`
+
+func (r *SubscriptionContractTermsForSubscriptionRequest) payload() any { return r }
+
+type SubscriptionListDiscountsRequest struct {
+	Limit      *int32 `json:"limit,omitempty"`
+	Offset     string `json:"offset,omitempty"`
+	apiRequest `json:"-" form:"-"`
 }
-type RemoveScheduledCancellationRequest struct {
-	BillingCycles                     *int32                                   `json:"billing_cycles,omitempty"`
-	ContractTerm                      *RemoveScheduledCancellationContractTerm `json:"contract_term,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32                                   `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+
+func (r *SubscriptionListDiscountsRequest) payload() any { return r }
+
+type SubscriptionRemoveScheduledCancellationRequest struct {
+	BillingCycles                     *int32                                               `json:"billing_cycles,omitempty"`
+	ContractTerm                      *SubscriptionRemoveScheduledCancellationContractTerm `json:"contract_term,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                               `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	apiRequest                        `json:"-" form:"-"`
 }
-type RemoveScheduledCancellationContractTerm struct {
-	ActionAtTermEnd          subscription.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32                                   `json:"cancellation_cutoff_period,omitempty"`
+
+func (r *SubscriptionRemoveScheduledCancellationRequest) payload() any { return r }
+
+// input sub resource params single
+type SubscriptionRemoveScheduledCancellationContractTerm struct {
+	ActionAtTermEnd          ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                      `json:"cancellation_cutoff_period,omitempty"`
 }
-type RemoveCouponsRequest struct {
-	CouponIds []string `json:"coupon_ids,omitempty"`
+type SubscriptionRemoveCouponsRequest struct {
+	CouponIds  []string `json:"coupon_ids,omitempty"`
+	apiRequest `json:"-" form:"-"`
 }
-type UpdateRequest struct {
-	PlanId                            string                     `json:"plan_id,omitempty"`
-	PlanQuantity                      *int32                     `json:"plan_quantity,omitempty"`
-	PlanUnitPrice                     *int64                     `json:"plan_unit_price,omitempty"`
-	SetupFee                          *int64                     `json:"setup_fee,omitempty"`
-	Addons                            []*UpdateAddon             `json:"addons,omitempty"`
-	EventBasedAddons                  []*UpdateEventBasedAddon   `json:"event_based_addons,omitempty"`
-	ReplaceAddonList                  *bool                      `json:"replace_addon_list,omitempty"`
-	MandatoryAddonsToRemove           []string                   `json:"mandatory_addons_to_remove,omitempty"`
-	PlanQuantityInDecimal             string                     `json:"plan_quantity_in_decimal,omitempty"`
-	PlanUnitPriceInDecimal            string                     `json:"plan_unit_price_in_decimal,omitempty"`
-	InvoiceDate                       *int64                     `json:"invoice_date,omitempty"`
-	StartDate                         *int64                     `json:"start_date,omitempty"`
-	TrialEnd                          *int64                     `json:"trial_end,omitempty"`
-	BillingCycles                     *int32                     `json:"billing_cycles,omitempty"`
-	Coupon                            string                     `json:"coupon,omitempty"`
-	TermsToCharge                     *int32                     `json:"terms_to_charge,omitempty"`
-	ReactivateFrom                    *int64                     `json:"reactivate_from,omitempty"`
-	BillingAlignmentMode              enum.BillingAlignmentMode  `json:"billing_alignment_mode,omitempty"`
-	AutoCollection                    enum.AutoCollection        `json:"auto_collection,omitempty"`
-	OfflinePaymentMethod              enum.OfflinePaymentMethod  `json:"offline_payment_method,omitempty"`
-	PoNumber                          string                     `json:"po_number,omitempty"`
-	CouponIds                         []string                   `json:"coupon_ids,omitempty"`
-	ReplaceCouponList                 *bool                      `json:"replace_coupon_list,omitempty"`
-	Prorate                           *bool                      `json:"prorate,omitempty"`
-	EndOfTerm                         *bool                      `json:"end_of_term,omitempty"`
-	ForceTermReset                    *bool                      `json:"force_term_reset,omitempty"`
-	Reactivate                        *bool                      `json:"reactivate,omitempty"`
-	Card                              *UpdateCard                `json:"card,omitempty"`
-	TokenId                           string                     `json:"token_id,omitempty"`
-	PaymentMethod                     *UpdatePaymentMethod       `json:"payment_method,omitempty"`
-	PaymentIntent                     *UpdatePaymentIntent       `json:"payment_intent,omitempty"`
-	BillingAddress                    *UpdateBillingAddress      `json:"billing_address,omitempty"`
-	ShippingAddress                   *UpdateShippingAddress     `json:"shipping_address,omitempty"`
-	StatementDescriptor               *UpdateStatementDescriptor `json:"statement_descriptor,omitempty"`
-	Customer                          *UpdateCustomer            `json:"customer,omitempty"`
-	InvoiceNotes                      string                     `json:"invoice_notes,omitempty"`
-	MetaData                          map[string]interface{}     `json:"meta_data,omitempty"`
-	InvoiceImmediately                *bool                      `json:"invoice_immediately,omitempty"`
-	OverrideRelationship              *bool                      `json:"override_relationship,omitempty"`
-	ChangesScheduledAt                *int64                     `json:"changes_scheduled_at,omitempty"`
-	ChangeOption                      enum.ChangeOption          `json:"change_option,omitempty"`
-	ContractTerm                      *UpdateContractTerm        `json:"contract_term,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32                     `json:"contract_term_billing_cycle_on_renewal,omitempty"`
-	FreePeriod                        *int32                     `json:"free_period,omitempty"`
-	FreePeriodUnit                    enum.FreePeriodUnit        `json:"free_period_unit,omitempty"`
-	TrialEndAction                    enum.TrialEndAction        `json:"trial_end_action,omitempty"`
-	Coupons                           []*UpdateCoupon            `json:"coupons,omitempty"`
+
+func (r *SubscriptionRemoveCouponsRequest) payload() any { return r }
+
+type SubscriptionUpdateRequest struct {
+	PlanId                            string                                 `json:"plan_id,omitempty"`
+	PlanQuantity                      *int32                                 `json:"plan_quantity,omitempty"`
+	PlanUnitPrice                     *int64                                 `json:"plan_unit_price,omitempty"`
+	SetupFee                          *int64                                 `json:"setup_fee,omitempty"`
+	Addons                            []*SubscriptionUpdateAddon             `json:"addons,omitempty"`
+	EventBasedAddons                  []*SubscriptionUpdateEventBasedAddon   `json:"event_based_addons,omitempty"`
+	ReplaceAddonList                  *bool                                  `json:"replace_addon_list,omitempty"`
+	MandatoryAddonsToRemove           []string                               `json:"mandatory_addons_to_remove,omitempty"`
+	PlanQuantityInDecimal             string                                 `json:"plan_quantity_in_decimal,omitempty"`
+	PlanUnitPriceInDecimal            string                                 `json:"plan_unit_price_in_decimal,omitempty"`
+	InvoiceDate                       *int64                                 `json:"invoice_date,omitempty"`
+	StartDate                         *int64                                 `json:"start_date,omitempty"`
+	TrialEnd                          *int64                                 `json:"trial_end,omitempty"`
+	BillingCycles                     *int32                                 `json:"billing_cycles,omitempty"`
+	TermsToCharge                     *int32                                 `json:"terms_to_charge,omitempty"`
+	ReactivateFrom                    *int64                                 `json:"reactivate_from,omitempty"`
+	BillingAlignmentMode              SubscriptionBillingAlignmentMode       `json:"billing_alignment_mode,omitempty"`
+	AutoCollection                    SubscriptionAutoCollection             `json:"auto_collection,omitempty"`
+	OfflinePaymentMethod              SubscriptionOfflinePaymentMethod       `json:"offline_payment_method,omitempty"`
+	PoNumber                          string                                 `json:"po_number,omitempty"`
+	CouponIds                         []string                               `json:"coupon_ids,omitempty"`
+	ReplaceCouponList                 *bool                                  `json:"replace_coupon_list,omitempty"`
+	Prorate                           *bool                                  `json:"prorate,omitempty"`
+	EndOfTerm                         *bool                                  `json:"end_of_term,omitempty"`
+	ForceTermReset                    *bool                                  `json:"force_term_reset,omitempty"`
+	Reactivate                        *bool                                  `json:"reactivate,omitempty"`
+	Card                              *SubscriptionUpdateCard                `json:"card,omitempty"`
+	TokenId                           string                                 `json:"token_id,omitempty"`
+	PaymentMethod                     *SubscriptionUpdatePaymentMethod       `json:"payment_method,omitempty"`
+	PaymentIntent                     *SubscriptionUpdatePaymentIntent       `json:"payment_intent,omitempty"`
+	BillingAddress                    *SubscriptionUpdateBillingAddress      `json:"billing_address,omitempty"`
+	ShippingAddress                   *SubscriptionUpdateShippingAddress     `json:"shipping_address,omitempty"`
+	StatementDescriptor               *SubscriptionUpdateStatementDescriptor `json:"statement_descriptor,omitempty"`
+	Customer                          *SubscriptionUpdateCustomer            `json:"customer,omitempty"`
+	InvoiceNotes                      string                                 `json:"invoice_notes,omitempty"`
+	MetaData                          map[string]interface{}                 `json:"meta_data,omitempty"`
+	InvoiceImmediately                *bool                                  `json:"invoice_immediately,omitempty"`
+	OverrideRelationship              *bool                                  `json:"override_relationship,omitempty"`
+	ChangesScheduledAt                *int64                                 `json:"changes_scheduled_at,omitempty"`
+	ChangeOption                      SubscriptionChangeOption               `json:"change_option,omitempty"`
+	ContractTerm                      *SubscriptionUpdateContractTerm        `json:"contract_term,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                 `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	FreePeriod                        *int32                                 `json:"free_period,omitempty"`
+	FreePeriodUnit                    SubscriptionFreePeriodUnit             `json:"free_period_unit,omitempty"`
+	TrialEndAction                    SubscriptionTrialEndAction             `json:"trial_end_action,omitempty"`
+	Coupons                           []*SubscriptionUpdateCoupon            `json:"coupons,omitempty"`
+	apiRequest                        `json:"-" form:"-"`
 }
-type UpdateAddon struct {
-	Id                 string             `json:"id,omitempty"`
-	Quantity           *int32             `json:"quantity,omitempty"`
-	UnitPrice          *int64             `json:"unit_price,omitempty"`
-	BillingCycles      *int32             `json:"billing_cycles,omitempty"`
-	QuantityInDecimal  string             `json:"quantity_in_decimal,omitempty"`
-	UnitPriceInDecimal string             `json:"unit_price_in_decimal,omitempty"`
-	TrialEnd           *int64             `json:"trial_end,omitempty"`
-	ProrationType      enum.ProrationType `json:"proration_type,omitempty"`
+
+func (r *SubscriptionUpdateRequest) payload() any { return r }
+
+// input sub resource params multi
+type SubscriptionUpdateAddon struct {
+	Id                 string        `json:"id,omitempty"`
+	Quantity           *int32        `json:"quantity,omitempty"`
+	UnitPrice          *int64        `json:"unit_price,omitempty"`
+	BillingCycles      *int32        `json:"billing_cycles,omitempty"`
+	QuantityInDecimal  string        `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal string        `json:"unit_price_in_decimal,omitempty"`
+	TrialEnd           *int64        `json:"trial_end,omitempty"`
+	ProrationType      ProrationType `json:"proration_type,omitempty"`
 }
-type UpdateEventBasedAddon struct {
-	Id                  string        `json:"id,omitempty"`
-	Quantity            *int32        `json:"quantity,omitempty"`
-	UnitPrice           *int64        `json:"unit_price,omitempty"`
-	ServicePeriodInDays *int32        `json:"service_period_in_days,omitempty"`
-	ChargeOn            enum.ChargeOn `json:"charge_on,omitempty"`
-	OnEvent             enum.OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce          *bool         `json:"charge_once,omitempty"`
-	QuantityInDecimal   string        `json:"quantity_in_decimal,omitempty"`
-	UnitPriceInDecimal  string        `json:"unit_price_in_decimal,omitempty"`
+
+// input sub resource params multi
+type SubscriptionUpdateEventBasedAddon struct {
+	Id                  string   `json:"id,omitempty"`
+	Quantity            *int32   `json:"quantity,omitempty"`
+	UnitPrice           *int64   `json:"unit_price,omitempty"`
+	ServicePeriodInDays *int32   `json:"service_period_in_days,omitempty"`
+	ChargeOn            ChargeOn `json:"charge_on,omitempty"`
+	OnEvent             OnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool    `json:"charge_once,omitempty"`
+	QuantityInDecimal   string   `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal  string   `json:"unit_price_in_decimal,omitempty"`
 }
-type UpdateCard struct {
-	Gateway               enum.Gateway           `json:"gateway,omitempty"`
+
+// input sub resource params single
+type SubscriptionUpdateCard struct {
+	Gateway               Gateway                `json:"gateway,omitempty"`
 	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
 	TmpToken              string                 `json:"tmp_token,omitempty"`
 	FirstName             string                 `json:"first_name,omitempty"`
@@ -861,7 +1296,7 @@ type UpdateCard struct {
 	ExpiryMonth           *int32                 `json:"expiry_month,omitempty"`
 	ExpiryYear            *int32                 `json:"expiry_year,omitempty"`
 	Cvv                   string                 `json:"cvv,omitempty"`
-	PreferredScheme       card.PreferredScheme   `json:"preferred_scheme,omitempty"`
+	PreferredScheme       PreferredScheme        `json:"preferred_scheme,omitempty"`
 	BillingAddr1          string                 `json:"billing_addr1,omitempty"`
 	BillingAddr2          string                 `json:"billing_addr2,omitempty"`
 	BillingCity           string                 `json:"billing_city,omitempty"`
@@ -872,170 +1307,195 @@ type UpdateCard struct {
 	IpAddress             string                 `json:"ip_address,omitempty"`
 	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
-type UpdatePaymentMethod struct {
-	Type                  enum.Type              `json:"type,omitempty"`
-	Gateway               enum.Gateway           `json:"gateway,omitempty"`
+
+// input sub resource params single
+type SubscriptionUpdatePaymentMethod struct {
+	Type                  Type                   `json:"type,omitempty"`
+	Gateway               Gateway                `json:"gateway,omitempty"`
 	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
 	ReferenceId           string                 `json:"reference_id,omitempty"`
 	TmpToken              string                 `json:"tmp_token,omitempty"`
 	IssuingCountry        string                 `json:"issuing_country,omitempty"`
 	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
-type UpdatePaymentIntent struct {
-	Id                    string                          `json:"id,omitempty"`
-	GatewayAccountId      string                          `json:"gateway_account_id,omitempty"`
-	GwToken               string                          `json:"gw_token,omitempty"`
-	PaymentMethodType     paymentIntent.PaymentMethodType `json:"payment_method_type,omitempty"`
-	ReferenceId           string                          `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                          `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{}          `json:"additional_information,omitempty"`
+
+// input sub resource params single
+type SubscriptionUpdatePaymentIntent struct {
+	Id                    string                 `json:"id,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                 `json:"gw_token,omitempty"`
+	PaymentMethodType     PaymentMethodType      `json:"payment_method_type,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
-type UpdateBillingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params single
+type SubscriptionUpdateBillingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type UpdateShippingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params single
+type SubscriptionUpdateShippingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type UpdateStatementDescriptor struct {
+
+// input sub resource params single
+type SubscriptionUpdateStatementDescriptor struct {
 	Descriptor string `json:"descriptor,omitempty"`
 }
-type UpdateCustomer struct {
-	VatNumber                        string                `json:"vat_number,omitempty"`
-	VatNumberPrefix                  string                `json:"vat_number_prefix,omitempty"`
-	EntityIdentifierScheme           string                `json:"entity_identifier_scheme,omitempty"`
-	IsEinvoiceEnabled                *bool                 `json:"is_einvoice_enabled,omitempty"`
-	EinvoicingMethod                 enum.EinvoicingMethod `json:"einvoicing_method,omitempty"`
-	EntityIdentifierStandard         string                `json:"entity_identifier_standard,omitempty"`
-	BusinessCustomerWithoutVatNumber *bool                 `json:"business_customer_without_vat_number,omitempty"`
-	RegisteredForGst                 *bool                 `json:"registered_for_gst,omitempty"`
+
+// input sub resource params single
+type SubscriptionUpdateCustomer struct {
+	VatNumber                        string           `json:"vat_number,omitempty"`
+	VatNumberPrefix                  string           `json:"vat_number_prefix,omitempty"`
+	EntityIdentifierScheme           string           `json:"entity_identifier_scheme,omitempty"`
+	IsEinvoiceEnabled                *bool            `json:"is_einvoice_enabled,omitempty"`
+	EinvoicingMethod                 EinvoicingMethod `json:"einvoicing_method,omitempty"`
+	EntityIdentifierStandard         string           `json:"entity_identifier_standard,omitempty"`
+	BusinessCustomerWithoutVatNumber *bool            `json:"business_customer_without_vat_number,omitempty"`
+	RegisteredForGst                 *bool            `json:"registered_for_gst,omitempty"`
 }
-type UpdateContractTerm struct {
-	ActionAtTermEnd          subscription.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32                                   `json:"cancellation_cutoff_period,omitempty"`
+
+// input sub resource params single
+type SubscriptionUpdateContractTerm struct {
+	ActionAtTermEnd          ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                      `json:"cancellation_cutoff_period,omitempty"`
 }
-type UpdateCoupon struct {
+
+// input sub resource params multi
+type SubscriptionUpdateCoupon struct {
 	CouponId  string `json:"coupon_id,omitempty"`
 	ApplyTill *int64 `json:"apply_till,omitempty"`
 }
-type UpdateForItemsRequest struct {
-	SubscriptionItems                 []*UpdateForItemsSubscriptionItem  `json:"subscription_items,omitempty"`
-	MandatoryItemsToRemove            []string                           `json:"mandatory_items_to_remove,omitempty"`
-	ReplaceItemsList                  *bool                              `json:"replace_items_list,omitempty"`
-	SetupFee                          *int64                             `json:"setup_fee,omitempty"`
-	Discounts                         []*UpdateForItemsDiscount          `json:"discounts,omitempty"`
-	ItemTiers                         []*UpdateForItemsItemTier          `json:"item_tiers,omitempty"`
-	NetTermDays                       *int32                             `json:"net_term_days,omitempty"`
-	InvoiceDate                       *int64                             `json:"invoice_date,omitempty"`
-	StartDate                         *int64                             `json:"start_date,omitempty"`
-	TrialEnd                          *int64                             `json:"trial_end,omitempty"`
-	BillingCycles                     *int32                             `json:"billing_cycles,omitempty"`
-	Coupon                            string                             `json:"coupon,omitempty"`
-	TermsToCharge                     *int32                             `json:"terms_to_charge,omitempty"`
-	ReactivateFrom                    *int64                             `json:"reactivate_from,omitempty"`
-	BillingAlignmentMode              enum.BillingAlignmentMode          `json:"billing_alignment_mode,omitempty"`
-	AutoCollection                    enum.AutoCollection                `json:"auto_collection,omitempty"`
-	OfflinePaymentMethod              enum.OfflinePaymentMethod          `json:"offline_payment_method,omitempty"`
-	PoNumber                          string                             `json:"po_number,omitempty"`
-	CouponIds                         []string                           `json:"coupon_ids,omitempty"`
-	ReplaceCouponList                 *bool                              `json:"replace_coupon_list,omitempty"`
-	Prorate                           *bool                              `json:"prorate,omitempty"`
-	EndOfTerm                         *bool                              `json:"end_of_term,omitempty"`
-	ForceTermReset                    *bool                              `json:"force_term_reset,omitempty"`
-	Reactivate                        *bool                              `json:"reactivate,omitempty"`
-	Card                              *UpdateForItemsCard                `json:"card,omitempty"`
-	TokenId                           string                             `json:"token_id,omitempty"`
-	PaymentMethod                     *UpdateForItemsPaymentMethod       `json:"payment_method,omitempty"`
-	PaymentIntent                     *UpdateForItemsPaymentIntent       `json:"payment_intent,omitempty"`
-	BillingAddress                    *UpdateForItemsBillingAddress      `json:"billing_address,omitempty"`
-	ShippingAddress                   *UpdateForItemsShippingAddress     `json:"shipping_address,omitempty"`
-	StatementDescriptor               *UpdateForItemsStatementDescriptor `json:"statement_descriptor,omitempty"`
-	Customer                          *UpdateForItemsCustomer            `json:"customer,omitempty"`
-	InvoiceNotes                      string                             `json:"invoice_notes,omitempty"`
-	MetaData                          map[string]interface{}             `json:"meta_data,omitempty"`
-	InvoiceImmediately                *bool                              `json:"invoice_immediately,omitempty"`
-	OverrideRelationship              *bool                              `json:"override_relationship,omitempty"`
-	ChangesScheduledAt                *int64                             `json:"changes_scheduled_at,omitempty"`
-	ChangeOption                      enum.ChangeOption                  `json:"change_option,omitempty"`
-	ContractTerm                      *UpdateForItemsContractTerm        `json:"contract_term,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32                             `json:"contract_term_billing_cycle_on_renewal,omitempty"`
-	FreePeriod                        *int32                             `json:"free_period,omitempty"`
-	FreePeriodUnit                    enum.FreePeriodUnit                `json:"free_period_unit,omitempty"`
-	CreatePendingInvoices             *bool                              `json:"create_pending_invoices,omitempty"`
-	AutoCloseInvoices                 *bool                              `json:"auto_close_invoices,omitempty"`
-	TrialEndAction                    enum.TrialEndAction                `json:"trial_end_action,omitempty"`
-	PaymentInitiator                  enum.PaymentInitiator              `json:"payment_initiator,omitempty"`
-	Coupons                           []*UpdateForItemsCoupon            `json:"coupons,omitempty"`
-	InvoiceUsages                     *bool                              `json:"invoice_usages,omitempty"`
-	BillingOverride                   *UpdateForItemsBillingOverride     `json:"billing_override,omitempty"`
+type SubscriptionUpdateForItemsRequest struct {
+	SubscriptionItems                 []*SubscriptionUpdateForItemsSubscriptionItem  `json:"subscription_items,omitempty"`
+	MandatoryItemsToRemove            []string                                       `json:"mandatory_items_to_remove,omitempty"`
+	ReplaceItemsList                  *bool                                          `json:"replace_items_list,omitempty"`
+	Discounts                         []*SubscriptionUpdateForItemsDiscount          `json:"discounts,omitempty"`
+	ItemTiers                         []*SubscriptionUpdateForItemsItemTier          `json:"item_tiers,omitempty"`
+	NetTermDays                       *int32                                         `json:"net_term_days,omitempty"`
+	InvoiceDate                       *int64                                         `json:"invoice_date,omitempty"`
+	StartDate                         *int64                                         `json:"start_date,omitempty"`
+	TrialEnd                          *int64                                         `json:"trial_end,omitempty"`
+	BillingCycles                     *int32                                         `json:"billing_cycles,omitempty"`
+	TermsToCharge                     *int32                                         `json:"terms_to_charge,omitempty"`
+	ReactivateFrom                    *int64                                         `json:"reactivate_from,omitempty"`
+	BillingAlignmentMode              SubscriptionBillingAlignmentMode               `json:"billing_alignment_mode,omitempty"`
+	AutoCollection                    SubscriptionAutoCollection                     `json:"auto_collection,omitempty"`
+	OfflinePaymentMethod              SubscriptionOfflinePaymentMethod               `json:"offline_payment_method,omitempty"`
+	PoNumber                          string                                         `json:"po_number,omitempty"`
+	CouponIds                         []string                                       `json:"coupon_ids,omitempty"`
+	ReplaceCouponList                 *bool                                          `json:"replace_coupon_list,omitempty"`
+	Prorate                           *bool                                          `json:"prorate,omitempty"`
+	EndOfTerm                         *bool                                          `json:"end_of_term,omitempty"`
+	ForceTermReset                    *bool                                          `json:"force_term_reset,omitempty"`
+	Reactivate                        *bool                                          `json:"reactivate,omitempty"`
+	Card                              *SubscriptionUpdateForItemsCard                `json:"card,omitempty"`
+	TokenId                           string                                         `json:"token_id,omitempty"`
+	PaymentMethod                     *SubscriptionUpdateForItemsPaymentMethod       `json:"payment_method,omitempty"`
+	PaymentIntent                     *SubscriptionUpdateForItemsPaymentIntent       `json:"payment_intent,omitempty"`
+	BillingAddress                    *SubscriptionUpdateForItemsBillingAddress      `json:"billing_address,omitempty"`
+	ShippingAddress                   *SubscriptionUpdateForItemsShippingAddress     `json:"shipping_address,omitempty"`
+	StatementDescriptor               *SubscriptionUpdateForItemsStatementDescriptor `json:"statement_descriptor,omitempty"`
+	Customer                          *SubscriptionUpdateForItemsCustomer            `json:"customer,omitempty"`
+	InvoiceNotes                      string                                         `json:"invoice_notes,omitempty"`
+	MetaData                          map[string]interface{}                         `json:"meta_data,omitempty"`
+	InvoiceImmediately                *bool                                          `json:"invoice_immediately,omitempty"`
+	OverrideRelationship              *bool                                          `json:"override_relationship,omitempty"`
+	ChangesScheduledAt                *int64                                         `json:"changes_scheduled_at,omitempty"`
+	ChangeOption                      SubscriptionChangeOption                       `json:"change_option,omitempty"`
+	ContractTerm                      *SubscriptionUpdateForItemsContractTerm        `json:"contract_term,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                         `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	FreePeriod                        *int32                                         `json:"free_period,omitempty"`
+	FreePeriodUnit                    SubscriptionFreePeriodUnit                     `json:"free_period_unit,omitempty"`
+	CreatePendingInvoices             *bool                                          `json:"create_pending_invoices,omitempty"`
+	AutoCloseInvoices                 *bool                                          `json:"auto_close_invoices,omitempty"`
+	TrialEndAction                    SubscriptionTrialEndAction                     `json:"trial_end_action,omitempty"`
+	PaymentInitiator                  SubscriptionPaymentInitiator                   `json:"payment_initiator,omitempty"`
+	Coupons                           []*SubscriptionUpdateForItemsCoupon            `json:"coupons,omitempty"`
+	InvoiceUsages                     *bool                                          `json:"invoice_usages,omitempty"`
+	BillingOverride                   *SubscriptionUpdateForItemsBillingOverride     `json:"billing_override,omitempty"`
+	apiRequest                        `json:"-" form:"-"`
 }
-type UpdateForItemsSubscriptionItem struct {
-	ItemPriceId                     string                               `json:"item_price_id"`
-	Quantity                        *int32                               `json:"quantity,omitempty"`
-	QuantityInDecimal               string                               `json:"quantity_in_decimal,omitempty"`
-	UnitPrice                       *int64                               `json:"unit_price,omitempty"`
-	UnitPriceInDecimal              string                               `json:"unit_price_in_decimal,omitempty"`
-	BillingCycles                   *int32                               `json:"billing_cycles,omitempty"`
-	TrialEnd                        *int64                               `json:"trial_end,omitempty"`
-	ServicePeriodDays               *int32                               `json:"service_period_days,omitempty"`
-	ChargeOnEvent                   enum.ChargeOnEvent                   `json:"charge_on_event,omitempty"`
-	ChargeOnce                      *bool                                `json:"charge_once,omitempty"`
-	ChargeOnOption                  enum.ChargeOnOption                  `json:"charge_on_option,omitempty"`
-	ItemType                        enum.ItemType                        `json:"item_type,omitempty"`
-	ProrationType                   enum.ProrationType                   `json:"proration_type,omitempty"`
-	UsageAccumulationResetFrequency enum.UsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency,omitempty"`
+
+func (r *SubscriptionUpdateForItemsRequest) payload() any { return r }
+
+// input sub resource params multi
+type SubscriptionUpdateForItemsSubscriptionItem struct {
+	ItemPriceId                     string                          `json:"item_price_id"`
+	Quantity                        *int32                          `json:"quantity,omitempty"`
+	QuantityInDecimal               string                          `json:"quantity_in_decimal,omitempty"`
+	UnitPrice                       *int64                          `json:"unit_price,omitempty"`
+	UnitPriceInDecimal              string                          `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles                   *int32                          `json:"billing_cycles,omitempty"`
+	TrialEnd                        *int64                          `json:"trial_end,omitempty"`
+	ServicePeriodDays               *int32                          `json:"service_period_days,omitempty"`
+	ChargeOnEvent                   ChargeOnEvent                   `json:"charge_on_event,omitempty"`
+	ChargeOnce                      *bool                           `json:"charge_once,omitempty"`
+	ChargeOnOption                  ChargeOnOption                  `json:"charge_on_option,omitempty"`
+	ItemType                        ItemType                        `json:"item_type,omitempty"`
+	ProrationType                   ProrationType                   `json:"proration_type,omitempty"`
+	UsageAccumulationResetFrequency UsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency,omitempty"`
 }
-type UpdateForItemsDiscount struct {
-	ApplyOn       enum.ApplyOn       `json:"apply_on,omitempty"`
-	DurationType  enum.DurationType  `json:"duration_type"`
-	Percentage    *float64           `json:"percentage,omitempty"`
-	Amount        *int64             `json:"amount,omitempty"`
-	Period        *int32             `json:"period,omitempty"`
-	PeriodUnit    enum.PeriodUnit    `json:"period_unit,omitempty"`
-	IncludedInMrr *bool              `json:"included_in_mrr,omitempty"`
-	ItemPriceId   string             `json:"item_price_id,omitempty"`
-	Quantity      *int32             `json:"quantity,omitempty"`
-	OperationType enum.OperationType `json:"operation_type"`
-	Id            string             `json:"id,omitempty"`
+
+// input sub resource params multi
+type SubscriptionUpdateForItemsDiscount struct {
+	ApplyOn       ApplyOn       `json:"apply_on,omitempty"`
+	DurationType  DurationType  `json:"duration_type"`
+	Percentage    *float64      `json:"percentage,omitempty"`
+	Amount        *int64        `json:"amount,omitempty"`
+	Period        *int32        `json:"period,omitempty"`
+	PeriodUnit    PeriodUnit    `json:"period_unit,omitempty"`
+	IncludedInMrr *bool         `json:"included_in_mrr,omitempty"`
+	ItemPriceId   string        `json:"item_price_id,omitempty"`
+	Quantity      *int32        `json:"quantity,omitempty"`
+	OperationType OperationType `json:"operation_type"`
+	Id            string        `json:"id,omitempty"`
 }
-type UpdateForItemsItemTier struct {
-	ItemPriceId           string           `json:"item_price_id,omitempty"`
-	StartingUnit          *int32           `json:"starting_unit,omitempty"`
-	EndingUnit            *int32           `json:"ending_unit,omitempty"`
-	Price                 *int64           `json:"price,omitempty"`
-	StartingUnitInDecimal string           `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string           `json:"price_in_decimal,omitempty"`
-	PricingType           enum.PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32           `json:"package_size,omitempty"`
+
+// input sub resource params multi
+type SubscriptionUpdateForItemsItemTier struct {
+	ItemPriceId           string      `json:"item_price_id,omitempty"`
+	StartingUnit          *int32      `json:"starting_unit,omitempty"`
+	EndingUnit            *int32      `json:"ending_unit,omitempty"`
+	Price                 *int64      `json:"price,omitempty"`
+	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
+	PricingType           PricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32      `json:"package_size,omitempty"`
 }
-type UpdateForItemsCard struct {
-	Gateway               enum.Gateway           `json:"gateway,omitempty"`
+
+// input sub resource params single
+type SubscriptionUpdateForItemsCard struct {
+	Gateway               Gateway                `json:"gateway,omitempty"`
 	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
 	TmpToken              string                 `json:"tmp_token,omitempty"`
 	FirstName             string                 `json:"first_name,omitempty"`
@@ -1044,7 +1504,7 @@ type UpdateForItemsCard struct {
 	ExpiryMonth           *int32                 `json:"expiry_month,omitempty"`
 	ExpiryYear            *int32                 `json:"expiry_year,omitempty"`
 	Cvv                   string                 `json:"cvv,omitempty"`
-	PreferredScheme       card.PreferredScheme   `json:"preferred_scheme,omitempty"`
+	PreferredScheme       PreferredScheme        `json:"preferred_scheme,omitempty"`
 	BillingAddr1          string                 `json:"billing_addr1,omitempty"`
 	BillingAddr2          string                 `json:"billing_addr2,omitempty"`
 	BillingCity           string                 `json:"billing_city,omitempty"`
@@ -1055,129 +1515,163 @@ type UpdateForItemsCard struct {
 	IpAddress             string                 `json:"ip_address,omitempty"`
 	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
-type UpdateForItemsPaymentMethod struct {
-	Type                  enum.Type              `json:"type,omitempty"`
-	Gateway               enum.Gateway           `json:"gateway,omitempty"`
+
+// input sub resource params single
+type SubscriptionUpdateForItemsPaymentMethod struct {
+	Type                  Type                   `json:"type,omitempty"`
+	Gateway               Gateway                `json:"gateway,omitempty"`
 	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
 	ReferenceId           string                 `json:"reference_id,omitempty"`
 	TmpToken              string                 `json:"tmp_token,omitempty"`
 	IssuingCountry        string                 `json:"issuing_country,omitempty"`
 	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
-type UpdateForItemsPaymentIntent struct {
-	Id                    string                          `json:"id,omitempty"`
-	GatewayAccountId      string                          `json:"gateway_account_id,omitempty"`
-	GwToken               string                          `json:"gw_token,omitempty"`
-	PaymentMethodType     paymentIntent.PaymentMethodType `json:"payment_method_type,omitempty"`
-	ReferenceId           string                          `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                          `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{}          `json:"additional_information,omitempty"`
+
+// input sub resource params single
+type SubscriptionUpdateForItemsPaymentIntent struct {
+	Id                    string                 `json:"id,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                 `json:"gw_token,omitempty"`
+	PaymentMethodType     PaymentMethodType      `json:"payment_method_type,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
-type UpdateForItemsBillingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params single
+type SubscriptionUpdateForItemsBillingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type UpdateForItemsShippingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params single
+type SubscriptionUpdateForItemsShippingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type UpdateForItemsStatementDescriptor struct {
+
+// input sub resource params single
+type SubscriptionUpdateForItemsStatementDescriptor struct {
 	Descriptor string `json:"descriptor,omitempty"`
 }
-type UpdateForItemsCustomer struct {
-	VatNumber                        string                `json:"vat_number,omitempty"`
-	VatNumberPrefix                  string                `json:"vat_number_prefix,omitempty"`
-	EntityIdentifierScheme           string                `json:"entity_identifier_scheme,omitempty"`
-	IsEinvoiceEnabled                *bool                 `json:"is_einvoice_enabled,omitempty"`
-	EinvoicingMethod                 enum.EinvoicingMethod `json:"einvoicing_method,omitempty"`
-	EntityIdentifierStandard         string                `json:"entity_identifier_standard,omitempty"`
-	BusinessCustomerWithoutVatNumber *bool                 `json:"business_customer_without_vat_number,omitempty"`
-	RegisteredForGst                 *bool                 `json:"registered_for_gst,omitempty"`
+
+// input sub resource params single
+type SubscriptionUpdateForItemsCustomer struct {
+	VatNumber                        string           `json:"vat_number,omitempty"`
+	VatNumberPrefix                  string           `json:"vat_number_prefix,omitempty"`
+	EntityIdentifierScheme           string           `json:"entity_identifier_scheme,omitempty"`
+	IsEinvoiceEnabled                *bool            `json:"is_einvoice_enabled,omitempty"`
+	EinvoicingMethod                 EinvoicingMethod `json:"einvoicing_method,omitempty"`
+	EntityIdentifierStandard         string           `json:"entity_identifier_standard,omitempty"`
+	BusinessCustomerWithoutVatNumber *bool            `json:"business_customer_without_vat_number,omitempty"`
+	RegisteredForGst                 *bool            `json:"registered_for_gst,omitempty"`
 }
-type UpdateForItemsContractTerm struct {
-	ActionAtTermEnd          subscription.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32                                   `json:"cancellation_cutoff_period,omitempty"`
-	ContractStart            *int64                                   `json:"contract_start,omitempty"`
+
+// input sub resource params single
+type SubscriptionUpdateForItemsContractTerm struct {
+	ActionAtTermEnd          ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                      `json:"cancellation_cutoff_period,omitempty"`
+	ContractStart            *int64                      `json:"contract_start,omitempty"`
 }
-type UpdateForItemsCoupon struct {
+
+// input sub resource params multi
+type SubscriptionUpdateForItemsCoupon struct {
 	CouponId  string `json:"coupon_id,omitempty"`
 	ApplyTill *int64 `json:"apply_till,omitempty"`
 }
-type UpdateForItemsBillingOverride struct {
+
+// input sub resource params single
+type SubscriptionUpdateForItemsBillingOverride struct {
 	MaxExcessPaymentUsage     *int64 `json:"max_excess_payment_usage,omitempty"`
 	MaxRefundableCreditsUsage *int64 `json:"max_refundable_credits_usage,omitempty"`
 }
-type ChangeTermEndRequest struct {
+type SubscriptionChangeTermEndRequest struct {
 	TermEndsAt         *int64 `json:"term_ends_at"`
 	Prorate            *bool  `json:"prorate,omitempty"`
 	InvoiceImmediately *bool  `json:"invoice_immediately,omitempty"`
+	apiRequest         `json:"-" form:"-"`
 }
-type ReactivateRequest struct {
-	TrialEnd                          *int64                         `json:"trial_end,omitempty"`
-	BillingCycles                     *int32                         `json:"billing_cycles,omitempty"`
-	TrialPeriodDays                   *int32                         `json:"trial_period_days,omitempty"`
-	ReactivateFrom                    *int64                         `json:"reactivate_from,omitempty"`
-	InvoiceImmediately                *bool                          `json:"invoice_immediately,omitempty"`
-	BillingAlignmentMode              enum.BillingAlignmentMode      `json:"billing_alignment_mode,omitempty"`
-	TermsToCharge                     *int32                         `json:"terms_to_charge,omitempty"`
-	InvoiceDate                       *int64                         `json:"invoice_date,omitempty"`
-	ContractTerm                      *ReactivateContractTerm        `json:"contract_term,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32                         `json:"contract_term_billing_cycle_on_renewal,omitempty"`
-	PaymentInitiator                  enum.PaymentInitiator          `json:"payment_initiator,omitempty"`
-	StatementDescriptor               *ReactivateStatementDescriptor `json:"statement_descriptor,omitempty"`
-	PaymentIntent                     *ReactivatePaymentIntent       `json:"payment_intent,omitempty"`
+
+func (r *SubscriptionChangeTermEndRequest) payload() any { return r }
+
+type SubscriptionReactivateRequest struct {
+	TrialEnd                          *int64                                     `json:"trial_end,omitempty"`
+	BillingCycles                     *int32                                     `json:"billing_cycles,omitempty"`
+	ReactivateFrom                    *int64                                     `json:"reactivate_from,omitempty"`
+	InvoiceImmediately                *bool                                      `json:"invoice_immediately,omitempty"`
+	BillingAlignmentMode              SubscriptionBillingAlignmentMode           `json:"billing_alignment_mode,omitempty"`
+	TermsToCharge                     *int32                                     `json:"terms_to_charge,omitempty"`
+	InvoiceDate                       *int64                                     `json:"invoice_date,omitempty"`
+	ContractTerm                      *SubscriptionReactivateContractTerm        `json:"contract_term,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                     `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	PaymentInitiator                  SubscriptionPaymentInitiator               `json:"payment_initiator,omitempty"`
+	StatementDescriptor               *SubscriptionReactivateStatementDescriptor `json:"statement_descriptor,omitempty"`
+	PaymentIntent                     *SubscriptionReactivatePaymentIntent       `json:"payment_intent,omitempty"`
+	apiRequest                        `json:"-" form:"-"`
 }
-type ReactivateContractTerm struct {
-	ActionAtTermEnd          subscription.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32                                   `json:"cancellation_cutoff_period,omitempty"`
+
+func (r *SubscriptionReactivateRequest) payload() any { return r }
+
+// input sub resource params single
+type SubscriptionReactivateContractTerm struct {
+	ActionAtTermEnd          ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                      `json:"cancellation_cutoff_period,omitempty"`
 }
-type ReactivateStatementDescriptor struct {
+
+// input sub resource params single
+type SubscriptionReactivateStatementDescriptor struct {
 	Descriptor string `json:"descriptor,omitempty"`
 }
-type ReactivatePaymentIntent struct {
-	Id                    string                          `json:"id,omitempty"`
-	GatewayAccountId      string                          `json:"gateway_account_id,omitempty"`
-	GwToken               string                          `json:"gw_token,omitempty"`
-	PaymentMethodType     paymentIntent.PaymentMethodType `json:"payment_method_type,omitempty"`
-	ReferenceId           string                          `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                          `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{}          `json:"additional_information,omitempty"`
+
+// input sub resource params single
+type SubscriptionReactivatePaymentIntent struct {
+	Id                    string                 `json:"id,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                 `json:"gw_token,omitempty"`
+	PaymentMethodType     PaymentMethodType      `json:"payment_method_type,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
-type AddChargeAtTermEndRequest struct {
-	Amount                 *int64               `json:"amount,omitempty"`
-	Description            string               `json:"description"`
-	AmountInDecimal        string               `json:"amount_in_decimal,omitempty"`
-	AvalaraSaleType        enum.AvalaraSaleType `json:"avalara_sale_type,omitempty"`
-	AvalaraTransactionType *int32               `json:"avalara_transaction_type,omitempty"`
-	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
-	DateFrom               *int64               `json:"date_from,omitempty"`
-	DateTo                 *int64               `json:"date_to,omitempty"`
+type SubscriptionAddChargeAtTermEndRequest struct {
+	Amount                 *int64                      `json:"amount,omitempty"`
+	Description            string                      `json:"description"`
+	AmountInDecimal        string                      `json:"amount_in_decimal,omitempty"`
+	AvalaraSaleType        SubscriptionAvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32                      `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32                      `json:"avalara_service_type,omitempty"`
+	DateFrom               *int64                      `json:"date_from,omitempty"`
+	DateTo                 *int64                      `json:"date_to,omitempty"`
+	apiRequest             `json:"-" form:"-"`
 }
-type ChargeAddonAtTermEndRequest struct {
+
+func (r *SubscriptionAddChargeAtTermEndRequest) payload() any { return r }
+
+type SubscriptionChargeAddonAtTermEndRequest struct {
 	AddonId                 string `json:"addon_id"`
 	AddonQuantity           *int32 `json:"addon_quantity,omitempty"`
 	AddonUnitPrice          *int64 `json:"addon_unit_price,omitempty"`
@@ -1185,114 +1679,148 @@ type ChargeAddonAtTermEndRequest struct {
 	AddonUnitPriceInDecimal string `json:"addon_unit_price_in_decimal,omitempty"`
 	DateFrom                *int64 `json:"date_from,omitempty"`
 	DateTo                  *int64 `json:"date_to,omitempty"`
+	apiRequest              `json:"-" form:"-"`
 }
-type ChargeFutureRenewalsRequest struct {
-	TermsToCharge         *int32                                       `json:"terms_to_charge,omitempty"`
-	SpecificDatesSchedule []*ChargeFutureRenewalsSpecificDatesSchedule `json:"specific_dates_schedule,omitempty"`
-	FixedIntervalSchedule *ChargeFutureRenewalsFixedIntervalSchedule   `json:"fixed_interval_schedule,omitempty"`
-	InvoiceImmediately    *bool                                        `json:"invoice_immediately,omitempty"`
-	ScheduleType          enum.ScheduleType                            `json:"schedule_type,omitempty"`
+
+func (r *SubscriptionChargeAddonAtTermEndRequest) payload() any { return r }
+
+type SubscriptionChargeFutureRenewalsRequest struct {
+	TermsToCharge         *int32                                                   `json:"terms_to_charge,omitempty"`
+	SpecificDatesSchedule []*SubscriptionChargeFutureRenewalsSpecificDatesSchedule `json:"specific_dates_schedule,omitempty"`
+	FixedIntervalSchedule *SubscriptionChargeFutureRenewalsFixedIntervalSchedule   `json:"fixed_interval_schedule,omitempty"`
+	InvoiceImmediately    *bool                                                    `json:"invoice_immediately,omitempty"`
+	ScheduleType          SubscriptionScheduleType                                 `json:"schedule_type,omitempty"`
+	apiRequest            `json:"-" form:"-"`
 }
-type ChargeFutureRenewalsSpecificDatesSchedule struct {
+
+func (r *SubscriptionChargeFutureRenewalsRequest) payload() any { return r }
+
+// input sub resource params multi
+type SubscriptionChargeFutureRenewalsSpecificDatesSchedule struct {
 	TermsToCharge *int32 `json:"terms_to_charge,omitempty"`
 	Date          *int64 `json:"date,omitempty"`
 }
-type ChargeFutureRenewalsFixedIntervalSchedule struct {
-	NumberOfOccurrences *int32             `json:"number_of_occurrences,omitempty"`
-	DaysBeforeRenewal   *int32             `json:"days_before_renewal,omitempty"`
-	EndScheduleOn       enum.EndScheduleOn `json:"end_schedule_on,omitempty"`
-	EndDate             *int64             `json:"end_date,omitempty"`
+
+// input sub resource params single
+type SubscriptionChargeFutureRenewalsFixedIntervalSchedule struct {
+	NumberOfOccurrences *int32        `json:"number_of_occurrences,omitempty"`
+	DaysBeforeRenewal   *int32        `json:"days_before_renewal,omitempty"`
+	EndScheduleOn       EndScheduleOn `json:"end_schedule_on,omitempty"`
+	EndDate             *int64        `json:"end_date,omitempty"`
 }
-type EditAdvanceInvoiceScheduleRequest struct {
-	TermsToCharge         *int32                                             `json:"terms_to_charge,omitempty"`
-	ScheduleType          enum.ScheduleType                                  `json:"schedule_type,omitempty"`
-	SpecificDatesSchedule []*EditAdvanceInvoiceScheduleSpecificDatesSchedule `json:"specific_dates_schedule,omitempty"`
-	FixedIntervalSchedule *EditAdvanceInvoiceScheduleFixedIntervalSchedule   `json:"fixed_interval_schedule,omitempty"`
+type SubscriptionEditAdvanceInvoiceScheduleRequest struct {
+	TermsToCharge         *int32                                                         `json:"terms_to_charge,omitempty"`
+	ScheduleType          SubscriptionScheduleType                                       `json:"schedule_type,omitempty"`
+	SpecificDatesSchedule []*SubscriptionEditAdvanceInvoiceScheduleSpecificDatesSchedule `json:"specific_dates_schedule,omitempty"`
+	FixedIntervalSchedule *SubscriptionEditAdvanceInvoiceScheduleFixedIntervalSchedule   `json:"fixed_interval_schedule,omitempty"`
+	apiRequest            `json:"-" form:"-"`
 }
-type EditAdvanceInvoiceScheduleSpecificDatesSchedule struct {
+
+func (r *SubscriptionEditAdvanceInvoiceScheduleRequest) payload() any { return r }
+
+// input sub resource params multi
+type SubscriptionEditAdvanceInvoiceScheduleSpecificDatesSchedule struct {
 	Id            string `json:"id,omitempty"`
 	TermsToCharge *int32 `json:"terms_to_charge,omitempty"`
 	Date          *int64 `json:"date,omitempty"`
 }
-type EditAdvanceInvoiceScheduleFixedIntervalSchedule struct {
-	NumberOfOccurrences *int32             `json:"number_of_occurrences,omitempty"`
-	DaysBeforeRenewal   *int32             `json:"days_before_renewal,omitempty"`
-	EndScheduleOn       enum.EndScheduleOn `json:"end_schedule_on,omitempty"`
-	EndDate             *int64             `json:"end_date,omitempty"`
+
+// input sub resource params single
+type SubscriptionEditAdvanceInvoiceScheduleFixedIntervalSchedule struct {
+	NumberOfOccurrences *int32        `json:"number_of_occurrences,omitempty"`
+	DaysBeforeRenewal   *int32        `json:"days_before_renewal,omitempty"`
+	EndScheduleOn       EndScheduleOn `json:"end_schedule_on,omitempty"`
+	EndDate             *int64        `json:"end_date,omitempty"`
 }
-type RemoveAdvanceInvoiceScheduleRequest struct {
-	SpecificDatesSchedule []*RemoveAdvanceInvoiceScheduleSpecificDatesSchedule `json:"specific_dates_schedule,omitempty"`
+type SubscriptionRemoveAdvanceInvoiceScheduleRequest struct {
+	SpecificDatesSchedule []*SubscriptionRemoveAdvanceInvoiceScheduleSpecificDatesSchedule `json:"specific_dates_schedule,omitempty"`
+	apiRequest            `json:"-" form:"-"`
 }
-type RemoveAdvanceInvoiceScheduleSpecificDatesSchedule struct {
+
+func (r *SubscriptionRemoveAdvanceInvoiceScheduleRequest) payload() any { return r }
+
+// input sub resource params multi
+type SubscriptionRemoveAdvanceInvoiceScheduleSpecificDatesSchedule struct {
 	Id string `json:"id,omitempty"`
 }
-type RegenerateInvoiceRequest struct {
+type SubscriptionRegenerateInvoiceRequest struct {
 	DateFrom           *int64 `json:"date_from,omitempty"`
 	DateTo             *int64 `json:"date_to,omitempty"`
 	Prorate            *bool  `json:"prorate,omitempty"`
 	InvoiceImmediately *bool  `json:"invoice_immediately,omitempty"`
+	apiRequest         `json:"-" form:"-"`
 }
-type ImportSubscriptionRequest struct {
-	Id                                string                                      `json:"id,omitempty"`
-	Customer                          *ImportSubscriptionCustomer                 `json:"customer,omitempty"`
-	ClientProfileId                   string                                      `json:"client_profile_id,omitempty"`
-	PlanId                            string                                      `json:"plan_id"`
-	PlanQuantity                      *int32                                      `json:"plan_quantity,omitempty"`
-	PlanQuantityInDecimal             string                                      `json:"plan_quantity_in_decimal,omitempty"`
-	PlanUnitPrice                     *int64                                      `json:"plan_unit_price,omitempty"`
-	PlanUnitPriceInDecimal            string                                      `json:"plan_unit_price_in_decimal,omitempty"`
-	SetupFee                          *int64                                      `json:"setup_fee,omitempty"`
-	TrialEnd                          *int64                                      `json:"trial_end,omitempty"`
-	BillingCycles                     *int32                                      `json:"billing_cycles,omitempty"`
-	Addons                            []*ImportSubscriptionAddon                  `json:"addons,omitempty"`
-	EventBasedAddons                  []*ImportSubscriptionEventBasedAddon        `json:"event_based_addons,omitempty"`
-	ChargedEventBasedAddons           []*ImportSubscriptionChargedEventBasedAddon `json:"charged_event_based_addons,omitempty"`
-	StartDate                         *int64                                      `json:"start_date,omitempty"`
-	AutoCollection                    enum.AutoCollection                         `json:"auto_collection,omitempty"`
-	PoNumber                          string                                      `json:"po_number,omitempty"`
-	CouponIds                         []string                                    `json:"coupon_ids,omitempty"`
-	ContractTerm                      *ImportSubscriptionContractTerm             `json:"contract_term,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32                                      `json:"contract_term_billing_cycle_on_renewal,omitempty"`
-	Status                            Status                                      `json:"status"`
-	CurrentTermEnd                    *int64                                      `json:"current_term_end,omitempty"`
-	CurrentTermStart                  *int64                                      `json:"current_term_start,omitempty"`
-	TrialStart                        *int64                                      `json:"trial_start,omitempty"`
-	CancelledAt                       *int64                                      `json:"cancelled_at,omitempty"`
-	StartedAt                         *int64                                      `json:"started_at,omitempty"`
-	ActivatedAt                       *int64                                      `json:"activated_at,omitempty"`
-	PauseDate                         *int64                                      `json:"pause_date,omitempty"`
-	ResumeDate                        *int64                                      `json:"resume_date,omitempty"`
-	CreateCurrentTermInvoice          *bool                                       `json:"create_current_term_invoice,omitempty"`
-	Card                              *ImportSubscriptionCard                     `json:"card,omitempty"`
-	PaymentMethod                     *ImportSubscriptionPaymentMethod            `json:"payment_method,omitempty"`
-	BillingAddress                    *ImportSubscriptionBillingAddress           `json:"billing_address,omitempty"`
-	ShippingAddress                   *ImportSubscriptionShippingAddress          `json:"shipping_address,omitempty"`
-	AffiliateToken                    string                                      `json:"affiliate_token,omitempty"`
-	InvoiceNotes                      string                                      `json:"invoice_notes,omitempty"`
-	MetaData                          map[string]interface{}                      `json:"meta_data,omitempty"`
-	Transaction                       *ImportSubscriptionTransaction              `json:"transaction,omitempty"`
-	Coupons                           []*ImportSubscriptionCoupon                 `json:"coupons,omitempty"`
+
+func (r *SubscriptionRegenerateInvoiceRequest) payload() any { return r }
+
+type SubscriptionImportSubscriptionRequest struct {
+	Id                                string                                                  `json:"id,omitempty"`
+	Customer                          *SubscriptionImportSubscriptionCustomer                 `json:"customer,omitempty"`
+	ClientProfileId                   string                                                  `json:"client_profile_id,omitempty"`
+	PlanId                            string                                                  `json:"plan_id"`
+	PlanQuantity                      *int32                                                  `json:"plan_quantity,omitempty"`
+	PlanQuantityInDecimal             string                                                  `json:"plan_quantity_in_decimal,omitempty"`
+	PlanUnitPrice                     *int64                                                  `json:"plan_unit_price,omitempty"`
+	PlanUnitPriceInDecimal            string                                                  `json:"plan_unit_price_in_decimal,omitempty"`
+	SetupFee                          *int64                                                  `json:"setup_fee,omitempty"`
+	TrialEnd                          *int64                                                  `json:"trial_end,omitempty"`
+	BillingCycles                     *int32                                                  `json:"billing_cycles,omitempty"`
+	Addons                            []*SubscriptionImportSubscriptionAddon                  `json:"addons,omitempty"`
+	EventBasedAddons                  []*SubscriptionImportSubscriptionEventBasedAddon        `json:"event_based_addons,omitempty"`
+	ChargedEventBasedAddons           []*SubscriptionImportSubscriptionChargedEventBasedAddon `json:"charged_event_based_addons,omitempty"`
+	StartDate                         *int64                                                  `json:"start_date,omitempty"`
+	AutoCollection                    SubscriptionAutoCollection                              `json:"auto_collection,omitempty"`
+	PoNumber                          string                                                  `json:"po_number,omitempty"`
+	CouponIds                         []string                                                `json:"coupon_ids,omitempty"`
+	ContractTerm                      *SubscriptionImportSubscriptionContractTerm             `json:"contract_term,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                                  `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	Status                            SubscriptionStatus                                      `json:"status"`
+	CurrentTermEnd                    *int64                                                  `json:"current_term_end,omitempty"`
+	CurrentTermStart                  *int64                                                  `json:"current_term_start,omitempty"`
+	TrialStart                        *int64                                                  `json:"trial_start,omitempty"`
+	CancelledAt                       *int64                                                  `json:"cancelled_at,omitempty"`
+	StartedAt                         *int64                                                  `json:"started_at,omitempty"`
+	ActivatedAt                       *int64                                                  `json:"activated_at,omitempty"`
+	PauseDate                         *int64                                                  `json:"pause_date,omitempty"`
+	ResumeDate                        *int64                                                  `json:"resume_date,omitempty"`
+	CreateCurrentTermInvoice          *bool                                                   `json:"create_current_term_invoice,omitempty"`
+	Card                              *SubscriptionImportSubscriptionCard                     `json:"card,omitempty"`
+	PaymentMethod                     *SubscriptionImportSubscriptionPaymentMethod            `json:"payment_method,omitempty"`
+	BillingAddress                    *SubscriptionImportSubscriptionBillingAddress           `json:"billing_address,omitempty"`
+	ShippingAddress                   *SubscriptionImportSubscriptionShippingAddress          `json:"shipping_address,omitempty"`
+	AffiliateToken                    string                                                  `json:"affiliate_token,omitempty"`
+	InvoiceNotes                      string                                                  `json:"invoice_notes,omitempty"`
+	MetaData                          map[string]interface{}                                  `json:"meta_data,omitempty"`
+	Transaction                       *SubscriptionImportSubscriptionTransaction              `json:"transaction,omitempty"`
+	Coupons                           []*SubscriptionImportSubscriptionCoupon                 `json:"coupons,omitempty"`
+	apiRequest                        `json:"-" form:"-"`
 }
-type ImportSubscriptionCustomer struct {
-	Id                      string                       `json:"id,omitempty"`
-	Email                   string                       `json:"email,omitempty"`
-	FirstName               string                       `json:"first_name,omitempty"`
-	LastName                string                       `json:"last_name,omitempty"`
-	Company                 string                       `json:"company,omitempty"`
-	Phone                   string                       `json:"phone,omitempty"`
-	Locale                  string                       `json:"locale,omitempty"`
-	Taxability              enum.Taxability              `json:"taxability,omitempty"`
-	EntityCode              enum.EntityCode              `json:"entity_code,omitempty"`
-	ExemptNumber            string                       `json:"exempt_number,omitempty"`
-	NetTermDays             *int32                       `json:"net_term_days,omitempty"`
-	TaxjarExemptionCategory enum.TaxjarExemptionCategory `json:"taxjar_exemption_category,omitempty"`
-	CustomerType            enum.CustomerType            `json:"customer_type,omitempty"`
-	AutoCollection          enum.AutoCollection          `json:"auto_collection,omitempty"`
-	AllowDirectDebit        *bool                        `json:"allow_direct_debit,omitempty"`
-	VatNumber               string                       `json:"vat_number,omitempty"`
-	VatNumberPrefix         string                       `json:"vat_number_prefix,omitempty"`
+
+func (r *SubscriptionImportSubscriptionRequest) payload() any { return r }
+
+// input sub resource params single
+type SubscriptionImportSubscriptionCustomer struct {
+	Id                      string                  `json:"id,omitempty"`
+	Email                   string                  `json:"email,omitempty"`
+	FirstName               string                  `json:"first_name,omitempty"`
+	LastName                string                  `json:"last_name,omitempty"`
+	Company                 string                  `json:"company,omitempty"`
+	Phone                   string                  `json:"phone,omitempty"`
+	Locale                  string                  `json:"locale,omitempty"`
+	Taxability              Taxability              `json:"taxability,omitempty"`
+	EntityCode              EntityCode              `json:"entity_code,omitempty"`
+	ExemptNumber            string                  `json:"exempt_number,omitempty"`
+	NetTermDays             *int32                  `json:"net_term_days,omitempty"`
+	TaxjarExemptionCategory TaxjarExemptionCategory `json:"taxjar_exemption_category,omitempty"`
+	CustomerType            CustomerType            `json:"customer_type,omitempty"`
+	AutoCollection          AutoCollection          `json:"auto_collection,omitempty"`
+	AllowDirectDebit        *bool                   `json:"allow_direct_debit,omitempty"`
+	VatNumber               string                  `json:"vat_number,omitempty"`
+	VatNumberPrefix         string                  `json:"vat_number_prefix,omitempty"`
 }
-type ImportSubscriptionAddon struct {
+
+// input sub resource params multi
+type SubscriptionImportSubscriptionAddon struct {
 	Id                 string `json:"id,omitempty"`
 	Quantity           *int32 `json:"quantity,omitempty"`
 	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
@@ -1300,32 +1828,40 @@ type ImportSubscriptionAddon struct {
 	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
 	BillingCycles      *int32 `json:"billing_cycles,omitempty"`
 }
-type ImportSubscriptionEventBasedAddon struct {
-	Id                  string       `json:"id,omitempty"`
-	Quantity            *int32       `json:"quantity,omitempty"`
-	UnitPrice           *int64       `json:"unit_price,omitempty"`
-	QuantityInDecimal   string       `json:"quantity_in_decimal,omitempty"`
-	UnitPriceInDecimal  string       `json:"unit_price_in_decimal,omitempty"`
-	ServicePeriodInDays *int32       `json:"service_period_in_days,omitempty"`
-	OnEvent             enum.OnEvent `json:"on_event,omitempty"`
-	ChargeOnce          *bool        `json:"charge_once,omitempty"`
+
+// input sub resource params multi
+type SubscriptionImportSubscriptionEventBasedAddon struct {
+	Id                  string  `json:"id,omitempty"`
+	Quantity            *int32  `json:"quantity,omitempty"`
+	UnitPrice           *int64  `json:"unit_price,omitempty"`
+	QuantityInDecimal   string  `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal  string  `json:"unit_price_in_decimal,omitempty"`
+	ServicePeriodInDays *int32  `json:"service_period_in_days,omitempty"`
+	OnEvent             OnEvent `json:"on_event,omitempty"`
+	ChargeOnce          *bool   `json:"charge_once,omitempty"`
 }
-type ImportSubscriptionChargedEventBasedAddon struct {
+
+// input sub resource params multi
+type SubscriptionImportSubscriptionChargedEventBasedAddon struct {
 	Id            string `json:"id,omitempty"`
 	LastChargedAt *int64 `json:"last_charged_at,omitempty"`
 }
-type ImportSubscriptionContractTerm struct {
-	Id                         string                                   `json:"id,omitempty"`
-	CreatedAt                  *int64                                   `json:"created_at,omitempty"`
-	ContractStart              *int64                                   `json:"contract_start,omitempty"`
-	BillingCycle               *int32                                   `json:"billing_cycle,omitempty"`
-	TotalAmountRaised          *int64                                   `json:"total_amount_raised,omitempty"`
-	TotalAmountRaisedBeforeTax *int64                                   `json:"total_amount_raised_before_tax,omitempty"`
-	ActionAtTermEnd            subscription.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod   *int32                                   `json:"cancellation_cutoff_period,omitempty"`
+
+// input sub resource params single
+type SubscriptionImportSubscriptionContractTerm struct {
+	Id                         string                      `json:"id,omitempty"`
+	CreatedAt                  *int64                      `json:"created_at,omitempty"`
+	ContractStart              *int64                      `json:"contract_start,omitempty"`
+	BillingCycle               *int32                      `json:"billing_cycle,omitempty"`
+	TotalAmountRaised          *int64                      `json:"total_amount_raised,omitempty"`
+	TotalAmountRaisedBeforeTax *int64                      `json:"total_amount_raised_before_tax,omitempty"`
+	ActionAtTermEnd            ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod   *int32                      `json:"cancellation_cutoff_period,omitempty"`
 }
-type ImportSubscriptionCard struct {
-	Gateway               enum.Gateway           `json:"gateway,omitempty"`
+
+// input sub resource params single
+type SubscriptionImportSubscriptionCard struct {
+	Gateway               Gateway                `json:"gateway,omitempty"`
 	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
 	TmpToken              string                 `json:"tmp_token,omitempty"`
 	FirstName             string                 `json:"first_name,omitempty"`
@@ -1334,7 +1870,7 @@ type ImportSubscriptionCard struct {
 	ExpiryMonth           *int32                 `json:"expiry_month,omitempty"`
 	ExpiryYear            *int32                 `json:"expiry_year,omitempty"`
 	Cvv                   string                 `json:"cvv,omitempty"`
-	PreferredScheme       card.PreferredScheme   `json:"preferred_scheme,omitempty"`
+	PreferredScheme       PreferredScheme        `json:"preferred_scheme,omitempty"`
 	BillingAddr1          string                 `json:"billing_addr1,omitempty"`
 	BillingAddr2          string                 `json:"billing_addr2,omitempty"`
 	BillingCity           string                 `json:"billing_city,omitempty"`
@@ -1344,93 +1880,108 @@ type ImportSubscriptionCard struct {
 	BillingCountry        string                 `json:"billing_country,omitempty"`
 	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
-type ImportSubscriptionPaymentMethod struct {
-	Type                  enum.Type              `json:"type,omitempty"`
-	Gateway               enum.Gateway           `json:"gateway,omitempty"`
+
+// input sub resource params single
+type SubscriptionImportSubscriptionPaymentMethod struct {
+	Type                  Type                   `json:"type,omitempty"`
+	Gateway               Gateway                `json:"gateway,omitempty"`
 	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
 	ReferenceId           string                 `json:"reference_id,omitempty"`
 	IssuingCountry        string                 `json:"issuing_country,omitempty"`
 	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
-type ImportSubscriptionBillingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params single
+type SubscriptionImportSubscriptionBillingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type ImportSubscriptionShippingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params single
+type SubscriptionImportSubscriptionShippingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type ImportSubscriptionTransaction struct {
-	Amount          *int64             `json:"amount,omitempty"`
-	PaymentMethod   enum.PaymentMethod `json:"payment_method,omitempty"`
-	ReferenceNumber string             `json:"reference_number,omitempty"`
-	Date            *int64             `json:"date,omitempty"`
+
+// input sub resource params single
+type SubscriptionImportSubscriptionTransaction struct {
+	Amount          *int64        `json:"amount,omitempty"`
+	PaymentMethod   PaymentMethod `json:"payment_method,omitempty"`
+	ReferenceNumber string        `json:"reference_number,omitempty"`
+	Date            *int64        `json:"date,omitempty"`
 }
-type ImportSubscriptionCoupon struct {
+
+// input sub resource params multi
+type SubscriptionImportSubscriptionCoupon struct {
 	CouponId  string `json:"coupon_id,omitempty"`
 	ApplyTill *int64 `json:"apply_till,omitempty"`
 }
-type ImportForCustomerRequest struct {
-	Id                                string                                     `json:"id,omitempty"`
-	PlanId                            string                                     `json:"plan_id"`
-	PlanQuantity                      *int32                                     `json:"plan_quantity,omitempty"`
-	PlanQuantityInDecimal             string                                     `json:"plan_quantity_in_decimal,omitempty"`
-	PlanUnitPrice                     *int64                                     `json:"plan_unit_price,omitempty"`
-	PlanUnitPriceInDecimal            string                                     `json:"plan_unit_price_in_decimal,omitempty"`
-	SetupFee                          *int64                                     `json:"setup_fee,omitempty"`
-	TrialEnd                          *int64                                     `json:"trial_end,omitempty"`
-	BillingCycles                     *int32                                     `json:"billing_cycles,omitempty"`
-	Addons                            []*ImportForCustomerAddon                  `json:"addons,omitempty"`
-	EventBasedAddons                  []*ImportForCustomerEventBasedAddon        `json:"event_based_addons,omitempty"`
-	ChargedEventBasedAddons           []*ImportForCustomerChargedEventBasedAddon `json:"charged_event_based_addons,omitempty"`
-	StartDate                         *int64                                     `json:"start_date,omitempty"`
-	AutoCollection                    enum.AutoCollection                        `json:"auto_collection,omitempty"`
-	PoNumber                          string                                     `json:"po_number,omitempty"`
-	CouponIds                         []string                                   `json:"coupon_ids,omitempty"`
-	PaymentSourceId                   string                                     `json:"payment_source_id,omitempty"`
-	Status                            Status                                     `json:"status"`
-	CurrentTermEnd                    *int64                                     `json:"current_term_end,omitempty"`
-	CurrentTermStart                  *int64                                     `json:"current_term_start,omitempty"`
-	TrialStart                        *int64                                     `json:"trial_start,omitempty"`
-	CancelledAt                       *int64                                     `json:"cancelled_at,omitempty"`
-	StartedAt                         *int64                                     `json:"started_at,omitempty"`
-	ActivatedAt                       *int64                                     `json:"activated_at,omitempty"`
-	PauseDate                         *int64                                     `json:"pause_date,omitempty"`
-	ResumeDate                        *int64                                     `json:"resume_date,omitempty"`
-	ContractTerm                      *ImportForCustomerContractTerm             `json:"contract_term,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32                                     `json:"contract_term_billing_cycle_on_renewal,omitempty"`
-	CreateCurrentTermInvoice          *bool                                      `json:"create_current_term_invoice,omitempty"`
-	Transaction                       *ImportForCustomerTransaction              `json:"transaction,omitempty"`
-	ShippingAddress                   *ImportForCustomerShippingAddress          `json:"shipping_address,omitempty"`
-	InvoiceNotes                      string                                     `json:"invoice_notes,omitempty"`
-	MetaData                          map[string]interface{}                     `json:"meta_data,omitempty"`
-	Coupons                           []*ImportForCustomerCoupon                 `json:"coupons,omitempty"`
+type SubscriptionImportForCustomerRequest struct {
+	Id                                string                                                 `json:"id,omitempty"`
+	PlanId                            string                                                 `json:"plan_id"`
+	PlanQuantity                      *int32                                                 `json:"plan_quantity,omitempty"`
+	PlanQuantityInDecimal             string                                                 `json:"plan_quantity_in_decimal,omitempty"`
+	PlanUnitPrice                     *int64                                                 `json:"plan_unit_price,omitempty"`
+	PlanUnitPriceInDecimal            string                                                 `json:"plan_unit_price_in_decimal,omitempty"`
+	SetupFee                          *int64                                                 `json:"setup_fee,omitempty"`
+	TrialEnd                          *int64                                                 `json:"trial_end,omitempty"`
+	BillingCycles                     *int32                                                 `json:"billing_cycles,omitempty"`
+	Addons                            []*SubscriptionImportForCustomerAddon                  `json:"addons,omitempty"`
+	EventBasedAddons                  []*SubscriptionImportForCustomerEventBasedAddon        `json:"event_based_addons,omitempty"`
+	ChargedEventBasedAddons           []*SubscriptionImportForCustomerChargedEventBasedAddon `json:"charged_event_based_addons,omitempty"`
+	StartDate                         *int64                                                 `json:"start_date,omitempty"`
+	AutoCollection                    SubscriptionAutoCollection                             `json:"auto_collection,omitempty"`
+	PoNumber                          string                                                 `json:"po_number,omitempty"`
+	CouponIds                         []string                                               `json:"coupon_ids,omitempty"`
+	PaymentSourceId                   string                                                 `json:"payment_source_id,omitempty"`
+	Status                            SubscriptionStatus                                     `json:"status"`
+	CurrentTermEnd                    *int64                                                 `json:"current_term_end,omitempty"`
+	CurrentTermStart                  *int64                                                 `json:"current_term_start,omitempty"`
+	TrialStart                        *int64                                                 `json:"trial_start,omitempty"`
+	CancelledAt                       *int64                                                 `json:"cancelled_at,omitempty"`
+	StartedAt                         *int64                                                 `json:"started_at,omitempty"`
+	ActivatedAt                       *int64                                                 `json:"activated_at,omitempty"`
+	PauseDate                         *int64                                                 `json:"pause_date,omitempty"`
+	ResumeDate                        *int64                                                 `json:"resume_date,omitempty"`
+	ContractTerm                      *SubscriptionImportForCustomerContractTerm             `json:"contract_term,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                                 `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	CreateCurrentTermInvoice          *bool                                                  `json:"create_current_term_invoice,omitempty"`
+	Transaction                       *SubscriptionImportForCustomerTransaction              `json:"transaction,omitempty"`
+	ShippingAddress                   *SubscriptionImportForCustomerShippingAddress          `json:"shipping_address,omitempty"`
+	InvoiceNotes                      string                                                 `json:"invoice_notes,omitempty"`
+	MetaData                          map[string]interface{}                                 `json:"meta_data,omitempty"`
+	Coupons                           []*SubscriptionImportForCustomerCoupon                 `json:"coupons,omitempty"`
+	apiRequest                        `json:"-" form:"-"`
 }
-type ImportForCustomerAddon struct {
+
+func (r *SubscriptionImportForCustomerRequest) payload() any { return r }
+
+// input sub resource params multi
+type SubscriptionImportForCustomerAddon struct {
 	Id                 string `json:"id,omitempty"`
 	Quantity           *int32 `json:"quantity,omitempty"`
 	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
@@ -1438,104 +1989,130 @@ type ImportForCustomerAddon struct {
 	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
 	BillingCycles      *int32 `json:"billing_cycles,omitempty"`
 }
-type ImportForCustomerEventBasedAddon struct {
-	Id                  string       `json:"id,omitempty"`
-	Quantity            *int32       `json:"quantity,omitempty"`
-	UnitPrice           *int64       `json:"unit_price,omitempty"`
-	QuantityInDecimal   string       `json:"quantity_in_decimal,omitempty"`
-	UnitPriceInDecimal  string       `json:"unit_price_in_decimal,omitempty"`
-	ServicePeriodInDays *int32       `json:"service_period_in_days,omitempty"`
-	OnEvent             enum.OnEvent `json:"on_event,omitempty"`
-	ChargeOnce          *bool        `json:"charge_once,omitempty"`
+
+// input sub resource params multi
+type SubscriptionImportForCustomerEventBasedAddon struct {
+	Id                  string  `json:"id,omitempty"`
+	Quantity            *int32  `json:"quantity,omitempty"`
+	UnitPrice           *int64  `json:"unit_price,omitempty"`
+	QuantityInDecimal   string  `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal  string  `json:"unit_price_in_decimal,omitempty"`
+	ServicePeriodInDays *int32  `json:"service_period_in_days,omitempty"`
+	OnEvent             OnEvent `json:"on_event,omitempty"`
+	ChargeOnce          *bool   `json:"charge_once,omitempty"`
 }
-type ImportForCustomerChargedEventBasedAddon struct {
+
+// input sub resource params multi
+type SubscriptionImportForCustomerChargedEventBasedAddon struct {
 	Id            string `json:"id,omitempty"`
 	LastChargedAt *int64 `json:"last_charged_at,omitempty"`
 }
-type ImportForCustomerContractTerm struct {
-	Id                         string                                   `json:"id,omitempty"`
-	CreatedAt                  *int64                                   `json:"created_at,omitempty"`
-	ContractStart              *int64                                   `json:"contract_start,omitempty"`
-	BillingCycle               *int32                                   `json:"billing_cycle,omitempty"`
-	TotalAmountRaised          *int64                                   `json:"total_amount_raised,omitempty"`
-	TotalAmountRaisedBeforeTax *int64                                   `json:"total_amount_raised_before_tax,omitempty"`
-	ActionAtTermEnd            subscription.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod   *int32                                   `json:"cancellation_cutoff_period,omitempty"`
+
+// input sub resource params single
+type SubscriptionImportForCustomerContractTerm struct {
+	Id                         string                      `json:"id,omitempty"`
+	CreatedAt                  *int64                      `json:"created_at,omitempty"`
+	ContractStart              *int64                      `json:"contract_start,omitempty"`
+	BillingCycle               *int32                      `json:"billing_cycle,omitempty"`
+	TotalAmountRaised          *int64                      `json:"total_amount_raised,omitempty"`
+	TotalAmountRaisedBeforeTax *int64                      `json:"total_amount_raised_before_tax,omitempty"`
+	ActionAtTermEnd            ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod   *int32                      `json:"cancellation_cutoff_period,omitempty"`
 }
-type ImportForCustomerTransaction struct {
-	Amount          *int64             `json:"amount,omitempty"`
-	PaymentMethod   enum.PaymentMethod `json:"payment_method,omitempty"`
-	ReferenceNumber string             `json:"reference_number,omitempty"`
-	Date            *int64             `json:"date,omitempty"`
+
+// input sub resource params single
+type SubscriptionImportForCustomerTransaction struct {
+	Amount          *int64        `json:"amount,omitempty"`
+	PaymentMethod   PaymentMethod `json:"payment_method,omitempty"`
+	ReferenceNumber string        `json:"reference_number,omitempty"`
+	Date            *int64        `json:"date,omitempty"`
 }
-type ImportForCustomerShippingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params single
+type SubscriptionImportForCustomerShippingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type ImportForCustomerCoupon struct {
+
+// input sub resource params multi
+type SubscriptionImportForCustomerCoupon struct {
 	CouponId  string `json:"coupon_id,omitempty"`
 	ApplyTill *int64 `json:"apply_till,omitempty"`
 }
-type ImportContractTermRequest struct {
-	ContractTerm                      *ImportContractTermContractTerm `json:"contract_term,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32                          `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+type SubscriptionImportContractTermRequest struct {
+	ContractTerm                      *SubscriptionImportContractTermContractTerm `json:"contract_term,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                      `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	apiRequest                        `json:"-" form:"-"`
 }
-type ImportContractTermContractTerm struct {
-	Id                          string                                   `json:"id,omitempty"`
-	CreatedAt                   *int64                                   `json:"created_at,omitempty"`
-	ContractStart               *int64                                   `json:"contract_start,omitempty"`
-	ContractEnd                 *int64                                   `json:"contract_end,omitempty"`
-	Status                      subscription.ContractTermStatus          `json:"status,omitempty"`
-	TotalAmountRaised           *int64                                   `json:"total_amount_raised,omitempty"`
-	TotalAmountRaisedBeforeTax  *int64                                   `json:"total_amount_raised_before_tax,omitempty"`
-	TotalContractValue          *int64                                   `json:"total_contract_value,omitempty"`
-	TotalContractValueBeforeTax *int64                                   `json:"total_contract_value_before_tax,omitempty"`
-	BillingCycle                *int32                                   `json:"billing_cycle,omitempty"`
-	ActionAtTermEnd             subscription.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod    *int32                                   `json:"cancellation_cutoff_period,omitempty"`
+
+func (r *SubscriptionImportContractTermRequest) payload() any { return r }
+
+// input sub resource params single
+type SubscriptionImportContractTermContractTerm struct {
+	Id                          string                      `json:"id,omitempty"`
+	CreatedAt                   *int64                      `json:"created_at,omitempty"`
+	ContractStart               *int64                      `json:"contract_start,omitempty"`
+	ContractEnd                 *int64                      `json:"contract_end,omitempty"`
+	Status                      ContractTermStatus          `json:"status,omitempty"`
+	TotalAmountRaised           *int64                      `json:"total_amount_raised,omitempty"`
+	TotalAmountRaisedBeforeTax  *int64                      `json:"total_amount_raised_before_tax,omitempty"`
+	TotalContractValue          *int64                      `json:"total_contract_value,omitempty"`
+	TotalContractValueBeforeTax *int64                      `json:"total_contract_value_before_tax,omitempty"`
+	BillingCycle                *int32                      `json:"billing_cycle,omitempty"`
+	ActionAtTermEnd             ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod    *int32                      `json:"cancellation_cutoff_period,omitempty"`
 }
-type ImportUnbilledChargesRequest struct {
-	UnbilledCharges []*ImportUnbilledChargesUnbilledCharge `json:"unbilled_charges,omitempty"`
-	Discounts       []*ImportUnbilledChargesDiscount       `json:"discounts,omitempty"`
-	Tiers           []*ImportUnbilledChargesTier           `json:"tiers,omitempty"`
+type SubscriptionImportUnbilledChargesRequest struct {
+	UnbilledCharges []*SubscriptionImportUnbilledChargesUnbilledCharge `json:"unbilled_charges,omitempty"`
+	Discounts       []*SubscriptionImportUnbilledChargesDiscount       `json:"discounts,omitempty"`
+	Tiers           []*SubscriptionImportUnbilledChargesTier           `json:"tiers,omitempty"`
+	apiRequest      `json:"-" form:"-"`
 }
-type ImportUnbilledChargesUnbilledCharge struct {
-	Id                  string                    `json:"id,omitempty"`
-	DateFrom            *int64                    `json:"date_from"`
-	DateTo              *int64                    `json:"date_to"`
-	EntityType          unbilledCharge.EntityType `json:"entity_type"`
-	EntityId            string                    `json:"entity_id,omitempty"`
-	Description         string                    `json:"description,omitempty"`
-	UnitAmount          *int64                    `json:"unit_amount,omitempty"`
-	Quantity            *int32                    `json:"quantity,omitempty"`
-	Amount              *int64                    `json:"amount,omitempty"`
-	UnitAmountInDecimal string                    `json:"unit_amount_in_decimal,omitempty"`
-	QuantityInDecimal   string                    `json:"quantity_in_decimal,omitempty"`
-	AmountInDecimal     string                    `json:"amount_in_decimal,omitempty"`
-	DiscountAmount      *int64                    `json:"discount_amount,omitempty"`
-	UseForProration     *bool                     `json:"use_for_proration,omitempty"`
-	IsAdvanceCharge     *bool                     `json:"is_advance_charge,omitempty"`
+
+func (r *SubscriptionImportUnbilledChargesRequest) payload() any { return r }
+
+// input sub resource params multi
+type SubscriptionImportUnbilledChargesUnbilledCharge struct {
+	Id                  string     `json:"id,omitempty"`
+	DateFrom            *int64     `json:"date_from"`
+	DateTo              *int64     `json:"date_to"`
+	EntityType          EntityType `json:"entity_type"`
+	EntityId            string     `json:"entity_id,omitempty"`
+	Description         string     `json:"description,omitempty"`
+	UnitAmount          *int64     `json:"unit_amount,omitempty"`
+	Quantity            *int32     `json:"quantity,omitempty"`
+	Amount              *int64     `json:"amount,omitempty"`
+	UnitAmountInDecimal string     `json:"unit_amount_in_decimal,omitempty"`
+	QuantityInDecimal   string     `json:"quantity_in_decimal,omitempty"`
+	AmountInDecimal     string     `json:"amount_in_decimal,omitempty"`
+	DiscountAmount      *int64     `json:"discount_amount,omitempty"`
+	UseForProration     *bool      `json:"use_for_proration,omitempty"`
+	IsAdvanceCharge     *bool      `json:"is_advance_charge,omitempty"`
 }
-type ImportUnbilledChargesDiscount struct {
-	UnbilledChargeId string              `json:"unbilled_charge_id,omitempty"`
-	EntityType       discount.EntityType `json:"entity_type,omitempty"`
-	EntityId         string              `json:"entity_id,omitempty"`
-	Description      string              `json:"description,omitempty"`
-	Amount           *int64              `json:"amount"`
+
+// input sub resource params multi
+type SubscriptionImportUnbilledChargesDiscount struct {
+	UnbilledChargeId string     `json:"unbilled_charge_id,omitempty"`
+	EntityType       EntityType `json:"entity_type,omitempty"`
+	EntityId         string     `json:"entity_id,omitempty"`
+	Description      string     `json:"description,omitempty"`
+	Amount           *int64     `json:"amount"`
 }
-type ImportUnbilledChargesTier struct {
+
+// input sub resource params multi
+type SubscriptionImportUnbilledChargesTier struct {
 	UnbilledChargeId      string `json:"unbilled_charge_id"`
 	StartingUnit          *int32 `json:"starting_unit,omitempty"`
 	EndingUnit            *int32 `json:"ending_unit,omitempty"`
@@ -1546,163 +2123,199 @@ type ImportUnbilledChargesTier struct {
 	QuantityUsedInDecimal string `json:"quantity_used_in_decimal,omitempty"`
 	UnitAmountInDecimal   string `json:"unit_amount_in_decimal,omitempty"`
 }
-type ImportForItemsRequest struct {
-	ExhaustedCouponIds                []string                          `json:"exhausted_coupon_ids,omitempty"`
-	Id                                string                            `json:"id,omitempty"`
-	TrialEnd                          *int64                            `json:"trial_end,omitempty"`
-	BillingCycles                     *int32                            `json:"billing_cycles,omitempty"`
-	SubscriptionItems                 []*ImportForItemsSubscriptionItem `json:"subscription_items,omitempty"`
-	SetupFee                          *int64                            `json:"setup_fee,omitempty"`
-	Discounts                         []*ImportForItemsDiscount         `json:"discounts,omitempty"`
-	ChargedItems                      []*ImportForItemsChargedItem      `json:"charged_items,omitempty"`
-	ItemTiers                         []*ImportForItemsItemTier         `json:"item_tiers,omitempty"`
-	NetTermDays                       *int32                            `json:"net_term_days,omitempty"`
-	StartDate                         *int64                            `json:"start_date,omitempty"`
-	AutoCollection                    enum.AutoCollection               `json:"auto_collection,omitempty"`
-	PoNumber                          string                            `json:"po_number,omitempty"`
-	CouponIds                         []string                          `json:"coupon_ids,omitempty"`
-	PaymentSourceId                   string                            `json:"payment_source_id,omitempty"`
-	Status                            Status                            `json:"status"`
-	CurrentTermEnd                    *int64                            `json:"current_term_end,omitempty"`
-	CurrentTermStart                  *int64                            `json:"current_term_start,omitempty"`
-	TrialStart                        *int64                            `json:"trial_start,omitempty"`
-	CancelledAt                       *int64                            `json:"cancelled_at,omitempty"`
-	StartedAt                         *int64                            `json:"started_at,omitempty"`
-	ActivatedAt                       *int64                            `json:"activated_at,omitempty"`
-	PauseDate                         *int64                            `json:"pause_date,omitempty"`
-	ResumeDate                        *int64                            `json:"resume_date,omitempty"`
-	ContractTerm                      *ImportForItemsContractTerm       `json:"contract_term,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32                            `json:"contract_term_billing_cycle_on_renewal,omitempty"`
-	CreateCurrentTermInvoice          *bool                             `json:"create_current_term_invoice,omitempty"`
-	Transaction                       *ImportForItemsTransaction        `json:"transaction,omitempty"`
-	ShippingAddress                   *ImportForItemsShippingAddress    `json:"shipping_address,omitempty"`
-	InvoiceNotes                      string                            `json:"invoice_notes,omitempty"`
-	MetaData                          map[string]interface{}            `json:"meta_data,omitempty"`
-	CancelReasonCode                  string                            `json:"cancel_reason_code,omitempty"`
-	CreatePendingInvoices             *bool                             `json:"create_pending_invoices,omitempty"`
-	AutoCloseInvoices                 *bool                             `json:"auto_close_invoices,omitempty"`
-	Coupons                           []*ImportForItemsCoupon           `json:"coupons,omitempty"`
+type SubscriptionImportForItemsRequest struct {
+	ExhaustedCouponIds                []string                                      `json:"exhausted_coupon_ids,omitempty"`
+	Id                                string                                        `json:"id,omitempty"`
+	TrialEnd                          *int64                                        `json:"trial_end,omitempty"`
+	BillingCycles                     *int32                                        `json:"billing_cycles,omitempty"`
+	SubscriptionItems                 []*SubscriptionImportForItemsSubscriptionItem `json:"subscription_items,omitempty"`
+	Discounts                         []*SubscriptionImportForItemsDiscount         `json:"discounts,omitempty"`
+	ChargedItems                      []*SubscriptionImportForItemsChargedItem      `json:"charged_items,omitempty"`
+	ItemTiers                         []*SubscriptionImportForItemsItemTier         `json:"item_tiers,omitempty"`
+	NetTermDays                       *int32                                        `json:"net_term_days,omitempty"`
+	StartDate                         *int64                                        `json:"start_date,omitempty"`
+	AutoCollection                    SubscriptionAutoCollection                    `json:"auto_collection,omitempty"`
+	PoNumber                          string                                        `json:"po_number,omitempty"`
+	CouponIds                         []string                                      `json:"coupon_ids,omitempty"`
+	PaymentSourceId                   string                                        `json:"payment_source_id,omitempty"`
+	Status                            SubscriptionStatus                            `json:"status"`
+	CurrentTermEnd                    *int64                                        `json:"current_term_end,omitempty"`
+	CurrentTermStart                  *int64                                        `json:"current_term_start,omitempty"`
+	TrialStart                        *int64                                        `json:"trial_start,omitempty"`
+	CancelledAt                       *int64                                        `json:"cancelled_at,omitempty"`
+	StartedAt                         *int64                                        `json:"started_at,omitempty"`
+	ActivatedAt                       *int64                                        `json:"activated_at,omitempty"`
+	PauseDate                         *int64                                        `json:"pause_date,omitempty"`
+	ResumeDate                        *int64                                        `json:"resume_date,omitempty"`
+	ContractTerm                      *SubscriptionImportForItemsContractTerm       `json:"contract_term,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                        `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	CreateCurrentTermInvoice          *bool                                         `json:"create_current_term_invoice,omitempty"`
+	Transaction                       *SubscriptionImportForItemsTransaction        `json:"transaction,omitempty"`
+	ShippingAddress                   *SubscriptionImportForItemsShippingAddress    `json:"shipping_address,omitempty"`
+	InvoiceNotes                      string                                        `json:"invoice_notes,omitempty"`
+	MetaData                          map[string]interface{}                        `json:"meta_data,omitempty"`
+	CancelReasonCode                  string                                        `json:"cancel_reason_code,omitempty"`
+	CreatePendingInvoices             *bool                                         `json:"create_pending_invoices,omitempty"`
+	AutoCloseInvoices                 *bool                                         `json:"auto_close_invoices,omitempty"`
+	Coupons                           []*SubscriptionImportForItemsCoupon           `json:"coupons,omitempty"`
+	apiRequest                        `json:"-" form:"-"`
 }
-type ImportForItemsSubscriptionItem struct {
-	ItemPriceId        string             `json:"item_price_id"`
-	Quantity           *int32             `json:"quantity,omitempty"`
-	QuantityInDecimal  string             `json:"quantity_in_decimal,omitempty"`
-	UnitPrice          *int64             `json:"unit_price,omitempty"`
-	UnitPriceInDecimal string             `json:"unit_price_in_decimal,omitempty"`
-	BillingCycles      *int32             `json:"billing_cycles,omitempty"`
-	TrialEnd           *int64             `json:"trial_end,omitempty"`
-	ServicePeriodDays  *int32             `json:"service_period_days,omitempty"`
-	ChargeOnEvent      enum.ChargeOnEvent `json:"charge_on_event,omitempty"`
-	ChargeOnce         *bool              `json:"charge_once,omitempty"`
-	ItemType           enum.ItemType      `json:"item_type,omitempty"`
+
+func (r *SubscriptionImportForItemsRequest) payload() any { return r }
+
+// input sub resource params multi
+type SubscriptionImportForItemsSubscriptionItem struct {
+	ItemPriceId        string        `json:"item_price_id"`
+	Quantity           *int32        `json:"quantity,omitempty"`
+	QuantityInDecimal  string        `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int64        `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string        `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32        `json:"billing_cycles,omitempty"`
+	TrialEnd           *int64        `json:"trial_end,omitempty"`
+	ServicePeriodDays  *int32        `json:"service_period_days,omitempty"`
+	ChargeOnEvent      ChargeOnEvent `json:"charge_on_event,omitempty"`
+	ChargeOnce         *bool         `json:"charge_once,omitempty"`
+	ItemType           ItemType      `json:"item_type,omitempty"`
 }
-type ImportForItemsDiscount struct {
-	ApplyOn       enum.ApplyOn      `json:"apply_on,omitempty"`
-	DurationType  enum.DurationType `json:"duration_type"`
-	Percentage    *float64          `json:"percentage,omitempty"`
-	Amount        *int64            `json:"amount,omitempty"`
-	Period        *int32            `json:"period,omitempty"`
-	PeriodUnit    enum.PeriodUnit   `json:"period_unit,omitempty"`
-	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`
-	ItemPriceId   string            `json:"item_price_id,omitempty"`
-	Quantity      *int32            `json:"quantity,omitempty"`
+
+// input sub resource params multi
+type SubscriptionImportForItemsDiscount struct {
+	ApplyOn       ApplyOn      `json:"apply_on,omitempty"`
+	DurationType  DurationType `json:"duration_type"`
+	Percentage    *float64     `json:"percentage,omitempty"`
+	Amount        *int64       `json:"amount,omitempty"`
+	Period        *int32       `json:"period,omitempty"`
+	PeriodUnit    PeriodUnit   `json:"period_unit,omitempty"`
+	IncludedInMrr *bool        `json:"included_in_mrr,omitempty"`
+	ItemPriceId   string       `json:"item_price_id,omitempty"`
+	Quantity      *int32       `json:"quantity,omitempty"`
 }
-type ImportForItemsChargedItem struct {
+
+// input sub resource params multi
+type SubscriptionImportForItemsChargedItem struct {
 	ItemPriceId   string `json:"item_price_id,omitempty"`
 	LastChargedAt *int64 `json:"last_charged_at,omitempty"`
 }
-type ImportForItemsItemTier struct {
-	ItemPriceId           string           `json:"item_price_id,omitempty"`
-	StartingUnit          *int32           `json:"starting_unit,omitempty"`
-	EndingUnit            *int32           `json:"ending_unit,omitempty"`
-	Price                 *int64           `json:"price,omitempty"`
-	StartingUnitInDecimal string           `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string           `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string           `json:"price_in_decimal,omitempty"`
-	PricingType           enum.PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32           `json:"package_size,omitempty"`
+
+// input sub resource params multi
+type SubscriptionImportForItemsItemTier struct {
+	ItemPriceId           string      `json:"item_price_id,omitempty"`
+	StartingUnit          *int32      `json:"starting_unit,omitempty"`
+	EndingUnit            *int32      `json:"ending_unit,omitempty"`
+	Price                 *int64      `json:"price,omitempty"`
+	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
+	PricingType           PricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32      `json:"package_size,omitempty"`
 }
-type ImportForItemsContractTerm struct {
-	Id                         string                                   `json:"id,omitempty"`
-	CreatedAt                  *int64                                   `json:"created_at,omitempty"`
-	ContractStart              *int64                                   `json:"contract_start,omitempty"`
-	BillingCycle               *int32                                   `json:"billing_cycle,omitempty"`
-	TotalAmountRaised          *int64                                   `json:"total_amount_raised,omitempty"`
-	TotalAmountRaisedBeforeTax *int64                                   `json:"total_amount_raised_before_tax,omitempty"`
-	ActionAtTermEnd            subscription.ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod   *int32                                   `json:"cancellation_cutoff_period,omitempty"`
+
+// input sub resource params single
+type SubscriptionImportForItemsContractTerm struct {
+	Id                         string                      `json:"id,omitempty"`
+	CreatedAt                  *int64                      `json:"created_at,omitempty"`
+	ContractStart              *int64                      `json:"contract_start,omitempty"`
+	BillingCycle               *int32                      `json:"billing_cycle,omitempty"`
+	TotalAmountRaised          *int64                      `json:"total_amount_raised,omitempty"`
+	TotalAmountRaisedBeforeTax *int64                      `json:"total_amount_raised_before_tax,omitempty"`
+	ActionAtTermEnd            ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod   *int32                      `json:"cancellation_cutoff_period,omitempty"`
 }
-type ImportForItemsTransaction struct {
-	Amount          *int64             `json:"amount,omitempty"`
-	PaymentMethod   enum.PaymentMethod `json:"payment_method,omitempty"`
-	ReferenceNumber string             `json:"reference_number,omitempty"`
-	Date            *int64             `json:"date,omitempty"`
+
+// input sub resource params single
+type SubscriptionImportForItemsTransaction struct {
+	Amount          *int64        `json:"amount,omitempty"`
+	PaymentMethod   PaymentMethod `json:"payment_method,omitempty"`
+	ReferenceNumber string        `json:"reference_number,omitempty"`
+	Date            *int64        `json:"date,omitempty"`
 }
-type ImportForItemsShippingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params single
+type SubscriptionImportForItemsShippingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type ImportForItemsCoupon struct {
+
+// input sub resource params multi
+type SubscriptionImportForItemsCoupon struct {
 	CouponId  string `json:"coupon_id,omitempty"`
 	ApplyTill *int64 `json:"apply_till,omitempty"`
 }
-type OverrideBillingProfileRequest struct {
-	PaymentSourceId string              `json:"payment_source_id,omitempty"`
-	AutoCollection  enum.AutoCollection `json:"auto_collection,omitempty"`
+type SubscriptionOverrideBillingProfileRequest struct {
+	PaymentSourceId string                     `json:"payment_source_id,omitempty"`
+	AutoCollection  SubscriptionAutoCollection `json:"auto_collection,omitempty"`
+	apiRequest      `json:"-" form:"-"`
 }
-type PauseRequest struct {
-	PauseOption             enum.PauseOption             `json:"pause_option,omitempty"`
-	PauseDate               *int64                       `json:"pause_date,omitempty"`
-	UnbilledChargesHandling enum.UnbilledChargesHandling `json:"unbilled_charges_handling,omitempty"`
-	InvoiceDunningHandling  enum.InvoiceDunningHandling  `json:"invoice_dunning_handling,omitempty"`
-	SkipBillingCycles       *int32                       `json:"skip_billing_cycles,omitempty"`
-	ResumeDate              *int64                       `json:"resume_date,omitempty"`
+
+func (r *SubscriptionOverrideBillingProfileRequest) payload() any { return r }
+
+type SubscriptionPauseRequest struct {
+	PauseOption             SubscriptionPauseOption             `json:"pause_option,omitempty"`
+	PauseDate               *int64                              `json:"pause_date,omitempty"`
+	UnbilledChargesHandling SubscriptionUnbilledChargesHandling `json:"unbilled_charges_handling,omitempty"`
+	InvoiceDunningHandling  SubscriptionInvoiceDunningHandling  `json:"invoice_dunning_handling,omitempty"`
+	SkipBillingCycles       *int32                              `json:"skip_billing_cycles,omitempty"`
+	ResumeDate              *int64                              `json:"resume_date,omitempty"`
+	apiRequest              `json:"-" form:"-"`
 }
-type CancelRequest struct {
-	CancelOption                      enum.CancelOption                      `json:"cancel_option,omitempty"`
-	EndOfTerm                         *bool                                  `json:"end_of_term,omitempty"`
-	CancelAt                          *int64                                 `json:"cancel_at,omitempty"`
-	CreditOptionForCurrentTermCharges enum.CreditOptionForCurrentTermCharges `json:"credit_option_for_current_term_charges,omitempty"`
-	UnbilledChargesOption             enum.UnbilledChargesOption             `json:"unbilled_charges_option,omitempty"`
-	AccountReceivablesHandling        enum.AccountReceivablesHandling        `json:"account_receivables_handling,omitempty"`
-	RefundableCreditsHandling         enum.RefundableCreditsHandling         `json:"refundable_credits_handling,omitempty"`
-	ContractTermCancelOption          enum.ContractTermCancelOption          `json:"contract_term_cancel_option,omitempty"`
-	InvoiceDate                       *int64                                 `json:"invoice_date,omitempty"`
-	EventBasedAddons                  []*CancelEventBasedAddon               `json:"event_based_addons,omitempty"`
-	CancelReasonCode                  string                                 `json:"cancel_reason_code,omitempty"`
+
+func (r *SubscriptionPauseRequest) payload() any { return r }
+
+type SubscriptionCancelRequest struct {
+	CancelOption                      SubscriptionCancelOption                      `json:"cancel_option,omitempty"`
+	EndOfTerm                         *bool                                         `json:"end_of_term,omitempty"`
+	CancelAt                          *int64                                        `json:"cancel_at,omitempty"`
+	CreditOptionForCurrentTermCharges SubscriptionCreditOptionForCurrentTermCharges `json:"credit_option_for_current_term_charges,omitempty"`
+	UnbilledChargesOption             SubscriptionUnbilledChargesOption             `json:"unbilled_charges_option,omitempty"`
+	AccountReceivablesHandling        SubscriptionAccountReceivablesHandling        `json:"account_receivables_handling,omitempty"`
+	RefundableCreditsHandling         SubscriptionRefundableCreditsHandling         `json:"refundable_credits_handling,omitempty"`
+	ContractTermCancelOption          SubscriptionContractTermCancelOption          `json:"contract_term_cancel_option,omitempty"`
+	InvoiceDate                       *int64                                        `json:"invoice_date,omitempty"`
+	EventBasedAddons                  []*SubscriptionCancelEventBasedAddon          `json:"event_based_addons,omitempty"`
+	CancelReasonCode                  string                                        `json:"cancel_reason_code,omitempty"`
+	apiRequest                        `json:"-" form:"-"`
 }
-type CancelEventBasedAddon struct {
+
+func (r *SubscriptionCancelRequest) payload() any { return r }
+
+// input sub resource params multi
+type SubscriptionCancelEventBasedAddon struct {
 	Id                  string `json:"id,omitempty"`
 	Quantity            *int32 `json:"quantity,omitempty"`
 	UnitPrice           *int64 `json:"unit_price,omitempty"`
 	ServicePeriodInDays *int32 `json:"service_period_in_days,omitempty"`
 }
-type CancelForItemsRequest struct {
-	CancelOption                      enum.CancelOption                      `json:"cancel_option,omitempty"`
-	EndOfTerm                         *bool                                  `json:"end_of_term,omitempty"`
-	CancelAt                          *int64                                 `json:"cancel_at,omitempty"`
-	CreditOptionForCurrentTermCharges enum.CreditOptionForCurrentTermCharges `json:"credit_option_for_current_term_charges,omitempty"`
-	UnbilledChargesOption             enum.UnbilledChargesOption             `json:"unbilled_charges_option,omitempty"`
-	AccountReceivablesHandling        enum.AccountReceivablesHandling        `json:"account_receivables_handling,omitempty"`
-	RefundableCreditsHandling         enum.RefundableCreditsHandling         `json:"refundable_credits_handling,omitempty"`
-	ContractTermCancelOption          enum.ContractTermCancelOption          `json:"contract_term_cancel_option,omitempty"`
-	InvoiceDate                       *int64                                 `json:"invoice_date,omitempty"`
-	SubscriptionItems                 []*CancelForItemsSubscriptionItem      `json:"subscription_items,omitempty"`
-	CancelReasonCode                  string                                 `json:"cancel_reason_code,omitempty"`
+type SubscriptionCancelForItemsRequest struct {
+	CancelOption                      SubscriptionCancelOption                      `json:"cancel_option,omitempty"`
+	EndOfTerm                         *bool                                         `json:"end_of_term,omitempty"`
+	CancelAt                          *int64                                        `json:"cancel_at,omitempty"`
+	CreditOptionForCurrentTermCharges SubscriptionCreditOptionForCurrentTermCharges `json:"credit_option_for_current_term_charges,omitempty"`
+	UnbilledChargesOption             SubscriptionUnbilledChargesOption             `json:"unbilled_charges_option,omitempty"`
+	AccountReceivablesHandling        SubscriptionAccountReceivablesHandling        `json:"account_receivables_handling,omitempty"`
+	RefundableCreditsHandling         SubscriptionRefundableCreditsHandling         `json:"refundable_credits_handling,omitempty"`
+	ContractTermCancelOption          SubscriptionContractTermCancelOption          `json:"contract_term_cancel_option,omitempty"`
+	InvoiceDate                       *int64                                        `json:"invoice_date,omitempty"`
+	SubscriptionItems                 []*SubscriptionCancelForItemsSubscriptionItem `json:"subscription_items,omitempty"`
+	CancelReasonCode                  string                                        `json:"cancel_reason_code,omitempty"`
+	apiRequest                        `json:"-" form:"-"`
 }
-type CancelForItemsSubscriptionItem struct {
+
+func (r *SubscriptionCancelForItemsRequest) payload() any { return r }
+
+// input sub resource params multi
+type SubscriptionCancelForItemsSubscriptionItem struct {
 	ItemPriceId        string `json:"item_price_id,omitempty"`
 	Quantity           *int32 `json:"quantity,omitempty"`
 	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
@@ -1710,277 +2323,363 @@ type CancelForItemsSubscriptionItem struct {
 	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
 	ServicePeriodDays  *int32 `json:"service_period_days,omitempty"`
 }
-type ResumeRequest struct {
-	ResumeOption           enum.ResumeOption           `json:"resume_option,omitempty"`
-	ResumeDate             *int64                      `json:"resume_date,omitempty"`
-	ChargesHandling        enum.ChargesHandling        `json:"charges_handling,omitempty"`
-	UnpaidInvoicesHandling enum.UnpaidInvoicesHandling `json:"unpaid_invoices_handling,omitempty"`
-	PaymentInitiator       enum.PaymentInitiator       `json:"payment_initiator,omitempty"`
-	PaymentIntent          *ResumePaymentIntent        `json:"payment_intent,omitempty"`
+type SubscriptionResumeRequest struct {
+	ResumeOption           SubscriptionResumeOption           `json:"resume_option,omitempty"`
+	ResumeDate             *int64                             `json:"resume_date,omitempty"`
+	ChargesHandling        SubscriptionChargesHandling        `json:"charges_handling,omitempty"`
+	UnpaidInvoicesHandling SubscriptionUnpaidInvoicesHandling `json:"unpaid_invoices_handling,omitempty"`
+	PaymentInitiator       SubscriptionPaymentInitiator       `json:"payment_initiator,omitempty"`
+	PaymentIntent          *SubscriptionResumePaymentIntent   `json:"payment_intent,omitempty"`
+	apiRequest             `json:"-" form:"-"`
 }
-type ResumePaymentIntent struct {
-	Id                    string                          `json:"id,omitempty"`
-	GatewayAccountId      string                          `json:"gateway_account_id,omitempty"`
-	GwToken               string                          `json:"gw_token,omitempty"`
-	PaymentMethodType     paymentIntent.PaymentMethodType `json:"payment_method_type,omitempty"`
-	ReferenceId           string                          `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                          `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{}          `json:"additional_information,omitempty"`
+
+func (r *SubscriptionResumeRequest) payload() any { return r }
+
+// input sub resource params single
+type SubscriptionResumePaymentIntent struct {
+	Id                    string                 `json:"id,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                 `json:"gw_token,omitempty"`
+	PaymentMethodType     PaymentMethodType      `json:"payment_method_type,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
-type MoveRequest struct {
+type SubscriptionMoveRequest struct {
 	ToCustomerId      string `json:"to_customer_id"`
 	CopyPaymentSource *bool  `json:"copy_payment_source,omitempty"`
+	apiRequest        `json:"-" form:"-"`
 }
 
-type CreateResponse struct {
-	Subscription    *Subscription                    `json:"subscription,omitempty"`
-	Customer        *customer.Customer               `json:"customer,omitempty"`
-	Card            *card.Card                       `json:"card,omitempty"`
-	Invoice         *invoice.Invoice                 `json:"invoice,omitempty"`
-	UnbilledCharges []*unbilledcharge.UnbilledCharge `json:"unbilled_charges,omitempty"`
+func (r *SubscriptionMoveRequest) payload() any { return r }
+
+// operation response
+type SubscriptionCreateResponse struct {
+	Subscription    *Subscription    `json:"subscription,omitempty"`
+	Customer        Customer         `json:"customer,omitempty"`
+	Card            Card             `json:"card,omitempty"`
+	Invoice         Invoice          `json:"invoice,omitempty"`
+	UnbilledCharges []UnbilledCharge `json:"unbilled_charges,omitempty"`
+	apiResponse
 }
 
-type CreateForCustomerResponse struct {
-	Subscription    *Subscription                    `json:"subscription,omitempty"`
-	Customer        *customer.Customer               `json:"customer,omitempty"`
-	Card            *card.Card                       `json:"card,omitempty"`
-	Invoice         *invoice.Invoice                 `json:"invoice,omitempty"`
-	UnbilledCharges []*unbilledcharge.UnbilledCharge `json:"unbilled_charges,omitempty"`
+// operation response
+type SubscriptionCreateForCustomerResponse struct {
+	Subscription    *Subscription    `json:"subscription,omitempty"`
+	Customer        Customer         `json:"customer,omitempty"`
+	Card            Card             `json:"card,omitempty"`
+	Invoice         Invoice          `json:"invoice,omitempty"`
+	UnbilledCharges []UnbilledCharge `json:"unbilled_charges,omitempty"`
+	apiResponse
 }
 
-type CreateWithItemsResponse struct {
-	Subscription    *Subscription                    `json:"subscription,omitempty"`
-	Customer        *customer.Customer               `json:"customer,omitempty"`
-	Card            *card.Card                       `json:"card,omitempty"`
-	Invoice         *invoice.Invoice                 `json:"invoice,omitempty"`
-	UnbilledCharges []*unbilledcharge.UnbilledCharge `json:"unbilled_charges,omitempty"`
+// operation response
+type SubscriptionCreateWithItemsResponse struct {
+	Subscription    *Subscription    `json:"subscription,omitempty"`
+	Customer        Customer         `json:"customer,omitempty"`
+	Card            Card             `json:"card,omitempty"`
+	Invoice         Invoice          `json:"invoice,omitempty"`
+	UnbilledCharges []UnbilledCharge `json:"unbilled_charges,omitempty"`
+	apiResponse
 }
 
-type ListSubscriptionResponse struct {
-	Subscription *Subscription      `json:"subscription,omitempty"`
-	Customer     *customer.Customer `json:"customer,omitempty"`
-	Card         *card.Card         `json:"card,omitempty"`
+// operation sub response
+type SubscriptionListSubscriptionResponse struct {
+	Subscription *Subscription `json:"subscription,omitempty"`
+	Customer     Customer      `json:"customer,omitempty"`
+	Card         Card          `json:"card,omitempty"`
 }
 
-type ListResponse struct {
-	List       []*ListSubscriptionResponse `json:"list,omitempty"`
-	NextOffset string                      `json:"next_offset,omitempty"`
+// operation response
+type SubscriptionListResponse struct {
+	List       []*SubscriptionListSubscriptionResponse `json:"list,omitempty"`
+	NextOffset string                                  `json:"next_offset,omitempty"`
+	apiResponse
 }
 
-type SubscriptionsForCustomerSubscriptionResponse struct {
+// operation sub response
+type SubscriptionSubscriptionsForCustomerSubscriptionResponse struct {
 	Subscription *Subscription `json:"subscription,omitempty"`
 }
 
-type SubscriptionsForCustomerResponse struct {
-	List       []*SubscriptionsForCustomerSubscriptionResponse `json:"list,omitempty"`
-	NextOffset string                                          `json:"next_offset,omitempty"`
+// operation response
+type SubscriptionSubscriptionsForCustomerResponse struct {
+	List       []*SubscriptionSubscriptionsForCustomerSubscriptionResponse `json:"list,omitempty"`
+	NextOffset string                                                      `json:"next_offset,omitempty"`
+	apiResponse
 }
 
-type ContractTermsForSubscriptionSubscriptionResponse struct {
-	ContractTerm *contractterm.ContractTerm `json:"contract_term,omitempty"`
+// operation sub response
+type SubscriptionContractTermsForSubscriptionSubscriptionResponse struct {
+	ContractTerm ContractTerm `json:"contract_term,omitempty"`
 }
 
-type ContractTermsForSubscriptionResponse struct {
-	List       []*ContractTermsForSubscriptionSubscriptionResponse `json:"list,omitempty"`
-	NextOffset string                                              `json:"next_offset,omitempty"`
+// operation response
+type SubscriptionContractTermsForSubscriptionResponse struct {
+	List       []*SubscriptionContractTermsForSubscriptionSubscriptionResponse `json:"list,omitempty"`
+	NextOffset string                                                          `json:"next_offset,omitempty"`
+	apiResponse
 }
 
-type ListDiscountsSubscriptionResponse struct {
-	Discount *discount.Discount `json:"discount,omitempty"`
+// operation sub response
+type SubscriptionListDiscountsSubscriptionResponse struct {
+	Discount Discount `json:"discount,omitempty"`
 }
 
-type ListDiscountsResponse struct {
-	List       []*ListDiscountsSubscriptionResponse `json:"list,omitempty"`
-	NextOffset string                               `json:"next_offset,omitempty"`
+// operation response
+type SubscriptionListDiscountsResponse struct {
+	List       []*SubscriptionListDiscountsSubscriptionResponse `json:"list,omitempty"`
+	NextOffset string                                           `json:"next_offset,omitempty"`
+	apiResponse
 }
 
-type RetrieveResponse struct {
-	Subscription *Subscription      `json:"subscription,omitempty"`
-	Customer     *customer.Customer `json:"customer,omitempty"`
-	Card         *card.Card         `json:"card,omitempty"`
-}
-
-type RetrieveWithScheduledChangesResponse struct {
-	Subscription *Subscription      `json:"subscription,omitempty"`
-	Customer     *customer.Customer `json:"customer,omitempty"`
-	Card         *card.Card         `json:"card,omitempty"`
-}
-
-type RemoveScheduledChangesResponse struct {
-	Subscription *Subscription            `json:"subscription,omitempty"`
-	Customer     *customer.Customer       `json:"customer,omitempty"`
-	Card         *card.Card               `json:"card,omitempty"`
-	CreditNotes  []*creditnote.CreditNote `json:"credit_notes,omitempty"`
-}
-
-type RemoveScheduledCancellationResponse struct {
-	Subscription *Subscription      `json:"subscription,omitempty"`
-	Customer     *customer.Customer `json:"customer,omitempty"`
-	Card         *card.Card         `json:"card,omitempty"`
-}
-
-type RemoveCouponsResponse struct {
-	Subscription *Subscription      `json:"subscription,omitempty"`
-	Customer     *customer.Customer `json:"customer,omitempty"`
-	Card         *card.Card         `json:"card,omitempty"`
-}
-
-type UpdateResponse struct {
-	Subscription    *Subscription                    `json:"subscription,omitempty"`
-	Customer        *customer.Customer               `json:"customer,omitempty"`
-	Card            *card.Card                       `json:"card,omitempty"`
-	Invoice         *invoice.Invoice                 `json:"invoice,omitempty"`
-	UnbilledCharges []*unbilledcharge.UnbilledCharge `json:"unbilled_charges,omitempty"`
-	CreditNotes     []*creditnote.CreditNote         `json:"credit_notes,omitempty"`
-}
-
-type UpdateForItemsResponse struct {
-	Subscription    *Subscription                    `json:"subscription,omitempty"`
-	Customer        *customer.Customer               `json:"customer,omitempty"`
-	Card            *card.Card                       `json:"card,omitempty"`
-	Invoice         *invoice.Invoice                 `json:"invoice,omitempty"`
-	UnbilledCharges []*unbilledcharge.UnbilledCharge `json:"unbilled_charges,omitempty"`
-	CreditNotes     []*creditnote.CreditNote         `json:"credit_notes,omitempty"`
-}
-
-type ChangeTermEndResponse struct {
-	Subscription    *Subscription                    `json:"subscription,omitempty"`
-	Customer        *customer.Customer               `json:"customer,omitempty"`
-	Card            *card.Card                       `json:"card,omitempty"`
-	Invoice         *invoice.Invoice                 `json:"invoice,omitempty"`
-	UnbilledCharges []*unbilledcharge.UnbilledCharge `json:"unbilled_charges,omitempty"`
-	CreditNotes     []*creditnote.CreditNote         `json:"credit_notes,omitempty"`
-}
-
-type ReactivateResponse struct {
-	Subscription    *Subscription                    `json:"subscription,omitempty"`
-	Customer        *customer.Customer               `json:"customer,omitempty"`
-	Card            *card.Card                       `json:"card,omitempty"`
-	Invoice         *invoice.Invoice                 `json:"invoice,omitempty"`
-	UnbilledCharges []*unbilledcharge.UnbilledCharge `json:"unbilled_charges,omitempty"`
-}
-
-type AddChargeAtTermEndResponse struct {
-	Estimate *estimate.Estimate `json:"estimate,omitempty"`
-}
-
-type ChargeAddonAtTermEndResponse struct {
-	Estimate *estimate.Estimate `json:"estimate,omitempty"`
-}
-
-type ChargeFutureRenewalsResponse struct {
-	Subscription            *Subscription                                    `json:"subscription,omitempty"`
-	Customer                *customer.Customer                               `json:"customer,omitempty"`
-	Card                    *card.Card                                       `json:"card,omitempty"`
-	Invoice                 *invoice.Invoice                                 `json:"invoice,omitempty"`
-	AdvanceInvoiceSchedules []*advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedules,omitempty"`
-}
-
-type EditAdvanceInvoiceScheduleResponse struct {
-	AdvanceInvoiceSchedules []*advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedules,omitempty"`
-}
-
-type RetrieveAdvanceInvoiceScheduleResponse struct {
-	AdvanceInvoiceSchedules []*advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedules,omitempty"`
-}
-
-type RemoveAdvanceInvoiceScheduleResponse struct {
-	Subscription            *Subscription                                    `json:"subscription,omitempty"`
-	AdvanceInvoiceSchedules []*advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedules,omitempty"`
-}
-
-type RegenerateInvoiceResponse struct {
-	Invoice         *invoice.Invoice                 `json:"invoice,omitempty"`
-	UnbilledCharges []*unbilledcharge.UnbilledCharge `json:"unbilled_charges,omitempty"`
-}
-
-type ImportSubscriptionResponse struct {
-	Subscription *Subscription      `json:"subscription,omitempty"`
-	Customer     *customer.Customer `json:"customer,omitempty"`
-	Card         *card.Card         `json:"card,omitempty"`
-	Invoice      *invoice.Invoice   `json:"invoice,omitempty"`
-}
-
-type ImportForCustomerResponse struct {
-	Subscription *Subscription      `json:"subscription,omitempty"`
-	Customer     *customer.Customer `json:"customer,omitempty"`
-	Card         *card.Card         `json:"card,omitempty"`
-	Invoice      *invoice.Invoice   `json:"invoice,omitempty"`
-}
-
-type ImportContractTermResponse struct {
-	ContractTerm *contractterm.ContractTerm `json:"contract_term,omitempty"`
-}
-
-type ImportUnbilledChargesResponse struct {
-	UnbilledCharges []*unbilledcharge.UnbilledCharge `json:"unbilled_charges,omitempty"`
-}
-
-type ImportForItemsResponse struct {
-	Subscription *Subscription      `json:"subscription,omitempty"`
-	Customer     *customer.Customer `json:"customer,omitempty"`
-	Card         *card.Card         `json:"card,omitempty"`
-	Invoice      *invoice.Invoice   `json:"invoice,omitempty"`
-}
-
-type OverrideBillingProfileResponse struct {
-	Subscription  *Subscription                `json:"subscription,omitempty"`
-	PaymentSource *paymentsource.PaymentSource `json:"payment_source,omitempty"`
-}
-
-type DeleteResponse struct {
-	Subscription *Subscription      `json:"subscription,omitempty"`
-	Customer     *customer.Customer `json:"customer,omitempty"`
-	Card         *card.Card         `json:"card,omitempty"`
-}
-
-type PauseResponse struct {
-	Subscription    *Subscription                    `json:"subscription,omitempty"`
-	Customer        *customer.Customer               `json:"customer,omitempty"`
-	Card            *card.Card                       `json:"card,omitempty"`
-	Invoice         *invoice.Invoice                 `json:"invoice,omitempty"`
-	UnbilledCharges []*unbilledcharge.UnbilledCharge `json:"unbilled_charges,omitempty"`
-	CreditNotes     []*creditnote.CreditNote         `json:"credit_notes,omitempty"`
-}
-
-type CancelResponse struct {
-	Subscription    *Subscription                    `json:"subscription,omitempty"`
-	Customer        *customer.Customer               `json:"customer,omitempty"`
-	Card            *card.Card                       `json:"card,omitempty"`
-	Invoice         *invoice.Invoice                 `json:"invoice,omitempty"`
-	UnbilledCharges []*unbilledcharge.UnbilledCharge `json:"unbilled_charges,omitempty"`
-	CreditNotes     []*creditnote.CreditNote         `json:"credit_notes,omitempty"`
-}
-
-type CancelForItemsResponse struct {
-	Subscription    *Subscription                    `json:"subscription,omitempty"`
-	Customer        *customer.Customer               `json:"customer,omitempty"`
-	Card            *card.Card                       `json:"card,omitempty"`
-	Invoice         *invoice.Invoice                 `json:"invoice,omitempty"`
-	UnbilledCharges []*unbilledcharge.UnbilledCharge `json:"unbilled_charges,omitempty"`
-	CreditNotes     []*creditnote.CreditNote         `json:"credit_notes,omitempty"`
-}
-
-type ResumeResponse struct {
-	Subscription    *Subscription                    `json:"subscription,omitempty"`
-	Customer        *customer.Customer               `json:"customer,omitempty"`
-	Card            *card.Card                       `json:"card,omitempty"`
-	Invoice         *invoice.Invoice                 `json:"invoice,omitempty"`
-	UnbilledCharges []*unbilledcharge.UnbilledCharge `json:"unbilled_charges,omitempty"`
-}
-
-type RemoveScheduledPauseResponse struct {
-	Subscription *Subscription      `json:"subscription,omitempty"`
-	Customer     *customer.Customer `json:"customer,omitempty"`
-	Card         *card.Card         `json:"card,omitempty"`
-}
-
-type RemoveScheduledResumptionResponse struct {
-	Subscription *Subscription      `json:"subscription,omitempty"`
-	Customer     *customer.Customer `json:"customer,omitempty"`
-	Card         *card.Card         `json:"card,omitempty"`
-}
-
-type MoveResponse struct {
+// operation response
+type SubscriptionRetrieveResponse struct {
 	Subscription *Subscription `json:"subscription,omitempty"`
+	Customer     Customer      `json:"customer,omitempty"`
+	Card         Card          `json:"card,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionRetrieveWithScheduledChangesResponse struct {
+	Subscription *Subscription `json:"subscription,omitempty"`
+	Customer     Customer      `json:"customer,omitempty"`
+	Card         Card          `json:"card,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionRemoveScheduledChangesResponse struct {
+	Subscription *Subscription `json:"subscription,omitempty"`
+	Customer     Customer      `json:"customer,omitempty"`
+	Card         Card          `json:"card,omitempty"`
+	CreditNotes  []CreditNote  `json:"credit_notes,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionRemoveScheduledCancellationResponse struct {
+	Subscription *Subscription `json:"subscription,omitempty"`
+	Customer     Customer      `json:"customer,omitempty"`
+	Card         Card          `json:"card,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionRemoveCouponsResponse struct {
+	Subscription *Subscription `json:"subscription,omitempty"`
+	Customer     Customer      `json:"customer,omitempty"`
+	Card         Card          `json:"card,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionUpdateResponse struct {
+	Subscription    *Subscription    `json:"subscription,omitempty"`
+	Customer        Customer         `json:"customer,omitempty"`
+	Card            Card             `json:"card,omitempty"`
+	Invoice         Invoice          `json:"invoice,omitempty"`
+	UnbilledCharges []UnbilledCharge `json:"unbilled_charges,omitempty"`
+	CreditNotes     []CreditNote     `json:"credit_notes,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionUpdateForItemsResponse struct {
+	Subscription    *Subscription    `json:"subscription,omitempty"`
+	Customer        Customer         `json:"customer,omitempty"`
+	Card            Card             `json:"card,omitempty"`
+	Invoice         Invoice          `json:"invoice,omitempty"`
+	UnbilledCharges []UnbilledCharge `json:"unbilled_charges,omitempty"`
+	CreditNotes     []CreditNote     `json:"credit_notes,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionChangeTermEndResponse struct {
+	Subscription    *Subscription    `json:"subscription,omitempty"`
+	Customer        Customer         `json:"customer,omitempty"`
+	Card            Card             `json:"card,omitempty"`
+	Invoice         Invoice          `json:"invoice,omitempty"`
+	UnbilledCharges []UnbilledCharge `json:"unbilled_charges,omitempty"`
+	CreditNotes     []CreditNote     `json:"credit_notes,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionReactivateResponse struct {
+	Subscription    *Subscription    `json:"subscription,omitempty"`
+	Customer        Customer         `json:"customer,omitempty"`
+	Card            Card             `json:"card,omitempty"`
+	Invoice         Invoice          `json:"invoice,omitempty"`
+	UnbilledCharges []UnbilledCharge `json:"unbilled_charges,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionAddChargeAtTermEndResponse struct {
+	Estimate Estimate `json:"estimate,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionChargeAddonAtTermEndResponse struct {
+	Estimate Estimate `json:"estimate,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionChargeFutureRenewalsResponse struct {
+	Subscription            *Subscription            `json:"subscription,omitempty"`
+	Customer                Customer                 `json:"customer,omitempty"`
+	Card                    Card                     `json:"card,omitempty"`
+	Invoice                 Invoice                  `json:"invoice,omitempty"`
+	AdvanceInvoiceSchedules []AdvanceInvoiceSchedule `json:"advance_invoice_schedules,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionEditAdvanceInvoiceScheduleResponse struct {
+	AdvanceInvoiceSchedules []AdvanceInvoiceSchedule `json:"advance_invoice_schedules,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionRetrieveAdvanceInvoiceScheduleResponse struct {
+	AdvanceInvoiceSchedules []AdvanceInvoiceSchedule `json:"advance_invoice_schedules,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionRemoveAdvanceInvoiceScheduleResponse struct {
+	Subscription            *Subscription            `json:"subscription,omitempty"`
+	AdvanceInvoiceSchedules []AdvanceInvoiceSchedule `json:"advance_invoice_schedules,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionRegenerateInvoiceResponse struct {
+	Invoice         Invoice          `json:"invoice,omitempty"`
+	UnbilledCharges []UnbilledCharge `json:"unbilled_charges,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionImportSubscriptionResponse struct {
+	Subscription *Subscription `json:"subscription,omitempty"`
+	Customer     Customer      `json:"customer,omitempty"`
+	Card         Card          `json:"card,omitempty"`
+	Invoice      Invoice       `json:"invoice,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionImportForCustomerResponse struct {
+	Subscription *Subscription `json:"subscription,omitempty"`
+	Customer     Customer      `json:"customer,omitempty"`
+	Card         Card          `json:"card,omitempty"`
+	Invoice      Invoice       `json:"invoice,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionImportContractTermResponse struct {
+	ContractTerm ContractTerm `json:"contract_term,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionImportUnbilledChargesResponse struct {
+	UnbilledCharges []UnbilledCharge `json:"unbilled_charges,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionImportForItemsResponse struct {
+	Subscription *Subscription `json:"subscription,omitempty"`
+	Customer     Customer      `json:"customer,omitempty"`
+	Card         Card          `json:"card,omitempty"`
+	Invoice      Invoice       `json:"invoice,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionOverrideBillingProfileResponse struct {
+	Subscription  *Subscription `json:"subscription,omitempty"`
+	PaymentSource PaymentSource `json:"payment_source,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionDeleteResponse struct {
+	Subscription *Subscription `json:"subscription,omitempty"`
+	Customer     Customer      `json:"customer,omitempty"`
+	Card         Card          `json:"card,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionPauseResponse struct {
+	Subscription    *Subscription    `json:"subscription,omitempty"`
+	Customer        Customer         `json:"customer,omitempty"`
+	Card            Card             `json:"card,omitempty"`
+	Invoice         Invoice          `json:"invoice,omitempty"`
+	UnbilledCharges []UnbilledCharge `json:"unbilled_charges,omitempty"`
+	CreditNotes     []CreditNote     `json:"credit_notes,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionCancelResponse struct {
+	Subscription    *Subscription    `json:"subscription,omitempty"`
+	Customer        Customer         `json:"customer,omitempty"`
+	Card            Card             `json:"card,omitempty"`
+	Invoice         Invoice          `json:"invoice,omitempty"`
+	UnbilledCharges []UnbilledCharge `json:"unbilled_charges,omitempty"`
+	CreditNotes     []CreditNote     `json:"credit_notes,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionCancelForItemsResponse struct {
+	Subscription    *Subscription    `json:"subscription,omitempty"`
+	Customer        Customer         `json:"customer,omitempty"`
+	Card            Card             `json:"card,omitempty"`
+	Invoice         Invoice          `json:"invoice,omitempty"`
+	UnbilledCharges []UnbilledCharge `json:"unbilled_charges,omitempty"`
+	CreditNotes     []CreditNote     `json:"credit_notes,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionResumeResponse struct {
+	Subscription    *Subscription    `json:"subscription,omitempty"`
+	Customer        Customer         `json:"customer,omitempty"`
+	Card            Card             `json:"card,omitempty"`
+	Invoice         Invoice          `json:"invoice,omitempty"`
+	UnbilledCharges []UnbilledCharge `json:"unbilled_charges,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionRemoveScheduledPauseResponse struct {
+	Subscription *Subscription `json:"subscription,omitempty"`
+	Customer     Customer      `json:"customer,omitempty"`
+	Card         Card          `json:"card,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionRemoveScheduledResumptionResponse struct {
+	Subscription *Subscription `json:"subscription,omitempty"`
+	Customer     Customer      `json:"customer,omitempty"`
+	Card         Card          `json:"card,omitempty"`
+	apiResponse
+}
+
+// operation response
+type SubscriptionMoveResponse struct {
+	Subscription *Subscription `json:"subscription,omitempty"`
+	apiResponse
 }

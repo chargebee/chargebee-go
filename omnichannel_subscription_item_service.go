@@ -6,9 +6,12 @@ import (
 )
 
 type OmnichannelSubscriptionItemService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *OmnichannelSubscriptionItemService) ListOmniSubItemScheduleChanges(id string, req *ListOmniSubItemScheduleChangesRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/omnichannel_subscription_items/%v/scheduled_changes", url.PathEscape(id)), req)
+func (s *OmnichannelSubscriptionItemService) ListOmniSubItemScheduleChanges(id string, req *OmnichannelSubscriptionItemListOmniSubItemScheduleChangesRequest) (*OmnichannelSubscriptionItemListOmniSubItemScheduleChangesResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/omnichannel_subscription_items/%v/scheduled_changes", url.PathEscape(id))
+	req.isListRequest = true
+	return send[*OmnichannelSubscriptionItemListOmniSubItemScheduleChangesResponse](req, s.config)
 }

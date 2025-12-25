@@ -1,5 +1,6 @@
 package chargebee
 
+// just struct
 type Contact struct {
 	Id               string `json:"id"`
 	FirstName        string `json:"first_name"`
@@ -12,3 +13,7 @@ type Contact struct {
 	SendBillingEmail bool   `json:"send_billing_email"`
 	Object           string `json:"object"`
 }
+
+// sub resources
+// operations
+// input params

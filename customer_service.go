@@ -6,109 +6,188 @@ import (
 )
 
 type CustomerService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *CustomerService) Create(req *CreateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/customers"), req).SetIdempotency(true)
+func (s *CustomerService) Create(req *CustomerCreateRequest) (*CustomerCreateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/customers")
+	req.isIdempotent = true
+	return send[*CustomerCreateResponse](req, s.config)
 }
 
-func (s *CustomerService) List(req *ListRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/customers"), req)
+func (s *CustomerService) List(req *CustomerListRequest) (*CustomerListResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/customers")
+	req.isListRequest = true
+	return send[*CustomerListResponse](req, s.config)
 }
 
-func (s *CustomerService) Retrieve(id string) Request {
-	return s.transport.Send("GET", fmt.Sprintf("/customers/%v", url.PathEscape(id)), nil)
+func (s *CustomerService) Retrieve(id string) (*CustomerRetrieveResponse, error) {
+	req := &BlankRequest{}
+	req.method = "GET"
+	req.path = fmt.Sprintf("/customers/%v", url.PathEscape(id))
+	return send[*CustomerRetrieveResponse](req, s.config)
 }
 
-func (s *CustomerService) Update(id string, req *UpdateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/customers/%v", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *CustomerService) Update(id string, req *CustomerUpdateRequest) (*CustomerUpdateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/customers/%v", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*CustomerUpdateResponse](req, s.config)
 }
 
-func (s *CustomerService) UpdatePaymentMethod(id string, req *UpdatePaymentMethodRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/customers/%v/update_payment_method", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *CustomerService) UpdatePaymentMethod(id string, req *CustomerUpdatePaymentMethodRequest) (*CustomerUpdatePaymentMethodResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/customers/%v/update_payment_method", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*CustomerUpdatePaymentMethodResponse](req, s.config)
 }
 
-func (s *CustomerService) UpdateBillingInfo(id string, req *UpdateBillingInfoRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/customers/%v/update_billing_info", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *CustomerService) UpdateBillingInfo(id string, req *CustomerUpdateBillingInfoRequest) (*CustomerUpdateBillingInfoResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/customers/%v/update_billing_info", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*CustomerUpdateBillingInfoResponse](req, s.config)
 }
 
-func (s *CustomerService) ContactsForCustomer(id string, req *ContactsForCustomerRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/customers/%v/contacts", url.PathEscape(id)), req)
+func (s *CustomerService) ContactsForCustomer(id string, req *CustomerContactsForCustomerRequest) (*CustomerContactsForCustomerResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/customers/%v/contacts", url.PathEscape(id))
+	req.isListRequest = true
+	return send[*CustomerContactsForCustomerResponse](req, s.config)
 }
 
-func (s *CustomerService) AssignPaymentRole(id string, req *AssignPaymentRoleRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/customers/%v/assign_payment_role", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *CustomerService) AssignPaymentRole(id string, req *CustomerAssignPaymentRoleRequest) (*CustomerAssignPaymentRoleResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/customers/%v/assign_payment_role", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*CustomerAssignPaymentRoleResponse](req, s.config)
 }
 
-func (s *CustomerService) AddContact(id string, req *AddContactRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/customers/%v/add_contact", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *CustomerService) AddContact(id string, req *CustomerAddContactRequest) (*CustomerAddContactResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/customers/%v/add_contact", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*CustomerAddContactResponse](req, s.config)
 }
 
-func (s *CustomerService) UpdateContact(id string, req *UpdateContactRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/customers/%v/update_contact", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *CustomerService) UpdateContact(id string, req *CustomerUpdateContactRequest) (*CustomerUpdateContactResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/customers/%v/update_contact", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*CustomerUpdateContactResponse](req, s.config)
 }
 
-func (s *CustomerService) DeleteContact(id string, req *DeleteContactRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/customers/%v/delete_contact", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *CustomerService) DeleteContact(id string, req *CustomerDeleteContactRequest) (*CustomerDeleteContactResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/customers/%v/delete_contact", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*CustomerDeleteContactResponse](req, s.config)
 }
 
-func (s *CustomerService) AddPromotionalCredits(id string, req *AddPromotionalCreditsRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/customers/%v/add_promotional_credits", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *CustomerService) AddPromotionalCredits(id string, req *CustomerAddPromotionalCreditsRequest) (*CustomerAddPromotionalCreditsResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/customers/%v/add_promotional_credits", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*CustomerAddPromotionalCreditsResponse](req, s.config)
 }
 
-func (s *CustomerService) DeductPromotionalCredits(id string, req *DeductPromotionalCreditsRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/customers/%v/deduct_promotional_credits", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *CustomerService) DeductPromotionalCredits(id string, req *CustomerDeductPromotionalCreditsRequest) (*CustomerDeductPromotionalCreditsResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/customers/%v/deduct_promotional_credits", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*CustomerDeductPromotionalCreditsResponse](req, s.config)
 }
 
-func (s *CustomerService) SetPromotionalCredits(id string, req *SetPromotionalCreditsRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/customers/%v/set_promotional_credits", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *CustomerService) SetPromotionalCredits(id string, req *CustomerSetPromotionalCreditsRequest) (*CustomerSetPromotionalCreditsResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/customers/%v/set_promotional_credits", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*CustomerSetPromotionalCreditsResponse](req, s.config)
 }
 
-func (s *CustomerService) RecordExcessPayment(id string, req *RecordExcessPaymentRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/customers/%v/record_excess_payment", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *CustomerService) RecordExcessPayment(id string, req *CustomerRecordExcessPaymentRequest) (*CustomerRecordExcessPaymentResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/customers/%v/record_excess_payment", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*CustomerRecordExcessPaymentResponse](req, s.config)
 }
 
-func (s *CustomerService) CollectPayment(id string, req *CollectPaymentRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/customers/%v/collect_payment", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *CustomerService) CollectPayment(id string, req *CustomerCollectPaymentRequest) (*CustomerCollectPaymentResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/customers/%v/collect_payment", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*CustomerCollectPaymentResponse](req, s.config)
 }
 
-func (s *CustomerService) Delete(id string, req *DeleteRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/customers/%v/delete", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *CustomerService) Delete(id string, req *CustomerDeleteRequest) (*CustomerDeleteResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/customers/%v/delete", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*CustomerDeleteResponse](req, s.config)
 }
 
-func (s *CustomerService) Move(req *MoveRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/customers/move"), req).SetIdempotency(true)
+func (s *CustomerService) Move(req *CustomerMoveRequest) (*CustomerMoveResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/customers/move")
+	req.isIdempotent = true
+	return send[*CustomerMoveResponse](req, s.config)
 }
 
-func (s *CustomerService) ChangeBillingDate(id string, req *ChangeBillingDateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/customers/%v/change_billing_date", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *CustomerService) ChangeBillingDate(id string, req *CustomerChangeBillingDateRequest) (*CustomerChangeBillingDateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/customers/%v/change_billing_date", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*CustomerChangeBillingDateResponse](req, s.config)
 }
 
-func (s *CustomerService) Merge(req *MergeRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/customers/merge"), req).SetIdempotency(true)
+func (s *CustomerService) Merge(req *CustomerMergeRequest) (*CustomerMergeResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/customers/merge")
+	req.isIdempotent = true
+	return send[*CustomerMergeResponse](req, s.config)
 }
 
-func (s *CustomerService) ClearPersonalData(id string) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/customers/%v/clear_personal_data", url.PathEscape(id)), nil).SetIdempotency(true)
+func (s *CustomerService) ClearPersonalData(id string) (*CustomerClearPersonalDataResponse, error) {
+	req := &BlankRequest{}
+	req.method = "POST"
+	req.path = fmt.Sprintf("/customers/%v/clear_personal_data", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*CustomerClearPersonalDataResponse](req, s.config)
 }
 
-func (s *CustomerService) Relationships(id string, req *RelationshipsRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/customers/%v/relationships", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *CustomerService) Relationships(id string, req *CustomerRelationshipsRequest) (*CustomerRelationshipsResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/customers/%v/relationships", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*CustomerRelationshipsResponse](req, s.config)
 }
 
-func (s *CustomerService) DeleteRelationship(id string) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/customers/%v/delete_relationship", url.PathEscape(id)), nil).SetIdempotency(true)
+func (s *CustomerService) DeleteRelationship(id string) (*CustomerDeleteRelationshipResponse, error) {
+	req := &BlankRequest{}
+	req.method = "POST"
+	req.path = fmt.Sprintf("/customers/%v/delete_relationship", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*CustomerDeleteRelationshipResponse](req, s.config)
 }
 
-func (s *CustomerService) Hierarchy(id string, req *HierarchyRequest) Request {
-	return s.transport.Send("GET", fmt.Sprintf("/customers/%v/hierarchy", url.PathEscape(id)), req)
+func (s *CustomerService) Hierarchy(id string, req *CustomerHierarchyRequest) (*CustomerHierarchyResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/customers/%v/hierarchy", url.PathEscape(id))
+	return send[*CustomerHierarchyResponse](req, s.config)
 }
 
-func (s *CustomerService) ListHierarchyDetail(id string, req *ListHierarchyDetailRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/customers/%v/hierarchy_detail", url.PathEscape(id)), req)
+func (s *CustomerService) ListHierarchyDetail(id string, req *CustomerListHierarchyDetailRequest) (*CustomerListHierarchyDetailResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/customers/%v/hierarchy_detail", url.PathEscape(id))
+	req.isListRequest = true
+	return send[*CustomerListHierarchyDetailResponse](req, s.config)
 }
 
-func (s *CustomerService) UpdateHierarchySettings(id string, req *UpdateHierarchySettingsRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/customers/%v/update_hierarchy_settings", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *CustomerService) UpdateHierarchySettings(id string, req *CustomerUpdateHierarchySettingsRequest) (*CustomerUpdateHierarchySettingsResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/customers/%v/update_hierarchy_settings", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*CustomerUpdateHierarchySettingsResponse](req, s.config)
 }

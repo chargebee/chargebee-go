@@ -1,111 +1,265 @@
 package chargebee
 
-type Type string
+type TransactionPaymentMethod string
 
 const (
-	TypeAuthorization   Type = "authorization"
-	TypePayment         Type = "payment"
-	TypeRefund          Type = "refund"
-	TypePaymentReversal Type = "payment_reversal"
+	TransactionPaymentMethodCard                  TransactionPaymentMethod = "card"
+	TransactionPaymentMethodCash                  TransactionPaymentMethod = "cash"
+	TransactionPaymentMethodCheck                 TransactionPaymentMethod = "check"
+	TransactionPaymentMethodChargeback            TransactionPaymentMethod = "chargeback"
+	TransactionPaymentMethodBankTransfer          TransactionPaymentMethod = "bank_transfer"
+	TransactionPaymentMethodAmazonPayments        TransactionPaymentMethod = "amazon_payments"
+	TransactionPaymentMethodPaypalExpressCheckout TransactionPaymentMethod = "paypal_express_checkout"
+	TransactionPaymentMethodDirectDebit           TransactionPaymentMethod = "direct_debit"
+	TransactionPaymentMethodAlipay                TransactionPaymentMethod = "alipay"
+	TransactionPaymentMethodUnionpay              TransactionPaymentMethod = "unionpay"
+	TransactionPaymentMethodApplePay              TransactionPaymentMethod = "apple_pay"
+	TransactionPaymentMethodWechatPay             TransactionPaymentMethod = "wechat_pay"
+	TransactionPaymentMethodAchCredit             TransactionPaymentMethod = "ach_credit"
+	TransactionPaymentMethodSepaCredit            TransactionPaymentMethod = "sepa_credit"
+	TransactionPaymentMethodIdeal                 TransactionPaymentMethod = "ideal"
+	TransactionPaymentMethodGooglePay             TransactionPaymentMethod = "google_pay"
+	TransactionPaymentMethodSofort                TransactionPaymentMethod = "sofort"
+	TransactionPaymentMethodBancontact            TransactionPaymentMethod = "bancontact"
+	TransactionPaymentMethodGiropay               TransactionPaymentMethod = "giropay"
+	TransactionPaymentMethodDotpay                TransactionPaymentMethod = "dotpay"
+	TransactionPaymentMethodOther                 TransactionPaymentMethod = "other"
+	TransactionPaymentMethodUpi                   TransactionPaymentMethod = "upi"
+	TransactionPaymentMethodNetbankingEmandates   TransactionPaymentMethod = "netbanking_emandates"
+	TransactionPaymentMethodCustom                TransactionPaymentMethod = "custom"
+	TransactionPaymentMethodBoleto                TransactionPaymentMethod = "boleto"
+	TransactionPaymentMethodVenmo                 TransactionPaymentMethod = "venmo"
+	TransactionPaymentMethodPayTo                 TransactionPaymentMethod = "pay_to"
+	TransactionPaymentMethodFasterPayments        TransactionPaymentMethod = "faster_payments"
+	TransactionPaymentMethodSepaInstantTransfer   TransactionPaymentMethod = "sepa_instant_transfer"
+	TransactionPaymentMethodAutomatedBankTransfer TransactionPaymentMethod = "automated_bank_transfer"
+	TransactionPaymentMethodKlarnaPayNow          TransactionPaymentMethod = "klarna_pay_now"
+	TransactionPaymentMethodOnlineBankingPoland   TransactionPaymentMethod = "online_banking_poland"
+	TransactionPaymentMethodPayconiqByBancontact  TransactionPaymentMethod = "payconiq_by_bancontact"
+	TransactionPaymentMethodAppStore              TransactionPaymentMethod = "app_store"
+	TransactionPaymentMethodPlayStore             TransactionPaymentMethod = "play_store"
 )
 
-type Status string
+type TransactionGateway string
 
 const (
-	StatusInProgress     Status = "in_progress"
-	StatusSuccess        Status = "success"
-	StatusVoided         Status = "voided"
-	StatusFailure        Status = "failure"
-	StatusTimeout        Status = "timeout"
-	StatusNeedsAttention Status = "needs_attention"
-	StatusLateFailure    Status = "late_failure"
+	TransactionGatewayChargebee             TransactionGateway = "chargebee"
+	TransactionGatewayChargebeePayments     TransactionGateway = "chargebee_payments"
+	TransactionGatewayAdyen                 TransactionGateway = "adyen"
+	TransactionGatewayStripe                TransactionGateway = "stripe"
+	TransactionGatewayWepay                 TransactionGateway = "wepay"
+	TransactionGatewayBraintree             TransactionGateway = "braintree"
+	TransactionGatewayAuthorizeNet          TransactionGateway = "authorize_net"
+	TransactionGatewayPaypalPro             TransactionGateway = "paypal_pro"
+	TransactionGatewayPin                   TransactionGateway = "pin"
+	TransactionGatewayEway                  TransactionGateway = "eway"
+	TransactionGatewayEwayRapid             TransactionGateway = "eway_rapid"
+	TransactionGatewayWorldpay              TransactionGateway = "worldpay"
+	TransactionGatewayBalancedPayments      TransactionGateway = "balanced_payments"
+	TransactionGatewayBeanstream            TransactionGateway = "beanstream"
+	TransactionGatewayBluepay               TransactionGateway = "bluepay"
+	TransactionGatewayElavon                TransactionGateway = "elavon"
+	TransactionGatewayFirstDataGlobal       TransactionGateway = "first_data_global"
+	TransactionGatewayHdfc                  TransactionGateway = "hdfc"
+	TransactionGatewayMigs                  TransactionGateway = "migs"
+	TransactionGatewayNmi                   TransactionGateway = "nmi"
+	TransactionGatewayOgone                 TransactionGateway = "ogone"
+	TransactionGatewayPaymill               TransactionGateway = "paymill"
+	TransactionGatewayPaypalPayflowPro      TransactionGateway = "paypal_payflow_pro"
+	TransactionGatewaySagePay               TransactionGateway = "sage_pay"
+	TransactionGatewayTco                   TransactionGateway = "tco"
+	TransactionGatewayWirecard              TransactionGateway = "wirecard"
+	TransactionGatewayAmazonPayments        TransactionGateway = "amazon_payments"
+	TransactionGatewayPaypalExpressCheckout TransactionGateway = "paypal_express_checkout"
+	TransactionGatewayGocardless            TransactionGateway = "gocardless"
+	TransactionGatewayOrbital               TransactionGateway = "orbital"
+	TransactionGatewayMonerisUs             TransactionGateway = "moneris_us"
+	TransactionGatewayMoneris               TransactionGateway = "moneris"
+	TransactionGatewayBluesnap              TransactionGateway = "bluesnap"
+	TransactionGatewayCybersource           TransactionGateway = "cybersource"
+	TransactionGatewayVantiv                TransactionGateway = "vantiv"
+	TransactionGatewayCheckoutCom           TransactionGateway = "checkout_com"
+	TransactionGatewayPaypal                TransactionGateway = "paypal"
+	TransactionGatewayIngenicoDirect        TransactionGateway = "ingenico_direct"
+	TransactionGatewayExact                 TransactionGateway = "exact"
+	TransactionGatewayMollie                TransactionGateway = "mollie"
+	TransactionGatewayQuickbooks            TransactionGateway = "quickbooks"
+	TransactionGatewayRazorpay              TransactionGateway = "razorpay"
+	TransactionGatewayGlobalPayments        TransactionGateway = "global_payments"
+	TransactionGatewayBankOfAmerica         TransactionGateway = "bank_of_america"
+	TransactionGatewayEcentric              TransactionGateway = "ecentric"
+	TransactionGatewayMetricsGlobal         TransactionGateway = "metrics_global"
+	TransactionGatewayWindcave              TransactionGateway = "windcave"
+	TransactionGatewayPayCom                TransactionGateway = "pay_com"
+	TransactionGatewayEbanx                 TransactionGateway = "ebanx"
+	TransactionGatewayDlocal                TransactionGateway = "dlocal"
+	TransactionGatewayNuvei                 TransactionGateway = "nuvei"
+	TransactionGatewaySolidgate             TransactionGateway = "solidgate"
+	TransactionGatewayPaystack              TransactionGateway = "paystack"
+	TransactionGatewayJpMorgan              TransactionGateway = "jp_morgan"
+	TransactionGatewayDeutscheBank          TransactionGateway = "deutsche_bank"
+	TransactionGatewayEzidebit              TransactionGateway = "ezidebit"
+	TransactionGatewayNotApplicable         TransactionGateway = "not_applicable"
 )
 
-type FraudFlag string
+type TransactionType string
 
 const (
-	FraudFlagSafe       FraudFlag = "safe"
-	FraudFlagSuspicious FraudFlag = "suspicious"
-	FraudFlagFraudulent FraudFlag = "fraudulent"
+	TransactionTypeAuthorization   TransactionType = "authorization"
+	TransactionTypePayment         TransactionType = "payment"
+	TransactionTypeRefund          TransactionType = "refund"
+	TransactionTypePaymentReversal TransactionType = "payment_reversal"
 )
 
-type InitiatorType string
+type TransactionStatus string
 
 const (
-	InitiatorTypeCustomer InitiatorType = "customer"
-	InitiatorTypeMerchant InitiatorType = "merchant"
+	TransactionStatusInProgress     TransactionStatus = "in_progress"
+	TransactionStatusSuccess        TransactionStatus = "success"
+	TransactionStatusVoided         TransactionStatus = "voided"
+	TransactionStatusFailure        TransactionStatus = "failure"
+	TransactionStatusTimeout        TransactionStatus = "timeout"
+	TransactionStatusNeedsAttention TransactionStatus = "needs_attention"
+	TransactionStatusLateFailure    TransactionStatus = "late_failure"
 )
 
-type AuthorizationReason string
+type TransactionFraudFlag string
 
 const (
-	AuthorizationReasonBlockingFunds    AuthorizationReason = "blocking_funds"
-	AuthorizationReasonVerification     AuthorizationReason = "verification"
-	AuthorizationReasonScheduledCapture AuthorizationReason = "scheduled_capture"
+	TransactionFraudFlagSafe       TransactionFraudFlag = "safe"
+	TransactionFraudFlagSuspicious TransactionFraudFlag = "suspicious"
+	TransactionFraudFlagFraudulent TransactionFraudFlag = "fraudulent"
 )
 
-type LinkedPaymentStatus string
+type TransactionInitiatorType string
 
 const (
-	LinkedPaymentStatusInProgress     LinkedPaymentStatus = "in_progress"
-	LinkedPaymentStatusSuccess        LinkedPaymentStatus = "success"
-	LinkedPaymentStatusVoided         LinkedPaymentStatus = "voided"
-	LinkedPaymentStatusFailure        LinkedPaymentStatus = "failure"
-	LinkedPaymentStatusTimeout        LinkedPaymentStatus = "timeout"
-	LinkedPaymentStatusNeedsAttention LinkedPaymentStatus = "needs_attention"
-	LinkedPaymentStatusLateFailure    LinkedPaymentStatus = "late_failure"
+	TransactionInitiatorTypeCustomer TransactionInitiatorType = "customer"
+	TransactionInitiatorTypeMerchant TransactionInitiatorType = "merchant"
 )
 
+type TransactionAuthorizationReason string
+
+const (
+	TransactionAuthorizationReasonBlockingFunds    TransactionAuthorizationReason = "blocking_funds"
+	TransactionAuthorizationReasonVerification     TransactionAuthorizationReason = "verification"
+	TransactionAuthorizationReasonScheduledCapture TransactionAuthorizationReason = "scheduled_capture"
+)
+
+type TransactionInvoiceTransactionInvoiceStatus string
+
+const (
+	TransactionInvoiceTransactionInvoiceStatusPaid       TransactionInvoiceTransactionInvoiceStatus = "paid"
+	TransactionInvoiceTransactionInvoiceStatusPosted     TransactionInvoiceTransactionInvoiceStatus = "posted"
+	TransactionInvoiceTransactionInvoiceStatusPaymentDue TransactionInvoiceTransactionInvoiceStatus = "payment_due"
+	TransactionInvoiceTransactionInvoiceStatusNotPaid    TransactionInvoiceTransactionInvoiceStatus = "not_paid"
+	TransactionInvoiceTransactionInvoiceStatusVoided     TransactionInvoiceTransactionInvoiceStatus = "voided"
+	TransactionInvoiceTransactionInvoiceStatusPending    TransactionInvoiceTransactionInvoiceStatus = "pending"
+)
+
+type TransactionCreditNoteTransactionCnReasonCode string
+
+const (
+	TransactionCreditNoteTransactionCnReasonCodeWriteOff                 TransactionCreditNoteTransactionCnReasonCode = "write_off"
+	TransactionCreditNoteTransactionCnReasonCodeSubscriptionChange       TransactionCreditNoteTransactionCnReasonCode = "subscription_change"
+	TransactionCreditNoteTransactionCnReasonCodeSubscriptionCancellation TransactionCreditNoteTransactionCnReasonCode = "subscription_cancellation"
+	TransactionCreditNoteTransactionCnReasonCodeSubscriptionPause        TransactionCreditNoteTransactionCnReasonCode = "subscription_pause"
+	TransactionCreditNoteTransactionCnReasonCodeChargeback               TransactionCreditNoteTransactionCnReasonCode = "chargeback"
+	TransactionCreditNoteTransactionCnReasonCodeProductUnsatisfactory    TransactionCreditNoteTransactionCnReasonCode = "product_unsatisfactory"
+	TransactionCreditNoteTransactionCnReasonCodeServiceUnsatisfactory    TransactionCreditNoteTransactionCnReasonCode = "service_unsatisfactory"
+	TransactionCreditNoteTransactionCnReasonCodeOrderChange              TransactionCreditNoteTransactionCnReasonCode = "order_change"
+	TransactionCreditNoteTransactionCnReasonCodeOrderCancellation        TransactionCreditNoteTransactionCnReasonCode = "order_cancellation"
+	TransactionCreditNoteTransactionCnReasonCodeWaiver                   TransactionCreditNoteTransactionCnReasonCode = "waiver"
+	TransactionCreditNoteTransactionCnReasonCodeOther                    TransactionCreditNoteTransactionCnReasonCode = "other"
+	TransactionCreditNoteTransactionCnReasonCodeFraudulent               TransactionCreditNoteTransactionCnReasonCode = "fraudulent"
+)
+
+type TransactionCreditNoteTransactionCnStatus string
+
+const (
+	TransactionCreditNoteTransactionCnStatusAdjusted  TransactionCreditNoteTransactionCnStatus = "adjusted"
+	TransactionCreditNoteTransactionCnStatusRefunded  TransactionCreditNoteTransactionCnStatus = "refunded"
+	TransactionCreditNoteTransactionCnStatusRefundDue TransactionCreditNoteTransactionCnStatus = "refund_due"
+	TransactionCreditNoteTransactionCnStatusVoided    TransactionCreditNoteTransactionCnStatus = "voided"
+)
+
+type TransactionTxnRefundsAndReversalTxnStatus string
+
+const (
+	TransactionTxnRefundsAndReversalTxnStatusInProgress     TransactionTxnRefundsAndReversalTxnStatus = "in_progress"
+	TransactionTxnRefundsAndReversalTxnStatusSuccess        TransactionTxnRefundsAndReversalTxnStatus = "success"
+	TransactionTxnRefundsAndReversalTxnStatusVoided         TransactionTxnRefundsAndReversalTxnStatus = "voided"
+	TransactionTxnRefundsAndReversalTxnStatusFailure        TransactionTxnRefundsAndReversalTxnStatus = "failure"
+	TransactionTxnRefundsAndReversalTxnStatusTimeout        TransactionTxnRefundsAndReversalTxnStatus = "timeout"
+	TransactionTxnRefundsAndReversalTxnStatusNeedsAttention TransactionTxnRefundsAndReversalTxnStatus = "needs_attention"
+	TransactionTxnRefundsAndReversalTxnStatusLateFailure    TransactionTxnRefundsAndReversalTxnStatus = "late_failure"
+)
+
+type TransactionLinkedPaymentStatus string
+
+const (
+	TransactionLinkedPaymentStatusInProgress     TransactionLinkedPaymentStatus = "in_progress"
+	TransactionLinkedPaymentStatusSuccess        TransactionLinkedPaymentStatus = "success"
+	TransactionLinkedPaymentStatusVoided         TransactionLinkedPaymentStatus = "voided"
+	TransactionLinkedPaymentStatusFailure        TransactionLinkedPaymentStatus = "failure"
+	TransactionLinkedPaymentStatusTimeout        TransactionLinkedPaymentStatus = "timeout"
+	TransactionLinkedPaymentStatusNeedsAttention TransactionLinkedPaymentStatus = "needs_attention"
+	TransactionLinkedPaymentStatusLateFailure    TransactionLinkedPaymentStatus = "late_failure"
+)
+
+// just struct
 type Transaction struct {
-	Id                       string              `json:"id"`
-	CustomerId               string              `json:"customer_id"`
-	SubscriptionId           string              `json:"subscription_id"`
-	GatewayAccountId         string              `json:"gateway_account_id"`
-	PaymentSourceId          string              `json:"payment_source_id"`
-	PaymentMethod            enum.PaymentMethod  `json:"payment_method"`
-	ReferenceNumber          string              `json:"reference_number"`
-	Gateway                  enum.Gateway        `json:"gateway"`
-	Type                     Type                `json:"type"`
-	Date                     int64               `json:"date"`
-	SettledAt                int64               `json:"settled_at"`
-	ExchangeRate             float64             `json:"exchange_rate"`
-	CurrencyCode             string              `json:"currency_code"`
-	Amount                   int64               `json:"amount"`
-	IdAtGateway              string              `json:"id_at_gateway"`
-	Status                   Status              `json:"status"`
-	FraudFlag                FraudFlag           `json:"fraud_flag"`
-	InitiatorType            InitiatorType       `json:"initiator_type"`
-	ThreeDSecure             bool                `json:"three_d_secure"`
-	AuthorizationReason      AuthorizationReason `json:"authorization_reason"`
-	ErrorCode                string              `json:"error_code"`
-	ErrorText                string              `json:"error_text"`
-	VoidedAt                 int64               `json:"voided_at"`
-	ResourceVersion          int64               `json:"resource_version"`
-	UpdatedAt                int64               `json:"updated_at"`
-	FraudReason              string              `json:"fraud_reason"`
-	CustomPaymentMethodId    string              `json:"custom_payment_method_id"`
-	AmountUnused             int64               `json:"amount_unused"`
-	MaskedCardNumber         string              `json:"masked_card_number"`
-	ReferenceTransactionId   string              `json:"reference_transaction_id"`
-	RefundedTxnId            string              `json:"refunded_txn_id"`
-	ReferenceAuthorizationId string              `json:"reference_authorization_id"`
-	AmountCapturable         int64               `json:"amount_capturable"`
-	ReversalTransactionId    string              `json:"reversal_transaction_id"`
-	LinkedInvoices           []*LinkedInvoice    `json:"linked_invoices"`
-	LinkedCreditNotes        []*LinkedCreditNote `json:"linked_credit_notes"`
-	LinkedRefunds            []*LinkedRefund     `json:"linked_refunds"`
-	LinkedPayments           []*LinkedPayment    `json:"linked_payments"`
-	Deleted                  bool                `json:"deleted"`
-	Iin                      string              `json:"iin"`
-	Last4                    string              `json:"last4"`
-	MerchantReferenceId      string              `json:"merchant_reference_id"`
-	BusinessEntityId         string              `json:"business_entity_id"`
-	PaymentMethodDetails     string              `json:"payment_method_details"`
-	ErrorDetail              *GatewayErrorDetail `json:"error_detail"`
-	CustomPaymentMethodName  string              `json:"custom_payment_method_name"`
-	Object                   string              `json:"object"`
+	Id                       string                         `json:"id"`
+	CustomerId               string                         `json:"customer_id"`
+	SubscriptionId           string                         `json:"subscription_id"`
+	GatewayAccountId         string                         `json:"gateway_account_id"`
+	PaymentSourceId          string                         `json:"payment_source_id"`
+	PaymentMethod            TransactionPaymentMethod       `json:"payment_method"`
+	ReferenceNumber          string                         `json:"reference_number"`
+	Gateway                  TransactionGateway             `json:"gateway"`
+	Type                     TransactionType                `json:"type"`
+	Date                     int64                          `json:"date"`
+	SettledAt                int64                          `json:"settled_at"`
+	ExchangeRate             float64                        `json:"exchange_rate"`
+	CurrencyCode             string                         `json:"currency_code"`
+	Amount                   int64                          `json:"amount"`
+	IdAtGateway              string                         `json:"id_at_gateway"`
+	Status                   TransactionStatus              `json:"status"`
+	FraudFlag                TransactionFraudFlag           `json:"fraud_flag"`
+	InitiatorType            TransactionInitiatorType       `json:"initiator_type"`
+	ThreeDSecure             bool                           `json:"three_d_secure"`
+	AuthorizationReason      TransactionAuthorizationReason `json:"authorization_reason"`
+	ErrorCode                string                         `json:"error_code"`
+	ErrorText                string                         `json:"error_text"`
+	VoidedAt                 int64                          `json:"voided_at"`
+	ResourceVersion          int64                          `json:"resource_version"`
+	UpdatedAt                int64                          `json:"updated_at"`
+	FraudReason              string                         `json:"fraud_reason"`
+	CustomPaymentMethodId    string                         `json:"custom_payment_method_id"`
+	AmountUnused             int64                          `json:"amount_unused"`
+	MaskedCardNumber         string                         `json:"masked_card_number"`
+	ReferenceTransactionId   string                         `json:"reference_transaction_id"`
+	RefundedTxnId            string                         `json:"refunded_txn_id"`
+	ReferenceAuthorizationId string                         `json:"reference_authorization_id"`
+	AmountCapturable         int64                          `json:"amount_capturable"`
+	ReversalTransactionId    string                         `json:"reversal_transaction_id"`
+	LinkedInvoices           []*TransactionLinkedInvoice    `json:"linked_invoices"`
+	LinkedCreditNotes        []*TransactionLinkedCreditNote `json:"linked_credit_notes"`
+	LinkedRefunds            []*TransactionLinkedRefund     `json:"linked_refunds"`
+	LinkedPayments           []*TransactionLinkedPayment    `json:"linked_payments"`
+	Deleted                  bool                           `json:"deleted"`
+	Iin                      string                         `json:"iin"`
+	Last4                    string                         `json:"last4"`
+	MerchantReferenceId      string                         `json:"merchant_reference_id"`
+	BusinessEntityId         string                         `json:"business_entity_id"`
+	PaymentMethodDetails     string                         `json:"payment_method_details"`
+	ErrorDetail              *GatewayErrorDetail            `json:"error_detail"`
+	CustomPaymentMethodName  string                         `json:"custom_payment_method_name"`
+	Object                   string                         `json:"object"`
 }
-type LinkedInvoice struct {
+
+// sub resources
+type TransactionLinkedInvoice struct {
 	InvoiceId     string         `json:"invoice_id"`
 	AppliedAmount int64          `json:"applied_amount"`
 	AppliedAt     int64          `json:"applied_at"`
@@ -114,7 +268,7 @@ type LinkedInvoice struct {
 	InvoiceStatus invoice.Status `json:"invoice_status"`
 	Object        string         `json:"object"`
 }
-type LinkedCreditNote struct {
+type TransactionLinkedCreditNote struct {
 	CnId                 string                `json:"cn_id"`
 	AppliedAmount        int64                 `json:"applied_amount"`
 	AppliedAt            int64                 `json:"applied_at"`
@@ -126,21 +280,21 @@ type LinkedCreditNote struct {
 	CnReferenceInvoiceId string                `json:"cn_reference_invoice_id"`
 	Object               string                `json:"object"`
 }
-type LinkedRefund struct {
-	TxnId     string `json:"txn_id"`
-	TxnStatus Status `json:"txn_status"`
-	TxnDate   int64  `json:"txn_date"`
-	TxnAmount int64  `json:"txn_amount"`
-	Object    string `json:"object"`
+type TransactionLinkedRefund struct {
+	TxnId     string             `json:"txn_id"`
+	TxnStatus transaction.Status `json:"txn_status"`
+	TxnDate   int64              `json:"txn_date"`
+	TxnAmount int64              `json:"txn_amount"`
+	Object    string             `json:"object"`
 }
-type LinkedPayment struct {
+type TransactionLinkedPayment struct {
 	Id     string              `json:"id"`
 	Status LinkedPaymentStatus `json:"status"`
 	Amount int64               `json:"amount"`
 	Date   int64               `json:"date"`
 	Object string              `json:"object"`
 }
-type GatewayErrorDetail struct {
+type TransactionGatewayErrorDetail struct {
 	RequestId             string `json:"request_id"`
 	ErrorCategory         string `json:"error_category"`
 	ErrorCode             string `json:"error_code"`
@@ -158,126 +312,190 @@ type GatewayErrorDetail struct {
 	ProcessorAdviceCode   string `json:"processor_advice_code"`
 	Object                string `json:"object"`
 }
-type CreateAuthorizationRequest struct {
+
+// operations
+// input params
+type TransactionCreateAuthorizationRequest struct {
 	CustomerId      string `json:"customer_id"`
 	PaymentSourceId string `json:"payment_source_id,omitempty"`
 	CurrencyCode    string `json:"currency_code,omitempty"`
 	Amount          *int64 `json:"amount"`
-}
-type RecordRefundRequest struct {
-	Amount                *int64             `json:"amount,omitempty"`
-	PaymentMethod         enum.PaymentMethod `json:"payment_method"`
-	Date                  *int64             `json:"date"`
-	ReferenceNumber       string             `json:"reference_number,omitempty"`
-	CustomPaymentMethodId string             `json:"custom_payment_method_id,omitempty"`
-	Comment               string             `json:"comment,omitempty"`
-}
-type ReconcileRequest struct {
-	IdAtGateway string `json:"id_at_gateway,omitempty"`
-	CustomerId  string `json:"customer_id,omitempty"`
-	Status      Status `json:"status,omitempty"`
-}
-type RefundRequest struct {
-	Amount  *int64 `json:"amount,omitempty"`
-	Comment string `json:"comment,omitempty"`
-}
-type ListRequest struct {
-	Limit            *int32                  `json:"limit,omitempty"`
-	Offset           string                  `json:"offset,omitempty"`
-	IncludeDeleted   *bool                   `json:"include_deleted,omitempty"`
-	Id               *filter.StringFilter    `json:"id,omitempty"`
-	CustomerId       *filter.StringFilter    `json:"customer_id,omitempty"`
-	SubscriptionId   *filter.StringFilter    `json:"subscription_id,omitempty"`
-	PaymentSourceId  *filter.StringFilter    `json:"payment_source_id,omitempty"`
-	PaymentMethod    *filter.EnumFilter      `json:"payment_method,omitempty"`
-	Gateway          *filter.EnumFilter      `json:"gateway,omitempty"`
-	GatewayAccountId *filter.StringFilter    `json:"gateway_account_id,omitempty"`
-	IdAtGateway      *filter.StringFilter    `json:"id_at_gateway,omitempty"`
-	ReferenceNumber  *filter.StringFilter    `json:"reference_number,omitempty"`
-	Type             *filter.EnumFilter      `json:"type,omitempty"`
-	Date             *filter.TimestampFilter `json:"date,omitempty"`
-	Amount           *filter.NumberFilter    `json:"amount,omitempty"`
-	AmountCapturable *filter.NumberFilter    `json:"amount_capturable,omitempty"`
-	Status           *filter.EnumFilter      `json:"status,omitempty"`
-	UpdatedAt        *filter.TimestampFilter `json:"updated_at,omitempty"`
-	SortBy           *filter.SortFilter      `json:"sort_by,omitempty"`
-}
-type TransactionsForCustomerRequest struct {
-	Limit  *int32 `json:"limit,omitempty"`
-	Offset string `json:"offset,omitempty"`
-}
-type TransactionsForSubscriptionRequest struct {
-	Limit  *int32 `json:"limit,omitempty"`
-	Offset string `json:"offset,omitempty"`
-}
-type PaymentsForInvoiceRequest struct {
-	Limit  *int32 `json:"limit,omitempty"`
-	Offset string `json:"offset,omitempty"`
-}
-type DeleteOfflineTransactionRequest struct {
-	Comment string `json:"comment,omitempty"`
+	apiRequest      `json:"-" form:"-"`
 }
 
-type CreateAuthorizationResponse struct {
+func (r *TransactionCreateAuthorizationRequest) payload() any { return r }
+
+type TransactionRecordRefundRequest struct {
+	Amount                *int64                   `json:"amount,omitempty"`
+	PaymentMethod         TransactionPaymentMethod `json:"payment_method"`
+	Date                  *int64                   `json:"date"`
+	ReferenceNumber       string                   `json:"reference_number,omitempty"`
+	CustomPaymentMethodId string                   `json:"custom_payment_method_id,omitempty"`
+	Comment               string                   `json:"comment,omitempty"`
+	apiRequest            `json:"-" form:"-"`
+}
+
+func (r *TransactionRecordRefundRequest) payload() any { return r }
+
+type TransactionReconcileRequest struct {
+	IdAtGateway string            `json:"id_at_gateway,omitempty"`
+	CustomerId  string            `json:"customer_id,omitempty"`
+	Status      TransactionStatus `json:"status,omitempty"`
+	apiRequest  `json:"-" form:"-"`
+}
+
+func (r *TransactionReconcileRequest) payload() any { return r }
+
+type TransactionRefundRequest struct {
+	Amount     *int64 `json:"amount,omitempty"`
+	Comment    string `json:"comment,omitempty"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *TransactionRefundRequest) payload() any { return r }
+
+type TransactionListRequest struct {
+	Limit            *int32           `json:"limit,omitempty"`
+	Offset           string           `json:"offset,omitempty"`
+	IncludeDeleted   *bool            `json:"include_deleted,omitempty"`
+	Id               *StringFilter    `json:"id,omitempty"`
+	CustomerId       *StringFilter    `json:"customer_id,omitempty"`
+	SubscriptionId   *StringFilter    `json:"subscription_id,omitempty"`
+	PaymentSourceId  *StringFilter    `json:"payment_source_id,omitempty"`
+	PaymentMethod    *EnumFilter      `json:"payment_method,omitempty"`
+	Gateway          *EnumFilter      `json:"gateway,omitempty"`
+	GatewayAccountId *StringFilter    `json:"gateway_account_id,omitempty"`
+	IdAtGateway      *StringFilter    `json:"id_at_gateway,omitempty"`
+	ReferenceNumber  *StringFilter    `json:"reference_number,omitempty"`
+	Type             *EnumFilter      `json:"type,omitempty"`
+	Date             *TimestampFilter `json:"date,omitempty"`
+	Amount           *NumberFilter    `json:"amount,omitempty"`
+	AmountCapturable *NumberFilter    `json:"amount_capturable,omitempty"`
+	Status           *EnumFilter      `json:"status,omitempty"`
+	UpdatedAt        *TimestampFilter `json:"updated_at,omitempty"`
+	SortBy           *SortFilter      `json:"sort_by,omitempty"`
+	apiRequest       `json:"-" form:"-"`
+}
+
+func (r *TransactionListRequest) payload() any { return r }
+
+type TransactionTransactionsForCustomerRequest struct {
+	Limit      *int32 `json:"limit,omitempty"`
+	Offset     string `json:"offset,omitempty"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *TransactionTransactionsForCustomerRequest) payload() any { return r }
+
+type TransactionTransactionsForSubscriptionRequest struct {
+	Limit      *int32 `json:"limit,omitempty"`
+	Offset     string `json:"offset,omitempty"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *TransactionTransactionsForSubscriptionRequest) payload() any { return r }
+
+type TransactionPaymentsForInvoiceRequest struct {
+	Limit      *int32 `json:"limit,omitempty"`
+	Offset     string `json:"offset,omitempty"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *TransactionPaymentsForInvoiceRequest) payload() any { return r }
+
+type TransactionDeleteOfflineTransactionRequest struct {
+	Comment    string `json:"comment,omitempty"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *TransactionDeleteOfflineTransactionRequest) payload() any { return r }
+
+// operation response
+type TransactionCreateAuthorizationResponse struct {
+	Transaction *Transaction `json:"transaction,omitempty"`
+	apiResponse
+}
+
+// operation response
+type TransactionVoidTransactionResponse struct {
+	Transaction *Transaction `json:"transaction,omitempty"`
+	apiResponse
+}
+
+// operation response
+type TransactionRecordRefundResponse struct {
+	Transaction *Transaction `json:"transaction,omitempty"`
+	apiResponse
+}
+
+// operation response
+type TransactionReconcileResponse struct {
+	Transaction *Transaction `json:"transaction,omitempty"`
+	apiResponse
+}
+
+// operation response
+type TransactionRefundResponse struct {
+	Transaction *Transaction `json:"transaction,omitempty"`
+	apiResponse
+}
+
+// operation sub response
+type TransactionListTransactionResponse struct {
 	Transaction *Transaction `json:"transaction,omitempty"`
 }
 
-type VoidTransactionResponse struct {
+// operation response
+type TransactionListResponse struct {
+	List       []*TransactionListTransactionResponse `json:"list,omitempty"`
+	NextOffset string                                `json:"next_offset,omitempty"`
+	apiResponse
+}
+
+// operation sub response
+type TransactionTransactionsForCustomerTransactionResponse struct {
 	Transaction *Transaction `json:"transaction,omitempty"`
 }
 
-type RecordRefundResponse struct {
+// operation response
+type TransactionTransactionsForCustomerResponse struct {
+	List       []*TransactionTransactionsForCustomerTransactionResponse `json:"list,omitempty"`
+	NextOffset string                                                   `json:"next_offset,omitempty"`
+	apiResponse
+}
+
+// operation sub response
+type TransactionTransactionsForSubscriptionTransactionResponse struct {
 	Transaction *Transaction `json:"transaction,omitempty"`
 }
 
-type ReconcileResponse struct {
+// operation response
+type TransactionTransactionsForSubscriptionResponse struct {
+	List       []*TransactionTransactionsForSubscriptionTransactionResponse `json:"list,omitempty"`
+	NextOffset string                                                       `json:"next_offset,omitempty"`
+	apiResponse
+}
+
+// operation sub response
+type TransactionPaymentsForInvoiceTransactionResponse struct {
 	Transaction *Transaction `json:"transaction,omitempty"`
 }
 
-type RefundResponse struct {
+// operation response
+type TransactionPaymentsForInvoiceResponse struct {
+	List       []*TransactionPaymentsForInvoiceTransactionResponse `json:"list,omitempty"`
+	NextOffset string                                              `json:"next_offset,omitempty"`
+	apiResponse
+}
+
+// operation response
+type TransactionRetrieveResponse struct {
 	Transaction *Transaction `json:"transaction,omitempty"`
+	apiResponse
 }
 
-type ListTransactionResponse struct {
+// operation response
+type TransactionDeleteOfflineTransactionResponse struct {
 	Transaction *Transaction `json:"transaction,omitempty"`
-}
-
-type ListResponse struct {
-	List       []*ListTransactionResponse `json:"list,omitempty"`
-	NextOffset string                     `json:"next_offset,omitempty"`
-}
-
-type TransactionsForCustomerTransactionResponse struct {
-	Transaction *Transaction `json:"transaction,omitempty"`
-}
-
-type TransactionsForCustomerResponse struct {
-	List       []*TransactionsForCustomerTransactionResponse `json:"list,omitempty"`
-	NextOffset string                                        `json:"next_offset,omitempty"`
-}
-
-type TransactionsForSubscriptionTransactionResponse struct {
-	Transaction *Transaction `json:"transaction,omitempty"`
-}
-
-type TransactionsForSubscriptionResponse struct {
-	List       []*TransactionsForSubscriptionTransactionResponse `json:"list,omitempty"`
-	NextOffset string                                            `json:"next_offset,omitempty"`
-}
-
-type PaymentsForInvoiceTransactionResponse struct {
-	Transaction *Transaction `json:"transaction,omitempty"`
-}
-
-type PaymentsForInvoiceResponse struct {
-	List       []*PaymentsForInvoiceTransactionResponse `json:"list,omitempty"`
-	NextOffset string                                   `json:"next_offset,omitempty"`
-}
-
-type RetrieveResponse struct {
-	Transaction *Transaction `json:"transaction,omitempty"`
-}
-
-type DeleteOfflineTransactionResponse struct {
-	Transaction *Transaction `json:"transaction,omitempty"`
+	apiResponse
 }

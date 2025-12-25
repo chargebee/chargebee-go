@@ -6,53 +6,91 @@ import (
 )
 
 type OrderService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *OrderService) Create(req *CreateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/orders"), req).SetIdempotency(true)
+func (s *OrderService) Create(req *OrderCreateRequest) (*OrderCreateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/orders")
+	req.isIdempotent = true
+	return send[*OrderCreateResponse](req, s.config)
 }
 
-func (s *OrderService) Update(id string, req *UpdateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/orders/%v", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *OrderService) Update(id string, req *OrderUpdateRequest) (*OrderUpdateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/orders/%v", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*OrderUpdateResponse](req, s.config)
 }
 
-func (s *OrderService) ImportOrder(req *ImportOrderRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/orders/import_order"), req).SetIdempotency(true)
+func (s *OrderService) ImportOrder(req *OrderImportOrderRequest) (*OrderImportOrderResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/orders/import_order")
+	req.isIdempotent = true
+	return send[*OrderImportOrderResponse](req, s.config)
 }
 
-func (s *OrderService) AssignOrderNumber(id string) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/orders/%v/assign_order_number", url.PathEscape(id)), nil).SetIdempotency(true)
+func (s *OrderService) AssignOrderNumber(id string) (*OrderAssignOrderNumberResponse, error) {
+	req := &BlankRequest{}
+	req.method = "POST"
+	req.path = fmt.Sprintf("/orders/%v/assign_order_number", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*OrderAssignOrderNumberResponse](req, s.config)
 }
 
-func (s *OrderService) Cancel(id string, req *CancelRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/orders/%v/cancel", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *OrderService) Cancel(id string, req *OrderCancelRequest) (*OrderCancelResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/orders/%v/cancel", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*OrderCancelResponse](req, s.config)
 }
 
-func (s *OrderService) CreateRefundableCreditNote(id string, req *CreateRefundableCreditNoteRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/orders/%v/create_refundable_credit_note", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *OrderService) CreateRefundableCreditNote(id string, req *OrderCreateRefundableCreditNoteRequest) (*OrderCreateRefundableCreditNoteResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/orders/%v/create_refundable_credit_note", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*OrderCreateRefundableCreditNoteResponse](req, s.config)
 }
 
-func (s *OrderService) Reopen(id string, req *ReopenRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/orders/%v/reopen", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *OrderService) Reopen(id string, req *OrderReopenRequest) (*OrderReopenResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/orders/%v/reopen", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*OrderReopenResponse](req, s.config)
 }
 
-func (s *OrderService) Retrieve(id string) Request {
-	return s.transport.Send("GET", fmt.Sprintf("/orders/%v", url.PathEscape(id)), nil)
+func (s *OrderService) Retrieve(id string) (*OrderRetrieveResponse, error) {
+	req := &BlankRequest{}
+	req.method = "GET"
+	req.path = fmt.Sprintf("/orders/%v", url.PathEscape(id))
+	return send[*OrderRetrieveResponse](req, s.config)
 }
 
-func (s *OrderService) Delete(id string) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/orders/%v/delete", url.PathEscape(id)), nil).SetIdempotency(true)
+func (s *OrderService) Delete(id string) (*OrderDeleteResponse, error) {
+	req := &BlankRequest{}
+	req.method = "POST"
+	req.path = fmt.Sprintf("/orders/%v/delete", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*OrderDeleteResponse](req, s.config)
 }
 
-func (s *OrderService) List(req *ListRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/orders"), req)
+func (s *OrderService) List(req *OrderListRequest) (*OrderListResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/orders")
+	req.isListRequest = true
+	return send[*OrderListResponse](req, s.config)
 }
 
-func (s *OrderService) OrdersForInvoice(id string, req *OrdersForInvoiceRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/invoices/%v/orders", url.PathEscape(id)), req)
+func (s *OrderService) OrdersForInvoice(id string, req *OrderOrdersForInvoiceRequest) (*OrderOrdersForInvoiceResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/invoices/%v/orders", url.PathEscape(id))
+	req.isListRequest = true
+	return send[*OrderOrdersForInvoiceResponse](req, s.config)
 }
 
-func (s *OrderService) Resend(id string, req *ResendRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/orders/%v/resend", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *OrderService) Resend(id string, req *OrderResendRequest) (*OrderResendResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/orders/%v/resend", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*OrderResendResponse](req, s.config)
 }

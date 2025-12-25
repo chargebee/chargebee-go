@@ -1,37 +1,50 @@
 package chargebee
 
-type Status string
+type GiftStatus string
 
 const (
-	StatusScheduled Status = "scheduled"
-	StatusUnclaimed Status = "unclaimed"
-	StatusClaimed   Status = "claimed"
-	StatusCancelled Status = "cancelled"
-	StatusExpired   Status = "expired"
+	GiftStatusScheduled GiftStatus = "scheduled"
+	GiftStatusUnclaimed GiftStatus = "unclaimed"
+	GiftStatusClaimed   GiftStatus = "claimed"
+	GiftStatusCancelled GiftStatus = "cancelled"
+	GiftStatusExpired   GiftStatus = "expired"
 )
 
+type GiftGiftTimelineStatus string
+
+const (
+	GiftGiftTimelineStatusScheduled GiftGiftTimelineStatus = "scheduled"
+	GiftGiftTimelineStatusUnclaimed GiftGiftTimelineStatus = "unclaimed"
+	GiftGiftTimelineStatusClaimed   GiftGiftTimelineStatus = "claimed"
+	GiftGiftTimelineStatusCancelled GiftGiftTimelineStatus = "cancelled"
+	GiftGiftTimelineStatusExpired   GiftGiftTimelineStatus = "expired"
+)
+
+// just struct
 type Gift struct {
-	Id              string          `json:"id"`
-	Status          Status          `json:"status"`
-	ScheduledAt     int64           `json:"scheduled_at"`
-	AutoClaim       bool            `json:"auto_claim"`
-	NoExpiry        bool            `json:"no_expiry"`
-	ClaimExpiryDate int64           `json:"claim_expiry_date"`
-	ResourceVersion int64           `json:"resource_version"`
-	UpdatedAt       int64           `json:"updated_at"`
-	Gifter          *Gifter         `json:"gifter"`
-	GiftReceiver    *GiftReceiver   `json:"gift_receiver"`
-	GiftTimelines   []*GiftTimeline `json:"gift_timelines"`
-	Object          string          `json:"object"`
+	Id              string              `json:"id"`
+	Status          GiftStatus          `json:"status"`
+	ScheduledAt     int64               `json:"scheduled_at"`
+	AutoClaim       bool                `json:"auto_claim"`
+	NoExpiry        bool                `json:"no_expiry"`
+	ClaimExpiryDate int64               `json:"claim_expiry_date"`
+	ResourceVersion int64               `json:"resource_version"`
+	UpdatedAt       int64               `json:"updated_at"`
+	Gifter          *Gifter             `json:"gifter"`
+	GiftReceiver    *GiftReceiver       `json:"gift_receiver"`
+	GiftTimelines   []*GiftGiftTimeline `json:"gift_timelines"`
+	Object          string              `json:"object"`
 }
-type Gifter struct {
+
+// sub resources
+type GiftGifter struct {
 	CustomerId string `json:"customer_id"`
 	InvoiceId  string `json:"invoice_id"`
 	Signature  string `json:"signature"`
 	Note       string `json:"note"`
 	Object     string `json:"object"`
 }
-type GiftReceiver struct {
+type GiftGiftReceiver struct {
 	CustomerId     string `json:"customer_id"`
 	SubscriptionId string `json:"subscription_id"`
 	FirstName      string `json:"first_name"`
@@ -39,130 +52,163 @@ type GiftReceiver struct {
 	Email          string `json:"email"`
 	Object         string `json:"object"`
 }
-type GiftTimeline struct {
-	Status     giftEnum.Status `json:"status"`
-	OccurredAt int64           `json:"occurred_at"`
-	Object     string          `json:"object"`
+type GiftGiftTimeline struct {
+	Status     Status `json:"status"`
+	OccurredAt int64  `json:"occurred_at"`
+	Object     string `json:"object"`
 }
-type CreateRequest struct {
-	ScheduledAt     *int64                 `json:"scheduled_at,omitempty"`
-	AutoClaim       *bool                  `json:"auto_claim,omitempty"`
-	NoExpiry        *bool                  `json:"no_expiry,omitempty"`
-	ClaimExpiryDate *int64                 `json:"claim_expiry_date,omitempty"`
-	Gifter          *CreateGifter          `json:"gifter,omitempty"`
-	GiftReceiver    *CreateGiftReceiver    `json:"gift_receiver,omitempty"`
-	CouponIds       []string               `json:"coupon_ids,omitempty"`
-	PaymentIntent   *CreatePaymentIntent   `json:"payment_intent,omitempty"`
-	ShippingAddress *CreateShippingAddress `json:"shipping_address,omitempty"`
-	Subscription    *CreateSubscription    `json:"subscription,omitempty"`
-	Addons          []*CreateAddon         `json:"addons,omitempty"`
+
+// operations
+// input params
+type GiftCreateRequest struct {
+	ScheduledAt     *int64                     `json:"scheduled_at,omitempty"`
+	AutoClaim       *bool                      `json:"auto_claim,omitempty"`
+	NoExpiry        *bool                      `json:"no_expiry,omitempty"`
+	ClaimExpiryDate *int64                     `json:"claim_expiry_date,omitempty"`
+	Gifter          *GiftCreateGifter          `json:"gifter,omitempty"`
+	GiftReceiver    *GiftCreateGiftReceiver    `json:"gift_receiver,omitempty"`
+	CouponIds       []string                   `json:"coupon_ids,omitempty"`
+	PaymentIntent   *GiftCreatePaymentIntent   `json:"payment_intent,omitempty"`
+	ShippingAddress *GiftCreateShippingAddress `json:"shipping_address,omitempty"`
+	Subscription    *GiftCreateSubscription    `json:"subscription,omitempty"`
+	Addons          []*GiftCreateAddon         `json:"addons,omitempty"`
+	apiRequest      `json:"-" form:"-"`
 }
-type CreateGifter struct {
+
+func (r *GiftCreateRequest) payload() any { return r }
+
+// input sub resource params single
+type GiftCreateGifter struct {
 	CustomerId   string `json:"customer_id"`
 	Signature    string `json:"signature"`
 	Note         string `json:"note,omitempty"`
 	PaymentSrcId string `json:"payment_src_id,omitempty"`
 }
-type CreateGiftReceiver struct {
+
+// input sub resource params single
+type GiftCreateGiftReceiver struct {
 	CustomerId string `json:"customer_id"`
 	FirstName  string `json:"first_name"`
 	LastName   string `json:"last_name"`
 	Email      string `json:"email"`
 }
-type CreatePaymentIntent struct {
-	Id                    string                          `json:"id,omitempty"`
-	GatewayAccountId      string                          `json:"gateway_account_id,omitempty"`
-	GwToken               string                          `json:"gw_token,omitempty"`
-	PaymentMethodType     paymentIntent.PaymentMethodType `json:"payment_method_type,omitempty"`
-	ReferenceId           string                          `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                          `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{}          `json:"additional_information,omitempty"`
+
+// input sub resource params single
+type GiftCreatePaymentIntent struct {
+	Id                    string                 `json:"id,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                 `json:"gw_token,omitempty"`
+	PaymentMethodType     PaymentMethodType      `json:"payment_method_type,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
-type CreateShippingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params single
+type GiftCreateShippingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type CreateSubscription struct {
+
+// input sub resource params single
+type GiftCreateSubscription struct {
 	PlanId                string `json:"plan_id"`
 	PlanQuantity          *int32 `json:"plan_quantity,omitempty"`
 	PlanQuantityInDecimal string `json:"plan_quantity_in_decimal,omitempty"`
 }
-type CreateAddon struct {
+
+// input sub resource params multi
+type GiftCreateAddon struct {
 	Id                string `json:"id,omitempty"`
 	Quantity          *int32 `json:"quantity,omitempty"`
 	QuantityInDecimal string `json:"quantity_in_decimal,omitempty"`
 }
-type CreateForItemsRequest struct {
-	ScheduledAt       *int64                            `json:"scheduled_at,omitempty"`
-	AutoClaim         *bool                             `json:"auto_claim,omitempty"`
-	NoExpiry          *bool                             `json:"no_expiry,omitempty"`
-	ClaimExpiryDate   *int64                            `json:"claim_expiry_date,omitempty"`
-	Gifter            *CreateForItemsGifter             `json:"gifter,omitempty"`
-	GiftReceiver      *CreateForItemsGiftReceiver       `json:"gift_receiver,omitempty"`
-	CouponIds         []string                          `json:"coupon_ids,omitempty"`
-	PaymentIntent     *CreateForItemsPaymentIntent      `json:"payment_intent,omitempty"`
-	ShippingAddress   *CreateForItemsShippingAddress    `json:"shipping_address,omitempty"`
-	SubscriptionItems []*CreateForItemsSubscriptionItem `json:"subscription_items,omitempty"`
-	MetaData          map[string]interface{}            `json:"meta_data,omitempty"`
-	ItemTiers         []*CreateForItemsItemTier         `json:"item_tiers,omitempty"`
+type GiftCreateForItemsRequest struct {
+	ScheduledAt       *int64                                `json:"scheduled_at,omitempty"`
+	AutoClaim         *bool                                 `json:"auto_claim,omitempty"`
+	NoExpiry          *bool                                 `json:"no_expiry,omitempty"`
+	ClaimExpiryDate   *int64                                `json:"claim_expiry_date,omitempty"`
+	Gifter            *GiftCreateForItemsGifter             `json:"gifter,omitempty"`
+	GiftReceiver      *GiftCreateForItemsGiftReceiver       `json:"gift_receiver,omitempty"`
+	CouponIds         []string                              `json:"coupon_ids,omitempty"`
+	PaymentIntent     *GiftCreateForItemsPaymentIntent      `json:"payment_intent,omitempty"`
+	ShippingAddress   *GiftCreateForItemsShippingAddress    `json:"shipping_address,omitempty"`
+	SubscriptionItems []*GiftCreateForItemsSubscriptionItem `json:"subscription_items,omitempty"`
+	MetaData          map[string]interface{}                `json:"meta_data,omitempty"`
+	ItemTiers         []*GiftCreateForItemsItemTier         `json:"item_tiers,omitempty"`
+	apiRequest        `json:"-" form:"-"`
 }
-type CreateForItemsGifter struct {
+
+func (r *GiftCreateForItemsRequest) payload() any { return r }
+
+// input sub resource params single
+type GiftCreateForItemsGifter struct {
 	CustomerId   string `json:"customer_id"`
 	Signature    string `json:"signature"`
 	Note         string `json:"note,omitempty"`
 	PaymentSrcId string `json:"payment_src_id,omitempty"`
 }
-type CreateForItemsGiftReceiver struct {
+
+// input sub resource params single
+type GiftCreateForItemsGiftReceiver struct {
 	CustomerId string `json:"customer_id"`
 	FirstName  string `json:"first_name"`
 	LastName   string `json:"last_name"`
 	Email      string `json:"email"`
 }
-type CreateForItemsPaymentIntent struct {
-	Id                    string                          `json:"id,omitempty"`
-	GatewayAccountId      string                          `json:"gateway_account_id,omitempty"`
-	GwToken               string                          `json:"gw_token,omitempty"`
-	PaymentMethodType     paymentIntent.PaymentMethodType `json:"payment_method_type,omitempty"`
-	ReferenceId           string                          `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                          `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{}          `json:"additional_information,omitempty"`
+
+// input sub resource params single
+type GiftCreateForItemsPaymentIntent struct {
+	Id                    string                 `json:"id,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                 `json:"gw_token,omitempty"`
+	PaymentMethodType     PaymentMethodType      `json:"payment_method_type,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
-type CreateForItemsShippingAddress struct {
-	FirstName        string                `json:"first_name,omitempty"`
-	LastName         string                `json:"last_name,omitempty"`
-	Email            string                `json:"email,omitempty"`
-	Company          string                `json:"company,omitempty"`
-	Phone            string                `json:"phone,omitempty"`
-	Line1            string                `json:"line1,omitempty"`
-	Line2            string                `json:"line2,omitempty"`
-	Line3            string                `json:"line3,omitempty"`
-	City             string                `json:"city,omitempty"`
-	StateCode        string                `json:"state_code,omitempty"`
-	State            string                `json:"state,omitempty"`
-	Zip              string                `json:"zip,omitempty"`
-	Country          string                `json:"country,omitempty"`
-	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
+
+// input sub resource params single
+type GiftCreateForItemsShippingAddress struct {
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
-type CreateForItemsSubscriptionItem struct {
+
+// input sub resource params multi
+type GiftCreateForItemsSubscriptionItem struct {
 	ItemPriceId        string `json:"item_price_id,omitempty"`
 	Quantity           *int32 `json:"quantity,omitempty"`
 	QuantityInDecimal  string `json:"quantity_in_decimal,omitempty"`
 	UnitPrice          *int64 `json:"unit_price,omitempty"`
 	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
 }
-type CreateForItemsItemTier struct {
+
+// input sub resource params multi
+type GiftCreateForItemsItemTier struct {
 	ItemPriceId           string `json:"item_price_id,omitempty"`
 	StartingUnit          *int32 `json:"starting_unit,omitempty"`
 	EndingUnit            *int32 `json:"ending_unit,omitempty"`
@@ -171,63 +217,88 @@ type CreateForItemsItemTier struct {
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
-type ListRequest struct {
-	Limit        *int32             `json:"limit,omitempty"`
-	Offset       string             `json:"offset,omitempty"`
-	GiftReceiver *ListGiftReceiver  `json:"gift_receiver,omitempty"`
-	Gifter       *ListGifter        `json:"gifter,omitempty"`
-	Status       *filter.EnumFilter `json:"status,omitempty"`
+type GiftListRequest struct {
+	Limit        *int32            `json:"limit,omitempty"`
+	Offset       string            `json:"offset,omitempty"`
+	GiftReceiver *ListGiftReceiver `json:"gift_receiver,omitempty"`
+	Gifter       *ListGifter       `json:"gifter,omitempty"`
+	Status       *EnumFilter       `json:"status,omitempty"`
+	apiRequest   `json:"-" form:"-"`
 }
-type ListGiftReceiver struct {
-	Email      *filter.StringFilter `json:"email,omitempty"`
-	CustomerId *filter.StringFilter `json:"customer_id,omitempty"`
+
+func (r *GiftListRequest) payload() any { return r }
+
+// input sub resource params single
+type GiftListGiftReceiver struct {
+	Email      *StringFilter `json:"email,omitempty"`
+	CustomerId *StringFilter `json:"customer_id,omitempty"`
 }
-type ListGifter struct {
-	CustomerId *filter.StringFilter `json:"customer_id,omitempty"`
+
+// input sub resource params single
+type GiftListGifter struct {
+	CustomerId *StringFilter `json:"customer_id,omitempty"`
 }
-type UpdateGiftRequest struct {
+type GiftUpdateGiftRequest struct {
 	ScheduledAt *int64 `json:"scheduled_at"`
 	Comment     string `json:"comment,omitempty"`
+	apiRequest  `json:"-" form:"-"`
 }
 
-type CreateResponse struct {
-	Gift         *Gift                      `json:"gift,omitempty"`
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-	Invoice      *invoice.Invoice           `json:"invoice,omitempty"`
+func (r *GiftUpdateGiftRequest) payload() any { return r }
+
+// operation response
+type GiftCreateResponse struct {
+	Gift         *Gift        `json:"gift,omitempty"`
+	Subscription Subscription `json:"subscription,omitempty"`
+	Invoice      Invoice      `json:"invoice,omitempty"`
+	apiResponse
 }
 
-type CreateForItemsResponse struct {
-	Gift         *Gift                      `json:"gift,omitempty"`
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
-	Invoice      *invoice.Invoice           `json:"invoice,omitempty"`
+// operation response
+type GiftCreateForItemsResponse struct {
+	Gift         *Gift        `json:"gift,omitempty"`
+	Subscription Subscription `json:"subscription,omitempty"`
+	Invoice      Invoice      `json:"invoice,omitempty"`
+	apiResponse
 }
 
-type RetrieveResponse struct {
-	Gift         *Gift                      `json:"gift,omitempty"`
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
+// operation response
+type GiftRetrieveResponse struct {
+	Gift         *Gift        `json:"gift,omitempty"`
+	Subscription Subscription `json:"subscription,omitempty"`
+	apiResponse
 }
 
-type ListGiftResponse struct {
-	Gift         *Gift                      `json:"gift,omitempty"`
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
+// operation sub response
+type GiftListGiftResponse struct {
+	Gift         *Gift        `json:"gift,omitempty"`
+	Subscription Subscription `json:"subscription,omitempty"`
 }
 
-type ListResponse struct {
-	List       []*ListGiftResponse `json:"list,omitempty"`
-	NextOffset string              `json:"next_offset,omitempty"`
+// operation response
+type GiftListResponse struct {
+	List       []*GiftListGiftResponse `json:"list,omitempty"`
+	NextOffset string                  `json:"next_offset,omitempty"`
+	apiResponse
 }
 
-type ClaimResponse struct {
-	Gift         *Gift                      `json:"gift,omitempty"`
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
+// operation response
+type GiftClaimResponse struct {
+	Gift         *Gift        `json:"gift,omitempty"`
+	Subscription Subscription `json:"subscription,omitempty"`
+	apiResponse
 }
 
-type CancelResponse struct {
-	Gift         *Gift                      `json:"gift,omitempty"`
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
+// operation response
+type GiftCancelResponse struct {
+	Gift         *Gift        `json:"gift,omitempty"`
+	Subscription Subscription `json:"subscription,omitempty"`
+	apiResponse
 }
 
-type UpdateGiftResponse struct {
-	Gift         *Gift                      `json:"gift,omitempty"`
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
+// operation response
+type GiftUpdateGiftResponse struct {
+	Gift         *Gift        `json:"gift,omitempty"`
+	Subscription Subscription `json:"subscription,omitempty"`
+	apiResponse
 }

@@ -5,13 +5,18 @@ import (
 )
 
 type PurchaseService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *PurchaseService) Create(req *CreateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/purchases"), req).SetIdempotency(true)
+func (s *PurchaseService) Create(req *PurchaseCreateRequest) (*PurchaseCreateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/purchases")
+	req.isIdempotent = true
+	return send[*PurchaseCreateResponse](req, s.config)
 }
 
-func (s *PurchaseService) Estimate(req *EstimateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/purchases/estimate"), req)
+func (s *PurchaseService) Estimate(req *PurchaseEstimateRequest) (*PurchaseEstimateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/purchases/estimate")
+	return send[*PurchaseEstimateResponse](req, s.config)
 }

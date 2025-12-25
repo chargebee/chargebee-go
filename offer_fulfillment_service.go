@@ -6,17 +6,27 @@ import (
 )
 
 type OfferFulfillmentService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *OfferFulfillmentService) OfferFulfillments(req *OfferFulfillmentsRequest) Request {
-	return s.transport.SendJsonRequest("POST", fmt.Sprintf("/offer_fulfillments"), req).SetSubDomain("grow")
+func (s *OfferFulfillmentService) OfferFulfillments(req *OfferFulfillmentOfferFulfillmentsRequest) (*OfferFulfillmentOfferFulfillmentsResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/offer_fulfillments")
+	req.isJsonRequest = true
+	return send[*OfferFulfillmentOfferFulfillmentsResponse](req, s.config)
 }
 
-func (s *OfferFulfillmentService) OfferFulfillmentsGet(id string) Request {
-	return s.transport.SendJsonRequest("GET", fmt.Sprintf("/offer_fulfillments/%v", url.PathEscape(id)), nil).SetSubDomain("grow")
+func (s *OfferFulfillmentService) OfferFulfillmentsGet(id string) (*OfferFulfillmentOfferFulfillmentsGetResponse, error) {
+	req := &BlankRequest{}
+	req.method = "GET"
+	req.path = fmt.Sprintf("/offer_fulfillments/%v", url.PathEscape(id))
+	req.isJsonRequest = true
+	return send[*OfferFulfillmentOfferFulfillmentsGetResponse](req, s.config)
 }
 
-func (s *OfferFulfillmentService) OfferFulfillmentsUpdate(id string, req *OfferFulfillmentsUpdateRequest) Request {
-	return s.transport.SendJsonRequest("POST", fmt.Sprintf("/offer_fulfillments/%v", url.PathEscape(id)), req).SetSubDomain("grow")
+func (s *OfferFulfillmentService) OfferFulfillmentsUpdate(id string, req *OfferFulfillmentOfferFulfillmentsUpdateRequest) (*OfferFulfillmentOfferFulfillmentsUpdateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/offer_fulfillments/%v", url.PathEscape(id))
+	req.isJsonRequest = true
+	return send[*OfferFulfillmentOfferFulfillmentsUpdateResponse](req, s.config)
 }

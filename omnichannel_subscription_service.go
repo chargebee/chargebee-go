@@ -6,21 +6,33 @@ import (
 )
 
 type OmnichannelSubscriptionService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *OmnichannelSubscriptionService) Retrieve(id string) Request {
-	return s.transport.Send("GET", fmt.Sprintf("/omnichannel_subscriptions/%v", url.PathEscape(id)), nil)
+func (s *OmnichannelSubscriptionService) Retrieve(id string) (*OmnichannelSubscriptionRetrieveResponse, error) {
+	req := &BlankRequest{}
+	req.method = "GET"
+	req.path = fmt.Sprintf("/omnichannel_subscriptions/%v", url.PathEscape(id))
+	return send[*OmnichannelSubscriptionRetrieveResponse](req, s.config)
 }
 
-func (s *OmnichannelSubscriptionService) List(req *ListRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/omnichannel_subscriptions"), req)
+func (s *OmnichannelSubscriptionService) List(req *OmnichannelSubscriptionListRequest) (*OmnichannelSubscriptionListResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/omnichannel_subscriptions")
+	req.isListRequest = true
+	return send[*OmnichannelSubscriptionListResponse](req, s.config)
 }
 
-func (s *OmnichannelSubscriptionService) OmnichannelTransactionsForOmnichannelSubscription(id string, req *OmnichannelTransactionsForOmnichannelSubscriptionRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/omnichannel_subscriptions/%v/omnichannel_transactions", url.PathEscape(id)), req)
+func (s *OmnichannelSubscriptionService) OmnichannelTransactionsForOmnichannelSubscription(id string, req *OmnichannelSubscriptionOmnichannelTransactionsForOmnichannelSubscriptionRequest) (*OmnichannelSubscriptionOmnichannelTransactionsForOmnichannelSubscriptionResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/omnichannel_subscriptions/%v/omnichannel_transactions", url.PathEscape(id))
+	req.isListRequest = true
+	return send[*OmnichannelSubscriptionOmnichannelTransactionsForOmnichannelSubscriptionResponse](req, s.config)
 }
 
-func (s *OmnichannelSubscriptionService) Move(id string, req *MoveRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/omnichannel_subscriptions/%v/move", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *OmnichannelSubscriptionService) Move(id string, req *OmnichannelSubscriptionMoveRequest) (*OmnichannelSubscriptionMoveResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/omnichannel_subscriptions/%v/move", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*OmnichannelSubscriptionMoveResponse](req, s.config)
 }

@@ -6,9 +6,12 @@ import (
 )
 
 type RuleService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *RuleService) Retrieve(id string) Request {
-	return s.transport.Send("GET", fmt.Sprintf("/rules/%v", url.PathEscape(id)), nil)
+func (s *RuleService) Retrieve(id string) (*RuleRetrieveResponse, error) {
+	req := &BlankRequest{}
+	req.method = "GET"
+	req.path = fmt.Sprintf("/rules/%v", url.PathEscape(id))
+	return send[*RuleRetrieveResponse](req, s.config)
 }

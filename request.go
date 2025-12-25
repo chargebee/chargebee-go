@@ -42,6 +42,14 @@ func (r *apiRequest) request() *apiRequest {
 	return r
 }
 
+type BlankRequest struct {
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *BlankRequest) payload() any {
+	return r
+}
+
 func (r *apiRequest) AddParam(key string, value string) {
 	if r.urlParams == nil {
 		r.urlParams = &url.Values{}
@@ -92,10 +100,11 @@ func (r *apiRequest) prepare(payload any) error {
 	return nil
 }
 
-func send[ResType responseWrapper](rw requestWrapper, cfg *ClientConfig) (*ResType, error) {
+func send[ResType responseWrapper](rw requestWrapper, cfg *ClientConfig) (ResType, error) {
+	var result ResType
 	req := rw.request()
 	if err := req.prepare(rw.payload()); err != nil {
-		return nil, fmt.Errorf("failed to prepare request for sending: %w", err)
+		return result, fmt.Errorf("failed to prepare request for sending: %w", err)
 	}
 
 	var body io.Reader
@@ -109,7 +118,7 @@ func send[ResType responseWrapper](rw requestWrapper, cfg *ClientConfig) (*ResTy
 
 	reqObj, err := newRequest(cfg, req.method, path, body, req.headers, req.subDomain, req.isJsonRequest)
 	if err != nil {
-		return nil, fmt.Errorf("failed to create new chargebee request: %w", err)
+		return result, fmt.Errorf("failed to create new chargebee request: %w", err)
 	}
 
 	if req.context != nil {
@@ -119,16 +128,16 @@ func send[ResType responseWrapper](rw requestWrapper, cfg *ClientConfig) (*ResTy
 	}
 
 	res, requestError := Do(reqObj, req.isIdempotent, cfg)
-	result := new(ResType)
+	// result = *new(ResType)
 	if requestError != nil {
 		return result, requestError
 	}
 
-	if err := json.Unmarshal(res.Body, result); err != nil && res.StatusCode != http.StatusNoContent {
+	if err := json.Unmarshal(res.Body, &result); err != nil && res.StatusCode != http.StatusNoContent {
 		return result, err
 	}
 
-	(*result).setMeta(&apiResponse{
+	result.setMeta(&apiResponse{
 		Headers:    res.Headers,
 		StatusText: res.StatusText,
 		StatusCode: res.StatusCode,

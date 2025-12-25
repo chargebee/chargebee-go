@@ -1,5 +1,10 @@
 package chargebee
 
+import (
+	"encoding/json"
+)
+
+// just struct
 type UsageEvent struct {
 	SubscriptionId  string          `json:"subscription_id"`
 	DeduplicationId string          `json:"deduplication_id"`
@@ -7,27 +12,44 @@ type UsageEvent struct {
 	Properties      json.RawMessage `json:"properties"`
 	Object          string          `json:"object"`
 }
-type CreateRequest struct {
+
+// sub resources
+// operations
+// input params
+type UsageEventCreateRequest struct {
 	DeduplicationId string                 `json:"deduplication_id"`
 	SubscriptionId  string                 `json:"subscription_id"`
 	UsageTimestamp  *int64                 `json:"usage_timestamp"`
 	Properties      map[string]interface{} `json:"properties"`
+	apiRequest      `json:"-" form:"-"`
 }
-type BatchIngestRequest struct {
-	Events []*BatchIngestEvent `json:"events,omitempty"`
+
+func (r *UsageEventCreateRequest) payload() any { return r }
+
+type UsageEventBatchIngestRequest struct {
+	Events     []*UsageEventBatchIngestEvent `json:"events,omitempty"`
+	apiRequest `json:"-" form:"-"`
 }
-type BatchIngestEvent struct {
+
+func (r *UsageEventBatchIngestRequest) payload() any { return r }
+
+// input sub resource params multi
+type UsageEventBatchIngestEvent struct {
 	DeduplicationId string                 `json:"deduplication_id"`
 	SubscriptionId  string                 `json:"subscription_id"`
 	UsageTimestamp  *int64                 `json:"usage_timestamp"`
 	Properties      map[string]interface{} `json:"properties"`
 }
 
-type CreateResponse struct {
+// operation response
+type UsageEventCreateResponse struct {
 	UsageEvent *UsageEvent `json:"usage_event,omitempty"`
+	apiResponse
 }
 
-type BatchIngestResponse struct {
+// operation response
+type UsageEventBatchIngestResponse struct {
 	BatchId      string   `json:"batch_id,omitempty"`
 	FailedEvents []string `json:"failed_events,omitempty"`
+	apiResponse
 }

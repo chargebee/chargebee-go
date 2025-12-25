@@ -6,25 +6,41 @@ import (
 )
 
 type RampService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *RampService) CreateForSubscription(id string, req *CreateForSubscriptionRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/subscriptions/%v/create_ramp", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *RampService) CreateForSubscription(id string, req *RampCreateForSubscriptionRequest) (*RampCreateForSubscriptionResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/subscriptions/%v/create_ramp", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*RampCreateForSubscriptionResponse](req, s.config)
 }
 
-func (s *RampService) Update(id string, req *UpdateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/ramps/%v/update", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *RampService) Update(id string, req *RampUpdateRequest) (*RampUpdateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/ramps/%v/update", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*RampUpdateResponse](req, s.config)
 }
 
-func (s *RampService) Retrieve(id string) Request {
-	return s.transport.Send("GET", fmt.Sprintf("/ramps/%v", url.PathEscape(id)), nil)
+func (s *RampService) Retrieve(id string) (*RampRetrieveResponse, error) {
+	req := &BlankRequest{}
+	req.method = "GET"
+	req.path = fmt.Sprintf("/ramps/%v", url.PathEscape(id))
+	return send[*RampRetrieveResponse](req, s.config)
 }
 
-func (s *RampService) Delete(id string) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/ramps/%v/delete", url.PathEscape(id)), nil).SetIdempotency(true)
+func (s *RampService) Delete(id string) (*RampDeleteResponse, error) {
+	req := &BlankRequest{}
+	req.method = "POST"
+	req.path = fmt.Sprintf("/ramps/%v/delete", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*RampDeleteResponse](req, s.config)
 }
 
-func (s *RampService) List(req *ListRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/ramps"), req)
+func (s *RampService) List(req *RampListRequest) (*RampListResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/ramps")
+	req.isListRequest = true
+	return send[*RampListResponse](req, s.config)
 }

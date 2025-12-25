@@ -1,37 +1,59 @@
 package chargebee
 
-type Status string
+type SiteMigrationDetailEntityType string
 
 const (
-	StatusMovedIn   Status = "moved_in"
-	StatusMovedOut  Status = "moved_out"
-	StatusMovingOut Status = "moving_out"
+	SiteMigrationDetailEntityTypeCustomer     SiteMigrationDetailEntityType = "customer"
+	SiteMigrationDetailEntityTypeSubscription SiteMigrationDetailEntityType = "subscription"
+	SiteMigrationDetailEntityTypeInvoice      SiteMigrationDetailEntityType = "invoice"
+	SiteMigrationDetailEntityTypeCreditNote   SiteMigrationDetailEntityType = "credit_note"
+	SiteMigrationDetailEntityTypeTransaction  SiteMigrationDetailEntityType = "transaction"
+	SiteMigrationDetailEntityTypeOrder        SiteMigrationDetailEntityType = "order"
 )
 
+type SiteMigrationDetailStatus string
+
+const (
+	SiteMigrationDetailStatusMovedIn   SiteMigrationDetailStatus = "moved_in"
+	SiteMigrationDetailStatusMovedOut  SiteMigrationDetailStatus = "moved_out"
+	SiteMigrationDetailStatusMovingOut SiteMigrationDetailStatus = "moving_out"
+)
+
+// just struct
 type SiteMigrationDetail struct {
-	EntityId            string          `json:"entity_id"`
-	OtherSiteName       string          `json:"other_site_name"`
-	EntityIdAtOtherSite string          `json:"entity_id_at_other_site"`
-	MigratedAt          int64           `json:"migrated_at"`
-	EntityType          enum.EntityType `json:"entity_type"`
-	Status              Status          `json:"status"`
-	Object              string          `json:"object"`
-}
-type ListRequest struct {
-	Limit               *int32               `json:"limit,omitempty"`
-	Offset              string               `json:"offset,omitempty"`
-	EntityIdAtOtherSite *filter.StringFilter `json:"entity_id_at_other_site,omitempty"`
-	OtherSiteName       *filter.StringFilter `json:"other_site_name,omitempty"`
-	EntityId            *filter.StringFilter `json:"entity_id,omitempty"`
-	EntityType          *filter.EnumFilter   `json:"entity_type,omitempty"`
-	Status              *filter.EnumFilter   `json:"status,omitempty"`
+	EntityId            string                        `json:"entity_id"`
+	OtherSiteName       string                        `json:"other_site_name"`
+	EntityIdAtOtherSite string                        `json:"entity_id_at_other_site"`
+	MigratedAt          int64                         `json:"migrated_at"`
+	EntityType          SiteMigrationDetailEntityType `json:"entity_type"`
+	Status              SiteMigrationDetailStatus     `json:"status"`
+	Object              string                        `json:"object"`
 }
 
-type ListSiteMigrationDetailResponse struct {
+// sub resources
+// operations
+// input params
+type SiteMigrationDetailListRequest struct {
+	Limit               *int32        `json:"limit,omitempty"`
+	Offset              string        `json:"offset,omitempty"`
+	EntityIdAtOtherSite *StringFilter `json:"entity_id_at_other_site,omitempty"`
+	OtherSiteName       *StringFilter `json:"other_site_name,omitempty"`
+	EntityId            *StringFilter `json:"entity_id,omitempty"`
+	EntityType          *EnumFilter   `json:"entity_type,omitempty"`
+	Status              *EnumFilter   `json:"status,omitempty"`
+	apiRequest          `json:"-" form:"-"`
+}
+
+func (r *SiteMigrationDetailListRequest) payload() any { return r }
+
+// operation sub response
+type SiteMigrationDetailListSiteMigrationDetailResponse struct {
 	SiteMigrationDetail *SiteMigrationDetail `json:"site_migration_detail,omitempty"`
 }
 
-type ListResponse struct {
-	List       []*ListSiteMigrationDetailResponse `json:"list,omitempty"`
-	NextOffset string                             `json:"next_offset,omitempty"`
+// operation response
+type SiteMigrationDetailListResponse struct {
+	List       []*SiteMigrationDetailListSiteMigrationDetailResponse `json:"list,omitempty"`
+	NextOffset string                                                `json:"next_offset,omitempty"`
+	apiResponse
 }

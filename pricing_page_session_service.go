@@ -5,13 +5,19 @@ import (
 )
 
 type PricingPageSessionService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *PricingPageSessionService) CreateForNewSubscription(req *CreateForNewSubscriptionRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/pricing_page_sessions/create_for_new_subscription"), req).SetIdempotency(true)
+func (s *PricingPageSessionService) CreateForNewSubscription(req *PricingPageSessionCreateForNewSubscriptionRequest) (*PricingPageSessionCreateForNewSubscriptionResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/pricing_page_sessions/create_for_new_subscription")
+	req.isIdempotent = true
+	return send[*PricingPageSessionCreateForNewSubscriptionResponse](req, s.config)
 }
 
-func (s *PricingPageSessionService) CreateForExistingSubscription(req *CreateForExistingSubscriptionRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/pricing_page_sessions/create_for_existing_subscription"), req).SetIdempotency(true)
+func (s *PricingPageSessionService) CreateForExistingSubscription(req *PricingPageSessionCreateForExistingSubscriptionRequest) (*PricingPageSessionCreateForExistingSubscriptionResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/pricing_page_sessions/create_for_existing_subscription")
+	req.isIdempotent = true
+	return send[*PricingPageSessionCreateForExistingSubscriptionResponse](req, s.config)
 }

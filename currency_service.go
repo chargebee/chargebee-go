@@ -6,29 +6,48 @@ import (
 )
 
 type CurrencyService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *CurrencyService) List(req *ListRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/currencies/list"), req)
+func (s *CurrencyService) List(req *CurrencyListRequest) (*CurrencyListResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/currencies/list")
+	req.isListRequest = true
+	return send[*CurrencyListResponse](req, s.config)
 }
 
-func (s *CurrencyService) Retrieve(id string) Request {
-	return s.transport.Send("GET", fmt.Sprintf("/currencies/%v", url.PathEscape(id)), nil)
+func (s *CurrencyService) Retrieve(id string) (*CurrencyRetrieveResponse, error) {
+	req := &BlankRequest{}
+	req.method = "GET"
+	req.path = fmt.Sprintf("/currencies/%v", url.PathEscape(id))
+	return send[*CurrencyRetrieveResponse](req, s.config)
 }
 
-func (s *CurrencyService) Create(req *CreateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/currencies"), req).SetIdempotency(true)
+func (s *CurrencyService) Create(req *CurrencyCreateRequest) (*CurrencyCreateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/currencies")
+	req.isIdempotent = true
+	return send[*CurrencyCreateResponse](req, s.config)
 }
 
-func (s *CurrencyService) Update(id string, req *UpdateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/currencies/%v", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *CurrencyService) Update(id string, req *CurrencyUpdateRequest) (*CurrencyUpdateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/currencies/%v", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*CurrencyUpdateResponse](req, s.config)
 }
 
-func (s *CurrencyService) AddSchedule(id string, req *AddScheduleRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/currencies/%v/add_schedule", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *CurrencyService) AddSchedule(id string, req *CurrencyAddScheduleRequest) (*CurrencyAddScheduleResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/currencies/%v/add_schedule", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*CurrencyAddScheduleResponse](req, s.config)
 }
 
-func (s *CurrencyService) RemoveSchedule(id string) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/currencies/%v/remove_schedule", url.PathEscape(id)), nil).SetIdempotency(true)
+func (s *CurrencyService) RemoveSchedule(id string) (*CurrencyRemoveScheduleResponse, error) {
+	req := &BlankRequest{}
+	req.method = "POST"
+	req.path = fmt.Sprintf("/currencies/%v/remove_schedule", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*CurrencyRemoveScheduleResponse](req, s.config)
 }

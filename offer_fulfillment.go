@@ -1,70 +1,89 @@
 package chargebee
 
-type ProcessingType string
+type OfferFulfillmentProcessingType string
 
 const (
-	ProcessingTypeBillingUpdate ProcessingType = "billing_update"
-	ProcessingTypeCheckout      ProcessingType = "checkout"
-	ProcessingTypeUrlRedirect   ProcessingType = "url_redirect"
-	ProcessingTypeWebhook       ProcessingType = "webhook"
-	ProcessingTypeEmail         ProcessingType = "email"
+	OfferFulfillmentProcessingTypeBillingUpdate OfferFulfillmentProcessingType = "billing_update"
+	OfferFulfillmentProcessingTypeCheckout      OfferFulfillmentProcessingType = "checkout"
+	OfferFulfillmentProcessingTypeUrlRedirect   OfferFulfillmentProcessingType = "url_redirect"
+	OfferFulfillmentProcessingTypeWebhook       OfferFulfillmentProcessingType = "webhook"
+	OfferFulfillmentProcessingTypeEmail         OfferFulfillmentProcessingType = "email"
 )
 
-type Status string
+type OfferFulfillmentStatus string
 
 const (
-	StatusInProgress Status = "in_progress"
-	StatusCompleted  Status = "completed"
-	StatusFailed     Status = "failed"
+	OfferFulfillmentStatusInProgress OfferFulfillmentStatus = "in_progress"
+	OfferFulfillmentStatusCompleted  OfferFulfillmentStatus = "completed"
+	OfferFulfillmentStatusFailed     OfferFulfillmentStatus = "failed"
 )
 
-type ErrorCode string
+type OfferFulfillmentErrorCode string
 
 const (
-	ErrorCodeBillingUpdateFailed       ErrorCode = "billing_update_failed"
-	ErrorCodeCheckoutAbandoned         ErrorCode = "checkout_abandoned"
-	ErrorCodeExternalFulfillmentFailed ErrorCode = "external_fulfillment_failed"
-	ErrorCodeInternalError             ErrorCode = "internal_error"
-	ErrorCodeFulfillmentExpired        ErrorCode = "fulfillment_expired"
+	OfferFulfillmentErrorCodeBillingUpdateFailed       OfferFulfillmentErrorCode = "billing_update_failed"
+	OfferFulfillmentErrorCodeCheckoutAbandoned         OfferFulfillmentErrorCode = "checkout_abandoned"
+	OfferFulfillmentErrorCodeExternalFulfillmentFailed OfferFulfillmentErrorCode = "external_fulfillment_failed"
+	OfferFulfillmentErrorCodeInternalError             OfferFulfillmentErrorCode = "internal_error"
+	OfferFulfillmentErrorCodeFulfillmentExpired        OfferFulfillmentErrorCode = "fulfillment_expired"
 )
 
+// just struct
 type OfferFulfillment struct {
-	Id                  string         `json:"id"`
-	PersonalizedOfferId string         `json:"personalized_offer_id"`
-	OptionId            string         `json:"option_id"`
-	ProcessingType      ProcessingType `json:"processing_type"`
-	Status              Status         `json:"status"`
-	RedirectUrl         string         `json:"redirect_url"`
-	FailedAt            int64          `json:"failed_at"`
-	CreatedAt           int64          `json:"created_at"`
-	CompletedAt         int64          `json:"completed_at"`
-	Error               *Error         `json:"error"`
-	Object              string         `json:"object"`
+	Id                  string                         `json:"id"`
+	PersonalizedOfferId string                         `json:"personalized_offer_id"`
+	OptionId            string                         `json:"option_id"`
+	ProcessingType      OfferFulfillmentProcessingType `json:"processing_type"`
+	Status              OfferFulfillmentStatus         `json:"status"`
+	RedirectUrl         string                         `json:"redirect_url"`
+	FailedAt            int64                          `json:"failed_at"`
+	CreatedAt           int64                          `json:"created_at"`
+	CompletedAt         int64                          `json:"completed_at"`
+	Error               *Error                         `json:"error"`
+	Object              string                         `json:"object"`
 }
-type Error struct {
+
+// sub resources
+type OfferFulfillmentError struct {
 	Code    ErrorCode `json:"code"`
 	Message string    `json:"message"`
 	Object  string    `json:"object"`
 }
-type OfferFulfillmentsRequest struct {
+
+// operations
+// input params
+type OfferFulfillmentOfferFulfillmentsRequest struct {
 	PersonalizedOfferId string `json:"personalized_offer_id"`
 	OptionId            string `json:"option_id"`
-}
-type OfferFulfillmentsUpdateRequest struct {
-	Id            string `json:"id"`
-	Status        Status `json:"status"`
-	FailureReason string `json:"failure_reason,omitempty"`
+	apiRequest          `json:"-" form:"-"`
 }
 
-type OfferFulfillmentsResponse struct {
-	OfferFulfillment *OfferFulfillment      `json:"offer_fulfillment,omitempty"`
-	HostedPage       *hostedpage.HostedPage `json:"hosted_page,omitempty"`
+func (r *OfferFulfillmentOfferFulfillmentsRequest) payload() any { return r }
+
+type OfferFulfillmentOfferFulfillmentsUpdateRequest struct {
+	Id            string                 `json:"id"`
+	Status        OfferFulfillmentStatus `json:"status"`
+	FailureReason string                 `json:"failure_reason,omitempty"`
+	apiRequest    `json:"-" form:"-"`
 }
 
-type OfferFulfillmentsGetResponse struct {
+func (r *OfferFulfillmentOfferFulfillmentsUpdateRequest) payload() any { return r }
+
+// operation response
+type OfferFulfillmentOfferFulfillmentsResponse struct {
 	OfferFulfillment *OfferFulfillment `json:"offer_fulfillment,omitempty"`
+	HostedPage       HostedPage        `json:"hosted_page,omitempty"`
+	apiResponse
 }
 
-type OfferFulfillmentsUpdateResponse struct {
+// operation response
+type OfferFulfillmentOfferFulfillmentsGetResponse struct {
 	OfferFulfillment *OfferFulfillment `json:"offer_fulfillment,omitempty"`
+	apiResponse
+}
+
+// operation response
+type OfferFulfillmentOfferFulfillmentsUpdateResponse struct {
+	OfferFulfillment *OfferFulfillment `json:"offer_fulfillment,omitempty"`
+	apiResponse
 }

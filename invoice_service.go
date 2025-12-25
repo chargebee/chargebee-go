@@ -6,165 +6,287 @@ import (
 )
 
 type InvoiceService struct {
-	transport *Transport
+	config *ClientConfig
 }
 
-func (s *InvoiceService) Create(req *CreateRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices"), req).SetIdempotency(true)
+func (s *InvoiceService) Create(req *InvoiceCreateRequest) (*InvoiceCreateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices")
+	req.isIdempotent = true
+	return send[*InvoiceCreateResponse](req, s.config)
 }
 
-func (s *InvoiceService) CreateForChargeItemsAndCharges(req *CreateForChargeItemsAndChargesRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/create_for_charge_items_and_charges"), req).SetIdempotency(true)
+func (s *InvoiceService) CreateForChargeItemsAndCharges(req *InvoiceCreateForChargeItemsAndChargesRequest) (*InvoiceCreateForChargeItemsAndChargesResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/create_for_charge_items_and_charges")
+	req.isIdempotent = true
+	return send[*InvoiceCreateForChargeItemsAndChargesResponse](req, s.config)
 }
 
-func (s *InvoiceService) Charge(req *ChargeRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/charge"), req).SetIdempotency(true)
+func (s *InvoiceService) Charge(req *InvoiceChargeRequest) (*InvoiceChargeResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/charge")
+	req.isIdempotent = true
+	return send[*InvoiceChargeResponse](req, s.config)
 }
 
-func (s *InvoiceService) ChargeAddon(req *ChargeAddonRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/charge_addon"), req).SetIdempotency(true)
+func (s *InvoiceService) ChargeAddon(req *InvoiceChargeAddonRequest) (*InvoiceChargeAddonResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/charge_addon")
+	req.isIdempotent = true
+	return send[*InvoiceChargeAddonResponse](req, s.config)
 }
 
-func (s *InvoiceService) CreateForChargeItem(req *CreateForChargeItemRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/create_for_charge_item"), req).SetIdempotency(true)
+func (s *InvoiceService) CreateForChargeItem(req *InvoiceCreateForChargeItemRequest) (*InvoiceCreateForChargeItemResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/create_for_charge_item")
+	req.isIdempotent = true
+	return send[*InvoiceCreateForChargeItemResponse](req, s.config)
 }
 
-func (s *InvoiceService) StopDunning(id string, req *StopDunningRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/stop_dunning", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) StopDunning(id string, req *InvoiceStopDunningRequest) (*InvoiceStopDunningResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/stop_dunning", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceStopDunningResponse](req, s.config)
 }
 
-func (s *InvoiceService) PauseDunning(id string, req *PauseDunningRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/pause_dunning", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) PauseDunning(id string, req *InvoicePauseDunningRequest) (*InvoicePauseDunningResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/pause_dunning", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoicePauseDunningResponse](req, s.config)
 }
 
-func (s *InvoiceService) ResumeDunning(id string, req *ResumeDunningRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/resume_dunning", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) ResumeDunning(id string, req *InvoiceResumeDunningRequest) (*InvoiceResumeDunningResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/resume_dunning", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceResumeDunningResponse](req, s.config)
 }
 
-func (s *InvoiceService) ImportInvoice(req *ImportInvoiceRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/import_invoice"), req).SetIdempotency(true)
+func (s *InvoiceService) ImportInvoice(req *InvoiceImportInvoiceRequest) (*InvoiceImportInvoiceResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/import_invoice")
+	req.isIdempotent = true
+	return send[*InvoiceImportInvoiceResponse](req, s.config)
 }
 
-func (s *InvoiceService) ApplyPayments(id string, req *ApplyPaymentsRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/apply_payments", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) ApplyPayments(id string, req *InvoiceApplyPaymentsRequest) (*InvoiceApplyPaymentsResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/apply_payments", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceApplyPaymentsResponse](req, s.config)
 }
 
-func (s *InvoiceService) SyncUsages(id string) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/sync_usages", url.PathEscape(id)), nil).SetIdempotency(true)
+func (s *InvoiceService) SyncUsages(id string) (*InvoiceSyncUsagesResponse, error) {
+	req := &BlankRequest{}
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/sync_usages", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceSyncUsagesResponse](req, s.config)
 }
 
-func (s *InvoiceService) DeleteLineItems(id string, req *DeleteLineItemsRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/delete_line_items", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) DeleteLineItems(id string, req *InvoiceDeleteLineItemsRequest) (*InvoiceDeleteLineItemsResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/delete_line_items", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceDeleteLineItemsResponse](req, s.config)
 }
 
-func (s *InvoiceService) ApplyCredits(id string, req *ApplyCreditsRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/apply_credits", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) ApplyCredits(id string, req *InvoiceApplyCreditsRequest) (*InvoiceApplyCreditsResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/apply_credits", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceApplyCreditsResponse](req, s.config)
 }
 
-func (s *InvoiceService) List(req *ListRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/invoices"), req)
+func (s *InvoiceService) List(req *InvoiceListRequest) (*InvoiceListResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/invoices")
+	req.isListRequest = true
+	return send[*InvoiceListResponse](req, s.config)
 }
 
-func (s *InvoiceService) InvoicesForCustomer(id string, req *InvoicesForCustomerRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/customers/%v/invoices", url.PathEscape(id)), req)
+func (s *InvoiceService) InvoicesForCustomer(id string, req *InvoiceInvoicesForCustomerRequest) (*InvoiceInvoicesForCustomerResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/customers/%v/invoices", url.PathEscape(id))
+	req.isListRequest = true
+	return send[*InvoiceInvoicesForCustomerResponse](req, s.config)
 }
 
-func (s *InvoiceService) InvoicesForSubscription(id string, req *InvoicesForSubscriptionRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/subscriptions/%v/invoices", url.PathEscape(id)), req)
+func (s *InvoiceService) InvoicesForSubscription(id string, req *InvoiceInvoicesForSubscriptionRequest) (*InvoiceInvoicesForSubscriptionResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/subscriptions/%v/invoices", url.PathEscape(id))
+	req.isListRequest = true
+	return send[*InvoiceInvoicesForSubscriptionResponse](req, s.config)
 }
 
-func (s *InvoiceService) Retrieve(id string, req *RetrieveRequest) Request {
-	return s.transport.Send("GET", fmt.Sprintf("/invoices/%v", url.PathEscape(id)), req)
+func (s *InvoiceService) Retrieve(id string, req *InvoiceRetrieveRequest) (*InvoiceRetrieveResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/invoices/%v", url.PathEscape(id))
+	return send[*InvoiceRetrieveResponse](req, s.config)
 }
 
-func (s *InvoiceService) Pdf(id string, req *PdfRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/pdf", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) Pdf(id string, req *InvoicePdfRequest) (*InvoicePdfResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/pdf", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoicePdfResponse](req, s.config)
 }
 
-func (s *InvoiceService) DownloadEinvoice(id string) Request {
-	return s.transport.Send("GET", fmt.Sprintf("/invoices/%v/download_einvoice", url.PathEscape(id)), nil)
+func (s *InvoiceService) DownloadEinvoice(id string) (*InvoiceDownloadEinvoiceResponse, error) {
+	req := &BlankRequest{}
+	req.method = "GET"
+	req.path = fmt.Sprintf("/invoices/%v/download_einvoice", url.PathEscape(id))
+	return send[*InvoiceDownloadEinvoiceResponse](req, s.config)
 }
 
-func (s *InvoiceService) ListPaymentReferenceNumbers(req *ListPaymentReferenceNumbersRequest) ListRequest {
-	return s.transport.SendList("GET", fmt.Sprintf("/invoices/payment_reference_numbers"), req)
+func (s *InvoiceService) ListPaymentReferenceNumbers(req *InvoiceListPaymentReferenceNumbersRequest) (*InvoiceListPaymentReferenceNumbersResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/invoices/payment_reference_numbers")
+	req.isListRequest = true
+	return send[*InvoiceListPaymentReferenceNumbersResponse](req, s.config)
 }
 
-func (s *InvoiceService) AddCharge(id string, req *AddChargeRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/add_charge", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) AddCharge(id string, req *InvoiceAddChargeRequest) (*InvoiceAddChargeResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/add_charge", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceAddChargeResponse](req, s.config)
 }
 
-func (s *InvoiceService) AddAddonCharge(id string, req *AddAddonChargeRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/add_addon_charge", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) AddAddonCharge(id string, req *InvoiceAddAddonChargeRequest) (*InvoiceAddAddonChargeResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/add_addon_charge", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceAddAddonChargeResponse](req, s.config)
 }
 
-func (s *InvoiceService) AddChargeItem(id string, req *AddChargeItemRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/add_charge_item", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) AddChargeItem(id string, req *InvoiceAddChargeItemRequest) (*InvoiceAddChargeItemResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/add_charge_item", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceAddChargeItemResponse](req, s.config)
 }
 
-func (s *InvoiceService) Close(id string, req *CloseRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/close", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) Close(id string, req *InvoiceCloseRequest) (*InvoiceCloseResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/close", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceCloseResponse](req, s.config)
 }
 
-func (s *InvoiceService) CollectPayment(id string, req *CollectPaymentRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/collect_payment", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) CollectPayment(id string, req *InvoiceCollectPaymentRequest) (*InvoiceCollectPaymentResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/collect_payment", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceCollectPaymentResponse](req, s.config)
 }
 
-func (s *InvoiceService) RecordPayment(id string, req *RecordPaymentRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/record_payment", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) RecordPayment(id string, req *InvoiceRecordPaymentRequest) (*InvoiceRecordPaymentResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/record_payment", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceRecordPaymentResponse](req, s.config)
 }
 
-func (s *InvoiceService) RecordTaxWithheld(id string, req *RecordTaxWithheldRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/record_tax_withheld", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) RecordTaxWithheld(id string, req *InvoiceRecordTaxWithheldRequest) (*InvoiceRecordTaxWithheldResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/record_tax_withheld", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceRecordTaxWithheldResponse](req, s.config)
 }
 
-func (s *InvoiceService) RemoveTaxWithheld(id string, req *RemoveTaxWithheldRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/remove_tax_withheld", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) RemoveTaxWithheld(id string, req *InvoiceRemoveTaxWithheldRequest) (*InvoiceRemoveTaxWithheldResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/remove_tax_withheld", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceRemoveTaxWithheldResponse](req, s.config)
 }
 
-func (s *InvoiceService) Refund(id string, req *RefundRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/refund", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) Refund(id string, req *InvoiceRefundRequest) (*InvoiceRefundResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/refund", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceRefundResponse](req, s.config)
 }
 
-func (s *InvoiceService) RecordRefund(id string, req *RecordRefundRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/record_refund", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) RecordRefund(id string, req *InvoiceRecordRefundRequest) (*InvoiceRecordRefundResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/record_refund", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceRecordRefundResponse](req, s.config)
 }
 
-func (s *InvoiceService) RemovePayment(id string, req *RemovePaymentRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/remove_payment", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) RemovePayment(id string, req *InvoiceRemovePaymentRequest) (*InvoiceRemovePaymentResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/remove_payment", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceRemovePaymentResponse](req, s.config)
 }
 
-func (s *InvoiceService) RemoveCreditNote(id string, req *RemoveCreditNoteRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/remove_credit_note", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) RemoveCreditNote(id string, req *InvoiceRemoveCreditNoteRequest) (*InvoiceRemoveCreditNoteResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/remove_credit_note", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceRemoveCreditNoteResponse](req, s.config)
 }
 
-func (s *InvoiceService) VoidInvoice(id string, req *VoidInvoiceRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/void", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) VoidInvoice(id string, req *InvoiceVoidInvoiceRequest) (*InvoiceVoidInvoiceResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/void", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceVoidInvoiceResponse](req, s.config)
 }
 
-func (s *InvoiceService) WriteOff(id string, req *WriteOffRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/write_off", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) WriteOff(id string, req *InvoiceWriteOffRequest) (*InvoiceWriteOffResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/write_off", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceWriteOffResponse](req, s.config)
 }
 
-func (s *InvoiceService) Delete(id string, req *DeleteRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/delete", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) Delete(id string, req *InvoiceDeleteRequest) (*InvoiceDeleteResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/delete", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceDeleteResponse](req, s.config)
 }
 
-func (s *InvoiceService) UpdateDetails(id string, req *UpdateDetailsRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/update_details", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) UpdateDetails(id string, req *InvoiceUpdateDetailsRequest) (*InvoiceUpdateDetailsResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/update_details", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceUpdateDetailsResponse](req, s.config)
 }
 
-func (s *InvoiceService) ApplyPaymentScheduleScheme(id string, req *ApplyPaymentScheduleSchemeRequest) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/apply_payment_schedule_scheme", url.PathEscape(id)), req).SetIdempotency(true)
+func (s *InvoiceService) ApplyPaymentScheduleScheme(id string, req *InvoiceApplyPaymentScheduleSchemeRequest) (*InvoiceApplyPaymentScheduleSchemeResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/apply_payment_schedule_scheme", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceApplyPaymentScheduleSchemeResponse](req, s.config)
 }
 
-func (s *InvoiceService) PaymentSchedules(id string) Request {
-	return s.transport.Send("GET", fmt.Sprintf("/invoices/%v/payment_schedules", url.PathEscape(id)), nil)
+func (s *InvoiceService) PaymentSchedules(id string) (*InvoicePaymentSchedulesResponse, error) {
+	req := &BlankRequest{}
+	req.method = "GET"
+	req.path = fmt.Sprintf("/invoices/%v/payment_schedules", url.PathEscape(id))
+	return send[*InvoicePaymentSchedulesResponse](req, s.config)
 }
 
-func (s *InvoiceService) ResendEinvoice(id string) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/resend_einvoice", url.PathEscape(id)), nil).SetIdempotency(true)
+func (s *InvoiceService) ResendEinvoice(id string) (*InvoiceResendEinvoiceResponse, error) {
+	req := &BlankRequest{}
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/resend_einvoice", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceResendEinvoiceResponse](req, s.config)
 }
 
-func (s *InvoiceService) SendEinvoice(id string) Request {
-	return s.transport.Send("POST", fmt.Sprintf("/invoices/%v/send_einvoice", url.PathEscape(id)), nil).SetIdempotency(true)
+func (s *InvoiceService) SendEinvoice(id string) (*InvoiceSendEinvoiceResponse, error) {
+	req := &BlankRequest{}
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/send_einvoice", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*InvoiceSendEinvoiceResponse](req, s.config)
 }
