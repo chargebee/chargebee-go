@@ -197,12 +197,12 @@ type PlanApplicableAddon struct {
 	Object string `json:"object"`
 }
 type PlanAttachedAddon struct {
-	Id                string            `json:"id"`
-	Quantity          int32             `json:"quantity"`
-	BillingCycles     int32             `json:"billing_cycles"`
-	Type              AttachedAddonType `json:"type"`
-	QuantityInDecimal string            `json:"quantity_in_decimal"`
-	Object            string            `json:"object"`
+	Id                string                `json:"id"`
+	Quantity          int32                 `json:"quantity"`
+	BillingCycles     int32                 `json:"billing_cycles"`
+	Type              PlanAttachedAddonType `json:"type"`
+	QuantityInDecimal string                `json:"quantity_in_decimal"`
+	Object            string                `json:"object"`
 }
 type PlanEventBasedAddon struct {
 	Id                string                     `json:"id"`

@@ -128,11 +128,11 @@ type QuotedRampLineItem struct {
 type QuotedRampDiscount struct {
 	Id            string                         `json:"id"`
 	InvoiceName   string                         `json:"invoice_name"`
-	Type          DiscountType                   `json:"type"`
+	Type          QuotedRampDiscountType         `json:"type"`
 	Percentage    float64                        `json:"percentage"`
 	Amount        int64                          `json:"amount"`
 	DurationType  QuotedRampDiscountDurationType `json:"duration_type"`
-	EntityType    DiscountEntityType             `json:"entity_type"`
+	EntityType    QuotedRampDiscountEntityType   `json:"entity_type"`
 	EntityId      string                         `json:"entity_id"`
 	Period        int32                          `json:"period"`
 	PeriodUnit    QuotedRampDiscountPeriodUnit   `json:"period_unit"`

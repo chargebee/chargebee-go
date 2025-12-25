@@ -132,19 +132,19 @@ type QuoteLineGroupLineItem struct {
 	ReferenceLineItemId     string                                `json:"reference_line_item_id"`
 	Description             string                                `json:"description"`
 	EntityDescription       string                                `json:"entity_description"`
-	EntityType              LineItemEntityType                    `json:"entity_type"`
+	EntityType              QuoteLineGroupLineItemEntityType      `json:"entity_type"`
 	TaxExemptReason         QuoteLineGroupLineItemTaxExemptReason `json:"tax_exempt_reason"`
 	EntityId                string                                `json:"entity_id"`
 	CustomerId              string                                `json:"customer_id"`
 	Object                  string                                `json:"object"`
 }
 type QuoteLineGroupLineItemDiscount struct {
-	LineItemId     string                       `json:"line_item_id"`
-	DiscountType   LineItemDiscountDiscountType `json:"discount_type"`
-	CouponId       string                       `json:"coupon_id"`
-	EntityId       string                       `json:"entity_id"`
-	DiscountAmount int64                        `json:"discount_amount"`
-	Object         string                       `json:"object"`
+	LineItemId     string                                     `json:"line_item_id"`
+	DiscountType   QuoteLineGroupLineItemDiscountDiscountType `json:"discount_type"`
+	CouponId       string                                     `json:"coupon_id"`
+	EntityId       string                                     `json:"entity_id"`
+	DiscountAmount int64                                      `json:"discount_amount"`
+	Object         string                                     `json:"object"`
 }
 type QuoteLineGroupLineItemTax struct {
 	LineItemId               string                                `json:"line_item_id"`
@@ -165,14 +165,14 @@ type QuoteLineGroupLineItemTax struct {
 	Object                   string                                `json:"object"`
 }
 type QuoteLineGroupDiscount struct {
-	Amount        int64                `json:"amount"`
-	Description   string               `json:"description"`
-	LineItemId    string               `json:"line_item_id"`
-	EntityType    DiscountEntityType   `json:"entity_type"`
-	DiscountType  DiscountDiscountType `json:"discount_type"`
-	EntityId      string               `json:"entity_id"`
-	CouponSetCode string               `json:"coupon_set_code"`
-	Object        string               `json:"object"`
+	Amount        int64                              `json:"amount"`
+	Description   string                             `json:"description"`
+	LineItemId    string                             `json:"line_item_id"`
+	EntityType    QuoteLineGroupDiscountEntityType   `json:"entity_type"`
+	DiscountType  QuoteLineGroupDiscountDiscountType `json:"discount_type"`
+	EntityId      string                             `json:"entity_id"`
+	CouponSetCode string                             `json:"coupon_set_code"`
+	Object        string                             `json:"object"`
 }
 type QuoteLineGroupTax struct {
 	Name        string `json:"name"`

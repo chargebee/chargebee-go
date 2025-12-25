@@ -33,12 +33,12 @@ type PersonalizedOfferContent struct {
 	Object      string `json:"object"`
 }
 type PersonalizedOfferOption struct {
-	Id               string                 `json:"id"`
-	Label            string                 `json:"label"`
-	ProcessingType   OptionProcessingType   `json:"processing_type"`
-	ProcessingLayout OptionProcessingLayout `json:"processing_layout"`
-	RedirectUrl      string                 `json:"redirect_url"`
-	Object           string                 `json:"object"`
+	Id               string                                  `json:"id"`
+	Label            string                                  `json:"label"`
+	ProcessingType   PersonalizedOfferOptionProcessingType   `json:"processing_type"`
+	ProcessingLayout PersonalizedOfferOptionProcessingLayout `json:"processing_layout"`
+	RedirectUrl      string                                  `json:"redirect_url"`
+	Object           string                                  `json:"object"`
 }
 
 // operations

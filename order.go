@@ -212,27 +212,27 @@ type Order struct {
 
 // sub resources
 type OrderOrderLineItem struct {
-	Id                      string                  `json:"id"`
-	InvoiceId               string                  `json:"invoice_id"`
-	InvoiceLineItemId       string                  `json:"invoice_line_item_id"`
-	UnitPrice               int64                   `json:"unit_price"`
-	Description             string                  `json:"description"`
-	Amount                  int64                   `json:"amount"`
-	FulfillmentQuantity     int32                   `json:"fulfillment_quantity"`
-	FulfillmentAmount       int64                   `json:"fulfillment_amount"`
-	TaxAmount               int64                   `json:"tax_amount"`
-	AmountPaid              int64                   `json:"amount_paid"`
-	AmountAdjusted          int64                   `json:"amount_adjusted"`
-	RefundableCreditsIssued int64                   `json:"refundable_credits_issued"`
-	RefundableCredits       int64                   `json:"refundable_credits"`
-	IsShippable             bool                    `json:"is_shippable"`
-	Sku                     string                  `json:"sku"`
-	Status                  OrderLineItemStatus     `json:"status"`
-	EntityType              OrderLineItemEntityType `json:"entity_type"`
-	ItemLevelDiscountAmount int64                   `json:"item_level_discount_amount"`
-	DiscountAmount          int64                   `json:"discount_amount"`
-	EntityId                string                  `json:"entity_id"`
-	Object                  string                  `json:"object"`
+	Id                      string                       `json:"id"`
+	InvoiceId               string                       `json:"invoice_id"`
+	InvoiceLineItemId       string                       `json:"invoice_line_item_id"`
+	UnitPrice               int64                        `json:"unit_price"`
+	Description             string                       `json:"description"`
+	Amount                  int64                        `json:"amount"`
+	FulfillmentQuantity     int32                        `json:"fulfillment_quantity"`
+	FulfillmentAmount       int64                        `json:"fulfillment_amount"`
+	TaxAmount               int64                        `json:"tax_amount"`
+	AmountPaid              int64                        `json:"amount_paid"`
+	AmountAdjusted          int64                        `json:"amount_adjusted"`
+	RefundableCreditsIssued int64                        `json:"refundable_credits_issued"`
+	RefundableCredits       int64                        `json:"refundable_credits"`
+	IsShippable             bool                         `json:"is_shippable"`
+	Sku                     string                       `json:"sku"`
+	Status                  OrderOrderLineItemStatus     `json:"status"`
+	EntityType              OrderOrderLineItemEntityType `json:"entity_type"`
+	ItemLevelDiscountAmount int64                        `json:"item_level_discount_amount"`
+	DiscountAmount          int64                        `json:"discount_amount"`
+	EntityId                string                       `json:"entity_id"`
+	Object                  string                       `json:"object"`
 }
 type OrderShippingAddress struct {
 	FirstName        string                               `json:"first_name"`
@@ -287,21 +287,21 @@ type OrderLineItemTax struct {
 	Object                   string                       `json:"object"`
 }
 type OrderLineItemDiscount struct {
-	LineItemId     string                       `json:"line_item_id"`
-	DiscountType   LineItemDiscountDiscountType `json:"discount_type"`
-	CouponId       string                       `json:"coupon_id"`
-	EntityId       string                       `json:"entity_id"`
-	DiscountAmount int64                        `json:"discount_amount"`
-	Object         string                       `json:"object"`
+	LineItemId     string                            `json:"line_item_id"`
+	DiscountType   OrderLineItemDiscountDiscountType `json:"discount_type"`
+	CouponId       string                            `json:"coupon_id"`
+	EntityId       string                            `json:"entity_id"`
+	DiscountAmount int64                             `json:"discount_amount"`
+	Object         string                            `json:"object"`
 }
 type OrderLinkedCreditNote struct {
-	Amount         int64                  `json:"amount"`
-	Type           LinkedCreditNoteType   `json:"type"`
-	Id             string                 `json:"id"`
-	Status         LinkedCreditNoteStatus `json:"status"`
-	AmountAdjusted int64                  `json:"amount_adjusted"`
-	AmountRefunded int64                  `json:"amount_refunded"`
-	Object         string                 `json:"object"`
+	Amount         int64                       `json:"amount"`
+	Type           OrderLinkedCreditNoteType   `json:"type"`
+	Id             string                      `json:"id"`
+	Status         OrderLinkedCreditNoteStatus `json:"status"`
+	AmountAdjusted int64                       `json:"amount_adjusted"`
+	AmountRefunded int64                       `json:"amount_refunded"`
+	Object         string                      `json:"object"`
 }
 type OrderResentOrder struct {
 	OrderId string `json:"order_id"`

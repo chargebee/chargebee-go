@@ -61,9 +61,9 @@ type DifferentialPriceTier struct {
 	Object                string                           `json:"object"`
 }
 type DifferentialPriceParentPeriod struct {
-	PeriodUnit ParentPeriodPeriodUnit `json:"period_unit"`
-	Period     json.RawMessage        `json:"period"`
-	Object     string                 `json:"object"`
+	PeriodUnit DifferentialPriceParentPeriodPeriodUnit `json:"period_unit"`
+	Period     json.RawMessage                         `json:"period"`
+	Object     string                                  `json:"object"`
 }
 
 // operations

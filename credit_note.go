@@ -292,7 +292,7 @@ type CreditNoteLineItem struct {
 	ReferenceLineItemId     string                            `json:"reference_line_item_id"`
 	Description             string                            `json:"description"`
 	EntityDescription       string                            `json:"entity_description"`
-	EntityType              LineItemEntityType                `json:"entity_type"`
+	EntityType              CreditNoteLineItemEntityType      `json:"entity_type"`
 	TaxExemptReason         CreditNoteLineItemTaxExemptReason `json:"tax_exempt_reason"`
 	EntityId                string                            `json:"entity_id"`
 	CustomerId              string                            `json:"customer_id"`
@@ -313,12 +313,12 @@ type CreditNoteLineItemTier struct {
 	Object                string                            `json:"object"`
 }
 type CreditNoteLineItemDiscount struct {
-	LineItemId     string                       `json:"line_item_id"`
-	DiscountType   LineItemDiscountDiscountType `json:"discount_type"`
-	CouponId       string                       `json:"coupon_id"`
-	EntityId       string                       `json:"entity_id"`
-	DiscountAmount int64                        `json:"discount_amount"`
-	Object         string                       `json:"object"`
+	LineItemId     string                                 `json:"line_item_id"`
+	DiscountType   CreditNoteLineItemDiscountDiscountType `json:"discount_type"`
+	CouponId       string                                 `json:"coupon_id"`
+	EntityId       string                                 `json:"entity_id"`
+	DiscountAmount int64                                  `json:"discount_amount"`
+	Object         string                                 `json:"object"`
 }
 type CreditNoteLineItemTax struct {
 	LineItemId               string                            `json:"line_item_id"`
@@ -357,14 +357,14 @@ type CreditNoteLineItemAddress struct {
 	Object           string                                    `json:"object"`
 }
 type CreditNoteDiscount struct {
-	Amount        int64                `json:"amount"`
-	Description   string               `json:"description"`
-	LineItemId    string               `json:"line_item_id"`
-	EntityType    DiscountEntityType   `json:"entity_type"`
-	DiscountType  DiscountDiscountType `json:"discount_type"`
-	EntityId      string               `json:"entity_id"`
-	CouponSetCode string               `json:"coupon_set_code"`
-	Object        string               `json:"object"`
+	Amount        int64                          `json:"amount"`
+	Description   string                         `json:"description"`
+	LineItemId    string                         `json:"line_item_id"`
+	EntityType    CreditNoteDiscountEntityType   `json:"entity_type"`
+	DiscountType  CreditNoteDiscountDiscountType `json:"discount_type"`
+	EntityId      string                         `json:"entity_id"`
+	CouponSetCode string                         `json:"coupon_set_code"`
+	Object        string                         `json:"object"`
 }
 type CreditNoteTax struct {
 	Name        string `json:"name"`
@@ -388,13 +388,13 @@ type CreditNoteLinkedRefund struct {
 	Object           string             `json:"object"`
 }
 type CreditNoteAllocation struct {
-	InvoiceId       string                   `json:"invoice_id"`
-	AllocatedAmount int64                    `json:"allocated_amount"`
-	AllocatedAt     int64                    `json:"allocated_at"`
-	InvoiceDate     int64                    `json:"invoice_date"`
-	InvoiceStatus   invoice.Status           `json:"invoice_status"`
-	TaxApplication  AllocationTaxApplication `json:"tax_application"`
-	Object          string                   `json:"object"`
+	InvoiceId       string                             `json:"invoice_id"`
+	AllocatedAmount int64                              `json:"allocated_amount"`
+	AllocatedAt     int64                              `json:"allocated_at"`
+	InvoiceDate     int64                              `json:"invoice_date"`
+	InvoiceStatus   invoice.Status                     `json:"invoice_status"`
+	TaxApplication  CreditNoteAllocationTaxApplication `json:"tax_application"`
+	Object          string                             `json:"object"`
 }
 type CreditNoteShippingAddress struct {
 	FirstName        string                                    `json:"first_name"`
@@ -431,11 +431,11 @@ type CreditNoteBillingAddress struct {
 	Object           string                                   `json:"object"`
 }
 type CreditNoteEinvoice struct {
-	Id              string         `json:"id"`
-	ReferenceNumber string         `json:"reference_number"`
-	Status          EinvoiceStatus `json:"status"`
-	Message         string         `json:"message"`
-	Object          string         `json:"object"`
+	Id              string                   `json:"id"`
+	ReferenceNumber string                   `json:"reference_number"`
+	Status          CreditNoteEinvoiceStatus `json:"status"`
+	Message         string                   `json:"message"`
+	Object          string                   `json:"object"`
 }
 type CreditNoteSiteDetailsAtCreation struct {
 	Timezone            string          `json:"timezone"`

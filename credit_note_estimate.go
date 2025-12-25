@@ -146,7 +146,7 @@ type CreditNoteEstimateLineItem struct {
 	ReferenceLineItemId     string                                    `json:"reference_line_item_id"`
 	Description             string                                    `json:"description"`
 	EntityDescription       string                                    `json:"entity_description"`
-	EntityType              LineItemEntityType                        `json:"entity_type"`
+	EntityType              CreditNoteEstimateLineItemEntityType      `json:"entity_type"`
 	TaxExemptReason         CreditNoteEstimateLineItemTaxExemptReason `json:"tax_exempt_reason"`
 	EntityId                string                                    `json:"entity_id"`
 	CustomerId              string                                    `json:"customer_id"`
@@ -167,12 +167,12 @@ type CreditNoteEstimateLineItemTier struct {
 	Object                string                                    `json:"object"`
 }
 type CreditNoteEstimateLineItemDiscount struct {
-	LineItemId     string                       `json:"line_item_id"`
-	DiscountType   LineItemDiscountDiscountType `json:"discount_type"`
-	CouponId       string                       `json:"coupon_id"`
-	EntityId       string                       `json:"entity_id"`
-	DiscountAmount int64                        `json:"discount_amount"`
-	Object         string                       `json:"object"`
+	LineItemId     string                                         `json:"line_item_id"`
+	DiscountType   CreditNoteEstimateLineItemDiscountDiscountType `json:"discount_type"`
+	CouponId       string                                         `json:"coupon_id"`
+	EntityId       string                                         `json:"entity_id"`
+	DiscountAmount int64                                          `json:"discount_amount"`
+	Object         string                                         `json:"object"`
 }
 type CreditNoteEstimateLineItemTax struct {
 	LineItemId               string                                    `json:"line_item_id"`
@@ -193,14 +193,14 @@ type CreditNoteEstimateLineItemTax struct {
 	Object                   string                                    `json:"object"`
 }
 type CreditNoteEstimateDiscount struct {
-	Amount        int64                `json:"amount"`
-	Description   string               `json:"description"`
-	LineItemId    string               `json:"line_item_id"`
-	EntityType    DiscountEntityType   `json:"entity_type"`
-	DiscountType  DiscountDiscountType `json:"discount_type"`
-	EntityId      string               `json:"entity_id"`
-	CouponSetCode string               `json:"coupon_set_code"`
-	Object        string               `json:"object"`
+	Amount        int64                                  `json:"amount"`
+	Description   string                                 `json:"description"`
+	LineItemId    string                                 `json:"line_item_id"`
+	EntityType    CreditNoteEstimateDiscountEntityType   `json:"entity_type"`
+	DiscountType  CreditNoteEstimateDiscountDiscountType `json:"discount_type"`
+	EntityId      string                                 `json:"entity_id"`
+	CouponSetCode string                                 `json:"coupon_set_code"`
+	Object        string                                 `json:"object"`
 }
 type CreditNoteEstimateTax struct {
 	Name        string `json:"name"`

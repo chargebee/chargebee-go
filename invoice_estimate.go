@@ -149,7 +149,7 @@ type InvoiceEstimateLineItem struct {
 	ReferenceLineItemId     string                                 `json:"reference_line_item_id"`
 	Description             string                                 `json:"description"`
 	EntityDescription       string                                 `json:"entity_description"`
-	EntityType              LineItemEntityType                     `json:"entity_type"`
+	EntityType              InvoiceEstimateLineItemEntityType      `json:"entity_type"`
 	TaxExemptReason         InvoiceEstimateLineItemTaxExemptReason `json:"tax_exempt_reason"`
 	EntityId                string                                 `json:"entity_id"`
 	CustomerId              string                                 `json:"customer_id"`
@@ -170,12 +170,12 @@ type InvoiceEstimateLineItemTier struct {
 	Object                string                                 `json:"object"`
 }
 type InvoiceEstimateLineItemDiscount struct {
-	LineItemId     string                       `json:"line_item_id"`
-	DiscountType   LineItemDiscountDiscountType `json:"discount_type"`
-	CouponId       string                       `json:"coupon_id"`
-	EntityId       string                       `json:"entity_id"`
-	DiscountAmount int64                        `json:"discount_amount"`
-	Object         string                       `json:"object"`
+	LineItemId     string                                      `json:"line_item_id"`
+	DiscountType   InvoiceEstimateLineItemDiscountDiscountType `json:"discount_type"`
+	CouponId       string                                      `json:"coupon_id"`
+	EntityId       string                                      `json:"entity_id"`
+	DiscountAmount int64                                       `json:"discount_amount"`
+	Object         string                                      `json:"object"`
 }
 type InvoiceEstimateLineItemTax struct {
 	LineItemId               string                                 `json:"line_item_id"`
@@ -220,14 +220,14 @@ type InvoiceEstimateLineItemAddress struct {
 	Object           string                                         `json:"object"`
 }
 type InvoiceEstimateDiscount struct {
-	Amount        int64                `json:"amount"`
-	Description   string               `json:"description"`
-	LineItemId    string               `json:"line_item_id"`
-	EntityType    DiscountEntityType   `json:"entity_type"`
-	DiscountType  DiscountDiscountType `json:"discount_type"`
-	EntityId      string               `json:"entity_id"`
-	CouponSetCode string               `json:"coupon_set_code"`
-	Object        string               `json:"object"`
+	Amount        int64                               `json:"amount"`
+	Description   string                              `json:"description"`
+	LineItemId    string                              `json:"line_item_id"`
+	EntityType    InvoiceEstimateDiscountEntityType   `json:"entity_type"`
+	DiscountType  InvoiceEstimateDiscountDiscountType `json:"discount_type"`
+	EntityId      string                              `json:"entity_id"`
+	CouponSetCode string                              `json:"coupon_set_code"`
+	Object        string                              `json:"object"`
 }
 type InvoiceEstimateTax struct {
 	Name        string `json:"name"`

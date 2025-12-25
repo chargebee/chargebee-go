@@ -562,7 +562,7 @@ type SubscriptionReferralInfo struct {
 	CouponCode                string                                       `json:"coupon_code"`
 	ReferrerId                string                                       `json:"referrer_id"`
 	ExternalReferenceId       string                                       `json:"external_reference_id"`
-	RewardStatus              ReferralInfoRewardStatus                     `json:"reward_status"`
+	RewardStatus              SubscriptionReferralInfoRewardStatus         `json:"reward_status"`
 	ReferralSystem            SubscriptionReferralInfoReferralSystem       `json:"referral_system"`
 	AccountId                 string                                       `json:"account_id"`
 	CampaignId                string                                       `json:"campaign_id"`
@@ -580,24 +580,24 @@ type SubscriptionBillingOverride struct {
 	Object                    string `json:"object"`
 }
 type SubscriptionContractTerm struct {
-	Id                          string                      `json:"id"`
-	Status                      ContractTermStatus          `json:"status"`
-	ContractStart               int64                       `json:"contract_start"`
-	ContractEnd                 int64                       `json:"contract_end"`
-	BillingCycle                int32                       `json:"billing_cycle"`
-	ActionAtTermEnd             ContractTermActionAtTermEnd `json:"action_at_term_end"`
-	TotalContractValue          int64                       `json:"total_contract_value"`
-	TotalContractValueBeforeTax int64                       `json:"total_contract_value_before_tax"`
-	CancellationCutoffPeriod    int32                       `json:"cancellation_cutoff_period"`
-	CreatedAt                   int64                       `json:"created_at"`
-	SubscriptionId              string                      `json:"subscription_id"`
-	RemainingBillingCycles      int32                       `json:"remaining_billing_cycles"`
-	Object                      string                      `json:"object"`
+	Id                          string                                  `json:"id"`
+	Status                      SubscriptionContractTermStatus          `json:"status"`
+	ContractStart               int64                                   `json:"contract_start"`
+	ContractEnd                 int64                                   `json:"contract_end"`
+	BillingCycle                int32                                   `json:"billing_cycle"`
+	ActionAtTermEnd             SubscriptionContractTermActionAtTermEnd `json:"action_at_term_end"`
+	TotalContractValue          int64                                   `json:"total_contract_value"`
+	TotalContractValueBeforeTax int64                                   `json:"total_contract_value_before_tax"`
+	CancellationCutoffPeriod    int32                                   `json:"cancellation_cutoff_period"`
+	CreatedAt                   int64                                   `json:"created_at"`
+	SubscriptionId              string                                  `json:"subscription_id"`
+	RemainingBillingCycles      int32                                   `json:"remaining_billing_cycles"`
+	Object                      string                                  `json:"object"`
 }
 type SubscriptionDiscount struct {
 	Id            string                           `json:"id"`
 	InvoiceName   string                           `json:"invoice_name"`
-	Type          DiscountType                     `json:"type"`
+	Type          SubscriptionDiscountType         `json:"type"`
 	Percentage    float64                          `json:"percentage"`
 	Amount        int64                            `json:"amount"`
 	Quantity      int32                            `json:"quantity"`

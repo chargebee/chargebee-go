@@ -100,17 +100,17 @@ type PaymentIntent struct {
 
 // sub resources
 type PaymentIntentPaymentAttempt struct {
-	Id                string               `json:"id"`
-	Status            PaymentAttemptStatus `json:"status"`
-	PaymentMethodType paymentMethodType    `json:"payment_method_type"`
-	IdAtGateway       string               `json:"id_at_gateway"`
-	ErrorCode         string               `json:"error_code"`
-	ErrorText         string               `json:"error_text"`
-	CheckoutDetails   string               `json:"checkout_details"`
-	CreatedAt         int64                `json:"created_at"`
-	ModifiedAt        int64                `json:"modified_at"`
-	ErrorDetail       *GatewayErrorDetail  `json:"error_detail"`
-	Object            string               `json:"object"`
+	Id                string                            `json:"id"`
+	Status            PaymentIntentPaymentAttemptStatus `json:"status"`
+	PaymentMethodType paymentMethodType                 `json:"payment_method_type"`
+	IdAtGateway       string                            `json:"id_at_gateway"`
+	ErrorCode         string                            `json:"error_code"`
+	ErrorText         string                            `json:"error_text"`
+	CheckoutDetails   string                            `json:"checkout_details"`
+	CreatedAt         int64                             `json:"created_at"`
+	ModifiedAt        int64                             `json:"modified_at"`
+	ErrorDetail       *GatewayErrorDetail               `json:"error_detail"`
+	Object            string                            `json:"object"`
 }
 
 // operations

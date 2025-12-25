@@ -288,11 +288,11 @@ type TransactionLinkedRefund struct {
 	Object    string             `json:"object"`
 }
 type TransactionLinkedPayment struct {
-	Id     string              `json:"id"`
-	Status LinkedPaymentStatus `json:"status"`
-	Amount int64               `json:"amount"`
-	Date   int64               `json:"date"`
-	Object string              `json:"object"`
+	Id     string                         `json:"id"`
+	Status TransactionLinkedPaymentStatus `json:"status"`
+	Amount int64                          `json:"amount"`
+	Date   int64                          `json:"date"`
+	Object string                         `json:"object"`
 }
 type TransactionGatewayErrorDetail struct {
 	RequestId             string `json:"request_id"`

@@ -216,23 +216,23 @@ type PaymentSource struct {
 
 // sub resources
 type PaymentSourceCard struct {
-	FirstName        string          `json:"first_name"`
-	LastName         string          `json:"last_name"`
-	Iin              string          `json:"iin"`
-	Last4            string          `json:"last4"`
-	Brand            CardBrand       `json:"brand"`
-	FundingType      CardFundingType `json:"funding_type"`
-	ExpiryMonth      int32           `json:"expiry_month"`
-	ExpiryYear       int32           `json:"expiry_year"`
-	BillingAddr1     string          `json:"billing_addr1"`
-	BillingAddr2     string          `json:"billing_addr2"`
-	BillingCity      string          `json:"billing_city"`
-	BillingStateCode string          `json:"billing_state_code"`
-	BillingState     string          `json:"billing_state"`
-	BillingCountry   string          `json:"billing_country"`
-	BillingZip       string          `json:"billing_zip"`
-	MaskedNumber     string          `json:"masked_number"`
-	Object           string          `json:"object"`
+	FirstName        string                       `json:"first_name"`
+	LastName         string                       `json:"last_name"`
+	Iin              string                       `json:"iin"`
+	Last4            string                       `json:"last4"`
+	Brand            PaymentSourceCardBrand       `json:"brand"`
+	FundingType      PaymentSourceCardFundingType `json:"funding_type"`
+	ExpiryMonth      int32                        `json:"expiry_month"`
+	ExpiryYear       int32                        `json:"expiry_year"`
+	BillingAddr1     string                       `json:"billing_addr1"`
+	BillingAddr2     string                       `json:"billing_addr2"`
+	BillingCity      string                       `json:"billing_city"`
+	BillingStateCode string                       `json:"billing_state_code"`
+	BillingState     string                       `json:"billing_state"`
+	BillingCountry   string                       `json:"billing_country"`
+	BillingZip       string                       `json:"billing_zip"`
+	MaskedNumber     string                       `json:"masked_number"`
+	Object           string                       `json:"object"`
 }
 type PaymentSourceBankAccount struct {
 	Last4             string                                    `json:"last4"`

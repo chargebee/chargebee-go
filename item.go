@@ -105,8 +105,8 @@ type ItemBundleItem struct {
 	Object          string                 `json:"object"`
 }
 type ItemBundleConfiguration struct {
-	Type   BundleConfigurationType `json:"type"`
-	Object string                  `json:"object"`
+	Type   ItemBundleConfigurationType `json:"type"`
+	Object string                      `json:"object"`
 }
 
 // operations

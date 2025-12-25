@@ -183,13 +183,13 @@ type QuotedSubscriptionItemTier struct {
 	Object                string                                `json:"object"`
 }
 type QuotedSubscriptionQuotedContractTerm struct {
-	ContractStart            int64                             `json:"contract_start"`
-	ContractEnd              int64                             `json:"contract_end"`
-	BillingCycle             int32                             `json:"billing_cycle"`
-	ActionAtTermEnd          QuotedContractTermActionAtTermEnd `json:"action_at_term_end"`
-	TotalContractValue       int64                             `json:"total_contract_value"`
-	CancellationCutoffPeriod int32                             `json:"cancellation_cutoff_period"`
-	Object                   string                            `json:"object"`
+	ContractStart            int64                                               `json:"contract_start"`
+	ContractEnd              int64                                               `json:"contract_end"`
+	BillingCycle             int32                                               `json:"billing_cycle"`
+	ActionAtTermEnd          QuotedSubscriptionQuotedContractTermActionAtTermEnd `json:"action_at_term_end"`
+	TotalContractValue       int64                                               `json:"total_contract_value"`
+	CancellationCutoffPeriod int32                                               `json:"cancellation_cutoff_period"`
+	Object                   string                                              `json:"object"`
 }
 type QuotedSubscriptionEventBasedAddon struct {
 	Id                  string                                   `json:"id"`

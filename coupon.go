@@ -155,23 +155,23 @@ type Coupon struct {
 
 // sub resources
 type CouponItemConstraint struct {
-	ItemType     ItemConstraintItemType   `json:"item_type"`
-	Constraint   ItemConstraintConstraint `json:"constraint"`
-	ItemPriceIds json.RawMessage          `json:"item_price_ids"`
-	Object       string                   `json:"object"`
+	ItemType     CouponItemConstraintItemType   `json:"item_type"`
+	Constraint   CouponItemConstraintConstraint `json:"constraint"`
+	ItemPriceIds json.RawMessage                `json:"item_price_ids"`
+	Object       string                         `json:"object"`
 }
 type CouponItemConstraintCriteria struct {
-	ItemType         ItemConstraintCriteriaItemType `json:"item_type"`
-	Currencies       json.RawMessage                `json:"currencies"`
-	ItemFamilyIds    json.RawMessage                `json:"item_family_ids"`
-	ItemPricePeriods json.RawMessage                `json:"item_price_periods"`
-	Object           string                         `json:"object"`
+	ItemType         CouponItemConstraintCriteriaItemType `json:"item_type"`
+	Currencies       json.RawMessage                      `json:"currencies"`
+	ItemFamilyIds    json.RawMessage                      `json:"item_family_ids"`
+	ItemPricePeriods json.RawMessage                      `json:"item_price_periods"`
+	Object           string                               `json:"object"`
 }
 type CouponCouponConstraint struct {
-	EntityType CouponConstraintEntityType `json:"entity_type"`
-	Type       CouponConstraintType       `json:"type"`
-	Value      string                     `json:"value"`
-	Object     string                     `json:"object"`
+	EntityType CouponCouponConstraintEntityType `json:"entity_type"`
+	Type       CouponCouponConstraintType       `json:"type"`
+	Value      string                           `json:"value"`
+	Object     string                           `json:"object"`
 }
 
 // operations

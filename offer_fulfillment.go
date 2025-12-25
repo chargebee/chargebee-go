@@ -45,9 +45,9 @@ type OfferFulfillment struct {
 
 // sub resources
 type OfferFulfillmentError struct {
-	Code    ErrorCode `json:"code"`
-	Message string    `json:"message"`
-	Object  string    `json:"object"`
+	Code    OfferFulfillmentErrorCode `json:"code"`
+	Message string                    `json:"message"`
+	Object  string                    `json:"object"`
 }
 
 // operations

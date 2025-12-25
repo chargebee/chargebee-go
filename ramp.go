@@ -176,7 +176,7 @@ type RampCouponsToAdd struct {
 type RampDiscountsToAdd struct {
 	Id            string                         `json:"id"`
 	InvoiceName   string                         `json:"invoice_name"`
-	Type          DiscountsToAddType             `json:"type"`
+	Type          RampDiscountsToAddType         `json:"type"`
 	Percentage    float64                        `json:"percentage"`
 	Amount        int64                          `json:"amount"`
 	DurationType  RampDiscountsToAddDurationType `json:"duration_type"`
@@ -202,10 +202,10 @@ type RampItemTier struct {
 	Object                string                  `json:"object"`
 }
 type RampContractTerm struct {
-	CancellationCutoffPeriod int32                       `json:"cancellation_cutoff_period"`
-	RenewalBillingCycles     int32                       `json:"renewal_billing_cycles"`
-	ActionAtTermEnd          ContractTermActionAtTermEnd `json:"action_at_term_end"`
-	Object                   string                      `json:"object"`
+	CancellationCutoffPeriod int32                           `json:"cancellation_cutoff_period"`
+	RenewalBillingCycles     int32                           `json:"renewal_billing_cycles"`
+	ActionAtTermEnd          RampContractTermActionAtTermEnd `json:"action_at_term_end"`
+	Object                   string                          `json:"object"`
 }
 type RampStatusTransitionReason struct {
 	Code    string `json:"code"`

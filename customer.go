@@ -445,7 +445,7 @@ type CustomerPaymentMethod struct {
 	Type             CustomerPaymentMethodType    `json:"type"`
 	Gateway          CustomerPaymentMethodGateway `json:"gateway"`
 	GatewayAccountId string                       `json:"gateway_account_id"`
-	Status           PaymentMethodStatus          `json:"status"`
+	Status           CustomerPaymentMethodStatus  `json:"status"`
 	ReferenceId      string                       `json:"reference_id"`
 	Object           string                       `json:"object"`
 }
@@ -479,20 +479,20 @@ type CustomerRelationship struct {
 	Object         string `json:"object"`
 }
 type CustomerParentAccountAccess struct {
-	PortalEditChildSubscriptions ParentAccountAccessPortalEditChildSubscriptions `json:"portal_edit_child_subscriptions"`
-	PortalDownloadChildInvoices  ParentAccountAccessPortalDownloadChildInvoices  `json:"portal_download_child_invoices"`
-	SendSubscriptionEmails       bool                                            `json:"send_subscription_emails"`
-	SendInvoiceEmails            bool                                            `json:"send_invoice_emails"`
-	SendPaymentEmails            bool                                            `json:"send_payment_emails"`
-	Object                       string                                          `json:"object"`
+	PortalEditChildSubscriptions CustomerParentAccountAccessPortalEditChildSubscriptions `json:"portal_edit_child_subscriptions"`
+	PortalDownloadChildInvoices  CustomerParentAccountAccessPortalDownloadChildInvoices  `json:"portal_download_child_invoices"`
+	SendSubscriptionEmails       bool                                                    `json:"send_subscription_emails"`
+	SendInvoiceEmails            bool                                                    `json:"send_invoice_emails"`
+	SendPaymentEmails            bool                                                    `json:"send_payment_emails"`
+	Object                       string                                                  `json:"object"`
 }
 type CustomerChildAccountAccess struct {
-	PortalEditSubscriptions ChildAccountAccessPortalEditSubscriptions `json:"portal_edit_subscriptions"`
-	PortalDownloadInvoices  ChildAccountAccessPortalDownloadInvoices  `json:"portal_download_invoices"`
-	SendSubscriptionEmails  bool                                      `json:"send_subscription_emails"`
-	SendInvoiceEmails       bool                                      `json:"send_invoice_emails"`
-	SendPaymentEmails       bool                                      `json:"send_payment_emails"`
-	Object                  string                                    `json:"object"`
+	PortalEditSubscriptions CustomerChildAccountAccessPortalEditSubscriptions `json:"portal_edit_subscriptions"`
+	PortalDownloadInvoices  CustomerChildAccountAccessPortalDownloadInvoices  `json:"portal_download_invoices"`
+	SendSubscriptionEmails  bool                                              `json:"send_subscription_emails"`
+	SendInvoiceEmails       bool                                              `json:"send_invoice_emails"`
+	SendPaymentEmails       bool                                              `json:"send_payment_emails"`
+	Object                  string                                            `json:"object"`
 }
 
 // operations

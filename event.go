@@ -298,9 +298,9 @@ type Event struct {
 
 // sub resources
 type EventWebhook struct {
-	Id            string               `json:"id"`
-	WebhookStatus WebhookWebhookStatus `json:"webhook_status"`
-	Object        string               `json:"object"`
+	Id            string                    `json:"id"`
+	WebhookStatus EventWebhookWebhookStatus `json:"webhook_status"`
+	Object        string                    `json:"object"`
 }
 
 // operations

@@ -31,11 +31,11 @@ type PaymentSchedule struct {
 
 // sub resources
 type PaymentScheduleScheduleEntry struct {
-	Id     string              `json:"id"`
-	Date   int64               `json:"date"`
-	Amount int64               `json:"amount"`
-	Status ScheduleEntryStatus `json:"status"`
-	Object string              `json:"object"`
+	Id     string                             `json:"id"`
+	Date   int64                              `json:"date"`
+	Amount int64                              `json:"amount"`
+	Status PaymentScheduleScheduleEntryStatus `json:"status"`
+	Object string                             `json:"object"`
 }
 
 // operations
