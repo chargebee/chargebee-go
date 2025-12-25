@@ -102,7 +102,7 @@ type PaymentIntent struct {
 type PaymentIntentPaymentAttempt struct {
 	Id                string                            `json:"id"`
 	Status            PaymentIntentPaymentAttemptStatus `json:"status"`
-	PaymentMethodType paymentMethodType                 `json:"payment_method_type"`
+	PaymentMethodType PaymentMethodType                 `json:"payment_method_type"`
 	IdAtGateway       string                            `json:"id_at_gateway"`
 	ErrorCode         string                            `json:"error_code"`
 	ErrorText         string                            `json:"error_text"`

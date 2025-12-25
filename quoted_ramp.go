@@ -104,7 +104,7 @@ type QuotedRampLineItem struct {
 	Amount                                    int64                            `json:"amount"`
 	AmountInDecimal                           string                           `json:"amount_in_decimal"`
 	BillingPeriod                             int32                            `json:"billing_period"`
-	BillingPeriodUnit                         billingPeriodUnit                `json:"billing_period_unit"`
+	BillingPeriodUnit                         BillingPeriodUnit                `json:"billing_period_unit"`
 	FreeQuantity                              int32                            `json:"free_quantity"`
 	FreeQuantityInDecimal                     string                           `json:"free_quantity_in_decimal"`
 	BillingCycles                             int32                            `json:"billing_cycles"`

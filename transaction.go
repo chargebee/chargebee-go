@@ -260,32 +260,32 @@ type Transaction struct {
 
 // sub resources
 type TransactionLinkedInvoice struct {
-	InvoiceId     string         `json:"invoice_id"`
-	AppliedAmount int64          `json:"applied_amount"`
-	AppliedAt     int64          `json:"applied_at"`
-	InvoiceDate   int64          `json:"invoice_date"`
-	InvoiceTotal  int64          `json:"invoice_total"`
-	InvoiceStatus invoice.Status `json:"invoice_status"`
-	Object        string         `json:"object"`
+	InvoiceId     string        `json:"invoice_id"`
+	AppliedAmount int64         `json:"applied_amount"`
+	AppliedAt     int64         `json:"applied_at"`
+	InvoiceDate   int64         `json:"invoice_date"`
+	InvoiceTotal  int64         `json:"invoice_total"`
+	InvoiceStatus InvoiceStatus `json:"invoice_status"`
+	Object        string        `json:"object"`
 }
 type TransactionLinkedCreditNote struct {
-	CnId                 string                `json:"cn_id"`
-	AppliedAmount        int64                 `json:"applied_amount"`
-	AppliedAt            int64                 `json:"applied_at"`
-	CnReasonCode         creditNote.ReasonCode `json:"cn_reason_code"`
-	CnCreateReasonCode   string                `json:"cn_create_reason_code"`
-	CnDate               int64                 `json:"cn_date"`
-	CnTotal              int64                 `json:"cn_total"`
-	CnStatus             creditNote.Status     `json:"cn_status"`
-	CnReferenceInvoiceId string                `json:"cn_reference_invoice_id"`
-	Object               string                `json:"object"`
+	CnId                 string               `json:"cn_id"`
+	AppliedAmount        int64                `json:"applied_amount"`
+	AppliedAt            int64                `json:"applied_at"`
+	CnReasonCode         CreditNoteReasonCode `json:"cn_reason_code"`
+	CnCreateReasonCode   string               `json:"cn_create_reason_code"`
+	CnDate               int64                `json:"cn_date"`
+	CnTotal              int64                `json:"cn_total"`
+	CnStatus             CreditNoteStatus     `json:"cn_status"`
+	CnReferenceInvoiceId string               `json:"cn_reference_invoice_id"`
+	Object               string               `json:"object"`
 }
 type TransactionLinkedRefund struct {
-	TxnId     string             `json:"txn_id"`
-	TxnStatus transaction.Status `json:"txn_status"`
-	TxnDate   int64              `json:"txn_date"`
-	TxnAmount int64              `json:"txn_amount"`
-	Object    string             `json:"object"`
+	TxnId     string            `json:"txn_id"`
+	TxnStatus TransactionStatus `json:"txn_status"`
+	TxnDate   int64             `json:"txn_date"`
+	TxnAmount int64             `json:"txn_amount"`
+	Object    string            `json:"object"`
 }
 type TransactionLinkedPayment struct {
 	Id     string                         `json:"id"`

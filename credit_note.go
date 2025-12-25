@@ -378,21 +378,21 @@ type CreditNoteTaxOrigin struct {
 	Object             string `json:"object"`
 }
 type CreditNoteLinkedRefund struct {
-	TxnId            string             `json:"txn_id"`
-	AppliedAmount    int64              `json:"applied_amount"`
-	AppliedAt        int64              `json:"applied_at"`
-	TxnStatus        transaction.Status `json:"txn_status"`
-	TxnDate          int64              `json:"txn_date"`
-	TxnAmount        int64              `json:"txn_amount"`
-	RefundReasonCode string             `json:"refund_reason_code"`
-	Object           string             `json:"object"`
+	TxnId            string            `json:"txn_id"`
+	AppliedAmount    int64             `json:"applied_amount"`
+	AppliedAt        int64             `json:"applied_at"`
+	TxnStatus        TransactionStatus `json:"txn_status"`
+	TxnDate          int64             `json:"txn_date"`
+	TxnAmount        int64             `json:"txn_amount"`
+	RefundReasonCode string            `json:"refund_reason_code"`
+	Object           string            `json:"object"`
 }
 type CreditNoteAllocation struct {
 	InvoiceId       string                             `json:"invoice_id"`
 	AllocatedAmount int64                              `json:"allocated_amount"`
 	AllocatedAt     int64                              `json:"allocated_at"`
 	InvoiceDate     int64                              `json:"invoice_date"`
-	InvoiceStatus   invoice.Status                     `json:"invoice_status"`
+	InvoiceStatus   InvoiceStatus                      `json:"invoice_status"`
 	TaxApplication  CreditNoteAllocationTaxApplication `json:"tax_application"`
 	Object          string                             `json:"object"`
 }
