@@ -53,9 +53,9 @@ type GiftGiftReceiver struct {
 	Object         string `json:"object"`
 }
 type GiftGiftTimeline struct {
-	Status     Status `json:"status"`
-	OccurredAt int64  `json:"occurred_at"`
-	Object     string `json:"object"`
+	Status     GiftStatus `json:"status"`
+	OccurredAt int64      `json:"occurred_at"`
+	Object     string     `json:"object"`
 }
 
 // operations
