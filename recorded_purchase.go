@@ -28,7 +28,7 @@ type RecordedPurchase struct {
 	ResourceVersion                int64                                            `json:"resource_version"`
 	LinkedOmnichannelSubscriptions []*RecordedPurchaseLinkedOmnichannelSubscription `json:"linked_omnichannel_subscriptions"`
 	LinkedOmnichannelOneTimeOrders []*RecordedPurchaseLinkedOmnichannelOneTimeOrder `json:"linked_omnichannel_one_time_orders"`
-	ErrorDetail                    *ErrorDetail                                     `json:"error_detail"`
+	ErrorDetail                    *RecordedPurchaseErrorDetail                     `json:"error_detail"`
 	Object                         string                                           `json:"object"`
 }
 

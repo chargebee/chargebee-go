@@ -10,18 +10,18 @@ const (
 
 // just struct
 type SubscriptionEntitlement struct {
-	SubscriptionId string     `json:"subscription_id"`
-	FeatureId      string     `json:"feature_id"`
-	FeatureName    string     `json:"feature_name"`
-	FeatureUnit    string     `json:"feature_unit"`
-	FeatureType    string     `json:"feature_type"`
-	Value          string     `json:"value"`
-	Name           string     `json:"name"`
-	IsOverridden   bool       `json:"is_overridden"`
-	IsEnabled      bool       `json:"is_enabled"`
-	ExpiresAt      int64      `json:"expires_at"`
-	Components     *Component `json:"components"`
-	Object         string     `json:"object"`
+	SubscriptionId string                            `json:"subscription_id"`
+	FeatureId      string                            `json:"feature_id"`
+	FeatureName    string                            `json:"feature_name"`
+	FeatureUnit    string                            `json:"feature_unit"`
+	FeatureType    string                            `json:"feature_type"`
+	Value          string                            `json:"value"`
+	Name           string                            `json:"name"`
+	IsOverridden   bool                              `json:"is_overridden"`
+	IsEnabled      bool                              `json:"is_enabled"`
+	ExpiresAt      int64                             `json:"expires_at"`
+	Components     *SubscriptionEntitlementComponent `json:"components"`
+	Object         string                            `json:"object"`
 }
 
 // sub resources

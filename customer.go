@@ -365,10 +365,10 @@ type Customer struct {
 	FraudFlag                        CustomerFraudFlag            `json:"fraud_flag"`
 	PrimaryPaymentSourceId           string                       `json:"primary_payment_source_id"`
 	BackupPaymentSourceId            string                       `json:"backup_payment_source_id"`
-	BillingAddress                   *BillingAddress              `json:"billing_address"`
+	BillingAddress                   *CustomerBillingAddress      `json:"billing_address"`
 	ReferralUrls                     []*CustomerReferralUrl       `json:"referral_urls"`
 	Contacts                         []*CustomerContact           `json:"contacts"`
-	PaymentMethod                    *PaymentMethod               `json:"payment_method"`
+	PaymentMethod                    *CustomerPaymentMethod       `json:"payment_method"`
 	InvoiceNotes                     string                       `json:"invoice_notes"`
 	BusinessEntityId                 string                       `json:"business_entity_id"`
 	PreferredCurrencyCode            string                       `json:"preferred_currency_code"`
@@ -388,10 +388,10 @@ type Customer struct {
 	CustomerType                     CustomerCustomerType         `json:"customer_type"`
 	BusinessCustomerWithoutVatNumber bool                         `json:"business_customer_without_vat_number"`
 	ClientProfileId                  string                       `json:"client_profile_id"`
-	Relationship                     *Relationship                `json:"relationship"`
+	Relationship                     *CustomerRelationship        `json:"relationship"`
 	UseDefaultHierarchySettings      bool                         `json:"use_default_hierarchy_settings"`
-	ParentAccountAccess              *ParentAccountAccess         `json:"parent_account_access"`
-	ChildAccountAccess               *ChildAccountAccess          `json:"child_account_access"`
+	ParentAccountAccess              *CustomerParentAccountAccess `json:"parent_account_access"`
+	ChildAccountAccess               *CustomerChildAccountAccess  `json:"child_account_access"`
 	VatNumberPrefix                  string                       `json:"vat_number_prefix"`
 	EntityIdentifierScheme           string                       `json:"entity_identifier_scheme"`
 	EntityIdentifierStandard         string                       `json:"entity_identifier_standard"`

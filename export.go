@@ -33,13 +33,13 @@ const (
 
 // just struct
 type Export struct {
-	Id            string         `json:"id"`
-	OperationType string         `json:"operation_type"`
-	MimeType      ExportMimeType `json:"mime_type"`
-	Status        ExportStatus   `json:"status"`
-	CreatedAt     int64          `json:"created_at"`
-	Download      *Download      `json:"download"`
-	Object        string         `json:"object"`
+	Id            string          `json:"id"`
+	OperationType string          `json:"operation_type"`
+	MimeType      ExportMimeType  `json:"mime_type"`
+	Status        ExportStatus    `json:"status"`
+	CreatedAt     int64           `json:"created_at"`
+	Download      *ExportDownload `json:"download"`
+	Object        string          `json:"object"`
 }
 
 // sub resources

@@ -253,7 +253,7 @@ type Transaction struct {
 	MerchantReferenceId      string                         `json:"merchant_reference_id"`
 	BusinessEntityId         string                         `json:"business_entity_id"`
 	PaymentMethodDetails     string                         `json:"payment_method_details"`
-	ErrorDetail              *GatewayErrorDetail            `json:"error_detail"`
+	ErrorDetail              *TransactionGatewayErrorDetail `json:"error_detail"`
 	CustomPaymentMethodName  string                         `json:"custom_payment_method_name"`
 	Object                   string                         `json:"object"`
 }

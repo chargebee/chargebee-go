@@ -132,7 +132,7 @@ type QuotedSubscription struct {
 	Coupons                           []*QuotedSubscriptionCoupon           `json:"coupons"`
 	SubscriptionItems                 []*QuotedSubscriptionSubscriptionItem `json:"subscription_items"`
 	ItemTiers                         []*QuotedSubscriptionItemTier         `json:"item_tiers"`
-	QuotedContractTerm                *QuotedContractTerm                   `json:"quoted_contract_term"`
+	QuotedContractTerm                *QuotedSubscriptionQuotedContractTerm `json:"quoted_contract_term"`
 	Object                            string                                `json:"object"`
 }
 

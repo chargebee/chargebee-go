@@ -412,7 +412,7 @@ type Invoice struct {
 	LineItemAddresses         []*InvoiceLineItemAddress      `json:"line_item_addresses"`
 	Discounts                 []*InvoiceDiscount             `json:"discounts"`
 	Taxes                     []*InvoiceTax                  `json:"taxes"`
-	TaxOrigin                 *TaxOrigin                     `json:"tax_origin"`
+	TaxOrigin                 *InvoiceTaxOrigin              `json:"tax_origin"`
 	LinkedPayments            []*InvoiceLinkedPayment        `json:"linked_payments"`
 	ReferenceTransactions     []*InvoiceReferenceTransaction `json:"reference_transactions"`
 	DunningAttempts           []*InvoiceDunningAttempt       `json:"dunning_attempts"`
@@ -421,17 +421,17 @@ type Invoice struct {
 	IssuedCreditNotes         []*InvoiceIssuedCreditNote     `json:"issued_credit_notes"`
 	LinkedOrders              []*InvoiceLinkedOrder          `json:"linked_orders"`
 	Notes                     []*InvoiceNote                 `json:"notes"`
-	ShippingAddress           *ShippingAddress               `json:"shipping_address"`
-	BillingAddress            *BillingAddress                `json:"billing_address"`
-	StatementDescriptor       *StatementDescriptor           `json:"statement_descriptor"`
-	Einvoice                  *Einvoice                      `json:"einvoice"`
+	ShippingAddress           *InvoiceShippingAddress        `json:"shipping_address"`
+	BillingAddress            *InvoiceBillingAddress         `json:"billing_address"`
+	StatementDescriptor       *InvoiceStatementDescriptor    `json:"statement_descriptor"`
+	Einvoice                  *InvoiceEinvoice               `json:"einvoice"`
 	VoidReasonCode            string                         `json:"void_reason_code"`
 	Deleted                   bool                           `json:"deleted"`
 	TaxCategory               string                         `json:"tax_category"`
 	VatNumberPrefix           string                         `json:"vat_number_prefix"`
 	Channel                   InvoiceChannel                 `json:"channel"`
 	BusinessEntityId          string                         `json:"business_entity_id"`
-	SiteDetailsAtCreation     *SiteDetailsAtCreation         `json:"site_details_at_creation"`
+	SiteDetailsAtCreation     *InvoiceSiteDetailsAtCreation  `json:"site_details_at_creation"`
 	CustomField               CustomField                    `json:"custom_field"`
 	Object                    string                         `json:"object"`
 }

@@ -187,31 +187,31 @@ const (
 
 // just struct
 type PaymentSource struct {
-	Id               string                  `json:"id"`
-	ResourceVersion  int64                   `json:"resource_version"`
-	UpdatedAt        int64                   `json:"updated_at"`
-	CreatedAt        int64                   `json:"created_at"`
-	CustomerId       string                  `json:"customer_id"`
-	Type             PaymentSourceType       `json:"type"`
-	ReferenceId      string                  `json:"reference_id"`
-	Status           PaymentSourceStatus     `json:"status"`
-	Gateway          PaymentSourceGateway    `json:"gateway"`
-	GatewayAccountId string                  `json:"gateway_account_id"`
-	IpAddress        string                  `json:"ip_address"`
-	IssuingCountry   string                  `json:"issuing_country"`
-	Card             *Card                   `json:"card"`
-	BankAccount      *BankAccount            `json:"bank_account"`
-	Boleto           *CustVoucherSource      `json:"boleto"`
-	BillingAddress   *BillingAddress         `json:"billing_address"`
-	AmazonPayment    *AmazonPayment          `json:"amazon_payment"`
-	Upi              *Upi                    `json:"upi"`
-	Paypal           *Paypal                 `json:"paypal"`
-	Venmo            *Venmo                  `json:"venmo"`
-	KlarnaPayNow     *KlarnaPayNow           `json:"klarna_pay_now"`
-	Mandates         []*PaymentSourceMandate `json:"mandates"`
-	Deleted          bool                    `json:"deleted"`
-	BusinessEntityId string                  `json:"business_entity_id"`
-	Object           string                  `json:"object"`
+	Id               string                          `json:"id"`
+	ResourceVersion  int64                           `json:"resource_version"`
+	UpdatedAt        int64                           `json:"updated_at"`
+	CreatedAt        int64                           `json:"created_at"`
+	CustomerId       string                          `json:"customer_id"`
+	Type             PaymentSourceType               `json:"type"`
+	ReferenceId      string                          `json:"reference_id"`
+	Status           PaymentSourceStatus             `json:"status"`
+	Gateway          PaymentSourceGateway            `json:"gateway"`
+	GatewayAccountId string                          `json:"gateway_account_id"`
+	IpAddress        string                          `json:"ip_address"`
+	IssuingCountry   string                          `json:"issuing_country"`
+	Card             *PaymentSourceCard              `json:"card"`
+	BankAccount      *PaymentSourceBankAccount       `json:"bank_account"`
+	Boleto           *PaymentSourceCustVoucherSource `json:"boleto"`
+	BillingAddress   *PaymentSourceBillingAddress    `json:"billing_address"`
+	AmazonPayment    *PaymentSourceAmazonPayment     `json:"amazon_payment"`
+	Upi              *PaymentSourceUpi               `json:"upi"`
+	Paypal           *PaymentSourcePaypal            `json:"paypal"`
+	Venmo            *PaymentSourceVenmo             `json:"venmo"`
+	KlarnaPayNow     *PaymentSourceKlarnaPayNow      `json:"klarna_pay_now"`
+	Mandates         []*PaymentSourceMandate         `json:"mandates"`
+	Deleted          bool                            `json:"deleted"`
+	BusinessEntityId string                          `json:"business_entity_id"`
+	Object           string                          `json:"object"`
 }
 
 // sub resources

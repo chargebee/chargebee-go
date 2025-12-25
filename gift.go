@@ -30,8 +30,8 @@ type Gift struct {
 	ClaimExpiryDate int64               `json:"claim_expiry_date"`
 	ResourceVersion int64               `json:"resource_version"`
 	UpdatedAt       int64               `json:"updated_at"`
-	Gifter          *Gifter             `json:"gifter"`
-	GiftReceiver    *GiftReceiver       `json:"gift_receiver"`
+	Gifter          *GiftGifter         `json:"gifter"`
+	GiftReceiver    *GiftGiftReceiver   `json:"gift_receiver"`
 	GiftTimelines   []*GiftGiftTimeline `json:"gift_timelines"`
 	Object          string              `json:"object"`
 }

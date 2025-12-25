@@ -202,8 +202,8 @@ type Quote struct {
 	TaxCategory                string                   `json:"tax_category"`
 	CurrencyCode               string                   `json:"currency_code"`
 	Notes                      json.RawMessage          `json:"notes"`
-	ShippingAddress            *ShippingAddress         `json:"shipping_address"`
-	BillingAddress             *BillingAddress          `json:"billing_address"`
+	ShippingAddress            *QuoteShippingAddress    `json:"shipping_address"`
+	BillingAddress             *QuoteBillingAddress     `json:"billing_address"`
 	ContractTermStart          int64                    `json:"contract_term_start"`
 	ContractTermEnd            int64                    `json:"contract_term_end"`
 	ContractTermTerminationFee int64                    `json:"contract_term_termination_fee"`

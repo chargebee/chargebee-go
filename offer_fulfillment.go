@@ -39,7 +39,7 @@ type OfferFulfillment struct {
 	FailedAt            int64                          `json:"failed_at"`
 	CreatedAt           int64                          `json:"created_at"`
 	CompletedAt         int64                          `json:"completed_at"`
-	Error               *Error                         `json:"error"`
+	Error               *OfferFulfillmentError         `json:"error"`
 	Object              string                         `json:"object"`
 }
 

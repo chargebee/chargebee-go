@@ -21,7 +21,7 @@ const (
 type PersonalizedOffer struct {
 	Id      string                     `json:"id"`
 	OfferId string                     `json:"offer_id"`
-	Content *Content                   `json:"content"`
+	Content *PersonalizedOfferContent  `json:"content"`
 	Options []*PersonalizedOfferOption `json:"options"`
 	Object  string                     `json:"object"`
 }

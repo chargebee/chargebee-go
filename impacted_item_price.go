@@ -6,10 +6,10 @@ import (
 
 // just struct
 type ImpactedItemPrice struct {
-	Count      int32           `json:"count"`
-	Download   *Download       `json:"download"`
-	ItemPrices json.RawMessage `json:"item_prices"`
-	Object     string          `json:"object"`
+	Count      int32                      `json:"count"`
+	Download   *ImpactedItemPriceDownload `json:"download"`
+	ItemPrices json.RawMessage            `json:"item_prices"`
+	Object     string                     `json:"object"`
 }
 
 // sub resources

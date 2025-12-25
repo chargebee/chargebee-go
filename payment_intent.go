@@ -92,7 +92,7 @@ type PaymentIntent struct {
 	UpdatedAt            int64                          `json:"updated_at"`
 	CustomerId           string                         `json:"customer_id"`
 	Gateway              string                         `json:"gateway"`
-	ActivePaymentAttempt *PaymentAttempt                `json:"active_payment_attempt"`
+	ActivePaymentAttempt *PaymentIntentPaymentAttempt   `json:"active_payment_attempt"`
 	PaymentAttempts      []*PaymentIntentPaymentAttempt `json:"payment_attempts"`
 	BusinessEntityId     string                         `json:"business_entity_id"`
 	Object               string                         `json:"object"`

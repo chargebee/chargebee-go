@@ -2,9 +2,9 @@ package chargebee
 
 // just struct
 type ImpactedCustomer struct {
-	ActionType string    `json:"action_type"`
-	Download   *Download `json:"download"`
-	Object     string    `json:"object"`
+	ActionType string                    `json:"action_type"`
+	Download   *ImpactedCustomerDownload `json:"download"`
+	Object     string                    `json:"object"`
 }
 
 // sub resources

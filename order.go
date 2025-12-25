@@ -191,8 +191,8 @@ type Order struct {
 	IsResent                bool                     `json:"is_resent"`
 	OriginalOrderId         string                   `json:"original_order_id"`
 	OrderLineItems          []*OrderOrderLineItem    `json:"order_line_items"`
-	ShippingAddress         *ShippingAddress         `json:"shipping_address"`
-	BillingAddress          *BillingAddress          `json:"billing_address"`
+	ShippingAddress         *OrderShippingAddress    `json:"shipping_address"`
+	BillingAddress          *OrderBillingAddress     `json:"billing_address"`
 	Discount                int64                    `json:"discount"`
 	SubTotal                int64                    `json:"sub_total"`
 	Total                   int64                    `json:"total"`

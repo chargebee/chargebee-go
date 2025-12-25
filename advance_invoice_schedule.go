@@ -17,11 +17,11 @@ const (
 
 // just struct
 type AdvanceInvoiceSchedule struct {
-	Id                    string                             `json:"id"`
-	ScheduleType          AdvanceInvoiceScheduleScheduleType `json:"schedule_type"`
-	FixedIntervalSchedule *FixedIntervalSchedule             `json:"fixed_interval_schedule"`
-	SpecificDatesSchedule *SpecificDatesSchedule             `json:"specific_dates_schedule"`
-	Object                string                             `json:"object"`
+	Id                    string                                       `json:"id"`
+	ScheduleType          AdvanceInvoiceScheduleScheduleType           `json:"schedule_type"`
+	FixedIntervalSchedule *AdvanceInvoiceScheduleFixedIntervalSchedule `json:"fixed_interval_schedule"`
+	SpecificDatesSchedule *AdvanceInvoiceScheduleSpecificDatesSchedule `json:"specific_dates_schedule"`
+	Object                string                                       `json:"object"`
 }
 
 // sub resources

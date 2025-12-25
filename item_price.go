@@ -137,9 +137,9 @@ type ItemPrice struct {
 	InvoiceNotes                    string                                   `json:"invoice_notes"`
 	Tiers                           []*ItemPriceTier                         `json:"tiers"`
 	IsTaxable                       bool                                     `json:"is_taxable"`
-	TaxDetail                       *TaxDetail                               `json:"tax_detail"`
+	TaxDetail                       *ItemPriceTaxDetail                      `json:"tax_detail"`
 	TaxProvidersFields              []*ItemPriceTaxProvidersField            `json:"tax_providers_fields"`
-	AccountingDetail                *AccountingDetail                        `json:"accounting_detail"`
+	AccountingDetail                *ItemPriceAccountingDetail               `json:"accounting_detail"`
 	Metadata                        json.RawMessage                          `json:"metadata"`
 	ItemType                        ItemPriceItemType                        `json:"item_type"`
 	ShowDescriptionInInvoices       bool                                     `json:"show_description_in_invoices"`

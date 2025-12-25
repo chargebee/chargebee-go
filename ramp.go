@@ -107,26 +107,26 @@ const (
 
 // just struct
 type Ramp struct {
-	Id                     string                  `json:"id"`
-	Description            string                  `json:"description"`
-	SubscriptionId         string                  `json:"subscription_id"`
-	EffectiveFrom          int64                   `json:"effective_from"`
-	Status                 RampStatus              `json:"status"`
-	CreatedAt              int64                   `json:"created_at"`
-	ResourceVersion        int64                   `json:"resource_version"`
-	UpdatedAt              int64                   `json:"updated_at"`
-	ItemsToAdd             []*RampItemsToAdd       `json:"items_to_add"`
-	ItemsToUpdate          []*RampItemsToUpdate    `json:"items_to_update"`
-	CouponsToAdd           []*RampCouponsToAdd     `json:"coupons_to_add"`
-	DiscountsToAdd         []*RampDiscountsToAdd   `json:"discounts_to_add"`
-	ItemTiers              []*RampItemTier         `json:"item_tiers"`
-	ItemsToRemove          []string                `json:"items_to_remove"`
-	CouponsToRemove        []string                `json:"coupons_to_remove"`
-	DiscountsToRemove      []string                `json:"discounts_to_remove"`
-	ContractTerm           *ContractTerm           `json:"contract_term"`
-	Deleted                bool                    `json:"deleted"`
-	StatusTransitionReason *StatusTransitionReason `json:"status_transition_reason"`
-	Object                 string                  `json:"object"`
+	Id                     string                      `json:"id"`
+	Description            string                      `json:"description"`
+	SubscriptionId         string                      `json:"subscription_id"`
+	EffectiveFrom          int64                       `json:"effective_from"`
+	Status                 RampStatus                  `json:"status"`
+	CreatedAt              int64                       `json:"created_at"`
+	ResourceVersion        int64                       `json:"resource_version"`
+	UpdatedAt              int64                       `json:"updated_at"`
+	ItemsToAdd             []*RampItemsToAdd           `json:"items_to_add"`
+	ItemsToUpdate          []*RampItemsToUpdate        `json:"items_to_update"`
+	CouponsToAdd           []*RampCouponsToAdd         `json:"coupons_to_add"`
+	DiscountsToAdd         []*RampDiscountsToAdd       `json:"discounts_to_add"`
+	ItemTiers              []*RampItemTier             `json:"item_tiers"`
+	ItemsToRemove          []string                    `json:"items_to_remove"`
+	CouponsToRemove        []string                    `json:"coupons_to_remove"`
+	DiscountsToRemove      []string                    `json:"discounts_to_remove"`
+	ContractTerm           *RampContractTerm           `json:"contract_term"`
+	Deleted                bool                        `json:"deleted"`
+	StatusTransitionReason *RampStatusTransitionReason `json:"status_transition_reason"`
+	Object                 string                      `json:"object"`
 }
 
 // sub resources

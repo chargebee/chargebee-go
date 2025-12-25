@@ -464,14 +464,14 @@ type Subscription struct {
 	EventBasedAddons                  []*SubscriptionEventBasedAddon        `json:"event_based_addons"`
 	ChargedEventBasedAddons           []*SubscriptionChargedEventBasedAddon `json:"charged_event_based_addons"`
 	Coupons                           []*SubscriptionCoupon                 `json:"coupons"`
-	ShippingAddress                   *ShippingAddress                      `json:"shipping_address"`
-	ReferralInfo                      *ReferralInfo                         `json:"referral_info"`
-	BillingOverride                   *BillingOverride                      `json:"billing_override"`
+	ShippingAddress                   *SubscriptionShippingAddress          `json:"shipping_address"`
+	ReferralInfo                      *SubscriptionReferralInfo             `json:"referral_info"`
+	BillingOverride                   *SubscriptionBillingOverride          `json:"billing_override"`
 	InvoiceNotes                      string                                `json:"invoice_notes"`
 	MetaData                          json.RawMessage                       `json:"meta_data"`
 	Deleted                           bool                                  `json:"deleted"`
 	ChangesScheduledAt                int64                                 `json:"changes_scheduled_at"`
-	ContractTerm                      *ContractTerm                         `json:"contract_term"`
+	ContractTerm                      *SubscriptionContractTerm             `json:"contract_term"`
 	CancelReasonCode                  string                                `json:"cancel_reason_code"`
 	FreePeriod                        int32                                 `json:"free_period"`
 	FreePeriodUnit                    SubscriptionFreePeriodUnit            `json:"free_period_unit"`
