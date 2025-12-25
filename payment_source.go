@@ -338,12 +338,12 @@ func (r *PaymentSourceCreateUsingPermanentTokenRequest) payload() any { return r
 
 // input sub resource params single
 type PaymentSourceCreateUsingPermanentTokenCard struct {
-	Last4       string          `json:"last4,omitempty"`
-	Iin         string          `json:"iin,omitempty"`
-	ExpiryMonth *int32          `json:"expiry_month,omitempty"`
-	ExpiryYear  *int32          `json:"expiry_year,omitempty"`
-	Brand       CardBrand       `json:"brand,omitempty"`
-	FundingType CardFundingType `json:"funding_type,omitempty"`
+	Last4       string                       `json:"last4,omitempty"`
+	Iin         string                       `json:"iin,omitempty"`
+	ExpiryMonth *int32                       `json:"expiry_month,omitempty"`
+	ExpiryYear  *int32                       `json:"expiry_year,omitempty"`
+	Brand       PaymentSourceCardBrand       `json:"brand,omitempty"`
+	FundingType PaymentSourceCardFundingType `json:"funding_type,omitempty"`
 }
 
 // input sub resource params single
@@ -380,14 +380,14 @@ func (r *PaymentSourceCreateUsingPaymentIntentRequest) payload() any { return r 
 
 // input sub resource params single
 type PaymentSourceCreateUsingPaymentIntentPaymentIntent struct {
-	Id                    string                 `json:"id,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                 `json:"gw_token,omitempty"`
-	PaymentMethodType     PaymentMethodType      `json:"payment_method_type,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInfo        map[string]interface{} `json:"additional_info,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Id                    string                                      `json:"id,omitempty"`
+	GatewayAccountId      string                                      `json:"gateway_account_id,omitempty"`
+	GwToken               string                                      `json:"gw_token,omitempty"`
+	PaymentMethodType     PaymentSourcePaymentIntentPaymentMethodType `json:"payment_method_type,omitempty"`
+	ReferenceId           string                                      `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                                      `json:"gw_payment_method_id,omitempty"`
+	AdditionalInfo        map[string]interface{}                      `json:"additional_info,omitempty"`
+	AdditionalInformation map[string]interface{}                      `json:"additional_information,omitempty"`
 }
 type PaymentSourceCreateVoucherPaymentSourceRequest struct {
 	CustomerId           string                                                       `json:"customer_id"`
@@ -399,10 +399,10 @@ func (r *PaymentSourceCreateVoucherPaymentSourceRequest) payload() any { return 
 
 // input sub resource params single
 type PaymentSourceCreateVoucherPaymentSourceVoucherPaymentSource struct {
-	VoucherType      VoucherType            `json:"voucher_type"`
-	GatewayAccountId string                 `json:"gateway_account_id,omitempty"`
-	TaxId            string                 `json:"tax_id,omitempty"`
-	BillingAddress   map[string]interface{} `json:"billing_address,omitempty"`
+	VoucherType      PaymentSourceVoucherPaymentSourceVoucherType `json:"voucher_type"`
+	GatewayAccountId string                                       `json:"gateway_account_id,omitempty"`
+	TaxId            string                                       `json:"tax_id,omitempty"`
+	BillingAddress   map[string]interface{}                       `json:"billing_address,omitempty"`
 }
 type PaymentSourceCreateCardRequest struct {
 	CustomerId                  string                       `json:"customer_id"`
@@ -415,22 +415,22 @@ func (r *PaymentSourceCreateCardRequest) payload() any { return r }
 
 // input sub resource params single
 type PaymentSourceCreateCardCard struct {
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	FirstName             string                 `json:"first_name,omitempty"`
-	LastName              string                 `json:"last_name,omitempty"`
-	Number                string                 `json:"number"`
-	ExpiryMonth           *int32                 `json:"expiry_month"`
-	ExpiryYear            *int32                 `json:"expiry_year"`
-	Cvv                   string                 `json:"cvv,omitempty"`
-	PreferredScheme       PreferredScheme        `json:"preferred_scheme,omitempty"`
-	BillingAddr1          string                 `json:"billing_addr1,omitempty"`
-	BillingAddr2          string                 `json:"billing_addr2,omitempty"`
-	BillingCity           string                 `json:"billing_city,omitempty"`
-	BillingStateCode      string                 `json:"billing_state_code,omitempty"`
-	BillingState          string                 `json:"billing_state,omitempty"`
-	BillingZip            string                 `json:"billing_zip,omitempty"`
-	BillingCountry        string                 `json:"billing_country,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	GatewayAccountId      string                           `json:"gateway_account_id,omitempty"`
+	FirstName             string                           `json:"first_name,omitempty"`
+	LastName              string                           `json:"last_name,omitempty"`
+	Number                string                           `json:"number"`
+	ExpiryMonth           *int32                           `json:"expiry_month"`
+	ExpiryYear            *int32                           `json:"expiry_year"`
+	Cvv                   string                           `json:"cvv,omitempty"`
+	PreferredScheme       PaymentSourceCardPreferredScheme `json:"preferred_scheme,omitempty"`
+	BillingAddr1          string                           `json:"billing_addr1,omitempty"`
+	BillingAddr2          string                           `json:"billing_addr2,omitempty"`
+	BillingCity           string                           `json:"billing_city,omitempty"`
+	BillingStateCode      string                           `json:"billing_state_code,omitempty"`
+	BillingState          string                           `json:"billing_state,omitempty"`
+	BillingZip            string                           `json:"billing_zip,omitempty"`
+	BillingCountry        string                           `json:"billing_country,omitempty"`
+	AdditionalInformation map[string]interface{}           `json:"additional_information,omitempty"`
 }
 type PaymentSourceCreateBankAccountRequest struct {
 	CustomerId                  string                                     `json:"customer_id"`
@@ -444,22 +444,22 @@ func (r *PaymentSourceCreateBankAccountRequest) payload() any { return r }
 
 // input sub resource params single
 type PaymentSourceCreateBankAccountBankAccount struct {
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	Iban                  string                 `json:"iban,omitempty"`
-	FirstName             string                 `json:"first_name,omitempty"`
-	LastName              string                 `json:"last_name,omitempty"`
-	Company               string                 `json:"company,omitempty"`
-	Email                 string                 `json:"email,omitempty"`
-	Phone                 string                 `json:"phone,omitempty"`
-	BankName              string                 `json:"bank_name,omitempty"`
-	AccountNumber         string                 `json:"account_number,omitempty"`
-	RoutingNumber         string                 `json:"routing_number,omitempty"`
-	BankCode              string                 `json:"bank_code,omitempty"`
-	AccountType           AccountType            `json:"account_type,omitempty"`
-	AccountHolderType     AccountHolderType      `json:"account_holder_type,omitempty"`
-	EcheckType            EcheckType             `json:"echeck_type,omitempty"`
-	SwedishIdentityNumber string                 `json:"swedish_identity_number,omitempty"`
-	BillingAddress        map[string]interface{} `json:"billing_address,omitempty"`
+	GatewayAccountId      string                                    `json:"gateway_account_id,omitempty"`
+	Iban                  string                                    `json:"iban,omitempty"`
+	FirstName             string                                    `json:"first_name,omitempty"`
+	LastName              string                                    `json:"last_name,omitempty"`
+	Company               string                                    `json:"company,omitempty"`
+	Email                 string                                    `json:"email,omitempty"`
+	Phone                 string                                    `json:"phone,omitempty"`
+	BankName              string                                    `json:"bank_name,omitempty"`
+	AccountNumber         string                                    `json:"account_number,omitempty"`
+	RoutingNumber         string                                    `json:"routing_number,omitempty"`
+	BankCode              string                                    `json:"bank_code,omitempty"`
+	AccountType           PaymentSourceBankAccountAccountType       `json:"account_type,omitempty"`
+	AccountHolderType     PaymentSourceBankAccountAccountHolderType `json:"account_holder_type,omitempty"`
+	EcheckType            PaymentSourceBankAccountEcheckType        `json:"echeck_type,omitempty"`
+	SwedishIdentityNumber string                                    `json:"swedish_identity_number,omitempty"`
+	BillingAddress        map[string]interface{}                    `json:"billing_address,omitempty"`
 }
 type PaymentSourceUpdateCardRequest struct {
 	Card                 *PaymentSourceUpdateCardCard `json:"card,omitempty"`

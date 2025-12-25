@@ -236,24 +236,24 @@ func (r *CouponCreateForItemsRequest) payload() any { return r }
 
 // input sub resource params multi
 type CouponCreateForItemsItemConstraint struct {
-	Constraint   ItemConstraintConstraint `json:"constraint"`
-	ItemType     ItemConstraintItemType   `json:"item_type"`
-	ItemPriceIds []interface{}            `json:"item_price_ids,omitempty"`
+	Constraint   CouponItemConstraintConstraint `json:"constraint"`
+	ItemType     CouponItemConstraintItemType   `json:"item_type"`
+	ItemPriceIds []interface{}                  `json:"item_price_ids,omitempty"`
 }
 
 // input sub resource params multi
 type CouponCreateForItemsItemConstraintCriteria struct {
-	ItemType         ItemConstraintCriteriaItemType `json:"item_type,omitempty"`
-	ItemFamilyIds    []interface{}                  `json:"item_family_ids,omitempty"`
-	Currencies       []interface{}                  `json:"currencies,omitempty"`
-	ItemPricePeriods []interface{}                  `json:"item_price_periods,omitempty"`
+	ItemType         CouponItemConstraintCriteriaItemType `json:"item_type,omitempty"`
+	ItemFamilyIds    []interface{}                        `json:"item_family_ids,omitempty"`
+	Currencies       []interface{}                        `json:"currencies,omitempty"`
+	ItemPricePeriods []interface{}                        `json:"item_price_periods,omitempty"`
 }
 
 // input sub resource params multi
 type CouponCreateForItemsCouponConstraint struct {
-	EntityType CouponConstraintEntityType `json:"entity_type"`
-	Type       CouponConstraintType       `json:"type"`
-	Value      string                     `json:"value,omitempty"`
+	EntityType CouponCouponConstraintEntityType `json:"entity_type"`
+	Type       CouponCouponConstraintType       `json:"type"`
+	Value      string                           `json:"value,omitempty"`
 }
 type CouponUpdateForItemsRequest struct {
 	Name                   string                                        `json:"name,omitempty"`
@@ -284,24 +284,24 @@ func (r *CouponUpdateForItemsRequest) payload() any { return r }
 
 // input sub resource params multi
 type CouponUpdateForItemsItemConstraint struct {
-	Constraint   ItemConstraintConstraint `json:"constraint"`
-	ItemType     ItemConstraintItemType   `json:"item_type"`
-	ItemPriceIds []interface{}            `json:"item_price_ids,omitempty"`
+	Constraint   CouponItemConstraintConstraint `json:"constraint"`
+	ItemType     CouponItemConstraintItemType   `json:"item_type"`
+	ItemPriceIds []interface{}                  `json:"item_price_ids,omitempty"`
 }
 
 // input sub resource params multi
 type CouponUpdateForItemsItemConstraintCriteria struct {
-	ItemType         ItemConstraintCriteriaItemType `json:"item_type,omitempty"`
-	ItemFamilyIds    []interface{}                  `json:"item_family_ids,omitempty"`
-	Currencies       []interface{}                  `json:"currencies,omitempty"`
-	ItemPricePeriods []interface{}                  `json:"item_price_periods,omitempty"`
+	ItemType         CouponItemConstraintCriteriaItemType `json:"item_type,omitempty"`
+	ItemFamilyIds    []interface{}                        `json:"item_family_ids,omitempty"`
+	Currencies       []interface{}                        `json:"currencies,omitempty"`
+	ItemPricePeriods []interface{}                        `json:"item_price_periods,omitempty"`
 }
 
 // input sub resource params multi
 type CouponUpdateForItemsCouponConstraint struct {
-	EntityType CouponConstraintEntityType `json:"entity_type"`
-	Type       CouponConstraintType       `json:"type"`
-	Value      string                     `json:"value,omitempty"`
+	EntityType CouponCouponConstraintEntityType `json:"entity_type"`
+	Type       CouponCouponConstraintType       `json:"type"`
+	Value      string                           `json:"value,omitempty"`
 }
 type CouponListRequest struct {
 	Limit        *int32           `json:"limit,omitempty"`

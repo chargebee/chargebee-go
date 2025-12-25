@@ -545,86 +545,86 @@ func (r *CustomerCreateRequest) payload() any { return r }
 
 // input sub resource params single
 type CustomerCreateCard struct {
-	Gateway               Gateway                `json:"gateway,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	TmpToken              string                 `json:"tmp_token,omitempty"`
-	FirstName             string                 `json:"first_name,omitempty"`
-	LastName              string                 `json:"last_name,omitempty"`
-	Number                string                 `json:"number,omitempty"`
-	ExpiryMonth           *int32                 `json:"expiry_month,omitempty"`
-	ExpiryYear            *int32                 `json:"expiry_year,omitempty"`
-	Cvv                   string                 `json:"cvv,omitempty"`
-	PreferredScheme       PreferredScheme        `json:"preferred_scheme,omitempty"`
-	BillingAddr1          string                 `json:"billing_addr1,omitempty"`
-	BillingAddr2          string                 `json:"billing_addr2,omitempty"`
-	BillingCity           string                 `json:"billing_city,omitempty"`
-	BillingStateCode      string                 `json:"billing_state_code,omitempty"`
-	BillingState          string                 `json:"billing_state,omitempty"`
-	BillingZip            string                 `json:"billing_zip,omitempty"`
-	BillingCountry        string                 `json:"billing_country,omitempty"`
-	IpAddress             string                 `json:"ip_address,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Gateway               CustomerCardGateway         `json:"gateway,omitempty"`
+	GatewayAccountId      string                      `json:"gateway_account_id,omitempty"`
+	TmpToken              string                      `json:"tmp_token,omitempty"`
+	FirstName             string                      `json:"first_name,omitempty"`
+	LastName              string                      `json:"last_name,omitempty"`
+	Number                string                      `json:"number,omitempty"`
+	ExpiryMonth           *int32                      `json:"expiry_month,omitempty"`
+	ExpiryYear            *int32                      `json:"expiry_year,omitempty"`
+	Cvv                   string                      `json:"cvv,omitempty"`
+	PreferredScheme       CustomerCardPreferredScheme `json:"preferred_scheme,omitempty"`
+	BillingAddr1          string                      `json:"billing_addr1,omitempty"`
+	BillingAddr2          string                      `json:"billing_addr2,omitempty"`
+	BillingCity           string                      `json:"billing_city,omitempty"`
+	BillingStateCode      string                      `json:"billing_state_code,omitempty"`
+	BillingState          string                      `json:"billing_state,omitempty"`
+	BillingZip            string                      `json:"billing_zip,omitempty"`
+	BillingCountry        string                      `json:"billing_country,omitempty"`
+	IpAddress             string                      `json:"ip_address,omitempty"`
+	AdditionalInformation map[string]interface{}      `json:"additional_information,omitempty"`
 }
 
 // input sub resource params single
 type CustomerCreateBankAccount struct {
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	Iban                  string                 `json:"iban,omitempty"`
-	FirstName             string                 `json:"first_name,omitempty"`
-	LastName              string                 `json:"last_name,omitempty"`
-	Company               string                 `json:"company,omitempty"`
-	Email                 string                 `json:"email,omitempty"`
-	Phone                 string                 `json:"phone,omitempty"`
-	BankName              string                 `json:"bank_name,omitempty"`
-	AccountNumber         string                 `json:"account_number,omitempty"`
-	RoutingNumber         string                 `json:"routing_number,omitempty"`
-	BankCode              string                 `json:"bank_code,omitempty"`
-	AccountType           AccountType            `json:"account_type,omitempty"`
-	AccountHolderType     AccountHolderType      `json:"account_holder_type,omitempty"`
-	EcheckType            EcheckType             `json:"echeck_type,omitempty"`
-	IssuingCountry        string                 `json:"issuing_country,omitempty"`
-	SwedishIdentityNumber string                 `json:"swedish_identity_number,omitempty"`
-	BillingAddress        map[string]interface{} `json:"billing_address,omitempty"`
+	GatewayAccountId      string                               `json:"gateway_account_id,omitempty"`
+	Iban                  string                               `json:"iban,omitempty"`
+	FirstName             string                               `json:"first_name,omitempty"`
+	LastName              string                               `json:"last_name,omitempty"`
+	Company               string                               `json:"company,omitempty"`
+	Email                 string                               `json:"email,omitempty"`
+	Phone                 string                               `json:"phone,omitempty"`
+	BankName              string                               `json:"bank_name,omitempty"`
+	AccountNumber         string                               `json:"account_number,omitempty"`
+	RoutingNumber         string                               `json:"routing_number,omitempty"`
+	BankCode              string                               `json:"bank_code,omitempty"`
+	AccountType           CustomerBankAccountAccountType       `json:"account_type,omitempty"`
+	AccountHolderType     CustomerBankAccountAccountHolderType `json:"account_holder_type,omitempty"`
+	EcheckType            CustomerBankAccountEcheckType        `json:"echeck_type,omitempty"`
+	IssuingCountry        string                               `json:"issuing_country,omitempty"`
+	SwedishIdentityNumber string                               `json:"swedish_identity_number,omitempty"`
+	BillingAddress        map[string]interface{}               `json:"billing_address,omitempty"`
 }
 
 // input sub resource params single
 type CustomerCreatePaymentMethod struct {
-	Type                  Type                   `json:"type,omitempty"`
-	Gateway               Gateway                `json:"gateway,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	TmpToken              string                 `json:"tmp_token,omitempty"`
-	IssuingCountry        string                 `json:"issuing_country,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Type                  CustomerPaymentMethodType    `json:"type,omitempty"`
+	Gateway               CustomerPaymentMethodGateway `json:"gateway,omitempty"`
+	GatewayAccountId      string                       `json:"gateway_account_id,omitempty"`
+	ReferenceId           string                       `json:"reference_id,omitempty"`
+	TmpToken              string                       `json:"tmp_token,omitempty"`
+	IssuingCountry        string                       `json:"issuing_country,omitempty"`
+	AdditionalInformation map[string]interface{}       `json:"additional_information,omitempty"`
 }
 
 // input sub resource params single
 type CustomerCreatePaymentIntent struct {
-	Id                    string                 `json:"id,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                 `json:"gw_token,omitempty"`
-	PaymentMethodType     PaymentMethodType      `json:"payment_method_type,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Id                    string                                 `json:"id,omitempty"`
+	GatewayAccountId      string                                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                                 `json:"gw_token,omitempty"`
+	PaymentMethodType     CustomerPaymentIntentPaymentMethodType `json:"payment_method_type,omitempty"`
+	ReferenceId           string                                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{}                 `json:"additional_information,omitempty"`
 }
 
 // input sub resource params single
 type CustomerCreateBillingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                                 `json:"first_name,omitempty"`
+	LastName         string                                 `json:"last_name,omitempty"`
+	Email            string                                 `json:"email,omitempty"`
+	Company          string                                 `json:"company,omitempty"`
+	Phone            string                                 `json:"phone,omitempty"`
+	Line1            string                                 `json:"line1,omitempty"`
+	Line2            string                                 `json:"line2,omitempty"`
+	Line3            string                                 `json:"line3,omitempty"`
+	City             string                                 `json:"city,omitempty"`
+	StateCode        string                                 `json:"state_code,omitempty"`
+	State            string                                 `json:"state,omitempty"`
+	Zip              string                                 `json:"zip,omitempty"`
+	Country          string                                 `json:"country,omitempty"`
+	ValidationStatus CustomerBillingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params multi
@@ -717,13 +717,13 @@ func (r *CustomerUpdatePaymentMethodRequest) payload() any { return r }
 
 // input sub resource params single
 type CustomerUpdatePaymentMethodPaymentMethod struct {
-	Type                  Type                   `json:"type"`
-	Gateway               Gateway                `json:"gateway,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	TmpToken              string                 `json:"tmp_token,omitempty"`
-	IssuingCountry        string                 `json:"issuing_country,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Type                  CustomerPaymentMethodType    `json:"type"`
+	Gateway               CustomerPaymentMethodGateway `json:"gateway,omitempty"`
+	GatewayAccountId      string                       `json:"gateway_account_id,omitempty"`
+	ReferenceId           string                       `json:"reference_id,omitempty"`
+	TmpToken              string                       `json:"tmp_token,omitempty"`
+	IssuingCountry        string                       `json:"issuing_country,omitempty"`
+	AdditionalInformation map[string]interface{}       `json:"additional_information,omitempty"`
 }
 type CustomerUpdateBillingInfoRequest struct {
 	BillingAddress                   *CustomerUpdateBillingInfoBillingAddress      `json:"billing_address,omitempty"`
@@ -744,29 +744,29 @@ func (r *CustomerUpdateBillingInfoRequest) payload() any { return r }
 
 // input sub resource params single
 type CustomerUpdateBillingInfoBillingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                                 `json:"first_name,omitempty"`
+	LastName         string                                 `json:"last_name,omitempty"`
+	Email            string                                 `json:"email,omitempty"`
+	Company          string                                 `json:"company,omitempty"`
+	Phone            string                                 `json:"phone,omitempty"`
+	Line1            string                                 `json:"line1,omitempty"`
+	Line2            string                                 `json:"line2,omitempty"`
+	Line3            string                                 `json:"line3,omitempty"`
+	City             string                                 `json:"city,omitempty"`
+	StateCode        string                                 `json:"state_code,omitempty"`
+	State            string                                 `json:"state,omitempty"`
+	Zip              string                                 `json:"zip,omitempty"`
+	Country          string                                 `json:"country,omitempty"`
+	ValidationStatus CustomerBillingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params multi
 type CustomerUpdateBillingInfoEntityIdentifier struct {
-	Id        string    `json:"id,omitempty"`
-	Scheme    string    `json:"scheme,omitempty"`
-	Value     string    `json:"value,omitempty"`
-	Operation Operation `json:"operation,omitempty"`
-	Standard  string    `json:"standard,omitempty"`
+	Id        string                            `json:"id,omitempty"`
+	Scheme    string                            `json:"scheme,omitempty"`
+	Value     string                            `json:"value,omitempty"`
+	Operation CustomerEntityIdentifierOperation `json:"operation,omitempty"`
+	Standard  string                            `json:"standard,omitempty"`
 }
 
 // input sub resource params multi
@@ -883,13 +883,13 @@ func (r *CustomerRecordExcessPaymentRequest) payload() any { return r }
 
 // input sub resource params single
 type CustomerRecordExcessPaymentTransaction struct {
-	Id                    string        `json:"id,omitempty"`
-	Amount                *int64        `json:"amount"`
-	CurrencyCode          string        `json:"currency_code,omitempty"`
-	Date                  *int64        `json:"date"`
-	PaymentMethod         PaymentMethod `json:"payment_method"`
-	ReferenceNumber       string        `json:"reference_number,omitempty"`
-	CustomPaymentMethodId string        `json:"custom_payment_method_id,omitempty"`
+	Id                    string                           `json:"id,omitempty"`
+	Amount                *int64                           `json:"amount"`
+	CurrencyCode          string                           `json:"currency_code,omitempty"`
+	Date                  *int64                           `json:"date"`
+	PaymentMethod         CustomerTransactionPaymentMethod `json:"payment_method"`
+	ReferenceNumber       string                           `json:"reference_number,omitempty"`
+	CustomPaymentMethodId string                           `json:"custom_payment_method_id,omitempty"`
 }
 type CustomerCollectPaymentRequest struct {
 	Amount                      *int64                                     `json:"amount,omitempty"`
@@ -915,42 +915,42 @@ type CustomerCollectPaymentInvoiceAllocation struct {
 
 // input sub resource params single
 type CustomerCollectPaymentPaymentMethod struct {
-	Type                  Type                   `json:"type,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	TmpToken              string                 `json:"tmp_token,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Type                  CustomerPaymentMethodType `json:"type,omitempty"`
+	GatewayAccountId      string                    `json:"gateway_account_id,omitempty"`
+	ReferenceId           string                    `json:"reference_id,omitempty"`
+	TmpToken              string                    `json:"tmp_token,omitempty"`
+	AdditionalInformation map[string]interface{}    `json:"additional_information,omitempty"`
 }
 
 // input sub resource params single
 type CustomerCollectPaymentCard struct {
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	FirstName             string                 `json:"first_name,omitempty"`
-	LastName              string                 `json:"last_name,omitempty"`
-	Number                string                 `json:"number,omitempty"`
-	ExpiryMonth           *int32                 `json:"expiry_month,omitempty"`
-	ExpiryYear            *int32                 `json:"expiry_year,omitempty"`
-	Cvv                   string                 `json:"cvv,omitempty"`
-	PreferredScheme       PreferredScheme        `json:"preferred_scheme,omitempty"`
-	BillingAddr1          string                 `json:"billing_addr1,omitempty"`
-	BillingAddr2          string                 `json:"billing_addr2,omitempty"`
-	BillingCity           string                 `json:"billing_city,omitempty"`
-	BillingStateCode      string                 `json:"billing_state_code,omitempty"`
-	BillingState          string                 `json:"billing_state,omitempty"`
-	BillingZip            string                 `json:"billing_zip,omitempty"`
-	BillingCountry        string                 `json:"billing_country,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	GatewayAccountId      string                      `json:"gateway_account_id,omitempty"`
+	FirstName             string                      `json:"first_name,omitempty"`
+	LastName              string                      `json:"last_name,omitempty"`
+	Number                string                      `json:"number,omitempty"`
+	ExpiryMonth           *int32                      `json:"expiry_month,omitempty"`
+	ExpiryYear            *int32                      `json:"expiry_year,omitempty"`
+	Cvv                   string                      `json:"cvv,omitempty"`
+	PreferredScheme       CustomerCardPreferredScheme `json:"preferred_scheme,omitempty"`
+	BillingAddr1          string                      `json:"billing_addr1,omitempty"`
+	BillingAddr2          string                      `json:"billing_addr2,omitempty"`
+	BillingCity           string                      `json:"billing_city,omitempty"`
+	BillingStateCode      string                      `json:"billing_state_code,omitempty"`
+	BillingState          string                      `json:"billing_state,omitempty"`
+	BillingZip            string                      `json:"billing_zip,omitempty"`
+	BillingCountry        string                      `json:"billing_country,omitempty"`
+	AdditionalInformation map[string]interface{}      `json:"additional_information,omitempty"`
 }
 
 // input sub resource params single
 type CustomerCollectPaymentPaymentIntent struct {
-	Id                    string                 `json:"id,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                 `json:"gw_token,omitempty"`
-	PaymentMethodType     PaymentMethodType      `json:"payment_method_type,omitempty"`
-	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Id                    string                                 `json:"id,omitempty"`
+	GatewayAccountId      string                                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                                 `json:"gw_token,omitempty"`
+	PaymentMethodType     CustomerPaymentIntentPaymentMethodType `json:"payment_method_type,omitempty"`
+	GwPaymentMethodId     string                                 `json:"gw_payment_method_id,omitempty"`
+	ReferenceId           string                                 `json:"reference_id,omitempty"`
+	AdditionalInformation map[string]interface{}                 `json:"additional_information,omitempty"`
 }
 type CustomerDeleteRequest struct {
 	DeletePaymentMethod *bool `json:"delete_payment_method,omitempty"`
@@ -1000,20 +1000,20 @@ func (r *CustomerRelationshipsRequest) payload() any { return r }
 
 // input sub resource params single
 type CustomerRelationshipsParentAccountAccess struct {
-	PortalEditChildSubscriptions ParentAccountAccessPortalEditChildSubscriptions `json:"portal_edit_child_subscriptions,omitempty"`
-	PortalDownloadChildInvoices  ParentAccountAccessPortalDownloadChildInvoices  `json:"portal_download_child_invoices,omitempty"`
-	SendSubscriptionEmails       *bool                                           `json:"send_subscription_emails,omitempty"`
-	SendPaymentEmails            *bool                                           `json:"send_payment_emails,omitempty"`
-	SendInvoiceEmails            *bool                                           `json:"send_invoice_emails,omitempty"`
+	PortalEditChildSubscriptions CustomerParentAccountAccessPortalEditChildSubscriptions `json:"portal_edit_child_subscriptions,omitempty"`
+	PortalDownloadChildInvoices  CustomerParentAccountAccessPortalDownloadChildInvoices  `json:"portal_download_child_invoices,omitempty"`
+	SendSubscriptionEmails       *bool                                                   `json:"send_subscription_emails,omitempty"`
+	SendPaymentEmails            *bool                                                   `json:"send_payment_emails,omitempty"`
+	SendInvoiceEmails            *bool                                                   `json:"send_invoice_emails,omitempty"`
 }
 
 // input sub resource params single
 type CustomerRelationshipsChildAccountAccess struct {
-	PortalEditSubscriptions ChildAccountAccessPortalEditSubscriptions `json:"portal_edit_subscriptions,omitempty"`
-	PortalDownloadInvoices  ChildAccountAccessPortalDownloadInvoices  `json:"portal_download_invoices,omitempty"`
-	SendSubscriptionEmails  *bool                                     `json:"send_subscription_emails,omitempty"`
-	SendPaymentEmails       *bool                                     `json:"send_payment_emails,omitempty"`
-	SendInvoiceEmails       *bool                                     `json:"send_invoice_emails,omitempty"`
+	PortalEditSubscriptions CustomerChildAccountAccessPortalEditSubscriptions `json:"portal_edit_subscriptions,omitempty"`
+	PortalDownloadInvoices  CustomerChildAccountAccessPortalDownloadInvoices  `json:"portal_download_invoices,omitempty"`
+	SendSubscriptionEmails  *bool                                             `json:"send_subscription_emails,omitempty"`
+	SendPaymentEmails       *bool                                             `json:"send_payment_emails,omitempty"`
+	SendInvoiceEmails       *bool                                             `json:"send_invoice_emails,omitempty"`
 }
 type CustomerHierarchyRequest struct {
 	HierarchyOperationType CustomerHierarchyOperationType `json:"hierarchy_operation_type"`
@@ -1042,20 +1042,20 @@ func (r *CustomerUpdateHierarchySettingsRequest) payload() any { return r }
 
 // input sub resource params single
 type CustomerUpdateHierarchySettingsParentAccountAccess struct {
-	PortalEditChildSubscriptions ParentAccountAccessPortalEditChildSubscriptions `json:"portal_edit_child_subscriptions,omitempty"`
-	PortalDownloadChildInvoices  ParentAccountAccessPortalDownloadChildInvoices  `json:"portal_download_child_invoices,omitempty"`
-	SendSubscriptionEmails       *bool                                           `json:"send_subscription_emails,omitempty"`
-	SendPaymentEmails            *bool                                           `json:"send_payment_emails,omitempty"`
-	SendInvoiceEmails            *bool                                           `json:"send_invoice_emails,omitempty"`
+	PortalEditChildSubscriptions CustomerParentAccountAccessPortalEditChildSubscriptions `json:"portal_edit_child_subscriptions,omitempty"`
+	PortalDownloadChildInvoices  CustomerParentAccountAccessPortalDownloadChildInvoices  `json:"portal_download_child_invoices,omitempty"`
+	SendSubscriptionEmails       *bool                                                   `json:"send_subscription_emails,omitempty"`
+	SendPaymentEmails            *bool                                                   `json:"send_payment_emails,omitempty"`
+	SendInvoiceEmails            *bool                                                   `json:"send_invoice_emails,omitempty"`
 }
 
 // input sub resource params single
 type CustomerUpdateHierarchySettingsChildAccountAccess struct {
-	PortalEditSubscriptions ChildAccountAccessPortalEditSubscriptions `json:"portal_edit_subscriptions,omitempty"`
-	PortalDownloadInvoices  ChildAccountAccessPortalDownloadInvoices  `json:"portal_download_invoices,omitempty"`
-	SendSubscriptionEmails  *bool                                     `json:"send_subscription_emails,omitempty"`
-	SendPaymentEmails       *bool                                     `json:"send_payment_emails,omitempty"`
-	SendInvoiceEmails       *bool                                     `json:"send_invoice_emails,omitempty"`
+	PortalEditSubscriptions CustomerChildAccountAccessPortalEditSubscriptions `json:"portal_edit_subscriptions,omitempty"`
+	PortalDownloadInvoices  CustomerChildAccountAccessPortalDownloadInvoices  `json:"portal_download_invoices,omitempty"`
+	SendSubscriptionEmails  *bool                                             `json:"send_subscription_emails,omitempty"`
+	SendPaymentEmails       *bool                                             `json:"send_payment_emails,omitempty"`
+	SendInvoiceEmails       *bool                                             `json:"send_invoice_emails,omitempty"`
 }
 
 // operation response

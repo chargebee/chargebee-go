@@ -724,19 +724,19 @@ type InvoiceCreateAddon struct {
 
 // input sub resource params multi
 type InvoiceCreateCharge struct {
-	Amount                 *int64          `json:"amount,omitempty"`
-	AmountInDecimal        string          `json:"amount_in_decimal,omitempty"`
-	Description            string          `json:"description,omitempty"`
-	Taxable                *bool           `json:"taxable,omitempty"`
-	TaxProfileId           string          `json:"tax_profile_id,omitempty"`
-	AvalaraTaxCode         string          `json:"avalara_tax_code,omitempty"`
-	HsnCode                string          `json:"hsn_code,omitempty"`
-	TaxjarProductCode      string          `json:"taxjar_product_code,omitempty"`
-	AvalaraSaleType        AvalaraSaleType `json:"avalara_sale_type,omitempty"`
-	AvalaraTransactionType *int32          `json:"avalara_transaction_type,omitempty"`
-	AvalaraServiceType     *int32          `json:"avalara_service_type,omitempty"`
-	DateFrom               *int64          `json:"date_from,omitempty"`
-	DateTo                 *int64          `json:"date_to,omitempty"`
+	Amount                 *int64                       `json:"amount,omitempty"`
+	AmountInDecimal        string                       `json:"amount_in_decimal,omitempty"`
+	Description            string                       `json:"description,omitempty"`
+	Taxable                *bool                        `json:"taxable,omitempty"`
+	TaxProfileId           string                       `json:"tax_profile_id,omitempty"`
+	AvalaraTaxCode         string                       `json:"avalara_tax_code,omitempty"`
+	HsnCode                string                       `json:"hsn_code,omitempty"`
+	TaxjarProductCode      string                       `json:"taxjar_product_code,omitempty"`
+	AvalaraSaleType        InvoiceChargeAvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32                       `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32                       `json:"avalara_service_type,omitempty"`
+	DateFrom               *int64                       `json:"date_from,omitempty"`
+	DateTo                 *int64                       `json:"date_to,omitempty"`
 }
 
 // input sub resource params multi
@@ -748,26 +748,26 @@ type InvoiceCreateTaxProvidersField struct {
 
 // input sub resource params multi
 type InvoiceCreateNotesToRemove struct {
-	EntityType EntityType `json:"entity_type,omitempty"`
-	EntityId   string     `json:"entity_id,omitempty"`
+	EntityType InvoiceNotesToRemoveEntityType `json:"entity_type,omitempty"`
+	EntityId   string                         `json:"entity_id,omitempty"`
 }
 
 // input sub resource params single
 type InvoiceCreateShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                                 `json:"first_name,omitempty"`
+	LastName         string                                 `json:"last_name,omitempty"`
+	Email            string                                 `json:"email,omitempty"`
+	Company          string                                 `json:"company,omitempty"`
+	Phone            string                                 `json:"phone,omitempty"`
+	Line1            string                                 `json:"line1,omitempty"`
+	Line2            string                                 `json:"line2,omitempty"`
+	Line3            string                                 `json:"line3,omitempty"`
+	City             string                                 `json:"city,omitempty"`
+	StateCode        string                                 `json:"state_code,omitempty"`
+	State            string                                 `json:"state,omitempty"`
+	Zip              string                                 `json:"zip,omitempty"`
+	Country          string                                 `json:"country,omitempty"`
+	ValidationStatus InvoiceShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
@@ -777,68 +777,68 @@ type InvoiceCreateStatementDescriptor struct {
 
 // input sub resource params single
 type InvoiceCreateCard struct {
-	Gateway               Gateway                `json:"gateway,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	TmpToken              string                 `json:"tmp_token,omitempty"`
-	FirstName             string                 `json:"first_name,omitempty"`
-	LastName              string                 `json:"last_name,omitempty"`
-	Number                string                 `json:"number,omitempty"`
-	ExpiryMonth           *int32                 `json:"expiry_month,omitempty"`
-	ExpiryYear            *int32                 `json:"expiry_year,omitempty"`
-	Cvv                   string                 `json:"cvv,omitempty"`
-	PreferredScheme       PreferredScheme        `json:"preferred_scheme,omitempty"`
-	BillingAddr1          string                 `json:"billing_addr1,omitempty"`
-	BillingAddr2          string                 `json:"billing_addr2,omitempty"`
-	BillingCity           string                 `json:"billing_city,omitempty"`
-	BillingStateCode      string                 `json:"billing_state_code,omitempty"`
-	BillingState          string                 `json:"billing_state,omitempty"`
-	BillingZip            string                 `json:"billing_zip,omitempty"`
-	BillingCountry        string                 `json:"billing_country,omitempty"`
-	IpAddress             string                 `json:"ip_address,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Gateway               InvoiceCardGateway         `json:"gateway,omitempty"`
+	GatewayAccountId      string                     `json:"gateway_account_id,omitempty"`
+	TmpToken              string                     `json:"tmp_token,omitempty"`
+	FirstName             string                     `json:"first_name,omitempty"`
+	LastName              string                     `json:"last_name,omitempty"`
+	Number                string                     `json:"number,omitempty"`
+	ExpiryMonth           *int32                     `json:"expiry_month,omitempty"`
+	ExpiryYear            *int32                     `json:"expiry_year,omitempty"`
+	Cvv                   string                     `json:"cvv,omitempty"`
+	PreferredScheme       InvoiceCardPreferredScheme `json:"preferred_scheme,omitempty"`
+	BillingAddr1          string                     `json:"billing_addr1,omitempty"`
+	BillingAddr2          string                     `json:"billing_addr2,omitempty"`
+	BillingCity           string                     `json:"billing_city,omitempty"`
+	BillingStateCode      string                     `json:"billing_state_code,omitempty"`
+	BillingState          string                     `json:"billing_state,omitempty"`
+	BillingZip            string                     `json:"billing_zip,omitempty"`
+	BillingCountry        string                     `json:"billing_country,omitempty"`
+	IpAddress             string                     `json:"ip_address,omitempty"`
+	AdditionalInformation map[string]interface{}     `json:"additional_information,omitempty"`
 }
 
 // input sub resource params single
 type InvoiceCreateBankAccount struct {
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	Iban                  string                 `json:"iban,omitempty"`
-	FirstName             string                 `json:"first_name,omitempty"`
-	LastName              string                 `json:"last_name,omitempty"`
-	Company               string                 `json:"company,omitempty"`
-	Email                 string                 `json:"email,omitempty"`
-	Phone                 string                 `json:"phone,omitempty"`
-	BankName              string                 `json:"bank_name,omitempty"`
-	AccountNumber         string                 `json:"account_number,omitempty"`
-	RoutingNumber         string                 `json:"routing_number,omitempty"`
-	BankCode              string                 `json:"bank_code,omitempty"`
-	AccountType           AccountType            `json:"account_type,omitempty"`
-	AccountHolderType     AccountHolderType      `json:"account_holder_type,omitempty"`
-	EcheckType            EcheckType             `json:"echeck_type,omitempty"`
-	IssuingCountry        string                 `json:"issuing_country,omitempty"`
-	SwedishIdentityNumber string                 `json:"swedish_identity_number,omitempty"`
-	BillingAddress        map[string]interface{} `json:"billing_address,omitempty"`
+	GatewayAccountId      string                              `json:"gateway_account_id,omitempty"`
+	Iban                  string                              `json:"iban,omitempty"`
+	FirstName             string                              `json:"first_name,omitempty"`
+	LastName              string                              `json:"last_name,omitempty"`
+	Company               string                              `json:"company,omitempty"`
+	Email                 string                              `json:"email,omitempty"`
+	Phone                 string                              `json:"phone,omitempty"`
+	BankName              string                              `json:"bank_name,omitempty"`
+	AccountNumber         string                              `json:"account_number,omitempty"`
+	RoutingNumber         string                              `json:"routing_number,omitempty"`
+	BankCode              string                              `json:"bank_code,omitempty"`
+	AccountType           InvoiceBankAccountAccountType       `json:"account_type,omitempty"`
+	AccountHolderType     InvoiceBankAccountAccountHolderType `json:"account_holder_type,omitempty"`
+	EcheckType            InvoiceBankAccountEcheckType        `json:"echeck_type,omitempty"`
+	IssuingCountry        string                              `json:"issuing_country,omitempty"`
+	SwedishIdentityNumber string                              `json:"swedish_identity_number,omitempty"`
+	BillingAddress        map[string]interface{}              `json:"billing_address,omitempty"`
 }
 
 // input sub resource params single
 type InvoiceCreatePaymentMethod struct {
-	Type                  Type                   `json:"type,omitempty"`
-	Gateway               Gateway                `json:"gateway,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	TmpToken              string                 `json:"tmp_token,omitempty"`
-	IssuingCountry        string                 `json:"issuing_country,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Type                  InvoicePaymentMethodType    `json:"type,omitempty"`
+	Gateway               InvoicePaymentMethodGateway `json:"gateway,omitempty"`
+	GatewayAccountId      string                      `json:"gateway_account_id,omitempty"`
+	ReferenceId           string                      `json:"reference_id,omitempty"`
+	TmpToken              string                      `json:"tmp_token,omitempty"`
+	IssuingCountry        string                      `json:"issuing_country,omitempty"`
+	AdditionalInformation map[string]interface{}      `json:"additional_information,omitempty"`
 }
 
 // input sub resource params single
 type InvoiceCreatePaymentIntent struct {
-	Id                    string                 `json:"id,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                 `json:"gw_token,omitempty"`
-	PaymentMethodType     PaymentMethodType      `json:"payment_method_type,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Id                    string                                `json:"id,omitempty"`
+	GatewayAccountId      string                                `json:"gateway_account_id,omitempty"`
+	GwToken               string                                `json:"gw_token,omitempty"`
+	PaymentMethodType     InvoicePaymentIntentPaymentMethodType `json:"payment_method_type,omitempty"`
+	ReferenceId           string                                `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                                `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{}                `json:"additional_information,omitempty"`
 }
 type InvoiceCreateForChargeItemsAndChargesRequest struct {
 	CustomerId                  string                                                    `json:"customer_id,omitempty"`
@@ -886,38 +886,38 @@ type InvoiceCreateForChargeItemsAndChargesItemPrice struct {
 
 // input sub resource params multi
 type InvoiceCreateForChargeItemsAndChargesItemTier struct {
-	ItemPriceId           string      `json:"item_price_id,omitempty"`
-	StartingUnit          *int32      `json:"starting_unit,omitempty"`
-	EndingUnit            *int32      `json:"ending_unit,omitempty"`
-	Price                 *int64      `json:"price,omitempty"`
-	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
-	PricingType           PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32      `json:"package_size,omitempty"`
+	ItemPriceId           string                     `json:"item_price_id,omitempty"`
+	StartingUnit          *int32                     `json:"starting_unit,omitempty"`
+	EndingUnit            *int32                     `json:"ending_unit,omitempty"`
+	Price                 *int64                     `json:"price,omitempty"`
+	StartingUnitInDecimal string                     `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string                     `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string                     `json:"price_in_decimal,omitempty"`
+	PricingType           InvoiceItemTierPricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32                     `json:"package_size,omitempty"`
 }
 
 // input sub resource params multi
 type InvoiceCreateForChargeItemsAndChargesCharge struct {
-	Amount                 *int64          `json:"amount,omitempty"`
-	AmountInDecimal        string          `json:"amount_in_decimal,omitempty"`
-	Description            string          `json:"description,omitempty"`
-	Taxable                *bool           `json:"taxable,omitempty"`
-	TaxProfileId           string          `json:"tax_profile_id,omitempty"`
-	AvalaraTaxCode         string          `json:"avalara_tax_code,omitempty"`
-	HsnCode                string          `json:"hsn_code,omitempty"`
-	TaxjarProductCode      string          `json:"taxjar_product_code,omitempty"`
-	AvalaraSaleType        AvalaraSaleType `json:"avalara_sale_type,omitempty"`
-	AvalaraTransactionType *int32          `json:"avalara_transaction_type,omitempty"`
-	AvalaraServiceType     *int32          `json:"avalara_service_type,omitempty"`
-	DateFrom               *int64          `json:"date_from,omitempty"`
-	DateTo                 *int64          `json:"date_to,omitempty"`
+	Amount                 *int64                       `json:"amount,omitempty"`
+	AmountInDecimal        string                       `json:"amount_in_decimal,omitempty"`
+	Description            string                       `json:"description,omitempty"`
+	Taxable                *bool                        `json:"taxable,omitempty"`
+	TaxProfileId           string                       `json:"tax_profile_id,omitempty"`
+	AvalaraTaxCode         string                       `json:"avalara_tax_code,omitempty"`
+	HsnCode                string                       `json:"hsn_code,omitempty"`
+	TaxjarProductCode      string                       `json:"taxjar_product_code,omitempty"`
+	AvalaraSaleType        InvoiceChargeAvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32                       `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32                       `json:"avalara_service_type,omitempty"`
+	DateFrom               *int64                       `json:"date_from,omitempty"`
+	DateTo                 *int64                       `json:"date_to,omitempty"`
 }
 
 // input sub resource params multi
 type InvoiceCreateForChargeItemsAndChargesNotesToRemove struct {
-	EntityType EntityType `json:"entity_type,omitempty"`
-	EntityId   string     `json:"entity_id,omitempty"`
+	EntityType InvoiceNotesToRemoveEntityType `json:"entity_type,omitempty"`
+	EntityId   string                         `json:"entity_id,omitempty"`
 }
 
 // input sub resource params multi
@@ -929,29 +929,29 @@ type InvoiceCreateForChargeItemsAndChargesTaxProvidersField struct {
 
 // input sub resource params multi
 type InvoiceCreateForChargeItemsAndChargesDiscount struct {
-	Percentage  *float64 `json:"percentage,omitempty"`
-	Amount      *int64   `json:"amount,omitempty"`
-	Quantity    *int32   `json:"quantity,omitempty"`
-	ApplyOn     ApplyOn  `json:"apply_on"`
-	ItemPriceId string   `json:"item_price_id,omitempty"`
+	Percentage  *float64               `json:"percentage,omitempty"`
+	Amount      *int64                 `json:"amount,omitempty"`
+	Quantity    *int32                 `json:"quantity,omitempty"`
+	ApplyOn     InvoiceDiscountApplyOn `json:"apply_on"`
+	ItemPriceId string                 `json:"item_price_id,omitempty"`
 }
 
 // input sub resource params single
 type InvoiceCreateForChargeItemsAndChargesShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                                 `json:"first_name,omitempty"`
+	LastName         string                                 `json:"last_name,omitempty"`
+	Email            string                                 `json:"email,omitempty"`
+	Company          string                                 `json:"company,omitempty"`
+	Phone            string                                 `json:"phone,omitempty"`
+	Line1            string                                 `json:"line1,omitempty"`
+	Line2            string                                 `json:"line2,omitempty"`
+	Line3            string                                 `json:"line3,omitempty"`
+	City             string                                 `json:"city,omitempty"`
+	StateCode        string                                 `json:"state_code,omitempty"`
+	State            string                                 `json:"state,omitempty"`
+	Zip              string                                 `json:"zip,omitempty"`
+	Country          string                                 `json:"country,omitempty"`
+	ValidationStatus InvoiceShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
@@ -961,68 +961,68 @@ type InvoiceCreateForChargeItemsAndChargesStatementDescriptor struct {
 
 // input sub resource params single
 type InvoiceCreateForChargeItemsAndChargesCard struct {
-	Gateway               Gateway                `json:"gateway,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	TmpToken              string                 `json:"tmp_token,omitempty"`
-	FirstName             string                 `json:"first_name,omitempty"`
-	LastName              string                 `json:"last_name,omitempty"`
-	Number                string                 `json:"number,omitempty"`
-	ExpiryMonth           *int32                 `json:"expiry_month,omitempty"`
-	ExpiryYear            *int32                 `json:"expiry_year,omitempty"`
-	Cvv                   string                 `json:"cvv,omitempty"`
-	PreferredScheme       PreferredScheme        `json:"preferred_scheme,omitempty"`
-	BillingAddr1          string                 `json:"billing_addr1,omitempty"`
-	BillingAddr2          string                 `json:"billing_addr2,omitempty"`
-	BillingCity           string                 `json:"billing_city,omitempty"`
-	BillingStateCode      string                 `json:"billing_state_code,omitempty"`
-	BillingState          string                 `json:"billing_state,omitempty"`
-	BillingZip            string                 `json:"billing_zip,omitempty"`
-	BillingCountry        string                 `json:"billing_country,omitempty"`
-	IpAddress             string                 `json:"ip_address,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Gateway               InvoiceCardGateway         `json:"gateway,omitempty"`
+	GatewayAccountId      string                     `json:"gateway_account_id,omitempty"`
+	TmpToken              string                     `json:"tmp_token,omitempty"`
+	FirstName             string                     `json:"first_name,omitempty"`
+	LastName              string                     `json:"last_name,omitempty"`
+	Number                string                     `json:"number,omitempty"`
+	ExpiryMonth           *int32                     `json:"expiry_month,omitempty"`
+	ExpiryYear            *int32                     `json:"expiry_year,omitempty"`
+	Cvv                   string                     `json:"cvv,omitempty"`
+	PreferredScheme       InvoiceCardPreferredScheme `json:"preferred_scheme,omitempty"`
+	BillingAddr1          string                     `json:"billing_addr1,omitempty"`
+	BillingAddr2          string                     `json:"billing_addr2,omitempty"`
+	BillingCity           string                     `json:"billing_city,omitempty"`
+	BillingStateCode      string                     `json:"billing_state_code,omitempty"`
+	BillingState          string                     `json:"billing_state,omitempty"`
+	BillingZip            string                     `json:"billing_zip,omitempty"`
+	BillingCountry        string                     `json:"billing_country,omitempty"`
+	IpAddress             string                     `json:"ip_address,omitempty"`
+	AdditionalInformation map[string]interface{}     `json:"additional_information,omitempty"`
 }
 
 // input sub resource params single
 type InvoiceCreateForChargeItemsAndChargesBankAccount struct {
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	Iban                  string                 `json:"iban,omitempty"`
-	FirstName             string                 `json:"first_name,omitempty"`
-	LastName              string                 `json:"last_name,omitempty"`
-	Company               string                 `json:"company,omitempty"`
-	Email                 string                 `json:"email,omitempty"`
-	Phone                 string                 `json:"phone,omitempty"`
-	BankName              string                 `json:"bank_name,omitempty"`
-	AccountNumber         string                 `json:"account_number,omitempty"`
-	RoutingNumber         string                 `json:"routing_number,omitempty"`
-	BankCode              string                 `json:"bank_code,omitempty"`
-	AccountType           AccountType            `json:"account_type,omitempty"`
-	AccountHolderType     AccountHolderType      `json:"account_holder_type,omitempty"`
-	EcheckType            EcheckType             `json:"echeck_type,omitempty"`
-	IssuingCountry        string                 `json:"issuing_country,omitempty"`
-	SwedishIdentityNumber string                 `json:"swedish_identity_number,omitempty"`
-	BillingAddress        map[string]interface{} `json:"billing_address,omitempty"`
+	GatewayAccountId      string                              `json:"gateway_account_id,omitempty"`
+	Iban                  string                              `json:"iban,omitempty"`
+	FirstName             string                              `json:"first_name,omitempty"`
+	LastName              string                              `json:"last_name,omitempty"`
+	Company               string                              `json:"company,omitempty"`
+	Email                 string                              `json:"email,omitempty"`
+	Phone                 string                              `json:"phone,omitempty"`
+	BankName              string                              `json:"bank_name,omitempty"`
+	AccountNumber         string                              `json:"account_number,omitempty"`
+	RoutingNumber         string                              `json:"routing_number,omitempty"`
+	BankCode              string                              `json:"bank_code,omitempty"`
+	AccountType           InvoiceBankAccountAccountType       `json:"account_type,omitempty"`
+	AccountHolderType     InvoiceBankAccountAccountHolderType `json:"account_holder_type,omitempty"`
+	EcheckType            InvoiceBankAccountEcheckType        `json:"echeck_type,omitempty"`
+	IssuingCountry        string                              `json:"issuing_country,omitempty"`
+	SwedishIdentityNumber string                              `json:"swedish_identity_number,omitempty"`
+	BillingAddress        map[string]interface{}              `json:"billing_address,omitempty"`
 }
 
 // input sub resource params single
 type InvoiceCreateForChargeItemsAndChargesPaymentMethod struct {
-	Type                  Type                   `json:"type,omitempty"`
-	Gateway               Gateway                `json:"gateway,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	TmpToken              string                 `json:"tmp_token,omitempty"`
-	IssuingCountry        string                 `json:"issuing_country,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Type                  InvoicePaymentMethodType    `json:"type,omitempty"`
+	Gateway               InvoicePaymentMethodGateway `json:"gateway,omitempty"`
+	GatewayAccountId      string                      `json:"gateway_account_id,omitempty"`
+	ReferenceId           string                      `json:"reference_id,omitempty"`
+	TmpToken              string                      `json:"tmp_token,omitempty"`
+	IssuingCountry        string                      `json:"issuing_country,omitempty"`
+	AdditionalInformation map[string]interface{}      `json:"additional_information,omitempty"`
 }
 
 // input sub resource params single
 type InvoiceCreateForChargeItemsAndChargesPaymentIntent struct {
-	Id                    string                 `json:"id,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                 `json:"gw_token,omitempty"`
-	PaymentMethodType     PaymentMethodType      `json:"payment_method_type,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Id                    string                                `json:"id,omitempty"`
+	GatewayAccountId      string                                `json:"gateway_account_id,omitempty"`
+	GwToken               string                                `json:"gw_token,omitempty"`
+	PaymentMethodType     InvoicePaymentIntentPaymentMethodType `json:"payment_method_type,omitempty"`
+	ReferenceId           string                                `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                                `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{}                `json:"additional_information,omitempty"`
 }
 type InvoiceChargeRequest struct {
 	CustomerId             string                            `json:"customer_id,omitempty"`
@@ -1101,14 +1101,14 @@ type InvoiceCreateForChargeItemItemPrice struct {
 
 // input sub resource params multi
 type InvoiceCreateForChargeItemItemTier struct {
-	StartingUnit          *int32      `json:"starting_unit,omitempty"`
-	EndingUnit            *int32      `json:"ending_unit,omitempty"`
-	Price                 *int64      `json:"price,omitempty"`
-	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
-	PricingType           PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32      `json:"package_size,omitempty"`
+	StartingUnit          *int32                     `json:"starting_unit,omitempty"`
+	EndingUnit            *int32                     `json:"ending_unit,omitempty"`
+	Price                 *int64                     `json:"price,omitempty"`
+	StartingUnitInDecimal string                     `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string                     `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string                     `json:"price_in_decimal,omitempty"`
+	PricingType           InvoiceItemTierPricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32                     `json:"package_size,omitempty"`
 }
 type InvoiceStopDunningRequest struct {
 	Comment    string `json:"comment,omitempty"`
@@ -1173,51 +1173,51 @@ func (r *InvoiceImportInvoiceRequest) payload() any { return r }
 
 // input sub resource params multi
 type InvoiceImportInvoiceLineItem struct {
-	Id                         string             `json:"id,omitempty"`
-	DateFrom                   *int64             `json:"date_from,omitempty"`
-	DateTo                     *int64             `json:"date_to,omitempty"`
-	SubscriptionId             string             `json:"subscription_id,omitempty"`
-	Description                string             `json:"description"`
-	UnitAmount                 *int64             `json:"unit_amount,omitempty"`
-	Quantity                   *int32             `json:"quantity,omitempty"`
-	Amount                     *int64             `json:"amount,omitempty"`
-	UnitAmountInDecimal        string             `json:"unit_amount_in_decimal,omitempty"`
-	QuantityInDecimal          string             `json:"quantity_in_decimal,omitempty"`
-	AmountInDecimal            string             `json:"amount_in_decimal,omitempty"`
-	EntityType                 LineItemEntityType `json:"entity_type,omitempty"`
-	EntityId                   string             `json:"entity_id,omitempty"`
-	ItemLevelDiscount1EntityId string             `json:"item_level_discount1_entity_id,omitempty"`
-	ItemLevelDiscount1Amount   *int64             `json:"item_level_discount1_amount,omitempty"`
-	ItemLevelDiscount2EntityId string             `json:"item_level_discount2_entity_id,omitempty"`
-	ItemLevelDiscount2Amount   *int64             `json:"item_level_discount2_amount,omitempty"`
-	Tax1Name                   string             `json:"tax1_name,omitempty"`
-	Tax1Amount                 *int64             `json:"tax1_amount,omitempty"`
-	Tax2Name                   string             `json:"tax2_name,omitempty"`
-	Tax2Amount                 *int64             `json:"tax2_amount,omitempty"`
-	Tax3Name                   string             `json:"tax3_name,omitempty"`
-	Tax3Amount                 *int64             `json:"tax3_amount,omitempty"`
-	Tax4Name                   string             `json:"tax4_name,omitempty"`
-	Tax4Amount                 *int64             `json:"tax4_amount,omitempty"`
-	Tax5Name                   string             `json:"tax5_name,omitempty"`
-	Tax5Amount                 *int64             `json:"tax5_amount,omitempty"`
-	Tax6Name                   string             `json:"tax6_name,omitempty"`
-	Tax6Amount                 *int64             `json:"tax6_amount,omitempty"`
-	Tax7Name                   string             `json:"tax7_name,omitempty"`
-	Tax7Amount                 *int64             `json:"tax7_amount,omitempty"`
-	Tax8Name                   string             `json:"tax8_name,omitempty"`
-	Tax8Amount                 *int64             `json:"tax8_amount,omitempty"`
-	Tax9Name                   string             `json:"tax9_name,omitempty"`
-	Tax9Amount                 *int64             `json:"tax9_amount,omitempty"`
-	Tax10Name                  string             `json:"tax10_name,omitempty"`
-	Tax10Amount                *int64             `json:"tax10_amount,omitempty"`
-	CreatedAt                  *int64             `json:"created_at,omitempty"`
+	Id                         string                    `json:"id,omitempty"`
+	DateFrom                   *int64                    `json:"date_from,omitempty"`
+	DateTo                     *int64                    `json:"date_to,omitempty"`
+	SubscriptionId             string                    `json:"subscription_id,omitempty"`
+	Description                string                    `json:"description"`
+	UnitAmount                 *int64                    `json:"unit_amount,omitempty"`
+	Quantity                   *int32                    `json:"quantity,omitempty"`
+	Amount                     *int64                    `json:"amount,omitempty"`
+	UnitAmountInDecimal        string                    `json:"unit_amount_in_decimal,omitempty"`
+	QuantityInDecimal          string                    `json:"quantity_in_decimal,omitempty"`
+	AmountInDecimal            string                    `json:"amount_in_decimal,omitempty"`
+	EntityType                 InvoiceLineItemEntityType `json:"entity_type,omitempty"`
+	EntityId                   string                    `json:"entity_id,omitempty"`
+	ItemLevelDiscount1EntityId string                    `json:"item_level_discount1_entity_id,omitempty"`
+	ItemLevelDiscount1Amount   *int64                    `json:"item_level_discount1_amount,omitempty"`
+	ItemLevelDiscount2EntityId string                    `json:"item_level_discount2_entity_id,omitempty"`
+	ItemLevelDiscount2Amount   *int64                    `json:"item_level_discount2_amount,omitempty"`
+	Tax1Name                   string                    `json:"tax1_name,omitempty"`
+	Tax1Amount                 *int64                    `json:"tax1_amount,omitempty"`
+	Tax2Name                   string                    `json:"tax2_name,omitempty"`
+	Tax2Amount                 *int64                    `json:"tax2_amount,omitempty"`
+	Tax3Name                   string                    `json:"tax3_name,omitempty"`
+	Tax3Amount                 *int64                    `json:"tax3_amount,omitempty"`
+	Tax4Name                   string                    `json:"tax4_name,omitempty"`
+	Tax4Amount                 *int64                    `json:"tax4_amount,omitempty"`
+	Tax5Name                   string                    `json:"tax5_name,omitempty"`
+	Tax5Amount                 *int64                    `json:"tax5_amount,omitempty"`
+	Tax6Name                   string                    `json:"tax6_name,omitempty"`
+	Tax6Amount                 *int64                    `json:"tax6_amount,omitempty"`
+	Tax7Name                   string                    `json:"tax7_name,omitempty"`
+	Tax7Amount                 *int64                    `json:"tax7_amount,omitempty"`
+	Tax8Name                   string                    `json:"tax8_name,omitempty"`
+	Tax8Amount                 *int64                    `json:"tax8_amount,omitempty"`
+	Tax9Name                   string                    `json:"tax9_name,omitempty"`
+	Tax9Amount                 *int64                    `json:"tax9_amount,omitempty"`
+	Tax10Name                  string                    `json:"tax10_name,omitempty"`
+	Tax10Amount                *int64                    `json:"tax10_amount,omitempty"`
+	CreatedAt                  *int64                    `json:"created_at,omitempty"`
 }
 
 // input sub resource params multi
 type InvoiceImportInvoicePaymentReferenceNumber struct {
-	Id     string `json:"id,omitempty"`
-	Type   Type   `json:"type"`
-	Number string `json:"number"`
+	Id     string                            `json:"id,omitempty"`
+	Type   InvoicePaymentReferenceNumberType `json:"type"`
+	Number string                            `json:"number"`
 }
 
 // input sub resource params multi
@@ -1235,22 +1235,22 @@ type InvoiceImportInvoiceLineItemTier struct {
 
 // input sub resource params multi
 type InvoiceImportInvoiceDiscount struct {
-	LineItemId  string             `json:"line_item_id,omitempty"`
-	EntityType  DiscountEntityType `json:"entity_type"`
-	EntityId    string             `json:"entity_id,omitempty"`
-	Description string             `json:"description,omitempty"`
-	Amount      *int64             `json:"amount"`
+	LineItemId  string                    `json:"line_item_id,omitempty"`
+	EntityType  InvoiceDiscountEntityType `json:"entity_type"`
+	EntityId    string                    `json:"entity_id,omitempty"`
+	Description string                    `json:"description,omitempty"`
+	Amount      *int64                    `json:"amount"`
 }
 
 // input sub resource params multi
 type InvoiceImportInvoiceTax struct {
-	Name        string            `json:"name"`
-	Rate        *float64          `json:"rate"`
-	Amount      *int64            `json:"amount,omitempty"`
-	Description string            `json:"description,omitempty"`
-	JurisType   enum.TaxJurisType `json:"juris_type,omitempty"`
-	JurisName   string            `json:"juris_name,omitempty"`
-	JurisCode   string            `json:"juris_code,omitempty"`
+	Name        string              `json:"name"`
+	Rate        *float64            `json:"rate"`
+	Amount      *int64              `json:"amount,omitempty"`
+	Description string              `json:"description,omitempty"`
+	JurisType   InvoiceTaxJurisType `json:"juris_type,omitempty"`
+	JurisName   string              `json:"juris_name,omitempty"`
+	JurisCode   string              `json:"juris_code,omitempty"`
 }
 
 // input sub resource params single
@@ -1260,73 +1260,73 @@ type InvoiceImportInvoiceCreditNote struct {
 
 // input sub resource params multi
 type InvoiceImportInvoicePayment struct {
-	Id              string        `json:"id,omitempty"`
-	Amount          *int64        `json:"amount"`
-	PaymentMethod   PaymentMethod `json:"payment_method"`
-	Date            *int64        `json:"date,omitempty"`
-	ReferenceNumber string        `json:"reference_number,omitempty"`
+	Id              string                      `json:"id,omitempty"`
+	Amount          *int64                      `json:"amount"`
+	PaymentMethod   InvoicePaymentPaymentMethod `json:"payment_method"`
+	Date            *int64                      `json:"date,omitempty"`
+	ReferenceNumber string                      `json:"reference_number,omitempty"`
 }
 
 // input sub resource params multi
 type InvoiceImportInvoiceNote struct {
-	EntityType NoteEntityType `json:"entity_type,omitempty"`
-	EntityId   string         `json:"entity_id,omitempty"`
-	Note       string         `json:"note,omitempty"`
+	EntityType InvoiceNoteEntityType `json:"entity_type,omitempty"`
+	EntityId   string                `json:"entity_id,omitempty"`
+	Note       string                `json:"note,omitempty"`
 }
 
 // input sub resource params single
 type InvoiceImportInvoiceBillingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                                `json:"first_name,omitempty"`
+	LastName         string                                `json:"last_name,omitempty"`
+	Email            string                                `json:"email,omitempty"`
+	Company          string                                `json:"company,omitempty"`
+	Phone            string                                `json:"phone,omitempty"`
+	Line1            string                                `json:"line1,omitempty"`
+	Line2            string                                `json:"line2,omitempty"`
+	Line3            string                                `json:"line3,omitempty"`
+	City             string                                `json:"city,omitempty"`
+	StateCode        string                                `json:"state_code,omitempty"`
+	State            string                                `json:"state,omitempty"`
+	Zip              string                                `json:"zip,omitempty"`
+	Country          string                                `json:"country,omitempty"`
+	ValidationStatus InvoiceBillingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type InvoiceImportInvoiceShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                                 `json:"first_name,omitempty"`
+	LastName         string                                 `json:"last_name,omitempty"`
+	Email            string                                 `json:"email,omitempty"`
+	Company          string                                 `json:"company,omitempty"`
+	Phone            string                                 `json:"phone,omitempty"`
+	Line1            string                                 `json:"line1,omitempty"`
+	Line2            string                                 `json:"line2,omitempty"`
+	Line3            string                                 `json:"line3,omitempty"`
+	City             string                                 `json:"city,omitempty"`
+	StateCode        string                                 `json:"state_code,omitempty"`
+	State            string                                 `json:"state,omitempty"`
+	Zip              string                                 `json:"zip,omitempty"`
+	Country          string                                 `json:"country,omitempty"`
+	ValidationStatus InvoiceShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params multi
 type InvoiceImportInvoiceLineItemAddress struct {
-	LineItemId       string           `json:"line_item_id,omitempty"`
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	LineItemId       string                                 `json:"line_item_id,omitempty"`
+	FirstName        string                                 `json:"first_name,omitempty"`
+	LastName         string                                 `json:"last_name,omitempty"`
+	Email            string                                 `json:"email,omitempty"`
+	Company          string                                 `json:"company,omitempty"`
+	Phone            string                                 `json:"phone,omitempty"`
+	Line1            string                                 `json:"line1,omitempty"`
+	Line2            string                                 `json:"line2,omitempty"`
+	Line3            string                                 `json:"line3,omitempty"`
+	City             string                                 `json:"city,omitempty"`
+	StateCode        string                                 `json:"state_code,omitempty"`
+	State            string                                 `json:"state,omitempty"`
+	Zip              string                                 `json:"zip,omitempty"`
+	Country          string                                 `json:"country,omitempty"`
+	ValidationStatus InvoiceLineItemAddressValidationStatus `json:"validation_status,omitempty"`
 }
 type InvoiceApplyPaymentsRequest struct {
 	Transactions []*InvoiceApplyPaymentsTransaction `json:"transactions,omitempty"`
@@ -1512,14 +1512,14 @@ type InvoiceAddChargeItemItemPrice struct {
 
 // input sub resource params multi
 type InvoiceAddChargeItemItemTier struct {
-	StartingUnit          *int32      `json:"starting_unit,omitempty"`
-	EndingUnit            *int32      `json:"ending_unit,omitempty"`
-	Price                 *int64      `json:"price,omitempty"`
-	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
-	PricingType           PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32      `json:"package_size,omitempty"`
+	StartingUnit          *int32                     `json:"starting_unit,omitempty"`
+	EndingUnit            *int32                     `json:"ending_unit,omitempty"`
+	Price                 *int64                     `json:"price,omitempty"`
+	StartingUnitInDecimal string                     `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string                     `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string                     `json:"price_in_decimal,omitempty"`
+	PricingType           InvoiceItemTierPricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32                     `json:"package_size,omitempty"`
 }
 type InvoiceCloseRequest struct {
 	Comment           string                       `json:"comment,omitempty"`
@@ -1534,8 +1534,8 @@ func (r *InvoiceCloseRequest) payload() any { return r }
 
 // input sub resource params multi
 type InvoiceCloseNotesToRemove struct {
-	EntityType EntityType `json:"entity_type,omitempty"`
-	EntityId   string     `json:"entity_id,omitempty"`
+	EntityType InvoiceNotesToRemoveEntityType `json:"entity_type,omitempty"`
+	EntityId   string                         `json:"entity_id,omitempty"`
 }
 type InvoiceCollectPaymentRequest struct {
 	Amount                     *int64                  `json:"amount,omitempty"`
@@ -1558,15 +1558,15 @@ func (r *InvoiceRecordPaymentRequest) payload() any { return r }
 
 // input sub resource params single
 type InvoiceRecordPaymentTransaction struct {
-	Amount                *int64        `json:"amount,omitempty"`
-	PaymentMethod         PaymentMethod `json:"payment_method"`
-	ReferenceNumber       string        `json:"reference_number,omitempty"`
-	CustomPaymentMethodId string        `json:"custom_payment_method_id,omitempty"`
-	IdAtGateway           string        `json:"id_at_gateway,omitempty"`
-	Status                Status        `json:"status,omitempty"`
-	Date                  *int64        `json:"date,omitempty"`
-	ErrorCode             string        `json:"error_code,omitempty"`
-	ErrorText             string        `json:"error_text,omitempty"`
+	Amount                *int64                          `json:"amount,omitempty"`
+	PaymentMethod         InvoiceTransactionPaymentMethod `json:"payment_method"`
+	ReferenceNumber       string                          `json:"reference_number,omitempty"`
+	CustomPaymentMethodId string                          `json:"custom_payment_method_id,omitempty"`
+	IdAtGateway           string                          `json:"id_at_gateway,omitempty"`
+	Status                InvoiceTransactionStatus        `json:"status,omitempty"`
+	Date                  *int64                          `json:"date,omitempty"`
+	ErrorCode             string                          `json:"error_code,omitempty"`
+	ErrorText             string                          `json:"error_text,omitempty"`
 }
 type InvoiceRecordTaxWithheldRequest struct {
 	TaxWithheld *InvoiceRecordTaxWithheldTaxWithheld `json:"tax_withheld,omitempty"`
@@ -1605,8 +1605,8 @@ func (r *InvoiceRefundRequest) payload() any { return r }
 
 // input sub resource params single
 type InvoiceRefundCreditNote struct {
-	ReasonCode       ReasonCode `json:"reason_code,omitempty"`
-	CreateReasonCode string     `json:"create_reason_code,omitempty"`
+	ReasonCode       InvoiceCreditNoteReasonCode `json:"reason_code,omitempty"`
+	CreateReasonCode string                      `json:"create_reason_code,omitempty"`
 }
 type InvoiceRecordRefundRequest struct {
 	Transaction   *InvoiceRecordRefundTransaction `json:"transaction,omitempty"`
@@ -1620,17 +1620,17 @@ func (r *InvoiceRecordRefundRequest) payload() any { return r }
 
 // input sub resource params single
 type InvoiceRecordRefundTransaction struct {
-	Amount                *int64        `json:"amount,omitempty"`
-	PaymentMethod         PaymentMethod `json:"payment_method"`
-	ReferenceNumber       string        `json:"reference_number,omitempty"`
-	CustomPaymentMethodId string        `json:"custom_payment_method_id,omitempty"`
-	Date                  *int64        `json:"date"`
+	Amount                *int64                          `json:"amount,omitempty"`
+	PaymentMethod         InvoiceTransactionPaymentMethod `json:"payment_method"`
+	ReferenceNumber       string                          `json:"reference_number,omitempty"`
+	CustomPaymentMethodId string                          `json:"custom_payment_method_id,omitempty"`
+	Date                  *int64                          `json:"date"`
 }
 
 // input sub resource params single
 type InvoiceRecordRefundCreditNote struct {
-	ReasonCode       ReasonCode `json:"reason_code,omitempty"`
-	CreateReasonCode string     `json:"create_reason_code,omitempty"`
+	ReasonCode       InvoiceCreditNoteReasonCode `json:"reason_code,omitempty"`
+	CreateReasonCode string                      `json:"create_reason_code,omitempty"`
 }
 type InvoiceRemovePaymentRequest struct {
 	Transaction *InvoiceRemovePaymentTransaction `json:"transaction,omitempty"`
@@ -1691,38 +1691,38 @@ func (r *InvoiceUpdateDetailsRequest) payload() any { return r }
 
 // input sub resource params single
 type InvoiceUpdateDetailsBillingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                                `json:"first_name,omitempty"`
+	LastName         string                                `json:"last_name,omitempty"`
+	Email            string                                `json:"email,omitempty"`
+	Company          string                                `json:"company,omitempty"`
+	Phone            string                                `json:"phone,omitempty"`
+	Line1            string                                `json:"line1,omitempty"`
+	Line2            string                                `json:"line2,omitempty"`
+	Line3            string                                `json:"line3,omitempty"`
+	City             string                                `json:"city,omitempty"`
+	StateCode        string                                `json:"state_code,omitempty"`
+	State            string                                `json:"state,omitempty"`
+	Zip              string                                `json:"zip,omitempty"`
+	Country          string                                `json:"country,omitempty"`
+	ValidationStatus InvoiceBillingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type InvoiceUpdateDetailsShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                                 `json:"first_name,omitempty"`
+	LastName         string                                 `json:"last_name,omitempty"`
+	Email            string                                 `json:"email,omitempty"`
+	Company          string                                 `json:"company,omitempty"`
+	Phone            string                                 `json:"phone,omitempty"`
+	Line1            string                                 `json:"line1,omitempty"`
+	Line2            string                                 `json:"line2,omitempty"`
+	Line3            string                                 `json:"line3,omitempty"`
+	City             string                                 `json:"city,omitempty"`
+	StateCode        string                                 `json:"state_code,omitempty"`
+	State            string                                 `json:"state,omitempty"`
+	Zip              string                                 `json:"zip,omitempty"`
+	Country          string                                 `json:"country,omitempty"`
+	ValidationStatus InvoiceShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single

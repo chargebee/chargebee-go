@@ -100,19 +100,19 @@ type UnbilledChargeCreateUnbilledChargeAddon struct {
 
 // input sub resource params multi
 type UnbilledChargeCreateUnbilledChargeCharge struct {
-	Amount                 *int64          `json:"amount,omitempty"`
-	AmountInDecimal        string          `json:"amount_in_decimal,omitempty"`
-	Description            string          `json:"description,omitempty"`
-	Taxable                *bool           `json:"taxable,omitempty"`
-	TaxProfileId           string          `json:"tax_profile_id,omitempty"`
-	AvalaraTaxCode         string          `json:"avalara_tax_code,omitempty"`
-	HsnCode                string          `json:"hsn_code,omitempty"`
-	TaxjarProductCode      string          `json:"taxjar_product_code,omitempty"`
-	AvalaraSaleType        AvalaraSaleType `json:"avalara_sale_type,omitempty"`
-	AvalaraTransactionType *int32          `json:"avalara_transaction_type,omitempty"`
-	AvalaraServiceType     *int32          `json:"avalara_service_type,omitempty"`
-	DateFrom               *int64          `json:"date_from,omitempty"`
-	DateTo                 *int64          `json:"date_to,omitempty"`
+	Amount                 *int64                              `json:"amount,omitempty"`
+	AmountInDecimal        string                              `json:"amount_in_decimal,omitempty"`
+	Description            string                              `json:"description,omitempty"`
+	Taxable                *bool                               `json:"taxable,omitempty"`
+	TaxProfileId           string                              `json:"tax_profile_id,omitempty"`
+	AvalaraTaxCode         string                              `json:"avalara_tax_code,omitempty"`
+	HsnCode                string                              `json:"hsn_code,omitempty"`
+	TaxjarProductCode      string                              `json:"taxjar_product_code,omitempty"`
+	AvalaraSaleType        UnbilledChargeChargeAvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32                              `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32                              `json:"avalara_service_type,omitempty"`
+	DateFrom               *int64                              `json:"date_from,omitempty"`
+	DateTo                 *int64                              `json:"date_to,omitempty"`
 }
 
 // input sub resource params multi
@@ -146,32 +146,32 @@ type UnbilledChargeCreateItemPrice struct {
 
 // input sub resource params multi
 type UnbilledChargeCreateItemTier struct {
-	ItemPriceId           string      `json:"item_price_id,omitempty"`
-	StartingUnit          *int32      `json:"starting_unit,omitempty"`
-	EndingUnit            *int32      `json:"ending_unit,omitempty"`
-	Price                 *int64      `json:"price,omitempty"`
-	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
-	PricingType           PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32      `json:"package_size,omitempty"`
+	ItemPriceId           string                            `json:"item_price_id,omitempty"`
+	StartingUnit          *int32                            `json:"starting_unit,omitempty"`
+	EndingUnit            *int32                            `json:"ending_unit,omitempty"`
+	Price                 *int64                            `json:"price,omitempty"`
+	StartingUnitInDecimal string                            `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string                            `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string                            `json:"price_in_decimal,omitempty"`
+	PricingType           UnbilledChargeItemTierPricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32                            `json:"package_size,omitempty"`
 }
 
 // input sub resource params multi
 type UnbilledChargeCreateCharge struct {
-	Amount                 *int64          `json:"amount,omitempty"`
-	AmountInDecimal        string          `json:"amount_in_decimal,omitempty"`
-	Description            string          `json:"description,omitempty"`
-	Taxable                *bool           `json:"taxable,omitempty"`
-	TaxProfileId           string          `json:"tax_profile_id,omitempty"`
-	AvalaraTaxCode         string          `json:"avalara_tax_code,omitempty"`
-	HsnCode                string          `json:"hsn_code,omitempty"`
-	TaxjarProductCode      string          `json:"taxjar_product_code,omitempty"`
-	AvalaraSaleType        AvalaraSaleType `json:"avalara_sale_type,omitempty"`
-	AvalaraTransactionType *int32          `json:"avalara_transaction_type,omitempty"`
-	AvalaraServiceType     *int32          `json:"avalara_service_type,omitempty"`
-	DateFrom               *int64          `json:"date_from,omitempty"`
-	DateTo                 *int64          `json:"date_to,omitempty"`
+	Amount                 *int64                              `json:"amount,omitempty"`
+	AmountInDecimal        string                              `json:"amount_in_decimal,omitempty"`
+	Description            string                              `json:"description,omitempty"`
+	Taxable                *bool                               `json:"taxable,omitempty"`
+	TaxProfileId           string                              `json:"tax_profile_id,omitempty"`
+	AvalaraTaxCode         string                              `json:"avalara_tax_code,omitempty"`
+	HsnCode                string                              `json:"hsn_code,omitempty"`
+	TaxjarProductCode      string                              `json:"taxjar_product_code,omitempty"`
+	AvalaraSaleType        UnbilledChargeChargeAvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32                              `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32                              `json:"avalara_service_type,omitempty"`
+	DateFrom               *int64                              `json:"date_from,omitempty"`
+	DateTo                 *int64                              `json:"date_to,omitempty"`
 }
 
 // input sub resource params multi

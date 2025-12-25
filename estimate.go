@@ -220,21 +220,21 @@ func (r *EstimateCreateSubscriptionRequest) payload() any { return r }
 
 // input sub resource params single
 type EstimateCreateSubscriptionSubscription struct {
-	Id                                string               `json:"id,omitempty"`
-	PlanId                            string               `json:"plan_id"`
-	PlanQuantity                      *int32               `json:"plan_quantity,omitempty"`
-	PlanQuantityInDecimal             string               `json:"plan_quantity_in_decimal,omitempty"`
-	PlanUnitPrice                     *int64               `json:"plan_unit_price,omitempty"`
-	PlanUnitPriceInDecimal            string               `json:"plan_unit_price_in_decimal,omitempty"`
-	SetupFee                          *int64               `json:"setup_fee,omitempty"`
-	TrialEnd                          *int64               `json:"trial_end,omitempty"`
-	StartDate                         *int64               `json:"start_date,omitempty"`
-	Coupon                            string               `json:"coupon,omitempty"`
-	OfflinePaymentMethod              OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
-	FreePeriod                        *int32               `json:"free_period,omitempty"`
-	FreePeriodUnit                    FreePeriodUnit       `json:"free_period_unit,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32               `json:"contract_term_billing_cycle_on_renewal,omitempty"`
-	TrialEndAction                    TrialEndAction       `json:"trial_end_action,omitempty"`
+	Id                                string                                   `json:"id,omitempty"`
+	PlanId                            string                                   `json:"plan_id"`
+	PlanQuantity                      *int32                                   `json:"plan_quantity,omitempty"`
+	PlanQuantityInDecimal             string                                   `json:"plan_quantity_in_decimal,omitempty"`
+	PlanUnitPrice                     *int64                                   `json:"plan_unit_price,omitempty"`
+	PlanUnitPriceInDecimal            string                                   `json:"plan_unit_price_in_decimal,omitempty"`
+	SetupFee                          *int64                                   `json:"setup_fee,omitempty"`
+	TrialEnd                          *int64                                   `json:"trial_end,omitempty"`
+	StartDate                         *int64                                   `json:"start_date,omitempty"`
+	Coupon                            string                                   `json:"coupon,omitempty"`
+	OfflinePaymentMethod              EstimateSubscriptionOfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	FreePeriod                        *int32                                   `json:"free_period,omitempty"`
+	FreePeriodUnit                    EstimateSubscriptionFreePeriodUnit       `json:"free_period_unit,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                   `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	TrialEndAction                    EstimateSubscriptionTrialEndAction       `json:"trial_end_action,omitempty"`
 }
 
 // input sub resource params multi
@@ -250,57 +250,57 @@ type EstimateCreateSubscriptionAddon struct {
 
 // input sub resource params multi
 type EstimateCreateSubscriptionEventBasedAddon struct {
-	Id                  string   `json:"id,omitempty"`
-	Quantity            *int32   `json:"quantity,omitempty"`
-	UnitPrice           *int64   `json:"unit_price,omitempty"`
-	QuantityInDecimal   string   `json:"quantity_in_decimal,omitempty"`
-	UnitPriceInDecimal  string   `json:"unit_price_in_decimal,omitempty"`
-	ServicePeriodInDays *int32   `json:"service_period_in_days,omitempty"`
-	OnEvent             OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce          *bool    `json:"charge_once,omitempty"`
-	ChargeOn            ChargeOn `json:"charge_on,omitempty"`
+	Id                  string                          `json:"id,omitempty"`
+	Quantity            *int32                          `json:"quantity,omitempty"`
+	UnitPrice           *int64                          `json:"unit_price,omitempty"`
+	QuantityInDecimal   string                          `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal  string                          `json:"unit_price_in_decimal,omitempty"`
+	ServicePeriodInDays *int32                          `json:"service_period_in_days,omitempty"`
+	OnEvent             EstimateEventBasedAddonOnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool                           `json:"charge_once,omitempty"`
+	ChargeOn            EstimateEventBasedAddonChargeOn `json:"charge_on,omitempty"`
 }
 
 // input sub resource params single
 type EstimateCreateSubscriptionBillingAddress struct {
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	Line1            string                                 `json:"line1,omitempty"`
+	Line2            string                                 `json:"line2,omitempty"`
+	Line3            string                                 `json:"line3,omitempty"`
+	City             string                                 `json:"city,omitempty"`
+	StateCode        string                                 `json:"state_code,omitempty"`
+	Zip              string                                 `json:"zip,omitempty"`
+	Country          string                                 `json:"country,omitempty"`
+	ValidationStatus EstimateBillingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type EstimateCreateSubscriptionShippingAddress struct {
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	Line1            string                                  `json:"line1,omitempty"`
+	Line2            string                                  `json:"line2,omitempty"`
+	Line3            string                                  `json:"line3,omitempty"`
+	City             string                                  `json:"city,omitempty"`
+	StateCode        string                                  `json:"state_code,omitempty"`
+	Zip              string                                  `json:"zip,omitempty"`
+	Country          string                                  `json:"country,omitempty"`
+	ValidationStatus EstimateShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type EstimateCreateSubscriptionCustomer struct {
-	VatNumber        string                   `json:"vat_number,omitempty"`
-	VatNumberPrefix  string                   `json:"vat_number_prefix,omitempty"`
-	RegisteredForGst *bool                    `json:"registered_for_gst,omitempty"`
-	Taxability       Taxability               `json:"taxability,omitempty"`
-	EntityCode       EntityCode               `json:"entity_code,omitempty"`
-	ExemptNumber     string                   `json:"exempt_number,omitempty"`
-	ExemptionDetails []map[string]interface{} `json:"exemption_details,omitempty"`
-	CustomerType     CustomerType             `json:"customer_type,omitempty"`
+	VatNumber        string                       `json:"vat_number,omitempty"`
+	VatNumberPrefix  string                       `json:"vat_number_prefix,omitempty"`
+	RegisteredForGst *bool                        `json:"registered_for_gst,omitempty"`
+	Taxability       EstimateCustomerTaxability   `json:"taxability,omitempty"`
+	EntityCode       EstimateCustomerEntityCode   `json:"entity_code,omitempty"`
+	ExemptNumber     string                       `json:"exempt_number,omitempty"`
+	ExemptionDetails []map[string]interface{}     `json:"exemption_details,omitempty"`
+	CustomerType     EstimateCustomerCustomerType `json:"customer_type,omitempty"`
 }
 
 // input sub resource params single
 type EstimateCreateSubscriptionContractTerm struct {
-	ActionAtTermEnd          ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32          `json:"cancellation_cutoff_period,omitempty"`
+	ActionAtTermEnd          EstimateContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                              `json:"cancellation_cutoff_period,omitempty"`
 }
 
 // input sub resource params multi
@@ -334,101 +334,101 @@ func (r *EstimateCreateSubItemEstimateRequest) payload() any { return r }
 
 // input sub resource params single
 type EstimateCreateSubItemEstimateSubscription struct {
-	Id                                string               `json:"id,omitempty"`
-	TrialEnd                          *int64               `json:"trial_end,omitempty"`
-	SetupFee                          *int64               `json:"setup_fee,omitempty"`
-	StartDate                         *int64               `json:"start_date,omitempty"`
-	Coupon                            string               `json:"coupon,omitempty"`
-	OfflinePaymentMethod              OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
-	FreePeriod                        *int32               `json:"free_period,omitempty"`
-	FreePeriodUnit                    FreePeriodUnit       `json:"free_period_unit,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32               `json:"contract_term_billing_cycle_on_renewal,omitempty"`
-	TrialEndAction                    TrialEndAction       `json:"trial_end_action,omitempty"`
+	Id                                string                                   `json:"id,omitempty"`
+	TrialEnd                          *int64                                   `json:"trial_end,omitempty"`
+	SetupFee                          *int64                                   `json:"setup_fee,omitempty"`
+	StartDate                         *int64                                   `json:"start_date,omitempty"`
+	Coupon                            string                                   `json:"coupon,omitempty"`
+	OfflinePaymentMethod              EstimateSubscriptionOfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	FreePeriod                        *int32                                   `json:"free_period,omitempty"`
+	FreePeriodUnit                    EstimateSubscriptionFreePeriodUnit       `json:"free_period_unit,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                   `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	TrialEndAction                    EstimateSubscriptionTrialEndAction       `json:"trial_end_action,omitempty"`
 }
 
 // input sub resource params multi
 type EstimateCreateSubItemEstimateSubscriptionItem struct {
-	ItemPriceId        string         `json:"item_price_id"`
-	Quantity           *int32         `json:"quantity,omitempty"`
-	QuantityInDecimal  string         `json:"quantity_in_decimal,omitempty"`
-	UnitPrice          *int64         `json:"unit_price,omitempty"`
-	UnitPriceInDecimal string         `json:"unit_price_in_decimal,omitempty"`
-	BillingCycles      *int32         `json:"billing_cycles,omitempty"`
-	TrialEnd           *int64         `json:"trial_end,omitempty"`
-	ServicePeriodDays  *int32         `json:"service_period_days,omitempty"`
-	ChargeOnEvent      ChargeOnEvent  `json:"charge_on_event,omitempty"`
-	ChargeOnce         *bool          `json:"charge_once,omitempty"`
-	ItemType           ItemType       `json:"item_type,omitempty"`
-	ChargeOnOption     ChargeOnOption `json:"charge_on_option,omitempty"`
+	ItemPriceId        string                                 `json:"item_price_id"`
+	Quantity           *int32                                 `json:"quantity,omitempty"`
+	QuantityInDecimal  string                                 `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int64                                 `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string                                 `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32                                 `json:"billing_cycles,omitempty"`
+	TrialEnd           *int64                                 `json:"trial_end,omitempty"`
+	ServicePeriodDays  *int32                                 `json:"service_period_days,omitempty"`
+	ChargeOnEvent      EstimateSubscriptionItemChargeOnEvent  `json:"charge_on_event,omitempty"`
+	ChargeOnce         *bool                                  `json:"charge_once,omitempty"`
+	ItemType           EstimateSubscriptionItemItemType       `json:"item_type,omitempty"`
+	ChargeOnOption     EstimateSubscriptionItemChargeOnOption `json:"charge_on_option,omitempty"`
 }
 
 // input sub resource params multi
 type EstimateCreateSubItemEstimateDiscount struct {
-	ApplyOn       ApplyOn      `json:"apply_on,omitempty"`
-	DurationType  DurationType `json:"duration_type"`
-	Percentage    *float64     `json:"percentage,omitempty"`
-	Amount        *int64       `json:"amount,omitempty"`
-	Period        *int32       `json:"period,omitempty"`
-	PeriodUnit    PeriodUnit   `json:"period_unit,omitempty"`
-	IncludedInMrr *bool        `json:"included_in_mrr,omitempty"`
-	ItemPriceId   string       `json:"item_price_id,omitempty"`
-	Quantity      *int32       `json:"quantity,omitempty"`
+	ApplyOn       EstimateDiscountApplyOn      `json:"apply_on,omitempty"`
+	DurationType  EstimateDiscountDurationType `json:"duration_type"`
+	Percentage    *float64                     `json:"percentage,omitempty"`
+	Amount        *int64                       `json:"amount,omitempty"`
+	Period        *int32                       `json:"period,omitempty"`
+	PeriodUnit    EstimateDiscountPeriodUnit   `json:"period_unit,omitempty"`
+	IncludedInMrr *bool                        `json:"included_in_mrr,omitempty"`
+	ItemPriceId   string                       `json:"item_price_id,omitempty"`
+	Quantity      *int32                       `json:"quantity,omitempty"`
 }
 
 // input sub resource params multi
 type EstimateCreateSubItemEstimateItemTier struct {
-	ItemPriceId           string      `json:"item_price_id,omitempty"`
-	StartingUnit          *int32      `json:"starting_unit,omitempty"`
-	EndingUnit            *int32      `json:"ending_unit,omitempty"`
-	Price                 *int64      `json:"price,omitempty"`
-	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
-	PricingType           PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32      `json:"package_size,omitempty"`
+	ItemPriceId           string                      `json:"item_price_id,omitempty"`
+	StartingUnit          *int32                      `json:"starting_unit,omitempty"`
+	EndingUnit            *int32                      `json:"ending_unit,omitempty"`
+	Price                 *int64                      `json:"price,omitempty"`
+	StartingUnitInDecimal string                      `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string                      `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string                      `json:"price_in_decimal,omitempty"`
+	PricingType           EstimateItemTierPricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32                      `json:"package_size,omitempty"`
 }
 
 // input sub resource params single
 type EstimateCreateSubItemEstimateBillingAddress struct {
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	Line1            string                                 `json:"line1,omitempty"`
+	Line2            string                                 `json:"line2,omitempty"`
+	Line3            string                                 `json:"line3,omitempty"`
+	City             string                                 `json:"city,omitempty"`
+	StateCode        string                                 `json:"state_code,omitempty"`
+	Zip              string                                 `json:"zip,omitempty"`
+	Country          string                                 `json:"country,omitempty"`
+	ValidationStatus EstimateBillingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type EstimateCreateSubItemEstimateShippingAddress struct {
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	Line1            string                                  `json:"line1,omitempty"`
+	Line2            string                                  `json:"line2,omitempty"`
+	Line3            string                                  `json:"line3,omitempty"`
+	City             string                                  `json:"city,omitempty"`
+	StateCode        string                                  `json:"state_code,omitempty"`
+	Zip              string                                  `json:"zip,omitempty"`
+	Country          string                                  `json:"country,omitempty"`
+	ValidationStatus EstimateShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type EstimateCreateSubItemEstimateCustomer struct {
-	VatNumber        string                   `json:"vat_number,omitempty"`
-	VatNumberPrefix  string                   `json:"vat_number_prefix,omitempty"`
-	RegisteredForGst *bool                    `json:"registered_for_gst,omitempty"`
-	Taxability       Taxability               `json:"taxability,omitempty"`
-	EntityCode       EntityCode               `json:"entity_code,omitempty"`
-	ExemptNumber     string                   `json:"exempt_number,omitempty"`
-	ExemptionDetails []map[string]interface{} `json:"exemption_details,omitempty"`
-	CustomerType     CustomerType             `json:"customer_type,omitempty"`
+	VatNumber        string                       `json:"vat_number,omitempty"`
+	VatNumberPrefix  string                       `json:"vat_number_prefix,omitempty"`
+	RegisteredForGst *bool                        `json:"registered_for_gst,omitempty"`
+	Taxability       EstimateCustomerTaxability   `json:"taxability,omitempty"`
+	EntityCode       EstimateCustomerEntityCode   `json:"entity_code,omitempty"`
+	ExemptNumber     string                       `json:"exempt_number,omitempty"`
+	ExemptionDetails []map[string]interface{}     `json:"exemption_details,omitempty"`
+	CustomerType     EstimateCustomerCustomerType `json:"customer_type,omitempty"`
 }
 
 // input sub resource params single
 type EstimateCreateSubItemEstimateContractTerm struct {
-	ActionAtTermEnd          ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	ContractStart            *int64          `json:"contract_start,omitempty"`
-	CancellationCutoffPeriod *int32          `json:"cancellation_cutoff_period,omitempty"`
+	ActionAtTermEnd          EstimateContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	ContractStart            *int64                              `json:"contract_start,omitempty"`
+	CancellationCutoffPeriod *int32                              `json:"cancellation_cutoff_period,omitempty"`
 }
 
 // input sub resource params multi
@@ -458,20 +458,20 @@ func (r *EstimateCreateSubForCustomerEstimateRequest) payload() any { return r }
 
 // input sub resource params single
 type EstimateCreateSubForCustomerEstimateSubscription struct {
-	Id                                string               `json:"id,omitempty"`
-	PlanId                            string               `json:"plan_id"`
-	PlanQuantity                      *int32               `json:"plan_quantity,omitempty"`
-	PlanQuantityInDecimal             string               `json:"plan_quantity_in_decimal,omitempty"`
-	PlanUnitPrice                     *int64               `json:"plan_unit_price,omitempty"`
-	PlanUnitPriceInDecimal            string               `json:"plan_unit_price_in_decimal,omitempty"`
-	SetupFee                          *int64               `json:"setup_fee,omitempty"`
-	TrialEnd                          *int64               `json:"trial_end,omitempty"`
-	StartDate                         *int64               `json:"start_date,omitempty"`
-	OfflinePaymentMethod              OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
-	FreePeriod                        *int32               `json:"free_period,omitempty"`
-	FreePeriodUnit                    FreePeriodUnit       `json:"free_period_unit,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32               `json:"contract_term_billing_cycle_on_renewal,omitempty"`
-	TrialEndAction                    TrialEndAction       `json:"trial_end_action,omitempty"`
+	Id                                string                                   `json:"id,omitempty"`
+	PlanId                            string                                   `json:"plan_id"`
+	PlanQuantity                      *int32                                   `json:"plan_quantity,omitempty"`
+	PlanQuantityInDecimal             string                                   `json:"plan_quantity_in_decimal,omitempty"`
+	PlanUnitPrice                     *int64                                   `json:"plan_unit_price,omitempty"`
+	PlanUnitPriceInDecimal            string                                   `json:"plan_unit_price_in_decimal,omitempty"`
+	SetupFee                          *int64                                   `json:"setup_fee,omitempty"`
+	TrialEnd                          *int64                                   `json:"trial_end,omitempty"`
+	StartDate                         *int64                                   `json:"start_date,omitempty"`
+	OfflinePaymentMethod              EstimateSubscriptionOfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	FreePeriod                        *int32                                   `json:"free_period,omitempty"`
+	FreePeriodUnit                    EstimateSubscriptionFreePeriodUnit       `json:"free_period_unit,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                   `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	TrialEndAction                    EstimateSubscriptionTrialEndAction       `json:"trial_end_action,omitempty"`
 }
 
 // input sub resource params multi
@@ -487,33 +487,33 @@ type EstimateCreateSubForCustomerEstimateAddon struct {
 
 // input sub resource params multi
 type EstimateCreateSubForCustomerEstimateEventBasedAddon struct {
-	Id                  string   `json:"id,omitempty"`
-	Quantity            *int32   `json:"quantity,omitempty"`
-	UnitPrice           *int64   `json:"unit_price,omitempty"`
-	QuantityInDecimal   string   `json:"quantity_in_decimal,omitempty"`
-	UnitPriceInDecimal  string   `json:"unit_price_in_decimal,omitempty"`
-	ServicePeriodInDays *int32   `json:"service_period_in_days,omitempty"`
-	OnEvent             OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce          *bool    `json:"charge_once,omitempty"`
-	ChargeOn            ChargeOn `json:"charge_on,omitempty"`
+	Id                  string                          `json:"id,omitempty"`
+	Quantity            *int32                          `json:"quantity,omitempty"`
+	UnitPrice           *int64                          `json:"unit_price,omitempty"`
+	QuantityInDecimal   string                          `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal  string                          `json:"unit_price_in_decimal,omitempty"`
+	ServicePeriodInDays *int32                          `json:"service_period_in_days,omitempty"`
+	OnEvent             EstimateEventBasedAddonOnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool                           `json:"charge_once,omitempty"`
+	ChargeOn            EstimateEventBasedAddonChargeOn `json:"charge_on,omitempty"`
 }
 
 // input sub resource params single
 type EstimateCreateSubForCustomerEstimateShippingAddress struct {
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	Line1            string                                  `json:"line1,omitempty"`
+	Line2            string                                  `json:"line2,omitempty"`
+	Line3            string                                  `json:"line3,omitempty"`
+	City             string                                  `json:"city,omitempty"`
+	StateCode        string                                  `json:"state_code,omitempty"`
+	Zip              string                                  `json:"zip,omitempty"`
+	Country          string                                  `json:"country,omitempty"`
+	ValidationStatus EstimateShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type EstimateCreateSubForCustomerEstimateContractTerm struct {
-	ActionAtTermEnd          ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32          `json:"cancellation_cutoff_period,omitempty"`
+	ActionAtTermEnd          EstimateContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                              `json:"cancellation_cutoff_period,omitempty"`
 }
 type EstimateCreateSubItemForCustomerEstimateRequest struct {
 	UseExistingBalances    *bool                                                       `json:"use_existing_balances,omitempty"`
@@ -539,88 +539,88 @@ func (r *EstimateCreateSubItemForCustomerEstimateRequest) payload() any { return
 
 // input sub resource params single
 type EstimateCreateSubItemForCustomerEstimateSubscription struct {
-	Id                                string               `json:"id,omitempty"`
-	TrialEnd                          *int64               `json:"trial_end,omitempty"`
-	SetupFee                          *int64               `json:"setup_fee,omitempty"`
-	StartDate                         *int64               `json:"start_date,omitempty"`
-	OfflinePaymentMethod              OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
-	FreePeriod                        *int32               `json:"free_period,omitempty"`
-	FreePeriodUnit                    FreePeriodUnit       `json:"free_period_unit,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32               `json:"contract_term_billing_cycle_on_renewal,omitempty"`
-	TrialEndAction                    TrialEndAction       `json:"trial_end_action,omitempty"`
+	Id                                string                                   `json:"id,omitempty"`
+	TrialEnd                          *int64                                   `json:"trial_end,omitempty"`
+	SetupFee                          *int64                                   `json:"setup_fee,omitempty"`
+	StartDate                         *int64                                   `json:"start_date,omitempty"`
+	OfflinePaymentMethod              EstimateSubscriptionOfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	FreePeriod                        *int32                                   `json:"free_period,omitempty"`
+	FreePeriodUnit                    EstimateSubscriptionFreePeriodUnit       `json:"free_period_unit,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                   `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	TrialEndAction                    EstimateSubscriptionTrialEndAction       `json:"trial_end_action,omitempty"`
 }
 
 // input sub resource params multi
 type EstimateCreateSubItemForCustomerEstimateSubscriptionItem struct {
-	ItemPriceId        string         `json:"item_price_id"`
-	Quantity           *int32         `json:"quantity,omitempty"`
-	QuantityInDecimal  string         `json:"quantity_in_decimal,omitempty"`
-	UnitPrice          *int64         `json:"unit_price,omitempty"`
-	UnitPriceInDecimal string         `json:"unit_price_in_decimal,omitempty"`
-	BillingCycles      *int32         `json:"billing_cycles,omitempty"`
-	TrialEnd           *int64         `json:"trial_end,omitempty"`
-	ServicePeriodDays  *int32         `json:"service_period_days,omitempty"`
-	ChargeOnEvent      ChargeOnEvent  `json:"charge_on_event,omitempty"`
-	ChargeOnce         *bool          `json:"charge_once,omitempty"`
-	ItemType           ItemType       `json:"item_type,omitempty"`
-	ChargeOnOption     ChargeOnOption `json:"charge_on_option,omitempty"`
+	ItemPriceId        string                                 `json:"item_price_id"`
+	Quantity           *int32                                 `json:"quantity,omitempty"`
+	QuantityInDecimal  string                                 `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int64                                 `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string                                 `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32                                 `json:"billing_cycles,omitempty"`
+	TrialEnd           *int64                                 `json:"trial_end,omitempty"`
+	ServicePeriodDays  *int32                                 `json:"service_period_days,omitempty"`
+	ChargeOnEvent      EstimateSubscriptionItemChargeOnEvent  `json:"charge_on_event,omitempty"`
+	ChargeOnce         *bool                                  `json:"charge_once,omitempty"`
+	ItemType           EstimateSubscriptionItemItemType       `json:"item_type,omitempty"`
+	ChargeOnOption     EstimateSubscriptionItemChargeOnOption `json:"charge_on_option,omitempty"`
 }
 
 // input sub resource params multi
 type EstimateCreateSubItemForCustomerEstimateDiscount struct {
-	ApplyOn       ApplyOn      `json:"apply_on,omitempty"`
-	DurationType  DurationType `json:"duration_type"`
-	Percentage    *float64     `json:"percentage,omitempty"`
-	Amount        *int64       `json:"amount,omitempty"`
-	Period        *int32       `json:"period,omitempty"`
-	PeriodUnit    PeriodUnit   `json:"period_unit,omitempty"`
-	IncludedInMrr *bool        `json:"included_in_mrr,omitempty"`
-	ItemPriceId   string       `json:"item_price_id,omitempty"`
-	Quantity      *int32       `json:"quantity,omitempty"`
+	ApplyOn       EstimateDiscountApplyOn      `json:"apply_on,omitempty"`
+	DurationType  EstimateDiscountDurationType `json:"duration_type"`
+	Percentage    *float64                     `json:"percentage,omitempty"`
+	Amount        *int64                       `json:"amount,omitempty"`
+	Period        *int32                       `json:"period,omitempty"`
+	PeriodUnit    EstimateDiscountPeriodUnit   `json:"period_unit,omitempty"`
+	IncludedInMrr *bool                        `json:"included_in_mrr,omitempty"`
+	ItemPriceId   string                       `json:"item_price_id,omitempty"`
+	Quantity      *int32                       `json:"quantity,omitempty"`
 }
 
 // input sub resource params multi
 type EstimateCreateSubItemForCustomerEstimateItemTier struct {
-	ItemPriceId           string      `json:"item_price_id,omitempty"`
-	StartingUnit          *int32      `json:"starting_unit,omitempty"`
-	EndingUnit            *int32      `json:"ending_unit,omitempty"`
-	Price                 *int64      `json:"price,omitempty"`
-	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
-	PricingType           PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32      `json:"package_size,omitempty"`
+	ItemPriceId           string                      `json:"item_price_id,omitempty"`
+	StartingUnit          *int32                      `json:"starting_unit,omitempty"`
+	EndingUnit            *int32                      `json:"ending_unit,omitempty"`
+	Price                 *int64                      `json:"price,omitempty"`
+	StartingUnitInDecimal string                      `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string                      `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string                      `json:"price_in_decimal,omitempty"`
+	PricingType           EstimateItemTierPricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32                      `json:"package_size,omitempty"`
 }
 
 // input sub resource params single
 type EstimateCreateSubItemForCustomerEstimateShippingAddress struct {
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	Line1            string                                  `json:"line1,omitempty"`
+	Line2            string                                  `json:"line2,omitempty"`
+	Line3            string                                  `json:"line3,omitempty"`
+	City             string                                  `json:"city,omitempty"`
+	StateCode        string                                  `json:"state_code,omitempty"`
+	Zip              string                                  `json:"zip,omitempty"`
+	Country          string                                  `json:"country,omitempty"`
+	ValidationStatus EstimateShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type EstimateCreateSubItemForCustomerEstimateBillingAddress struct {
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	Line1            string                                 `json:"line1,omitempty"`
+	Line2            string                                 `json:"line2,omitempty"`
+	Line3            string                                 `json:"line3,omitempty"`
+	City             string                                 `json:"city,omitempty"`
+	StateCode        string                                 `json:"state_code,omitempty"`
+	Zip              string                                 `json:"zip,omitempty"`
+	Country          string                                 `json:"country,omitempty"`
+	ValidationStatus EstimateBillingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type EstimateCreateSubItemForCustomerEstimateContractTerm struct {
-	ActionAtTermEnd          ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	ContractStart            *int64          `json:"contract_start,omitempty"`
-	CancellationCutoffPeriod *int32          `json:"cancellation_cutoff_period,omitempty"`
+	ActionAtTermEnd          EstimateContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	ContractStart            *int64                              `json:"contract_start,omitempty"`
+	CancellationCutoffPeriod *int32                              `json:"cancellation_cutoff_period,omitempty"`
 }
 
 // input sub resource params single
@@ -660,78 +660,78 @@ func (r *EstimateUpdateSubscriptionRequest) payload() any { return r }
 
 // input sub resource params single
 type EstimateUpdateSubscriptionSubscription struct {
-	Id                     string               `json:"id"`
-	PlanId                 string               `json:"plan_id,omitempty"`
-	PlanQuantity           *int32               `json:"plan_quantity,omitempty"`
-	PlanUnitPrice          *int64               `json:"plan_unit_price,omitempty"`
-	SetupFee               *int64               `json:"setup_fee,omitempty"`
-	PlanQuantityInDecimal  string               `json:"plan_quantity_in_decimal,omitempty"`
-	PlanUnitPriceInDecimal string               `json:"plan_unit_price_in_decimal,omitempty"`
-	StartDate              *int64               `json:"start_date,omitempty"`
-	TrialEnd               *int64               `json:"trial_end,omitempty"`
-	Coupon                 string               `json:"coupon,omitempty"`
-	AutoCollection         AutoCollection       `json:"auto_collection,omitempty"`
-	OfflinePaymentMethod   OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
-	FreePeriod             *int32               `json:"free_period,omitempty"`
-	FreePeriodUnit         FreePeriodUnit       `json:"free_period_unit,omitempty"`
-	TrialEndAction         TrialEndAction       `json:"trial_end_action,omitempty"`
+	Id                     string                                   `json:"id"`
+	PlanId                 string                                   `json:"plan_id,omitempty"`
+	PlanQuantity           *int32                                   `json:"plan_quantity,omitempty"`
+	PlanUnitPrice          *int64                                   `json:"plan_unit_price,omitempty"`
+	SetupFee               *int64                                   `json:"setup_fee,omitempty"`
+	PlanQuantityInDecimal  string                                   `json:"plan_quantity_in_decimal,omitempty"`
+	PlanUnitPriceInDecimal string                                   `json:"plan_unit_price_in_decimal,omitempty"`
+	StartDate              *int64                                   `json:"start_date,omitempty"`
+	TrialEnd               *int64                                   `json:"trial_end,omitempty"`
+	Coupon                 string                                   `json:"coupon,omitempty"`
+	AutoCollection         EstimateSubscriptionAutoCollection       `json:"auto_collection,omitempty"`
+	OfflinePaymentMethod   EstimateSubscriptionOfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	FreePeriod             *int32                                   `json:"free_period,omitempty"`
+	FreePeriodUnit         EstimateSubscriptionFreePeriodUnit       `json:"free_period_unit,omitempty"`
+	TrialEndAction         EstimateSubscriptionTrialEndAction       `json:"trial_end_action,omitempty"`
 }
 
 // input sub resource params multi
 type EstimateUpdateSubscriptionAddon struct {
-	Id                 string        `json:"id,omitempty"`
-	Quantity           *int32        `json:"quantity,omitempty"`
-	UnitPrice          *int64        `json:"unit_price,omitempty"`
-	BillingCycles      *int32        `json:"billing_cycles,omitempty"`
-	QuantityInDecimal  string        `json:"quantity_in_decimal,omitempty"`
-	UnitPriceInDecimal string        `json:"unit_price_in_decimal,omitempty"`
-	TrialEnd           *int64        `json:"trial_end,omitempty"`
-	ProrationType      ProrationType `json:"proration_type,omitempty"`
+	Id                 string                     `json:"id,omitempty"`
+	Quantity           *int32                     `json:"quantity,omitempty"`
+	UnitPrice          *int64                     `json:"unit_price,omitempty"`
+	BillingCycles      *int32                     `json:"billing_cycles,omitempty"`
+	QuantityInDecimal  string                     `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal string                     `json:"unit_price_in_decimal,omitempty"`
+	TrialEnd           *int64                     `json:"trial_end,omitempty"`
+	ProrationType      EstimateAddonProrationType `json:"proration_type,omitempty"`
 }
 
 // input sub resource params multi
 type EstimateUpdateSubscriptionEventBasedAddon struct {
-	Id                  string   `json:"id,omitempty"`
-	Quantity            *int32   `json:"quantity,omitempty"`
-	UnitPrice           *int64   `json:"unit_price,omitempty"`
-	ServicePeriodInDays *int32   `json:"service_period_in_days,omitempty"`
-	ChargeOn            ChargeOn `json:"charge_on,omitempty"`
-	OnEvent             OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce          *bool    `json:"charge_once,omitempty"`
-	QuantityInDecimal   string   `json:"quantity_in_decimal,omitempty"`
-	UnitPriceInDecimal  string   `json:"unit_price_in_decimal,omitempty"`
+	Id                  string                          `json:"id,omitempty"`
+	Quantity            *int32                          `json:"quantity,omitempty"`
+	UnitPrice           *int64                          `json:"unit_price,omitempty"`
+	ServicePeriodInDays *int32                          `json:"service_period_in_days,omitempty"`
+	ChargeOn            EstimateEventBasedAddonChargeOn `json:"charge_on,omitempty"`
+	OnEvent             EstimateEventBasedAddonOnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool                           `json:"charge_once,omitempty"`
+	QuantityInDecimal   string                          `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal  string                          `json:"unit_price_in_decimal,omitempty"`
 }
 
 // input sub resource params single
 type EstimateUpdateSubscriptionBillingAddress struct {
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	Line1            string                                 `json:"line1,omitempty"`
+	Line2            string                                 `json:"line2,omitempty"`
+	Line3            string                                 `json:"line3,omitempty"`
+	City             string                                 `json:"city,omitempty"`
+	StateCode        string                                 `json:"state_code,omitempty"`
+	Zip              string                                 `json:"zip,omitempty"`
+	Country          string                                 `json:"country,omitempty"`
+	ValidationStatus EstimateBillingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type EstimateUpdateSubscriptionShippingAddress struct {
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	Line1            string                                  `json:"line1,omitempty"`
+	Line2            string                                  `json:"line2,omitempty"`
+	Line3            string                                  `json:"line3,omitempty"`
+	City             string                                  `json:"city,omitempty"`
+	StateCode        string                                  `json:"state_code,omitempty"`
+	Zip              string                                  `json:"zip,omitempty"`
+	Country          string                                  `json:"country,omitempty"`
+	ValidationStatus EstimateShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type EstimateUpdateSubscriptionCustomer struct {
-	VatNumber        string     `json:"vat_number,omitempty"`
-	VatNumberPrefix  string     `json:"vat_number_prefix,omitempty"`
-	RegisteredForGst *bool      `json:"registered_for_gst,omitempty"`
-	Taxability       Taxability `json:"taxability,omitempty"`
+	VatNumber        string                     `json:"vat_number,omitempty"`
+	VatNumberPrefix  string                     `json:"vat_number_prefix,omitempty"`
+	RegisteredForGst *bool                      `json:"registered_for_gst,omitempty"`
+	Taxability       EstimateCustomerTaxability `json:"taxability,omitempty"`
 }
 type EstimateUpdateSubscriptionForItemsRequest struct {
 	Subscription           *EstimateUpdateSubscriptionForItemsSubscription       `json:"subscription,omitempty"`
@@ -768,93 +768,93 @@ func (r *EstimateUpdateSubscriptionForItemsRequest) payload() any { return r }
 
 // input sub resource params single
 type EstimateUpdateSubscriptionForItemsSubscription struct {
-	Id                   string               `json:"id"`
-	SetupFee             *int64               `json:"setup_fee,omitempty"`
-	StartDate            *int64               `json:"start_date,omitempty"`
-	TrialEnd             *int64               `json:"trial_end,omitempty"`
-	Coupon               string               `json:"coupon,omitempty"`
-	AutoCollection       AutoCollection       `json:"auto_collection,omitempty"`
-	OfflinePaymentMethod OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
-	FreePeriod           *int32               `json:"free_period,omitempty"`
-	FreePeriodUnit       FreePeriodUnit       `json:"free_period_unit,omitempty"`
-	TrialEndAction       TrialEndAction       `json:"trial_end_action,omitempty"`
+	Id                   string                                   `json:"id"`
+	SetupFee             *int64                                   `json:"setup_fee,omitempty"`
+	StartDate            *int64                                   `json:"start_date,omitempty"`
+	TrialEnd             *int64                                   `json:"trial_end,omitempty"`
+	Coupon               string                                   `json:"coupon,omitempty"`
+	AutoCollection       EstimateSubscriptionAutoCollection       `json:"auto_collection,omitempty"`
+	OfflinePaymentMethod EstimateSubscriptionOfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	FreePeriod           *int32                                   `json:"free_period,omitempty"`
+	FreePeriodUnit       EstimateSubscriptionFreePeriodUnit       `json:"free_period_unit,omitempty"`
+	TrialEndAction       EstimateSubscriptionTrialEndAction       `json:"trial_end_action,omitempty"`
 }
 
 // input sub resource params multi
 type EstimateUpdateSubscriptionForItemsSubscriptionItem struct {
-	ItemPriceId        string         `json:"item_price_id"`
-	Quantity           *int32         `json:"quantity,omitempty"`
-	QuantityInDecimal  string         `json:"quantity_in_decimal,omitempty"`
-	UnitPrice          *int64         `json:"unit_price,omitempty"`
-	UnitPriceInDecimal string         `json:"unit_price_in_decimal,omitempty"`
-	BillingCycles      *int32         `json:"billing_cycles,omitempty"`
-	TrialEnd           *int64         `json:"trial_end,omitempty"`
-	ServicePeriodDays  *int32         `json:"service_period_days,omitempty"`
-	ChargeOnEvent      ChargeOnEvent  `json:"charge_on_event,omitempty"`
-	ChargeOnce         *bool          `json:"charge_once,omitempty"`
-	ChargeOnOption     ChargeOnOption `json:"charge_on_option,omitempty"`
-	ItemType           ItemType       `json:"item_type,omitempty"`
-	ProrationType      ProrationType  `json:"proration_type,omitempty"`
+	ItemPriceId        string                                 `json:"item_price_id"`
+	Quantity           *int32                                 `json:"quantity,omitempty"`
+	QuantityInDecimal  string                                 `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int64                                 `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string                                 `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32                                 `json:"billing_cycles,omitempty"`
+	TrialEnd           *int64                                 `json:"trial_end,omitempty"`
+	ServicePeriodDays  *int32                                 `json:"service_period_days,omitempty"`
+	ChargeOnEvent      EstimateSubscriptionItemChargeOnEvent  `json:"charge_on_event,omitempty"`
+	ChargeOnce         *bool                                  `json:"charge_once,omitempty"`
+	ChargeOnOption     EstimateSubscriptionItemChargeOnOption `json:"charge_on_option,omitempty"`
+	ItemType           EstimateSubscriptionItemItemType       `json:"item_type,omitempty"`
+	ProrationType      EstimateSubscriptionItemProrationType  `json:"proration_type,omitempty"`
 }
 
 // input sub resource params multi
 type EstimateUpdateSubscriptionForItemsDiscount struct {
-	ApplyOn       ApplyOn       `json:"apply_on,omitempty"`
-	DurationType  DurationType  `json:"duration_type"`
-	Percentage    *float64      `json:"percentage,omitempty"`
-	Amount        *int64        `json:"amount,omitempty"`
-	Period        *int32        `json:"period,omitempty"`
-	PeriodUnit    PeriodUnit    `json:"period_unit,omitempty"`
-	IncludedInMrr *bool         `json:"included_in_mrr,omitempty"`
-	ItemPriceId   string        `json:"item_price_id,omitempty"`
-	Quantity      *int32        `json:"quantity,omitempty"`
-	OperationType OperationType `json:"operation_type"`
-	Id            string        `json:"id,omitempty"`
+	ApplyOn       EstimateDiscountApplyOn       `json:"apply_on,omitempty"`
+	DurationType  EstimateDiscountDurationType  `json:"duration_type"`
+	Percentage    *float64                      `json:"percentage,omitempty"`
+	Amount        *int64                        `json:"amount,omitempty"`
+	Period        *int32                        `json:"period,omitempty"`
+	PeriodUnit    EstimateDiscountPeriodUnit    `json:"period_unit,omitempty"`
+	IncludedInMrr *bool                         `json:"included_in_mrr,omitempty"`
+	ItemPriceId   string                        `json:"item_price_id,omitempty"`
+	Quantity      *int32                        `json:"quantity,omitempty"`
+	OperationType EstimateDiscountOperationType `json:"operation_type"`
+	Id            string                        `json:"id,omitempty"`
 }
 
 // input sub resource params multi
 type EstimateUpdateSubscriptionForItemsItemTier struct {
-	ItemPriceId           string      `json:"item_price_id,omitempty"`
-	StartingUnit          *int32      `json:"starting_unit,omitempty"`
-	EndingUnit            *int32      `json:"ending_unit,omitempty"`
-	Price                 *int64      `json:"price,omitempty"`
-	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
-	PricingType           PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32      `json:"package_size,omitempty"`
+	ItemPriceId           string                      `json:"item_price_id,omitempty"`
+	StartingUnit          *int32                      `json:"starting_unit,omitempty"`
+	EndingUnit            *int32                      `json:"ending_unit,omitempty"`
+	Price                 *int64                      `json:"price,omitempty"`
+	StartingUnitInDecimal string                      `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string                      `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string                      `json:"price_in_decimal,omitempty"`
+	PricingType           EstimateItemTierPricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32                      `json:"package_size,omitempty"`
 }
 
 // input sub resource params single
 type EstimateUpdateSubscriptionForItemsBillingAddress struct {
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	Line1            string                                 `json:"line1,omitempty"`
+	Line2            string                                 `json:"line2,omitempty"`
+	Line3            string                                 `json:"line3,omitempty"`
+	City             string                                 `json:"city,omitempty"`
+	StateCode        string                                 `json:"state_code,omitempty"`
+	Zip              string                                 `json:"zip,omitempty"`
+	Country          string                                 `json:"country,omitempty"`
+	ValidationStatus EstimateBillingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type EstimateUpdateSubscriptionForItemsShippingAddress struct {
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	Line1            string                                  `json:"line1,omitempty"`
+	Line2            string                                  `json:"line2,omitempty"`
+	Line3            string                                  `json:"line3,omitempty"`
+	City             string                                  `json:"city,omitempty"`
+	StateCode        string                                  `json:"state_code,omitempty"`
+	Zip              string                                  `json:"zip,omitempty"`
+	Country          string                                  `json:"country,omitempty"`
+	ValidationStatus EstimateShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type EstimateUpdateSubscriptionForItemsCustomer struct {
-	VatNumber        string     `json:"vat_number,omitempty"`
-	VatNumberPrefix  string     `json:"vat_number_prefix,omitempty"`
-	RegisteredForGst *bool      `json:"registered_for_gst,omitempty"`
-	Taxability       Taxability `json:"taxability,omitempty"`
+	VatNumber        string                     `json:"vat_number,omitempty"`
+	VatNumberPrefix  string                     `json:"vat_number_prefix,omitempty"`
+	RegisteredForGst *bool                      `json:"registered_for_gst,omitempty"`
+	Taxability       EstimateCustomerTaxability `json:"taxability,omitempty"`
 }
 
 // input sub resource params single
@@ -891,10 +891,10 @@ type EstimateAdvanceInvoiceEstimateSpecificDatesSchedule struct {
 
 // input sub resource params single
 type EstimateAdvanceInvoiceEstimateFixedIntervalSchedule struct {
-	NumberOfOccurrences *int32        `json:"number_of_occurrences,omitempty"`
-	DaysBeforeRenewal   *int32        `json:"days_before_renewal,omitempty"`
-	EndScheduleOn       EndScheduleOn `json:"end_schedule_on,omitempty"`
-	EndDate             *int64        `json:"end_date,omitempty"`
+	NumberOfOccurrences *int32                                     `json:"number_of_occurrences,omitempty"`
+	DaysBeforeRenewal   *int32                                     `json:"days_before_renewal,omitempty"`
+	EndScheduleOn       EstimateFixedIntervalScheduleEndScheduleOn `json:"end_schedule_on,omitempty"`
+	EndDate             *int64                                     `json:"end_date,omitempty"`
 }
 type EstimateRegenerateInvoiceEstimateRequest struct {
 	DateFrom           *int64 `json:"date_from,omitempty"`
@@ -1033,31 +1033,31 @@ type EstimateGiftSubscriptionGiftReceiver struct {
 
 // input sub resource params single
 type EstimateGiftSubscriptionPaymentIntent struct {
-	Id                    string                 `json:"id,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                 `json:"gw_token,omitempty"`
-	PaymentMethodType     PaymentMethodType      `json:"payment_method_type,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Id                    string                                 `json:"id,omitempty"`
+	GatewayAccountId      string                                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                                 `json:"gw_token,omitempty"`
+	PaymentMethodType     EstimatePaymentIntentPaymentMethodType `json:"payment_method_type,omitempty"`
+	ReferenceId           string                                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{}                 `json:"additional_information,omitempty"`
 }
 
 // input sub resource params single
 type EstimateGiftSubscriptionShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                                  `json:"first_name,omitempty"`
+	LastName         string                                  `json:"last_name,omitempty"`
+	Email            string                                  `json:"email,omitempty"`
+	Company          string                                  `json:"company,omitempty"`
+	Phone            string                                  `json:"phone,omitempty"`
+	Line1            string                                  `json:"line1,omitempty"`
+	Line2            string                                  `json:"line2,omitempty"`
+	Line3            string                                  `json:"line3,omitempty"`
+	City             string                                  `json:"city,omitempty"`
+	StateCode        string                                  `json:"state_code,omitempty"`
+	State            string                                  `json:"state,omitempty"`
+	Zip              string                                  `json:"zip,omitempty"`
+	Country          string                                  `json:"country,omitempty"`
+	ValidationStatus EstimateShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
@@ -1113,31 +1113,31 @@ type EstimateGiftSubscriptionForItemsGiftReceiver struct {
 
 // input sub resource params single
 type EstimateGiftSubscriptionForItemsPaymentIntent struct {
-	Id                    string                 `json:"id,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                 `json:"gw_token,omitempty"`
-	PaymentMethodType     PaymentMethodType      `json:"payment_method_type,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Id                    string                                 `json:"id,omitempty"`
+	GatewayAccountId      string                                 `json:"gateway_account_id,omitempty"`
+	GwToken               string                                 `json:"gw_token,omitempty"`
+	PaymentMethodType     EstimatePaymentIntentPaymentMethodType `json:"payment_method_type,omitempty"`
+	ReferenceId           string                                 `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                                 `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{}                 `json:"additional_information,omitempty"`
 }
 
 // input sub resource params single
 type EstimateGiftSubscriptionForItemsShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                                  `json:"first_name,omitempty"`
+	LastName         string                                  `json:"last_name,omitempty"`
+	Email            string                                  `json:"email,omitempty"`
+	Company          string                                  `json:"company,omitempty"`
+	Phone            string                                  `json:"phone,omitempty"`
+	Line1            string                                  `json:"line1,omitempty"`
+	Line2            string                                  `json:"line2,omitempty"`
+	Line3            string                                  `json:"line3,omitempty"`
+	City             string                                  `json:"city,omitempty"`
+	StateCode        string                                  `json:"state_code,omitempty"`
+	State            string                                  `json:"state,omitempty"`
+	Zip              string                                  `json:"zip,omitempty"`
+	Country          string                                  `json:"country,omitempty"`
+	ValidationStatus EstimateShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params multi
@@ -1199,43 +1199,43 @@ type EstimateCreateInvoiceAddon struct {
 
 // input sub resource params multi
 type EstimateCreateInvoiceCharge struct {
-	Amount                 *int64          `json:"amount,omitempty"`
-	AmountInDecimal        string          `json:"amount_in_decimal,omitempty"`
-	Description            string          `json:"description,omitempty"`
-	Taxable                *bool           `json:"taxable,omitempty"`
-	TaxProfileId           string          `json:"tax_profile_id,omitempty"`
-	AvalaraTaxCode         string          `json:"avalara_tax_code,omitempty"`
-	HsnCode                string          `json:"hsn_code,omitempty"`
-	TaxjarProductCode      string          `json:"taxjar_product_code,omitempty"`
-	AvalaraSaleType        AvalaraSaleType `json:"avalara_sale_type,omitempty"`
-	AvalaraTransactionType *int32          `json:"avalara_transaction_type,omitempty"`
-	AvalaraServiceType     *int32          `json:"avalara_service_type,omitempty"`
-	DateFrom               *int64          `json:"date_from,omitempty"`
-	DateTo                 *int64          `json:"date_to,omitempty"`
+	Amount                 *int64                        `json:"amount,omitempty"`
+	AmountInDecimal        string                        `json:"amount_in_decimal,omitempty"`
+	Description            string                        `json:"description,omitempty"`
+	Taxable                *bool                         `json:"taxable,omitempty"`
+	TaxProfileId           string                        `json:"tax_profile_id,omitempty"`
+	AvalaraTaxCode         string                        `json:"avalara_tax_code,omitempty"`
+	HsnCode                string                        `json:"hsn_code,omitempty"`
+	TaxjarProductCode      string                        `json:"taxjar_product_code,omitempty"`
+	AvalaraSaleType        EstimateChargeAvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32                        `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32                        `json:"avalara_service_type,omitempty"`
+	DateFrom               *int64                        `json:"date_from,omitempty"`
+	DateTo                 *int64                        `json:"date_to,omitempty"`
 }
 
 // input sub resource params multi
 type EstimateCreateInvoiceNotesToRemove struct {
-	EntityType EntityType `json:"entity_type,omitempty"`
-	EntityId   string     `json:"entity_id,omitempty"`
+	EntityType EstimateNotesToRemoveEntityType `json:"entity_type,omitempty"`
+	EntityId   string                          `json:"entity_id,omitempty"`
 }
 
 // input sub resource params single
 type EstimateCreateInvoiceShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                                  `json:"first_name,omitempty"`
+	LastName         string                                  `json:"last_name,omitempty"`
+	Email            string                                  `json:"email,omitempty"`
+	Company          string                                  `json:"company,omitempty"`
+	Phone            string                                  `json:"phone,omitempty"`
+	Line1            string                                  `json:"line1,omitempty"`
+	Line2            string                                  `json:"line2,omitempty"`
+	Line3            string                                  `json:"line3,omitempty"`
+	City             string                                  `json:"city,omitempty"`
+	StateCode        string                                  `json:"state_code,omitempty"`
+	State            string                                  `json:"state,omitempty"`
+	Zip              string                                  `json:"zip,omitempty"`
+	Country          string                                  `json:"country,omitempty"`
+	ValidationStatus EstimateShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params multi
@@ -1287,65 +1287,65 @@ type EstimateCreateInvoiceForItemsItemPrice struct {
 
 // input sub resource params multi
 type EstimateCreateInvoiceForItemsItemTier struct {
-	ItemPriceId           string      `json:"item_price_id,omitempty"`
-	StartingUnit          *int32      `json:"starting_unit,omitempty"`
-	EndingUnit            *int32      `json:"ending_unit,omitempty"`
-	Price                 *int64      `json:"price,omitempty"`
-	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
-	PricingType           PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32      `json:"package_size,omitempty"`
+	ItemPriceId           string                      `json:"item_price_id,omitempty"`
+	StartingUnit          *int32                      `json:"starting_unit,omitempty"`
+	EndingUnit            *int32                      `json:"ending_unit,omitempty"`
+	Price                 *int64                      `json:"price,omitempty"`
+	StartingUnitInDecimal string                      `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string                      `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string                      `json:"price_in_decimal,omitempty"`
+	PricingType           EstimateItemTierPricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32                      `json:"package_size,omitempty"`
 }
 
 // input sub resource params multi
 type EstimateCreateInvoiceForItemsCharge struct {
-	Amount                 *int64          `json:"amount,omitempty"`
-	AmountInDecimal        string          `json:"amount_in_decimal,omitempty"`
-	Description            string          `json:"description,omitempty"`
-	Taxable                *bool           `json:"taxable,omitempty"`
-	TaxProfileId           string          `json:"tax_profile_id,omitempty"`
-	AvalaraTaxCode         string          `json:"avalara_tax_code,omitempty"`
-	HsnCode                string          `json:"hsn_code,omitempty"`
-	TaxjarProductCode      string          `json:"taxjar_product_code,omitempty"`
-	AvalaraSaleType        AvalaraSaleType `json:"avalara_sale_type,omitempty"`
-	AvalaraTransactionType *int32          `json:"avalara_transaction_type,omitempty"`
-	AvalaraServiceType     *int32          `json:"avalara_service_type,omitempty"`
-	DateFrom               *int64          `json:"date_from,omitempty"`
-	DateTo                 *int64          `json:"date_to,omitempty"`
+	Amount                 *int64                        `json:"amount,omitempty"`
+	AmountInDecimal        string                        `json:"amount_in_decimal,omitempty"`
+	Description            string                        `json:"description,omitempty"`
+	Taxable                *bool                         `json:"taxable,omitempty"`
+	TaxProfileId           string                        `json:"tax_profile_id,omitempty"`
+	AvalaraTaxCode         string                        `json:"avalara_tax_code,omitempty"`
+	HsnCode                string                        `json:"hsn_code,omitempty"`
+	TaxjarProductCode      string                        `json:"taxjar_product_code,omitempty"`
+	AvalaraSaleType        EstimateChargeAvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32                        `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32                        `json:"avalara_service_type,omitempty"`
+	DateFrom               *int64                        `json:"date_from,omitempty"`
+	DateTo                 *int64                        `json:"date_to,omitempty"`
 }
 
 // input sub resource params multi
 type EstimateCreateInvoiceForItemsNotesToRemove struct {
-	EntityType EntityType `json:"entity_type,omitempty"`
-	EntityId   string     `json:"entity_id,omitempty"`
+	EntityType EstimateNotesToRemoveEntityType `json:"entity_type,omitempty"`
+	EntityId   string                          `json:"entity_id,omitempty"`
 }
 
 // input sub resource params multi
 type EstimateCreateInvoiceForItemsDiscount struct {
-	Percentage  *float64 `json:"percentage,omitempty"`
-	Amount      *int64   `json:"amount,omitempty"`
-	Quantity    *int32   `json:"quantity,omitempty"`
-	ApplyOn     ApplyOn  `json:"apply_on"`
-	ItemPriceId string   `json:"item_price_id,omitempty"`
+	Percentage  *float64                `json:"percentage,omitempty"`
+	Amount      *int64                  `json:"amount,omitempty"`
+	Quantity    *int32                  `json:"quantity,omitempty"`
+	ApplyOn     EstimateDiscountApplyOn `json:"apply_on"`
+	ItemPriceId string                  `json:"item_price_id,omitempty"`
 }
 
 // input sub resource params single
 type EstimateCreateInvoiceForItemsShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                                  `json:"first_name,omitempty"`
+	LastName         string                                  `json:"last_name,omitempty"`
+	Email            string                                  `json:"email,omitempty"`
+	Company          string                                  `json:"company,omitempty"`
+	Phone            string                                  `json:"phone,omitempty"`
+	Line1            string                                  `json:"line1,omitempty"`
+	Line2            string                                  `json:"line2,omitempty"`
+	Line3            string                                  `json:"line3,omitempty"`
+	City             string                                  `json:"city,omitempty"`
+	StateCode        string                                  `json:"state_code,omitempty"`
+	State            string                                  `json:"state,omitempty"`
+	Zip              string                                  `json:"zip,omitempty"`
+	Country          string                                  `json:"country,omitempty"`
+	ValidationStatus EstimateShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params multi
@@ -1357,14 +1357,14 @@ type EstimateCreateInvoiceForItemsTaxProvidersField struct {
 
 // input sub resource params single
 type EstimateCreateInvoiceForItemsBillingAddress struct {
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	Line1            string                                 `json:"line1,omitempty"`
+	Line2            string                                 `json:"line2,omitempty"`
+	Line3            string                                 `json:"line3,omitempty"`
+	City             string                                 `json:"city,omitempty"`
+	StateCode        string                                 `json:"state_code,omitempty"`
+	Zip              string                                 `json:"zip,omitempty"`
+	Country          string                                 `json:"country,omitempty"`
+	ValidationStatus EstimateBillingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 type EstimatePaymentSchedulesRequest struct {
 	SchemeId                 string `json:"scheme_id"`

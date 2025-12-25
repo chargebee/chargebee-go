@@ -142,15 +142,15 @@ func (r *ItemCreateRequest) payload() any { return r }
 
 // input sub resource params single
 type ItemCreateBundleConfiguration struct {
-	Type BundleConfigurationType `json:"type,omitempty"`
+	Type ItemBundleConfigurationType `json:"type,omitempty"`
 }
 
 // input sub resource params multi
 type ItemCreateBundleItemsToAdd struct {
-	ItemId          string   `json:"item_id,omitempty"`
-	ItemType        ItemType `json:"item_type,omitempty"`
-	Quantity        *int32   `json:"quantity,omitempty"`
-	PriceAllocation *float64 `json:"price_allocation,omitempty"`
+	ItemId          string                       `json:"item_id,omitempty"`
+	ItemType        ItemBundleItemsToAddItemType `json:"item_type,omitempty"`
+	Quantity        *int32                       `json:"quantity,omitempty"`
+	PriceAllocation *float64                     `json:"price_allocation,omitempty"`
 }
 type ItemUpdateRequest struct {
 	Name                 string                           `json:"name,omitempty"`
@@ -180,29 +180,29 @@ func (r *ItemUpdateRequest) payload() any { return r }
 
 // input sub resource params single
 type ItemUpdateBundleConfiguration struct {
-	Type BundleConfigurationType `json:"type,omitempty"`
+	Type ItemBundleConfigurationType `json:"type,omitempty"`
 }
 
 // input sub resource params multi
 type ItemUpdateBundleItemsToAdd struct {
-	ItemId          string   `json:"item_id,omitempty"`
-	ItemType        ItemType `json:"item_type,omitempty"`
-	Quantity        *int32   `json:"quantity,omitempty"`
-	PriceAllocation *float64 `json:"price_allocation,omitempty"`
+	ItemId          string                       `json:"item_id,omitempty"`
+	ItemType        ItemBundleItemsToAddItemType `json:"item_type,omitempty"`
+	Quantity        *int32                       `json:"quantity,omitempty"`
+	PriceAllocation *float64                     `json:"price_allocation,omitempty"`
 }
 
 // input sub resource params multi
 type ItemUpdateBundleItemsToUpdate struct {
-	ItemId          string   `json:"item_id,omitempty"`
-	ItemType        ItemType `json:"item_type,omitempty"`
-	Quantity        *int32   `json:"quantity,omitempty"`
-	PriceAllocation *float64 `json:"price_allocation,omitempty"`
+	ItemId          string                          `json:"item_id,omitempty"`
+	ItemType        ItemBundleItemsToUpdateItemType `json:"item_type,omitempty"`
+	Quantity        *int32                          `json:"quantity,omitempty"`
+	PriceAllocation *float64                        `json:"price_allocation,omitempty"`
 }
 
 // input sub resource params multi
 type ItemUpdateBundleItemsToRemove struct {
-	ItemId   string   `json:"item_id,omitempty"`
-	ItemType ItemType `json:"item_type,omitempty"`
+	ItemId   string                          `json:"item_id,omitempty"`
+	ItemType ItemBundleItemsToRemoveItemType `json:"item_type,omitempty"`
 }
 type ItemListRequest struct {
 	Limit                     *int32                   `json:"limit,omitempty"`

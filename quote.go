@@ -358,18 +358,18 @@ func (r *QuoteCreateSubForCustomerQuoteRequest) payload() any { return r }
 
 // input sub resource params single
 type QuoteCreateSubForCustomerQuoteSubscription struct {
-	Id                                string               `json:"id,omitempty"`
-	PoNumber                          string               `json:"po_number,omitempty"`
-	PlanId                            string               `json:"plan_id"`
-	PlanQuantity                      *int32               `json:"plan_quantity,omitempty"`
-	PlanQuantityInDecimal             string               `json:"plan_quantity_in_decimal,omitempty"`
-	PlanUnitPrice                     *int64               `json:"plan_unit_price,omitempty"`
-	PlanUnitPriceInDecimal            string               `json:"plan_unit_price_in_decimal,omitempty"`
-	SetupFee                          *int64               `json:"setup_fee,omitempty"`
-	TrialEnd                          *int64               `json:"trial_end,omitempty"`
-	StartDate                         *int64               `json:"start_date,omitempty"`
-	OfflinePaymentMethod              OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32               `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	Id                                string                                `json:"id,omitempty"`
+	PoNumber                          string                                `json:"po_number,omitempty"`
+	PlanId                            string                                `json:"plan_id"`
+	PlanQuantity                      *int32                                `json:"plan_quantity,omitempty"`
+	PlanQuantityInDecimal             string                                `json:"plan_quantity_in_decimal,omitempty"`
+	PlanUnitPrice                     *int64                                `json:"plan_unit_price,omitempty"`
+	PlanUnitPriceInDecimal            string                                `json:"plan_unit_price_in_decimal,omitempty"`
+	SetupFee                          *int64                                `json:"setup_fee,omitempty"`
+	TrialEnd                          *int64                                `json:"trial_end,omitempty"`
+	StartDate                         *int64                                `json:"start_date,omitempty"`
+	OfflinePaymentMethod              QuoteSubscriptionOfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 
 // input sub resource params multi
@@ -385,39 +385,39 @@ type QuoteCreateSubForCustomerQuoteAddon struct {
 
 // input sub resource params multi
 type QuoteCreateSubForCustomerQuoteEventBasedAddon struct {
-	Id                  string   `json:"id,omitempty"`
-	Quantity            *int32   `json:"quantity,omitempty"`
-	UnitPrice           *int64   `json:"unit_price,omitempty"`
-	QuantityInDecimal   string   `json:"quantity_in_decimal,omitempty"`
-	UnitPriceInDecimal  string   `json:"unit_price_in_decimal,omitempty"`
-	ServicePeriodInDays *int32   `json:"service_period_in_days,omitempty"`
-	OnEvent             OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce          *bool    `json:"charge_once,omitempty"`
-	ChargeOn            ChargeOn `json:"charge_on,omitempty"`
+	Id                  string                       `json:"id,omitempty"`
+	Quantity            *int32                       `json:"quantity,omitempty"`
+	UnitPrice           *int64                       `json:"unit_price,omitempty"`
+	QuantityInDecimal   string                       `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal  string                       `json:"unit_price_in_decimal,omitempty"`
+	ServicePeriodInDays *int32                       `json:"service_period_in_days,omitempty"`
+	OnEvent             QuoteEventBasedAddonOnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool                        `json:"charge_once,omitempty"`
+	ChargeOn            QuoteEventBasedAddonChargeOn `json:"charge_on,omitempty"`
 }
 
 // input sub resource params single
 type QuoteCreateSubForCustomerQuoteShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                               `json:"first_name,omitempty"`
+	LastName         string                               `json:"last_name,omitempty"`
+	Email            string                               `json:"email,omitempty"`
+	Company          string                               `json:"company,omitempty"`
+	Phone            string                               `json:"phone,omitempty"`
+	Line1            string                               `json:"line1,omitempty"`
+	Line2            string                               `json:"line2,omitempty"`
+	Line3            string                               `json:"line3,omitempty"`
+	City             string                               `json:"city,omitempty"`
+	StateCode        string                               `json:"state_code,omitempty"`
+	State            string                               `json:"state,omitempty"`
+	Zip              string                               `json:"zip,omitempty"`
+	Country          string                               `json:"country,omitempty"`
+	ValidationStatus QuoteShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type QuoteCreateSubForCustomerQuoteContractTerm struct {
-	ActionAtTermEnd          ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32          `json:"cancellation_cutoff_period,omitempty"`
+	ActionAtTermEnd          QuoteContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 type QuoteEditCreateSubForCustomerQuoteRequest struct {
 	Notes                   string                                               `json:"notes,omitempty"`
@@ -439,18 +439,18 @@ func (r *QuoteEditCreateSubForCustomerQuoteRequest) payload() any { return r }
 
 // input sub resource params single
 type QuoteEditCreateSubForCustomerQuoteSubscription struct {
-	Id                                string               `json:"id,omitempty"`
-	PoNumber                          string               `json:"po_number,omitempty"`
-	PlanId                            string               `json:"plan_id"`
-	PlanQuantity                      *int32               `json:"plan_quantity,omitempty"`
-	PlanQuantityInDecimal             string               `json:"plan_quantity_in_decimal,omitempty"`
-	PlanUnitPrice                     *int64               `json:"plan_unit_price,omitempty"`
-	PlanUnitPriceInDecimal            string               `json:"plan_unit_price_in_decimal,omitempty"`
-	SetupFee                          *int64               `json:"setup_fee,omitempty"`
-	TrialEnd                          *int64               `json:"trial_end,omitempty"`
-	StartDate                         *int64               `json:"start_date,omitempty"`
-	OfflinePaymentMethod              OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32               `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	Id                                string                                `json:"id,omitempty"`
+	PoNumber                          string                                `json:"po_number,omitempty"`
+	PlanId                            string                                `json:"plan_id"`
+	PlanQuantity                      *int32                                `json:"plan_quantity,omitempty"`
+	PlanQuantityInDecimal             string                                `json:"plan_quantity_in_decimal,omitempty"`
+	PlanUnitPrice                     *int64                                `json:"plan_unit_price,omitempty"`
+	PlanUnitPriceInDecimal            string                                `json:"plan_unit_price_in_decimal,omitempty"`
+	SetupFee                          *int64                                `json:"setup_fee,omitempty"`
+	TrialEnd                          *int64                                `json:"trial_end,omitempty"`
+	StartDate                         *int64                                `json:"start_date,omitempty"`
+	OfflinePaymentMethod              QuoteSubscriptionOfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 
 // input sub resource params multi
@@ -466,39 +466,39 @@ type QuoteEditCreateSubForCustomerQuoteAddon struct {
 
 // input sub resource params multi
 type QuoteEditCreateSubForCustomerQuoteEventBasedAddon struct {
-	Id                  string   `json:"id,omitempty"`
-	Quantity            *int32   `json:"quantity,omitempty"`
-	UnitPrice           *int64   `json:"unit_price,omitempty"`
-	QuantityInDecimal   string   `json:"quantity_in_decimal,omitempty"`
-	UnitPriceInDecimal  string   `json:"unit_price_in_decimal,omitempty"`
-	ServicePeriodInDays *int32   `json:"service_period_in_days,omitempty"`
-	OnEvent             OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce          *bool    `json:"charge_once,omitempty"`
-	ChargeOn            ChargeOn `json:"charge_on,omitempty"`
+	Id                  string                       `json:"id,omitempty"`
+	Quantity            *int32                       `json:"quantity,omitempty"`
+	UnitPrice           *int64                       `json:"unit_price,omitempty"`
+	QuantityInDecimal   string                       `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal  string                       `json:"unit_price_in_decimal,omitempty"`
+	ServicePeriodInDays *int32                       `json:"service_period_in_days,omitempty"`
+	OnEvent             QuoteEventBasedAddonOnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool                        `json:"charge_once,omitempty"`
+	ChargeOn            QuoteEventBasedAddonChargeOn `json:"charge_on,omitempty"`
 }
 
 // input sub resource params single
 type QuoteEditCreateSubForCustomerQuoteShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                               `json:"first_name,omitempty"`
+	LastName         string                               `json:"last_name,omitempty"`
+	Email            string                               `json:"email,omitempty"`
+	Company          string                               `json:"company,omitempty"`
+	Phone            string                               `json:"phone,omitempty"`
+	Line1            string                               `json:"line1,omitempty"`
+	Line2            string                               `json:"line2,omitempty"`
+	Line3            string                               `json:"line3,omitempty"`
+	City             string                               `json:"city,omitempty"`
+	StateCode        string                               `json:"state_code,omitempty"`
+	State            string                               `json:"state,omitempty"`
+	Zip              string                               `json:"zip,omitempty"`
+	Country          string                               `json:"country,omitempty"`
+	ValidationStatus QuoteShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type QuoteEditCreateSubForCustomerQuoteContractTerm struct {
-	ActionAtTermEnd          ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32          `json:"cancellation_cutoff_period,omitempty"`
+	ActionAtTermEnd          QuoteContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 type QuoteUpdateSubscriptionQuoteRequest struct {
 	Name                    string                                         `json:"name,omitempty"`
@@ -530,19 +530,19 @@ func (r *QuoteUpdateSubscriptionQuoteRequest) payload() any { return r }
 
 // input sub resource params single
 type QuoteUpdateSubscriptionQuoteSubscription struct {
-	Id                                string               `json:"id"`
-	PlanId                            string               `json:"plan_id,omitempty"`
-	PlanQuantity                      *int32               `json:"plan_quantity,omitempty"`
-	PlanUnitPrice                     *int64               `json:"plan_unit_price,omitempty"`
-	SetupFee                          *int64               `json:"setup_fee,omitempty"`
-	PlanQuantityInDecimal             string               `json:"plan_quantity_in_decimal,omitempty"`
-	PlanUnitPriceInDecimal            string               `json:"plan_unit_price_in_decimal,omitempty"`
-	StartDate                         *int64               `json:"start_date,omitempty"`
-	TrialEnd                          *int64               `json:"trial_end,omitempty"`
-	Coupon                            string               `json:"coupon,omitempty"`
-	AutoCollection                    AutoCollection       `json:"auto_collection,omitempty"`
-	OfflinePaymentMethod              OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32               `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	Id                                string                                `json:"id"`
+	PlanId                            string                                `json:"plan_id,omitempty"`
+	PlanQuantity                      *int32                                `json:"plan_quantity,omitempty"`
+	PlanUnitPrice                     *int64                                `json:"plan_unit_price,omitempty"`
+	SetupFee                          *int64                                `json:"setup_fee,omitempty"`
+	PlanQuantityInDecimal             string                                `json:"plan_quantity_in_decimal,omitempty"`
+	PlanUnitPriceInDecimal            string                                `json:"plan_unit_price_in_decimal,omitempty"`
+	StartDate                         *int64                                `json:"start_date,omitempty"`
+	TrialEnd                          *int64                                `json:"trial_end,omitempty"`
+	Coupon                            string                                `json:"coupon,omitempty"`
+	AutoCollection                    QuoteSubscriptionAutoCollection       `json:"auto_collection,omitempty"`
+	OfflinePaymentMethod              QuoteSubscriptionOfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 
 // input sub resource params multi
@@ -558,51 +558,51 @@ type QuoteUpdateSubscriptionQuoteAddon struct {
 
 // input sub resource params multi
 type QuoteUpdateSubscriptionQuoteEventBasedAddon struct {
-	Id                  string   `json:"id,omitempty"`
-	Quantity            *int32   `json:"quantity,omitempty"`
-	UnitPrice           *int64   `json:"unit_price,omitempty"`
-	ServicePeriodInDays *int32   `json:"service_period_in_days,omitempty"`
-	ChargeOn            ChargeOn `json:"charge_on,omitempty"`
-	OnEvent             OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce          *bool    `json:"charge_once,omitempty"`
-	QuantityInDecimal   string   `json:"quantity_in_decimal,omitempty"`
-	UnitPriceInDecimal  string   `json:"unit_price_in_decimal,omitempty"`
+	Id                  string                       `json:"id,omitempty"`
+	Quantity            *int32                       `json:"quantity,omitempty"`
+	UnitPrice           *int64                       `json:"unit_price,omitempty"`
+	ServicePeriodInDays *int32                       `json:"service_period_in_days,omitempty"`
+	ChargeOn            QuoteEventBasedAddonChargeOn `json:"charge_on,omitempty"`
+	OnEvent             QuoteEventBasedAddonOnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool                        `json:"charge_once,omitempty"`
+	QuantityInDecimal   string                       `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal  string                       `json:"unit_price_in_decimal,omitempty"`
 }
 
 // input sub resource params single
 type QuoteUpdateSubscriptionQuoteBillingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                              `json:"first_name,omitempty"`
+	LastName         string                              `json:"last_name,omitempty"`
+	Email            string                              `json:"email,omitempty"`
+	Company          string                              `json:"company,omitempty"`
+	Phone            string                              `json:"phone,omitempty"`
+	Line1            string                              `json:"line1,omitempty"`
+	Line2            string                              `json:"line2,omitempty"`
+	Line3            string                              `json:"line3,omitempty"`
+	City             string                              `json:"city,omitempty"`
+	StateCode        string                              `json:"state_code,omitempty"`
+	State            string                              `json:"state,omitempty"`
+	Zip              string                              `json:"zip,omitempty"`
+	Country          string                              `json:"country,omitempty"`
+	ValidationStatus QuoteBillingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type QuoteUpdateSubscriptionQuoteShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                               `json:"first_name,omitempty"`
+	LastName         string                               `json:"last_name,omitempty"`
+	Email            string                               `json:"email,omitempty"`
+	Company          string                               `json:"company,omitempty"`
+	Phone            string                               `json:"phone,omitempty"`
+	Line1            string                               `json:"line1,omitempty"`
+	Line2            string                               `json:"line2,omitempty"`
+	Line3            string                               `json:"line3,omitempty"`
+	City             string                               `json:"city,omitempty"`
+	StateCode        string                               `json:"state_code,omitempty"`
+	State            string                               `json:"state,omitempty"`
+	Zip              string                               `json:"zip,omitempty"`
+	Country          string                               `json:"country,omitempty"`
+	ValidationStatus QuoteShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
@@ -614,8 +614,8 @@ type QuoteUpdateSubscriptionQuoteCustomer struct {
 
 // input sub resource params single
 type QuoteUpdateSubscriptionQuoteContractTerm struct {
-	ActionAtTermEnd          ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32          `json:"cancellation_cutoff_period,omitempty"`
+	ActionAtTermEnd          QuoteContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 type QuoteEditUpdateSubscriptionQuoteRequest struct {
 	Notes                   string                                             `json:"notes,omitempty"`
@@ -646,18 +646,18 @@ func (r *QuoteEditUpdateSubscriptionQuoteRequest) payload() any { return r }
 
 // input sub resource params single
 type QuoteEditUpdateSubscriptionQuoteSubscription struct {
-	PlanId                            string               `json:"plan_id,omitempty"`
-	PlanQuantity                      *int32               `json:"plan_quantity,omitempty"`
-	PlanUnitPrice                     *int64               `json:"plan_unit_price,omitempty"`
-	SetupFee                          *int64               `json:"setup_fee,omitempty"`
-	PlanQuantityInDecimal             string               `json:"plan_quantity_in_decimal,omitempty"`
-	PlanUnitPriceInDecimal            string               `json:"plan_unit_price_in_decimal,omitempty"`
-	StartDate                         *int64               `json:"start_date,omitempty"`
-	TrialEnd                          *int64               `json:"trial_end,omitempty"`
-	Coupon                            string               `json:"coupon,omitempty"`
-	AutoCollection                    AutoCollection       `json:"auto_collection,omitempty"`
-	OfflinePaymentMethod              OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32               `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	PlanId                            string                                `json:"plan_id,omitempty"`
+	PlanQuantity                      *int32                                `json:"plan_quantity,omitempty"`
+	PlanUnitPrice                     *int64                                `json:"plan_unit_price,omitempty"`
+	SetupFee                          *int64                                `json:"setup_fee,omitempty"`
+	PlanQuantityInDecimal             string                                `json:"plan_quantity_in_decimal,omitempty"`
+	PlanUnitPriceInDecimal            string                                `json:"plan_unit_price_in_decimal,omitempty"`
+	StartDate                         *int64                                `json:"start_date,omitempty"`
+	TrialEnd                          *int64                                `json:"trial_end,omitempty"`
+	Coupon                            string                                `json:"coupon,omitempty"`
+	AutoCollection                    QuoteSubscriptionAutoCollection       `json:"auto_collection,omitempty"`
+	OfflinePaymentMethod              QuoteSubscriptionOfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 
 // input sub resource params multi
@@ -673,51 +673,51 @@ type QuoteEditUpdateSubscriptionQuoteAddon struct {
 
 // input sub resource params multi
 type QuoteEditUpdateSubscriptionQuoteEventBasedAddon struct {
-	Id                  string   `json:"id,omitempty"`
-	Quantity            *int32   `json:"quantity,omitempty"`
-	UnitPrice           *int64   `json:"unit_price,omitempty"`
-	ServicePeriodInDays *int32   `json:"service_period_in_days,omitempty"`
-	ChargeOn            ChargeOn `json:"charge_on,omitempty"`
-	OnEvent             OnEvent  `json:"on_event,omitempty"`
-	ChargeOnce          *bool    `json:"charge_once,omitempty"`
-	QuantityInDecimal   string   `json:"quantity_in_decimal,omitempty"`
-	UnitPriceInDecimal  string   `json:"unit_price_in_decimal,omitempty"`
+	Id                  string                       `json:"id,omitempty"`
+	Quantity            *int32                       `json:"quantity,omitempty"`
+	UnitPrice           *int64                       `json:"unit_price,omitempty"`
+	ServicePeriodInDays *int32                       `json:"service_period_in_days,omitempty"`
+	ChargeOn            QuoteEventBasedAddonChargeOn `json:"charge_on,omitempty"`
+	OnEvent             QuoteEventBasedAddonOnEvent  `json:"on_event,omitempty"`
+	ChargeOnce          *bool                        `json:"charge_once,omitempty"`
+	QuantityInDecimal   string                       `json:"quantity_in_decimal,omitempty"`
+	UnitPriceInDecimal  string                       `json:"unit_price_in_decimal,omitempty"`
 }
 
 // input sub resource params single
 type QuoteEditUpdateSubscriptionQuoteBillingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                              `json:"first_name,omitempty"`
+	LastName         string                              `json:"last_name,omitempty"`
+	Email            string                              `json:"email,omitempty"`
+	Company          string                              `json:"company,omitempty"`
+	Phone            string                              `json:"phone,omitempty"`
+	Line1            string                              `json:"line1,omitempty"`
+	Line2            string                              `json:"line2,omitempty"`
+	Line3            string                              `json:"line3,omitempty"`
+	City             string                              `json:"city,omitempty"`
+	StateCode        string                              `json:"state_code,omitempty"`
+	State            string                              `json:"state,omitempty"`
+	Zip              string                              `json:"zip,omitempty"`
+	Country          string                              `json:"country,omitempty"`
+	ValidationStatus QuoteBillingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type QuoteEditUpdateSubscriptionQuoteShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                               `json:"first_name,omitempty"`
+	LastName         string                               `json:"last_name,omitempty"`
+	Email            string                               `json:"email,omitempty"`
+	Company          string                               `json:"company,omitempty"`
+	Phone            string                               `json:"phone,omitempty"`
+	Line1            string                               `json:"line1,omitempty"`
+	Line2            string                               `json:"line2,omitempty"`
+	Line3            string                               `json:"line3,omitempty"`
+	City             string                               `json:"city,omitempty"`
+	StateCode        string                               `json:"state_code,omitempty"`
+	State            string                               `json:"state,omitempty"`
+	Zip              string                               `json:"zip,omitempty"`
+	Country          string                               `json:"country,omitempty"`
+	ValidationStatus QuoteShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
@@ -729,8 +729,8 @@ type QuoteEditUpdateSubscriptionQuoteCustomer struct {
 
 // input sub resource params single
 type QuoteEditUpdateSubscriptionQuoteContractTerm struct {
-	ActionAtTermEnd          ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32          `json:"cancellation_cutoff_period,omitempty"`
+	ActionAtTermEnd          QuoteContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 type QuoteCreateForOnetimeChargesRequest struct {
 	Name               string                                           `json:"name,omitempty"`
@@ -762,31 +762,31 @@ type QuoteCreateForOnetimeChargesAddon struct {
 
 // input sub resource params multi
 type QuoteCreateForOnetimeChargesCharge struct {
-	Amount                 *int64          `json:"amount,omitempty"`
-	AmountInDecimal        string          `json:"amount_in_decimal,omitempty"`
-	Description            string          `json:"description,omitempty"`
-	AvalaraSaleType        AvalaraSaleType `json:"avalara_sale_type,omitempty"`
-	AvalaraTransactionType *int32          `json:"avalara_transaction_type,omitempty"`
-	AvalaraServiceType     *int32          `json:"avalara_service_type,omitempty"`
-	ServicePeriod          *int32          `json:"service_period,omitempty"`
+	Amount                 *int64                     `json:"amount,omitempty"`
+	AmountInDecimal        string                     `json:"amount_in_decimal,omitempty"`
+	Description            string                     `json:"description,omitempty"`
+	AvalaraSaleType        QuoteChargeAvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32                     `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32                     `json:"avalara_service_type,omitempty"`
+	ServicePeriod          *int32                     `json:"service_period,omitempty"`
 }
 
 // input sub resource params single
 type QuoteCreateForOnetimeChargesShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                               `json:"first_name,omitempty"`
+	LastName         string                               `json:"last_name,omitempty"`
+	Email            string                               `json:"email,omitempty"`
+	Company          string                               `json:"company,omitempty"`
+	Phone            string                               `json:"phone,omitempty"`
+	Line1            string                               `json:"line1,omitempty"`
+	Line2            string                               `json:"line2,omitempty"`
+	Line3            string                               `json:"line3,omitempty"`
+	City             string                               `json:"city,omitempty"`
+	StateCode        string                               `json:"state_code,omitempty"`
+	State            string                               `json:"state,omitempty"`
+	Zip              string                               `json:"zip,omitempty"`
+	Country          string                               `json:"country,omitempty"`
+	ValidationStatus QuoteShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params multi
@@ -823,31 +823,31 @@ type QuoteEditOneTimeQuoteAddon struct {
 
 // input sub resource params multi
 type QuoteEditOneTimeQuoteCharge struct {
-	Amount                 *int64          `json:"amount,omitempty"`
-	AmountInDecimal        string          `json:"amount_in_decimal,omitempty"`
-	Description            string          `json:"description,omitempty"`
-	AvalaraSaleType        AvalaraSaleType `json:"avalara_sale_type,omitempty"`
-	AvalaraTransactionType *int32          `json:"avalara_transaction_type,omitempty"`
-	AvalaraServiceType     *int32          `json:"avalara_service_type,omitempty"`
-	ServicePeriod          *int32          `json:"service_period,omitempty"`
+	Amount                 *int64                     `json:"amount,omitempty"`
+	AmountInDecimal        string                     `json:"amount_in_decimal,omitempty"`
+	Description            string                     `json:"description,omitempty"`
+	AvalaraSaleType        QuoteChargeAvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32                     `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32                     `json:"avalara_service_type,omitempty"`
+	ServicePeriod          *int32                     `json:"service_period,omitempty"`
 }
 
 // input sub resource params single
 type QuoteEditOneTimeQuoteShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                               `json:"first_name,omitempty"`
+	LastName         string                               `json:"last_name,omitempty"`
+	Email            string                               `json:"email,omitempty"`
+	Company          string                               `json:"company,omitempty"`
+	Phone            string                               `json:"phone,omitempty"`
+	Line1            string                               `json:"line1,omitempty"`
+	Line2            string                               `json:"line2,omitempty"`
+	Line3            string                               `json:"line3,omitempty"`
+	City             string                               `json:"city,omitempty"`
+	StateCode        string                               `json:"state_code,omitempty"`
+	State            string                               `json:"state,omitempty"`
+	Zip              string                               `json:"zip,omitempty"`
+	Country          string                               `json:"country,omitempty"`
+	ValidationStatus QuoteShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params multi
@@ -882,103 +882,103 @@ func (r *QuoteCreateSubItemsForCustomerQuoteRequest) payload() any { return r }
 
 // input sub resource params single
 type QuoteCreateSubItemsForCustomerQuoteSubscription struct {
-	Id                                string               `json:"id,omitempty"`
-	PoNumber                          string               `json:"po_number,omitempty"`
-	TrialEnd                          *int64               `json:"trial_end,omitempty"`
-	SetupFee                          *int64               `json:"setup_fee,omitempty"`
-	StartDate                         *int64               `json:"start_date,omitempty"`
-	OfflinePaymentMethod              OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32               `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	Id                                string                                `json:"id,omitempty"`
+	PoNumber                          string                                `json:"po_number,omitempty"`
+	TrialEnd                          *int64                                `json:"trial_end,omitempty"`
+	SetupFee                          *int64                                `json:"setup_fee,omitempty"`
+	StartDate                         *int64                                `json:"start_date,omitempty"`
+	OfflinePaymentMethod              QuoteSubscriptionOfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 
 // input sub resource params multi
 type QuoteCreateSubItemsForCustomerQuoteSubscriptionItem struct {
-	ItemPriceId        string         `json:"item_price_id"`
-	Quantity           *int32         `json:"quantity,omitempty"`
-	QuantityInDecimal  string         `json:"quantity_in_decimal,omitempty"`
-	UnitPrice          *int64         `json:"unit_price,omitempty"`
-	UnitPriceInDecimal string         `json:"unit_price_in_decimal,omitempty"`
-	BillingCycles      *int32         `json:"billing_cycles,omitempty"`
-	TrialEnd           *int64         `json:"trial_end,omitempty"`
-	ServicePeriodDays  *int32         `json:"service_period_days,omitempty"`
-	ChargeOnEvent      ChargeOnEvent  `json:"charge_on_event,omitempty"`
-	ChargeOnce         *bool          `json:"charge_once,omitempty"`
-	ItemType           ItemType       `json:"item_type,omitempty"`
-	ChargeOnOption     ChargeOnOption `json:"charge_on_option,omitempty"`
-	StartDate          *int64         `json:"start_date,omitempty"`
-	EndDate            *int64         `json:"end_date,omitempty"`
-	RampTierId         string         `json:"ramp_tier_id,omitempty"`
+	ItemPriceId        string                              `json:"item_price_id"`
+	Quantity           *int32                              `json:"quantity,omitempty"`
+	QuantityInDecimal  string                              `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int64                              `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string                              `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32                              `json:"billing_cycles,omitempty"`
+	TrialEnd           *int64                              `json:"trial_end,omitempty"`
+	ServicePeriodDays  *int32                              `json:"service_period_days,omitempty"`
+	ChargeOnEvent      QuoteSubscriptionItemChargeOnEvent  `json:"charge_on_event,omitempty"`
+	ChargeOnce         *bool                               `json:"charge_once,omitempty"`
+	ItemType           QuoteSubscriptionItemItemType       `json:"item_type,omitempty"`
+	ChargeOnOption     QuoteSubscriptionItemChargeOnOption `json:"charge_on_option,omitempty"`
+	StartDate          *int64                              `json:"start_date,omitempty"`
+	EndDate            *int64                              `json:"end_date,omitempty"`
+	RampTierId         string                              `json:"ramp_tier_id,omitempty"`
 }
 
 // input sub resource params multi
 type QuoteCreateSubItemsForCustomerQuoteDiscount struct {
-	ApplyOn       ApplyOn      `json:"apply_on,omitempty"`
-	DurationType  DurationType `json:"duration_type"`
-	Percentage    *float64     `json:"percentage,omitempty"`
-	Amount        *int64       `json:"amount,omitempty"`
-	Period        *int32       `json:"period,omitempty"`
-	PeriodUnit    PeriodUnit   `json:"period_unit,omitempty"`
-	IncludedInMrr *bool        `json:"included_in_mrr,omitempty"`
-	ItemPriceId   string       `json:"item_price_id,omitempty"`
-	Quantity      *int32       `json:"quantity,omitempty"`
-	StartDate     *int64       `json:"start_date,omitempty"`
-	EndDate       *int64       `json:"end_date,omitempty"`
+	ApplyOn       QuoteDiscountApplyOn      `json:"apply_on,omitempty"`
+	DurationType  QuoteDiscountDurationType `json:"duration_type"`
+	Percentage    *float64                  `json:"percentage,omitempty"`
+	Amount        *int64                    `json:"amount,omitempty"`
+	Period        *int32                    `json:"period,omitempty"`
+	PeriodUnit    QuoteDiscountPeriodUnit   `json:"period_unit,omitempty"`
+	IncludedInMrr *bool                     `json:"included_in_mrr,omitempty"`
+	ItemPriceId   string                    `json:"item_price_id,omitempty"`
+	Quantity      *int32                    `json:"quantity,omitempty"`
+	StartDate     *int64                    `json:"start_date,omitempty"`
+	EndDate       *int64                    `json:"end_date,omitempty"`
 }
 
 // input sub resource params multi
 type QuoteCreateSubItemsForCustomerQuoteItemTier struct {
-	ItemPriceId           string      `json:"item_price_id,omitempty"`
-	StartingUnit          *int32      `json:"starting_unit,omitempty"`
-	EndingUnit            *int32      `json:"ending_unit,omitempty"`
-	Price                 *int64      `json:"price,omitempty"`
-	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
-	PricingType           PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32      `json:"package_size,omitempty"`
-	RampTierId            string      `json:"ramp_tier_id,omitempty"`
+	ItemPriceId           string                   `json:"item_price_id,omitempty"`
+	StartingUnit          *int32                   `json:"starting_unit,omitempty"`
+	EndingUnit            *int32                   `json:"ending_unit,omitempty"`
+	Price                 *int64                   `json:"price,omitempty"`
+	StartingUnitInDecimal string                   `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string                   `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string                   `json:"price_in_decimal,omitempty"`
+	PricingType           QuoteItemTierPricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32                   `json:"package_size,omitempty"`
+	RampTierId            string                   `json:"ramp_tier_id,omitempty"`
 }
 
 // input sub resource params single
 type QuoteCreateSubItemsForCustomerQuoteShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                               `json:"first_name,omitempty"`
+	LastName         string                               `json:"last_name,omitempty"`
+	Email            string                               `json:"email,omitempty"`
+	Company          string                               `json:"company,omitempty"`
+	Phone            string                               `json:"phone,omitempty"`
+	Line1            string                               `json:"line1,omitempty"`
+	Line2            string                               `json:"line2,omitempty"`
+	Line3            string                               `json:"line3,omitempty"`
+	City             string                               `json:"city,omitempty"`
+	StateCode        string                               `json:"state_code,omitempty"`
+	State            string                               `json:"state,omitempty"`
+	Zip              string                               `json:"zip,omitempty"`
+	Country          string                               `json:"country,omitempty"`
+	ValidationStatus QuoteShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type QuoteCreateSubItemsForCustomerQuoteContractTerm struct {
-	ActionAtTermEnd          ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32          `json:"cancellation_cutoff_period,omitempty"`
+	ActionAtTermEnd          QuoteContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 
 // input sub resource params single
 type QuoteCreateSubItemsForCustomerQuoteBillingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                              `json:"first_name,omitempty"`
+	LastName         string                              `json:"last_name,omitempty"`
+	Email            string                              `json:"email,omitempty"`
+	Company          string                              `json:"company,omitempty"`
+	Phone            string                              `json:"phone,omitempty"`
+	Line1            string                              `json:"line1,omitempty"`
+	Line2            string                              `json:"line2,omitempty"`
+	Line3            string                              `json:"line3,omitempty"`
+	City             string                              `json:"city,omitempty"`
+	StateCode        string                              `json:"state_code,omitempty"`
+	State            string                              `json:"state,omitempty"`
+	Zip              string                              `json:"zip,omitempty"`
+	Country          string                              `json:"country,omitempty"`
+	ValidationStatus QuoteBillingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params multi
@@ -1012,103 +1012,103 @@ func (r *QuoteEditCreateSubCustomerQuoteForItemsRequest) payload() any { return 
 
 // input sub resource params single
 type QuoteEditCreateSubCustomerQuoteForItemsSubscription struct {
-	Id                                string               `json:"id,omitempty"`
-	PoNumber                          string               `json:"po_number,omitempty"`
-	TrialEnd                          *int64               `json:"trial_end,omitempty"`
-	SetupFee                          *int64               `json:"setup_fee,omitempty"`
-	StartDate                         *int64               `json:"start_date,omitempty"`
-	OfflinePaymentMethod              OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32               `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	Id                                string                                `json:"id,omitempty"`
+	PoNumber                          string                                `json:"po_number,omitempty"`
+	TrialEnd                          *int64                                `json:"trial_end,omitempty"`
+	SetupFee                          *int64                                `json:"setup_fee,omitempty"`
+	StartDate                         *int64                                `json:"start_date,omitempty"`
+	OfflinePaymentMethod              QuoteSubscriptionOfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 
 // input sub resource params multi
 type QuoteEditCreateSubCustomerQuoteForItemsSubscriptionItem struct {
-	ItemPriceId        string         `json:"item_price_id"`
-	Quantity           *int32         `json:"quantity,omitempty"`
-	QuantityInDecimal  string         `json:"quantity_in_decimal,omitempty"`
-	UnitPrice          *int64         `json:"unit_price,omitempty"`
-	UnitPriceInDecimal string         `json:"unit_price_in_decimal,omitempty"`
-	BillingCycles      *int32         `json:"billing_cycles,omitempty"`
-	TrialEnd           *int64         `json:"trial_end,omitempty"`
-	ServicePeriodDays  *int32         `json:"service_period_days,omitempty"`
-	ChargeOnEvent      ChargeOnEvent  `json:"charge_on_event,omitempty"`
-	ChargeOnce         *bool          `json:"charge_once,omitempty"`
-	ItemType           ItemType       `json:"item_type,omitempty"`
-	ChargeOnOption     ChargeOnOption `json:"charge_on_option,omitempty"`
-	StartDate          *int64         `json:"start_date,omitempty"`
-	EndDate            *int64         `json:"end_date,omitempty"`
-	RampTierId         string         `json:"ramp_tier_id,omitempty"`
+	ItemPriceId        string                              `json:"item_price_id"`
+	Quantity           *int32                              `json:"quantity,omitempty"`
+	QuantityInDecimal  string                              `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int64                              `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string                              `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32                              `json:"billing_cycles,omitempty"`
+	TrialEnd           *int64                              `json:"trial_end,omitempty"`
+	ServicePeriodDays  *int32                              `json:"service_period_days,omitempty"`
+	ChargeOnEvent      QuoteSubscriptionItemChargeOnEvent  `json:"charge_on_event,omitempty"`
+	ChargeOnce         *bool                               `json:"charge_once,omitempty"`
+	ItemType           QuoteSubscriptionItemItemType       `json:"item_type,omitempty"`
+	ChargeOnOption     QuoteSubscriptionItemChargeOnOption `json:"charge_on_option,omitempty"`
+	StartDate          *int64                              `json:"start_date,omitempty"`
+	EndDate            *int64                              `json:"end_date,omitempty"`
+	RampTierId         string                              `json:"ramp_tier_id,omitempty"`
 }
 
 // input sub resource params multi
 type QuoteEditCreateSubCustomerQuoteForItemsDiscount struct {
-	ApplyOn       ApplyOn      `json:"apply_on,omitempty"`
-	DurationType  DurationType `json:"duration_type"`
-	Percentage    *float64     `json:"percentage,omitempty"`
-	Amount        *int64       `json:"amount,omitempty"`
-	Period        *int32       `json:"period,omitempty"`
-	PeriodUnit    PeriodUnit   `json:"period_unit,omitempty"`
-	IncludedInMrr *bool        `json:"included_in_mrr,omitempty"`
-	ItemPriceId   string       `json:"item_price_id,omitempty"`
-	Quantity      *int32       `json:"quantity,omitempty"`
-	StartDate     *int64       `json:"start_date,omitempty"`
-	EndDate       *int64       `json:"end_date,omitempty"`
+	ApplyOn       QuoteDiscountApplyOn      `json:"apply_on,omitempty"`
+	DurationType  QuoteDiscountDurationType `json:"duration_type"`
+	Percentage    *float64                  `json:"percentage,omitempty"`
+	Amount        *int64                    `json:"amount,omitempty"`
+	Period        *int32                    `json:"period,omitempty"`
+	PeriodUnit    QuoteDiscountPeriodUnit   `json:"period_unit,omitempty"`
+	IncludedInMrr *bool                     `json:"included_in_mrr,omitempty"`
+	ItemPriceId   string                    `json:"item_price_id,omitempty"`
+	Quantity      *int32                    `json:"quantity,omitempty"`
+	StartDate     *int64                    `json:"start_date,omitempty"`
+	EndDate       *int64                    `json:"end_date,omitempty"`
 }
 
 // input sub resource params multi
 type QuoteEditCreateSubCustomerQuoteForItemsItemTier struct {
-	ItemPriceId           string      `json:"item_price_id,omitempty"`
-	StartingUnit          *int32      `json:"starting_unit,omitempty"`
-	EndingUnit            *int32      `json:"ending_unit,omitempty"`
-	Price                 *int64      `json:"price,omitempty"`
-	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
-	PricingType           PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32      `json:"package_size,omitempty"`
-	RampTierId            string      `json:"ramp_tier_id,omitempty"`
+	ItemPriceId           string                   `json:"item_price_id,omitempty"`
+	StartingUnit          *int32                   `json:"starting_unit,omitempty"`
+	EndingUnit            *int32                   `json:"ending_unit,omitempty"`
+	Price                 *int64                   `json:"price,omitempty"`
+	StartingUnitInDecimal string                   `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string                   `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string                   `json:"price_in_decimal,omitempty"`
+	PricingType           QuoteItemTierPricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32                   `json:"package_size,omitempty"`
+	RampTierId            string                   `json:"ramp_tier_id,omitempty"`
 }
 
 // input sub resource params single
 type QuoteEditCreateSubCustomerQuoteForItemsShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                               `json:"first_name,omitempty"`
+	LastName         string                               `json:"last_name,omitempty"`
+	Email            string                               `json:"email,omitempty"`
+	Company          string                               `json:"company,omitempty"`
+	Phone            string                               `json:"phone,omitempty"`
+	Line1            string                               `json:"line1,omitempty"`
+	Line2            string                               `json:"line2,omitempty"`
+	Line3            string                               `json:"line3,omitempty"`
+	City             string                               `json:"city,omitempty"`
+	StateCode        string                               `json:"state_code,omitempty"`
+	State            string                               `json:"state,omitempty"`
+	Zip              string                               `json:"zip,omitempty"`
+	Country          string                               `json:"country,omitempty"`
+	ValidationStatus QuoteShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type QuoteEditCreateSubCustomerQuoteForItemsContractTerm struct {
-	ActionAtTermEnd          ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32          `json:"cancellation_cutoff_period,omitempty"`
+	ActionAtTermEnd          QuoteContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 
 // input sub resource params single
 type QuoteEditCreateSubCustomerQuoteForItemsBillingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                              `json:"first_name,omitempty"`
+	LastName         string                              `json:"last_name,omitempty"`
+	Email            string                              `json:"email,omitempty"`
+	Company          string                              `json:"company,omitempty"`
+	Phone            string                              `json:"phone,omitempty"`
+	Line1            string                              `json:"line1,omitempty"`
+	Line2            string                              `json:"line2,omitempty"`
+	Line3            string                              `json:"line3,omitempty"`
+	City             string                              `json:"city,omitempty"`
+	StateCode        string                              `json:"state_code,omitempty"`
+	State            string                              `json:"state,omitempty"`
+	Zip              string                              `json:"zip,omitempty"`
+	Country          string                              `json:"country,omitempty"`
+	ValidationStatus QuoteBillingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params multi
@@ -1150,100 +1150,100 @@ func (r *QuoteUpdateSubscriptionQuoteForItemsRequest) payload() any { return r }
 
 // input sub resource params single
 type QuoteUpdateSubscriptionQuoteForItemsSubscription struct {
-	Id                                string               `json:"id"`
-	SetupFee                          *int64               `json:"setup_fee,omitempty"`
-	StartDate                         *int64               `json:"start_date,omitempty"`
-	TrialEnd                          *int64               `json:"trial_end,omitempty"`
-	Coupon                            string               `json:"coupon,omitempty"`
-	AutoCollection                    AutoCollection       `json:"auto_collection,omitempty"`
-	OfflinePaymentMethod              OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32               `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	Id                                string                                `json:"id"`
+	SetupFee                          *int64                                `json:"setup_fee,omitempty"`
+	StartDate                         *int64                                `json:"start_date,omitempty"`
+	TrialEnd                          *int64                                `json:"trial_end,omitempty"`
+	Coupon                            string                                `json:"coupon,omitempty"`
+	AutoCollection                    QuoteSubscriptionAutoCollection       `json:"auto_collection,omitempty"`
+	OfflinePaymentMethod              QuoteSubscriptionOfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 
 // input sub resource params multi
 type QuoteUpdateSubscriptionQuoteForItemsSubscriptionItem struct {
-	ItemPriceId        string         `json:"item_price_id"`
-	Quantity           *int32         `json:"quantity,omitempty"`
-	QuantityInDecimal  string         `json:"quantity_in_decimal,omitempty"`
-	UnitPrice          *int64         `json:"unit_price,omitempty"`
-	UnitPriceInDecimal string         `json:"unit_price_in_decimal,omitempty"`
-	BillingCycles      *int32         `json:"billing_cycles,omitempty"`
-	TrialEnd           *int64         `json:"trial_end,omitempty"`
-	ServicePeriodDays  *int32         `json:"service_period_days,omitempty"`
-	ChargeOnEvent      ChargeOnEvent  `json:"charge_on_event,omitempty"`
-	ChargeOnce         *bool          `json:"charge_once,omitempty"`
-	ChargeOnOption     ChargeOnOption `json:"charge_on_option,omitempty"`
-	ItemType           ItemType       `json:"item_type,omitempty"`
-	StartDate          *int64         `json:"start_date,omitempty"`
-	EndDate            *int64         `json:"end_date,omitempty"`
-	RampTierId         string         `json:"ramp_tier_id,omitempty"`
+	ItemPriceId        string                              `json:"item_price_id"`
+	Quantity           *int32                              `json:"quantity,omitempty"`
+	QuantityInDecimal  string                              `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int64                              `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string                              `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32                              `json:"billing_cycles,omitempty"`
+	TrialEnd           *int64                              `json:"trial_end,omitempty"`
+	ServicePeriodDays  *int32                              `json:"service_period_days,omitempty"`
+	ChargeOnEvent      QuoteSubscriptionItemChargeOnEvent  `json:"charge_on_event,omitempty"`
+	ChargeOnce         *bool                               `json:"charge_once,omitempty"`
+	ChargeOnOption     QuoteSubscriptionItemChargeOnOption `json:"charge_on_option,omitempty"`
+	ItemType           QuoteSubscriptionItemItemType       `json:"item_type,omitempty"`
+	StartDate          *int64                              `json:"start_date,omitempty"`
+	EndDate            *int64                              `json:"end_date,omitempty"`
+	RampTierId         string                              `json:"ramp_tier_id,omitempty"`
 }
 
 // input sub resource params multi
 type QuoteUpdateSubscriptionQuoteForItemsDiscount struct {
-	ApplyOn       ApplyOn       `json:"apply_on,omitempty"`
-	DurationType  DurationType  `json:"duration_type"`
-	Percentage    *float64      `json:"percentage,omitempty"`
-	Amount        *int64        `json:"amount,omitempty"`
-	Period        *int32        `json:"period,omitempty"`
-	PeriodUnit    PeriodUnit    `json:"period_unit,omitempty"`
-	IncludedInMrr *bool         `json:"included_in_mrr,omitempty"`
-	ItemPriceId   string        `json:"item_price_id,omitempty"`
-	Quantity      *int32        `json:"quantity,omitempty"`
-	OperationType OperationType `json:"operation_type"`
-	Id            string        `json:"id,omitempty"`
-	StartDate     *int64        `json:"start_date,omitempty"`
-	EndDate       *int64        `json:"end_date,omitempty"`
+	ApplyOn       QuoteDiscountApplyOn       `json:"apply_on,omitempty"`
+	DurationType  QuoteDiscountDurationType  `json:"duration_type"`
+	Percentage    *float64                   `json:"percentage,omitempty"`
+	Amount        *int64                     `json:"amount,omitempty"`
+	Period        *int32                     `json:"period,omitempty"`
+	PeriodUnit    QuoteDiscountPeriodUnit    `json:"period_unit,omitempty"`
+	IncludedInMrr *bool                      `json:"included_in_mrr,omitempty"`
+	ItemPriceId   string                     `json:"item_price_id,omitempty"`
+	Quantity      *int32                     `json:"quantity,omitempty"`
+	OperationType QuoteDiscountOperationType `json:"operation_type"`
+	Id            string                     `json:"id,omitempty"`
+	StartDate     *int64                     `json:"start_date,omitempty"`
+	EndDate       *int64                     `json:"end_date,omitempty"`
 }
 
 // input sub resource params multi
 type QuoteUpdateSubscriptionQuoteForItemsItemTier struct {
-	ItemPriceId           string      `json:"item_price_id,omitempty"`
-	StartingUnit          *int32      `json:"starting_unit,omitempty"`
-	EndingUnit            *int32      `json:"ending_unit,omitempty"`
-	Price                 *int64      `json:"price,omitempty"`
-	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
-	PricingType           PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32      `json:"package_size,omitempty"`
-	RampTierId            string      `json:"ramp_tier_id,omitempty"`
+	ItemPriceId           string                   `json:"item_price_id,omitempty"`
+	StartingUnit          *int32                   `json:"starting_unit,omitempty"`
+	EndingUnit            *int32                   `json:"ending_unit,omitempty"`
+	Price                 *int64                   `json:"price,omitempty"`
+	StartingUnitInDecimal string                   `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string                   `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string                   `json:"price_in_decimal,omitempty"`
+	PricingType           QuoteItemTierPricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32                   `json:"package_size,omitempty"`
+	RampTierId            string                   `json:"ramp_tier_id,omitempty"`
 }
 
 // input sub resource params single
 type QuoteUpdateSubscriptionQuoteForItemsBillingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                              `json:"first_name,omitempty"`
+	LastName         string                              `json:"last_name,omitempty"`
+	Email            string                              `json:"email,omitempty"`
+	Company          string                              `json:"company,omitempty"`
+	Phone            string                              `json:"phone,omitempty"`
+	Line1            string                              `json:"line1,omitempty"`
+	Line2            string                              `json:"line2,omitempty"`
+	Line3            string                              `json:"line3,omitempty"`
+	City             string                              `json:"city,omitempty"`
+	StateCode        string                              `json:"state_code,omitempty"`
+	State            string                              `json:"state,omitempty"`
+	Zip              string                              `json:"zip,omitempty"`
+	Country          string                              `json:"country,omitempty"`
+	ValidationStatus QuoteBillingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type QuoteUpdateSubscriptionQuoteForItemsShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                               `json:"first_name,omitempty"`
+	LastName         string                               `json:"last_name,omitempty"`
+	Email            string                               `json:"email,omitempty"`
+	Company          string                               `json:"company,omitempty"`
+	Phone            string                               `json:"phone,omitempty"`
+	Line1            string                               `json:"line1,omitempty"`
+	Line2            string                               `json:"line2,omitempty"`
+	Line3            string                               `json:"line3,omitempty"`
+	City             string                               `json:"city,omitempty"`
+	StateCode        string                               `json:"state_code,omitempty"`
+	State            string                               `json:"state,omitempty"`
+	Zip              string                               `json:"zip,omitempty"`
+	Country          string                               `json:"country,omitempty"`
+	ValidationStatus QuoteShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
@@ -1255,8 +1255,8 @@ type QuoteUpdateSubscriptionQuoteForItemsCustomer struct {
 
 // input sub resource params single
 type QuoteUpdateSubscriptionQuoteForItemsContractTerm struct {
-	ActionAtTermEnd          ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32          `json:"cancellation_cutoff_period,omitempty"`
+	ActionAtTermEnd          QuoteContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 
 // input sub resource params multi
@@ -1297,99 +1297,99 @@ func (r *QuoteEditUpdateSubscriptionQuoteForItemsRequest) payload() any { return
 
 // input sub resource params multi
 type QuoteEditUpdateSubscriptionQuoteForItemsSubscriptionItem struct {
-	ItemPriceId        string         `json:"item_price_id"`
-	Quantity           *int32         `json:"quantity,omitempty"`
-	QuantityInDecimal  string         `json:"quantity_in_decimal,omitempty"`
-	UnitPrice          *int64         `json:"unit_price,omitempty"`
-	UnitPriceInDecimal string         `json:"unit_price_in_decimal,omitempty"`
-	BillingCycles      *int32         `json:"billing_cycles,omitempty"`
-	TrialEnd           *int64         `json:"trial_end,omitempty"`
-	ServicePeriodDays  *int32         `json:"service_period_days,omitempty"`
-	ChargeOnEvent      ChargeOnEvent  `json:"charge_on_event,omitempty"`
-	ChargeOnce         *bool          `json:"charge_once,omitempty"`
-	ChargeOnOption     ChargeOnOption `json:"charge_on_option,omitempty"`
-	ItemType           ItemType       `json:"item_type,omitempty"`
-	StartDate          *int64         `json:"start_date,omitempty"`
-	EndDate            *int64         `json:"end_date,omitempty"`
-	RampTierId         string         `json:"ramp_tier_id,omitempty"`
+	ItemPriceId        string                              `json:"item_price_id"`
+	Quantity           *int32                              `json:"quantity,omitempty"`
+	QuantityInDecimal  string                              `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int64                              `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string                              `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32                              `json:"billing_cycles,omitempty"`
+	TrialEnd           *int64                              `json:"trial_end,omitempty"`
+	ServicePeriodDays  *int32                              `json:"service_period_days,omitempty"`
+	ChargeOnEvent      QuoteSubscriptionItemChargeOnEvent  `json:"charge_on_event,omitempty"`
+	ChargeOnce         *bool                               `json:"charge_once,omitempty"`
+	ChargeOnOption     QuoteSubscriptionItemChargeOnOption `json:"charge_on_option,omitempty"`
+	ItemType           QuoteSubscriptionItemItemType       `json:"item_type,omitempty"`
+	StartDate          *int64                              `json:"start_date,omitempty"`
+	EndDate            *int64                              `json:"end_date,omitempty"`
+	RampTierId         string                              `json:"ramp_tier_id,omitempty"`
 }
 
 // input sub resource params single
 type QuoteEditUpdateSubscriptionQuoteForItemsSubscription struct {
-	SetupFee                          *int64               `json:"setup_fee,omitempty"`
-	StartDate                         *int64               `json:"start_date,omitempty"`
-	TrialEnd                          *int64               `json:"trial_end,omitempty"`
-	Coupon                            string               `json:"coupon,omitempty"`
-	AutoCollection                    AutoCollection       `json:"auto_collection,omitempty"`
-	OfflinePaymentMethod              OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
-	ContractTermBillingCycleOnRenewal *int32               `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	SetupFee                          *int64                                `json:"setup_fee,omitempty"`
+	StartDate                         *int64                                `json:"start_date,omitempty"`
+	TrialEnd                          *int64                                `json:"trial_end,omitempty"`
+	Coupon                            string                                `json:"coupon,omitempty"`
+	AutoCollection                    QuoteSubscriptionAutoCollection       `json:"auto_collection,omitempty"`
+	OfflinePaymentMethod              QuoteSubscriptionOfflinePaymentMethod `json:"offline_payment_method,omitempty"`
+	ContractTermBillingCycleOnRenewal *int32                                `json:"contract_term_billing_cycle_on_renewal,omitempty"`
 }
 
 // input sub resource params multi
 type QuoteEditUpdateSubscriptionQuoteForItemsDiscount struct {
-	ApplyOn       ApplyOn       `json:"apply_on,omitempty"`
-	DurationType  DurationType  `json:"duration_type"`
-	Percentage    *float64      `json:"percentage,omitempty"`
-	Amount        *int64        `json:"amount,omitempty"`
-	Period        *int32        `json:"period,omitempty"`
-	PeriodUnit    PeriodUnit    `json:"period_unit,omitempty"`
-	IncludedInMrr *bool         `json:"included_in_mrr,omitempty"`
-	ItemPriceId   string        `json:"item_price_id,omitempty"`
-	Quantity      *int32        `json:"quantity,omitempty"`
-	OperationType OperationType `json:"operation_type"`
-	Id            string        `json:"id,omitempty"`
-	StartDate     *int64        `json:"start_date,omitempty"`
-	EndDate       *int64        `json:"end_date,omitempty"`
+	ApplyOn       QuoteDiscountApplyOn       `json:"apply_on,omitempty"`
+	DurationType  QuoteDiscountDurationType  `json:"duration_type"`
+	Percentage    *float64                   `json:"percentage,omitempty"`
+	Amount        *int64                     `json:"amount,omitempty"`
+	Period        *int32                     `json:"period,omitempty"`
+	PeriodUnit    QuoteDiscountPeriodUnit    `json:"period_unit,omitempty"`
+	IncludedInMrr *bool                      `json:"included_in_mrr,omitempty"`
+	ItemPriceId   string                     `json:"item_price_id,omitempty"`
+	Quantity      *int32                     `json:"quantity,omitempty"`
+	OperationType QuoteDiscountOperationType `json:"operation_type"`
+	Id            string                     `json:"id,omitempty"`
+	StartDate     *int64                     `json:"start_date,omitempty"`
+	EndDate       *int64                     `json:"end_date,omitempty"`
 }
 
 // input sub resource params multi
 type QuoteEditUpdateSubscriptionQuoteForItemsItemTier struct {
-	ItemPriceId           string      `json:"item_price_id,omitempty"`
-	StartingUnit          *int32      `json:"starting_unit,omitempty"`
-	EndingUnit            *int32      `json:"ending_unit,omitempty"`
-	Price                 *int64      `json:"price,omitempty"`
-	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
-	PricingType           PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32      `json:"package_size,omitempty"`
-	RampTierId            string      `json:"ramp_tier_id,omitempty"`
+	ItemPriceId           string                   `json:"item_price_id,omitempty"`
+	StartingUnit          *int32                   `json:"starting_unit,omitempty"`
+	EndingUnit            *int32                   `json:"ending_unit,omitempty"`
+	Price                 *int64                   `json:"price,omitempty"`
+	StartingUnitInDecimal string                   `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string                   `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string                   `json:"price_in_decimal,omitempty"`
+	PricingType           QuoteItemTierPricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32                   `json:"package_size,omitempty"`
+	RampTierId            string                   `json:"ramp_tier_id,omitempty"`
 }
 
 // input sub resource params single
 type QuoteEditUpdateSubscriptionQuoteForItemsBillingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                              `json:"first_name,omitempty"`
+	LastName         string                              `json:"last_name,omitempty"`
+	Email            string                              `json:"email,omitempty"`
+	Company          string                              `json:"company,omitempty"`
+	Phone            string                              `json:"phone,omitempty"`
+	Line1            string                              `json:"line1,omitempty"`
+	Line2            string                              `json:"line2,omitempty"`
+	Line3            string                              `json:"line3,omitempty"`
+	City             string                              `json:"city,omitempty"`
+	StateCode        string                              `json:"state_code,omitempty"`
+	State            string                              `json:"state,omitempty"`
+	Zip              string                              `json:"zip,omitempty"`
+	Country          string                              `json:"country,omitempty"`
+	ValidationStatus QuoteBillingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type QuoteEditUpdateSubscriptionQuoteForItemsShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                               `json:"first_name,omitempty"`
+	LastName         string                               `json:"last_name,omitempty"`
+	Email            string                               `json:"email,omitempty"`
+	Company          string                               `json:"company,omitempty"`
+	Phone            string                               `json:"phone,omitempty"`
+	Line1            string                               `json:"line1,omitempty"`
+	Line2            string                               `json:"line2,omitempty"`
+	Line3            string                               `json:"line3,omitempty"`
+	City             string                               `json:"city,omitempty"`
+	StateCode        string                               `json:"state_code,omitempty"`
+	State            string                               `json:"state,omitempty"`
+	Zip              string                               `json:"zip,omitempty"`
+	Country          string                               `json:"country,omitempty"`
+	ValidationStatus QuoteShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
@@ -1401,8 +1401,8 @@ type QuoteEditUpdateSubscriptionQuoteForItemsCustomer struct {
 
 // input sub resource params single
 type QuoteEditUpdateSubscriptionQuoteForItemsContractTerm struct {
-	ActionAtTermEnd          ActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32          `json:"cancellation_cutoff_period,omitempty"`
+	ActionAtTermEnd          QuoteContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
 
 // input sub resource params multi
@@ -1444,71 +1444,71 @@ type QuoteCreateForChargeItemsAndChargesItemPrice struct {
 
 // input sub resource params multi
 type QuoteCreateForChargeItemsAndChargesItemTier struct {
-	ItemPriceId           string      `json:"item_price_id,omitempty"`
-	StartingUnit          *int32      `json:"starting_unit,omitempty"`
-	EndingUnit            *int32      `json:"ending_unit,omitempty"`
-	Price                 *int64      `json:"price,omitempty"`
-	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
-	PricingType           PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32      `json:"package_size,omitempty"`
+	ItemPriceId           string                   `json:"item_price_id,omitempty"`
+	StartingUnit          *int32                   `json:"starting_unit,omitempty"`
+	EndingUnit            *int32                   `json:"ending_unit,omitempty"`
+	Price                 *int64                   `json:"price,omitempty"`
+	StartingUnitInDecimal string                   `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string                   `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string                   `json:"price_in_decimal,omitempty"`
+	PricingType           QuoteItemTierPricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32                   `json:"package_size,omitempty"`
 }
 
 // input sub resource params multi
 type QuoteCreateForChargeItemsAndChargesCharge struct {
-	Amount                 *int64          `json:"amount,omitempty"`
-	AmountInDecimal        string          `json:"amount_in_decimal,omitempty"`
-	Description            string          `json:"description,omitempty"`
-	AvalaraSaleType        AvalaraSaleType `json:"avalara_sale_type,omitempty"`
-	AvalaraTransactionType *int32          `json:"avalara_transaction_type,omitempty"`
-	AvalaraServiceType     *int32          `json:"avalara_service_type,omitempty"`
-	ServicePeriod          *int32          `json:"service_period,omitempty"`
+	Amount                 *int64                     `json:"amount,omitempty"`
+	AmountInDecimal        string                     `json:"amount_in_decimal,omitempty"`
+	Description            string                     `json:"description,omitempty"`
+	AvalaraSaleType        QuoteChargeAvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32                     `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32                     `json:"avalara_service_type,omitempty"`
+	ServicePeriod          *int32                     `json:"service_period,omitempty"`
 }
 
 // input sub resource params single
 type QuoteCreateForChargeItemsAndChargesBillingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                              `json:"first_name,omitempty"`
+	LastName         string                              `json:"last_name,omitempty"`
+	Email            string                              `json:"email,omitempty"`
+	Company          string                              `json:"company,omitempty"`
+	Phone            string                              `json:"phone,omitempty"`
+	Line1            string                              `json:"line1,omitempty"`
+	Line2            string                              `json:"line2,omitempty"`
+	Line3            string                              `json:"line3,omitempty"`
+	City             string                              `json:"city,omitempty"`
+	StateCode        string                              `json:"state_code,omitempty"`
+	State            string                              `json:"state,omitempty"`
+	Zip              string                              `json:"zip,omitempty"`
+	Country          string                              `json:"country,omitempty"`
+	ValidationStatus QuoteBillingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type QuoteCreateForChargeItemsAndChargesShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                               `json:"first_name,omitempty"`
+	LastName         string                               `json:"last_name,omitempty"`
+	Email            string                               `json:"email,omitempty"`
+	Company          string                               `json:"company,omitempty"`
+	Phone            string                               `json:"phone,omitempty"`
+	Line1            string                               `json:"line1,omitempty"`
+	Line2            string                               `json:"line2,omitempty"`
+	Line3            string                               `json:"line3,omitempty"`
+	City             string                               `json:"city,omitempty"`
+	StateCode        string                               `json:"state_code,omitempty"`
+	State            string                               `json:"state,omitempty"`
+	Zip              string                               `json:"zip,omitempty"`
+	Country          string                               `json:"country,omitempty"`
+	ValidationStatus QuoteShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params multi
 type QuoteCreateForChargeItemsAndChargesDiscount struct {
-	Percentage  *float64 `json:"percentage,omitempty"`
-	Quantity    *int32   `json:"quantity,omitempty"`
-	Amount      *int64   `json:"amount,omitempty"`
-	ApplyOn     ApplyOn  `json:"apply_on"`
-	ItemPriceId string   `json:"item_price_id,omitempty"`
+	Percentage  *float64             `json:"percentage,omitempty"`
+	Quantity    *int32               `json:"quantity,omitempty"`
+	Amount      *int64               `json:"amount,omitempty"`
+	ApplyOn     QuoteDiscountApplyOn `json:"apply_on"`
+	ItemPriceId string               `json:"item_price_id,omitempty"`
 }
 
 // input sub resource params multi
@@ -1548,71 +1548,71 @@ type QuoteEditForChargeItemsAndChargesItemPrice struct {
 
 // input sub resource params multi
 type QuoteEditForChargeItemsAndChargesItemTier struct {
-	ItemPriceId           string      `json:"item_price_id,omitempty"`
-	StartingUnit          *int32      `json:"starting_unit,omitempty"`
-	EndingUnit            *int32      `json:"ending_unit,omitempty"`
-	Price                 *int64      `json:"price,omitempty"`
-	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
-	PricingType           PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32      `json:"package_size,omitempty"`
+	ItemPriceId           string                   `json:"item_price_id,omitempty"`
+	StartingUnit          *int32                   `json:"starting_unit,omitempty"`
+	EndingUnit            *int32                   `json:"ending_unit,omitempty"`
+	Price                 *int64                   `json:"price,omitempty"`
+	StartingUnitInDecimal string                   `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string                   `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string                   `json:"price_in_decimal,omitempty"`
+	PricingType           QuoteItemTierPricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32                   `json:"package_size,omitempty"`
 }
 
 // input sub resource params multi
 type QuoteEditForChargeItemsAndChargesCharge struct {
-	Amount                 *int64          `json:"amount,omitempty"`
-	AmountInDecimal        string          `json:"amount_in_decimal,omitempty"`
-	Description            string          `json:"description,omitempty"`
-	AvalaraSaleType        AvalaraSaleType `json:"avalara_sale_type,omitempty"`
-	AvalaraTransactionType *int32          `json:"avalara_transaction_type,omitempty"`
-	AvalaraServiceType     *int32          `json:"avalara_service_type,omitempty"`
-	ServicePeriod          *int32          `json:"service_period,omitempty"`
+	Amount                 *int64                     `json:"amount,omitempty"`
+	AmountInDecimal        string                     `json:"amount_in_decimal,omitempty"`
+	Description            string                     `json:"description,omitempty"`
+	AvalaraSaleType        QuoteChargeAvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32                     `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32                     `json:"avalara_service_type,omitempty"`
+	ServicePeriod          *int32                     `json:"service_period,omitempty"`
 }
 
 // input sub resource params single
 type QuoteEditForChargeItemsAndChargesBillingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                              `json:"first_name,omitempty"`
+	LastName         string                              `json:"last_name,omitempty"`
+	Email            string                              `json:"email,omitempty"`
+	Company          string                              `json:"company,omitempty"`
+	Phone            string                              `json:"phone,omitempty"`
+	Line1            string                              `json:"line1,omitempty"`
+	Line2            string                              `json:"line2,omitempty"`
+	Line3            string                              `json:"line3,omitempty"`
+	City             string                              `json:"city,omitempty"`
+	StateCode        string                              `json:"state_code,omitempty"`
+	State            string                              `json:"state,omitempty"`
+	Zip              string                              `json:"zip,omitempty"`
+	Country          string                              `json:"country,omitempty"`
+	ValidationStatus QuoteBillingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type QuoteEditForChargeItemsAndChargesShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                               `json:"first_name,omitempty"`
+	LastName         string                               `json:"last_name,omitempty"`
+	Email            string                               `json:"email,omitempty"`
+	Company          string                               `json:"company,omitempty"`
+	Phone            string                               `json:"phone,omitempty"`
+	Line1            string                               `json:"line1,omitempty"`
+	Line2            string                               `json:"line2,omitempty"`
+	Line3            string                               `json:"line3,omitempty"`
+	City             string                               `json:"city,omitempty"`
+	StateCode        string                               `json:"state_code,omitempty"`
+	State            string                               `json:"state,omitempty"`
+	Zip              string                               `json:"zip,omitempty"`
+	Country          string                               `json:"country,omitempty"`
+	ValidationStatus QuoteShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params multi
 type QuoteEditForChargeItemsAndChargesDiscount struct {
-	Percentage  *float64 `json:"percentage,omitempty"`
-	Quantity    *int32   `json:"quantity,omitempty"`
-	Amount      *int64   `json:"amount,omitempty"`
-	ApplyOn     ApplyOn  `json:"apply_on"`
-	ItemPriceId string   `json:"item_price_id,omitempty"`
+	Percentage  *float64             `json:"percentage,omitempty"`
+	Quantity    *int32               `json:"quantity,omitempty"`
+	Amount      *int64               `json:"amount,omitempty"`
+	ApplyOn     QuoteDiscountApplyOn `json:"apply_on"`
+	ItemPriceId string               `json:"item_price_id,omitempty"`
 }
 
 // input sub resource params multi
@@ -1658,10 +1658,10 @@ func (r *QuoteConvertRequest) payload() any { return r }
 
 // input sub resource params single
 type QuoteConvertSubscription struct {
-	Id                string         `json:"id,omitempty"`
-	AutoCollection    AutoCollection `json:"auto_collection,omitempty"`
-	PoNumber          string         `json:"po_number,omitempty"`
-	AutoCloseInvoices *bool          `json:"auto_close_invoices,omitempty"`
+	Id                string                          `json:"id,omitempty"`
+	AutoCollection    QuoteSubscriptionAutoCollection `json:"auto_collection,omitempty"`
+	PoNumber          string                          `json:"po_number,omitempty"`
+	AutoCloseInvoices *bool                           `json:"auto_close_invoices,omitempty"`
 }
 type QuoteUpdateStatusRequest struct {
 	Status     QuoteStatus `json:"status"`

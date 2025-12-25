@@ -58,9 +58,9 @@ func (r *ItemEntitlementAddItemEntitlementsRequest) payload() any { return r }
 
 // input sub resource params multi
 type ItemEntitlementAddItemEntitlementsItemEntitlement struct {
-	ItemId   string   `json:"item_id"`
-	ItemType ItemType `json:"item_type,omitempty"`
-	Value    string   `json:"value,omitempty"`
+	ItemId   string                                 `json:"item_id"`
+	ItemType ItemEntitlementItemEntitlementItemType `json:"item_type,omitempty"`
+	Value    string                                 `json:"value,omitempty"`
 }
 type ItemEntitlementUpsertOrRemoveItemEntitlementsForItemRequest struct {
 	Action           ItemEntitlementAction                                                  `json:"action"`

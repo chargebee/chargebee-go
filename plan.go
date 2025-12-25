@@ -295,20 +295,20 @@ type PlanCreateApplicableAddon struct {
 
 // input sub resource params multi
 type PlanCreateEventBasedAddon struct {
-	Id                string  `json:"id,omitempty"`
-	Quantity          *int32  `json:"quantity,omitempty"`
-	QuantityInDecimal string  `json:"quantity_in_decimal,omitempty"`
-	OnEvent           OnEvent `json:"on_event,omitempty"`
-	ChargeOnce        *bool   `json:"charge_once,omitempty"`
+	Id                string                     `json:"id,omitempty"`
+	Quantity          *int32                     `json:"quantity,omitempty"`
+	QuantityInDecimal string                     `json:"quantity_in_decimal,omitempty"`
+	OnEvent           PlanEventBasedAddonOnEvent `json:"on_event,omitempty"`
+	ChargeOnce        *bool                      `json:"charge_once,omitempty"`
 }
 
 // input sub resource params multi
 type PlanCreateAttachedAddon struct {
-	Id                string            `json:"id,omitempty"`
-	Quantity          *int32            `json:"quantity,omitempty"`
-	QuantityInDecimal string            `json:"quantity_in_decimal,omitempty"`
-	BillingCycles     *int32            `json:"billing_cycles,omitempty"`
-	Type              AttachedAddonType `json:"type,omitempty"`
+	Id                string                `json:"id,omitempty"`
+	Quantity          *int32                `json:"quantity,omitempty"`
+	QuantityInDecimal string                `json:"quantity_in_decimal,omitempty"`
+	BillingCycles     *int32                `json:"billing_cycles,omitempty"`
+	Type              PlanAttachedAddonType `json:"type,omitempty"`
 }
 type PlanUpdateRequest struct {
 	Name                        string                          `json:"name,omitempty"`
@@ -386,20 +386,20 @@ type PlanUpdateApplicableAddon struct {
 
 // input sub resource params multi
 type PlanUpdateEventBasedAddon struct {
-	Id                string  `json:"id,omitempty"`
-	Quantity          *int32  `json:"quantity,omitempty"`
-	QuantityInDecimal string  `json:"quantity_in_decimal,omitempty"`
-	OnEvent           OnEvent `json:"on_event,omitempty"`
-	ChargeOnce        *bool   `json:"charge_once,omitempty"`
+	Id                string                     `json:"id,omitempty"`
+	Quantity          *int32                     `json:"quantity,omitempty"`
+	QuantityInDecimal string                     `json:"quantity_in_decimal,omitempty"`
+	OnEvent           PlanEventBasedAddonOnEvent `json:"on_event,omitempty"`
+	ChargeOnce        *bool                      `json:"charge_once,omitempty"`
 }
 
 // input sub resource params multi
 type PlanUpdateAttachedAddon struct {
-	Id                string            `json:"id,omitempty"`
-	Quantity          *int32            `json:"quantity,omitempty"`
-	QuantityInDecimal string            `json:"quantity_in_decimal,omitempty"`
-	BillingCycles     *int32            `json:"billing_cycles,omitempty"`
-	Type              AttachedAddonType `json:"type,omitempty"`
+	Id                string                `json:"id,omitempty"`
+	Quantity          *int32                `json:"quantity,omitempty"`
+	QuantityInDecimal string                `json:"quantity_in_decimal,omitempty"`
+	BillingCycles     *int32                `json:"billing_cycles,omitempty"`
+	Type              PlanAttachedAddonType `json:"type,omitempty"`
 }
 type PlanListRequest struct {
 	Limit              *int32           `json:"limit,omitempty"`

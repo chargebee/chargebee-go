@@ -82,20 +82,20 @@ func (r *DifferentialPriceCreateRequest) payload() any { return r }
 
 // input sub resource params multi
 type DifferentialPriceCreateParentPeriod struct {
-	PeriodUnit ParentPeriodPeriodUnit `json:"period_unit"`
-	Period     []interface{}          `json:"period,omitempty"`
+	PeriodUnit DifferentialPriceParentPeriodPeriodUnit `json:"period_unit"`
+	Period     []interface{}                           `json:"period,omitempty"`
 }
 
 // input sub resource params multi
 type DifferentialPriceCreateTier struct {
-	StartingUnit          *int32      `json:"starting_unit,omitempty"`
-	EndingUnit            *int32      `json:"ending_unit,omitempty"`
-	Price                 *int64      `json:"price,omitempty"`
-	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
-	PricingType           PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32      `json:"package_size,omitempty"`
+	StartingUnit          *int32                           `json:"starting_unit,omitempty"`
+	EndingUnit            *int32                           `json:"ending_unit,omitempty"`
+	Price                 *int64                           `json:"price,omitempty"`
+	StartingUnitInDecimal string                           `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string                           `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string                           `json:"price_in_decimal,omitempty"`
+	PricingType           DifferentialPriceTierPricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32                           `json:"package_size,omitempty"`
 }
 type DifferentialPriceRetrieveRequest struct {
 	ItemPriceId string `json:"item_price_id"`
@@ -117,20 +117,20 @@ func (r *DifferentialPriceUpdateRequest) payload() any { return r }
 
 // input sub resource params multi
 type DifferentialPriceUpdateParentPeriod struct {
-	PeriodUnit ParentPeriodPeriodUnit `json:"period_unit"`
-	Period     []interface{}          `json:"period,omitempty"`
+	PeriodUnit DifferentialPriceParentPeriodPeriodUnit `json:"period_unit"`
+	Period     []interface{}                           `json:"period,omitempty"`
 }
 
 // input sub resource params multi
 type DifferentialPriceUpdateTier struct {
-	StartingUnit          *int32      `json:"starting_unit,omitempty"`
-	EndingUnit            *int32      `json:"ending_unit,omitempty"`
-	Price                 *int64      `json:"price,omitempty"`
-	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
-	PricingType           PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32      `json:"package_size,omitempty"`
+	StartingUnit          *int32                           `json:"starting_unit,omitempty"`
+	EndingUnit            *int32                           `json:"ending_unit,omitempty"`
+	Price                 *int64                           `json:"price,omitempty"`
+	StartingUnitInDecimal string                           `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string                           `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string                           `json:"price_in_decimal,omitempty"`
+	PricingType           DifferentialPriceTierPricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32                           `json:"package_size,omitempty"`
 }
 type DifferentialPriceDeleteRequest struct {
 	ItemPriceId string `json:"item_price_id"`

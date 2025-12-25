@@ -230,25 +230,25 @@ func (r *ItemPriceCreateRequest) payload() any { return r }
 
 // input sub resource params multi
 type ItemPriceCreateTier struct {
-	StartingUnit          *int32      `json:"starting_unit,omitempty"`
-	EndingUnit            *int32      `json:"ending_unit,omitempty"`
-	Price                 *int64      `json:"price,omitempty"`
-	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
-	PricingType           PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32      `json:"package_size,omitempty"`
+	StartingUnit          *int32                   `json:"starting_unit,omitempty"`
+	EndingUnit            *int32                   `json:"ending_unit,omitempty"`
+	Price                 *int64                   `json:"price,omitempty"`
+	StartingUnitInDecimal string                   `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string                   `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string                   `json:"price_in_decimal,omitempty"`
+	PricingType           ItemPriceTierPricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32                   `json:"package_size,omitempty"`
 }
 
 // input sub resource params single
 type ItemPriceCreateTaxDetail struct {
-	TaxProfileId           string          `json:"tax_profile_id,omitempty"`
-	AvalaraTaxCode         string          `json:"avalara_tax_code,omitempty"`
-	HsnCode                string          `json:"hsn_code,omitempty"`
-	AvalaraSaleType        AvalaraSaleType `json:"avalara_sale_type,omitempty"`
-	AvalaraTransactionType *int32          `json:"avalara_transaction_type,omitempty"`
-	AvalaraServiceType     *int32          `json:"avalara_service_type,omitempty"`
-	TaxjarProductCode      string          `json:"taxjar_product_code,omitempty"`
+	TaxProfileId           string                            `json:"tax_profile_id,omitempty"`
+	AvalaraTaxCode         string                            `json:"avalara_tax_code,omitempty"`
+	HsnCode                string                            `json:"hsn_code,omitempty"`
+	AvalaraSaleType        ItemPriceTaxDetailAvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32                            `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32                            `json:"avalara_service_type,omitempty"`
+	TaxjarProductCode      string                            `json:"taxjar_product_code,omitempty"`
 }
 
 // input sub resource params multi
@@ -305,25 +305,25 @@ func (r *ItemPriceUpdateRequest) payload() any { return r }
 
 // input sub resource params multi
 type ItemPriceUpdateTier struct {
-	StartingUnit          *int32      `json:"starting_unit,omitempty"`
-	EndingUnit            *int32      `json:"ending_unit,omitempty"`
-	Price                 *int64      `json:"price,omitempty"`
-	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
-	PricingType           PricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32      `json:"package_size,omitempty"`
+	StartingUnit          *int32                   `json:"starting_unit,omitempty"`
+	EndingUnit            *int32                   `json:"ending_unit,omitempty"`
+	Price                 *int64                   `json:"price,omitempty"`
+	StartingUnitInDecimal string                   `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string                   `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string                   `json:"price_in_decimal,omitempty"`
+	PricingType           ItemPriceTierPricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32                   `json:"package_size,omitempty"`
 }
 
 // input sub resource params single
 type ItemPriceUpdateTaxDetail struct {
-	TaxProfileId           string          `json:"tax_profile_id,omitempty"`
-	AvalaraTaxCode         string          `json:"avalara_tax_code,omitempty"`
-	HsnCode                string          `json:"hsn_code,omitempty"`
-	AvalaraSaleType        AvalaraSaleType `json:"avalara_sale_type,omitempty"`
-	AvalaraTransactionType *int32          `json:"avalara_transaction_type,omitempty"`
-	AvalaraServiceType     *int32          `json:"avalara_service_type,omitempty"`
-	TaxjarProductCode      string          `json:"taxjar_product_code,omitempty"`
+	TaxProfileId           string                            `json:"tax_profile_id,omitempty"`
+	AvalaraTaxCode         string                            `json:"avalara_tax_code,omitempty"`
+	HsnCode                string                            `json:"hsn_code,omitempty"`
+	AvalaraSaleType        ItemPriceTaxDetailAvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32                            `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32                            `json:"avalara_service_type,omitempty"`
+	TaxjarProductCode      string                            `json:"taxjar_product_code,omitempty"`
 }
 
 // input sub resource params multi

@@ -124,7 +124,7 @@ func (r *PaymentVoucherCreateRequest) payload() any { return r }
 
 // input sub resource params single
 type PaymentVoucherCreateVoucherPaymentSource struct {
-	VoucherType VoucherType `json:"voucher_type"`
+	VoucherType PaymentVoucherVoucherPaymentSourceVoucherType `json:"voucher_type"`
 }
 
 // input sub resource params multi

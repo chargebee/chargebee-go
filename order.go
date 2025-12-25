@@ -351,27 +351,27 @@ func (r *OrderUpdateRequest) payload() any { return r }
 
 // input sub resource params multi
 type OrderUpdateOrderLineItem struct {
-	Id     string              `json:"id,omitempty"`
-	Status OrderLineItemStatus `json:"status,omitempty"`
-	Sku    string              `json:"sku,omitempty"`
+	Id     string                   `json:"id,omitempty"`
+	Status OrderOrderLineItemStatus `json:"status,omitempty"`
+	Sku    string                   `json:"sku,omitempty"`
 }
 
 // input sub resource params single
 type OrderUpdateShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                               `json:"first_name,omitempty"`
+	LastName         string                               `json:"last_name,omitempty"`
+	Email            string                               `json:"email,omitempty"`
+	Company          string                               `json:"company,omitempty"`
+	Phone            string                               `json:"phone,omitempty"`
+	Line1            string                               `json:"line1,omitempty"`
+	Line2            string                               `json:"line2,omitempty"`
+	Line3            string                               `json:"line3,omitempty"`
+	City             string                               `json:"city,omitempty"`
+	StateCode        string                               `json:"state_code,omitempty"`
+	State            string                               `json:"state,omitempty"`
+	Zip              string                               `json:"zip,omitempty"`
+	Country          string                               `json:"country,omitempty"`
+	ValidationStatus OrderShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 type OrderImportOrderRequest struct {
 	Id                      string                           `json:"id,omitempty"`
@@ -405,38 +405,38 @@ func (r *OrderImportOrderRequest) payload() any { return r }
 
 // input sub resource params single
 type OrderImportOrderShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                               `json:"first_name,omitempty"`
+	LastName         string                               `json:"last_name,omitempty"`
+	Email            string                               `json:"email,omitempty"`
+	Company          string                               `json:"company,omitempty"`
+	Phone            string                               `json:"phone,omitempty"`
+	Line1            string                               `json:"line1,omitempty"`
+	Line2            string                               `json:"line2,omitempty"`
+	Line3            string                               `json:"line3,omitempty"`
+	City             string                               `json:"city,omitempty"`
+	StateCode        string                               `json:"state_code,omitempty"`
+	State            string                               `json:"state,omitempty"`
+	Zip              string                               `json:"zip,omitempty"`
+	Country          string                               `json:"country,omitempty"`
+	ValidationStatus OrderShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type OrderImportOrderBillingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                              `json:"first_name,omitempty"`
+	LastName         string                              `json:"last_name,omitempty"`
+	Email            string                              `json:"email,omitempty"`
+	Company          string                              `json:"company,omitempty"`
+	Phone            string                              `json:"phone,omitempty"`
+	Line1            string                              `json:"line1,omitempty"`
+	Line2            string                              `json:"line2,omitempty"`
+	Line3            string                              `json:"line3,omitempty"`
+	City             string                              `json:"city,omitempty"`
+	StateCode        string                              `json:"state_code,omitempty"`
+	State            string                              `json:"state,omitempty"`
+	Zip              string                              `json:"zip,omitempty"`
+	Country          string                              `json:"country,omitempty"`
+	ValidationStatus OrderBillingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 type OrderCancelRequest struct {
 	CancellationReason OrderCancellationReason `json:"cancellation_reason"`
@@ -464,8 +464,8 @@ func (r *OrderCreateRefundableCreditNoteRequest) payload() any { return r }
 
 // input sub resource params single
 type OrderCreateRefundableCreditNoteCreditNote struct {
-	ReasonCode ReasonCode `json:"reason_code"`
-	Total      *int64     `json:"total"`
+	ReasonCode OrderCreditNoteReasonCode `json:"reason_code"`
+	Total      *int64                    `json:"total"`
 }
 type OrderReopenRequest struct {
 	VoidCancellationCreditNotes *bool `json:"void_cancellation_credit_notes,omitempty"`

@@ -95,31 +95,31 @@ type GiftCreateGiftReceiver struct {
 
 // input sub resource params single
 type GiftCreatePaymentIntent struct {
-	Id                    string                 `json:"id,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                 `json:"gw_token,omitempty"`
-	PaymentMethodType     PaymentMethodType      `json:"payment_method_type,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Id                    string                             `json:"id,omitempty"`
+	GatewayAccountId      string                             `json:"gateway_account_id,omitempty"`
+	GwToken               string                             `json:"gw_token,omitempty"`
+	PaymentMethodType     GiftPaymentIntentPaymentMethodType `json:"payment_method_type,omitempty"`
+	ReferenceId           string                             `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                             `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{}             `json:"additional_information,omitempty"`
 }
 
 // input sub resource params single
 type GiftCreateShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                              `json:"first_name,omitempty"`
+	LastName         string                              `json:"last_name,omitempty"`
+	Email            string                              `json:"email,omitempty"`
+	Company          string                              `json:"company,omitempty"`
+	Phone            string                              `json:"phone,omitempty"`
+	Line1            string                              `json:"line1,omitempty"`
+	Line2            string                              `json:"line2,omitempty"`
+	Line3            string                              `json:"line3,omitempty"`
+	City             string                              `json:"city,omitempty"`
+	StateCode        string                              `json:"state_code,omitempty"`
+	State            string                              `json:"state,omitempty"`
+	Zip              string                              `json:"zip,omitempty"`
+	Country          string                              `json:"country,omitempty"`
+	ValidationStatus GiftShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
@@ -171,31 +171,31 @@ type GiftCreateForItemsGiftReceiver struct {
 
 // input sub resource params single
 type GiftCreateForItemsPaymentIntent struct {
-	Id                    string                 `json:"id,omitempty"`
-	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                 `json:"gw_token,omitempty"`
-	PaymentMethodType     PaymentMethodType      `json:"payment_method_type,omitempty"`
-	ReferenceId           string                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+	Id                    string                             `json:"id,omitempty"`
+	GatewayAccountId      string                             `json:"gateway_account_id,omitempty"`
+	GwToken               string                             `json:"gw_token,omitempty"`
+	PaymentMethodType     GiftPaymentIntentPaymentMethodType `json:"payment_method_type,omitempty"`
+	ReferenceId           string                             `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                             `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{}             `json:"additional_information,omitempty"`
 }
 
 // input sub resource params single
 type GiftCreateForItemsShippingAddress struct {
-	FirstName        string           `json:"first_name,omitempty"`
-	LastName         string           `json:"last_name,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Company          string           `json:"company,omitempty"`
-	Phone            string           `json:"phone,omitempty"`
-	Line1            string           `json:"line1,omitempty"`
-	Line2            string           `json:"line2,omitempty"`
-	Line3            string           `json:"line3,omitempty"`
-	City             string           `json:"city,omitempty"`
-	StateCode        string           `json:"state_code,omitempty"`
-	State            string           `json:"state,omitempty"`
-	Zip              string           `json:"zip,omitempty"`
-	Country          string           `json:"country,omitempty"`
-	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string                              `json:"first_name,omitempty"`
+	LastName         string                              `json:"last_name,omitempty"`
+	Email            string                              `json:"email,omitempty"`
+	Company          string                              `json:"company,omitempty"`
+	Phone            string                              `json:"phone,omitempty"`
+	Line1            string                              `json:"line1,omitempty"`
+	Line2            string                              `json:"line2,omitempty"`
+	Line3            string                              `json:"line3,omitempty"`
+	City             string                              `json:"city,omitempty"`
+	StateCode        string                              `json:"state_code,omitempty"`
+	State            string                              `json:"state,omitempty"`
+	Zip              string                              `json:"zip,omitempty"`
+	Country          string                              `json:"country,omitempty"`
+	ValidationStatus GiftShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params multi

@@ -54,11 +54,11 @@ func (r *EntitlementCreateRequest) payload() any { return r }
 
 // input sub resource params multi
 type EntitlementCreateEntitlement struct {
-	EntityId            string     `json:"entity_id"`
-	FeatureId           string     `json:"feature_id"`
-	EntityType          EntityType `json:"entity_type,omitempty"`
-	Value               string     `json:"value,omitempty"`
-	ApplyGrandfathering *bool      `json:"apply_grandfathering,omitempty"`
+	EntityId            string                           `json:"entity_id"`
+	FeatureId           string                           `json:"feature_id"`
+	EntityType          EntitlementEntitlementEntityType `json:"entity_type,omitempty"`
+	Value               string                           `json:"value,omitempty"`
+	ApplyGrandfathering *bool                            `json:"apply_grandfathering,omitempty"`
 }
 
 // operation sub response

@@ -464,17 +464,17 @@ func (r *CreditNoteCreateRequest) payload() any { return r }
 
 // input sub resource params multi
 type CreditNoteCreateLineItem struct {
-	ReferenceLineItemId string             `json:"reference_line_item_id,omitempty"`
-	UnitAmount          *int64             `json:"unit_amount,omitempty"`
-	UnitAmountInDecimal string             `json:"unit_amount_in_decimal,omitempty"`
-	Quantity            *int32             `json:"quantity,omitempty"`
-	QuantityInDecimal   string             `json:"quantity_in_decimal,omitempty"`
-	Amount              *int64             `json:"amount,omitempty"`
-	DateFrom            *int64             `json:"date_from,omitempty"`
-	DateTo              *int64             `json:"date_to,omitempty"`
-	Description         string             `json:"description,omitempty"`
-	EntityType          LineItemEntityType `json:"entity_type,omitempty"`
-	EntityId            string             `json:"entity_id,omitempty"`
+	ReferenceLineItemId string                       `json:"reference_line_item_id,omitempty"`
+	UnitAmount          *int64                       `json:"unit_amount,omitempty"`
+	UnitAmountInDecimal string                       `json:"unit_amount_in_decimal,omitempty"`
+	Quantity            *int32                       `json:"quantity,omitempty"`
+	QuantityInDecimal   string                       `json:"quantity_in_decimal,omitempty"`
+	Amount              *int64                       `json:"amount,omitempty"`
+	DateFrom            *int64                       `json:"date_from,omitempty"`
+	DateTo              *int64                       `json:"date_to,omitempty"`
+	Description         string                       `json:"description,omitempty"`
+	EntityType          CreditNoteLineItemEntityType `json:"entity_type,omitempty"`
+	EntityId            string                       `json:"entity_id,omitempty"`
 }
 type CreditNoteRetrieveRequest struct {
 	LineItemsLimit  *int32 `json:"line_items_limit,omitempty"`
@@ -516,12 +516,12 @@ func (r *CreditNoteRecordRefundRequest) payload() any { return r }
 
 // input sub resource params single
 type CreditNoteRecordRefundTransaction struct {
-	Id                    string        `json:"id,omitempty"`
-	Amount                *int64        `json:"amount,omitempty"`
-	PaymentMethod         PaymentMethod `json:"payment_method"`
-	ReferenceNumber       string        `json:"reference_number,omitempty"`
-	CustomPaymentMethodId string        `json:"custom_payment_method_id,omitempty"`
-	Date                  *int64        `json:"date"`
+	Id                    string                             `json:"id,omitempty"`
+	Amount                *int64                             `json:"amount,omitempty"`
+	PaymentMethod         CreditNoteTransactionPaymentMethod `json:"payment_method"`
+	ReferenceNumber       string                             `json:"reference_number,omitempty"`
+	CustomPaymentMethodId string                             `json:"custom_payment_method_id,omitempty"`
+	Date                  *int64                             `json:"date"`
 }
 type CreditNoteVoidCreditNoteRequest struct {
 	Comment    string `json:"comment,omitempty"`
@@ -618,44 +618,44 @@ func (r *CreditNoteImportCreditNoteRequest) payload() any { return r }
 
 // input sub resource params multi
 type CreditNoteImportCreditNoteLineItem struct {
-	ReferenceLineItemId        string             `json:"reference_line_item_id,omitempty"`
-	Id                         string             `json:"id,omitempty"`
-	DateFrom                   *int64             `json:"date_from,omitempty"`
-	DateTo                     *int64             `json:"date_to,omitempty"`
-	SubscriptionId             string             `json:"subscription_id,omitempty"`
-	Description                string             `json:"description"`
-	UnitAmount                 *int64             `json:"unit_amount,omitempty"`
-	Quantity                   *int32             `json:"quantity,omitempty"`
-	Amount                     *int64             `json:"amount,omitempty"`
-	UnitAmountInDecimal        string             `json:"unit_amount_in_decimal,omitempty"`
-	QuantityInDecimal          string             `json:"quantity_in_decimal,omitempty"`
-	AmountInDecimal            string             `json:"amount_in_decimal,omitempty"`
-	EntityType                 LineItemEntityType `json:"entity_type,omitempty"`
-	EntityId                   string             `json:"entity_id,omitempty"`
-	ItemLevelDiscount1EntityId string             `json:"item_level_discount1_entity_id,omitempty"`
-	ItemLevelDiscount1Amount   *int64             `json:"item_level_discount1_amount,omitempty"`
-	ItemLevelDiscount2EntityId string             `json:"item_level_discount2_entity_id,omitempty"`
-	ItemLevelDiscount2Amount   *int64             `json:"item_level_discount2_amount,omitempty"`
-	Tax1Name                   string             `json:"tax1_name,omitempty"`
-	Tax1Amount                 *int64             `json:"tax1_amount,omitempty"`
-	Tax2Name                   string             `json:"tax2_name,omitempty"`
-	Tax2Amount                 *int64             `json:"tax2_amount,omitempty"`
-	Tax3Name                   string             `json:"tax3_name,omitempty"`
-	Tax3Amount                 *int64             `json:"tax3_amount,omitempty"`
-	Tax4Name                   string             `json:"tax4_name,omitempty"`
-	Tax4Amount                 *int64             `json:"tax4_amount,omitempty"`
-	Tax5Name                   string             `json:"tax5_name,omitempty"`
-	Tax5Amount                 *int64             `json:"tax5_amount,omitempty"`
-	Tax6Name                   string             `json:"tax6_name,omitempty"`
-	Tax6Amount                 *int64             `json:"tax6_amount,omitempty"`
-	Tax7Name                   string             `json:"tax7_name,omitempty"`
-	Tax7Amount                 *int64             `json:"tax7_amount,omitempty"`
-	Tax8Name                   string             `json:"tax8_name,omitempty"`
-	Tax8Amount                 *int64             `json:"tax8_amount,omitempty"`
-	Tax9Name                   string             `json:"tax9_name,omitempty"`
-	Tax9Amount                 *int64             `json:"tax9_amount,omitempty"`
-	Tax10Name                  string             `json:"tax10_name,omitempty"`
-	Tax10Amount                *int64             `json:"tax10_amount,omitempty"`
+	ReferenceLineItemId        string                       `json:"reference_line_item_id,omitempty"`
+	Id                         string                       `json:"id,omitempty"`
+	DateFrom                   *int64                       `json:"date_from,omitempty"`
+	DateTo                     *int64                       `json:"date_to,omitempty"`
+	SubscriptionId             string                       `json:"subscription_id,omitempty"`
+	Description                string                       `json:"description"`
+	UnitAmount                 *int64                       `json:"unit_amount,omitempty"`
+	Quantity                   *int32                       `json:"quantity,omitempty"`
+	Amount                     *int64                       `json:"amount,omitempty"`
+	UnitAmountInDecimal        string                       `json:"unit_amount_in_decimal,omitempty"`
+	QuantityInDecimal          string                       `json:"quantity_in_decimal,omitempty"`
+	AmountInDecimal            string                       `json:"amount_in_decimal,omitempty"`
+	EntityType                 CreditNoteLineItemEntityType `json:"entity_type,omitempty"`
+	EntityId                   string                       `json:"entity_id,omitempty"`
+	ItemLevelDiscount1EntityId string                       `json:"item_level_discount1_entity_id,omitempty"`
+	ItemLevelDiscount1Amount   *int64                       `json:"item_level_discount1_amount,omitempty"`
+	ItemLevelDiscount2EntityId string                       `json:"item_level_discount2_entity_id,omitempty"`
+	ItemLevelDiscount2Amount   *int64                       `json:"item_level_discount2_amount,omitempty"`
+	Tax1Name                   string                       `json:"tax1_name,omitempty"`
+	Tax1Amount                 *int64                       `json:"tax1_amount,omitempty"`
+	Tax2Name                   string                       `json:"tax2_name,omitempty"`
+	Tax2Amount                 *int64                       `json:"tax2_amount,omitempty"`
+	Tax3Name                   string                       `json:"tax3_name,omitempty"`
+	Tax3Amount                 *int64                       `json:"tax3_amount,omitempty"`
+	Tax4Name                   string                       `json:"tax4_name,omitempty"`
+	Tax4Amount                 *int64                       `json:"tax4_amount,omitempty"`
+	Tax5Name                   string                       `json:"tax5_name,omitempty"`
+	Tax5Amount                 *int64                       `json:"tax5_amount,omitempty"`
+	Tax6Name                   string                       `json:"tax6_name,omitempty"`
+	Tax6Amount                 *int64                       `json:"tax6_amount,omitempty"`
+	Tax7Name                   string                       `json:"tax7_name,omitempty"`
+	Tax7Amount                 *int64                       `json:"tax7_amount,omitempty"`
+	Tax8Name                   string                       `json:"tax8_name,omitempty"`
+	Tax8Amount                 *int64                       `json:"tax8_amount,omitempty"`
+	Tax9Name                   string                       `json:"tax9_name,omitempty"`
+	Tax9Amount                 *int64                       `json:"tax9_amount,omitempty"`
+	Tax10Name                  string                       `json:"tax10_name,omitempty"`
+	Tax10Amount                *int64                       `json:"tax10_amount,omitempty"`
 }
 
 // input sub resource params multi
@@ -673,22 +673,22 @@ type CreditNoteImportCreditNoteLineItemTier struct {
 
 // input sub resource params multi
 type CreditNoteImportCreditNoteDiscount struct {
-	LineItemId  string             `json:"line_item_id,omitempty"`
-	EntityType  DiscountEntityType `json:"entity_type"`
-	EntityId    string             `json:"entity_id,omitempty"`
-	Description string             `json:"description,omitempty"`
-	Amount      *int64             `json:"amount"`
+	LineItemId  string                       `json:"line_item_id,omitempty"`
+	EntityType  CreditNoteDiscountEntityType `json:"entity_type"`
+	EntityId    string                       `json:"entity_id,omitempty"`
+	Description string                       `json:"description,omitempty"`
+	Amount      *int64                       `json:"amount"`
 }
 
 // input sub resource params multi
 type CreditNoteImportCreditNoteTax struct {
-	Name        string            `json:"name"`
-	Rate        *float64          `json:"rate"`
-	Amount      *int64            `json:"amount,omitempty"`
-	Description string            `json:"description,omitempty"`
-	JurisType   enum.TaxJurisType `json:"juris_type,omitempty"`
-	JurisName   string            `json:"juris_name,omitempty"`
-	JurisCode   string            `json:"juris_code,omitempty"`
+	Name        string                 `json:"name"`
+	Rate        *float64               `json:"rate"`
+	Amount      *int64                 `json:"amount,omitempty"`
+	Description string                 `json:"description,omitempty"`
+	JurisType   CreditNoteTaxJurisType `json:"juris_type,omitempty"`
+	JurisName   string                 `json:"juris_name,omitempty"`
+	JurisCode   string                 `json:"juris_code,omitempty"`
 }
 
 // input sub resource params multi
@@ -700,11 +700,11 @@ type CreditNoteImportCreditNoteAllocation struct {
 
 // input sub resource params multi
 type CreditNoteImportCreditNoteLinkedRefund struct {
-	Id              string        `json:"id,omitempty"`
-	Amount          *int64        `json:"amount"`
-	PaymentMethod   PaymentMethod `json:"payment_method"`
-	Date            *int64        `json:"date"`
-	ReferenceNumber string        `json:"reference_number,omitempty"`
+	Id              string                              `json:"id,omitempty"`
+	Amount          *int64                              `json:"amount"`
+	PaymentMethod   CreditNoteLinkedRefundPaymentMethod `json:"payment_method"`
+	Date            *int64                              `json:"date"`
+	ReferenceNumber string                              `json:"reference_number,omitempty"`
 }
 
 // operation response
