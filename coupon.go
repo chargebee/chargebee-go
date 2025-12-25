@@ -160,6 +160,7 @@ type CouponItemConstraint struct {
 	ItemPriceIds json.RawMessage                `json:"item_price_ids"`
 	Object       string                         `json:"object"`
 }
+
 type CouponItemConstraintCriteria struct {
 	ItemType         CouponItemConstraintCriteriaItemType `json:"item_type"`
 	Currencies       json.RawMessage                      `json:"currencies"`
@@ -167,6 +168,7 @@ type CouponItemConstraintCriteria struct {
 	ItemPricePeriods json.RawMessage                      `json:"item_price_periods"`
 	Object           string                               `json:"object"`
 }
+
 type CouponCouponConstraint struct {
 	EntityType CouponCouponConstraintEntityType `json:"entity_type"`
 	Type       CouponCouponConstraintType       `json:"type"`
@@ -255,6 +257,7 @@ type CouponCreateForItemsCouponConstraint struct {
 	Type       CouponCouponConstraintType       `json:"type"`
 	Value      string                           `json:"value,omitempty"`
 }
+
 type CouponUpdateForItemsRequest struct {
 	Name                   string                                        `json:"name,omitempty"`
 	InvoiceName            string                                        `json:"invoice_name,omitempty"`
@@ -303,6 +306,7 @@ type CouponUpdateForItemsCouponConstraint struct {
 	Type       CouponCouponConstraintType       `json:"type"`
 	Value      string                           `json:"value,omitempty"`
 }
+
 type CouponListRequest struct {
 	Limit        *int32           `json:"limit,omitempty"`
 	Offset       string           `json:"offset,omitempty"`

@@ -47,6 +47,7 @@ type QuotedChargeCharge struct {
 	AvalaraServiceType     int32                             `json:"avalara_service_type"`
 	Object                 string                            `json:"object"`
 }
+
 type QuotedChargeInvoiceItem struct {
 	ItemPriceId        string `json:"item_price_id"`
 	Quantity           int32  `json:"quantity"`
@@ -56,6 +57,7 @@ type QuotedChargeInvoiceItem struct {
 	ServicePeriodDays  int32  `json:"service_period_days"`
 	Object             string `json:"object"`
 }
+
 type QuotedChargeItemTier struct {
 	ItemPriceId           string                          `json:"item_price_id"`
 	StartingUnit          int32                           `json:"starting_unit"`
@@ -69,15 +71,18 @@ type QuotedChargeItemTier struct {
 	Index                 int32                           `json:"index"`
 	Object                string                          `json:"object"`
 }
+
 type QuotedChargeCoupon struct {
 	CouponId string `json:"coupon_id"`
 	Object   string `json:"object"`
 }
+
 type QuotedChargeCouponApplicabilityMapping struct {
 	CouponId               string   `json:"coupon_id"`
 	ApplicableItemPriceIds []string `json:"applicable_item_price_ids"`
 	Object                 string   `json:"object"`
 }
+
 type QuotedChargeAddon struct {
 	Id                 string                         `json:"id"`
 	Quantity           int32                          `json:"quantity"`

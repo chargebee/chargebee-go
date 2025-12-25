@@ -152,6 +152,7 @@ type AddonTier struct {
 	PackageSize           int32                `json:"package_size"`
 	Object                string               `json:"object"`
 }
+
 type AddonTaxProvidersField struct {
 	ProviderName string `json:"provider_name"`
 	FieldId      string `json:"field_id"`
@@ -222,6 +223,7 @@ type AddonCreateTaxProvidersField struct {
 	FieldId      string `json:"field_id"`
 	FieldValue   string `json:"field_value"`
 }
+
 type AddonUpdateRequest struct {
 	Name                        string                           `json:"name,omitempty"`
 	InvoiceName                 string                           `json:"invoice_name,omitempty"`
@@ -281,6 +283,7 @@ type AddonUpdateTaxProvidersField struct {
 	FieldId      string `json:"field_id"`
 	FieldValue   string `json:"field_value"`
 }
+
 type AddonListRequest struct {
 	Limit          *int32           `json:"limit,omitempty"`
 	Offset         string           `json:"offset,omitempty"`

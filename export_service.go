@@ -1,10 +1,7 @@
 package chargebee
 
 import (
-	"errors"
 	"fmt"
-	"time"
-
 	"net/url"
 )
 

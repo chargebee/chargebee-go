@@ -218,6 +218,7 @@ type HostedPageCheckoutNewContractTerm struct {
 	ActionAtTermEnd          HostedPageContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	CancellationCutoffPeriod *int32                                `json:"cancellation_cutoff_period,omitempty"`
 }
+
 type HostedPageCheckoutOneTimeRequest struct {
 	Customer        *HostedPageCheckoutOneTimeCustomer        `json:"customer,omitempty"`
 	Addons          []*HostedPageCheckoutOneTimeAddon         `json:"addons,omitempty"`
@@ -328,6 +329,7 @@ type HostedPageCheckoutOneTimeShippingAddress struct {
 	Country          string                                    `json:"country,omitempty"`
 	ValidationStatus HostedPageShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
+
 type HostedPageCheckoutOneTimeForItemsRequest struct {
 	BusinessEntityId  string                                               `json:"business_entity_id,omitempty"`
 	Layout            HostedPageLayout                                     `json:"layout,omitempty"`
@@ -476,6 +478,7 @@ type HostedPageCheckoutOneTimeForItemsShippingAddress struct {
 	Country          string                                    `json:"country,omitempty"`
 	ValidationStatus HostedPageShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
+
 type HostedPageCheckoutNewForItemsRequest struct {
 	Subscription               *HostedPageCheckoutNewForItemsSubscription       `json:"subscription,omitempty"`
 	Layout                     HostedPageLayout                                 `json:"layout,omitempty"`
@@ -633,6 +636,7 @@ type HostedPageCheckoutNewForItemsContractTerm struct {
 	ActionAtTermEnd          HostedPageContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	CancellationCutoffPeriod *int32                                `json:"cancellation_cutoff_period,omitempty"`
 }
+
 type HostedPageCheckoutExistingRequest struct {
 	Subscription               *HostedPageCheckoutExistingSubscription      `json:"subscription,omitempty"`
 	Addons                     []*HostedPageCheckoutExistingAddon           `json:"addons,omitempty"`
@@ -720,6 +724,7 @@ type HostedPageCheckoutExistingContractTerm struct {
 	ActionAtTermEnd          HostedPageContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	CancellationCutoffPeriod *int32                                `json:"cancellation_cutoff_period,omitempty"`
 }
+
 type HostedPageCheckoutExistingForItemsRequest struct {
 	Layout                     HostedPageLayout                                      `json:"layout,omitempty"`
 	Subscription               *HostedPageCheckoutExistingForItemsSubscription       `json:"subscription,omitempty"`
@@ -838,6 +843,7 @@ type HostedPageCheckoutExistingForItemsContractTerm struct {
 	ActionAtTermEnd          HostedPageContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	CancellationCutoffPeriod *int32                                `json:"cancellation_cutoff_period,omitempty"`
 }
+
 type HostedPageUpdateCardRequest struct {
 	Customer        *HostedPageUpdateCardCustomer `json:"customer,omitempty"`
 	Card            *HostedPageUpdateCardCard     `json:"card,omitempty"`
@@ -863,6 +869,7 @@ type HostedPageUpdateCardCard struct {
 	Gateway          HostedPageCardGateway `json:"gateway,omitempty"`
 	GatewayAccountId string                `json:"gateway_account_id,omitempty"`
 }
+
 type HostedPageUpdatePaymentMethodRequest struct {
 	Customer        *HostedPageUpdatePaymentMethodCustomer `json:"customer,omitempty"`
 	Card            *HostedPageUpdatePaymentMethodCard     `json:"card,omitempty"`
@@ -888,6 +895,7 @@ type HostedPageUpdatePaymentMethodCard struct {
 	Gateway          HostedPageCardGateway `json:"gateway,omitempty"`
 	GatewayAccountId string                `json:"gateway_account_id,omitempty"`
 }
+
 type HostedPageManagePaymentSourcesRequest struct {
 	Customer    *HostedPageManagePaymentSourcesCustomer `json:"customer,omitempty"`
 	RedirectUrl string                                  `json:"redirect_url,omitempty"`
@@ -907,6 +915,7 @@ type HostedPageManagePaymentSourcesCard struct {
 	Gateway          HostedPageCardGateway `json:"gateway,omitempty"`
 	GatewayAccountId string                `json:"gateway_account_id,omitempty"`
 }
+
 type HostedPageCollectNowRequest struct {
 	Customer     *HostedPageCollectNowCustomer `json:"customer,omitempty"`
 	RedirectUrl  string                        `json:"redirect_url,omitempty"`
@@ -927,6 +936,7 @@ type HostedPageCollectNowCard struct {
 	Gateway          HostedPageCardGateway `json:"gateway,omitempty"`
 	GatewayAccountId string                `json:"gateway_account_id,omitempty"`
 }
+
 type HostedPageAcceptQuoteRequest struct {
 	Quote       *HostedPageAcceptQuoteQuote `json:"quote,omitempty"`
 	RedirectUrl string                      `json:"redirect_url,omitempty"`
@@ -940,6 +950,7 @@ func (r *HostedPageAcceptQuoteRequest) payload() any { return r }
 type HostedPageAcceptQuoteQuote struct {
 	Id string `json:"id"`
 }
+
 type HostedPageExtendSubscriptionRequest struct {
 	Subscription *HostedPageExtendSubscriptionSubscription `json:"subscription,omitempty"`
 	Expiry       *int32                                    `json:"expiry,omitempty"`
@@ -953,6 +964,7 @@ func (r *HostedPageExtendSubscriptionRequest) payload() any { return r }
 type HostedPageExtendSubscriptionSubscription struct {
 	Id string `json:"id"`
 }
+
 type HostedPageCheckoutGiftRequest struct {
 	Gifter       *HostedPageCheckoutGiftGifter       `json:"gifter,omitempty"`
 	RedirectUrl  string                              `json:"redirect_url,omitempty"`
@@ -983,6 +995,7 @@ type HostedPageCheckoutGiftAddon struct {
 	Quantity          *int32 `json:"quantity,omitempty"`
 	QuantityInDecimal string `json:"quantity_in_decimal,omitempty"`
 }
+
 type HostedPageCheckoutGiftForItemsRequest struct {
 	BusinessEntityId  string                                            `json:"business_entity_id,omitempty"`
 	Gifter            *HostedPageCheckoutGiftForItemsGifter             `json:"gifter,omitempty"`
@@ -1019,6 +1032,7 @@ type HostedPageCheckoutGiftForItemsItemTier struct {
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
+
 type HostedPageClaimGiftRequest struct {
 	Gift        *HostedPageClaimGiftGift     `json:"gift,omitempty"`
 	RedirectUrl string                       `json:"redirect_url,omitempty"`
@@ -1037,6 +1051,7 @@ type HostedPageClaimGiftGift struct {
 type HostedPageClaimGiftCustomer struct {
 	Locale string `json:"locale,omitempty"`
 }
+
 type HostedPageRetrieveAgreementPdfRequest struct {
 	PaymentSourceId string `json:"payment_source_id"`
 	apiRequest      `json:"-" form:"-"`
@@ -1070,6 +1085,7 @@ func (r *HostedPagePreCancelRequest) payload() any { return r }
 type HostedPagePreCancelSubscription struct {
 	Id string `json:"id"`
 }
+
 type HostedPageEventsRequest struct {
 	EventName  HostedPageEventName    `json:"event_name"`
 	OccurredAt *int64                 `json:"occurred_at,omitempty"`

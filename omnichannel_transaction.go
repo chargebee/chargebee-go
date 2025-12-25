@@ -29,6 +29,7 @@ type OmnichannelTransactionLinkedOmnichannelSubscription struct {
 	OmnichannelSubscriptionId string `json:"omnichannel_subscription_id"`
 	Object                    string `json:"object"`
 }
+
 type OmnichannelTransactionLinkedOmnichannelOneTimeOrder struct {
 	OmnichannelOneTimeOrderId string `json:"omnichannel_one_time_order_id"`
 	Object                    string `json:"object"`

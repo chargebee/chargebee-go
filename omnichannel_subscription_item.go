@@ -90,6 +90,7 @@ type OmnichannelSubscriptionItemUpcomingRenewal struct {
 	PriceNanos    int64  `json:"price_nanos"`
 	Object        string `json:"object"`
 }
+
 type OmnichannelSubscriptionItemLinkedItem struct {
 	Id       string `json:"id"`
 	LinkedAt int64  `json:"linked_at"`

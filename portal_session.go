@@ -53,6 +53,7 @@ func (r *PortalSessionCreateRequest) payload() any { return r }
 type PortalSessionCreateCustomer struct {
 	Id string `json:"id"`
 }
+
 type PortalSessionActivateRequest struct {
 	Token      string `json:"token"`
 	apiRequest `json:"-" form:"-"`

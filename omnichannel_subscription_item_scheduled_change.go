@@ -26,6 +26,7 @@ type OmnichannelSubscriptionItemScheduledChangeCurrentState struct {
 	ItemIdAtSource string `json:"item_id_at_source"`
 	Object         string `json:"object"`
 }
+
 type OmnichannelSubscriptionItemScheduledChangeScheduledState struct {
 	ItemIdAtSource string `json:"item_id_at_source"`
 	Object         string `json:"object"`

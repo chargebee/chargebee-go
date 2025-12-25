@@ -134,6 +134,7 @@ type ExportRevenueRecognitionRelationship struct {
 	PaymentOwnerId *StringFilter `json:"payment_owner_id,omitempty"`
 	InvoiceOwnerId *StringFilter `json:"invoice_owner_id,omitempty"`
 }
+
 type ExportDeferredRevenueRequest struct {
 	Invoice          *ExportDeferredRevenueInvoice      `json:"invoice,omitempty"`
 	Subscription     *ExportDeferredRevenueSubscription `json:"subscription,omitempty"`
@@ -216,6 +217,7 @@ type ExportDeferredRevenueRelationship struct {
 	PaymentOwnerId *StringFilter `json:"payment_owner_id,omitempty"`
 	InvoiceOwnerId *StringFilter `json:"invoice_owner_id,omitempty"`
 }
+
 type ExportPlansRequest struct {
 	Plan         *ExportPlansPlan `json:"plan,omitempty"`
 	CurrencyCode *StringFilter    `json:"currency_code,omitempty"`
@@ -239,6 +241,7 @@ type ExportPlansPlan struct {
 	UpdatedAt          *TimestampFilter `json:"updated_at,omitempty"`
 	Channel            *EnumFilter      `json:"channel,omitempty"`
 }
+
 type ExportAddonsRequest struct {
 	Addon        *ExportAddonsAddon `json:"addon,omitempty"`
 	CurrencyCode *StringFilter      `json:"currency_code,omitempty"`
@@ -259,6 +262,7 @@ type ExportAddonsAddon struct {
 	UpdatedAt  *TimestampFilter `json:"updated_at,omitempty"`
 	Channel    *EnumFilter      `json:"channel,omitempty"`
 }
+
 type ExportCouponsRequest struct {
 	Coupon       *ExportCouponsCoupon `json:"coupon,omitempty"`
 	CurrencyCode *StringFilter        `json:"currency_code,omitempty"`
@@ -278,6 +282,7 @@ type ExportCouponsCoupon struct {
 	CreatedAt    *TimestampFilter `json:"created_at,omitempty"`
 	UpdatedAt    *TimestampFilter `json:"updated_at,omitempty"`
 }
+
 type ExportCustomersRequest struct {
 	Customer         *ExportCustomersCustomer     `json:"customer,omitempty"`
 	Relationship     *ExportCustomersRelationship `json:"relationship,omitempty"`
@@ -311,6 +316,7 @@ type ExportCustomersRelationship struct {
 	PaymentOwnerId *StringFilter `json:"payment_owner_id,omitempty"`
 	InvoiceOwnerId *StringFilter `json:"invoice_owner_id,omitempty"`
 }
+
 type ExportSubscriptionsRequest struct {
 	Subscription     *ExportSubscriptionsSubscription `json:"subscription,omitempty"`
 	ExportType       ExportExportType                 `json:"export_type,omitempty"`
@@ -340,6 +346,7 @@ type ExportSubscriptionsSubscription struct {
 	Channel                *EnumFilter      `json:"channel,omitempty"`
 	PlanId                 *StringFilter    `json:"plan_id,omitempty"`
 }
+
 type ExportInvoicesRequest struct {
 	Invoice      *ExportInvoicesInvoice `json:"invoice,omitempty"`
 	PaymentOwner *StringFilter          `json:"payment_owner,omitempty"`
@@ -367,6 +374,7 @@ type ExportInvoicesInvoice struct {
 	UpdatedAt      *TimestampFilter `json:"updated_at,omitempty"`
 	Channel        *EnumFilter      `json:"channel,omitempty"`
 }
+
 type ExportCreditNotesRequest struct {
 	CreditNote *ExportCreditNotesCreditNote `json:"credit_note,omitempty"`
 	apiRequest `json:"-" form:"-"`
@@ -394,6 +402,7 @@ type ExportCreditNotesCreditNote struct {
 	UpdatedAt          *TimestampFilter `json:"updated_at,omitempty"`
 	Channel            *EnumFilter      `json:"channel,omitempty"`
 }
+
 type ExportTransactionsRequest struct {
 	Transaction *ExportTransactionsTransaction `json:"transaction,omitempty"`
 	apiRequest  `json:"-" form:"-"`
@@ -419,6 +428,7 @@ type ExportTransactionsTransaction struct {
 	Status           *EnumFilter      `json:"status,omitempty"`
 	UpdatedAt        *TimestampFilter `json:"updated_at,omitempty"`
 }
+
 type ExportOrdersRequest struct {
 	Order      *ExportOrdersOrder `json:"order,omitempty"`
 	Total      *NumberFilter      `json:"total,omitempty"`
@@ -447,6 +457,7 @@ type ExportOrdersOrder struct {
 	IsResent                *BooleanFilter   `json:"is_resent,omitempty"`
 	OriginalOrderId         *StringFilter    `json:"original_order_id,omitempty"`
 }
+
 type ExportItemFamiliesRequest struct {
 	ItemFamily                *ExportItemFamiliesItemFamily `json:"item_family,omitempty"`
 	BusinessEntityId          *StringFilter                 `json:"business_entity_id,omitempty"`
@@ -462,6 +473,7 @@ type ExportItemFamiliesItemFamily struct {
 	Name      *StringFilter    `json:"name,omitempty"`
 	UpdatedAt *TimestampFilter `json:"updated_at,omitempty"`
 }
+
 type ExportItemsRequest struct {
 	Item                      *ExportItemsItem `json:"item,omitempty"`
 	BusinessEntityId          *StringFilter    `json:"business_entity_id,omitempty"`
@@ -487,6 +499,7 @@ type ExportItemsItem struct {
 	UsageCalculation   *EnumFilter      `json:"usage_calculation,omitempty"`
 	Channel            *EnumFilter      `json:"channel,omitempty"`
 }
+
 type ExportItemPricesRequest struct {
 	ItemPrice                 *ExportItemPricesItemPrice `json:"item_price,omitempty"`
 	ItemFamilyId              *StringFilter              `json:"item_family_id,omitempty"`
@@ -514,6 +527,7 @@ type ExportItemPricesItemPrice struct {
 	Period          *NumberFilter    `json:"period,omitempty"`
 	Channel         *EnumFilter      `json:"channel,omitempty"`
 }
+
 type ExportAttachedItemsRequest struct {
 	AttachedItem *ExportAttachedItemsAttachedItem `json:"attached_item,omitempty"`
 	ItemType     *EnumFilter                      `json:"item_type,omitempty"`
@@ -531,6 +545,7 @@ type ExportAttachedItemsAttachedItem struct {
 	UpdatedAt     *TimestampFilter `json:"updated_at,omitempty"`
 	ParentItemId  *StringFilter    `json:"parent_item_id,omitempty"`
 }
+
 type ExportDifferentialPricesRequest struct {
 	DifferentialPrice *ExportDifferentialPricesDifferentialPrice `json:"differential_price,omitempty"`
 	ItemId            *StringFilter                              `json:"item_id,omitempty"`
@@ -545,6 +560,7 @@ type ExportDifferentialPricesDifferentialPrice struct {
 	Id           *StringFilter `json:"id,omitempty"`
 	ParentItemId *StringFilter `json:"parent_item_id,omitempty"`
 }
+
 type ExportPriceVariantsRequest struct {
 	PriceVariant              *ExportPriceVariantsPriceVariant `json:"price_variant,omitempty"`
 	BusinessEntityId          *StringFilter                    `json:"business_entity_id,omitempty"`

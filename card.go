@@ -191,6 +191,7 @@ func (r *CardUpdateCardForCustomerRequest) payload() any { return r }
 type CardUpdateCardForCustomerCustomer struct {
 	VatNumber string `json:"vat_number,omitempty"`
 }
+
 type CardSwitchGatewayForCustomerRequest struct {
 	GatewayAccountId string `json:"gateway_account_id"`
 	apiRequest       `json:"-" form:"-"`

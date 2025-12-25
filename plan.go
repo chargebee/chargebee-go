@@ -186,16 +186,19 @@ type PlanTier struct {
 	PackageSize           int32               `json:"package_size"`
 	Object                string              `json:"object"`
 }
+
 type PlanTaxProvidersField struct {
 	ProviderName string `json:"provider_name"`
 	FieldId      string `json:"field_id"`
 	FieldValue   string `json:"field_value"`
 	Object       string `json:"object"`
 }
+
 type PlanApplicableAddon struct {
 	Id     string `json:"id"`
 	Object string `json:"object"`
 }
+
 type PlanAttachedAddon struct {
 	Id                string                `json:"id"`
 	Quantity          int32                 `json:"quantity"`
@@ -204,6 +207,7 @@ type PlanAttachedAddon struct {
 	QuantityInDecimal string                `json:"quantity_in_decimal"`
 	Object            string                `json:"object"`
 }
+
 type PlanEventBasedAddon struct {
 	Id                string                     `json:"id"`
 	Quantity          int32                      `json:"quantity"`
@@ -310,6 +314,7 @@ type PlanCreateAttachedAddon struct {
 	BillingCycles     *int32                `json:"billing_cycles,omitempty"`
 	Type              PlanAttachedAddonType `json:"type,omitempty"`
 }
+
 type PlanUpdateRequest struct {
 	Name                        string                          `json:"name,omitempty"`
 	InvoiceName                 string                          `json:"invoice_name,omitempty"`
@@ -401,6 +406,7 @@ type PlanUpdateAttachedAddon struct {
 	BillingCycles     *int32                `json:"billing_cycles,omitempty"`
 	Type              PlanAttachedAddonType `json:"type,omitempty"`
 }
+
 type PlanListRequest struct {
 	Limit              *int32           `json:"limit,omitempty"`
 	Offset             string           `json:"offset,omitempty"`

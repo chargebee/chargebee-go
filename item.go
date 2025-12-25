@@ -97,6 +97,7 @@ type ItemApplicableItem struct {
 	Id     string `json:"id"`
 	Object string `json:"object"`
 }
+
 type ItemBundleItem struct {
 	ItemId          string                 `json:"item_id"`
 	ItemType        ItemBundleItemItemType `json:"item_type"`
@@ -104,6 +105,7 @@ type ItemBundleItem struct {
 	PriceAllocation float64                `json:"price_allocation"`
 	Object          string                 `json:"object"`
 }
+
 type ItemBundleConfiguration struct {
 	Type   ItemBundleConfigurationType `json:"type"`
 	Object string                      `json:"object"`
@@ -152,6 +154,7 @@ type ItemCreateBundleItemsToAdd struct {
 	Quantity        *int32                       `json:"quantity,omitempty"`
 	PriceAllocation *float64                     `json:"price_allocation,omitempty"`
 }
+
 type ItemUpdateRequest struct {
 	Name                 string                           `json:"name,omitempty"`
 	Description          string                           `json:"description,omitempty"`
@@ -204,6 +207,7 @@ type ItemUpdateBundleItemsToRemove struct {
 	ItemId   string                          `json:"item_id,omitempty"`
 	ItemType ItemBundleItemsToRemoveItemType `json:"item_type,omitempty"`
 }
+
 type ItemListRequest struct {
 	Limit                     *int32                   `json:"limit,omitempty"`
 	Offset                    string                   `json:"offset,omitempty"`

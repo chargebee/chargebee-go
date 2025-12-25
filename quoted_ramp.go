@@ -125,6 +125,7 @@ type QuotedRampLineItem struct {
 	NetAmountPerBillingCycleInDecimal         string                           `json:"net_amount_per_billing_cycle_in_decimal"`
 	Object                                    string                           `json:"object"`
 }
+
 type QuotedRampDiscount struct {
 	Id            string                         `json:"id"`
 	InvoiceName   string                         `json:"invoice_name"`
@@ -145,6 +146,7 @@ type QuotedRampDiscount struct {
 	EndDate       int64                          `json:"end_date"`
 	Object        string                         `json:"object"`
 }
+
 type QuotedRampItemTier struct {
 	ItemPriceId           string                        `json:"item_price_id"`
 	StartingUnit          int32                         `json:"starting_unit"`
@@ -158,6 +160,7 @@ type QuotedRampItemTier struct {
 	PackageSize           int32                         `json:"package_size"`
 	Object                string                        `json:"object"`
 }
+
 type QuotedRampCouponApplicabilityMapping struct {
 	CouponId               string   `json:"coupon_id"`
 	ApplicableItemPriceIds []string `json:"applicable_item_price_ids"`

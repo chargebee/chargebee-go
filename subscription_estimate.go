@@ -80,6 +80,7 @@ type SubscriptionEstimateShippingAddress struct {
 	ValidationStatus SubscriptionEstimateShippingAddressValidationStatus `json:"validation_status"`
 	Object           string                                              `json:"object"`
 }
+
 type SubscriptionEstimateContractTerm struct {
 	Id                          string                                          `json:"id"`
 	Status                      SubscriptionEstimateContractTermStatus          `json:"status"`

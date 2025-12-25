@@ -131,6 +131,7 @@ type PaymentVoucherCreateVoucherPaymentSource struct {
 type PaymentVoucherCreateInvoiceAllocation struct {
 	InvoiceId string `json:"invoice_id"`
 }
+
 type PaymentVoucherPaymentVouchersForInvoiceRequest struct {
 	Limit      *int32      `json:"limit,omitempty"`
 	Offset     string      `json:"offset,omitempty"`

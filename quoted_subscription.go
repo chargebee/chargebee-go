@@ -141,6 +141,7 @@ type QuotedSubscriptionCoupon struct {
 	CouponId string `json:"coupon_id"`
 	Object   string `json:"object"`
 }
+
 type QuotedSubscriptionSubscriptionItem struct {
 	ItemPriceId                     string                                                            `json:"item_price_id"`
 	ItemType                        QuotedSubscriptionSubscriptionItemItemType                        `json:"item_type"`
@@ -169,6 +170,7 @@ type QuotedSubscriptionSubscriptionItem struct {
 	UsageAccumulationResetFrequency QuotedSubscriptionSubscriptionItemUsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency"`
 	Object                          string                                                            `json:"object"`
 }
+
 type QuotedSubscriptionItemTier struct {
 	ItemPriceId           string                                `json:"item_price_id"`
 	StartingUnit          int32                                 `json:"starting_unit"`
@@ -182,6 +184,7 @@ type QuotedSubscriptionItemTier struct {
 	Index                 int32                                 `json:"index"`
 	Object                string                                `json:"object"`
 }
+
 type QuotedSubscriptionQuotedContractTerm struct {
 	ContractStart            int64                                               `json:"contract_start"`
 	ContractEnd              int64                                               `json:"contract_end"`
@@ -191,6 +194,7 @@ type QuotedSubscriptionQuotedContractTerm struct {
 	CancellationCutoffPeriod int32                                               `json:"cancellation_cutoff_period"`
 	Object                   string                                              `json:"object"`
 }
+
 type QuotedSubscriptionEventBasedAddon struct {
 	Id                  string                                   `json:"id"`
 	Quantity            int32                                    `json:"quantity"`
@@ -202,6 +206,7 @@ type QuotedSubscriptionEventBasedAddon struct {
 	UnitPriceInDecimal  string                                   `json:"unit_price_in_decimal"`
 	Object              string                                   `json:"object"`
 }
+
 type QuotedSubscriptionAddon struct {
 	Id                     string                               `json:"id"`
 	Quantity               int32                                `json:"quantity"`

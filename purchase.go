@@ -126,6 +126,7 @@ type PurchaseCreatePaymentIntent struct {
 	GwPaymentMethodId     string                                 `json:"gw_payment_method_id,omitempty"`
 	AdditionalInformation map[string]interface{}                 `json:"additional_information,omitempty"`
 }
+
 type PurchaseEstimateRequest struct {
 	PurchaseItems     []*PurchaseEstimatePurchaseItem     `json:"purchase_items,omitempty"`
 	ItemTiers         []*PurchaseEstimateItemTier         `json:"item_tiers,omitempty"`

@@ -1,13 +1,8 @@
 package chargebee
 
 import (
-	"encoding/json"
 	"fmt"
-
 	"net/url"
-
-	"errors"
-	"strings"
 )
 
 type EventService struct {

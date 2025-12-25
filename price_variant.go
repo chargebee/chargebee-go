@@ -53,6 +53,7 @@ type PriceVariantCreateAttribute struct {
 	Name  string `json:"name"`
 	Value string `json:"value"`
 }
+
 type PriceVariantUpdateRequest struct {
 	Name         string                         `json:"name,omitempty"`
 	ExternalName string                         `json:"external_name,omitempty"`
@@ -70,6 +71,7 @@ type PriceVariantUpdateAttribute struct {
 	Name  string `json:"name"`
 	Value string `json:"value"`
 }
+
 type PriceVariantListRequest struct {
 	Limit                     *int32           `json:"limit,omitempty"`
 	Offset                    string           `json:"offset,omitempty"`

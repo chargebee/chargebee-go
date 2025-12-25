@@ -121,6 +121,7 @@ type UnbilledChargeCreateUnbilledChargeTaxProvidersField struct {
 	FieldId      string `json:"field_id,omitempty"`
 	FieldValue   string `json:"field_value,omitempty"`
 }
+
 type UnbilledChargeCreateRequest struct {
 	SubscriptionId     string                                   `json:"subscription_id"`
 	CurrencyCode       string                                   `json:"currency_code,omitempty"`
@@ -180,6 +181,7 @@ type UnbilledChargeCreateTaxProvidersField struct {
 	FieldId      string `json:"field_id,omitempty"`
 	FieldValue   string `json:"field_value,omitempty"`
 }
+
 type UnbilledChargeInvoiceUnbilledChargesRequest struct {
 	SubscriptionId string `json:"subscription_id,omitempty"`
 	CustomerId     string `json:"customer_id,omitempty"`

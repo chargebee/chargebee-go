@@ -1,12 +1,7 @@
 package chargebee
 
 import (
-	"encoding/json"
 	"fmt"
-
-	"errors"
-	"time"
-
 	"net/url"
 )
 

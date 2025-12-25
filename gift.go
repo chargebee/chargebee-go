@@ -44,6 +44,7 @@ type GiftGifter struct {
 	Note       string `json:"note"`
 	Object     string `json:"object"`
 }
+
 type GiftGiftReceiver struct {
 	CustomerId     string `json:"customer_id"`
 	SubscriptionId string `json:"subscription_id"`
@@ -52,6 +53,7 @@ type GiftGiftReceiver struct {
 	Email          string `json:"email"`
 	Object         string `json:"object"`
 }
+
 type GiftGiftTimeline struct {
 	Status     GiftStatus `json:"status"`
 	OccurredAt int64      `json:"occurred_at"`
@@ -135,6 +137,7 @@ type GiftCreateAddon struct {
 	Quantity          *int32 `json:"quantity,omitempty"`
 	QuantityInDecimal string `json:"quantity_in_decimal,omitempty"`
 }
+
 type GiftCreateForItemsRequest struct {
 	ScheduledAt       *int64                                `json:"scheduled_at,omitempty"`
 	AutoClaim         *bool                                 `json:"auto_claim,omitempty"`
@@ -217,6 +220,7 @@ type GiftCreateForItemsItemTier struct {
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
+
 type GiftListRequest struct {
 	Limit        *int32            `json:"limit,omitempty"`
 	Offset       string            `json:"offset,omitempty"`
@@ -238,6 +242,7 @@ type GiftListGiftReceiver struct {
 type GiftListGifter struct {
 	CustomerId *StringFilter `json:"customer_id,omitempty"`
 }
+
 type GiftUpdateGiftRequest struct {
 	ScheduledAt *int64 `json:"scheduled_at"`
 	Comment     string `json:"comment,omitempty"`

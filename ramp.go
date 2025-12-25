@@ -149,6 +149,7 @@ type RampItemsToAdd struct {
 	ChargeOnEvent         RampItemsToAddChargeOnEvent  `json:"charge_on_event"`
 	Object                string                       `json:"object"`
 }
+
 type RampItemsToUpdate struct {
 	ItemPriceId           string                          `json:"item_price_id"`
 	ItemType              RampItemsToUpdateItemType       `json:"item_type"`
@@ -168,11 +169,13 @@ type RampItemsToUpdate struct {
 	ChargeOnEvent         RampItemsToUpdateChargeOnEvent  `json:"charge_on_event"`
 	Object                string                          `json:"object"`
 }
+
 type RampCouponsToAdd struct {
 	CouponId  string `json:"coupon_id"`
 	ApplyTill int64  `json:"apply_till"`
 	Object    string `json:"object"`
 }
+
 type RampDiscountsToAdd struct {
 	Id            string                         `json:"id"`
 	InvoiceName   string                         `json:"invoice_name"`
@@ -188,6 +191,7 @@ type RampDiscountsToAdd struct {
 	CreatedAt     int64                          `json:"created_at"`
 	Object        string                         `json:"object"`
 }
+
 type RampItemTier struct {
 	ItemPriceId           string                  `json:"item_price_id"`
 	StartingUnit          int32                   `json:"starting_unit"`
@@ -201,12 +205,14 @@ type RampItemTier struct {
 	Index                 int32                   `json:"index"`
 	Object                string                  `json:"object"`
 }
+
 type RampContractTerm struct {
 	CancellationCutoffPeriod int32                           `json:"cancellation_cutoff_period"`
 	RenewalBillingCycles     int32                           `json:"renewal_billing_cycles"`
 	ActionAtTermEnd          RampContractTermActionAtTermEnd `json:"action_at_term_end"`
 	Object                   string                          `json:"object"`
 }
+
 type RampStatusTransitionReason struct {
 	Code    string `json:"code"`
 	Message string `json:"message"`
@@ -297,6 +303,7 @@ type RampCreateForSubscriptionContractTerm struct {
 	CancellationCutoffPeriod *int32                          `json:"cancellation_cutoff_period,omitempty"`
 	RenewalBillingCycles     *int32                          `json:"renewal_billing_cycles,omitempty"`
 }
+
 type RampUpdateRequest struct {
 	EffectiveFrom     *int64                      `json:"effective_from"`
 	Description       string                      `json:"description,omitempty"`
@@ -379,6 +386,7 @@ type RampUpdateContractTerm struct {
 	CancellationCutoffPeriod *int32                          `json:"cancellation_cutoff_period,omitempty"`
 	RenewalBillingCycles     *int32                          `json:"renewal_billing_cycles,omitempty"`
 }
+
 type RampListRequest struct {
 	Limit          *int32           `json:"limit,omitempty"`
 	Offset         string           `json:"offset,omitempty"`

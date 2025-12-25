@@ -298,6 +298,7 @@ type CreditNoteLineItem struct {
 	CustomerId              string                            `json:"customer_id"`
 	Object                  string                            `json:"object"`
 }
+
 type CreditNoteLineItemTier struct {
 	LineItemId            string                            `json:"line_item_id"`
 	StartingUnit          int32                             `json:"starting_unit"`
@@ -312,6 +313,7 @@ type CreditNoteLineItemTier struct {
 	PackageSize           int32                             `json:"package_size"`
 	Object                string                            `json:"object"`
 }
+
 type CreditNoteLineItemDiscount struct {
 	LineItemId     string                                 `json:"line_item_id"`
 	DiscountType   CreditNoteLineItemDiscountDiscountType `json:"discount_type"`
@@ -320,6 +322,7 @@ type CreditNoteLineItemDiscount struct {
 	DiscountAmount int64                                  `json:"discount_amount"`
 	Object         string                                 `json:"object"`
 }
+
 type CreditNoteLineItemTax struct {
 	LineItemId               string                            `json:"line_item_id"`
 	TaxName                  string                            `json:"tax_name"`
@@ -338,6 +341,7 @@ type CreditNoteLineItemTax struct {
 	LocalCurrencyCode        string                            `json:"local_currency_code"`
 	Object                   string                            `json:"object"`
 }
+
 type CreditNoteLineItemAddress struct {
 	LineItemId       string                                    `json:"line_item_id"`
 	FirstName        string                                    `json:"first_name"`
@@ -356,6 +360,7 @@ type CreditNoteLineItemAddress struct {
 	ValidationStatus CreditNoteLineItemAddressValidationStatus `json:"validation_status"`
 	Object           string                                    `json:"object"`
 }
+
 type CreditNoteDiscount struct {
 	Amount        int64                          `json:"amount"`
 	Description   string                         `json:"description"`
@@ -366,17 +371,20 @@ type CreditNoteDiscount struct {
 	CouponSetCode string                         `json:"coupon_set_code"`
 	Object        string                         `json:"object"`
 }
+
 type CreditNoteTax struct {
 	Name        string `json:"name"`
 	Amount      int64  `json:"amount"`
 	Description string `json:"description"`
 	Object      string `json:"object"`
 }
+
 type CreditNoteTaxOrigin struct {
 	Country            string `json:"country"`
 	RegistrationNumber string `json:"registration_number"`
 	Object             string `json:"object"`
 }
+
 type CreditNoteLinkedRefund struct {
 	TxnId            string            `json:"txn_id"`
 	AppliedAmount    int64             `json:"applied_amount"`
@@ -387,6 +395,7 @@ type CreditNoteLinkedRefund struct {
 	RefundReasonCode string            `json:"refund_reason_code"`
 	Object           string            `json:"object"`
 }
+
 type CreditNoteAllocation struct {
 	InvoiceId       string                             `json:"invoice_id"`
 	AllocatedAmount int64                              `json:"allocated_amount"`
@@ -396,6 +405,7 @@ type CreditNoteAllocation struct {
 	TaxApplication  CreditNoteAllocationTaxApplication `json:"tax_application"`
 	Object          string                             `json:"object"`
 }
+
 type CreditNoteShippingAddress struct {
 	FirstName        string                                    `json:"first_name"`
 	LastName         string                                    `json:"last_name"`
@@ -413,6 +423,7 @@ type CreditNoteShippingAddress struct {
 	ValidationStatus CreditNoteShippingAddressValidationStatus `json:"validation_status"`
 	Object           string                                    `json:"object"`
 }
+
 type CreditNoteBillingAddress struct {
 	FirstName        string                                   `json:"first_name"`
 	LastName         string                                   `json:"last_name"`
@@ -430,6 +441,7 @@ type CreditNoteBillingAddress struct {
 	ValidationStatus CreditNoteBillingAddressValidationStatus `json:"validation_status"`
 	Object           string                                   `json:"object"`
 }
+
 type CreditNoteEinvoice struct {
 	Id              string                   `json:"id"`
 	ReferenceNumber string                   `json:"reference_number"`
@@ -437,6 +449,7 @@ type CreditNoteEinvoice struct {
 	Message         string                   `json:"message"`
 	Object          string                   `json:"object"`
 }
+
 type CreditNoteSiteDetailsAtCreation struct {
 	Timezone            string          `json:"timezone"`
 	OrganizationAddress json.RawMessage `json:"organization_address"`
@@ -476,6 +489,7 @@ type CreditNoteCreateLineItem struct {
 	EntityType          CreditNoteLineItemEntityType `json:"entity_type,omitempty"`
 	EntityId            string                       `json:"entity_id,omitempty"`
 }
+
 type CreditNoteRetrieveRequest struct {
 	LineItemsLimit  *int32 `json:"line_items_limit,omitempty"`
 	LineItemsOffset string `json:"line_items_offset,omitempty"`
@@ -489,6 +503,7 @@ type CreditNoteRetrieveLineItem struct {
 	SubscriptionId *StringFilter `json:"subscription_id,omitempty"`
 	CustomerId     *StringFilter `json:"customer_id,omitempty"`
 }
+
 type CreditNotePdfRequest struct {
 	DispositionType CreditNoteDispositionType `json:"disposition_type,omitempty"`
 	apiRequest      `json:"-" form:"-"`
@@ -523,6 +538,7 @@ type CreditNoteRecordRefundTransaction struct {
 	CustomPaymentMethodId string                             `json:"custom_payment_method_id,omitempty"`
 	Date                  *int64                             `json:"date"`
 }
+
 type CreditNoteVoidCreditNoteRequest struct {
 	Comment    string `json:"comment,omitempty"`
 	apiRequest `json:"-" form:"-"`
@@ -562,6 +578,7 @@ func (r *CreditNoteListRequest) payload() any { return r }
 type CreditNoteListEinvoice struct {
 	Status *EnumFilter `json:"status,omitempty"`
 }
+
 type CreditNoteCreditNotesForCustomerRequest struct {
 	Limit      *int32 `json:"limit,omitempty"`
 	Offset     string `json:"offset,omitempty"`
@@ -588,6 +605,7 @@ func (r *CreditNoteRemoveTaxWithheldRefundRequest) payload() any { return r }
 type CreditNoteRemoveTaxWithheldRefundTaxWithheld struct {
 	Id string `json:"id"`
 }
+
 type CreditNoteImportCreditNoteRequest struct {
 	Id                   string                                    `json:"id"`
 	CustomerId           string                                    `json:"customer_id,omitempty"`

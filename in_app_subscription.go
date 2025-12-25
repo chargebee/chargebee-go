@@ -49,6 +49,7 @@ type InAppSubscriptionProcessReceiptCustomer struct {
 	FirstName string `json:"first_name,omitempty"`
 	LastName  string `json:"last_name,omitempty"`
 }
+
 type InAppSubscriptionImportReceiptRequest struct {
 	Receipt    string                                  `json:"receipt"`
 	Product    *InAppSubscriptionImportReceiptProduct  `json:"product,omitempty"`
@@ -68,6 +69,7 @@ type InAppSubscriptionImportReceiptCustomer struct {
 	Id    string `json:"id,omitempty"`
 	Email string `json:"email,omitempty"`
 }
+
 type InAppSubscriptionImportSubscriptionRequest struct {
 	Subscription *InAppSubscriptionImportSubscriptionSubscription `json:"subscription,omitempty"`
 	Customer     *InAppSubscriptionImportSubscriptionCustomer     `json:"customer,omitempty"`
@@ -93,6 +95,7 @@ type InAppSubscriptionImportSubscriptionCustomer struct {
 	Id    string `json:"id,omitempty"`
 	Email string `json:"email,omitempty"`
 }
+
 type InAppSubscriptionRetrieveStoreSubsRequest struct {
 	Receipt    string `json:"receipt"`
 	apiRequest `json:"-" form:"-"`

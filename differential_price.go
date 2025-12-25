@@ -60,6 +60,7 @@ type DifferentialPriceTier struct {
 	PackageSize           int32                            `json:"package_size"`
 	Object                string                           `json:"object"`
 }
+
 type DifferentialPriceParentPeriod struct {
 	PeriodUnit DifferentialPriceParentPeriodPeriodUnit `json:"period_unit"`
 	Period     json.RawMessage                         `json:"period"`
@@ -97,6 +98,7 @@ type DifferentialPriceCreateTier struct {
 	PricingType           DifferentialPriceTierPricingType `json:"pricing_type,omitempty"`
 	PackageSize           *int32                           `json:"package_size,omitempty"`
 }
+
 type DifferentialPriceRetrieveRequest struct {
 	ItemPriceId string `json:"item_price_id"`
 	apiRequest  `json:"-" form:"-"`
@@ -132,6 +134,7 @@ type DifferentialPriceUpdateTier struct {
 	PricingType           DifferentialPriceTierPricingType `json:"pricing_type,omitempty"`
 	PackageSize           *int32                           `json:"package_size,omitempty"`
 }
+
 type DifferentialPriceDeleteRequest struct {
 	ItemPriceId string `json:"item_price_id"`
 	apiRequest  `json:"-" form:"-"`

@@ -32,6 +32,7 @@ type PersonalizedOfferContent struct {
 	Description string `json:"description"`
 	Object      string `json:"object"`
 }
+
 type PersonalizedOfferOption struct {
 	Id               string                                  `json:"id"`
 	Label            string                                  `json:"label"`

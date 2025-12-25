@@ -62,6 +62,7 @@ type ItemEntitlementAddItemEntitlementsItemEntitlement struct {
 	ItemType ItemEntitlementItemEntitlementItemType `json:"item_type,omitempty"`
 	Value    string                                 `json:"value,omitempty"`
 }
+
 type ItemEntitlementUpsertOrRemoveItemEntitlementsForItemRequest struct {
 	Action           ItemEntitlementAction                                                  `json:"action"`
 	ItemEntitlements []*ItemEntitlementUpsertOrRemoveItemEntitlementsForItemItemEntitlement `json:"item_entitlements,omitempty"`

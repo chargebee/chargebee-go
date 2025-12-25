@@ -465,6 +465,7 @@ type InvoiceLineItem struct {
 	CustomerId              string                         `json:"customer_id"`
 	Object                  string                         `json:"object"`
 }
+
 type InvoiceLineItemTier struct {
 	LineItemId            string                         `json:"line_item_id"`
 	StartingUnit          int32                          `json:"starting_unit"`
@@ -479,6 +480,7 @@ type InvoiceLineItemTier struct {
 	PackageSize           int32                          `json:"package_size"`
 	Object                string                         `json:"object"`
 }
+
 type InvoiceLineItemDiscount struct {
 	LineItemId     string                              `json:"line_item_id"`
 	DiscountType   InvoiceLineItemDiscountDiscountType `json:"discount_type"`
@@ -487,6 +489,7 @@ type InvoiceLineItemDiscount struct {
 	DiscountAmount int64                               `json:"discount_amount"`
 	Object         string                              `json:"object"`
 }
+
 type InvoiceLineItemTax struct {
 	LineItemId               string                         `json:"line_item_id"`
 	TaxName                  string                         `json:"tax_name"`
@@ -505,12 +508,14 @@ type InvoiceLineItemTax struct {
 	LocalCurrencyCode        string                         `json:"local_currency_code"`
 	Object                   string                         `json:"object"`
 }
+
 type InvoiceLineItemCredit struct {
 	CnId          string  `json:"cn_id"`
 	AppliedAmount float64 `json:"applied_amount"`
 	LineItemId    string  `json:"line_item_id"`
 	Object        string  `json:"object"`
 }
+
 type InvoiceLineItemAddress struct {
 	LineItemId       string                                 `json:"line_item_id"`
 	FirstName        string                                 `json:"first_name"`
@@ -529,6 +534,7 @@ type InvoiceLineItemAddress struct {
 	ValidationStatus InvoiceLineItemAddressValidationStatus `json:"validation_status"`
 	Object           string                                 `json:"object"`
 }
+
 type InvoiceDiscount struct {
 	Amount        int64                       `json:"amount"`
 	Description   string                      `json:"description"`
@@ -539,17 +545,20 @@ type InvoiceDiscount struct {
 	CouponSetCode string                      `json:"coupon_set_code"`
 	Object        string                      `json:"object"`
 }
+
 type InvoiceTax struct {
 	Name        string `json:"name"`
 	Amount      int64  `json:"amount"`
 	Description string `json:"description"`
 	Object      string `json:"object"`
 }
+
 type InvoiceTaxOrigin struct {
 	Country            string `json:"country"`
 	RegistrationNumber string `json:"registration_number"`
 	Object             string `json:"object"`
 }
+
 type InvoiceLinkedPayment struct {
 	TxnId         string            `json:"txn_id"`
 	AppliedAmount int64             `json:"applied_amount"`
@@ -559,6 +568,7 @@ type InvoiceLinkedPayment struct {
 	TxnAmount     int64             `json:"txn_amount"`
 	Object        string            `json:"object"`
 }
+
 type InvoiceReferenceTransaction struct {
 	AppliedAmount       int64                          `json:"applied_amount"`
 	AppliedAt           int64                          `json:"applied_at"`
@@ -571,6 +581,7 @@ type InvoiceReferenceTransaction struct {
 	AuthorizationReason TransactionAuthorizationReason `json:"authorization_reason"`
 	Object              string                         `json:"object"`
 }
+
 type InvoiceDunningAttempt struct {
 	Attempt       int32                            `json:"attempt"`
 	TransactionId string                           `json:"transaction_id"`
@@ -580,6 +591,7 @@ type InvoiceDunningAttempt struct {
 	TxnAmount     int64                            `json:"txn_amount"`
 	Object        string                           `json:"object"`
 }
+
 type InvoiceAppliedCredit struct {
 	CnId               string                             `json:"cn_id"`
 	AppliedAmount      int64                              `json:"applied_amount"`
@@ -591,6 +603,7 @@ type InvoiceAppliedCredit struct {
 	TaxApplication     InvoiceAppliedCreditTaxApplication `json:"tax_application"`
 	Object             string                             `json:"object"`
 }
+
 type InvoiceAdjustmentCreditNote struct {
 	CnId               string               `json:"cn_id"`
 	CnReasonCode       CreditNoteReasonCode `json:"cn_reason_code"`
@@ -600,6 +613,7 @@ type InvoiceAdjustmentCreditNote struct {
 	CnStatus           CreditNoteStatus     `json:"cn_status"`
 	Object             string               `json:"object"`
 }
+
 type InvoiceIssuedCreditNote struct {
 	CnId               string               `json:"cn_id"`
 	CnReasonCode       CreditNoteReasonCode `json:"cn_reason_code"`
@@ -609,6 +623,7 @@ type InvoiceIssuedCreditNote struct {
 	CnStatus           CreditNoteStatus     `json:"cn_status"`
 	Object             string               `json:"object"`
 }
+
 type InvoiceLinkedOrder struct {
 	Id                string                      `json:"id"`
 	DocumentNumber    string                      `json:"document_number"`
@@ -620,12 +635,14 @@ type InvoiceLinkedOrder struct {
 	CreatedAt         int64                       `json:"created_at"`
 	Object            string                      `json:"object"`
 }
+
 type InvoiceNote struct {
 	Note       string                `json:"note"`
 	EntityId   string                `json:"entity_id"`
 	EntityType InvoiceNoteEntityType `json:"entity_type"`
 	Object     string                `json:"object"`
 }
+
 type InvoiceShippingAddress struct {
 	FirstName        string                                 `json:"first_name"`
 	LastName         string                                 `json:"last_name"`
@@ -643,6 +660,7 @@ type InvoiceShippingAddress struct {
 	ValidationStatus InvoiceShippingAddressValidationStatus `json:"validation_status"`
 	Object           string                                 `json:"object"`
 }
+
 type InvoiceBillingAddress struct {
 	FirstName        string                                `json:"first_name"`
 	LastName         string                                `json:"last_name"`
@@ -660,11 +678,13 @@ type InvoiceBillingAddress struct {
 	ValidationStatus InvoiceBillingAddressValidationStatus `json:"validation_status"`
 	Object           string                                `json:"object"`
 }
+
 type InvoiceStatementDescriptor struct {
 	Id         string `json:"id"`
 	Descriptor string `json:"descriptor"`
 	Object     string `json:"object"`
 }
+
 type InvoiceEinvoice struct {
 	Id              string                `json:"id"`
 	ReferenceNumber string                `json:"reference_number"`
@@ -672,6 +692,7 @@ type InvoiceEinvoice struct {
 	Message         string                `json:"message"`
 	Object          string                `json:"object"`
 }
+
 type InvoiceSiteDetailsAtCreation struct {
 	Timezone            string          `json:"timezone"`
 	OrganizationAddress json.RawMessage `json:"organization_address"`
@@ -840,6 +861,7 @@ type InvoiceCreatePaymentIntent struct {
 	GwPaymentMethodId     string                                `json:"gw_payment_method_id,omitempty"`
 	AdditionalInformation map[string]interface{}                `json:"additional_information,omitempty"`
 }
+
 type InvoiceCreateForChargeItemsAndChargesRequest struct {
 	CustomerId                  string                                                    `json:"customer_id,omitempty"`
 	SubscriptionId              string                                                    `json:"subscription_id,omitempty"`
@@ -1024,6 +1046,7 @@ type InvoiceCreateForChargeItemsAndChargesPaymentIntent struct {
 	GwPaymentMethodId     string                                `json:"gw_payment_method_id,omitempty"`
 	AdditionalInformation map[string]interface{}                `json:"additional_information,omitempty"`
 }
+
 type InvoiceChargeRequest struct {
 	CustomerId             string                            `json:"customer_id,omitempty"`
 	SubscriptionId         string                            `json:"subscription_id,omitempty"`
@@ -1053,6 +1076,7 @@ type InvoiceChargeTaxProvidersField struct {
 	FieldId      string `json:"field_id,omitempty"`
 	FieldValue   string `json:"field_value,omitempty"`
 }
+
 type InvoiceChargeAddonRequest struct {
 	CustomerId              string                  `json:"customer_id,omitempty"`
 	SubscriptionId          string                  `json:"subscription_id,omitempty"`
@@ -1110,6 +1134,7 @@ type InvoiceCreateForChargeItemItemTier struct {
 	PricingType           InvoiceItemTierPricingType `json:"pricing_type,omitempty"`
 	PackageSize           *int32                     `json:"package_size,omitempty"`
 }
+
 type InvoiceStopDunningRequest struct {
 	Comment    string `json:"comment,omitempty"`
 	apiRequest `json:"-" form:"-"`
@@ -1328,6 +1353,7 @@ type InvoiceImportInvoiceLineItemAddress struct {
 	Country          string                                 `json:"country,omitempty"`
 	ValidationStatus InvoiceLineItemAddressValidationStatus `json:"validation_status,omitempty"`
 }
+
 type InvoiceApplyPaymentsRequest struct {
 	Transactions []*InvoiceApplyPaymentsTransaction `json:"transactions,omitempty"`
 	Comment      string                             `json:"comment,omitempty"`
@@ -1341,6 +1367,7 @@ type InvoiceApplyPaymentsTransaction struct {
 	Id     string `json:"id,omitempty"`
 	Amount *int64 `json:"amount,omitempty"`
 }
+
 type InvoiceDeleteLineItemsRequest struct {
 	LineItems  []*InvoiceDeleteLineItemsLineItem `json:"line_items,omitempty"`
 	apiRequest `json:"-" form:"-"`
@@ -1352,6 +1379,7 @@ func (r *InvoiceDeleteLineItemsRequest) payload() any { return r }
 type InvoiceDeleteLineItemsLineItem struct {
 	Id string `json:"id,omitempty"`
 }
+
 type InvoiceApplyCreditsRequest struct {
 	CreditNotes []*InvoiceApplyCreditsCreditNote `json:"credit_notes,omitempty"`
 	Comment     string                           `json:"comment,omitempty"`
@@ -1364,6 +1392,7 @@ func (r *InvoiceApplyCreditsRequest) payload() any { return r }
 type InvoiceApplyCreditsCreditNote struct {
 	Id string `json:"id,omitempty"`
 }
+
 type InvoiceListRequest struct {
 	Limit          *int32           `json:"limit,omitempty"`
 	Offset         string           `json:"offset,omitempty"`
@@ -1398,6 +1427,7 @@ func (r *InvoiceListRequest) payload() any { return r }
 type InvoiceListEinvoice struct {
 	Status *EnumFilter `json:"status,omitempty"`
 }
+
 type InvoiceInvoicesForCustomerRequest struct {
 	Limit      *int32 `json:"limit,omitempty"`
 	Offset     string `json:"offset,omitempty"`
@@ -1427,6 +1457,7 @@ type InvoiceRetrieveLineItem struct {
 	SubscriptionId *StringFilter `json:"subscription_id,omitempty"`
 	CustomerId     *StringFilter `json:"customer_id,omitempty"`
 }
+
 type InvoicePdfRequest struct {
 	DispositionType InvoiceDispositionType `json:"disposition_type,omitempty"`
 	apiRequest      `json:"-" form:"-"`
@@ -1448,6 +1479,7 @@ func (r *InvoiceListPaymentReferenceNumbersRequest) payload() any { return r }
 type InvoiceListPaymentReferenceNumbersPaymentReferenceNumber struct {
 	Number *StringFilter `json:"number,omitempty"`
 }
+
 type InvoiceAddChargeRequest struct {
 	Amount                 *int64                    `json:"amount"`
 	Description            string                    `json:"description"`
@@ -1470,6 +1502,7 @@ type InvoiceAddChargeLineItem struct {
 	DateFrom *int64 `json:"date_from,omitempty"`
 	DateTo   *int64 `json:"date_to,omitempty"`
 }
+
 type InvoiceAddAddonChargeRequest struct {
 	AddonId                 string                         `json:"addon_id"`
 	AddonQuantity           *int32                         `json:"addon_quantity,omitempty"`
@@ -1489,6 +1522,7 @@ type InvoiceAddAddonChargeLineItem struct {
 	DateFrom *int64 `json:"date_from,omitempty"`
 	DateTo   *int64 `json:"date_to,omitempty"`
 }
+
 type InvoiceAddChargeItemRequest struct {
 	ItemPrice      *InvoiceAddChargeItemItemPrice  `json:"item_price,omitempty"`
 	ItemTiers      []*InvoiceAddChargeItemItemTier `json:"item_tiers,omitempty"`
@@ -1521,6 +1555,7 @@ type InvoiceAddChargeItemItemTier struct {
 	PricingType           InvoiceItemTierPricingType `json:"pricing_type,omitempty"`
 	PackageSize           *int32                     `json:"package_size,omitempty"`
 }
+
 type InvoiceCloseRequest struct {
 	Comment           string                       `json:"comment,omitempty"`
 	InvoiceNote       string                       `json:"invoice_note,omitempty"`
@@ -1537,6 +1572,7 @@ type InvoiceCloseNotesToRemove struct {
 	EntityType InvoiceNotesToRemoveEntityType `json:"entity_type,omitempty"`
 	EntityId   string                         `json:"entity_id,omitempty"`
 }
+
 type InvoiceCollectPaymentRequest struct {
 	Amount                     *int64                  `json:"amount,omitempty"`
 	AuthorizationTransactionId string                  `json:"authorization_transaction_id,omitempty"`
@@ -1568,6 +1604,7 @@ type InvoiceRecordPaymentTransaction struct {
 	ErrorCode             string                          `json:"error_code,omitempty"`
 	ErrorText             string                          `json:"error_text,omitempty"`
 }
+
 type InvoiceRecordTaxWithheldRequest struct {
 	TaxWithheld *InvoiceRecordTaxWithheldTaxWithheld `json:"tax_withheld,omitempty"`
 	apiRequest  `json:"-" form:"-"`
@@ -1582,6 +1619,7 @@ type InvoiceRecordTaxWithheldTaxWithheld struct {
 	Date            *int64 `json:"date,omitempty"`
 	Description     string `json:"description,omitempty"`
 }
+
 type InvoiceRemoveTaxWithheldRequest struct {
 	TaxWithheld *InvoiceRemoveTaxWithheldTaxWithheld `json:"tax_withheld,omitempty"`
 	apiRequest  `json:"-" form:"-"`
@@ -1593,6 +1631,7 @@ func (r *InvoiceRemoveTaxWithheldRequest) payload() any { return r }
 type InvoiceRemoveTaxWithheldTaxWithheld struct {
 	Id string `json:"id"`
 }
+
 type InvoiceRefundRequest struct {
 	RefundAmount  *int64                   `json:"refund_amount,omitempty"`
 	CreditNote    *InvoiceRefundCreditNote `json:"credit_note,omitempty"`
@@ -1608,6 +1647,7 @@ type InvoiceRefundCreditNote struct {
 	ReasonCode       InvoiceCreditNoteReasonCode `json:"reason_code,omitempty"`
 	CreateReasonCode string                      `json:"create_reason_code,omitempty"`
 }
+
 type InvoiceRecordRefundRequest struct {
 	Transaction   *InvoiceRecordRefundTransaction `json:"transaction,omitempty"`
 	CreditNote    *InvoiceRecordRefundCreditNote  `json:"credit_note,omitempty"`
@@ -1632,6 +1672,7 @@ type InvoiceRecordRefundCreditNote struct {
 	ReasonCode       InvoiceCreditNoteReasonCode `json:"reason_code,omitempty"`
 	CreateReasonCode string                      `json:"create_reason_code,omitempty"`
 }
+
 type InvoiceRemovePaymentRequest struct {
 	Transaction *InvoiceRemovePaymentTransaction `json:"transaction,omitempty"`
 	apiRequest  `json:"-" form:"-"`
@@ -1643,6 +1684,7 @@ func (r *InvoiceRemovePaymentRequest) payload() any { return r }
 type InvoiceRemovePaymentTransaction struct {
 	Id string `json:"id"`
 }
+
 type InvoiceRemoveCreditNoteRequest struct {
 	CreditNote *InvoiceRemoveCreditNoteCreditNote `json:"credit_note,omitempty"`
 	apiRequest `json:"-" form:"-"`
@@ -1654,6 +1696,7 @@ func (r *InvoiceRemoveCreditNoteRequest) payload() any { return r }
 type InvoiceRemoveCreditNoteCreditNote struct {
 	Id string `json:"id"`
 }
+
 type InvoiceVoidInvoiceRequest struct {
 	Comment        string `json:"comment,omitempty"`
 	VoidReasonCode string `json:"void_reason_code,omitempty"`
@@ -1729,6 +1772,7 @@ type InvoiceUpdateDetailsShippingAddress struct {
 type InvoiceUpdateDetailsStatementDescriptor struct {
 	Descriptor string `json:"descriptor,omitempty"`
 }
+
 type InvoiceApplyPaymentScheduleSchemeRequest struct {
 	SchemeId   string `json:"scheme_id"`
 	Amount     *int64 `json:"amount,omitempty"`

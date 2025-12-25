@@ -418,6 +418,7 @@ type CustomerBillingAddress struct {
 	ValidationStatus CustomerBillingAddressValidationStatus `json:"validation_status"`
 	Object           string                                 `json:"object"`
 }
+
 type CustomerReferralUrl struct {
 	ExternalCustomerId         string                            `json:"external_customer_id"`
 	ReferralSharingUrl         string                            `json:"referral_sharing_url"`
@@ -429,6 +430,7 @@ type CustomerReferralUrl struct {
 	ReferralSystem             CustomerReferralUrlReferralSystem `json:"referral_system"`
 	Object                     string                            `json:"object"`
 }
+
 type CustomerContact struct {
 	Id               string `json:"id"`
 	FirstName        string `json:"first_name"`
@@ -441,6 +443,7 @@ type CustomerContact struct {
 	SendBillingEmail bool   `json:"send_billing_email"`
 	Object           string `json:"object"`
 }
+
 type CustomerPaymentMethod struct {
 	Type             CustomerPaymentMethodType    `json:"type"`
 	Gateway          CustomerPaymentMethodGateway `json:"gateway"`
@@ -449,6 +452,7 @@ type CustomerPaymentMethod struct {
 	ReferenceId      string                       `json:"reference_id"`
 	Object           string                       `json:"object"`
 }
+
 type CustomerBalance struct {
 	PromotionalCredits  int64  `json:"promotional_credits"`
 	ExcessPayments      int64  `json:"excess_payments"`
@@ -459,6 +463,7 @@ type CustomerBalance struct {
 	BusinessEntityId    string `json:"business_entity_id"`
 	Object              string `json:"object"`
 }
+
 type CustomerEntityIdentifier struct {
 	Id       string `json:"id"`
 	Value    string `json:"value"`
@@ -466,18 +471,21 @@ type CustomerEntityIdentifier struct {
 	Standard string `json:"standard"`
 	Object   string `json:"object"`
 }
+
 type CustomerTaxProvidersField struct {
 	ProviderName string `json:"provider_name"`
 	FieldId      string `json:"field_id"`
 	FieldValue   string `json:"field_value"`
 	Object       string `json:"object"`
 }
+
 type CustomerRelationship struct {
 	ParentId       string `json:"parent_id"`
 	PaymentOwnerId string `json:"payment_owner_id"`
 	InvoiceOwnerId string `json:"invoice_owner_id"`
 	Object         string `json:"object"`
 }
+
 type CustomerParentAccountAccess struct {
 	PortalEditChildSubscriptions CustomerParentAccountAccessPortalEditChildSubscriptions `json:"portal_edit_child_subscriptions"`
 	PortalDownloadChildInvoices  CustomerParentAccountAccessPortalDownloadChildInvoices  `json:"portal_download_child_invoices"`
@@ -486,6 +494,7 @@ type CustomerParentAccountAccess struct {
 	SendPaymentEmails            bool                                                    `json:"send_payment_emails"`
 	Object                       string                                                  `json:"object"`
 }
+
 type CustomerChildAccountAccess struct {
 	PortalEditSubscriptions CustomerChildAccountAccessPortalEditSubscriptions `json:"portal_edit_subscriptions"`
 	PortalDownloadInvoices  CustomerChildAccountAccessPortalDownloadInvoices  `json:"portal_download_invoices"`
@@ -641,6 +650,7 @@ type CustomerCreateTaxProvidersField struct {
 	FieldId      string `json:"field_id,omitempty"`
 	FieldValue   string `json:"field_value,omitempty"`
 }
+
 type CustomerListRequest struct {
 	Limit                *int32            `json:"limit,omitempty"`
 	Offset               string            `json:"offset,omitempty"`
@@ -672,6 +682,7 @@ type CustomerListRelationship struct {
 	PaymentOwnerId *StringFilter `json:"payment_owner_id,omitempty"`
 	InvoiceOwnerId *StringFilter `json:"invoice_owner_id,omitempty"`
 }
+
 type CustomerUpdateRequest struct {
 	FirstName               string                             `json:"first_name,omitempty"`
 	LastName                string                             `json:"last_name,omitempty"`
@@ -708,6 +719,7 @@ type CustomerUpdateTaxProvidersField struct {
 	FieldId      string `json:"field_id,omitempty"`
 	FieldValue   string `json:"field_value,omitempty"`
 }
+
 type CustomerUpdatePaymentMethodRequest struct {
 	PaymentMethod *CustomerUpdatePaymentMethodPaymentMethod `json:"payment_method,omitempty"`
 	apiRequest    `json:"-" form:"-"`
@@ -725,6 +737,7 @@ type CustomerUpdatePaymentMethodPaymentMethod struct {
 	IssuingCountry        string                       `json:"issuing_country,omitempty"`
 	AdditionalInformation map[string]interface{}       `json:"additional_information,omitempty"`
 }
+
 type CustomerUpdateBillingInfoRequest struct {
 	BillingAddress                   *CustomerUpdateBillingInfoBillingAddress      `json:"billing_address,omitempty"`
 	EntityIdentifiers                []*CustomerUpdateBillingInfoEntityIdentifier  `json:"entity_identifiers,omitempty"`
@@ -775,6 +788,7 @@ type CustomerUpdateBillingInfoTaxProvidersField struct {
 	FieldId      string `json:"field_id,omitempty"`
 	FieldValue   string `json:"field_value,omitempty"`
 }
+
 type CustomerContactsForCustomerRequest struct {
 	Limit      *int32 `json:"limit,omitempty"`
 	Offset     string `json:"offset,omitempty"`
@@ -810,6 +824,7 @@ type CustomerAddContactContact struct {
 	SendBillingEmail *bool  `json:"send_billing_email,omitempty"`
 	SendAccountEmail *bool  `json:"send_account_email,omitempty"`
 }
+
 type CustomerUpdateContactRequest struct {
 	Contact    *CustomerUpdateContactContact `json:"contact,omitempty"`
 	apiRequest `json:"-" form:"-"`
@@ -829,6 +844,7 @@ type CustomerUpdateContactContact struct {
 	SendBillingEmail *bool  `json:"send_billing_email,omitempty"`
 	SendAccountEmail *bool  `json:"send_account_email,omitempty"`
 }
+
 type CustomerDeleteContactRequest struct {
 	Contact    *CustomerDeleteContactContact `json:"contact,omitempty"`
 	apiRequest `json:"-" form:"-"`
@@ -840,6 +856,7 @@ func (r *CustomerDeleteContactRequest) payload() any { return r }
 type CustomerDeleteContactContact struct {
 	Id string `json:"id"`
 }
+
 type CustomerAddPromotionalCreditsRequest struct {
 	Amount       *int64             `json:"amount"`
 	CurrencyCode string             `json:"currency_code,omitempty"`
@@ -891,6 +908,7 @@ type CustomerRecordExcessPaymentTransaction struct {
 	ReferenceNumber       string                           `json:"reference_number,omitempty"`
 	CustomPaymentMethodId string                           `json:"custom_payment_method_id,omitempty"`
 }
+
 type CustomerCollectPaymentRequest struct {
 	Amount                      *int64                                     `json:"amount,omitempty"`
 	InvoiceAllocations          []*CustomerCollectPaymentInvoiceAllocation `json:"invoice_allocations,omitempty"`
@@ -952,6 +970,7 @@ type CustomerCollectPaymentPaymentIntent struct {
 	ReferenceId           string                                 `json:"reference_id,omitempty"`
 	AdditionalInformation map[string]interface{}                 `json:"additional_information,omitempty"`
 }
+
 type CustomerDeleteRequest struct {
 	DeletePaymentMethod *bool `json:"delete_payment_method,omitempty"`
 	apiRequest          `json:"-" form:"-"`
@@ -1015,6 +1034,7 @@ type CustomerRelationshipsChildAccountAccess struct {
 	SendPaymentEmails       *bool                                             `json:"send_payment_emails,omitempty"`
 	SendInvoiceEmails       *bool                                             `json:"send_invoice_emails,omitempty"`
 }
+
 type CustomerHierarchyRequest struct {
 	HierarchyOperationType CustomerHierarchyOperationType `json:"hierarchy_operation_type"`
 	apiRequest             `json:"-" form:"-"`

@@ -155,6 +155,7 @@ type InvoiceEstimateLineItem struct {
 	CustomerId              string                                 `json:"customer_id"`
 	Object                  string                                 `json:"object"`
 }
+
 type InvoiceEstimateLineItemTier struct {
 	LineItemId            string                                 `json:"line_item_id"`
 	StartingUnit          int32                                  `json:"starting_unit"`
@@ -169,6 +170,7 @@ type InvoiceEstimateLineItemTier struct {
 	PackageSize           int32                                  `json:"package_size"`
 	Object                string                                 `json:"object"`
 }
+
 type InvoiceEstimateLineItemDiscount struct {
 	LineItemId     string                                      `json:"line_item_id"`
 	DiscountType   InvoiceEstimateLineItemDiscountDiscountType `json:"discount_type"`
@@ -177,6 +179,7 @@ type InvoiceEstimateLineItemDiscount struct {
 	DiscountAmount int64                                       `json:"discount_amount"`
 	Object         string                                      `json:"object"`
 }
+
 type InvoiceEstimateLineItemTax struct {
 	LineItemId               string                                 `json:"line_item_id"`
 	TaxName                  string                                 `json:"tax_name"`
@@ -195,12 +198,14 @@ type InvoiceEstimateLineItemTax struct {
 	LocalCurrencyCode        string                                 `json:"local_currency_code"`
 	Object                   string                                 `json:"object"`
 }
+
 type InvoiceEstimateLineItemCredit struct {
 	CnId          string  `json:"cn_id"`
 	AppliedAmount float64 `json:"applied_amount"`
 	LineItemId    string  `json:"line_item_id"`
 	Object        string  `json:"object"`
 }
+
 type InvoiceEstimateLineItemAddress struct {
 	LineItemId       string                                         `json:"line_item_id"`
 	FirstName        string                                         `json:"first_name"`
@@ -219,6 +224,7 @@ type InvoiceEstimateLineItemAddress struct {
 	ValidationStatus InvoiceEstimateLineItemAddressValidationStatus `json:"validation_status"`
 	Object           string                                         `json:"object"`
 }
+
 type InvoiceEstimateDiscount struct {
 	Amount        int64                               `json:"amount"`
 	Description   string                              `json:"description"`
@@ -229,6 +235,7 @@ type InvoiceEstimateDiscount struct {
 	CouponSetCode string                              `json:"coupon_set_code"`
 	Object        string                              `json:"object"`
 }
+
 type InvoiceEstimateTax struct {
 	Name        string `json:"name"`
 	Amount      int64  `json:"amount"`

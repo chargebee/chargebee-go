@@ -309,6 +309,7 @@ type EstimateCreateSubscriptionTaxProvidersField struct {
 	FieldId      string `json:"field_id,omitempty"`
 	FieldValue   string `json:"field_value,omitempty"`
 }
+
 type EstimateCreateSubItemEstimateRequest struct {
 	Subscription           *EstimateCreateSubItemEstimateSubscription        `json:"subscription,omitempty"`
 	BillingCycles          *int32                                            `json:"billing_cycles,omitempty"`
@@ -437,6 +438,7 @@ type EstimateCreateSubItemEstimateTaxProvidersField struct {
 	FieldId      string `json:"field_id,omitempty"`
 	FieldValue   string `json:"field_value,omitempty"`
 }
+
 type EstimateCreateSubForCustomerEstimateRequest struct {
 	UseExistingBalances     *bool                                                  `json:"use_existing_balances,omitempty"`
 	Subscription            *EstimateCreateSubForCustomerEstimateSubscription      `json:"subscription,omitempty"`
@@ -515,6 +517,7 @@ type EstimateCreateSubForCustomerEstimateContractTerm struct {
 	ActionAtTermEnd          EstimateContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	CancellationCutoffPeriod *int32                              `json:"cancellation_cutoff_period,omitempty"`
 }
+
 type EstimateCreateSubItemForCustomerEstimateRequest struct {
 	UseExistingBalances    *bool                                                       `json:"use_existing_balances,omitempty"`
 	Subscription           *EstimateCreateSubItemForCustomerEstimateSubscription       `json:"subscription,omitempty"`
@@ -628,6 +631,7 @@ type EstimateCreateSubItemForCustomerEstimateBillingOverride struct {
 	MaxExcessPaymentUsage     *int64 `json:"max_excess_payment_usage,omitempty"`
 	MaxRefundableCreditsUsage *int64 `json:"max_refundable_credits_usage,omitempty"`
 }
+
 type EstimateUpdateSubscriptionRequest struct {
 	Subscription            *EstimateUpdateSubscriptionSubscription      `json:"subscription,omitempty"`
 	ChangesScheduledAt      *int64                                       `json:"changes_scheduled_at,omitempty"`
@@ -733,6 +737,7 @@ type EstimateUpdateSubscriptionCustomer struct {
 	RegisteredForGst *bool                      `json:"registered_for_gst,omitempty"`
 	Taxability       EstimateCustomerTaxability `json:"taxability,omitempty"`
 }
+
 type EstimateUpdateSubscriptionForItemsRequest struct {
 	Subscription           *EstimateUpdateSubscriptionForItemsSubscription       `json:"subscription,omitempty"`
 	ChangesScheduledAt     *int64                                                `json:"changes_scheduled_at,omitempty"`
@@ -862,6 +867,7 @@ type EstimateUpdateSubscriptionForItemsBillingOverride struct {
 	MaxExcessPaymentUsage     *int64 `json:"max_excess_payment_usage,omitempty"`
 	MaxRefundableCreditsUsage *int64 `json:"max_refundable_credits_usage,omitempty"`
 }
+
 type EstimateRenewalEstimateRequest struct {
 	IncludeDelayedCharges       *bool `json:"include_delayed_charges,omitempty"`
 	UseExistingBalances         *bool `json:"use_existing_balances,omitempty"`
@@ -896,6 +902,7 @@ type EstimateAdvanceInvoiceEstimateFixedIntervalSchedule struct {
 	EndScheduleOn       EstimateFixedIntervalScheduleEndScheduleOn `json:"end_schedule_on,omitempty"`
 	EndDate             *int64                                     `json:"end_date,omitempty"`
 }
+
 type EstimateRegenerateInvoiceEstimateRequest struct {
 	DateFrom           *int64 `json:"date_from,omitempty"`
 	DateTo             *int64 `json:"date_to,omitempty"`
@@ -939,6 +946,7 @@ type EstimateCancelSubscriptionEventBasedAddon struct {
 	UnitPrice           *int64 `json:"unit_price,omitempty"`
 	ServicePeriodInDays *int32 `json:"service_period_in_days,omitempty"`
 }
+
 type EstimateCancelSubscriptionForItemsRequest struct {
 	CancelOption                      EstimateCancelOption                                  `json:"cancel_option,omitempty"`
 	EndOfTerm                         *bool                                                 `json:"end_of_term,omitempty"`
@@ -965,6 +973,7 @@ type EstimateCancelSubscriptionForItemsSubscriptionItem struct {
 	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
 	ServicePeriodDays  *int32 `json:"service_period_days,omitempty"`
 }
+
 type EstimatePauseSubscriptionRequest struct {
 	PauseOption             EstimatePauseOption                    `json:"pause_option,omitempty"`
 	Subscription            *EstimatePauseSubscriptionSubscription `json:"subscription,omitempty"`
@@ -980,6 +989,7 @@ type EstimatePauseSubscriptionSubscription struct {
 	ResumeDate        *int64 `json:"resume_date,omitempty"`
 	SkipBillingCycles *int32 `json:"skip_billing_cycles,omitempty"`
 }
+
 type EstimateResumeSubscriptionRequest struct {
 	ResumeOption    EstimateResumeOption                    `json:"resume_option,omitempty"`
 	Subscription    *EstimateResumeSubscriptionSubscription `json:"subscription,omitempty"`
@@ -993,6 +1003,7 @@ func (r *EstimateResumeSubscriptionRequest) payload() any { return r }
 type EstimateResumeSubscriptionSubscription struct {
 	ResumeDate *int64 `json:"resume_date,omitempty"`
 }
+
 type EstimateGiftSubscriptionRequest struct {
 	Gift            *EstimateGiftSubscriptionGift            `json:"gift,omitempty"`
 	Gifter          *EstimateGiftSubscriptionGifter          `json:"gifter,omitempty"`
@@ -1073,6 +1084,7 @@ type EstimateGiftSubscriptionAddon struct {
 	Quantity          *int32 `json:"quantity,omitempty"`
 	QuantityInDecimal string `json:"quantity_in_decimal,omitempty"`
 }
+
 type EstimateGiftSubscriptionForItemsRequest struct {
 	Gift              *EstimateGiftSubscriptionForItemsGift               `json:"gift,omitempty"`
 	Gifter            *EstimateGiftSubscriptionForItemsGifter             `json:"gifter,omitempty"`
@@ -1159,6 +1171,7 @@ type EstimateGiftSubscriptionForItemsItemTier struct {
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
+
 type EstimateCreateInvoiceRequest struct {
 	Invoice                    *EstimateCreateInvoiceInvoice             `json:"invoice,omitempty"`
 	CurrencyCode               string                                    `json:"currency_code,omitempty"`
@@ -1244,6 +1257,7 @@ type EstimateCreateInvoiceTaxProvidersField struct {
 	FieldId      string `json:"field_id,omitempty"`
 	FieldValue   string `json:"field_value,omitempty"`
 }
+
 type EstimateCreateInvoiceForItemsRequest struct {
 	Invoice                    *EstimateCreateInvoiceForItemsInvoice             `json:"invoice,omitempty"`
 	CurrencyCode               string                                            `json:"currency_code,omitempty"`
@@ -1366,6 +1380,7 @@ type EstimateCreateInvoiceForItemsBillingAddress struct {
 	Country          string                                 `json:"country,omitempty"`
 	ValidationStatus EstimateBillingAddressValidationStatus `json:"validation_status,omitempty"`
 }
+
 type EstimatePaymentSchedulesRequest struct {
 	SchemeId                 string `json:"scheme_id"`
 	Amount                   *int64 `json:"amount,omitempty"`

@@ -234,6 +234,7 @@ type OrderOrderLineItem struct {
 	EntityId                string                       `json:"entity_id"`
 	Object                  string                       `json:"object"`
 }
+
 type OrderShippingAddress struct {
 	FirstName        string                               `json:"first_name"`
 	LastName         string                               `json:"last_name"`
@@ -251,6 +252,7 @@ type OrderShippingAddress struct {
 	ValidationStatus OrderShippingAddressValidationStatus `json:"validation_status"`
 	Object           string                               `json:"object"`
 }
+
 type OrderBillingAddress struct {
 	FirstName        string                              `json:"first_name"`
 	LastName         string                              `json:"last_name"`
@@ -268,6 +270,7 @@ type OrderBillingAddress struct {
 	ValidationStatus OrderBillingAddressValidationStatus `json:"validation_status"`
 	Object           string                              `json:"object"`
 }
+
 type OrderLineItemTax struct {
 	LineItemId               string                       `json:"line_item_id"`
 	TaxName                  string                       `json:"tax_name"`
@@ -286,6 +289,7 @@ type OrderLineItemTax struct {
 	LocalCurrencyCode        string                       `json:"local_currency_code"`
 	Object                   string                       `json:"object"`
 }
+
 type OrderLineItemDiscount struct {
 	LineItemId     string                            `json:"line_item_id"`
 	DiscountType   OrderLineItemDiscountDiscountType `json:"discount_type"`
@@ -294,6 +298,7 @@ type OrderLineItemDiscount struct {
 	DiscountAmount int64                             `json:"discount_amount"`
 	Object         string                            `json:"object"`
 }
+
 type OrderLinkedCreditNote struct {
 	Amount         int64                       `json:"amount"`
 	Type           OrderLinkedCreditNoteType   `json:"type"`
@@ -303,6 +308,7 @@ type OrderLinkedCreditNote struct {
 	AmountRefunded int64                       `json:"amount_refunded"`
 	Object         string                      `json:"object"`
 }
+
 type OrderResentOrder struct {
 	OrderId string `json:"order_id"`
 	Reason  string `json:"reason"`
@@ -373,6 +379,7 @@ type OrderUpdateShippingAddress struct {
 	Country          string                               `json:"country,omitempty"`
 	ValidationStatus OrderShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
+
 type OrderImportOrderRequest struct {
 	Id                      string                           `json:"id,omitempty"`
 	DocumentNumber          string                           `json:"document_number,omitempty"`
@@ -438,6 +445,7 @@ type OrderImportOrderBillingAddress struct {
 	Country          string                              `json:"country,omitempty"`
 	ValidationStatus OrderBillingAddressValidationStatus `json:"validation_status,omitempty"`
 }
+
 type OrderCancelRequest struct {
 	CancellationReason OrderCancellationReason `json:"cancellation_reason"`
 	CreditNote         *OrderCancelCreditNote  `json:"credit_note,omitempty"`
@@ -453,6 +461,7 @@ func (r *OrderCancelRequest) payload() any { return r }
 type OrderCancelCreditNote struct {
 	Total *int64 `json:"total,omitempty"`
 }
+
 type OrderCreateRefundableCreditNoteRequest struct {
 	CreditNote    *OrderCreateRefundableCreditNoteCreditNote `json:"credit_note,omitempty"`
 	CustomerNotes string                                     `json:"customer_notes,omitempty"`
@@ -467,6 +476,7 @@ type OrderCreateRefundableCreditNoteCreditNote struct {
 	ReasonCode OrderCreditNoteReasonCode `json:"reason_code"`
 	Total      *int64                    `json:"total"`
 }
+
 type OrderReopenRequest struct {
 	VoidCancellationCreditNotes *bool `json:"void_cancellation_credit_notes,omitempty"`
 	apiRequest                  `json:"-" form:"-"`

@@ -75,6 +75,7 @@ type FeatureCreateLevel struct {
 	IsUnlimited *bool  `json:"is_unlimited,omitempty"`
 	Level       *int32 `json:"level,omitempty"`
 }
+
 type FeatureUpdateRequest struct {
 	Name        string                `json:"name,omitempty"`
 	Description string                `json:"description,omitempty"`

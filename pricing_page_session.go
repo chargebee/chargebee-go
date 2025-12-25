@@ -97,6 +97,7 @@ type PricingPageSessionCreateForNewSubscriptionShippingAddress struct {
 	Country          string                                            `json:"country,omitempty"`
 	ValidationStatus PricingPageSessionShippingAddressValidationStatus `json:"validation_status,omitempty"`
 }
+
 type PricingPageSessionCreateForExistingSubscriptionRequest struct {
 	RedirectUrl  string                                                       `json:"redirect_url,omitempty"`
 	PricingPage  *PricingPageSessionCreateForExistingSubscriptionPricingPage  `json:"pricing_page,omitempty"`

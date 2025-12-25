@@ -515,6 +515,7 @@ type SubscriptionSubscriptionItem struct {
 	UsageAccumulationResetFrequency SubscriptionSubscriptionItemUsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency"`
 	Object                          string                                                      `json:"object"`
 }
+
 type SubscriptionItemTier struct {
 	ItemPriceId           string                          `json:"item_price_id"`
 	StartingUnit          int32                           `json:"starting_unit"`
@@ -528,11 +529,13 @@ type SubscriptionItemTier struct {
 	Index                 int32                           `json:"index"`
 	Object                string                          `json:"object"`
 }
+
 type SubscriptionChargedItem struct {
 	ItemPriceId   string `json:"item_price_id"`
 	LastChargedAt int64  `json:"last_charged_at"`
 	Object        string `json:"object"`
 }
+
 type SubscriptionCoupon struct {
 	CouponId     string `json:"coupon_id"`
 	ApplyTill    int64  `json:"apply_till"`
@@ -540,6 +543,7 @@ type SubscriptionCoupon struct {
 	CouponCode   string `json:"coupon_code"`
 	Object       string `json:"object"`
 }
+
 type SubscriptionShippingAddress struct {
 	FirstName        string                                      `json:"first_name"`
 	LastName         string                                      `json:"last_name"`
@@ -557,6 +561,7 @@ type SubscriptionShippingAddress struct {
 	ValidationStatus SubscriptionShippingAddressValidationStatus `json:"validation_status"`
 	Object           string                                      `json:"object"`
 }
+
 type SubscriptionReferralInfo struct {
 	ReferralCode              string                                       `json:"referral_code"`
 	CouponCode                string                                       `json:"coupon_code"`
@@ -574,11 +579,13 @@ type SubscriptionReferralInfo struct {
 	PostPurchaseWidgetEnabled bool                                         `json:"post_purchase_widget_enabled"`
 	Object                    string                                       `json:"object"`
 }
+
 type SubscriptionBillingOverride struct {
 	MaxExcessPaymentUsage     int64  `json:"max_excess_payment_usage"`
 	MaxRefundableCreditsUsage int64  `json:"max_refundable_credits_usage"`
 	Object                    string `json:"object"`
 }
+
 type SubscriptionContractTerm struct {
 	Id                          string                                  `json:"id"`
 	Status                      SubscriptionContractTermStatus          `json:"status"`
@@ -594,6 +601,7 @@ type SubscriptionContractTerm struct {
 	RemainingBillingCycles      int32                                   `json:"remaining_billing_cycles"`
 	Object                      string                                  `json:"object"`
 }
+
 type SubscriptionDiscount struct {
 	Id            string                           `json:"id"`
 	InvoiceName   string                           `json:"invoice_name"`
@@ -615,6 +623,7 @@ type SubscriptionDiscount struct {
 	Index         int32                            `json:"index"`
 	Object        string                           `json:"object"`
 }
+
 type SubscriptionAddon struct {
 	Id                     string                         `json:"id"`
 	Quantity               int32                          `json:"quantity"`
@@ -628,11 +637,13 @@ type SubscriptionAddon struct {
 	ProrationType          SubscriptionAddonProrationType `json:"proration_type"`
 	Object                 string                         `json:"object"`
 }
+
 type SubscriptionChargedEventBasedAddon struct {
 	Id            string `json:"id"`
 	LastChargedAt int64  `json:"last_charged_at"`
 	Object        string `json:"object"`
 }
+
 type SubscriptionEventBasedAddon struct {
 	Id                  string                             `json:"id"`
 	Quantity            int32                              `json:"quantity"`
@@ -883,6 +894,7 @@ type SubscriptionCreateCoupon struct {
 	CouponId  string `json:"coupon_id,omitempty"`
 	ApplyTill *int64 `json:"apply_till,omitempty"`
 }
+
 type SubscriptionCreateForCustomerRequest struct {
 	Id                                string                                            `json:"id,omitempty"`
 	PlanId                            string                                            `json:"plan_id"`
@@ -994,6 +1006,7 @@ type SubscriptionCreateForCustomerCoupon struct {
 	CouponId  string `json:"coupon_id,omitempty"`
 	ApplyTill *int64 `json:"apply_till,omitempty"`
 }
+
 type SubscriptionCreateWithItemsRequest struct {
 	Id                                string                                          `json:"id,omitempty"`
 	BusinessEntityId                  string                                          `json:"business_entity_id,omitempty"`
@@ -1132,6 +1145,7 @@ type SubscriptionCreateWithItemsBillingOverride struct {
 	MaxExcessPaymentUsage     *int64 `json:"max_excess_payment_usage,omitempty"`
 	MaxRefundableCreditsUsage *int64 `json:"max_refundable_credits_usage,omitempty"`
 }
+
 type SubscriptionListRequest struct {
 	Limit                  *int32           `json:"limit,omitempty"`
 	Offset                 string           `json:"offset,omitempty"`
@@ -1201,6 +1215,7 @@ type SubscriptionRemoveScheduledCancellationContractTerm struct {
 	ActionAtTermEnd          SubscriptionContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	CancellationCutoffPeriod *int32                                  `json:"cancellation_cutoff_period,omitempty"`
 }
+
 type SubscriptionRemoveCouponsRequest struct {
 	CouponIds  []string `json:"coupon_ids,omitempty"`
 	apiRequest `json:"-" form:"-"`
@@ -1394,6 +1409,7 @@ type SubscriptionUpdateCoupon struct {
 	CouponId  string `json:"coupon_id,omitempty"`
 	ApplyTill *int64 `json:"apply_till,omitempty"`
 }
+
 type SubscriptionUpdateForItemsRequest struct {
 	SubscriptionItems                 []*SubscriptionUpdateForItemsSubscriptionItem  `json:"subscription_items,omitempty"`
 	MandatoryItemsToRemove            []string                                       `json:"mandatory_items_to_remove,omitempty"`
@@ -1609,6 +1625,7 @@ type SubscriptionUpdateForItemsBillingOverride struct {
 	MaxExcessPaymentUsage     *int64 `json:"max_excess_payment_usage,omitempty"`
 	MaxRefundableCreditsUsage *int64 `json:"max_refundable_credits_usage,omitempty"`
 }
+
 type SubscriptionChangeTermEndRequest struct {
 	TermEndsAt         *int64 `json:"term_ends_at"`
 	Prorate            *bool  `json:"prorate,omitempty"`
@@ -1657,6 +1674,7 @@ type SubscriptionReactivatePaymentIntent struct {
 	GwPaymentMethodId     string                                     `json:"gw_payment_method_id,omitempty"`
 	AdditionalInformation map[string]interface{}                     `json:"additional_information,omitempty"`
 }
+
 type SubscriptionAddChargeAtTermEndRequest struct {
 	Amount                 *int64                      `json:"amount,omitempty"`
 	Description            string                      `json:"description"`
@@ -1708,6 +1726,7 @@ type SubscriptionChargeFutureRenewalsFixedIntervalSchedule struct {
 	EndScheduleOn       SubscriptionFixedIntervalScheduleEndScheduleOn `json:"end_schedule_on,omitempty"`
 	EndDate             *int64                                         `json:"end_date,omitempty"`
 }
+
 type SubscriptionEditAdvanceInvoiceScheduleRequest struct {
 	TermsToCharge         *int32                                                         `json:"terms_to_charge,omitempty"`
 	ScheduleType          SubscriptionScheduleType                                       `json:"schedule_type,omitempty"`
@@ -1732,6 +1751,7 @@ type SubscriptionEditAdvanceInvoiceScheduleFixedIntervalSchedule struct {
 	EndScheduleOn       SubscriptionFixedIntervalScheduleEndScheduleOn `json:"end_schedule_on,omitempty"`
 	EndDate             *int64                                         `json:"end_date,omitempty"`
 }
+
 type SubscriptionRemoveAdvanceInvoiceScheduleRequest struct {
 	SpecificDatesSchedule []*SubscriptionRemoveAdvanceInvoiceScheduleSpecificDatesSchedule `json:"specific_dates_schedule,omitempty"`
 	apiRequest            `json:"-" form:"-"`
@@ -1743,6 +1763,7 @@ func (r *SubscriptionRemoveAdvanceInvoiceScheduleRequest) payload() any { return
 type SubscriptionRemoveAdvanceInvoiceScheduleSpecificDatesSchedule struct {
 	Id string `json:"id,omitempty"`
 }
+
 type SubscriptionRegenerateInvoiceRequest struct {
 	DateFrom           *int64 `json:"date_from,omitempty"`
 	DateTo             *int64 `json:"date_to,omitempty"`
@@ -1940,6 +1961,7 @@ type SubscriptionImportSubscriptionCoupon struct {
 	CouponId  string `json:"coupon_id,omitempty"`
 	ApplyTill *int64 `json:"apply_till,omitempty"`
 }
+
 type SubscriptionImportForCustomerRequest struct {
 	Id                                string                                                 `json:"id,omitempty"`
 	PlanId                            string                                                 `json:"plan_id"`
@@ -2051,6 +2073,7 @@ type SubscriptionImportForCustomerCoupon struct {
 	CouponId  string `json:"coupon_id,omitempty"`
 	ApplyTill *int64 `json:"apply_till,omitempty"`
 }
+
 type SubscriptionImportContractTermRequest struct {
 	ContractTerm                      *SubscriptionImportContractTermContractTerm `json:"contract_term,omitempty"`
 	ContractTermBillingCycleOnRenewal *int32                                      `json:"contract_term_billing_cycle_on_renewal,omitempty"`
@@ -2074,6 +2097,7 @@ type SubscriptionImportContractTermContractTerm struct {
 	ActionAtTermEnd             SubscriptionContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	CancellationCutoffPeriod    *int32                                  `json:"cancellation_cutoff_period,omitempty"`
 }
+
 type SubscriptionImportUnbilledChargesRequest struct {
 	UnbilledCharges []*SubscriptionImportUnbilledChargesUnbilledCharge `json:"unbilled_charges,omitempty"`
 	Discounts       []*SubscriptionImportUnbilledChargesDiscount       `json:"discounts,omitempty"`
@@ -2123,6 +2147,7 @@ type SubscriptionImportUnbilledChargesTier struct {
 	QuantityUsedInDecimal string `json:"quantity_used_in_decimal,omitempty"`
 	UnitAmountInDecimal   string `json:"unit_amount_in_decimal,omitempty"`
 }
+
 type SubscriptionImportForItemsRequest struct {
 	ExhaustedCouponIds                []string                                      `json:"exhausted_coupon_ids,omitempty"`
 	Id                                string                                        `json:"id,omitempty"`
@@ -2253,6 +2278,7 @@ type SubscriptionImportForItemsCoupon struct {
 	CouponId  string `json:"coupon_id,omitempty"`
 	ApplyTill *int64 `json:"apply_till,omitempty"`
 }
+
 type SubscriptionOverrideBillingProfileRequest struct {
 	PaymentSourceId string                     `json:"payment_source_id,omitempty"`
 	AutoCollection  SubscriptionAutoCollection `json:"auto_collection,omitempty"`
@@ -2297,6 +2323,7 @@ type SubscriptionCancelEventBasedAddon struct {
 	UnitPrice           *int64 `json:"unit_price,omitempty"`
 	ServicePeriodInDays *int32 `json:"service_period_in_days,omitempty"`
 }
+
 type SubscriptionCancelForItemsRequest struct {
 	CancelOption                      SubscriptionCancelOption                      `json:"cancel_option,omitempty"`
 	EndOfTerm                         *bool                                         `json:"end_of_term,omitempty"`
@@ -2323,6 +2350,7 @@ type SubscriptionCancelForItemsSubscriptionItem struct {
 	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
 	ServicePeriodDays  *int32 `json:"service_period_days,omitempty"`
 }
+
 type SubscriptionResumeRequest struct {
 	ResumeOption           SubscriptionResumeOption           `json:"resume_option,omitempty"`
 	ResumeDate             *int64                             `json:"resume_date,omitempty"`
@@ -2345,6 +2373,7 @@ type SubscriptionResumePaymentIntent struct {
 	GwPaymentMethodId     string                                     `json:"gw_payment_method_id,omitempty"`
 	AdditionalInformation map[string]interface{}                     `json:"additional_information,omitempty"`
 }
+
 type SubscriptionMoveRequest struct {
 	ToCustomerId      string `json:"to_customer_id"`
 	CopyPaymentSource *bool  `json:"copy_payment_source,omitempty"`

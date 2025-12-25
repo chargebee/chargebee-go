@@ -162,6 +162,7 @@ type ItemPriceTier struct {
 	PackageSize           int32                    `json:"package_size"`
 	Object                string                   `json:"object"`
 }
+
 type ItemPriceTaxDetail struct {
 	TaxProfileId           string                            `json:"tax_profile_id"`
 	AvalaraSaleType        ItemPriceTaxDetailAvalaraSaleType `json:"avalara_sale_type"`
@@ -172,12 +173,14 @@ type ItemPriceTaxDetail struct {
 	TaxjarProductCode      string                            `json:"taxjar_product_code"`
 	Object                 string                            `json:"object"`
 }
+
 type ItemPriceTaxProvidersField struct {
 	ProviderName string `json:"provider_name"`
 	FieldId      string `json:"field_id"`
 	FieldValue   string `json:"field_value"`
 	Object       string `json:"object"`
 }
+
 type ItemPriceAccountingDetail struct {
 	Sku                 string `json:"sku"`
 	AccountingCode      string `json:"accounting_code"`
@@ -267,6 +270,7 @@ type ItemPriceCreateAccountingDetail struct {
 	AccountingCategory3 string `json:"accounting_category3,omitempty"`
 	AccountingCategory4 string `json:"accounting_category4,omitempty"`
 }
+
 type ItemPriceUpdateRequest struct {
 	Name                            string                                   `json:"name,omitempty"`
 	Description                     string                                   `json:"description,omitempty"`
@@ -342,6 +346,7 @@ type ItemPriceUpdateAccountingDetail struct {
 	AccountingCategory3 string `json:"accounting_category3,omitempty"`
 	AccountingCategory4 string `json:"accounting_category4,omitempty"`
 }
+
 type ItemPriceListRequest struct {
 	Limit                     *int32           `json:"limit,omitempty"`
 	Offset                    string           `json:"offset,omitempty"`

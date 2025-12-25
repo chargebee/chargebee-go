@@ -37,10 +37,12 @@ type RecordedPurchaseLinkedOmnichannelSubscription struct {
 	OmnichannelSubscriptionId string `json:"omnichannel_subscription_id"`
 	Object                    string `json:"object"`
 }
+
 type RecordedPurchaseLinkedOmnichannelOneTimeOrder struct {
 	OmnichannelOneTimeOrderId string `json:"omnichannel_one_time_order_id"`
 	Object                    string `json:"object"`
 }
+
 type RecordedPurchaseErrorDetail struct {
 	ErrorMessage string `json:"error_message"`
 	Object       string `json:"object"`

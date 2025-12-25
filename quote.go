@@ -244,6 +244,7 @@ type QuoteLineItem struct {
 	CustomerId              string                       `json:"customer_id"`
 	Object                  string                       `json:"object"`
 }
+
 type QuoteLineItemTier struct {
 	LineItemId            string                       `json:"line_item_id"`
 	StartingUnit          int32                        `json:"starting_unit"`
@@ -258,6 +259,7 @@ type QuoteLineItemTier struct {
 	PackageSize           int32                        `json:"package_size"`
 	Object                string                       `json:"object"`
 }
+
 type QuoteLineItemDiscount struct {
 	LineItemId     string                            `json:"line_item_id"`
 	DiscountType   QuoteLineItemDiscountDiscountType `json:"discount_type"`
@@ -266,6 +268,7 @@ type QuoteLineItemDiscount struct {
 	DiscountAmount int64                             `json:"discount_amount"`
 	Object         string                            `json:"object"`
 }
+
 type QuoteLineItemTax struct {
 	LineItemId               string                       `json:"line_item_id"`
 	TaxName                  string                       `json:"tax_name"`
@@ -284,6 +287,7 @@ type QuoteLineItemTax struct {
 	LocalCurrencyCode        string                       `json:"local_currency_code"`
 	Object                   string                       `json:"object"`
 }
+
 type QuoteDiscount struct {
 	Amount        int64                     `json:"amount"`
 	Description   string                    `json:"description"`
@@ -294,12 +298,14 @@ type QuoteDiscount struct {
 	CouponSetCode string                    `json:"coupon_set_code"`
 	Object        string                    `json:"object"`
 }
+
 type QuoteTax struct {
 	Name        string `json:"name"`
 	Amount      int64  `json:"amount"`
 	Description string `json:"description"`
 	Object      string `json:"object"`
 }
+
 type QuoteShippingAddress struct {
 	FirstName        string                               `json:"first_name"`
 	LastName         string                               `json:"last_name"`
@@ -317,6 +323,7 @@ type QuoteShippingAddress struct {
 	ValidationStatus QuoteShippingAddressValidationStatus `json:"validation_status"`
 	Object           string                               `json:"object"`
 }
+
 type QuoteBillingAddress struct {
 	FirstName        string                              `json:"first_name"`
 	LastName         string                              `json:"last_name"`
@@ -419,6 +426,7 @@ type QuoteCreateSubForCustomerQuoteContractTerm struct {
 	ActionAtTermEnd          QuoteContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
+
 type QuoteEditCreateSubForCustomerQuoteRequest struct {
 	Notes                   string                                               `json:"notes,omitempty"`
 	ExpiresAt               *int64                                               `json:"expires_at,omitempty"`
@@ -500,6 +508,7 @@ type QuoteEditCreateSubForCustomerQuoteContractTerm struct {
 	ActionAtTermEnd          QuoteContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
+
 type QuoteUpdateSubscriptionQuoteRequest struct {
 	Name                    string                                         `json:"name,omitempty"`
 	Notes                   string                                         `json:"notes,omitempty"`
@@ -617,6 +626,7 @@ type QuoteUpdateSubscriptionQuoteContractTerm struct {
 	ActionAtTermEnd          QuoteContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
+
 type QuoteEditUpdateSubscriptionQuoteRequest struct {
 	Notes                   string                                             `json:"notes,omitempty"`
 	ExpiresAt               *int64                                             `json:"expires_at,omitempty"`
@@ -732,6 +742,7 @@ type QuoteEditUpdateSubscriptionQuoteContractTerm struct {
 	ActionAtTermEnd          QuoteContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
 	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }
+
 type QuoteCreateForOnetimeChargesRequest struct {
 	Name               string                                           `json:"name,omitempty"`
 	CustomerId         string                                           `json:"customer_id"`
@@ -795,6 +806,7 @@ type QuoteCreateForOnetimeChargesTaxProvidersField struct {
 	FieldId      string `json:"field_id,omitempty"`
 	FieldValue   string `json:"field_value,omitempty"`
 }
+
 type QuoteEditOneTimeQuoteRequest struct {
 	PoNumber           string                                    `json:"po_number,omitempty"`
 	Notes              string                                    `json:"notes,omitempty"`
@@ -856,6 +868,7 @@ type QuoteEditOneTimeQuoteTaxProvidersField struct {
 	FieldId      string `json:"field_id,omitempty"`
 	FieldValue   string `json:"field_value,omitempty"`
 }
+
 type QuoteCreateSubItemsForCustomerQuoteRequest struct {
 	Name                   string                                                 `json:"name,omitempty"`
 	Notes                  string                                                 `json:"notes,omitempty"`
@@ -987,6 +1000,7 @@ type QuoteCreateSubItemsForCustomerQuoteCoupon struct {
 	StartDate *int64 `json:"start_date,omitempty"`
 	EndDate   *int64 `json:"end_date,omitempty"`
 }
+
 type QuoteEditCreateSubCustomerQuoteForItemsRequest struct {
 	Notes                  string                                                     `json:"notes,omitempty"`
 	ExpiresAt              *int64                                                     `json:"expires_at,omitempty"`
@@ -1117,6 +1131,7 @@ type QuoteEditCreateSubCustomerQuoteForItemsCoupon struct {
 	StartDate *int64 `json:"start_date,omitempty"`
 	EndDate   *int64 `json:"end_date,omitempty"`
 }
+
 type QuoteUpdateSubscriptionQuoteForItemsRequest struct {
 	Name                   string                                                  `json:"name,omitempty"`
 	Notes                  string                                                  `json:"notes,omitempty"`
@@ -1265,6 +1280,7 @@ type QuoteUpdateSubscriptionQuoteForItemsCoupon struct {
 	StartDate *int64 `json:"start_date,omitempty"`
 	EndDate   *int64 `json:"end_date,omitempty"`
 }
+
 type QuoteEditUpdateSubscriptionQuoteForItemsRequest struct {
 	Notes                  string                                                      `json:"notes,omitempty"`
 	ExpiresAt              *int64                                                      `json:"expires_at,omitempty"`
@@ -1411,6 +1427,7 @@ type QuoteEditUpdateSubscriptionQuoteForItemsCoupon struct {
 	StartDate *int64 `json:"start_date,omitempty"`
 	EndDate   *int64 `json:"end_date,omitempty"`
 }
+
 type QuoteCreateForChargeItemsAndChargesRequest struct {
 	Name               string                                                  `json:"name,omitempty"`
 	CustomerId         string                                                  `json:"customer_id"`
@@ -1517,6 +1534,7 @@ type QuoteCreateForChargeItemsAndChargesTaxProvidersField struct {
 	FieldId      string `json:"field_id,omitempty"`
 	FieldValue   string `json:"field_value,omitempty"`
 }
+
 type QuoteEditForChargeItemsAndChargesRequest struct {
 	PoNumber           string                                                `json:"po_number,omitempty"`
 	Notes              string                                                `json:"notes,omitempty"`
@@ -1621,6 +1639,7 @@ type QuoteEditForChargeItemsAndChargesTaxProvidersField struct {
 	FieldId      string `json:"field_id,omitempty"`
 	FieldValue   string `json:"field_value,omitempty"`
 }
+
 type QuoteListRequest struct {
 	Limit          *int32           `json:"limit,omitempty"`
 	Offset         string           `json:"offset,omitempty"`
@@ -1663,6 +1682,7 @@ type QuoteConvertSubscription struct {
 	PoNumber          string                          `json:"po_number,omitempty"`
 	AutoCloseInvoices *bool                           `json:"auto_close_invoices,omitempty"`
 }
+
 type QuoteUpdateStatusRequest struct {
 	Status     QuoteStatus `json:"status"`
 	Comment    string      `json:"comment,omitempty"`

@@ -47,6 +47,7 @@ type EntitlementOverrideAddEntitlementOverrideForSubscriptionEntitlementOverride
 	ExpiresAt     *int64 `json:"expires_at,omitempty"`
 	EffectiveFrom *int64 `json:"effective_from,omitempty"`
 }
+
 type EntitlementOverrideListEntitlementOverrideForSubscriptionRequest struct {
 	Limit      *int32 `json:"limit,omitempty"`
 	Offset     string `json:"offset,omitempty"`

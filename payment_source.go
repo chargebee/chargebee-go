@@ -234,6 +234,7 @@ type PaymentSourceCard struct {
 	MaskedNumber     string                       `json:"masked_number"`
 	Object           string                       `json:"object"`
 }
+
 type PaymentSourceBankAccount struct {
 	Last4             string                                    `json:"last4"`
 	NameOnAccount     string                                    `json:"name_on_account"`
@@ -248,6 +249,7 @@ type PaymentSourceBankAccount struct {
 	Email             string                                    `json:"email"`
 	Object            string                                    `json:"object"`
 }
+
 type PaymentSourceCustVoucherSource struct {
 	Last4     string `json:"last4"`
 	FirstName string `json:"first_name"`
@@ -255,6 +257,7 @@ type PaymentSourceCustVoucherSource struct {
 	Email     string `json:"email"`
 	Object    string `json:"object"`
 }
+
 type PaymentSourceBillingAddress struct {
 	FirstName        string                                      `json:"first_name"`
 	LastName         string                                      `json:"last_name"`
@@ -272,28 +275,34 @@ type PaymentSourceBillingAddress struct {
 	ValidationStatus PaymentSourceBillingAddressValidationStatus `json:"validation_status"`
 	Object           string                                      `json:"object"`
 }
+
 type PaymentSourceAmazonPayment struct {
 	Email       string `json:"email"`
 	AgreementId string `json:"agreement_id"`
 	Object      string `json:"object"`
 }
+
 type PaymentSourceUpi struct {
 	Vpa    string `json:"vpa"`
 	Object string `json:"object"`
 }
+
 type PaymentSourcePaypal struct {
 	Email       string `json:"email"`
 	AgreementId string `json:"agreement_id"`
 	Object      string `json:"object"`
 }
+
 type PaymentSourceVenmo struct {
 	UserName string `json:"user_name"`
 	Object   string `json:"object"`
 }
+
 type PaymentSourceKlarnaPayNow struct {
 	Email  string `json:"email"`
 	Object string `json:"object"`
 }
+
 type PaymentSourceMandate struct {
 	Id             string `json:"id"`
 	SubscriptionId string `json:"subscription_id"`
@@ -360,6 +369,7 @@ type PaymentSourceCreateUsingPermanentTokenBillingAddress struct {
 	Zip       string `json:"zip,omitempty"`
 	Country   string `json:"country,omitempty"`
 }
+
 type PaymentSourceCreateUsingTokenRequest struct {
 	CustomerId                  string `json:"customer_id"`
 	ReplacePrimaryPaymentSource *bool  `json:"replace_primary_payment_source,omitempty"`
@@ -389,6 +399,7 @@ type PaymentSourceCreateUsingPaymentIntentPaymentIntent struct {
 	AdditionalInfo        map[string]interface{}                      `json:"additional_info,omitempty"`
 	AdditionalInformation map[string]interface{}                      `json:"additional_information,omitempty"`
 }
+
 type PaymentSourceCreateVoucherPaymentSourceRequest struct {
 	CustomerId           string                                                       `json:"customer_id"`
 	VoucherPaymentSource *PaymentSourceCreateVoucherPaymentSourceVoucherPaymentSource `json:"voucher_payment_source,omitempty"`
@@ -404,6 +415,7 @@ type PaymentSourceCreateVoucherPaymentSourceVoucherPaymentSource struct {
 	TaxId            string                                       `json:"tax_id,omitempty"`
 	BillingAddress   map[string]interface{}                       `json:"billing_address,omitempty"`
 }
+
 type PaymentSourceCreateCardRequest struct {
 	CustomerId                  string                       `json:"customer_id"`
 	Card                        *PaymentSourceCreateCardCard `json:"card,omitempty"`
@@ -432,6 +444,7 @@ type PaymentSourceCreateCardCard struct {
 	BillingCountry        string                           `json:"billing_country,omitempty"`
 	AdditionalInformation map[string]interface{}           `json:"additional_information,omitempty"`
 }
+
 type PaymentSourceCreateBankAccountRequest struct {
 	CustomerId                  string                                     `json:"customer_id"`
 	BankAccount                 *PaymentSourceCreateBankAccountBankAccount `json:"bank_account,omitempty"`
@@ -461,6 +474,7 @@ type PaymentSourceCreateBankAccountBankAccount struct {
 	SwedishIdentityNumber string                                    `json:"swedish_identity_number,omitempty"`
 	BillingAddress        map[string]interface{}                    `json:"billing_address,omitempty"`
 }
+
 type PaymentSourceUpdateCardRequest struct {
 	Card                 *PaymentSourceUpdateCardCard `json:"card,omitempty"`
 	GatewayMetaData      map[string]interface{}       `json:"gateway_meta_data,omitempty"`
@@ -485,6 +499,7 @@ type PaymentSourceUpdateCardCard struct {
 	BillingCountry        string                 `json:"billing_country,omitempty"`
 	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
+
 type PaymentSourceUpdateBankAccountRequest struct {
 	BankAccount *PaymentSourceUpdateBankAccountBankAccount `json:"bank_account,omitempty"`
 	apiRequest  `json:"-" form:"-"`
@@ -498,6 +513,7 @@ type PaymentSourceUpdateBankAccountBankAccount struct {
 	LastName  string `json:"last_name,omitempty"`
 	Email     string `json:"email,omitempty"`
 }
+
 type PaymentSourceVerifyBankAccountRequest struct {
 	Amount1    *int64 `json:"amount1"`
 	Amount2    *int64 `json:"amount2"`

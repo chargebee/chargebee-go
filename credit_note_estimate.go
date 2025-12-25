@@ -152,6 +152,7 @@ type CreditNoteEstimateLineItem struct {
 	CustomerId              string                                    `json:"customer_id"`
 	Object                  string                                    `json:"object"`
 }
+
 type CreditNoteEstimateLineItemTier struct {
 	LineItemId            string                                    `json:"line_item_id"`
 	StartingUnit          int32                                     `json:"starting_unit"`
@@ -166,6 +167,7 @@ type CreditNoteEstimateLineItemTier struct {
 	PackageSize           int32                                     `json:"package_size"`
 	Object                string                                    `json:"object"`
 }
+
 type CreditNoteEstimateLineItemDiscount struct {
 	LineItemId     string                                         `json:"line_item_id"`
 	DiscountType   CreditNoteEstimateLineItemDiscountDiscountType `json:"discount_type"`
@@ -174,6 +176,7 @@ type CreditNoteEstimateLineItemDiscount struct {
 	DiscountAmount int64                                          `json:"discount_amount"`
 	Object         string                                         `json:"object"`
 }
+
 type CreditNoteEstimateLineItemTax struct {
 	LineItemId               string                                    `json:"line_item_id"`
 	TaxName                  string                                    `json:"tax_name"`
@@ -192,6 +195,7 @@ type CreditNoteEstimateLineItemTax struct {
 	LocalCurrencyCode        string                                    `json:"local_currency_code"`
 	Object                   string                                    `json:"object"`
 }
+
 type CreditNoteEstimateDiscount struct {
 	Amount        int64                                  `json:"amount"`
 	Description   string                                 `json:"description"`
@@ -202,6 +206,7 @@ type CreditNoteEstimateDiscount struct {
 	CouponSetCode string                                 `json:"coupon_set_code"`
 	Object        string                                 `json:"object"`
 }
+
 type CreditNoteEstimateTax struct {
 	Name        string `json:"name"`
 	Amount      int64  `json:"amount"`

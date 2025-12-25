@@ -34,6 +34,7 @@ type AdvanceInvoiceScheduleFixedIntervalSchedule struct {
 	TermsToCharge       int32                                                    `json:"terms_to_charge"`
 	Object              string                                                   `json:"object"`
 }
+
 type AdvanceInvoiceScheduleSpecificDatesSchedule struct {
 	TermsToCharge int32  `json:"terms_to_charge"`
 	Date          int64  `json:"date"`

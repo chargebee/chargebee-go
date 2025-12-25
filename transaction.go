@@ -268,6 +268,7 @@ type TransactionLinkedInvoice struct {
 	InvoiceStatus InvoiceStatus `json:"invoice_status"`
 	Object        string        `json:"object"`
 }
+
 type TransactionLinkedCreditNote struct {
 	CnId                 string               `json:"cn_id"`
 	AppliedAmount        int64                `json:"applied_amount"`
@@ -280,6 +281,7 @@ type TransactionLinkedCreditNote struct {
 	CnReferenceInvoiceId string               `json:"cn_reference_invoice_id"`
 	Object               string               `json:"object"`
 }
+
 type TransactionLinkedRefund struct {
 	TxnId     string            `json:"txn_id"`
 	TxnStatus TransactionStatus `json:"txn_status"`
@@ -287,6 +289,7 @@ type TransactionLinkedRefund struct {
 	TxnAmount int64             `json:"txn_amount"`
 	Object    string            `json:"object"`
 }
+
 type TransactionLinkedPayment struct {
 	Id     string                         `json:"id"`
 	Status TransactionLinkedPaymentStatus `json:"status"`
@@ -294,6 +297,7 @@ type TransactionLinkedPayment struct {
 	Date   int64                          `json:"date"`
 	Object string                         `json:"object"`
 }
+
 type TransactionGatewayErrorDetail struct {
 	RequestId             string `json:"request_id"`
 	ErrorCategory         string `json:"error_category"`
