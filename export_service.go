@@ -1,8 +1,10 @@
 package chargebee
 
 import (
+	"errors"
 	"fmt"
 	"net/url"
+	"time"
 )
 
 type ExportService struct {
@@ -133,4 +135,22 @@ func (s *ExportService) PriceVariants(req *ExportPriceVariantsRequest) (*ExportP
 	req.path = fmt.Sprintf("/exports/price_variants")
 	req.isIdempotent = true
 	return send[*ExportPriceVariantsResponse](req, s.config)
+}
+
+func (s *ExportService) WaitForExportCompletion(exp Export) (Export, error) {
+	count := 0
+	for exp.Status == ExportStatusInProcess {
+		if count > 30 {
+			return exp, errors.New("Export is taking too long")
+		}
+		count++
+		time.Sleep(ExportWaitInSecs)
+		response, err := s.Retrieve(exp.Id)
+		if err != nil {
+			return exp, err
+		}
+		exp = *response.Export
+	}
+
+	return exp, nil
 }

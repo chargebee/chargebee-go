@@ -1,8 +1,11 @@
 package chargebee
 
 import (
+	"encoding/json"
+	"errors"
 	"fmt"
 	"net/url"
+	"time"
 )
 
 type TimeMachineService struct {
@@ -28,4 +31,31 @@ func (s *TimeMachineService) TravelForward(id string, req *TimeMachineTravelForw
 	req.path = fmt.Sprintf("/time_machines/%v/travel_forward", url.PathEscape(id))
 	req.isIdempotent = true
 	return send[*TimeMachineTravelForwardResponse](req, s.config)
+}
+
+func (s *TimeMachineService) WaitForTimeTravelCompletion(tm TimeMachine) (TimeMachine, error) {
+	count := 0
+	for tm.TimeTravelStatus == TimeMachineTimeTravelStatusInProgress {
+		if count > 30 {
+			return tm, errors.New("time travel is taking too much time")
+		}
+		count++
+		time.Sleep(TimeMachineWaitInSecs)
+		response, err := s.Retrieve(tm.Name)
+		if err != nil {
+			return tm, err
+		}
+		tm = *response.TimeMachine
+	}
+	if tm.TimeTravelStatus == TimeMachineTimeTravelStatusFailed {
+		error := &Error{}
+		if err := json.Unmarshal([]byte(tm.ErrorJson), &error); err != nil {
+			return tm, fmt.Errorf("failed to unmarshal time machine error: %w", err)
+		}
+		return tm, error
+	}
+	if tm.TimeTravelStatus != TimeMachineTimeTravelStatusInProgress && tm.TimeTravelStatus != TimeMachineTimeTravelStatusSucceeded && tm.TimeTravelStatus != TimeMachineTimeTravelStatusFailed {
+		return tm, errors.New("time travel state is in wrong state  \"" + string(tm.TimeTravelStatus) + "\"")
+	}
+	return tm, nil
 }
