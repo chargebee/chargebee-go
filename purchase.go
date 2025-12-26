@@ -1,5 +1,14 @@
 package chargebee
 
+type PurchaseContractTermActionAtTermEnd string
+
+const (
+	PurchaseContractTermActionAtTermEndRenew     PurchaseContractTermActionAtTermEnd = "renew"
+	PurchaseContractTermActionAtTermEndEvergreen PurchaseContractTermActionAtTermEnd = "evergreen"
+	PurchaseContractTermActionAtTermEndCancel    PurchaseContractTermActionAtTermEnd = "cancel"
+	PurchaseContractTermActionAtTermEndRenewOnce PurchaseContractTermActionAtTermEnd = "renew_once"
+)
+
 // just struct
 type Purchase struct {
 	Id              string   `json:"id"`
@@ -57,20 +66,20 @@ type PurchaseCreateItemTier struct {
 
 // input sub resource params multi
 type PurchaseCreateShippingAddress struct {
-	FirstName        string                                  `json:"first_name,omitempty"`
-	LastName         string                                  `json:"last_name,omitempty"`
-	Email            string                                  `json:"email,omitempty"`
-	Company          string                                  `json:"company,omitempty"`
-	Phone            string                                  `json:"phone,omitempty"`
-	Line1            string                                  `json:"line1,omitempty"`
-	Line2            string                                  `json:"line2,omitempty"`
-	Line3            string                                  `json:"line3,omitempty"`
-	City             string                                  `json:"city,omitempty"`
-	State            string                                  `json:"state,omitempty"`
-	StateCode        string                                  `json:"state_code,omitempty"`
-	Country          string                                  `json:"country,omitempty"`
-	Zip              string                                  `json:"zip,omitempty"`
-	ValidationStatus PurchaseShippingAddressValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	State            string           `json:"state,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params multi
@@ -94,9 +103,9 @@ type PurchaseCreateSubscriptionInfo struct {
 
 // input sub resource params multi
 type PurchaseCreateContractTerm struct {
-	Index                    *int32                              `json:"index"`
-	ActionAtTermEnd          PurchaseContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32                              `json:"cancellation_cutoff_period,omitempty"`
+	Index                    *int32                      `json:"index"`
+	ActionAtTermEnd          ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                      `json:"cancellation_cutoff_period,omitempty"`
 }
 
 // input sub resource params single
@@ -118,13 +127,13 @@ type PurchaseCreateStatementDescriptor struct {
 
 // input sub resource params single
 type PurchaseCreatePaymentIntent struct {
-	Id                    string                                 `json:"id,omitempty"`
-	GatewayAccountId      string                                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                                 `json:"gw_token,omitempty"`
-	PaymentMethodType     PurchasePaymentIntentPaymentMethodType `json:"payment_method_type,omitempty"`
-	ReferenceId           string                                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{}                 `json:"additional_information,omitempty"`
+	Id                    string                         `json:"id,omitempty"`
+	GatewayAccountId      string                         `json:"gateway_account_id,omitempty"`
+	GwToken               string                         `json:"gw_token,omitempty"`
+	PaymentMethodType     PaymentIntentPaymentMethodType `json:"payment_method_type,omitempty"`
+	ReferenceId           string                         `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                         `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{}         `json:"additional_information,omitempty"`
 }
 
 type PurchaseEstimateRequest struct {
@@ -167,20 +176,20 @@ type PurchaseEstimateItemTier struct {
 
 // input sub resource params multi
 type PurchaseEstimateShippingAddress struct {
-	FirstName        string                                  `json:"first_name,omitempty"`
-	LastName         string                                  `json:"last_name,omitempty"`
-	Email            string                                  `json:"email,omitempty"`
-	Company          string                                  `json:"company,omitempty"`
-	Phone            string                                  `json:"phone,omitempty"`
-	Line1            string                                  `json:"line1,omitempty"`
-	Line2            string                                  `json:"line2,omitempty"`
-	Line3            string                                  `json:"line3,omitempty"`
-	City             string                                  `json:"city,omitempty"`
-	State            string                                  `json:"state,omitempty"`
-	StateCode        string                                  `json:"state_code,omitempty"`
-	Country          string                                  `json:"country,omitempty"`
-	Zip              string                                  `json:"zip,omitempty"`
-	ValidationStatus PurchaseShippingAddressValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	State            string           `json:"state,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params multi
@@ -203,33 +212,33 @@ type PurchaseEstimateSubscriptionInfo struct {
 
 // input sub resource params multi
 type PurchaseEstimateContractTerm struct {
-	Index                    *int32                              `json:"index"`
-	ActionAtTermEnd          PurchaseContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32                              `json:"cancellation_cutoff_period,omitempty"`
+	Index                    *int32                      `json:"index"`
+	ActionAtTermEnd          ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                      `json:"cancellation_cutoff_period,omitempty"`
 }
 
 // input sub resource params single
 type PurchaseEstimateCustomer struct {
-	VatNumber        string                       `json:"vat_number,omitempty"`
-	VatNumberPrefix  string                       `json:"vat_number_prefix,omitempty"`
-	RegisteredForGst *bool                        `json:"registered_for_gst,omitempty"`
-	Taxability       PurchaseCustomerTaxability   `json:"taxability,omitempty"`
-	EntityCode       PurchaseCustomerEntityCode   `json:"entity_code,omitempty"`
-	ExemptNumber     string                       `json:"exempt_number,omitempty"`
-	ExemptionDetails []map[string]interface{}     `json:"exemption_details,omitempty"`
-	CustomerType     PurchaseCustomerCustomerType `json:"customer_type,omitempty"`
+	VatNumber        string                   `json:"vat_number,omitempty"`
+	VatNumberPrefix  string                   `json:"vat_number_prefix,omitempty"`
+	RegisteredForGst *bool                    `json:"registered_for_gst,omitempty"`
+	Taxability       Taxability               `json:"taxability,omitempty"`
+	EntityCode       EntityCode               `json:"entity_code,omitempty"`
+	ExemptNumber     string                   `json:"exempt_number,omitempty"`
+	ExemptionDetails []map[string]interface{} `json:"exemption_details,omitempty"`
+	CustomerType     CustomerType             `json:"customer_type,omitempty"`
 }
 
 // input sub resource params single
 type PurchaseEstimateBillingAddress struct {
-	Line1            string                                 `json:"line1,omitempty"`
-	Line2            string                                 `json:"line2,omitempty"`
-	Line3            string                                 `json:"line3,omitempty"`
-	City             string                                 `json:"city,omitempty"`
-	StateCode        string                                 `json:"state_code,omitempty"`
-	Zip              string                                 `json:"zip,omitempty"`
-	Country          string                                 `json:"country,omitempty"`
-	ValidationStatus PurchaseBillingAddressValidationStatus `json:"validation_status,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
 
 // operation response

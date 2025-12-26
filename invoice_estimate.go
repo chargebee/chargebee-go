@@ -1,22 +1,5 @@
 package chargebee
 
-type InvoiceEstimatePriceType string
-
-const (
-	InvoiceEstimatePriceTypeTaxExclusive InvoiceEstimatePriceType = "tax_exclusive"
-	InvoiceEstimatePriceTypeTaxInclusive InvoiceEstimatePriceType = "tax_inclusive"
-)
-
-type InvoiceEstimateLineItemPricingModel string
-
-const (
-	InvoiceEstimateLineItemPricingModelFlatFee   InvoiceEstimateLineItemPricingModel = "flat_fee"
-	InvoiceEstimateLineItemPricingModelPerUnit   InvoiceEstimateLineItemPricingModel = "per_unit"
-	InvoiceEstimateLineItemPricingModelTiered    InvoiceEstimateLineItemPricingModel = "tiered"
-	InvoiceEstimateLineItemPricingModelVolume    InvoiceEstimateLineItemPricingModel = "volume"
-	InvoiceEstimateLineItemPricingModelStairstep InvoiceEstimateLineItemPricingModel = "stairstep"
-)
-
 type InvoiceEstimateLineItemEntityType string
 
 const (
@@ -29,29 +12,6 @@ const (
 	InvoiceEstimateLineItemEntityTypeAddon           InvoiceEstimateLineItemEntityType = "addon"
 )
 
-type InvoiceEstimateLineItemTaxExemptReason string
-
-const (
-	InvoiceEstimateLineItemTaxExemptReasonTaxNotConfigured                 InvoiceEstimateLineItemTaxExemptReason = "tax_not_configured"
-	InvoiceEstimateLineItemTaxExemptReasonRegionNonTaxable                 InvoiceEstimateLineItemTaxExemptReason = "region_non_taxable"
-	InvoiceEstimateLineItemTaxExemptReasonExport                           InvoiceEstimateLineItemTaxExemptReason = "export"
-	InvoiceEstimateLineItemTaxExemptReasonCustomerExempt                   InvoiceEstimateLineItemTaxExemptReason = "customer_exempt"
-	InvoiceEstimateLineItemTaxExemptReasonProductExempt                    InvoiceEstimateLineItemTaxExemptReason = "product_exempt"
-	InvoiceEstimateLineItemTaxExemptReasonZeroRated                        InvoiceEstimateLineItemTaxExemptReason = "zero_rated"
-	InvoiceEstimateLineItemTaxExemptReasonReverseCharge                    InvoiceEstimateLineItemTaxExemptReason = "reverse_charge"
-	InvoiceEstimateLineItemTaxExemptReasonHighValuePhysicalGoods           InvoiceEstimateLineItemTaxExemptReason = "high_value_physical_goods"
-	InvoiceEstimateLineItemTaxExemptReasonZeroValueItem                    InvoiceEstimateLineItemTaxExemptReason = "zero_value_item"
-	InvoiceEstimateLineItemTaxExemptReasonTaxNotConfiguredExternalProvider InvoiceEstimateLineItemTaxExemptReason = "tax_not_configured_external_provider"
-)
-
-type InvoiceEstimateLineItemTierPricingType string
-
-const (
-	InvoiceEstimateLineItemTierPricingTypePerUnit InvoiceEstimateLineItemTierPricingType = "per_unit"
-	InvoiceEstimateLineItemTierPricingTypeFlatFee InvoiceEstimateLineItemTierPricingType = "flat_fee"
-	InvoiceEstimateLineItemTierPricingTypePackage InvoiceEstimateLineItemTierPricingType = "package"
-)
-
 type InvoiceEstimateLineItemDiscountDiscountType string
 
 const (
@@ -61,28 +21,6 @@ const (
 	InvoiceEstimateLineItemDiscountDiscountTypeProratedCredits       InvoiceEstimateLineItemDiscountDiscountType = "prorated_credits"
 	InvoiceEstimateLineItemDiscountDiscountTypeItemLevelDiscount     InvoiceEstimateLineItemDiscountDiscountType = "item_level_discount"
 	InvoiceEstimateLineItemDiscountDiscountTypeDocumentLevelDiscount InvoiceEstimateLineItemDiscountDiscountType = "document_level_discount"
-)
-
-type InvoiceEstimateLineItemTaxTaxJurisType string
-
-const (
-	InvoiceEstimateLineItemTaxTaxJurisTypeCountry        InvoiceEstimateLineItemTaxTaxJurisType = "country"
-	InvoiceEstimateLineItemTaxTaxJurisTypeFederal        InvoiceEstimateLineItemTaxTaxJurisType = "federal"
-	InvoiceEstimateLineItemTaxTaxJurisTypeState          InvoiceEstimateLineItemTaxTaxJurisType = "state"
-	InvoiceEstimateLineItemTaxTaxJurisTypeCounty         InvoiceEstimateLineItemTaxTaxJurisType = "county"
-	InvoiceEstimateLineItemTaxTaxJurisTypeCity           InvoiceEstimateLineItemTaxTaxJurisType = "city"
-	InvoiceEstimateLineItemTaxTaxJurisTypeSpecial        InvoiceEstimateLineItemTaxTaxJurisType = "special"
-	InvoiceEstimateLineItemTaxTaxJurisTypeUnincorporated InvoiceEstimateLineItemTaxTaxJurisType = "unincorporated"
-	InvoiceEstimateLineItemTaxTaxJurisTypeOther          InvoiceEstimateLineItemTaxTaxJurisType = "other"
-)
-
-type InvoiceEstimateLineItemAddressValidationStatus string
-
-const (
-	InvoiceEstimateLineItemAddressValidationStatusNotValidated   InvoiceEstimateLineItemAddressValidationStatus = "not_validated"
-	InvoiceEstimateLineItemAddressValidationStatusValid          InvoiceEstimateLineItemAddressValidationStatus = "valid"
-	InvoiceEstimateLineItemAddressValidationStatusPartiallyValid InvoiceEstimateLineItemAddressValidationStatus = "partially_valid"
-	InvoiceEstimateLineItemAddressValidationStatusInvalid        InvoiceEstimateLineItemAddressValidationStatus = "invalid"
 )
 
 type InvoiceEstimateDiscountEntityType string
@@ -106,7 +44,7 @@ const (
 // just struct
 type InvoiceEstimate struct {
 	Recurring         bool                               `json:"recurring"`
-	PriceType         InvoiceEstimatePriceType           `json:"price_type"`
+	PriceType         PriceType                          `json:"price_type"`
 	CurrencyCode      string                             `json:"currency_code"`
 	SubTotal          int64                              `json:"sub_total"`
 	Total             int64                              `json:"total"`
@@ -128,47 +66,47 @@ type InvoiceEstimate struct {
 
 // sub resources
 type InvoiceEstimateLineItem struct {
-	Id                      string                                 `json:"id"`
-	SubscriptionId          string                                 `json:"subscription_id"`
-	DateFrom                int64                                  `json:"date_from"`
-	DateTo                  int64                                  `json:"date_to"`
-	UnitAmount              int64                                  `json:"unit_amount"`
-	Quantity                int32                                  `json:"quantity"`
-	Amount                  int64                                  `json:"amount"`
-	PricingModel            InvoiceEstimateLineItemPricingModel    `json:"pricing_model"`
-	IsTaxed                 bool                                   `json:"is_taxed"`
-	TaxAmount               int64                                  `json:"tax_amount"`
-	TaxRate                 float64                                `json:"tax_rate"`
-	UnitAmountInDecimal     string                                 `json:"unit_amount_in_decimal"`
-	QuantityInDecimal       string                                 `json:"quantity_in_decimal"`
-	AmountInDecimal         string                                 `json:"amount_in_decimal"`
-	DiscountAmount          int64                                  `json:"discount_amount"`
-	ItemLevelDiscountAmount int64                                  `json:"item_level_discount_amount"`
-	Metered                 bool                                   `json:"metered"`
-	IsPercentagePricing     bool                                   `json:"is_percentage_pricing"`
-	ReferenceLineItemId     string                                 `json:"reference_line_item_id"`
-	Description             string                                 `json:"description"`
-	EntityDescription       string                                 `json:"entity_description"`
-	EntityType              InvoiceEstimateLineItemEntityType      `json:"entity_type"`
-	TaxExemptReason         InvoiceEstimateLineItemTaxExemptReason `json:"tax_exempt_reason"`
-	EntityId                string                                 `json:"entity_id"`
-	CustomerId              string                                 `json:"customer_id"`
-	Object                  string                                 `json:"object"`
+	Id                      string                            `json:"id"`
+	SubscriptionId          string                            `json:"subscription_id"`
+	DateFrom                int64                             `json:"date_from"`
+	DateTo                  int64                             `json:"date_to"`
+	UnitAmount              int64                             `json:"unit_amount"`
+	Quantity                int32                             `json:"quantity"`
+	Amount                  int64                             `json:"amount"`
+	PricingModel            PricingModel                      `json:"pricing_model"`
+	IsTaxed                 bool                              `json:"is_taxed"`
+	TaxAmount               int64                             `json:"tax_amount"`
+	TaxRate                 float64                           `json:"tax_rate"`
+	UnitAmountInDecimal     string                            `json:"unit_amount_in_decimal"`
+	QuantityInDecimal       string                            `json:"quantity_in_decimal"`
+	AmountInDecimal         string                            `json:"amount_in_decimal"`
+	DiscountAmount          int64                             `json:"discount_amount"`
+	ItemLevelDiscountAmount int64                             `json:"item_level_discount_amount"`
+	Metered                 bool                              `json:"metered"`
+	IsPercentagePricing     bool                              `json:"is_percentage_pricing"`
+	ReferenceLineItemId     string                            `json:"reference_line_item_id"`
+	Description             string                            `json:"description"`
+	EntityDescription       string                            `json:"entity_description"`
+	EntityType              InvoiceEstimateLineItemEntityType `json:"entity_type"`
+	TaxExemptReason         TaxExemptReason                   `json:"tax_exempt_reason"`
+	EntityId                string                            `json:"entity_id"`
+	CustomerId              string                            `json:"customer_id"`
+	Object                  string                            `json:"object"`
 }
 
 type InvoiceEstimateLineItemTier struct {
-	LineItemId            string                                 `json:"line_item_id"`
-	StartingUnit          int32                                  `json:"starting_unit"`
-	EndingUnit            int32                                  `json:"ending_unit"`
-	QuantityUsed          int32                                  `json:"quantity_used"`
-	UnitAmount            int64                                  `json:"unit_amount"`
-	StartingUnitInDecimal string                                 `json:"starting_unit_in_decimal"`
-	EndingUnitInDecimal   string                                 `json:"ending_unit_in_decimal"`
-	QuantityUsedInDecimal string                                 `json:"quantity_used_in_decimal"`
-	UnitAmountInDecimal   string                                 `json:"unit_amount_in_decimal"`
-	PricingType           InvoiceEstimateLineItemTierPricingType `json:"pricing_type"`
-	PackageSize           int32                                  `json:"package_size"`
-	Object                string                                 `json:"object"`
+	LineItemId            string      `json:"line_item_id"`
+	StartingUnit          int32       `json:"starting_unit"`
+	EndingUnit            int32       `json:"ending_unit"`
+	QuantityUsed          int32       `json:"quantity_used"`
+	UnitAmount            int64       `json:"unit_amount"`
+	StartingUnitInDecimal string      `json:"starting_unit_in_decimal"`
+	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal"`
+	QuantityUsedInDecimal string      `json:"quantity_used_in_decimal"`
+	UnitAmountInDecimal   string      `json:"unit_amount_in_decimal"`
+	PricingType           PricingType `json:"pricing_type"`
+	PackageSize           int32       `json:"package_size"`
+	Object                string      `json:"object"`
 }
 
 type InvoiceEstimateLineItemDiscount struct {
@@ -181,22 +119,22 @@ type InvoiceEstimateLineItemDiscount struct {
 }
 
 type InvoiceEstimateLineItemTax struct {
-	LineItemId               string                                 `json:"line_item_id"`
-	TaxName                  string                                 `json:"tax_name"`
-	TaxRate                  float64                                `json:"tax_rate"`
-	DateTo                   int64                                  `json:"date_to"`
-	DateFrom                 int64                                  `json:"date_from"`
-	ProratedTaxableAmount    float64                                `json:"prorated_taxable_amount"`
-	IsPartialTaxApplied      bool                                   `json:"is_partial_tax_applied"`
-	IsNonComplianceTax       bool                                   `json:"is_non_compliance_tax"`
-	TaxableAmount            int64                                  `json:"taxable_amount"`
-	TaxAmount                int64                                  `json:"tax_amount"`
-	TaxJurisType             InvoiceEstimateLineItemTaxTaxJurisType `json:"tax_juris_type"`
-	TaxJurisName             string                                 `json:"tax_juris_name"`
-	TaxJurisCode             string                                 `json:"tax_juris_code"`
-	TaxAmountInLocalCurrency int64                                  `json:"tax_amount_in_local_currency"`
-	LocalCurrencyCode        string                                 `json:"local_currency_code"`
-	Object                   string                                 `json:"object"`
+	LineItemId               string       `json:"line_item_id"`
+	TaxName                  string       `json:"tax_name"`
+	TaxRate                  float64      `json:"tax_rate"`
+	DateTo                   int64        `json:"date_to"`
+	DateFrom                 int64        `json:"date_from"`
+	ProratedTaxableAmount    float64      `json:"prorated_taxable_amount"`
+	IsPartialTaxApplied      bool         `json:"is_partial_tax_applied"`
+	IsNonComplianceTax       bool         `json:"is_non_compliance_tax"`
+	TaxableAmount            int64        `json:"taxable_amount"`
+	TaxAmount                int64        `json:"tax_amount"`
+	TaxJurisType             TaxJurisType `json:"tax_juris_type"`
+	TaxJurisName             string       `json:"tax_juris_name"`
+	TaxJurisCode             string       `json:"tax_juris_code"`
+	TaxAmountInLocalCurrency int64        `json:"tax_amount_in_local_currency"`
+	LocalCurrencyCode        string       `json:"local_currency_code"`
+	Object                   string       `json:"object"`
 }
 
 type InvoiceEstimateLineItemCredit struct {
@@ -207,22 +145,22 @@ type InvoiceEstimateLineItemCredit struct {
 }
 
 type InvoiceEstimateLineItemAddress struct {
-	LineItemId       string                                         `json:"line_item_id"`
-	FirstName        string                                         `json:"first_name"`
-	LastName         string                                         `json:"last_name"`
-	Email            string                                         `json:"email"`
-	Company          string                                         `json:"company"`
-	Phone            string                                         `json:"phone"`
-	Line1            string                                         `json:"line1"`
-	Line2            string                                         `json:"line2"`
-	Line3            string                                         `json:"line3"`
-	City             string                                         `json:"city"`
-	StateCode        string                                         `json:"state_code"`
-	State            string                                         `json:"state"`
-	Country          string                                         `json:"country"`
-	Zip              string                                         `json:"zip"`
-	ValidationStatus InvoiceEstimateLineItemAddressValidationStatus `json:"validation_status"`
-	Object           string                                         `json:"object"`
+	LineItemId       string           `json:"line_item_id"`
+	FirstName        string           `json:"first_name"`
+	LastName         string           `json:"last_name"`
+	Email            string           `json:"email"`
+	Company          string           `json:"company"`
+	Phone            string           `json:"phone"`
+	Line1            string           `json:"line1"`
+	Line2            string           `json:"line2"`
+	Line3            string           `json:"line3"`
+	City             string           `json:"city"`
+	StateCode        string           `json:"state_code"`
+	State            string           `json:"state"`
+	Country          string           `json:"country"`
+	Zip              string           `json:"zip"`
+	ValidationStatus ValidationStatus `json:"validation_status"`
+	Object           string           `json:"object"`
 }
 
 type InvoiceEstimateDiscount struct {

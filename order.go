@@ -50,13 +50,6 @@ const (
 	OrderOrderTypeSystemGenerated OrderOrderType = "system_generated"
 )
 
-type OrderPriceType string
-
-const (
-	OrderPriceTypeTaxExclusive OrderPriceType = "tax_exclusive"
-	OrderPriceTypeTaxInclusive OrderPriceType = "tax_inclusive"
-)
-
 type OrderResentStatus string
 
 const (
@@ -89,37 +82,6 @@ const (
 	OrderOrderLineItemEntityTypeAddon           OrderOrderLineItemEntityType = "addon"
 )
 
-type OrderShippingAddressValidationStatus string
-
-const (
-	OrderShippingAddressValidationStatusNotValidated   OrderShippingAddressValidationStatus = "not_validated"
-	OrderShippingAddressValidationStatusValid          OrderShippingAddressValidationStatus = "valid"
-	OrderShippingAddressValidationStatusPartiallyValid OrderShippingAddressValidationStatus = "partially_valid"
-	OrderShippingAddressValidationStatusInvalid        OrderShippingAddressValidationStatus = "invalid"
-)
-
-type OrderBillingAddressValidationStatus string
-
-const (
-	OrderBillingAddressValidationStatusNotValidated   OrderBillingAddressValidationStatus = "not_validated"
-	OrderBillingAddressValidationStatusValid          OrderBillingAddressValidationStatus = "valid"
-	OrderBillingAddressValidationStatusPartiallyValid OrderBillingAddressValidationStatus = "partially_valid"
-	OrderBillingAddressValidationStatusInvalid        OrderBillingAddressValidationStatus = "invalid"
-)
-
-type OrderLineItemTaxTaxJurisType string
-
-const (
-	OrderLineItemTaxTaxJurisTypeCountry        OrderLineItemTaxTaxJurisType = "country"
-	OrderLineItemTaxTaxJurisTypeFederal        OrderLineItemTaxTaxJurisType = "federal"
-	OrderLineItemTaxTaxJurisTypeState          OrderLineItemTaxTaxJurisType = "state"
-	OrderLineItemTaxTaxJurisTypeCounty         OrderLineItemTaxTaxJurisType = "county"
-	OrderLineItemTaxTaxJurisTypeCity           OrderLineItemTaxTaxJurisType = "city"
-	OrderLineItemTaxTaxJurisTypeSpecial        OrderLineItemTaxTaxJurisType = "special"
-	OrderLineItemTaxTaxJurisTypeUnincorporated OrderLineItemTaxTaxJurisType = "unincorporated"
-	OrderLineItemTaxTaxJurisTypeOther          OrderLineItemTaxTaxJurisType = "other"
-)
-
 type OrderLineItemDiscountDiscountType string
 
 const (
@@ -132,21 +94,38 @@ const (
 	OrderLineItemDiscountDiscountTypeDocumentLevelDiscount OrderLineItemDiscountDiscountType = "document_level_discount"
 )
 
-type OrderOrderLineItemLinkedCreditType string
+type OrderLinkedCreditNoteType string
 
 const (
-	OrderOrderLineItemLinkedCreditTypeAdjustment OrderOrderLineItemLinkedCreditType = "adjustment"
-	OrderOrderLineItemLinkedCreditTypeRefundable OrderOrderLineItemLinkedCreditType = "refundable"
-	OrderOrderLineItemLinkedCreditTypeStore      OrderOrderLineItemLinkedCreditType = "store"
+	OrderLinkedCreditNoteTypeAdjustment OrderLinkedCreditNoteType = "adjustment"
+	OrderLinkedCreditNoteTypeRefundable OrderLinkedCreditNoteType = "refundable"
+	OrderLinkedCreditNoteTypeStore      OrderLinkedCreditNoteType = "store"
 )
 
-type OrderOrderLineItemLinkedCreditStatus string
+type OrderLinkedCreditNoteStatus string
 
 const (
-	OrderOrderLineItemLinkedCreditStatusAdjusted  OrderOrderLineItemLinkedCreditStatus = "adjusted"
-	OrderOrderLineItemLinkedCreditStatusRefunded  OrderOrderLineItemLinkedCreditStatus = "refunded"
-	OrderOrderLineItemLinkedCreditStatusRefundDue OrderOrderLineItemLinkedCreditStatus = "refund_due"
-	OrderOrderLineItemLinkedCreditStatusVoided    OrderOrderLineItemLinkedCreditStatus = "voided"
+	OrderLinkedCreditNoteStatusAdjusted  OrderLinkedCreditNoteStatus = "adjusted"
+	OrderLinkedCreditNoteStatusRefunded  OrderLinkedCreditNoteStatus = "refunded"
+	OrderLinkedCreditNoteStatusRefundDue OrderLinkedCreditNoteStatus = "refund_due"
+	OrderLinkedCreditNoteStatusVoided    OrderLinkedCreditNoteStatus = "voided"
+)
+
+type OrderCreditNoteReasonCode string
+
+const (
+	OrderCreditNoteReasonCodeWriteOff                 OrderCreditNoteReasonCode = "write_off"
+	OrderCreditNoteReasonCodeSubscriptionChange       OrderCreditNoteReasonCode = "subscription_change"
+	OrderCreditNoteReasonCodeSubscriptionCancellation OrderCreditNoteReasonCode = "subscription_cancellation"
+	OrderCreditNoteReasonCodeSubscriptionPause        OrderCreditNoteReasonCode = "subscription_pause"
+	OrderCreditNoteReasonCodeChargeback               OrderCreditNoteReasonCode = "chargeback"
+	OrderCreditNoteReasonCodeProductUnsatisfactory    OrderCreditNoteReasonCode = "product_unsatisfactory"
+	OrderCreditNoteReasonCodeServiceUnsatisfactory    OrderCreditNoteReasonCode = "service_unsatisfactory"
+	OrderCreditNoteReasonCodeOrderChange              OrderCreditNoteReasonCode = "order_change"
+	OrderCreditNoteReasonCodeOrderCancellation        OrderCreditNoteReasonCode = "order_cancellation"
+	OrderCreditNoteReasonCodeWaiver                   OrderCreditNoteReasonCode = "waiver"
+	OrderCreditNoteReasonCodeOther                    OrderCreditNoteReasonCode = "other"
+	OrderCreditNoteReasonCodeFraudulent               OrderCreditNoteReasonCode = "fraudulent"
 )
 
 // just struct
@@ -160,7 +139,7 @@ type Order struct {
 	CancellationReason      OrderCancellationReason  `json:"cancellation_reason"`
 	PaymentStatus           OrderPaymentStatus       `json:"payment_status"`
 	OrderType               OrderOrderType           `json:"order_type"`
-	PriceType               OrderPriceType           `json:"price_type"`
+	PriceType               PriceType                `json:"price_type"`
 	ReferenceId             string                   `json:"reference_id"`
 	FulfillmentStatus       string                   `json:"fulfillment_status"`
 	OrderDate               int64                    `json:"order_date"`
@@ -236,58 +215,58 @@ type OrderOrderLineItem struct {
 }
 
 type OrderShippingAddress struct {
-	FirstName        string                               `json:"first_name"`
-	LastName         string                               `json:"last_name"`
-	Email            string                               `json:"email"`
-	Company          string                               `json:"company"`
-	Phone            string                               `json:"phone"`
-	Line1            string                               `json:"line1"`
-	Line2            string                               `json:"line2"`
-	Line3            string                               `json:"line3"`
-	City             string                               `json:"city"`
-	StateCode        string                               `json:"state_code"`
-	State            string                               `json:"state"`
-	Country          string                               `json:"country"`
-	Zip              string                               `json:"zip"`
-	ValidationStatus OrderShippingAddressValidationStatus `json:"validation_status"`
-	Object           string                               `json:"object"`
+	FirstName        string           `json:"first_name"`
+	LastName         string           `json:"last_name"`
+	Email            string           `json:"email"`
+	Company          string           `json:"company"`
+	Phone            string           `json:"phone"`
+	Line1            string           `json:"line1"`
+	Line2            string           `json:"line2"`
+	Line3            string           `json:"line3"`
+	City             string           `json:"city"`
+	StateCode        string           `json:"state_code"`
+	State            string           `json:"state"`
+	Country          string           `json:"country"`
+	Zip              string           `json:"zip"`
+	ValidationStatus ValidationStatus `json:"validation_status"`
+	Object           string           `json:"object"`
 }
 
 type OrderBillingAddress struct {
-	FirstName        string                              `json:"first_name"`
-	LastName         string                              `json:"last_name"`
-	Email            string                              `json:"email"`
-	Company          string                              `json:"company"`
-	Phone            string                              `json:"phone"`
-	Line1            string                              `json:"line1"`
-	Line2            string                              `json:"line2"`
-	Line3            string                              `json:"line3"`
-	City             string                              `json:"city"`
-	StateCode        string                              `json:"state_code"`
-	State            string                              `json:"state"`
-	Country          string                              `json:"country"`
-	Zip              string                              `json:"zip"`
-	ValidationStatus OrderBillingAddressValidationStatus `json:"validation_status"`
-	Object           string                              `json:"object"`
+	FirstName        string           `json:"first_name"`
+	LastName         string           `json:"last_name"`
+	Email            string           `json:"email"`
+	Company          string           `json:"company"`
+	Phone            string           `json:"phone"`
+	Line1            string           `json:"line1"`
+	Line2            string           `json:"line2"`
+	Line3            string           `json:"line3"`
+	City             string           `json:"city"`
+	StateCode        string           `json:"state_code"`
+	State            string           `json:"state"`
+	Country          string           `json:"country"`
+	Zip              string           `json:"zip"`
+	ValidationStatus ValidationStatus `json:"validation_status"`
+	Object           string           `json:"object"`
 }
 
 type OrderLineItemTax struct {
-	LineItemId               string                       `json:"line_item_id"`
-	TaxName                  string                       `json:"tax_name"`
-	TaxRate                  float64                      `json:"tax_rate"`
-	DateTo                   int64                        `json:"date_to"`
-	DateFrom                 int64                        `json:"date_from"`
-	ProratedTaxableAmount    float64                      `json:"prorated_taxable_amount"`
-	IsPartialTaxApplied      bool                         `json:"is_partial_tax_applied"`
-	IsNonComplianceTax       bool                         `json:"is_non_compliance_tax"`
-	TaxableAmount            int64                        `json:"taxable_amount"`
-	TaxAmount                int64                        `json:"tax_amount"`
-	TaxJurisType             OrderLineItemTaxTaxJurisType `json:"tax_juris_type"`
-	TaxJurisName             string                       `json:"tax_juris_name"`
-	TaxJurisCode             string                       `json:"tax_juris_code"`
-	TaxAmountInLocalCurrency int64                        `json:"tax_amount_in_local_currency"`
-	LocalCurrencyCode        string                       `json:"local_currency_code"`
-	Object                   string                       `json:"object"`
+	LineItemId               string       `json:"line_item_id"`
+	TaxName                  string       `json:"tax_name"`
+	TaxRate                  float64      `json:"tax_rate"`
+	DateTo                   int64        `json:"date_to"`
+	DateFrom                 int64        `json:"date_from"`
+	ProratedTaxableAmount    float64      `json:"prorated_taxable_amount"`
+	IsPartialTaxApplied      bool         `json:"is_partial_tax_applied"`
+	IsNonComplianceTax       bool         `json:"is_non_compliance_tax"`
+	TaxableAmount            int64        `json:"taxable_amount"`
+	TaxAmount                int64        `json:"tax_amount"`
+	TaxJurisType             TaxJurisType `json:"tax_juris_type"`
+	TaxJurisName             string       `json:"tax_juris_name"`
+	TaxJurisCode             string       `json:"tax_juris_code"`
+	TaxAmountInLocalCurrency int64        `json:"tax_amount_in_local_currency"`
+	LocalCurrencyCode        string       `json:"local_currency_code"`
+	Object                   string       `json:"object"`
 }
 
 type OrderLineItemDiscount struct {
@@ -364,20 +343,20 @@ type OrderUpdateOrderLineItem struct {
 
 // input sub resource params single
 type OrderUpdateShippingAddress struct {
-	FirstName        string                               `json:"first_name,omitempty"`
-	LastName         string                               `json:"last_name,omitempty"`
-	Email            string                               `json:"email,omitempty"`
-	Company          string                               `json:"company,omitempty"`
-	Phone            string                               `json:"phone,omitempty"`
-	Line1            string                               `json:"line1,omitempty"`
-	Line2            string                               `json:"line2,omitempty"`
-	Line3            string                               `json:"line3,omitempty"`
-	City             string                               `json:"city,omitempty"`
-	StateCode        string                               `json:"state_code,omitempty"`
-	State            string                               `json:"state,omitempty"`
-	Zip              string                               `json:"zip,omitempty"`
-	Country          string                               `json:"country,omitempty"`
-	ValidationStatus OrderShippingAddressValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
 
 type OrderImportOrderRequest struct {
@@ -412,38 +391,38 @@ func (r *OrderImportOrderRequest) payload() any { return r }
 
 // input sub resource params single
 type OrderImportOrderShippingAddress struct {
-	FirstName        string                               `json:"first_name,omitempty"`
-	LastName         string                               `json:"last_name,omitempty"`
-	Email            string                               `json:"email,omitempty"`
-	Company          string                               `json:"company,omitempty"`
-	Phone            string                               `json:"phone,omitempty"`
-	Line1            string                               `json:"line1,omitempty"`
-	Line2            string                               `json:"line2,omitempty"`
-	Line3            string                               `json:"line3,omitempty"`
-	City             string                               `json:"city,omitempty"`
-	StateCode        string                               `json:"state_code,omitempty"`
-	State            string                               `json:"state,omitempty"`
-	Zip              string                               `json:"zip,omitempty"`
-	Country          string                               `json:"country,omitempty"`
-	ValidationStatus OrderShippingAddressValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type OrderImportOrderBillingAddress struct {
-	FirstName        string                              `json:"first_name,omitempty"`
-	LastName         string                              `json:"last_name,omitempty"`
-	Email            string                              `json:"email,omitempty"`
-	Company          string                              `json:"company,omitempty"`
-	Phone            string                              `json:"phone,omitempty"`
-	Line1            string                              `json:"line1,omitempty"`
-	Line2            string                              `json:"line2,omitempty"`
-	Line3            string                              `json:"line3,omitempty"`
-	City             string                              `json:"city,omitempty"`
-	StateCode        string                              `json:"state_code,omitempty"`
-	State            string                              `json:"state,omitempty"`
-	Zip              string                              `json:"zip,omitempty"`
-	Country          string                              `json:"country,omitempty"`
-	ValidationStatus OrderBillingAddressValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
 
 type OrderCancelRequest struct {
@@ -473,8 +452,8 @@ func (r *OrderCreateRefundableCreditNoteRequest) payload() any { return r }
 
 // input sub resource params single
 type OrderCreateRefundableCreditNoteCreditNote struct {
-	ReasonCode OrderCreditNoteReasonCode `json:"reason_code"`
-	Total      *int64                    `json:"total"`
+	ReasonCode CreditNoteReasonCode `json:"reason_code"`
+	Total      *int64               `json:"total"`
 }
 
 type OrderReopenRequest struct {

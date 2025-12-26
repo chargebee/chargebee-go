@@ -1,107 +1,5 @@
 package chargebee
 
-type TransactionPaymentMethod string
-
-const (
-	TransactionPaymentMethodCard                  TransactionPaymentMethod = "card"
-	TransactionPaymentMethodCash                  TransactionPaymentMethod = "cash"
-	TransactionPaymentMethodCheck                 TransactionPaymentMethod = "check"
-	TransactionPaymentMethodChargeback            TransactionPaymentMethod = "chargeback"
-	TransactionPaymentMethodBankTransfer          TransactionPaymentMethod = "bank_transfer"
-	TransactionPaymentMethodAmazonPayments        TransactionPaymentMethod = "amazon_payments"
-	TransactionPaymentMethodPaypalExpressCheckout TransactionPaymentMethod = "paypal_express_checkout"
-	TransactionPaymentMethodDirectDebit           TransactionPaymentMethod = "direct_debit"
-	TransactionPaymentMethodAlipay                TransactionPaymentMethod = "alipay"
-	TransactionPaymentMethodUnionpay              TransactionPaymentMethod = "unionpay"
-	TransactionPaymentMethodApplePay              TransactionPaymentMethod = "apple_pay"
-	TransactionPaymentMethodWechatPay             TransactionPaymentMethod = "wechat_pay"
-	TransactionPaymentMethodAchCredit             TransactionPaymentMethod = "ach_credit"
-	TransactionPaymentMethodSepaCredit            TransactionPaymentMethod = "sepa_credit"
-	TransactionPaymentMethodIdeal                 TransactionPaymentMethod = "ideal"
-	TransactionPaymentMethodGooglePay             TransactionPaymentMethod = "google_pay"
-	TransactionPaymentMethodSofort                TransactionPaymentMethod = "sofort"
-	TransactionPaymentMethodBancontact            TransactionPaymentMethod = "bancontact"
-	TransactionPaymentMethodGiropay               TransactionPaymentMethod = "giropay"
-	TransactionPaymentMethodDotpay                TransactionPaymentMethod = "dotpay"
-	TransactionPaymentMethodOther                 TransactionPaymentMethod = "other"
-	TransactionPaymentMethodUpi                   TransactionPaymentMethod = "upi"
-	TransactionPaymentMethodNetbankingEmandates   TransactionPaymentMethod = "netbanking_emandates"
-	TransactionPaymentMethodCustom                TransactionPaymentMethod = "custom"
-	TransactionPaymentMethodBoleto                TransactionPaymentMethod = "boleto"
-	TransactionPaymentMethodVenmo                 TransactionPaymentMethod = "venmo"
-	TransactionPaymentMethodPayTo                 TransactionPaymentMethod = "pay_to"
-	TransactionPaymentMethodFasterPayments        TransactionPaymentMethod = "faster_payments"
-	TransactionPaymentMethodSepaInstantTransfer   TransactionPaymentMethod = "sepa_instant_transfer"
-	TransactionPaymentMethodAutomatedBankTransfer TransactionPaymentMethod = "automated_bank_transfer"
-	TransactionPaymentMethodKlarnaPayNow          TransactionPaymentMethod = "klarna_pay_now"
-	TransactionPaymentMethodOnlineBankingPoland   TransactionPaymentMethod = "online_banking_poland"
-	TransactionPaymentMethodPayconiqByBancontact  TransactionPaymentMethod = "payconiq_by_bancontact"
-	TransactionPaymentMethodAppStore              TransactionPaymentMethod = "app_store"
-	TransactionPaymentMethodPlayStore             TransactionPaymentMethod = "play_store"
-)
-
-type TransactionGateway string
-
-const (
-	TransactionGatewayChargebee             TransactionGateway = "chargebee"
-	TransactionGatewayChargebeePayments     TransactionGateway = "chargebee_payments"
-	TransactionGatewayAdyen                 TransactionGateway = "adyen"
-	TransactionGatewayStripe                TransactionGateway = "stripe"
-	TransactionGatewayWepay                 TransactionGateway = "wepay"
-	TransactionGatewayBraintree             TransactionGateway = "braintree"
-	TransactionGatewayAuthorizeNet          TransactionGateway = "authorize_net"
-	TransactionGatewayPaypalPro             TransactionGateway = "paypal_pro"
-	TransactionGatewayPin                   TransactionGateway = "pin"
-	TransactionGatewayEway                  TransactionGateway = "eway"
-	TransactionGatewayEwayRapid             TransactionGateway = "eway_rapid"
-	TransactionGatewayWorldpay              TransactionGateway = "worldpay"
-	TransactionGatewayBalancedPayments      TransactionGateway = "balanced_payments"
-	TransactionGatewayBeanstream            TransactionGateway = "beanstream"
-	TransactionGatewayBluepay               TransactionGateway = "bluepay"
-	TransactionGatewayElavon                TransactionGateway = "elavon"
-	TransactionGatewayFirstDataGlobal       TransactionGateway = "first_data_global"
-	TransactionGatewayHdfc                  TransactionGateway = "hdfc"
-	TransactionGatewayMigs                  TransactionGateway = "migs"
-	TransactionGatewayNmi                   TransactionGateway = "nmi"
-	TransactionGatewayOgone                 TransactionGateway = "ogone"
-	TransactionGatewayPaymill               TransactionGateway = "paymill"
-	TransactionGatewayPaypalPayflowPro      TransactionGateway = "paypal_payflow_pro"
-	TransactionGatewaySagePay               TransactionGateway = "sage_pay"
-	TransactionGatewayTco                   TransactionGateway = "tco"
-	TransactionGatewayWirecard              TransactionGateway = "wirecard"
-	TransactionGatewayAmazonPayments        TransactionGateway = "amazon_payments"
-	TransactionGatewayPaypalExpressCheckout TransactionGateway = "paypal_express_checkout"
-	TransactionGatewayGocardless            TransactionGateway = "gocardless"
-	TransactionGatewayOrbital               TransactionGateway = "orbital"
-	TransactionGatewayMonerisUs             TransactionGateway = "moneris_us"
-	TransactionGatewayMoneris               TransactionGateway = "moneris"
-	TransactionGatewayBluesnap              TransactionGateway = "bluesnap"
-	TransactionGatewayCybersource           TransactionGateway = "cybersource"
-	TransactionGatewayVantiv                TransactionGateway = "vantiv"
-	TransactionGatewayCheckoutCom           TransactionGateway = "checkout_com"
-	TransactionGatewayPaypal                TransactionGateway = "paypal"
-	TransactionGatewayIngenicoDirect        TransactionGateway = "ingenico_direct"
-	TransactionGatewayExact                 TransactionGateway = "exact"
-	TransactionGatewayMollie                TransactionGateway = "mollie"
-	TransactionGatewayQuickbooks            TransactionGateway = "quickbooks"
-	TransactionGatewayRazorpay              TransactionGateway = "razorpay"
-	TransactionGatewayGlobalPayments        TransactionGateway = "global_payments"
-	TransactionGatewayBankOfAmerica         TransactionGateway = "bank_of_america"
-	TransactionGatewayEcentric              TransactionGateway = "ecentric"
-	TransactionGatewayMetricsGlobal         TransactionGateway = "metrics_global"
-	TransactionGatewayWindcave              TransactionGateway = "windcave"
-	TransactionGatewayPayCom                TransactionGateway = "pay_com"
-	TransactionGatewayEbanx                 TransactionGateway = "ebanx"
-	TransactionGatewayDlocal                TransactionGateway = "dlocal"
-	TransactionGatewayNuvei                 TransactionGateway = "nuvei"
-	TransactionGatewaySolidgate             TransactionGateway = "solidgate"
-	TransactionGatewayPaystack              TransactionGateway = "paystack"
-	TransactionGatewayJpMorgan              TransactionGateway = "jp_morgan"
-	TransactionGatewayDeutscheBank          TransactionGateway = "deutsche_bank"
-	TransactionGatewayEzidebit              TransactionGateway = "ezidebit"
-	TransactionGatewayNotApplicable         TransactionGateway = "not_applicable"
-)
-
 type TransactionType string
 
 const (
@@ -146,53 +44,53 @@ const (
 	TransactionAuthorizationReasonScheduledCapture TransactionAuthorizationReason = "scheduled_capture"
 )
 
-type TransactionInvoiceTransactionInvoiceStatus string
+type TransactionLinkedInvoiceInvoiceStatus string
 
 const (
-	TransactionInvoiceTransactionInvoiceStatusPaid       TransactionInvoiceTransactionInvoiceStatus = "paid"
-	TransactionInvoiceTransactionInvoiceStatusPosted     TransactionInvoiceTransactionInvoiceStatus = "posted"
-	TransactionInvoiceTransactionInvoiceStatusPaymentDue TransactionInvoiceTransactionInvoiceStatus = "payment_due"
-	TransactionInvoiceTransactionInvoiceStatusNotPaid    TransactionInvoiceTransactionInvoiceStatus = "not_paid"
-	TransactionInvoiceTransactionInvoiceStatusVoided     TransactionInvoiceTransactionInvoiceStatus = "voided"
-	TransactionInvoiceTransactionInvoiceStatusPending    TransactionInvoiceTransactionInvoiceStatus = "pending"
+	TransactionLinkedInvoiceInvoiceStatusPaid       TransactionLinkedInvoiceInvoiceStatus = "paid"
+	TransactionLinkedInvoiceInvoiceStatusPosted     TransactionLinkedInvoiceInvoiceStatus = "posted"
+	TransactionLinkedInvoiceInvoiceStatusPaymentDue TransactionLinkedInvoiceInvoiceStatus = "payment_due"
+	TransactionLinkedInvoiceInvoiceStatusNotPaid    TransactionLinkedInvoiceInvoiceStatus = "not_paid"
+	TransactionLinkedInvoiceInvoiceStatusVoided     TransactionLinkedInvoiceInvoiceStatus = "voided"
+	TransactionLinkedInvoiceInvoiceStatusPending    TransactionLinkedInvoiceInvoiceStatus = "pending"
 )
 
-type TransactionCreditNoteTransactionCnReasonCode string
+type TransactionLinkedCreditNoteCnReasonCode string
 
 const (
-	TransactionCreditNoteTransactionCnReasonCodeWriteOff                 TransactionCreditNoteTransactionCnReasonCode = "write_off"
-	TransactionCreditNoteTransactionCnReasonCodeSubscriptionChange       TransactionCreditNoteTransactionCnReasonCode = "subscription_change"
-	TransactionCreditNoteTransactionCnReasonCodeSubscriptionCancellation TransactionCreditNoteTransactionCnReasonCode = "subscription_cancellation"
-	TransactionCreditNoteTransactionCnReasonCodeSubscriptionPause        TransactionCreditNoteTransactionCnReasonCode = "subscription_pause"
-	TransactionCreditNoteTransactionCnReasonCodeChargeback               TransactionCreditNoteTransactionCnReasonCode = "chargeback"
-	TransactionCreditNoteTransactionCnReasonCodeProductUnsatisfactory    TransactionCreditNoteTransactionCnReasonCode = "product_unsatisfactory"
-	TransactionCreditNoteTransactionCnReasonCodeServiceUnsatisfactory    TransactionCreditNoteTransactionCnReasonCode = "service_unsatisfactory"
-	TransactionCreditNoteTransactionCnReasonCodeOrderChange              TransactionCreditNoteTransactionCnReasonCode = "order_change"
-	TransactionCreditNoteTransactionCnReasonCodeOrderCancellation        TransactionCreditNoteTransactionCnReasonCode = "order_cancellation"
-	TransactionCreditNoteTransactionCnReasonCodeWaiver                   TransactionCreditNoteTransactionCnReasonCode = "waiver"
-	TransactionCreditNoteTransactionCnReasonCodeOther                    TransactionCreditNoteTransactionCnReasonCode = "other"
-	TransactionCreditNoteTransactionCnReasonCodeFraudulent               TransactionCreditNoteTransactionCnReasonCode = "fraudulent"
+	TransactionLinkedCreditNoteCnReasonCodeWriteOff                 TransactionLinkedCreditNoteCnReasonCode = "write_off"
+	TransactionLinkedCreditNoteCnReasonCodeSubscriptionChange       TransactionLinkedCreditNoteCnReasonCode = "subscription_change"
+	TransactionLinkedCreditNoteCnReasonCodeSubscriptionCancellation TransactionLinkedCreditNoteCnReasonCode = "subscription_cancellation"
+	TransactionLinkedCreditNoteCnReasonCodeSubscriptionPause        TransactionLinkedCreditNoteCnReasonCode = "subscription_pause"
+	TransactionLinkedCreditNoteCnReasonCodeChargeback               TransactionLinkedCreditNoteCnReasonCode = "chargeback"
+	TransactionLinkedCreditNoteCnReasonCodeProductUnsatisfactory    TransactionLinkedCreditNoteCnReasonCode = "product_unsatisfactory"
+	TransactionLinkedCreditNoteCnReasonCodeServiceUnsatisfactory    TransactionLinkedCreditNoteCnReasonCode = "service_unsatisfactory"
+	TransactionLinkedCreditNoteCnReasonCodeOrderChange              TransactionLinkedCreditNoteCnReasonCode = "order_change"
+	TransactionLinkedCreditNoteCnReasonCodeOrderCancellation        TransactionLinkedCreditNoteCnReasonCode = "order_cancellation"
+	TransactionLinkedCreditNoteCnReasonCodeWaiver                   TransactionLinkedCreditNoteCnReasonCode = "waiver"
+	TransactionLinkedCreditNoteCnReasonCodeOther                    TransactionLinkedCreditNoteCnReasonCode = "other"
+	TransactionLinkedCreditNoteCnReasonCodeFraudulent               TransactionLinkedCreditNoteCnReasonCode = "fraudulent"
 )
 
-type TransactionCreditNoteTransactionCnStatus string
+type TransactionLinkedCreditNoteCnStatus string
 
 const (
-	TransactionCreditNoteTransactionCnStatusAdjusted  TransactionCreditNoteTransactionCnStatus = "adjusted"
-	TransactionCreditNoteTransactionCnStatusRefunded  TransactionCreditNoteTransactionCnStatus = "refunded"
-	TransactionCreditNoteTransactionCnStatusRefundDue TransactionCreditNoteTransactionCnStatus = "refund_due"
-	TransactionCreditNoteTransactionCnStatusVoided    TransactionCreditNoteTransactionCnStatus = "voided"
+	TransactionLinkedCreditNoteCnStatusAdjusted  TransactionLinkedCreditNoteCnStatus = "adjusted"
+	TransactionLinkedCreditNoteCnStatusRefunded  TransactionLinkedCreditNoteCnStatus = "refunded"
+	TransactionLinkedCreditNoteCnStatusRefundDue TransactionLinkedCreditNoteCnStatus = "refund_due"
+	TransactionLinkedCreditNoteCnStatusVoided    TransactionLinkedCreditNoteCnStatus = "voided"
 )
 
-type TransactionTxnRefundsAndReversalTxnStatus string
+type TransactionLinkedRefundTxnStatus string
 
 const (
-	TransactionTxnRefundsAndReversalTxnStatusInProgress     TransactionTxnRefundsAndReversalTxnStatus = "in_progress"
-	TransactionTxnRefundsAndReversalTxnStatusSuccess        TransactionTxnRefundsAndReversalTxnStatus = "success"
-	TransactionTxnRefundsAndReversalTxnStatusVoided         TransactionTxnRefundsAndReversalTxnStatus = "voided"
-	TransactionTxnRefundsAndReversalTxnStatusFailure        TransactionTxnRefundsAndReversalTxnStatus = "failure"
-	TransactionTxnRefundsAndReversalTxnStatusTimeout        TransactionTxnRefundsAndReversalTxnStatus = "timeout"
-	TransactionTxnRefundsAndReversalTxnStatusNeedsAttention TransactionTxnRefundsAndReversalTxnStatus = "needs_attention"
-	TransactionTxnRefundsAndReversalTxnStatusLateFailure    TransactionTxnRefundsAndReversalTxnStatus = "late_failure"
+	TransactionLinkedRefundTxnStatusInProgress     TransactionLinkedRefundTxnStatus = "in_progress"
+	TransactionLinkedRefundTxnStatusSuccess        TransactionLinkedRefundTxnStatus = "success"
+	TransactionLinkedRefundTxnStatusVoided         TransactionLinkedRefundTxnStatus = "voided"
+	TransactionLinkedRefundTxnStatusFailure        TransactionLinkedRefundTxnStatus = "failure"
+	TransactionLinkedRefundTxnStatusTimeout        TransactionLinkedRefundTxnStatus = "timeout"
+	TransactionLinkedRefundTxnStatusNeedsAttention TransactionLinkedRefundTxnStatus = "needs_attention"
+	TransactionLinkedRefundTxnStatusLateFailure    TransactionLinkedRefundTxnStatus = "late_failure"
 )
 
 type TransactionLinkedPaymentStatus string
@@ -214,9 +112,9 @@ type Transaction struct {
 	SubscriptionId           string                         `json:"subscription_id"`
 	GatewayAccountId         string                         `json:"gateway_account_id"`
 	PaymentSourceId          string                         `json:"payment_source_id"`
-	PaymentMethod            TransactionPaymentMethod       `json:"payment_method"`
+	PaymentMethod            PaymentMethod                  `json:"payment_method"`
 	ReferenceNumber          string                         `json:"reference_number"`
-	Gateway                  TransactionGateway             `json:"gateway"`
+	Gateway                  Gateway                        `json:"gateway"`
 	Type                     TransactionType                `json:"type"`
 	Date                     int64                          `json:"date"`
 	SettledAt                int64                          `json:"settled_at"`
@@ -260,34 +158,34 @@ type Transaction struct {
 
 // sub resources
 type TransactionLinkedInvoice struct {
-	InvoiceId     string        `json:"invoice_id"`
-	AppliedAmount int64         `json:"applied_amount"`
-	AppliedAt     int64         `json:"applied_at"`
-	InvoiceDate   int64         `json:"invoice_date"`
-	InvoiceTotal  int64         `json:"invoice_total"`
-	InvoiceStatus InvoiceStatus `json:"invoice_status"`
-	Object        string        `json:"object"`
+	InvoiceId     string                                `json:"invoice_id"`
+	AppliedAmount int64                                 `json:"applied_amount"`
+	AppliedAt     int64                                 `json:"applied_at"`
+	InvoiceDate   int64                                 `json:"invoice_date"`
+	InvoiceTotal  int64                                 `json:"invoice_total"`
+	InvoiceStatus TransactionLinkedInvoiceInvoiceStatus `json:"invoice_status"`
+	Object        string                                `json:"object"`
 }
 
 type TransactionLinkedCreditNote struct {
-	CnId                 string               `json:"cn_id"`
-	AppliedAmount        int64                `json:"applied_amount"`
-	AppliedAt            int64                `json:"applied_at"`
-	CnReasonCode         CreditNoteReasonCode `json:"cn_reason_code"`
-	CnCreateReasonCode   string               `json:"cn_create_reason_code"`
-	CnDate               int64                `json:"cn_date"`
-	CnTotal              int64                `json:"cn_total"`
-	CnStatus             CreditNoteStatus     `json:"cn_status"`
-	CnReferenceInvoiceId string               `json:"cn_reference_invoice_id"`
-	Object               string               `json:"object"`
+	CnId                 string                                  `json:"cn_id"`
+	AppliedAmount        int64                                   `json:"applied_amount"`
+	AppliedAt            int64                                   `json:"applied_at"`
+	CnReasonCode         TransactionLinkedCreditNoteCnReasonCode `json:"cn_reason_code"`
+	CnCreateReasonCode   string                                  `json:"cn_create_reason_code"`
+	CnDate               int64                                   `json:"cn_date"`
+	CnTotal              int64                                   `json:"cn_total"`
+	CnStatus             TransactionLinkedCreditNoteCnStatus     `json:"cn_status"`
+	CnReferenceInvoiceId string                                  `json:"cn_reference_invoice_id"`
+	Object               string                                  `json:"object"`
 }
 
 type TransactionLinkedRefund struct {
-	TxnId     string            `json:"txn_id"`
-	TxnStatus TransactionStatus `json:"txn_status"`
-	TxnDate   int64             `json:"txn_date"`
-	TxnAmount int64             `json:"txn_amount"`
-	Object    string            `json:"object"`
+	TxnId     string                           `json:"txn_id"`
+	TxnStatus TransactionLinkedRefundTxnStatus `json:"txn_status"`
+	TxnDate   int64                            `json:"txn_date"`
+	TxnAmount int64                            `json:"txn_amount"`
+	Object    string                           `json:"object"`
 }
 
 type TransactionLinkedPayment struct {
@@ -330,12 +228,12 @@ type TransactionCreateAuthorizationRequest struct {
 func (r *TransactionCreateAuthorizationRequest) payload() any { return r }
 
 type TransactionRecordRefundRequest struct {
-	Amount                *int64                   `json:"amount,omitempty"`
-	PaymentMethod         TransactionPaymentMethod `json:"payment_method"`
-	Date                  *int64                   `json:"date"`
-	ReferenceNumber       string                   `json:"reference_number,omitempty"`
-	CustomPaymentMethodId string                   `json:"custom_payment_method_id,omitempty"`
-	Comment               string                   `json:"comment,omitempty"`
+	Amount                *int64        `json:"amount,omitempty"`
+	PaymentMethod         PaymentMethod `json:"payment_method"`
+	Date                  *int64        `json:"date"`
+	ReferenceNumber       string        `json:"reference_number,omitempty"`
+	CustomPaymentMethodId string        `json:"custom_payment_method_id,omitempty"`
+	Comment               string        `json:"comment,omitempty"`
 	apiRequest            `json:"-" form:"-"`
 }
 

@@ -48,15 +48,6 @@ const (
 	CouponApplyOnEachUnitOfSpecifiedItems CouponApplyOn = "each_unit_of_specified_items"
 )
 
-type CouponPeriodUnit string
-
-const (
-	CouponPeriodUnitDay   CouponPeriodUnit = "day"
-	CouponPeriodUnitWeek  CouponPeriodUnit = "week"
-	CouponPeriodUnitMonth CouponPeriodUnit = "month"
-	CouponPeriodUnitYear  CouponPeriodUnit = "year"
-)
-
 type CouponAddonConstraint string
 
 const (
@@ -139,7 +130,7 @@ type Coupon struct {
 	UpdatedAt              int64                           `json:"updated_at"`
 	IncludedInMrr          bool                            `json:"included_in_mrr"`
 	Period                 int32                           `json:"period"`
-	PeriodUnit             CouponPeriodUnit                `json:"period_unit"`
+	PeriodUnit             PeriodUnit                      `json:"period_unit"`
 	PlanIds                []string                        `json:"plan_ids"`
 	AddonIds               []string                        `json:"addon_ids"`
 	ItemConstraints        []*CouponItemConstraint         `json:"item_constraints"`
@@ -196,7 +187,7 @@ type CouponCreateRequest struct {
 	MetaData           map[string]interface{} `json:"meta_data,omitempty"`
 	IncludedInMrr      *bool                  `json:"included_in_mrr,omitempty"`
 	Period             *int32                 `json:"period,omitempty"`
-	PeriodUnit         CouponPeriodUnit       `json:"period_unit,omitempty"`
+	PeriodUnit         PeriodUnit             `json:"period_unit,omitempty"`
 	PlanConstraint     CouponPlanConstraint   `json:"plan_constraint,omitempty"`
 	AddonConstraint    CouponAddonConstraint  `json:"addon_constraint,omitempty"`
 	PlanIds            []string               `json:"plan_ids,omitempty"`
@@ -226,7 +217,7 @@ type CouponCreateForItemsRequest struct {
 	MetaData               map[string]interface{}                        `json:"meta_data,omitempty"`
 	IncludedInMrr          *bool                                         `json:"included_in_mrr,omitempty"`
 	Period                 *int32                                        `json:"period,omitempty"`
-	PeriodUnit             CouponPeriodUnit                              `json:"period_unit,omitempty"`
+	PeriodUnit             PeriodUnit                                    `json:"period_unit,omitempty"`
 	ItemConstraints        []*CouponCreateForItemsItemConstraint         `json:"item_constraints,omitempty"`
 	ItemConstraintCriteria []*CouponCreateForItemsItemConstraintCriteria `json:"item_constraint_criteria,omitempty"`
 	Status                 CouponStatus                                  `json:"status,omitempty"`
@@ -276,7 +267,7 @@ type CouponUpdateForItemsRequest struct {
 	MetaData               map[string]interface{}                        `json:"meta_data,omitempty"`
 	IncludedInMrr          *bool                                         `json:"included_in_mrr,omitempty"`
 	Period                 *int32                                        `json:"period,omitempty"`
-	PeriodUnit             CouponPeriodUnit                              `json:"period_unit,omitempty"`
+	PeriodUnit             PeriodUnit                                    `json:"period_unit,omitempty"`
 	ItemConstraints        []*CouponUpdateForItemsItemConstraint         `json:"item_constraints,omitempty"`
 	ItemConstraintCriteria []*CouponUpdateForItemsItemConstraintCriteria `json:"item_constraint_criteria,omitempty"`
 	CouponConstraints      []*CouponUpdateForItemsCouponConstraint       `json:"coupon_constraints,omitempty"`
@@ -342,7 +333,7 @@ type CouponUpdateRequest struct {
 	MetaData           map[string]interface{} `json:"meta_data,omitempty"`
 	IncludedInMrr      *bool                  `json:"included_in_mrr,omitempty"`
 	Period             *int32                 `json:"period,omitempty"`
-	PeriodUnit         CouponPeriodUnit       `json:"period_unit,omitempty"`
+	PeriodUnit         PeriodUnit             `json:"period_unit,omitempty"`
 	PlanConstraint     CouponPlanConstraint   `json:"plan_constraint,omitempty"`
 	AddonConstraint    CouponAddonConstraint  `json:"addon_constraint,omitempty"`
 	PlanIds            []string               `json:"plan_ids,omitempty"`

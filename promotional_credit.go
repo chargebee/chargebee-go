@@ -7,69 +7,61 @@ const (
 	PromotionalCreditTypeDecrement PromotionalCreditType = "decrement"
 )
 
-type PromotionalCreditCreditType string
-
-const (
-	PromotionalCreditCreditTypeLoyaltyCredits  PromotionalCreditCreditType = "loyalty_credits"
-	PromotionalCreditCreditTypeReferralRewards PromotionalCreditCreditType = "referral_rewards"
-	PromotionalCreditCreditTypeGeneral         PromotionalCreditCreditType = "general"
-)
-
 // just struct
 type PromotionalCredit struct {
-	Id               string                      `json:"id"`
-	CustomerId       string                      `json:"customer_id"`
-	Type             PromotionalCreditType       `json:"type"`
-	AmountInDecimal  string                      `json:"amount_in_decimal"`
-	Amount           int64                       `json:"amount"`
-	CurrencyCode     string                      `json:"currency_code"`
-	Description      string                      `json:"description"`
-	CreditType       PromotionalCreditCreditType `json:"credit_type"`
-	Reference        string                      `json:"reference"`
-	ClosingBalance   int64                       `json:"closing_balance"`
-	DoneBy           string                      `json:"done_by"`
-	CreatedAt        int64                       `json:"created_at"`
-	BusinessEntityId string                      `json:"business_entity_id"`
-	Object           string                      `json:"object"`
+	Id               string                `json:"id"`
+	CustomerId       string                `json:"customer_id"`
+	Type             PromotionalCreditType `json:"type"`
+	AmountInDecimal  string                `json:"amount_in_decimal"`
+	Amount           int64                 `json:"amount"`
+	CurrencyCode     string                `json:"currency_code"`
+	Description      string                `json:"description"`
+	CreditType       CreditType            `json:"credit_type"`
+	Reference        string                `json:"reference"`
+	ClosingBalance   int64                 `json:"closing_balance"`
+	DoneBy           string                `json:"done_by"`
+	CreatedAt        int64                 `json:"created_at"`
+	BusinessEntityId string                `json:"business_entity_id"`
+	Object           string                `json:"object"`
 }
 
 // sub resources
 // operations
 // input params
 type PromotionalCreditAddRequest struct {
-	CustomerId      string                      `json:"customer_id"`
-	Amount          *int64                      `json:"amount,omitempty"`
-	AmountInDecimal string                      `json:"amount_in_decimal,omitempty"`
-	CurrencyCode    string                      `json:"currency_code,omitempty"`
-	Description     string                      `json:"description"`
-	CreditType      PromotionalCreditCreditType `json:"credit_type,omitempty"`
-	Reference       string                      `json:"reference,omitempty"`
+	CustomerId      string     `json:"customer_id"`
+	Amount          *int64     `json:"amount,omitempty"`
+	AmountInDecimal string     `json:"amount_in_decimal,omitempty"`
+	CurrencyCode    string     `json:"currency_code,omitempty"`
+	Description     string     `json:"description"`
+	CreditType      CreditType `json:"credit_type,omitempty"`
+	Reference       string     `json:"reference,omitempty"`
 	apiRequest      `json:"-" form:"-"`
 }
 
 func (r *PromotionalCreditAddRequest) payload() any { return r }
 
 type PromotionalCreditDeductRequest struct {
-	CustomerId      string                      `json:"customer_id"`
-	Amount          *int64                      `json:"amount,omitempty"`
-	AmountInDecimal string                      `json:"amount_in_decimal,omitempty"`
-	CurrencyCode    string                      `json:"currency_code,omitempty"`
-	Description     string                      `json:"description"`
-	CreditType      PromotionalCreditCreditType `json:"credit_type,omitempty"`
-	Reference       string                      `json:"reference,omitempty"`
+	CustomerId      string     `json:"customer_id"`
+	Amount          *int64     `json:"amount,omitempty"`
+	AmountInDecimal string     `json:"amount_in_decimal,omitempty"`
+	CurrencyCode    string     `json:"currency_code,omitempty"`
+	Description     string     `json:"description"`
+	CreditType      CreditType `json:"credit_type,omitempty"`
+	Reference       string     `json:"reference,omitempty"`
 	apiRequest      `json:"-" form:"-"`
 }
 
 func (r *PromotionalCreditDeductRequest) payload() any { return r }
 
 type PromotionalCreditSetRequest struct {
-	CustomerId      string                      `json:"customer_id"`
-	Amount          *int64                      `json:"amount,omitempty"`
-	AmountInDecimal string                      `json:"amount_in_decimal,omitempty"`
-	CurrencyCode    string                      `json:"currency_code,omitempty"`
-	Description     string                      `json:"description"`
-	CreditType      PromotionalCreditCreditType `json:"credit_type,omitempty"`
-	Reference       string                      `json:"reference,omitempty"`
+	CustomerId      string     `json:"customer_id"`
+	Amount          *int64     `json:"amount,omitempty"`
+	AmountInDecimal string     `json:"amount_in_decimal,omitempty"`
+	CurrencyCode    string     `json:"currency_code,omitempty"`
+	Description     string     `json:"description"`
+	CreditType      CreditType `json:"credit_type,omitempty"`
+	Reference       string     `json:"reference,omitempty"`
 	apiRequest      `json:"-" form:"-"`
 }
 

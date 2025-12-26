@@ -7,14 +7,6 @@ const (
 	AdvanceInvoiceScheduleScheduleTypeSpecificDates  AdvanceInvoiceScheduleScheduleType = "specific_dates"
 )
 
-type AdvanceInvoiceScheduleFixedIntervalScheduleEndScheduleOn string
-
-const (
-	AdvanceInvoiceScheduleFixedIntervalScheduleEndScheduleOnAfterNumberOfIntervals AdvanceInvoiceScheduleFixedIntervalScheduleEndScheduleOn = "after_number_of_intervals"
-	AdvanceInvoiceScheduleFixedIntervalScheduleEndScheduleOnSpecificDate           AdvanceInvoiceScheduleFixedIntervalScheduleEndScheduleOn = "specific_date"
-	AdvanceInvoiceScheduleFixedIntervalScheduleEndScheduleOnSubscriptionEnd        AdvanceInvoiceScheduleFixedIntervalScheduleEndScheduleOn = "subscription_end"
-)
-
 // just struct
 type AdvanceInvoiceSchedule struct {
 	Id                    string                                       `json:"id"`
@@ -26,13 +18,13 @@ type AdvanceInvoiceSchedule struct {
 
 // sub resources
 type AdvanceInvoiceScheduleFixedIntervalSchedule struct {
-	EndScheduleOn       AdvanceInvoiceScheduleFixedIntervalScheduleEndScheduleOn `json:"end_schedule_on"`
-	NumberOfOccurrences int32                                                    `json:"number_of_occurrences"`
-	DaysBeforeRenewal   int32                                                    `json:"days_before_renewal"`
-	EndDate             int64                                                    `json:"end_date"`
-	CreatedAt           int64                                                    `json:"created_at"`
-	TermsToCharge       int32                                                    `json:"terms_to_charge"`
-	Object              string                                                   `json:"object"`
+	EndScheduleOn       EndScheduleOn `json:"end_schedule_on"`
+	NumberOfOccurrences int32         `json:"number_of_occurrences"`
+	DaysBeforeRenewal   int32         `json:"days_before_renewal"`
+	EndDate             int64         `json:"end_date"`
+	CreatedAt           int64         `json:"created_at"`
+	TermsToCharge       int32         `json:"terms_to_charge"`
+	Object              string        `json:"object"`
 }
 
 type AdvanceInvoiceScheduleSpecificDatesSchedule struct {

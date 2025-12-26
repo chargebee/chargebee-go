@@ -4,31 +4,6 @@ import (
 	"encoding/json"
 )
 
-type CustomerAutoCollection string
-
-const (
-	CustomerAutoCollectionOn  CustomerAutoCollection = "on"
-	CustomerAutoCollectionOff CustomerAutoCollection = "off"
-)
-
-type CustomerOfflinePaymentMethod string
-
-const (
-	CustomerOfflinePaymentMethodNoPreference            CustomerOfflinePaymentMethod = "no_preference"
-	CustomerOfflinePaymentMethodCash                    CustomerOfflinePaymentMethod = "cash"
-	CustomerOfflinePaymentMethodCheck                   CustomerOfflinePaymentMethod = "check"
-	CustomerOfflinePaymentMethodBankTransfer            CustomerOfflinePaymentMethod = "bank_transfer"
-	CustomerOfflinePaymentMethodAchCredit               CustomerOfflinePaymentMethod = "ach_credit"
-	CustomerOfflinePaymentMethodSepaCredit              CustomerOfflinePaymentMethod = "sepa_credit"
-	CustomerOfflinePaymentMethodBoleto                  CustomerOfflinePaymentMethod = "boleto"
-	CustomerOfflinePaymentMethodUsAutomatedBankTransfer CustomerOfflinePaymentMethod = "us_automated_bank_transfer"
-	CustomerOfflinePaymentMethodEuAutomatedBankTransfer CustomerOfflinePaymentMethod = "eu_automated_bank_transfer"
-	CustomerOfflinePaymentMethodUkAutomatedBankTransfer CustomerOfflinePaymentMethod = "uk_automated_bank_transfer"
-	CustomerOfflinePaymentMethodJpAutomatedBankTransfer CustomerOfflinePaymentMethod = "jp_automated_bank_transfer"
-	CustomerOfflinePaymentMethodMxAutomatedBankTransfer CustomerOfflinePaymentMethod = "mx_automated_bank_transfer"
-	CustomerOfflinePaymentMethodCustom                  CustomerOfflinePaymentMethod = "custom"
-)
-
 type CustomerVatNumberStatus string
 
 const (
@@ -36,44 +11,6 @@ const (
 	CustomerVatNumberStatusInvalid      CustomerVatNumberStatus = "invalid"
 	CustomerVatNumberStatusNotValidated CustomerVatNumberStatus = "not_validated"
 	CustomerVatNumberStatusUndetermined CustomerVatNumberStatus = "undetermined"
-)
-
-type CustomerTaxability string
-
-const (
-	CustomerTaxabilityTaxable CustomerTaxability = "taxable"
-	CustomerTaxabilityExempt  CustomerTaxability = "exempt"
-)
-
-type CustomerEntityCode string
-
-const (
-	CustomerEntityCodeA    CustomerEntityCode = "a"
-	CustomerEntityCodeB    CustomerEntityCode = "b"
-	CustomerEntityCodeC    CustomerEntityCode = "c"
-	CustomerEntityCodeD    CustomerEntityCode = "d"
-	CustomerEntityCodeE    CustomerEntityCode = "e"
-	CustomerEntityCodeF    CustomerEntityCode = "f"
-	CustomerEntityCodeG    CustomerEntityCode = "g"
-	CustomerEntityCodeH    CustomerEntityCode = "h"
-	CustomerEntityCodeI    CustomerEntityCode = "i"
-	CustomerEntityCodeJ    CustomerEntityCode = "j"
-	CustomerEntityCodeK    CustomerEntityCode = "k"
-	CustomerEntityCodeL    CustomerEntityCode = "l"
-	CustomerEntityCodeM    CustomerEntityCode = "m"
-	CustomerEntityCodeN    CustomerEntityCode = "n"
-	CustomerEntityCodeP    CustomerEntityCode = "p"
-	CustomerEntityCodeQ    CustomerEntityCode = "q"
-	CustomerEntityCodeR    CustomerEntityCode = "r"
-	CustomerEntityCodeMed1 CustomerEntityCode = "med1"
-	CustomerEntityCodeMed2 CustomerEntityCode = "med2"
-)
-
-type CustomerBillingDateMode string
-
-const (
-	CustomerBillingDateModeUsingDefaults CustomerBillingDateMode = "using_defaults"
-	CustomerBillingDateModeManuallySet   CustomerBillingDateMode = "manually_set"
 )
 
 type CustomerBillingDayOfWeek string
@@ -88,27 +25,12 @@ const (
 	CustomerBillingDayOfWeekSaturday  CustomerBillingDayOfWeek = "saturday"
 )
 
-type CustomerBillingDayOfWeekMode string
-
-const (
-	CustomerBillingDayOfWeekModeUsingDefaults CustomerBillingDayOfWeekMode = "using_defaults"
-	CustomerBillingDayOfWeekModeManuallySet   CustomerBillingDayOfWeekMode = "manually_set"
-)
-
 type CustomerPiiCleared string
 
 const (
 	CustomerPiiClearedActive            CustomerPiiCleared = "active"
 	CustomerPiiClearedScheduledForClear CustomerPiiCleared = "scheduled_for_clear"
 	CustomerPiiClearedCleared           CustomerPiiCleared = "cleared"
-)
-
-type CustomerChannel string
-
-const (
-	CustomerChannelWeb       CustomerChannel = "web"
-	CustomerChannelAppStore  CustomerChannel = "app_store"
-	CustomerChannelPlayStore CustomerChannel = "play_store"
 )
 
 type CustomerCardStatus string
@@ -128,132 +50,6 @@ const (
 	CustomerFraudFlagSafe       CustomerFraudFlag = "safe"
 	CustomerFraudFlagSuspicious CustomerFraudFlag = "suspicious"
 	CustomerFraudFlagFraudulent CustomerFraudFlag = "fraudulent"
-)
-
-type CustomerEinvoicingMethod string
-
-const (
-	CustomerEinvoicingMethodAutomatic   CustomerEinvoicingMethod = "automatic"
-	CustomerEinvoicingMethodManual      CustomerEinvoicingMethod = "manual"
-	CustomerEinvoicingMethodSiteDefault CustomerEinvoicingMethod = "site_default"
-)
-
-type CustomerCustomerType string
-
-const (
-	CustomerCustomerTypeResidential   CustomerCustomerType = "residential"
-	CustomerCustomerTypeBusiness      CustomerCustomerType = "business"
-	CustomerCustomerTypeSeniorCitizen CustomerCustomerType = "senior_citizen"
-	CustomerCustomerTypeIndustrial    CustomerCustomerType = "industrial"
-)
-
-type CustomerBillingAddressValidationStatus string
-
-const (
-	CustomerBillingAddressValidationStatusNotValidated   CustomerBillingAddressValidationStatus = "not_validated"
-	CustomerBillingAddressValidationStatusValid          CustomerBillingAddressValidationStatus = "valid"
-	CustomerBillingAddressValidationStatusPartiallyValid CustomerBillingAddressValidationStatus = "partially_valid"
-	CustomerBillingAddressValidationStatusInvalid        CustomerBillingAddressValidationStatus = "invalid"
-)
-
-type CustomerReferralUrlReferralSystem string
-
-const (
-	CustomerReferralUrlReferralSystemReferralCandy      CustomerReferralUrlReferralSystem = "referral_candy"
-	CustomerReferralUrlReferralSystemReferralSaasquatch CustomerReferralUrlReferralSystem = "referral_saasquatch"
-	CustomerReferralUrlReferralSystemFriendbuy          CustomerReferralUrlReferralSystem = "friendbuy"
-)
-
-type CustomerPaymentMethodType string
-
-const (
-	CustomerPaymentMethodTypeCard                  CustomerPaymentMethodType = "card"
-	CustomerPaymentMethodTypePaypalExpressCheckout CustomerPaymentMethodType = "paypal_express_checkout"
-	CustomerPaymentMethodTypeAmazonPayments        CustomerPaymentMethodType = "amazon_payments"
-	CustomerPaymentMethodTypeDirectDebit           CustomerPaymentMethodType = "direct_debit"
-	CustomerPaymentMethodTypeGeneric               CustomerPaymentMethodType = "generic"
-	CustomerPaymentMethodTypeAlipay                CustomerPaymentMethodType = "alipay"
-	CustomerPaymentMethodTypeUnionpay              CustomerPaymentMethodType = "unionpay"
-	CustomerPaymentMethodTypeApplePay              CustomerPaymentMethodType = "apple_pay"
-	CustomerPaymentMethodTypeWechatPay             CustomerPaymentMethodType = "wechat_pay"
-	CustomerPaymentMethodTypeIdeal                 CustomerPaymentMethodType = "ideal"
-	CustomerPaymentMethodTypeGooglePay             CustomerPaymentMethodType = "google_pay"
-	CustomerPaymentMethodTypeSofort                CustomerPaymentMethodType = "sofort"
-	CustomerPaymentMethodTypeBancontact            CustomerPaymentMethodType = "bancontact"
-	CustomerPaymentMethodTypeGiropay               CustomerPaymentMethodType = "giropay"
-	CustomerPaymentMethodTypeDotpay                CustomerPaymentMethodType = "dotpay"
-	CustomerPaymentMethodTypeUpi                   CustomerPaymentMethodType = "upi"
-	CustomerPaymentMethodTypeNetbankingEmandates   CustomerPaymentMethodType = "netbanking_emandates"
-	CustomerPaymentMethodTypeVenmo                 CustomerPaymentMethodType = "venmo"
-	CustomerPaymentMethodTypePayTo                 CustomerPaymentMethodType = "pay_to"
-	CustomerPaymentMethodTypeFasterPayments        CustomerPaymentMethodType = "faster_payments"
-	CustomerPaymentMethodTypeSepaInstantTransfer   CustomerPaymentMethodType = "sepa_instant_transfer"
-	CustomerPaymentMethodTypeAutomatedBankTransfer CustomerPaymentMethodType = "automated_bank_transfer"
-	CustomerPaymentMethodTypeKlarnaPayNow          CustomerPaymentMethodType = "klarna_pay_now"
-	CustomerPaymentMethodTypeOnlineBankingPoland   CustomerPaymentMethodType = "online_banking_poland"
-	CustomerPaymentMethodTypePayconiqByBancontact  CustomerPaymentMethodType = "payconiq_by_bancontact"
-)
-
-type CustomerPaymentMethodGateway string
-
-const (
-	CustomerPaymentMethodGatewayChargebee             CustomerPaymentMethodGateway = "chargebee"
-	CustomerPaymentMethodGatewayChargebeePayments     CustomerPaymentMethodGateway = "chargebee_payments"
-	CustomerPaymentMethodGatewayAdyen                 CustomerPaymentMethodGateway = "adyen"
-	CustomerPaymentMethodGatewayStripe                CustomerPaymentMethodGateway = "stripe"
-	CustomerPaymentMethodGatewayWepay                 CustomerPaymentMethodGateway = "wepay"
-	CustomerPaymentMethodGatewayBraintree             CustomerPaymentMethodGateway = "braintree"
-	CustomerPaymentMethodGatewayAuthorizeNet          CustomerPaymentMethodGateway = "authorize_net"
-	CustomerPaymentMethodGatewayPaypalPro             CustomerPaymentMethodGateway = "paypal_pro"
-	CustomerPaymentMethodGatewayPin                   CustomerPaymentMethodGateway = "pin"
-	CustomerPaymentMethodGatewayEway                  CustomerPaymentMethodGateway = "eway"
-	CustomerPaymentMethodGatewayEwayRapid             CustomerPaymentMethodGateway = "eway_rapid"
-	CustomerPaymentMethodGatewayWorldpay              CustomerPaymentMethodGateway = "worldpay"
-	CustomerPaymentMethodGatewayBalancedPayments      CustomerPaymentMethodGateway = "balanced_payments"
-	CustomerPaymentMethodGatewayBeanstream            CustomerPaymentMethodGateway = "beanstream"
-	CustomerPaymentMethodGatewayBluepay               CustomerPaymentMethodGateway = "bluepay"
-	CustomerPaymentMethodGatewayElavon                CustomerPaymentMethodGateway = "elavon"
-	CustomerPaymentMethodGatewayFirstDataGlobal       CustomerPaymentMethodGateway = "first_data_global"
-	CustomerPaymentMethodGatewayHdfc                  CustomerPaymentMethodGateway = "hdfc"
-	CustomerPaymentMethodGatewayMigs                  CustomerPaymentMethodGateway = "migs"
-	CustomerPaymentMethodGatewayNmi                   CustomerPaymentMethodGateway = "nmi"
-	CustomerPaymentMethodGatewayOgone                 CustomerPaymentMethodGateway = "ogone"
-	CustomerPaymentMethodGatewayPaymill               CustomerPaymentMethodGateway = "paymill"
-	CustomerPaymentMethodGatewayPaypalPayflowPro      CustomerPaymentMethodGateway = "paypal_payflow_pro"
-	CustomerPaymentMethodGatewaySagePay               CustomerPaymentMethodGateway = "sage_pay"
-	CustomerPaymentMethodGatewayTco                   CustomerPaymentMethodGateway = "tco"
-	CustomerPaymentMethodGatewayWirecard              CustomerPaymentMethodGateway = "wirecard"
-	CustomerPaymentMethodGatewayAmazonPayments        CustomerPaymentMethodGateway = "amazon_payments"
-	CustomerPaymentMethodGatewayPaypalExpressCheckout CustomerPaymentMethodGateway = "paypal_express_checkout"
-	CustomerPaymentMethodGatewayGocardless            CustomerPaymentMethodGateway = "gocardless"
-	CustomerPaymentMethodGatewayOrbital               CustomerPaymentMethodGateway = "orbital"
-	CustomerPaymentMethodGatewayMonerisUs             CustomerPaymentMethodGateway = "moneris_us"
-	CustomerPaymentMethodGatewayMoneris               CustomerPaymentMethodGateway = "moneris"
-	CustomerPaymentMethodGatewayBluesnap              CustomerPaymentMethodGateway = "bluesnap"
-	CustomerPaymentMethodGatewayCybersource           CustomerPaymentMethodGateway = "cybersource"
-	CustomerPaymentMethodGatewayVantiv                CustomerPaymentMethodGateway = "vantiv"
-	CustomerPaymentMethodGatewayCheckoutCom           CustomerPaymentMethodGateway = "checkout_com"
-	CustomerPaymentMethodGatewayPaypal                CustomerPaymentMethodGateway = "paypal"
-	CustomerPaymentMethodGatewayIngenicoDirect        CustomerPaymentMethodGateway = "ingenico_direct"
-	CustomerPaymentMethodGatewayExact                 CustomerPaymentMethodGateway = "exact"
-	CustomerPaymentMethodGatewayMollie                CustomerPaymentMethodGateway = "mollie"
-	CustomerPaymentMethodGatewayQuickbooks            CustomerPaymentMethodGateway = "quickbooks"
-	CustomerPaymentMethodGatewayRazorpay              CustomerPaymentMethodGateway = "razorpay"
-	CustomerPaymentMethodGatewayGlobalPayments        CustomerPaymentMethodGateway = "global_payments"
-	CustomerPaymentMethodGatewayBankOfAmerica         CustomerPaymentMethodGateway = "bank_of_america"
-	CustomerPaymentMethodGatewayEcentric              CustomerPaymentMethodGateway = "ecentric"
-	CustomerPaymentMethodGatewayMetricsGlobal         CustomerPaymentMethodGateway = "metrics_global"
-	CustomerPaymentMethodGatewayWindcave              CustomerPaymentMethodGateway = "windcave"
-	CustomerPaymentMethodGatewayPayCom                CustomerPaymentMethodGateway = "pay_com"
-	CustomerPaymentMethodGatewayEbanx                 CustomerPaymentMethodGateway = "ebanx"
-	CustomerPaymentMethodGatewayDlocal                CustomerPaymentMethodGateway = "dlocal"
-	CustomerPaymentMethodGatewayNuvei                 CustomerPaymentMethodGateway = "nuvei"
-	CustomerPaymentMethodGatewaySolidgate             CustomerPaymentMethodGateway = "solidgate"
-	CustomerPaymentMethodGatewayPaystack              CustomerPaymentMethodGateway = "paystack"
-	CustomerPaymentMethodGatewayJpMorgan              CustomerPaymentMethodGateway = "jp_morgan"
-	CustomerPaymentMethodGatewayDeutscheBank          CustomerPaymentMethodGateway = "deutsche_bank"
-	CustomerPaymentMethodGatewayEzidebit              CustomerPaymentMethodGateway = "ezidebit"
-	CustomerPaymentMethodGatewayNotApplicable         CustomerPaymentMethodGateway = "not_applicable"
 )
 
 type CustomerPaymentMethodStatus string
@@ -297,35 +93,12 @@ const (
 	CustomerChildAccountAccessPortalDownloadInvoicesNo       CustomerChildAccountAccessPortalDownloadInvoices = "no"
 )
 
-type CustomerTaxjarExemptionCategory string
+type CustomerCardPreferredScheme string
 
 const (
-	CustomerTaxjarExemptionCategoryWholesale  CustomerTaxjarExemptionCategory = "wholesale"
-	CustomerTaxjarExemptionCategoryGovernment CustomerTaxjarExemptionCategory = "government"
-	CustomerTaxjarExemptionCategoryOther      CustomerTaxjarExemptionCategory = "other"
-)
-
-type CustomerRole string
-
-const (
-	CustomerRolePrimary CustomerRole = "primary"
-	CustomerRoleBackup  CustomerRole = "backup"
-	CustomerRoleNone    CustomerRole = "none"
-)
-
-type CustomerCreditType string
-
-const (
-	CustomerCreditTypeLoyaltyCredits  CustomerCreditType = "loyalty_credits"
-	CustomerCreditTypeReferralRewards CustomerCreditType = "referral_rewards"
-	CustomerCreditTypeGeneral         CustomerCreditType = "general"
-)
-
-type CustomerPaymentInitiator string
-
-const (
-	CustomerPaymentInitiatorCustomer CustomerPaymentInitiator = "customer"
-	CustomerPaymentInitiatorMerchant CustomerPaymentInitiator = "merchant"
+	CustomerCardPreferredSchemeCartesBancaires CustomerCardPreferredScheme = "cartes_bancaires"
+	CustomerCardPreferredSchemeMastercard      CustomerCardPreferredScheme = "mastercard"
+	CustomerCardPreferredSchemeVisa            CustomerCardPreferredScheme = "visa"
 )
 
 // just struct
@@ -337,8 +110,8 @@ type Customer struct {
 	Phone                            string                       `json:"phone"`
 	Company                          string                       `json:"company"`
 	VatNumber                        string                       `json:"vat_number"`
-	AutoCollection                   CustomerAutoCollection       `json:"auto_collection"`
-	OfflinePaymentMethod             CustomerOfflinePaymentMethod `json:"offline_payment_method"`
+	AutoCollection                   AutoCollection               `json:"auto_collection"`
+	OfflinePaymentMethod             OfflinePaymentMethod         `json:"offline_payment_method"`
 	NetTermDays                      int32                        `json:"net_term_days"`
 	VatNumberValidatedTime           int64                        `json:"vat_number_validated_time"`
 	VatNumberStatus                  CustomerVatNumberStatus      `json:"vat_number_status"`
@@ -347,20 +120,20 @@ type Customer struct {
 	CreatedAt                        int64                        `json:"created_at"`
 	CreatedFromIp                    string                       `json:"created_from_ip"`
 	ExemptionDetails                 json.RawMessage              `json:"exemption_details"`
-	Taxability                       CustomerTaxability           `json:"taxability"`
-	EntityCode                       CustomerEntityCode           `json:"entity_code"`
+	Taxability                       Taxability                   `json:"taxability"`
+	EntityCode                       EntityCode                   `json:"entity_code"`
 	ExemptNumber                     string                       `json:"exempt_number"`
 	ResourceVersion                  int64                        `json:"resource_version"`
 	UpdatedAt                        int64                        `json:"updated_at"`
 	Locale                           string                       `json:"locale"`
 	BillingDate                      int32                        `json:"billing_date"`
 	BillingMonth                     int32                        `json:"billing_month"`
-	BillingDateMode                  CustomerBillingDateMode      `json:"billing_date_mode"`
+	BillingDateMode                  BillingDateMode              `json:"billing_date_mode"`
 	BillingDayOfWeek                 CustomerBillingDayOfWeek     `json:"billing_day_of_week"`
-	BillingDayOfWeekMode             CustomerBillingDayOfWeekMode `json:"billing_day_of_week_mode"`
+	BillingDayOfWeekMode             BillingDayOfWeekMode         `json:"billing_day_of_week_mode"`
 	PiiCleared                       CustomerPiiCleared           `json:"pii_cleared"`
 	AutoCloseInvoices                bool                         `json:"auto_close_invoices"`
-	Channel                          CustomerChannel              `json:"channel"`
+	Channel                          Channel                      `json:"channel"`
 	ActiveId                         string                       `json:"active_id"`
 	FraudFlag                        CustomerFraudFlag            `json:"fraud_flag"`
 	PrimaryPaymentSourceId           string                       `json:"primary_payment_source_id"`
@@ -380,12 +153,12 @@ type Customer struct {
 	EntityIdentifiers                []*CustomerEntityIdentifier  `json:"entity_identifiers"`
 	TaxProvidersFields               []*CustomerTaxProvidersField `json:"tax_providers_fields"`
 	IsEinvoiceEnabled                bool                         `json:"is_einvoice_enabled"`
-	EinvoicingMethod                 CustomerEinvoicingMethod     `json:"einvoicing_method"`
+	EinvoicingMethod                 EinvoicingMethod             `json:"einvoicing_method"`
 	MetaData                         json.RawMessage              `json:"meta_data"`
 	Deleted                          bool                         `json:"deleted"`
 	RegisteredForGst                 bool                         `json:"registered_for_gst"`
 	ConsolidatedInvoicing            bool                         `json:"consolidated_invoicing"`
-	CustomerType                     CustomerCustomerType         `json:"customer_type"`
+	CustomerType                     CustomerType                 `json:"customer_type"`
 	BusinessCustomerWithoutVatNumber bool                         `json:"business_customer_without_vat_number"`
 	ClientProfileId                  string                       `json:"client_profile_id"`
 	Relationship                     *CustomerRelationship        `json:"relationship"`
@@ -402,33 +175,33 @@ type Customer struct {
 
 // sub resources
 type CustomerBillingAddress struct {
-	FirstName        string                                 `json:"first_name"`
-	LastName         string                                 `json:"last_name"`
-	Email            string                                 `json:"email"`
-	Company          string                                 `json:"company"`
-	Phone            string                                 `json:"phone"`
-	Line1            string                                 `json:"line1"`
-	Line2            string                                 `json:"line2"`
-	Line3            string                                 `json:"line3"`
-	City             string                                 `json:"city"`
-	StateCode        string                                 `json:"state_code"`
-	State            string                                 `json:"state"`
-	Country          string                                 `json:"country"`
-	Zip              string                                 `json:"zip"`
-	ValidationStatus CustomerBillingAddressValidationStatus `json:"validation_status"`
-	Object           string                                 `json:"object"`
+	FirstName        string           `json:"first_name"`
+	LastName         string           `json:"last_name"`
+	Email            string           `json:"email"`
+	Company          string           `json:"company"`
+	Phone            string           `json:"phone"`
+	Line1            string           `json:"line1"`
+	Line2            string           `json:"line2"`
+	Line3            string           `json:"line3"`
+	City             string           `json:"city"`
+	StateCode        string           `json:"state_code"`
+	State            string           `json:"state"`
+	Country          string           `json:"country"`
+	Zip              string           `json:"zip"`
+	ValidationStatus ValidationStatus `json:"validation_status"`
+	Object           string           `json:"object"`
 }
 
 type CustomerReferralUrl struct {
-	ExternalCustomerId         string                            `json:"external_customer_id"`
-	ReferralSharingUrl         string                            `json:"referral_sharing_url"`
-	CreatedAt                  int64                             `json:"created_at"`
-	UpdatedAt                  int64                             `json:"updated_at"`
-	ReferralCampaignId         string                            `json:"referral_campaign_id"`
-	ReferralAccountId          string                            `json:"referral_account_id"`
-	ReferralExternalCampaignId string                            `json:"referral_external_campaign_id"`
-	ReferralSystem             CustomerReferralUrlReferralSystem `json:"referral_system"`
-	Object                     string                            `json:"object"`
+	ExternalCustomerId         string         `json:"external_customer_id"`
+	ReferralSharingUrl         string         `json:"referral_sharing_url"`
+	CreatedAt                  int64          `json:"created_at"`
+	UpdatedAt                  int64          `json:"updated_at"`
+	ReferralCampaignId         string         `json:"referral_campaign_id"`
+	ReferralAccountId          string         `json:"referral_account_id"`
+	ReferralExternalCampaignId string         `json:"referral_external_campaign_id"`
+	ReferralSystem             ReferralSystem `json:"referral_system"`
+	Object                     string         `json:"object"`
 }
 
 type CustomerContact struct {
@@ -445,12 +218,12 @@ type CustomerContact struct {
 }
 
 type CustomerPaymentMethod struct {
-	Type             CustomerPaymentMethodType    `json:"type"`
-	Gateway          CustomerPaymentMethodGateway `json:"gateway"`
-	GatewayAccountId string                       `json:"gateway_account_id"`
-	Status           CustomerPaymentMethodStatus  `json:"status"`
-	ReferenceId      string                       `json:"reference_id"`
-	Object           string                       `json:"object"`
+	Type             Type                        `json:"type"`
+	Gateway          Gateway                     `json:"gateway"`
+	GatewayAccountId string                      `json:"gateway_account_id"`
+	Status           CustomerPaymentMethodStatus `json:"status"`
+	ReferenceId      string                      `json:"reference_id"`
+	Object           string                      `json:"object"`
 }
 
 type CustomerBalance struct {
@@ -514,7 +287,7 @@ type CustomerCreateRequest struct {
 	PreferredCurrencyCode            string                             `json:"preferred_currency_code,omitempty"`
 	Phone                            string                             `json:"phone,omitempty"`
 	Company                          string                             `json:"company,omitempty"`
-	AutoCollection                   CustomerAutoCollection             `json:"auto_collection,omitempty"`
+	AutoCollection                   AutoCollection                     `json:"auto_collection,omitempty"`
 	NetTermDays                      *int32                             `json:"net_term_days,omitempty"`
 	AllowDirectDebit                 *bool                              `json:"allow_direct_debit,omitempty"`
 	VatNumber                        string                             `json:"vat_number,omitempty"`
@@ -523,18 +296,18 @@ type CustomerCreateRequest struct {
 	EntityIdentifierStandard         string                             `json:"entity_identifier_standard,omitempty"`
 	RegisteredForGst                 *bool                              `json:"registered_for_gst,omitempty"`
 	IsEinvoiceEnabled                *bool                              `json:"is_einvoice_enabled,omitempty"`
-	EinvoicingMethod                 CustomerEinvoicingMethod           `json:"einvoicing_method,omitempty"`
-	Taxability                       CustomerTaxability                 `json:"taxability,omitempty"`
+	EinvoicingMethod                 EinvoicingMethod                   `json:"einvoicing_method,omitempty"`
+	Taxability                       Taxability                         `json:"taxability,omitempty"`
 	ExemptionDetails                 []map[string]interface{}           `json:"exemption_details,omitempty"`
-	CustomerType                     CustomerCustomerType               `json:"customer_type,omitempty"`
+	CustomerType                     CustomerType                       `json:"customer_type,omitempty"`
 	ClientProfileId                  string                             `json:"client_profile_id,omitempty"`
-	TaxjarExemptionCategory          CustomerTaxjarExemptionCategory    `json:"taxjar_exemption_category,omitempty"`
+	TaxjarExemptionCategory          TaxjarExemptionCategory            `json:"taxjar_exemption_category,omitempty"`
 	BusinessCustomerWithoutVatNumber *bool                              `json:"business_customer_without_vat_number,omitempty"`
 	Locale                           string                             `json:"locale,omitempty"`
-	EntityCode                       CustomerEntityCode                 `json:"entity_code,omitempty"`
+	EntityCode                       EntityCode                         `json:"entity_code,omitempty"`
 	ExemptNumber                     string                             `json:"exempt_number,omitempty"`
 	MetaData                         map[string]interface{}             `json:"meta_data,omitempty"`
-	OfflinePaymentMethod             CustomerOfflinePaymentMethod       `json:"offline_payment_method,omitempty"`
+	OfflinePaymentMethod             OfflinePaymentMethod               `json:"offline_payment_method,omitempty"`
 	AutoCloseInvoices                *bool                              `json:"auto_close_invoices,omitempty"`
 	ConsolidatedInvoicing            *bool                              `json:"consolidated_invoicing,omitempty"`
 	Card                             *CustomerCreateCard                `json:"card,omitempty"`
@@ -554,7 +327,7 @@ func (r *CustomerCreateRequest) payload() any { return r }
 
 // input sub resource params single
 type CustomerCreateCard struct {
-	Gateway               CustomerCardGateway         `json:"gateway,omitempty"`
+	Gateway               Gateway                     `json:"gateway,omitempty"`
 	GatewayAccountId      string                      `json:"gateway_account_id,omitempty"`
 	TmpToken              string                      `json:"tmp_token,omitempty"`
 	FirstName             string                      `json:"first_name,omitempty"`
@@ -577,63 +350,63 @@ type CustomerCreateCard struct {
 
 // input sub resource params single
 type CustomerCreateBankAccount struct {
-	GatewayAccountId      string                               `json:"gateway_account_id,omitempty"`
-	Iban                  string                               `json:"iban,omitempty"`
-	FirstName             string                               `json:"first_name,omitempty"`
-	LastName              string                               `json:"last_name,omitempty"`
-	Company               string                               `json:"company,omitempty"`
-	Email                 string                               `json:"email,omitempty"`
-	Phone                 string                               `json:"phone,omitempty"`
-	BankName              string                               `json:"bank_name,omitempty"`
-	AccountNumber         string                               `json:"account_number,omitempty"`
-	RoutingNumber         string                               `json:"routing_number,omitempty"`
-	BankCode              string                               `json:"bank_code,omitempty"`
-	AccountType           CustomerBankAccountAccountType       `json:"account_type,omitempty"`
-	AccountHolderType     CustomerBankAccountAccountHolderType `json:"account_holder_type,omitempty"`
-	EcheckType            CustomerBankAccountEcheckType        `json:"echeck_type,omitempty"`
-	IssuingCountry        string                               `json:"issuing_country,omitempty"`
-	SwedishIdentityNumber string                               `json:"swedish_identity_number,omitempty"`
-	BillingAddress        map[string]interface{}               `json:"billing_address,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	Iban                  string                 `json:"iban,omitempty"`
+	FirstName             string                 `json:"first_name,omitempty"`
+	LastName              string                 `json:"last_name,omitempty"`
+	Company               string                 `json:"company,omitempty"`
+	Email                 string                 `json:"email,omitempty"`
+	Phone                 string                 `json:"phone,omitempty"`
+	BankName              string                 `json:"bank_name,omitempty"`
+	AccountNumber         string                 `json:"account_number,omitempty"`
+	RoutingNumber         string                 `json:"routing_number,omitempty"`
+	BankCode              string                 `json:"bank_code,omitempty"`
+	AccountType           AccountType            `json:"account_type,omitempty"`
+	AccountHolderType     AccountHolderType      `json:"account_holder_type,omitempty"`
+	EcheckType            EcheckType             `json:"echeck_type,omitempty"`
+	IssuingCountry        string                 `json:"issuing_country,omitempty"`
+	SwedishIdentityNumber string                 `json:"swedish_identity_number,omitempty"`
+	BillingAddress        map[string]interface{} `json:"billing_address,omitempty"`
 }
 
 // input sub resource params single
 type CustomerCreatePaymentMethod struct {
-	Type                  CustomerPaymentMethodType    `json:"type,omitempty"`
-	Gateway               CustomerPaymentMethodGateway `json:"gateway,omitempty"`
-	GatewayAccountId      string                       `json:"gateway_account_id,omitempty"`
-	ReferenceId           string                       `json:"reference_id,omitempty"`
-	TmpToken              string                       `json:"tmp_token,omitempty"`
-	IssuingCountry        string                       `json:"issuing_country,omitempty"`
-	AdditionalInformation map[string]interface{}       `json:"additional_information,omitempty"`
+	Type                  Type                   `json:"type,omitempty"`
+	Gateway               Gateway                `json:"gateway,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	TmpToken              string                 `json:"tmp_token,omitempty"`
+	IssuingCountry        string                 `json:"issuing_country,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 
 // input sub resource params single
 type CustomerCreatePaymentIntent struct {
-	Id                    string                                 `json:"id,omitempty"`
-	GatewayAccountId      string                                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                                 `json:"gw_token,omitempty"`
-	PaymentMethodType     CustomerPaymentIntentPaymentMethodType `json:"payment_method_type,omitempty"`
-	ReferenceId           string                                 `json:"reference_id,omitempty"`
-	GwPaymentMethodId     string                                 `json:"gw_payment_method_id,omitempty"`
-	AdditionalInformation map[string]interface{}                 `json:"additional_information,omitempty"`
+	Id                    string                         `json:"id,omitempty"`
+	GatewayAccountId      string                         `json:"gateway_account_id,omitempty"`
+	GwToken               string                         `json:"gw_token,omitempty"`
+	PaymentMethodType     PaymentIntentPaymentMethodType `json:"payment_method_type,omitempty"`
+	ReferenceId           string                         `json:"reference_id,omitempty"`
+	GwPaymentMethodId     string                         `json:"gw_payment_method_id,omitempty"`
+	AdditionalInformation map[string]interface{}         `json:"additional_information,omitempty"`
 }
 
 // input sub resource params single
 type CustomerCreateBillingAddress struct {
-	FirstName        string                                 `json:"first_name,omitempty"`
-	LastName         string                                 `json:"last_name,omitempty"`
-	Email            string                                 `json:"email,omitempty"`
-	Company          string                                 `json:"company,omitempty"`
-	Phone            string                                 `json:"phone,omitempty"`
-	Line1            string                                 `json:"line1,omitempty"`
-	Line2            string                                 `json:"line2,omitempty"`
-	Line3            string                                 `json:"line3,omitempty"`
-	City             string                                 `json:"city,omitempty"`
-	StateCode        string                                 `json:"state_code,omitempty"`
-	State            string                                 `json:"state,omitempty"`
-	Zip              string                                 `json:"zip,omitempty"`
-	Country          string                                 `json:"country,omitempty"`
-	ValidationStatus CustomerBillingAddressValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params multi
@@ -652,25 +425,25 @@ type CustomerCreateTaxProvidersField struct {
 }
 
 type CustomerListRequest struct {
-	Limit                *int32            `json:"limit,omitempty"`
-	Offset               string            `json:"offset,omitempty"`
-	Relationship         *ListRelationship `json:"relationship,omitempty"`
-	IncludeDeleted       *bool             `json:"include_deleted,omitempty"`
-	Id                   *StringFilter     `json:"id,omitempty"`
-	FirstName            *StringFilter     `json:"first_name,omitempty"`
-	LastName             *StringFilter     `json:"last_name,omitempty"`
-	Email                *StringFilter     `json:"email,omitempty"`
-	Company              *StringFilter     `json:"company,omitempty"`
-	Phone                *StringFilter     `json:"phone,omitempty"`
-	AutoCollection       *EnumFilter       `json:"auto_collection,omitempty"`
-	Taxability           *EnumFilter       `json:"taxability,omitempty"`
-	CreatedAt            *TimestampFilter  `json:"created_at,omitempty"`
-	UpdatedAt            *TimestampFilter  `json:"updated_at,omitempty"`
-	OfflinePaymentMethod *EnumFilter       `json:"offline_payment_method,omitempty"`
-	AutoCloseInvoices    *BooleanFilter    `json:"auto_close_invoices,omitempty"`
-	Channel              *EnumFilter       `json:"channel,omitempty"`
-	BusinessEntityId     *StringFilter     `json:"business_entity_id,omitempty"`
-	SortBy               *SortFilter       `json:"sort_by,omitempty"`
+	Limit                *int32                    `json:"limit,omitempty"`
+	Offset               string                    `json:"offset,omitempty"`
+	Relationship         *CustomerListRelationship `json:"relationship,omitempty"`
+	IncludeDeleted       *bool                     `json:"include_deleted,omitempty"`
+	Id                   *StringFilter             `json:"id,omitempty"`
+	FirstName            *StringFilter             `json:"first_name,omitempty"`
+	LastName             *StringFilter             `json:"last_name,omitempty"`
+	Email                *StringFilter             `json:"email,omitempty"`
+	Company              *StringFilter             `json:"company,omitempty"`
+	Phone                *StringFilter             `json:"phone,omitempty"`
+	AutoCollection       *EnumFilter               `json:"auto_collection,omitempty"`
+	Taxability           *EnumFilter               `json:"taxability,omitempty"`
+	CreatedAt            *TimestampFilter          `json:"created_at,omitempty"`
+	UpdatedAt            *TimestampFilter          `json:"updated_at,omitempty"`
+	OfflinePaymentMethod *EnumFilter               `json:"offline_payment_method,omitempty"`
+	AutoCloseInvoices    *BooleanFilter            `json:"auto_close_invoices,omitempty"`
+	Channel              *EnumFilter               `json:"channel,omitempty"`
+	BusinessEntityId     *StringFilter             `json:"business_entity_id,omitempty"`
+	SortBy               *SortFilter               `json:"sort_by,omitempty"`
 	apiRequest           `json:"-" form:"-"`
 }
 
@@ -690,18 +463,18 @@ type CustomerUpdateRequest struct {
 	PreferredCurrencyCode   string                             `json:"preferred_currency_code,omitempty"`
 	Phone                   string                             `json:"phone,omitempty"`
 	Company                 string                             `json:"company,omitempty"`
-	AutoCollection          CustomerAutoCollection             `json:"auto_collection,omitempty"`
+	AutoCollection          AutoCollection                     `json:"auto_collection,omitempty"`
 	AllowDirectDebit        *bool                              `json:"allow_direct_debit,omitempty"`
 	NetTermDays             *int32                             `json:"net_term_days,omitempty"`
-	Taxability              CustomerTaxability                 `json:"taxability,omitempty"`
+	Taxability              Taxability                         `json:"taxability,omitempty"`
 	ExemptionDetails        []map[string]interface{}           `json:"exemption_details,omitempty"`
-	CustomerType            CustomerCustomerType               `json:"customer_type,omitempty"`
+	CustomerType            CustomerType                       `json:"customer_type,omitempty"`
 	ClientProfileId         string                             `json:"client_profile_id,omitempty"`
-	TaxjarExemptionCategory CustomerTaxjarExemptionCategory    `json:"taxjar_exemption_category,omitempty"`
+	TaxjarExemptionCategory TaxjarExemptionCategory            `json:"taxjar_exemption_category,omitempty"`
 	Locale                  string                             `json:"locale,omitempty"`
-	EntityCode              CustomerEntityCode                 `json:"entity_code,omitempty"`
+	EntityCode              EntityCode                         `json:"entity_code,omitempty"`
 	ExemptNumber            string                             `json:"exempt_number,omitempty"`
-	OfflinePaymentMethod    CustomerOfflinePaymentMethod       `json:"offline_payment_method,omitempty"`
+	OfflinePaymentMethod    OfflinePaymentMethod               `json:"offline_payment_method,omitempty"`
 	InvoiceNotes            string                             `json:"invoice_notes,omitempty"`
 	AutoCloseInvoices       *bool                              `json:"auto_close_invoices,omitempty"`
 	MetaData                map[string]interface{}             `json:"meta_data,omitempty"`
@@ -729,13 +502,13 @@ func (r *CustomerUpdatePaymentMethodRequest) payload() any { return r }
 
 // input sub resource params single
 type CustomerUpdatePaymentMethodPaymentMethod struct {
-	Type                  CustomerPaymentMethodType    `json:"type"`
-	Gateway               CustomerPaymentMethodGateway `json:"gateway,omitempty"`
-	GatewayAccountId      string                       `json:"gateway_account_id,omitempty"`
-	ReferenceId           string                       `json:"reference_id,omitempty"`
-	TmpToken              string                       `json:"tmp_token,omitempty"`
-	IssuingCountry        string                       `json:"issuing_country,omitempty"`
-	AdditionalInformation map[string]interface{}       `json:"additional_information,omitempty"`
+	Type                  Type                   `json:"type"`
+	Gateway               Gateway                `json:"gateway,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	TmpToken              string                 `json:"tmp_token,omitempty"`
+	IssuingCountry        string                 `json:"issuing_country,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 
 type CustomerUpdateBillingInfoRequest struct {
@@ -748,7 +521,7 @@ type CustomerUpdateBillingInfoRequest struct {
 	RegisteredForGst                 *bool                                         `json:"registered_for_gst,omitempty"`
 	BusinessCustomerWithoutVatNumber *bool                                         `json:"business_customer_without_vat_number,omitempty"`
 	IsEinvoiceEnabled                *bool                                         `json:"is_einvoice_enabled,omitempty"`
-	EinvoicingMethod                 CustomerEinvoicingMethod                      `json:"einvoicing_method,omitempty"`
+	EinvoicingMethod                 EinvoicingMethod                              `json:"einvoicing_method,omitempty"`
 	TaxProvidersFields               []*CustomerUpdateBillingInfoTaxProvidersField `json:"tax_providers_fields,omitempty"`
 	apiRequest                       `json:"-" form:"-"`
 }
@@ -757,29 +530,29 @@ func (r *CustomerUpdateBillingInfoRequest) payload() any { return r }
 
 // input sub resource params single
 type CustomerUpdateBillingInfoBillingAddress struct {
-	FirstName        string                                 `json:"first_name,omitempty"`
-	LastName         string                                 `json:"last_name,omitempty"`
-	Email            string                                 `json:"email,omitempty"`
-	Company          string                                 `json:"company,omitempty"`
-	Phone            string                                 `json:"phone,omitempty"`
-	Line1            string                                 `json:"line1,omitempty"`
-	Line2            string                                 `json:"line2,omitempty"`
-	Line3            string                                 `json:"line3,omitempty"`
-	City             string                                 `json:"city,omitempty"`
-	StateCode        string                                 `json:"state_code,omitempty"`
-	State            string                                 `json:"state,omitempty"`
-	Zip              string                                 `json:"zip,omitempty"`
-	Country          string                                 `json:"country,omitempty"`
-	ValidationStatus CustomerBillingAddressValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params multi
 type CustomerUpdateBillingInfoEntityIdentifier struct {
-	Id        string                            `json:"id,omitempty"`
-	Scheme    string                            `json:"scheme,omitempty"`
-	Value     string                            `json:"value,omitempty"`
-	Operation CustomerEntityIdentifierOperation `json:"operation,omitempty"`
-	Standard  string                            `json:"standard,omitempty"`
+	Id        string    `json:"id,omitempty"`
+	Scheme    string    `json:"scheme,omitempty"`
+	Value     string    `json:"value,omitempty"`
+	Operation Operation `json:"operation,omitempty"`
+	Standard  string    `json:"standard,omitempty"`
 }
 
 // input sub resource params multi
@@ -798,8 +571,8 @@ type CustomerContactsForCustomerRequest struct {
 func (r *CustomerContactsForCustomerRequest) payload() any { return r }
 
 type CustomerAssignPaymentRoleRequest struct {
-	PaymentSourceId string       `json:"payment_source_id"`
-	Role            CustomerRole `json:"role"`
+	PaymentSourceId string `json:"payment_source_id"`
+	Role            Role   `json:"role"`
 	apiRequest      `json:"-" form:"-"`
 }
 
@@ -858,33 +631,33 @@ type CustomerDeleteContactContact struct {
 }
 
 type CustomerAddPromotionalCreditsRequest struct {
-	Amount       *int64             `json:"amount"`
-	CurrencyCode string             `json:"currency_code,omitempty"`
-	Description  string             `json:"description"`
-	CreditType   CustomerCreditType `json:"credit_type,omitempty"`
-	Reference    string             `json:"reference,omitempty"`
+	Amount       *int64     `json:"amount"`
+	CurrencyCode string     `json:"currency_code,omitempty"`
+	Description  string     `json:"description"`
+	CreditType   CreditType `json:"credit_type,omitempty"`
+	Reference    string     `json:"reference,omitempty"`
 	apiRequest   `json:"-" form:"-"`
 }
 
 func (r *CustomerAddPromotionalCreditsRequest) payload() any { return r }
 
 type CustomerDeductPromotionalCreditsRequest struct {
-	Amount       *int64             `json:"amount"`
-	CurrencyCode string             `json:"currency_code,omitempty"`
-	Description  string             `json:"description"`
-	CreditType   CustomerCreditType `json:"credit_type,omitempty"`
-	Reference    string             `json:"reference,omitempty"`
+	Amount       *int64     `json:"amount"`
+	CurrencyCode string     `json:"currency_code,omitempty"`
+	Description  string     `json:"description"`
+	CreditType   CreditType `json:"credit_type,omitempty"`
+	Reference    string     `json:"reference,omitempty"`
 	apiRequest   `json:"-" form:"-"`
 }
 
 func (r *CustomerDeductPromotionalCreditsRequest) payload() any { return r }
 
 type CustomerSetPromotionalCreditsRequest struct {
-	Amount       *int64             `json:"amount"`
-	CurrencyCode string             `json:"currency_code,omitempty"`
-	Description  string             `json:"description"`
-	CreditType   CustomerCreditType `json:"credit_type,omitempty"`
-	Reference    string             `json:"reference,omitempty"`
+	Amount       *int64     `json:"amount"`
+	CurrencyCode string     `json:"currency_code,omitempty"`
+	Description  string     `json:"description"`
+	CreditType   CreditType `json:"credit_type,omitempty"`
+	Reference    string     `json:"reference,omitempty"`
 	apiRequest   `json:"-" form:"-"`
 }
 
@@ -900,13 +673,13 @@ func (r *CustomerRecordExcessPaymentRequest) payload() any { return r }
 
 // input sub resource params single
 type CustomerRecordExcessPaymentTransaction struct {
-	Id                    string                           `json:"id,omitempty"`
-	Amount                *int64                           `json:"amount"`
-	CurrencyCode          string                           `json:"currency_code,omitempty"`
-	Date                  *int64                           `json:"date"`
-	PaymentMethod         CustomerTransactionPaymentMethod `json:"payment_method"`
-	ReferenceNumber       string                           `json:"reference_number,omitempty"`
-	CustomPaymentMethodId string                           `json:"custom_payment_method_id,omitempty"`
+	Id                    string        `json:"id,omitempty"`
+	Amount                *int64        `json:"amount"`
+	CurrencyCode          string        `json:"currency_code,omitempty"`
+	Date                  *int64        `json:"date"`
+	PaymentMethod         PaymentMethod `json:"payment_method"`
+	ReferenceNumber       string        `json:"reference_number,omitempty"`
+	CustomPaymentMethodId string        `json:"custom_payment_method_id,omitempty"`
 }
 
 type CustomerCollectPaymentRequest struct {
@@ -919,7 +692,7 @@ type CustomerCollectPaymentRequest struct {
 	PaymentIntent               *CustomerCollectPaymentPaymentIntent       `json:"payment_intent,omitempty"`
 	ReplacePrimaryPaymentSource *bool                                      `json:"replace_primary_payment_source,omitempty"`
 	RetainPaymentSource         *bool                                      `json:"retain_payment_source,omitempty"`
-	PaymentInitiator            CustomerPaymentInitiator                   `json:"payment_initiator,omitempty"`
+	PaymentInitiator            PaymentInitiator                           `json:"payment_initiator,omitempty"`
 	apiRequest                  `json:"-" form:"-"`
 }
 
@@ -933,11 +706,11 @@ type CustomerCollectPaymentInvoiceAllocation struct {
 
 // input sub resource params single
 type CustomerCollectPaymentPaymentMethod struct {
-	Type                  CustomerPaymentMethodType `json:"type,omitempty"`
-	GatewayAccountId      string                    `json:"gateway_account_id,omitempty"`
-	ReferenceId           string                    `json:"reference_id,omitempty"`
-	TmpToken              string                    `json:"tmp_token,omitempty"`
-	AdditionalInformation map[string]interface{}    `json:"additional_information,omitempty"`
+	Type                  Type                   `json:"type,omitempty"`
+	GatewayAccountId      string                 `json:"gateway_account_id,omitempty"`
+	ReferenceId           string                 `json:"reference_id,omitempty"`
+	TmpToken              string                 `json:"tmp_token,omitempty"`
+	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
 }
 
 // input sub resource params single
@@ -962,13 +735,13 @@ type CustomerCollectPaymentCard struct {
 
 // input sub resource params single
 type CustomerCollectPaymentPaymentIntent struct {
-	Id                    string                                 `json:"id,omitempty"`
-	GatewayAccountId      string                                 `json:"gateway_account_id,omitempty"`
-	GwToken               string                                 `json:"gw_token,omitempty"`
-	PaymentMethodType     CustomerPaymentIntentPaymentMethodType `json:"payment_method_type,omitempty"`
-	GwPaymentMethodId     string                                 `json:"gw_payment_method_id,omitempty"`
-	ReferenceId           string                                 `json:"reference_id,omitempty"`
-	AdditionalInformation map[string]interface{}                 `json:"additional_information,omitempty"`
+	Id                    string                         `json:"id,omitempty"`
+	GatewayAccountId      string                         `json:"gateway_account_id,omitempty"`
+	GwToken               string                         `json:"gw_token,omitempty"`
+	PaymentMethodType     PaymentIntentPaymentMethodType `json:"payment_method_type,omitempty"`
+	GwPaymentMethodId     string                         `json:"gw_payment_method_id,omitempty"`
+	ReferenceId           string                         `json:"reference_id,omitempty"`
+	AdditionalInformation map[string]interface{}         `json:"additional_information,omitempty"`
 }
 
 type CustomerDeleteRequest struct {
@@ -987,11 +760,11 @@ type CustomerMoveRequest struct {
 func (r *CustomerMoveRequest) payload() any { return r }
 
 type CustomerChangeBillingDateRequest struct {
-	BillingDate          *int32                       `json:"billing_date,omitempty"`
-	BillingMonth         *int32                       `json:"billing_month,omitempty"`
-	BillingDateMode      CustomerBillingDateMode      `json:"billing_date_mode,omitempty"`
-	BillingDayOfWeek     CustomerBillingDayOfWeek     `json:"billing_day_of_week,omitempty"`
-	BillingDayOfWeekMode CustomerBillingDayOfWeekMode `json:"billing_day_of_week_mode,omitempty"`
+	BillingDate          *int32                   `json:"billing_date,omitempty"`
+	BillingMonth         *int32                   `json:"billing_month,omitempty"`
+	BillingDateMode      BillingDateMode          `json:"billing_date_mode,omitempty"`
+	BillingDayOfWeek     CustomerBillingDayOfWeek `json:"billing_day_of_week,omitempty"`
+	BillingDayOfWeekMode BillingDayOfWeekMode     `json:"billing_day_of_week_mode,omitempty"`
 	apiRequest           `json:"-" form:"-"`
 }
 
@@ -1036,16 +809,16 @@ type CustomerRelationshipsChildAccountAccess struct {
 }
 
 type CustomerHierarchyRequest struct {
-	HierarchyOperationType CustomerHierarchyOperationType `json:"hierarchy_operation_type"`
+	HierarchyOperationType HierarchyOperationType `json:"hierarchy_operation_type"`
 	apiRequest             `json:"-" form:"-"`
 }
 
 func (r *CustomerHierarchyRequest) payload() any { return r }
 
 type CustomerListHierarchyDetailRequest struct {
-	Limit                  *int32                         `json:"limit,omitempty"`
-	Offset                 string                         `json:"offset,omitempty"`
-	HierarchyOperationType CustomerHierarchyOperationType `json:"hierarchy_operation_type"`
+	Limit                  *int32                 `json:"limit,omitempty"`
+	Offset                 string                 `json:"offset,omitempty"`
+	HierarchyOperationType HierarchyOperationType `json:"hierarchy_operation_type"`
 	apiRequest             `json:"-" form:"-"`
 }
 

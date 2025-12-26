@@ -8,13 +8,6 @@ const (
 	EntitlementOverrideScheduleStatusFailed    EntitlementOverrideScheduleStatus = "failed"
 )
 
-type EntitlementOverrideAction string
-
-const (
-	EntitlementOverrideActionUpsert EntitlementOverrideAction = "upsert"
-	EntitlementOverrideActionRemove EntitlementOverrideAction = "remove"
-)
-
 // just struct
 type EntitlementOverride struct {
 	Id            string `json:"id"`
@@ -33,7 +26,7 @@ type EntitlementOverride struct {
 // operations
 // input params
 type EntitlementOverrideAddEntitlementOverrideForSubscriptionRequest struct {
-	Action               EntitlementOverrideAction                                                      `json:"action,omitempty"`
+	Action               Action                                                                         `json:"action,omitempty"`
 	EntitlementOverrides []*EntitlementOverrideAddEntitlementOverrideForSubscriptionEntitlementOverride `json:"entitlement_overrides,omitempty"`
 	apiRequest           `json:"-" form:"-"`
 }

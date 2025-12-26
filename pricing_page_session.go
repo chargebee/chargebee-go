@@ -50,52 +50,52 @@ type PricingPageSessionCreateForNewSubscriptionCustomer struct {
 
 // input sub resource params multi
 type PricingPageSessionCreateForNewSubscriptionDiscount struct {
-	ApplyOn       PricingPageSessionDiscountApplyOn      `json:"apply_on,omitempty"`
-	DurationType  PricingPageSessionDiscountDurationType `json:"duration_type"`
-	Percentage    *float64                               `json:"percentage,omitempty"`
-	Amount        *int64                                 `json:"amount,omitempty"`
-	Period        *int32                                 `json:"period,omitempty"`
-	PeriodUnit    PricingPageSessionDiscountPeriodUnit   `json:"period_unit,omitempty"`
-	IncludedInMrr *bool                                  `json:"included_in_mrr,omitempty"`
-	ItemPriceId   string                                 `json:"item_price_id,omitempty"`
-	Quantity      *int32                                 `json:"quantity,omitempty"`
-	Label         string                                 `json:"label,omitempty"`
+	ApplyOn       ApplyOn      `json:"apply_on,omitempty"`
+	DurationType  DurationType `json:"duration_type"`
+	Percentage    *float64     `json:"percentage,omitempty"`
+	Amount        *int64       `json:"amount,omitempty"`
+	Period        *int32       `json:"period,omitempty"`
+	PeriodUnit    PeriodUnit   `json:"period_unit,omitempty"`
+	IncludedInMrr *bool        `json:"included_in_mrr,omitempty"`
+	ItemPriceId   string       `json:"item_price_id,omitempty"`
+	Quantity      *int32       `json:"quantity,omitempty"`
+	Label         string       `json:"label,omitempty"`
 }
 
 // input sub resource params single
 type PricingPageSessionCreateForNewSubscriptionBillingAddress struct {
-	FirstName        string                                           `json:"first_name,omitempty"`
-	LastName         string                                           `json:"last_name,omitempty"`
-	Email            string                                           `json:"email,omitempty"`
-	Company          string                                           `json:"company,omitempty"`
-	Phone            string                                           `json:"phone,omitempty"`
-	Line1            string                                           `json:"line1,omitempty"`
-	Line2            string                                           `json:"line2,omitempty"`
-	Line3            string                                           `json:"line3,omitempty"`
-	City             string                                           `json:"city,omitempty"`
-	StateCode        string                                           `json:"state_code,omitempty"`
-	State            string                                           `json:"state,omitempty"`
-	Zip              string                                           `json:"zip,omitempty"`
-	Country          string                                           `json:"country,omitempty"`
-	ValidationStatus PricingPageSessionBillingAddressValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
 
 // input sub resource params single
 type PricingPageSessionCreateForNewSubscriptionShippingAddress struct {
-	FirstName        string                                            `json:"first_name,omitempty"`
-	LastName         string                                            `json:"last_name,omitempty"`
-	Email            string                                            `json:"email,omitempty"`
-	Company          string                                            `json:"company,omitempty"`
-	Phone            string                                            `json:"phone,omitempty"`
-	Line1            string                                            `json:"line1,omitempty"`
-	Line2            string                                            `json:"line2,omitempty"`
-	Line3            string                                            `json:"line3,omitempty"`
-	City             string                                            `json:"city,omitempty"`
-	StateCode        string                                            `json:"state_code,omitempty"`
-	State            string                                            `json:"state,omitempty"`
-	Zip              string                                            `json:"zip,omitempty"`
-	Country          string                                            `json:"country,omitempty"`
-	ValidationStatus PricingPageSessionShippingAddressValidationStatus `json:"validation_status,omitempty"`
+	FirstName        string           `json:"first_name,omitempty"`
+	LastName         string           `json:"last_name,omitempty"`
+	Email            string           `json:"email,omitempty"`
+	Company          string           `json:"company,omitempty"`
+	Phone            string           `json:"phone,omitempty"`
+	Line1            string           `json:"line1,omitempty"`
+	Line2            string           `json:"line2,omitempty"`
+	Line3            string           `json:"line3,omitempty"`
+	City             string           `json:"city,omitempty"`
+	StateCode        string           `json:"state_code,omitempty"`
+	State            string           `json:"state,omitempty"`
+	Zip              string           `json:"zip,omitempty"`
+	Country          string           `json:"country,omitempty"`
+	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
 
 type PricingPageSessionCreateForExistingSubscriptionRequest struct {
@@ -120,16 +120,16 @@ type PricingPageSessionCreateForExistingSubscriptionSubscription struct {
 
 // input sub resource params multi
 type PricingPageSessionCreateForExistingSubscriptionDiscount struct {
-	ApplyOn       PricingPageSessionDiscountApplyOn      `json:"apply_on,omitempty"`
-	DurationType  PricingPageSessionDiscountDurationType `json:"duration_type"`
-	Percentage    *float64                               `json:"percentage,omitempty"`
-	Amount        *int64                                 `json:"amount,omitempty"`
-	Period        *int32                                 `json:"period,omitempty"`
-	PeriodUnit    PricingPageSessionDiscountPeriodUnit   `json:"period_unit,omitempty"`
-	IncludedInMrr *bool                                  `json:"included_in_mrr,omitempty"`
-	ItemPriceId   string                                 `json:"item_price_id,omitempty"`
-	Quantity      *int32                                 `json:"quantity,omitempty"`
-	Label         string                                 `json:"label,omitempty"`
+	ApplyOn       ApplyOn      `json:"apply_on,omitempty"`
+	DurationType  DurationType `json:"duration_type"`
+	Percentage    *float64     `json:"percentage,omitempty"`
+	Amount        *int64       `json:"amount,omitempty"`
+	Period        *int32       `json:"period,omitempty"`
+	PeriodUnit    PeriodUnit   `json:"period_unit,omitempty"`
+	IncludedInMrr *bool        `json:"included_in_mrr,omitempty"`
+	ItemPriceId   string       `json:"item_price_id,omitempty"`
+	Quantity      *int32       `json:"quantity,omitempty"`
+	Label         string       `json:"label,omitempty"`
 }
 
 // operation response

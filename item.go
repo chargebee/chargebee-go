@@ -12,14 +12,6 @@ const (
 	ItemStatusDeleted  ItemStatus = "deleted"
 )
 
-type ItemType string
-
-const (
-	ItemTypePlan   ItemType = "plan"
-	ItemTypeAddon  ItemType = "addon"
-	ItemTypeCharge ItemType = "charge"
-)
-
 type ItemItemApplicability string
 
 const (
@@ -33,22 +25,6 @@ const (
 	ItemUsageCalculationSumOfUsages ItemUsageCalculation = "sum_of_usages"
 	ItemUsageCalculationLastUsage   ItemUsageCalculation = "last_usage"
 	ItemUsageCalculationMaxUsage    ItemUsageCalculation = "max_usage"
-)
-
-type ItemChannel string
-
-const (
-	ItemChannelWeb       ItemChannel = "web"
-	ItemChannelAppStore  ItemChannel = "app_store"
-	ItemChannelPlayStore ItemChannel = "play_store"
-)
-
-type ItemBundleItemItemType string
-
-const (
-	ItemBundleItemItemTypePlan   ItemBundleItemItemType = "plan"
-	ItemBundleItemItemTypeAddon  ItemBundleItemItemType = "addon"
-	ItemBundleItemItemTypeCharge ItemBundleItemItemType = "charge"
 )
 
 type ItemBundleConfigurationType string
@@ -81,7 +57,7 @@ type Item struct {
 	UsageCalculation     ItemUsageCalculation     `json:"usage_calculation"`
 	IsPercentagePricing  bool                     `json:"is_percentage_pricing"`
 	ArchivedAt           int64                    `json:"archived_at"`
-	Channel              ItemChannel              `json:"channel"`
+	Channel              Channel                  `json:"channel"`
 	ApplicableItems      []*ItemApplicableItem    `json:"applicable_items"`
 	BundleItems          []*ItemBundleItem        `json:"bundle_items"`
 	BundleConfiguration  *ItemBundleConfiguration `json:"bundle_configuration"`
@@ -99,11 +75,11 @@ type ItemApplicableItem struct {
 }
 
 type ItemBundleItem struct {
-	ItemId          string                 `json:"item_id"`
-	ItemType        ItemBundleItemItemType `json:"item_type"`
-	Quantity        int32                  `json:"quantity"`
-	PriceAllocation float64                `json:"price_allocation"`
-	Object          string                 `json:"object"`
+	ItemId          string   `json:"item_id"`
+	ItemType        ItemType `json:"item_type"`
+	Quantity        int32    `json:"quantity"`
+	PriceAllocation float64  `json:"price_allocation"`
+	Object          string   `json:"object"`
 }
 
 type ItemBundleConfiguration struct {
@@ -149,10 +125,10 @@ type ItemCreateBundleConfiguration struct {
 
 // input sub resource params multi
 type ItemCreateBundleItemsToAdd struct {
-	ItemId          string                       `json:"item_id,omitempty"`
-	ItemType        ItemBundleItemsToAddItemType `json:"item_type,omitempty"`
-	Quantity        *int32                       `json:"quantity,omitempty"`
-	PriceAllocation *float64                     `json:"price_allocation,omitempty"`
+	ItemId          string   `json:"item_id,omitempty"`
+	ItemType        ItemType `json:"item_type,omitempty"`
+	Quantity        *int32   `json:"quantity,omitempty"`
+	PriceAllocation *float64 `json:"price_allocation,omitempty"`
 }
 
 type ItemUpdateRequest struct {
@@ -188,46 +164,46 @@ type ItemUpdateBundleConfiguration struct {
 
 // input sub resource params multi
 type ItemUpdateBundleItemsToAdd struct {
-	ItemId          string                       `json:"item_id,omitempty"`
-	ItemType        ItemBundleItemsToAddItemType `json:"item_type,omitempty"`
-	Quantity        *int32                       `json:"quantity,omitempty"`
-	PriceAllocation *float64                     `json:"price_allocation,omitempty"`
+	ItemId          string   `json:"item_id,omitempty"`
+	ItemType        ItemType `json:"item_type,omitempty"`
+	Quantity        *int32   `json:"quantity,omitempty"`
+	PriceAllocation *float64 `json:"price_allocation,omitempty"`
 }
 
 // input sub resource params multi
 type ItemUpdateBundleItemsToUpdate struct {
-	ItemId          string                          `json:"item_id,omitempty"`
-	ItemType        ItemBundleItemsToUpdateItemType `json:"item_type,omitempty"`
-	Quantity        *int32                          `json:"quantity,omitempty"`
-	PriceAllocation *float64                        `json:"price_allocation,omitempty"`
+	ItemId          string   `json:"item_id,omitempty"`
+	ItemType        ItemType `json:"item_type,omitempty"`
+	Quantity        *int32   `json:"quantity,omitempty"`
+	PriceAllocation *float64 `json:"price_allocation,omitempty"`
 }
 
 // input sub resource params multi
 type ItemUpdateBundleItemsToRemove struct {
-	ItemId   string                          `json:"item_id,omitempty"`
-	ItemType ItemBundleItemsToRemoveItemType `json:"item_type,omitempty"`
+	ItemId   string   `json:"item_id,omitempty"`
+	ItemType ItemType `json:"item_type,omitempty"`
 }
 
 type ItemListRequest struct {
-	Limit                     *int32                   `json:"limit,omitempty"`
-	Offset                    string                   `json:"offset,omitempty"`
-	BundleConfiguration       *ListBundleConfiguration `json:"bundle_configuration,omitempty"`
-	Id                        *StringFilter            `json:"id,omitempty"`
-	ItemFamilyId              *StringFilter            `json:"item_family_id,omitempty"`
-	Type                      *EnumFilter              `json:"type,omitempty"`
-	Name                      *StringFilter            `json:"name,omitempty"`
-	ItemApplicability         *EnumFilter              `json:"item_applicability,omitempty"`
-	Status                    *EnumFilter              `json:"status,omitempty"`
-	IsGiftable                *BooleanFilter           `json:"is_giftable,omitempty"`
-	UpdatedAt                 *TimestampFilter         `json:"updated_at,omitempty"`
-	EnabledForCheckout        *BooleanFilter           `json:"enabled_for_checkout,omitempty"`
-	EnabledInPortal           *BooleanFilter           `json:"enabled_in_portal,omitempty"`
-	Metered                   *BooleanFilter           `json:"metered,omitempty"`
-	UsageCalculation          *EnumFilter              `json:"usage_calculation,omitempty"`
-	Channel                   *EnumFilter              `json:"channel,omitempty"`
-	BusinessEntityId          *StringFilter            `json:"business_entity_id,omitempty"`
-	IncludeSiteLevelResources *BooleanFilter           `json:"include_site_level_resources,omitempty"`
-	SortBy                    *SortFilter              `json:"sort_by,omitempty"`
+	Limit                     *int32                       `json:"limit,omitempty"`
+	Offset                    string                       `json:"offset,omitempty"`
+	BundleConfiguration       *ItemListBundleConfiguration `json:"bundle_configuration,omitempty"`
+	Id                        *StringFilter                `json:"id,omitempty"`
+	ItemFamilyId              *StringFilter                `json:"item_family_id,omitempty"`
+	Type                      *EnumFilter                  `json:"type,omitempty"`
+	Name                      *StringFilter                `json:"name,omitempty"`
+	ItemApplicability         *EnumFilter                  `json:"item_applicability,omitempty"`
+	Status                    *EnumFilter                  `json:"status,omitempty"`
+	IsGiftable                *BooleanFilter               `json:"is_giftable,omitempty"`
+	UpdatedAt                 *TimestampFilter             `json:"updated_at,omitempty"`
+	EnabledForCheckout        *BooleanFilter               `json:"enabled_for_checkout,omitempty"`
+	EnabledInPortal           *BooleanFilter               `json:"enabled_in_portal,omitempty"`
+	Metered                   *BooleanFilter               `json:"metered,omitempty"`
+	UsageCalculation          *EnumFilter                  `json:"usage_calculation,omitempty"`
+	Channel                   *EnumFilter                  `json:"channel,omitempty"`
+	BusinessEntityId          *StringFilter                `json:"business_entity_id,omitempty"`
+	IncludeSiteLevelResources *BooleanFilter               `json:"include_site_level_resources,omitempty"`
+	SortBy                    *SortFilter                  `json:"sort_by,omitempty"`
 	apiRequest                `json:"-" form:"-"`
 }
 

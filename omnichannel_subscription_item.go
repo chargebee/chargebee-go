@@ -36,30 +36,6 @@ const (
 	OmnichannelSubscriptionItemCancellationReasonMerchantRevoked                      OmnichannelSubscriptionItemCancellationReason = "merchant_revoked"
 )
 
-type OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferCategory string
-
-const (
-	OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferCategoryIntroductory        OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferCategory = "introductory"
-	OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferCategoryPromotional         OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferCategory = "promotional"
-	OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferCategoryDeveloperDetermined OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferCategory = "developer_determined"
-)
-
-type OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferType string
-
-const (
-	OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferTypeFreeTrial  OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferType = "free_trial"
-	OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferTypePayUpFront OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferType = "pay_up_front"
-	OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferTypePayAsYouGo OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferType = "pay_as_you_go"
-)
-
-type OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferDiscountType string
-
-const (
-	OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferDiscountTypeFixedAmount OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferDiscountType = "fixed_amount"
-	OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferDiscountTypePercentage  OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferDiscountType = "percentage"
-	OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferDiscountTypePrice       OmnichannelSubscriptionItemOmnichannelSubscriptionItemOfferDiscountType = "price"
-)
-
 // just struct
 type OmnichannelSubscriptionItem struct {
 	Id                                string                                        `json:"id"`
@@ -78,8 +54,8 @@ type OmnichannelSubscriptionItem struct {
 	HasScheduledChanges               bool                                          `json:"has_scheduled_changes"`
 	ResourceVersion                   int64                                         `json:"resource_version"`
 	OmnichannelSubscriptionItemOffers []*OmnichannelSubscriptionItemOffer           `json:"omnichannel_subscription_item_offers"`
-	UpcomingRenewal                   UpcomingRenewal                               `json:"upcoming_renewal"`
-	LinkedItem                        LinkedItem                                    `json:"linked_item"`
+	UpcomingRenewal                   *OmnichannelSubscriptionItemUpcomingRenewal   `json:"upcoming_renewal"`
+	LinkedItem                        *OmnichannelSubscriptionItemLinkedItem        `json:"linked_item"`
 	Object                            string                                        `json:"object"`
 }
 

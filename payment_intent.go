@@ -36,6 +36,44 @@ const (
 	PaymentIntentPaymentMethodTypePayconiqByBancontact  PaymentIntentPaymentMethodType = "payconiq_by_bancontact"
 )
 
+type PaymentIntentActivePaymentAttemptStatus string
+
+const (
+	PaymentIntentActivePaymentAttemptStatusInited                 PaymentIntentActivePaymentAttemptStatus = "inited"
+	PaymentIntentActivePaymentAttemptStatusRequiresIdentification PaymentIntentActivePaymentAttemptStatus = "requires_identification"
+	PaymentIntentActivePaymentAttemptStatusRequiresChallenge      PaymentIntentActivePaymentAttemptStatus = "requires_challenge"
+	PaymentIntentActivePaymentAttemptStatusRequiresRedirection    PaymentIntentActivePaymentAttemptStatus = "requires_redirection"
+	PaymentIntentActivePaymentAttemptStatusAuthorized             PaymentIntentActivePaymentAttemptStatus = "authorized"
+	PaymentIntentActivePaymentAttemptStatusRefused                PaymentIntentActivePaymentAttemptStatus = "refused"
+	PaymentIntentActivePaymentAttemptStatusPendingAuthorization   PaymentIntentActivePaymentAttemptStatus = "pending_authorization"
+)
+
+type PaymentIntentActivePaymentAttemptPaymentMethodType string
+
+const (
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeCard                  PaymentIntentActivePaymentAttemptPaymentMethodType = "card"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeIdeal                 PaymentIntentActivePaymentAttemptPaymentMethodType = "ideal"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeSofort                PaymentIntentActivePaymentAttemptPaymentMethodType = "sofort"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeBancontact            PaymentIntentActivePaymentAttemptPaymentMethodType = "bancontact"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeGooglePay             PaymentIntentActivePaymentAttemptPaymentMethodType = "google_pay"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeDotpay                PaymentIntentActivePaymentAttemptPaymentMethodType = "dotpay"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeGiropay               PaymentIntentActivePaymentAttemptPaymentMethodType = "giropay"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeApplePay              PaymentIntentActivePaymentAttemptPaymentMethodType = "apple_pay"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeUpi                   PaymentIntentActivePaymentAttemptPaymentMethodType = "upi"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeNetbankingEmandates   PaymentIntentActivePaymentAttemptPaymentMethodType = "netbanking_emandates"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypePaypalExpressCheckout PaymentIntentActivePaymentAttemptPaymentMethodType = "paypal_express_checkout"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeDirectDebit           PaymentIntentActivePaymentAttemptPaymentMethodType = "direct_debit"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeBoleto                PaymentIntentActivePaymentAttemptPaymentMethodType = "boleto"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeVenmo                 PaymentIntentActivePaymentAttemptPaymentMethodType = "venmo"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeAmazonPayments        PaymentIntentActivePaymentAttemptPaymentMethodType = "amazon_payments"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypePayTo                 PaymentIntentActivePaymentAttemptPaymentMethodType = "pay_to"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeFasterPayments        PaymentIntentActivePaymentAttemptPaymentMethodType = "faster_payments"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeSepaInstantTransfer   PaymentIntentActivePaymentAttemptPaymentMethodType = "sepa_instant_transfer"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeKlarnaPayNow          PaymentIntentActivePaymentAttemptPaymentMethodType = "klarna_pay_now"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeOnlineBankingPoland   PaymentIntentActivePaymentAttemptPaymentMethodType = "online_banking_poland"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypePayconiqByBancontact  PaymentIntentActivePaymentAttemptPaymentMethodType = "payconiq_by_bancontact"
+)
+
 type PaymentIntentPaymentAttemptStatus string
 
 const (
@@ -100,17 +138,17 @@ type PaymentIntent struct {
 
 // sub resources
 type PaymentIntentPaymentAttempt struct {
-	Id                string                            `json:"id"`
-	Status            PaymentIntentPaymentAttemptStatus `json:"status"`
-	PaymentMethodType PaymentMethodType                 `json:"payment_method_type"`
-	IdAtGateway       string                            `json:"id_at_gateway"`
-	ErrorCode         string                            `json:"error_code"`
-	ErrorText         string                            `json:"error_text"`
-	CheckoutDetails   string                            `json:"checkout_details"`
-	CreatedAt         int64                             `json:"created_at"`
-	ModifiedAt        int64                             `json:"modified_at"`
-	ErrorDetail       *GatewayErrorDetail               `json:"error_detail"`
-	Object            string                            `json:"object"`
+	Id                string                                       `json:"id"`
+	Status            PaymentIntentPaymentAttemptStatus            `json:"status"`
+	PaymentMethodType PaymentIntentPaymentAttemptPaymentMethodType `json:"payment_method_type"`
+	IdAtGateway       string                                       `json:"id_at_gateway"`
+	ErrorCode         string                                       `json:"error_code"`
+	ErrorText         string                                       `json:"error_text"`
+	CheckoutDetails   string                                       `json:"checkout_details"`
+	CreatedAt         int64                                        `json:"created_at"`
+	ModifiedAt        int64                                        `json:"modified_at"`
+	ErrorDetail       *GatewayErrorDetail                          `json:"error_detail"`
+	Object            string                                       `json:"object"`
 }
 
 // operations

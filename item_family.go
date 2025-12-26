@@ -7,27 +7,19 @@ const (
 	ItemFamilyStatusDeleted ItemFamilyStatus = "deleted"
 )
 
-type ItemFamilyChannel string
-
-const (
-	ItemFamilyChannelWeb       ItemFamilyChannel = "web"
-	ItemFamilyChannelAppStore  ItemFamilyChannel = "app_store"
-	ItemFamilyChannelPlayStore ItemFamilyChannel = "play_store"
-)
-
 // just struct
 type ItemFamily struct {
-	Id               string            `json:"id"`
-	Name             string            `json:"name"`
-	Description      string            `json:"description"`
-	Status           ItemFamilyStatus  `json:"status"`
-	ResourceVersion  int64             `json:"resource_version"`
-	UpdatedAt        int64             `json:"updated_at"`
-	Channel          ItemFamilyChannel `json:"channel"`
-	BusinessEntityId string            `json:"business_entity_id"`
-	Deleted          bool              `json:"deleted"`
-	CustomField      CustomField       `json:"custom_field"`
-	Object           string            `json:"object"`
+	Id               string           `json:"id"`
+	Name             string           `json:"name"`
+	Description      string           `json:"description"`
+	Status           ItemFamilyStatus `json:"status"`
+	ResourceVersion  int64            `json:"resource_version"`
+	UpdatedAt        int64            `json:"updated_at"`
+	Channel          Channel          `json:"channel"`
+	BusinessEntityId string           `json:"business_entity_id"`
+	Deleted          bool             `json:"deleted"`
+	CustomField      CustomField      `json:"custom_field"`
+	Object           string           `json:"object"`
 }
 
 // sub resources

@@ -1,15 +1,5 @@
 package chargebee
 
-type UnbilledChargePricingModel string
-
-const (
-	UnbilledChargePricingModelFlatFee   UnbilledChargePricingModel = "flat_fee"
-	UnbilledChargePricingModelPerUnit   UnbilledChargePricingModel = "per_unit"
-	UnbilledChargePricingModelTiered    UnbilledChargePricingModel = "tiered"
-	UnbilledChargePricingModelVolume    UnbilledChargePricingModel = "volume"
-	UnbilledChargePricingModelStairstep UnbilledChargePricingModel = "stairstep"
-)
-
 type UnbilledChargeEntityType string
 
 const (
@@ -22,56 +12,48 @@ const (
 	UnbilledChargeEntityTypeAddon           UnbilledChargeEntityType = "addon"
 )
 
-type UnbilledChargeLineItemTierPricingType string
-
-const (
-	UnbilledChargeLineItemTierPricingTypePerUnit UnbilledChargeLineItemTierPricingType = "per_unit"
-	UnbilledChargeLineItemTierPricingTypeFlatFee UnbilledChargeLineItemTierPricingType = "flat_fee"
-	UnbilledChargeLineItemTierPricingTypePackage UnbilledChargeLineItemTierPricingType = "package"
-)
-
 // just struct
 type UnbilledCharge struct {
-	Id                  string                     `json:"id"`
-	CustomerId          string                     `json:"customer_id"`
-	SubscriptionId      string                     `json:"subscription_id"`
-	DateFrom            int64                      `json:"date_from"`
-	DateTo              int64                      `json:"date_to"`
-	UnitAmount          int64                      `json:"unit_amount"`
-	PricingModel        UnbilledChargePricingModel `json:"pricing_model"`
-	Quantity            int32                      `json:"quantity"`
-	Amount              int64                      `json:"amount"`
-	CurrencyCode        string                     `json:"currency_code"`
-	DiscountAmount      int64                      `json:"discount_amount"`
-	Description         string                     `json:"description"`
-	EntityType          UnbilledChargeEntityType   `json:"entity_type"`
-	EntityId            string                     `json:"entity_id"`
-	IsVoided            bool                       `json:"is_voided"`
-	VoidedAt            int64                      `json:"voided_at"`
-	UnitAmountInDecimal string                     `json:"unit_amount_in_decimal"`
-	QuantityInDecimal   string                     `json:"quantity_in_decimal"`
-	AmountInDecimal     string                     `json:"amount_in_decimal"`
-	UpdatedAt           int64                      `json:"updated_at"`
-	Tiers               []*UnbilledChargeTier      `json:"tiers"`
-	IsAdvanceCharge     bool                       `json:"is_advance_charge"`
-	BusinessEntityId    string                     `json:"business_entity_id"`
-	Deleted             bool                       `json:"deleted"`
-	Object              string                     `json:"object"`
+	Id                  string                   `json:"id"`
+	CustomerId          string                   `json:"customer_id"`
+	SubscriptionId      string                   `json:"subscription_id"`
+	DateFrom            int64                    `json:"date_from"`
+	DateTo              int64                    `json:"date_to"`
+	UnitAmount          int64                    `json:"unit_amount"`
+	PricingModel        PricingModel             `json:"pricing_model"`
+	Quantity            int32                    `json:"quantity"`
+	Amount              int64                    `json:"amount"`
+	CurrencyCode        string                   `json:"currency_code"`
+	DiscountAmount      int64                    `json:"discount_amount"`
+	Description         string                   `json:"description"`
+	EntityType          UnbilledChargeEntityType `json:"entity_type"`
+	EntityId            string                   `json:"entity_id"`
+	IsVoided            bool                     `json:"is_voided"`
+	VoidedAt            int64                    `json:"voided_at"`
+	UnitAmountInDecimal string                   `json:"unit_amount_in_decimal"`
+	QuantityInDecimal   string                   `json:"quantity_in_decimal"`
+	AmountInDecimal     string                   `json:"amount_in_decimal"`
+	UpdatedAt           int64                    `json:"updated_at"`
+	Tiers               []*UnbilledChargeTier    `json:"tiers"`
+	IsAdvanceCharge     bool                     `json:"is_advance_charge"`
+	BusinessEntityId    string                   `json:"business_entity_id"`
+	Deleted             bool                     `json:"deleted"`
+	Object              string                   `json:"object"`
 }
 
 // sub resources
 type UnbilledChargeTier struct {
-	StartingUnit          int32                         `json:"starting_unit"`
-	EndingUnit            int32                         `json:"ending_unit"`
-	QuantityUsed          int32                         `json:"quantity_used"`
-	UnitAmount            int64                         `json:"unit_amount"`
-	StartingUnitInDecimal string                        `json:"starting_unit_in_decimal"`
-	EndingUnitInDecimal   string                        `json:"ending_unit_in_decimal"`
-	QuantityUsedInDecimal string                        `json:"quantity_used_in_decimal"`
-	UnitAmountInDecimal   string                        `json:"unit_amount_in_decimal"`
-	PricingType           UnbilledChargeTierPricingType `json:"pricing_type"`
-	PackageSize           int32                         `json:"package_size"`
-	Object                string                        `json:"object"`
+	StartingUnit          int32       `json:"starting_unit"`
+	EndingUnit            int32       `json:"ending_unit"`
+	QuantityUsed          int32       `json:"quantity_used"`
+	UnitAmount            int64       `json:"unit_amount"`
+	StartingUnitInDecimal string      `json:"starting_unit_in_decimal"`
+	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal"`
+	QuantityUsedInDecimal string      `json:"quantity_used_in_decimal"`
+	UnitAmountInDecimal   string      `json:"unit_amount_in_decimal"`
+	PricingType           PricingType `json:"pricing_type"`
+	PackageSize           int32       `json:"package_size"`
+	Object                string      `json:"object"`
 }
 
 // operations
@@ -100,19 +82,19 @@ type UnbilledChargeCreateUnbilledChargeAddon struct {
 
 // input sub resource params multi
 type UnbilledChargeCreateUnbilledChargeCharge struct {
-	Amount                 *int64                              `json:"amount,omitempty"`
-	AmountInDecimal        string                              `json:"amount_in_decimal,omitempty"`
-	Description            string                              `json:"description,omitempty"`
-	Taxable                *bool                               `json:"taxable,omitempty"`
-	TaxProfileId           string                              `json:"tax_profile_id,omitempty"`
-	AvalaraTaxCode         string                              `json:"avalara_tax_code,omitempty"`
-	HsnCode                string                              `json:"hsn_code,omitempty"`
-	TaxjarProductCode      string                              `json:"taxjar_product_code,omitempty"`
-	AvalaraSaleType        UnbilledChargeChargeAvalaraSaleType `json:"avalara_sale_type,omitempty"`
-	AvalaraTransactionType *int32                              `json:"avalara_transaction_type,omitempty"`
-	AvalaraServiceType     *int32                              `json:"avalara_service_type,omitempty"`
-	DateFrom               *int64                              `json:"date_from,omitempty"`
-	DateTo                 *int64                              `json:"date_to,omitempty"`
+	Amount                 *int64          `json:"amount,omitempty"`
+	AmountInDecimal        string          `json:"amount_in_decimal,omitempty"`
+	Description            string          `json:"description,omitempty"`
+	Taxable                *bool           `json:"taxable,omitempty"`
+	TaxProfileId           string          `json:"tax_profile_id,omitempty"`
+	AvalaraTaxCode         string          `json:"avalara_tax_code,omitempty"`
+	HsnCode                string          `json:"hsn_code,omitempty"`
+	TaxjarProductCode      string          `json:"taxjar_product_code,omitempty"`
+	AvalaraSaleType        AvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32          `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32          `json:"avalara_service_type,omitempty"`
+	DateFrom               *int64          `json:"date_from,omitempty"`
+	DateTo                 *int64          `json:"date_to,omitempty"`
 }
 
 // input sub resource params multi
@@ -147,32 +129,32 @@ type UnbilledChargeCreateItemPrice struct {
 
 // input sub resource params multi
 type UnbilledChargeCreateItemTier struct {
-	ItemPriceId           string                            `json:"item_price_id,omitempty"`
-	StartingUnit          *int32                            `json:"starting_unit,omitempty"`
-	EndingUnit            *int32                            `json:"ending_unit,omitempty"`
-	Price                 *int64                            `json:"price,omitempty"`
-	StartingUnitInDecimal string                            `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string                            `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string                            `json:"price_in_decimal,omitempty"`
-	PricingType           UnbilledChargeItemTierPricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32                            `json:"package_size,omitempty"`
+	ItemPriceId           string      `json:"item_price_id,omitempty"`
+	StartingUnit          *int32      `json:"starting_unit,omitempty"`
+	EndingUnit            *int32      `json:"ending_unit,omitempty"`
+	Price                 *int64      `json:"price,omitempty"`
+	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
+	PricingType           PricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32      `json:"package_size,omitempty"`
 }
 
 // input sub resource params multi
 type UnbilledChargeCreateCharge struct {
-	Amount                 *int64                              `json:"amount,omitempty"`
-	AmountInDecimal        string                              `json:"amount_in_decimal,omitempty"`
-	Description            string                              `json:"description,omitempty"`
-	Taxable                *bool                               `json:"taxable,omitempty"`
-	TaxProfileId           string                              `json:"tax_profile_id,omitempty"`
-	AvalaraTaxCode         string                              `json:"avalara_tax_code,omitempty"`
-	HsnCode                string                              `json:"hsn_code,omitempty"`
-	TaxjarProductCode      string                              `json:"taxjar_product_code,omitempty"`
-	AvalaraSaleType        UnbilledChargeChargeAvalaraSaleType `json:"avalara_sale_type,omitempty"`
-	AvalaraTransactionType *int32                              `json:"avalara_transaction_type,omitempty"`
-	AvalaraServiceType     *int32                              `json:"avalara_service_type,omitempty"`
-	DateFrom               *int64                              `json:"date_from,omitempty"`
-	DateTo                 *int64                              `json:"date_to,omitempty"`
+	Amount                 *int64          `json:"amount,omitempty"`
+	AmountInDecimal        string          `json:"amount_in_decimal,omitempty"`
+	Description            string          `json:"description,omitempty"`
+	Taxable                *bool           `json:"taxable,omitempty"`
+	TaxProfileId           string          `json:"tax_profile_id,omitempty"`
+	AvalaraTaxCode         string          `json:"avalara_tax_code,omitempty"`
+	HsnCode                string          `json:"hsn_code,omitempty"`
+	TaxjarProductCode      string          `json:"taxjar_product_code,omitempty"`
+	AvalaraSaleType        AvalaraSaleType `json:"avalara_sale_type,omitempty"`
+	AvalaraTransactionType *int32          `json:"avalara_transaction_type,omitempty"`
+	AvalaraServiceType     *int32          `json:"avalara_service_type,omitempty"`
+	DateFrom               *int64          `json:"date_from,omitempty"`
+	DateTo                 *int64          `json:"date_to,omitempty"`
 }
 
 // input sub resource params multi

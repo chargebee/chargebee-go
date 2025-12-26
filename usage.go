@@ -1,35 +1,20 @@
 package chargebee
 
-type UsageSource string
-
-const (
-	UsageSourceAdminConsole  UsageSource = "admin_console"
-	UsageSourceApi           UsageSource = "api"
-	UsageSourceBulkOperation UsageSource = "bulk_operation"
-)
-
-type UsageDispositionType string
-
-const (
-	UsageDispositionTypeAttachment UsageDispositionType = "attachment"
-	UsageDispositionTypeInline     UsageDispositionType = "inline"
-)
-
 // just struct
 type Usage struct {
-	Id              string      `json:"id"`
-	UsageDate       int64       `json:"usage_date"`
-	SubscriptionId  string      `json:"subscription_id"`
-	ItemPriceId     string      `json:"item_price_id"`
-	InvoiceId       string      `json:"invoice_id"`
-	LineItemId      string      `json:"line_item_id"`
-	Quantity        string      `json:"quantity"`
-	Source          UsageSource `json:"source"`
-	Note            string      `json:"note"`
-	ResourceVersion int64       `json:"resource_version"`
-	UpdatedAt       int64       `json:"updated_at"`
-	CreatedAt       int64       `json:"created_at"`
-	Object          string      `json:"object"`
+	Id              string `json:"id"`
+	UsageDate       int64  `json:"usage_date"`
+	SubscriptionId  string `json:"subscription_id"`
+	ItemPriceId     string `json:"item_price_id"`
+	InvoiceId       string `json:"invoice_id"`
+	LineItemId      string `json:"line_item_id"`
+	Quantity        string `json:"quantity"`
+	Source          Source `json:"source"`
+	Note            string `json:"note"`
+	ResourceVersion int64  `json:"resource_version"`
+	UpdatedAt       int64  `json:"updated_at"`
+	CreatedAt       int64  `json:"created_at"`
+	Object          string `json:"object"`
 }
 
 // sub resources
@@ -77,8 +62,8 @@ type UsageListRequest struct {
 func (r *UsageListRequest) payload() any { return r }
 
 type UsagePdfRequest struct {
-	Invoice         *UsagePdfInvoice     `json:"invoice,omitempty"`
-	DispositionType UsageDispositionType `json:"disposition_type,omitempty"`
+	Invoice         *UsagePdfInvoice `json:"invoice,omitempty"`
+	DispositionType DispositionType  `json:"disposition_type,omitempty"`
 	apiRequest      `json:"-" form:"-"`
 }
 

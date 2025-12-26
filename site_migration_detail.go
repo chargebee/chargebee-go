@@ -1,16 +1,5 @@
 package chargebee
 
-type SiteMigrationDetailEntityType string
-
-const (
-	SiteMigrationDetailEntityTypeCustomer     SiteMigrationDetailEntityType = "customer"
-	SiteMigrationDetailEntityTypeSubscription SiteMigrationDetailEntityType = "subscription"
-	SiteMigrationDetailEntityTypeInvoice      SiteMigrationDetailEntityType = "invoice"
-	SiteMigrationDetailEntityTypeCreditNote   SiteMigrationDetailEntityType = "credit_note"
-	SiteMigrationDetailEntityTypeTransaction  SiteMigrationDetailEntityType = "transaction"
-	SiteMigrationDetailEntityTypeOrder        SiteMigrationDetailEntityType = "order"
-)
-
 type SiteMigrationDetailStatus string
 
 const (
@@ -21,13 +10,13 @@ const (
 
 // just struct
 type SiteMigrationDetail struct {
-	EntityId            string                        `json:"entity_id"`
-	OtherSiteName       string                        `json:"other_site_name"`
-	EntityIdAtOtherSite string                        `json:"entity_id_at_other_site"`
-	MigratedAt          int64                         `json:"migrated_at"`
-	EntityType          SiteMigrationDetailEntityType `json:"entity_type"`
-	Status              SiteMigrationDetailStatus     `json:"status"`
-	Object              string                        `json:"object"`
+	EntityId            string                    `json:"entity_id"`
+	OtherSiteName       string                    `json:"other_site_name"`
+	EntityIdAtOtherSite string                    `json:"entity_id_at_other_site"`
+	MigratedAt          int64                     `json:"migrated_at"`
+	EntityType          EntityType                `json:"entity_type"`
+	Status              SiteMigrationDetailStatus `json:"status"`
+	Object              string                    `json:"object"`
 }
 
 // sub resources

@@ -15,22 +15,6 @@ const (
 	ExportStatusFailed    ExportStatus = "failed"
 )
 
-type ExportReportBy string
-
-const (
-	ExportReportByCustomer     ExportReportBy = "customer"
-	ExportReportByInvoice      ExportReportBy = "invoice"
-	ExportReportByProduct      ExportReportBy = "product"
-	ExportReportBySubscription ExportReportBy = "subscription"
-)
-
-type ExportExportType string
-
-const (
-	ExportExportTypeData               ExportExportType = "data"
-	ExportExportTypeImportFriendlyData ExportExportType = "import_friendly_data"
-)
-
 // just struct
 type Export struct {
 	Id            string          `json:"id"`
@@ -57,7 +41,7 @@ type ExportRevenueRecognitionRequest struct {
 	Subscription     *ExportRevenueRecognitionSubscription `json:"subscription,omitempty"`
 	Customer         *ExportRevenueRecognitionCustomer     `json:"customer,omitempty"`
 	Relationship     *ExportRevenueRecognitionRelationship `json:"relationship,omitempty"`
-	ReportBy         ExportReportBy                        `json:"report_by"`
+	ReportBy         ReportBy                              `json:"report_by"`
 	CurrencyCode     string                                `json:"currency_code,omitempty"`
 	ReportFromMonth  *int32                                `json:"report_from_month"`
 	ReportFromYear   *int32                                `json:"report_from_year"`
@@ -140,7 +124,7 @@ type ExportDeferredRevenueRequest struct {
 	Subscription     *ExportDeferredRevenueSubscription `json:"subscription,omitempty"`
 	Customer         *ExportDeferredRevenueCustomer     `json:"customer,omitempty"`
 	Relationship     *ExportDeferredRevenueRelationship `json:"relationship,omitempty"`
-	ReportBy         ExportReportBy                     `json:"report_by"`
+	ReportBy         ReportBy                           `json:"report_by"`
 	CurrencyCode     string                             `json:"currency_code,omitempty"`
 	ReportFromMonth  *int32                             `json:"report_from_month"`
 	ReportFromYear   *int32                             `json:"report_from_year"`
@@ -286,7 +270,7 @@ type ExportCouponsCoupon struct {
 type ExportCustomersRequest struct {
 	Customer         *ExportCustomersCustomer     `json:"customer,omitempty"`
 	Relationship     *ExportCustomersRelationship `json:"relationship,omitempty"`
-	ExportType       ExportExportType             `json:"export_type,omitempty"`
+	ExportType       ExportType                   `json:"export_type,omitempty"`
 	BusinessEntityId *StringFilter                `json:"business_entity_id,omitempty"`
 	apiRequest       `json:"-" form:"-"`
 }
@@ -319,7 +303,7 @@ type ExportCustomersRelationship struct {
 
 type ExportSubscriptionsRequest struct {
 	Subscription     *ExportSubscriptionsSubscription `json:"subscription,omitempty"`
-	ExportType       ExportExportType                 `json:"export_type,omitempty"`
+	ExportType       ExportType                       `json:"export_type,omitempty"`
 	ItemId           *StringFilter                    `json:"item_id,omitempty"`
 	ItemPriceId      *StringFilter                    `json:"item_price_id,omitempty"`
 	CancelReasonCode *StringFilter                    `json:"cancel_reason_code,omitempty"`

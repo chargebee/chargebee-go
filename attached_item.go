@@ -16,71 +16,52 @@ const (
 	AttachedItemStatusDeleted  AttachedItemStatus = "deleted"
 )
 
-type AttachedItemChargeOnEvent string
-
-const (
-	AttachedItemChargeOnEventSubscriptionCreation   AttachedItemChargeOnEvent = "subscription_creation"
-	AttachedItemChargeOnEventSubscriptionTrialStart AttachedItemChargeOnEvent = "subscription_trial_start"
-	AttachedItemChargeOnEventPlanActivation         AttachedItemChargeOnEvent = "plan_activation"
-	AttachedItemChargeOnEventSubscriptionActivation AttachedItemChargeOnEvent = "subscription_activation"
-	AttachedItemChargeOnEventContractTermination    AttachedItemChargeOnEvent = "contract_termination"
-	AttachedItemChargeOnEventOnDemand               AttachedItemChargeOnEvent = "on_demand"
-)
-
-type AttachedItemChannel string
-
-const (
-	AttachedItemChannelWeb       AttachedItemChannel = "web"
-	AttachedItemChannelAppStore  AttachedItemChannel = "app_store"
-	AttachedItemChannelPlayStore AttachedItemChannel = "play_store"
-)
-
 // just struct
 type AttachedItem struct {
-	Id                string                    `json:"id"`
-	ParentItemId      string                    `json:"parent_item_id"`
-	ItemId            string                    `json:"item_id"`
-	Type              AttachedItemType          `json:"type"`
-	Status            AttachedItemStatus        `json:"status"`
-	Quantity          int32                     `json:"quantity"`
-	QuantityInDecimal string                    `json:"quantity_in_decimal"`
-	BillingCycles     int32                     `json:"billing_cycles"`
-	ChargeOnEvent     AttachedItemChargeOnEvent `json:"charge_on_event"`
-	ChargeOnce        bool                      `json:"charge_once"`
-	CreatedAt         int64                     `json:"created_at"`
-	ResourceVersion   int64                     `json:"resource_version"`
-	UpdatedAt         int64                     `json:"updated_at"`
-	Channel           AttachedItemChannel       `json:"channel"`
-	BusinessEntityId  string                    `json:"business_entity_id"`
-	Deleted           bool                      `json:"deleted"`
-	Object            string                    `json:"object"`
+	Id                string             `json:"id"`
+	ParentItemId      string             `json:"parent_item_id"`
+	ItemId            string             `json:"item_id"`
+	Type              AttachedItemType   `json:"type"`
+	Status            AttachedItemStatus `json:"status"`
+	Quantity          int32              `json:"quantity"`
+	QuantityInDecimal string             `json:"quantity_in_decimal"`
+	BillingCycles     int32              `json:"billing_cycles"`
+	ChargeOnEvent     ChargeOnEvent      `json:"charge_on_event"`
+	ChargeOnce        bool               `json:"charge_once"`
+	CreatedAt         int64              `json:"created_at"`
+	ResourceVersion   int64              `json:"resource_version"`
+	UpdatedAt         int64              `json:"updated_at"`
+	Channel           Channel            `json:"channel"`
+	BusinessEntityId  string             `json:"business_entity_id"`
+	Deleted           bool               `json:"deleted"`
+	Object            string             `json:"object"`
 }
 
 // sub resources
 // operations
 // input params
 type AttachedItemCreateRequest struct {
-	ItemId            string                    `json:"item_id"`
-	Type              AttachedItemType          `json:"type,omitempty"`
-	BillingCycles     *int32                    `json:"billing_cycles,omitempty"`
-	Quantity          *int32                    `json:"quantity,omitempty"`
-	QuantityInDecimal string                    `json:"quantity_in_decimal,omitempty"`
-	ChargeOnEvent     AttachedItemChargeOnEvent `json:"charge_on_event,omitempty"`
-	ChargeOnce        *bool                     `json:"charge_once,omitempty"`
-	BusinessEntityId  string                    `json:"business_entity_id,omitempty"`
+	ItemId            string           `json:"item_id"`
+	Type              AttachedItemType `json:"type,omitempty"`
+	BillingCycles     *int32           `json:"billing_cycles,omitempty"`
+	Quantity          *int32           `json:"quantity,omitempty"`
+	QuantityInDecimal string           `json:"quantity_in_decimal,omitempty"`
+	ChargeOnEvent     ChargeOnEvent    `json:"charge_on_event,omitempty"`
+	ChargeOnce        *bool            `json:"charge_once,omitempty"`
+	BusinessEntityId  string           `json:"business_entity_id,omitempty"`
 	apiRequest        `json:"-" form:"-"`
 }
 
 func (r *AttachedItemCreateRequest) payload() any { return r }
 
 type AttachedItemUpdateRequest struct {
-	ParentItemId      string                    `json:"parent_item_id"`
-	Type              AttachedItemType          `json:"type,omitempty"`
-	BillingCycles     *int32                    `json:"billing_cycles,omitempty"`
-	Quantity          *int32                    `json:"quantity,omitempty"`
-	QuantityInDecimal string                    `json:"quantity_in_decimal,omitempty"`
-	ChargeOnEvent     AttachedItemChargeOnEvent `json:"charge_on_event,omitempty"`
-	ChargeOnce        *bool                     `json:"charge_once,omitempty"`
+	ParentItemId      string           `json:"parent_item_id"`
+	Type              AttachedItemType `json:"type,omitempty"`
+	BillingCycles     *int32           `json:"billing_cycles,omitempty"`
+	Quantity          *int32           `json:"quantity,omitempty"`
+	QuantityInDecimal string           `json:"quantity_in_decimal,omitempty"`
+	ChargeOnEvent     ChargeOnEvent    `json:"charge_on_event,omitempty"`
+	ChargeOnce        *bool            `json:"charge_once,omitempty"`
 	apiRequest        `json:"-" form:"-"`
 }
 

@@ -10,13 +10,6 @@ const (
 	EntitlementEntityTypeAddonPrice EntitlementEntityType = "addon_price"
 )
 
-type EntitlementAction string
-
-const (
-	EntitlementActionUpsert EntitlementAction = "upsert"
-	EntitlementActionRemove EntitlementAction = "remove"
-)
-
 // just struct
 type Entitlement struct {
 	Id          string                `json:"id"`
@@ -44,7 +37,7 @@ type EntitlementListRequest struct {
 func (r *EntitlementListRequest) payload() any { return r }
 
 type EntitlementCreateRequest struct {
-	Action       EntitlementAction               `json:"action"`
+	Action       Action                          `json:"action"`
 	ChangeReason string                          `json:"change_reason,omitempty"`
 	Entitlements []*EntitlementCreateEntitlement `json:"entitlements,omitempty"`
 	apiRequest   `json:"-" form:"-"`
@@ -54,11 +47,11 @@ func (r *EntitlementCreateRequest) payload() any { return r }
 
 // input sub resource params multi
 type EntitlementCreateEntitlement struct {
-	EntityId            string                           `json:"entity_id"`
-	FeatureId           string                           `json:"feature_id"`
-	EntityType          EntitlementEntitlementEntityType `json:"entity_type,omitempty"`
-	Value               string                           `json:"value,omitempty"`
-	ApplyGrandfathering *bool                            `json:"apply_grandfathering,omitempty"`
+	EntityId            string                `json:"entity_id"`
+	FeatureId           string                `json:"feature_id"`
+	EntityType          EntitlementEntityType `json:"entity_type,omitempty"`
+	Value               string                `json:"value,omitempty"`
+	ApplyGrandfathering *bool                 `json:"apply_grandfathering,omitempty"`
 }
 
 // operation sub response

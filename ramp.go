@@ -9,91 +9,11 @@ const (
 	RampStatusDraft     RampStatus = "draft"
 )
 
-type RampItemsToAddItemType string
-
-const (
-	RampItemsToAddItemTypePlan   RampItemsToAddItemType = "plan"
-	RampItemsToAddItemTypeAddon  RampItemsToAddItemType = "addon"
-	RampItemsToAddItemTypeCharge RampItemsToAddItemType = "charge"
-)
-
-type RampItemsToAddChargeOnOption string
-
-const (
-	RampItemsToAddChargeOnOptionImmediately RampItemsToAddChargeOnOption = "immediately"
-	RampItemsToAddChargeOnOptionOnEvent     RampItemsToAddChargeOnOption = "on_event"
-)
-
-type RampItemsToAddChargeOnEvent string
-
-const (
-	RampItemsToAddChargeOnEventSubscriptionTrialStart RampItemsToAddChargeOnEvent = "subscription_trial_start"
-	RampItemsToAddChargeOnEventPlanActivation         RampItemsToAddChargeOnEvent = "plan_activation"
-	RampItemsToAddChargeOnEventSubscriptionActivation RampItemsToAddChargeOnEvent = "subscription_activation"
-	RampItemsToAddChargeOnEventContractTermination    RampItemsToAddChargeOnEvent = "contract_termination"
-)
-
-type RampItemsToUpdateItemType string
-
-const (
-	RampItemsToUpdateItemTypePlan   RampItemsToUpdateItemType = "plan"
-	RampItemsToUpdateItemTypeAddon  RampItemsToUpdateItemType = "addon"
-	RampItemsToUpdateItemTypeCharge RampItemsToUpdateItemType = "charge"
-)
-
-type RampItemsToUpdateChargeOnOption string
-
-const (
-	RampItemsToUpdateChargeOnOptionImmediately RampItemsToUpdateChargeOnOption = "immediately"
-	RampItemsToUpdateChargeOnOptionOnEvent     RampItemsToUpdateChargeOnOption = "on_event"
-)
-
-type RampItemsToUpdateChargeOnEvent string
-
-const (
-	RampItemsToUpdateChargeOnEventSubscriptionTrialStart RampItemsToUpdateChargeOnEvent = "subscription_trial_start"
-	RampItemsToUpdateChargeOnEventPlanActivation         RampItemsToUpdateChargeOnEvent = "plan_activation"
-	RampItemsToUpdateChargeOnEventSubscriptionActivation RampItemsToUpdateChargeOnEvent = "subscription_activation"
-	RampItemsToUpdateChargeOnEventContractTermination    RampItemsToUpdateChargeOnEvent = "contract_termination"
-)
-
 type RampDiscountsToAddType string
 
 const (
 	RampDiscountsToAddTypeFixedAmount RampDiscountsToAddType = "fixed_amount"
 	RampDiscountsToAddTypePercentage  RampDiscountsToAddType = "percentage"
-)
-
-type RampDiscountsToAddDurationType string
-
-const (
-	RampDiscountsToAddDurationTypeOneTime       RampDiscountsToAddDurationType = "one_time"
-	RampDiscountsToAddDurationTypeForever       RampDiscountsToAddDurationType = "forever"
-	RampDiscountsToAddDurationTypeLimitedPeriod RampDiscountsToAddDurationType = "limited_period"
-)
-
-type RampDiscountsToAddPeriodUnit string
-
-const (
-	RampDiscountsToAddPeriodUnitDay   RampDiscountsToAddPeriodUnit = "day"
-	RampDiscountsToAddPeriodUnitWeek  RampDiscountsToAddPeriodUnit = "week"
-	RampDiscountsToAddPeriodUnitMonth RampDiscountsToAddPeriodUnit = "month"
-	RampDiscountsToAddPeriodUnitYear  RampDiscountsToAddPeriodUnit = "year"
-)
-
-type RampDiscountsToAddApplyOn string
-
-const (
-	RampDiscountsToAddApplyOnInvoiceAmount     RampDiscountsToAddApplyOn = "invoice_amount"
-	RampDiscountsToAddApplyOnSpecificItemPrice RampDiscountsToAddApplyOn = "specific_item_price"
-)
-
-type RampItemTierPricingType string
-
-const (
-	RampItemTierPricingTypePerUnit RampItemTierPricingType = "per_unit"
-	RampItemTierPricingTypeFlatFee RampItemTierPricingType = "flat_fee"
-	RampItemTierPricingTypePackage RampItemTierPricingType = "package"
 )
 
 type RampContractTermActionAtTermEnd string
@@ -131,43 +51,43 @@ type Ramp struct {
 
 // sub resources
 type RampItemsToAdd struct {
-	ItemPriceId           string                       `json:"item_price_id"`
-	ItemType              RampItemsToAddItemType       `json:"item_type"`
-	Quantity              int32                        `json:"quantity"`
-	QuantityInDecimal     string                       `json:"quantity_in_decimal"`
-	UnitPrice             int64                        `json:"unit_price"`
-	UnitPriceInDecimal    string                       `json:"unit_price_in_decimal"`
-	Amount                int64                        `json:"amount"`
-	AmountInDecimal       string                       `json:"amount_in_decimal"`
-	FreeQuantity          int32                        `json:"free_quantity"`
-	FreeQuantityInDecimal string                       `json:"free_quantity_in_decimal"`
-	BillingCycles         int32                        `json:"billing_cycles"`
-	ServicePeriodDays     int32                        `json:"service_period_days"`
-	MeteredQuantity       string                       `json:"metered_quantity"`
-	ChargeOnce            bool                         `json:"charge_once"`
-	ChargeOnOption        RampItemsToAddChargeOnOption `json:"charge_on_option"`
-	ChargeOnEvent         RampItemsToAddChargeOnEvent  `json:"charge_on_event"`
-	Object                string                       `json:"object"`
+	ItemPriceId           string         `json:"item_price_id"`
+	ItemType              ItemType       `json:"item_type"`
+	Quantity              int32          `json:"quantity"`
+	QuantityInDecimal     string         `json:"quantity_in_decimal"`
+	UnitPrice             int64          `json:"unit_price"`
+	UnitPriceInDecimal    string         `json:"unit_price_in_decimal"`
+	Amount                int64          `json:"amount"`
+	AmountInDecimal       string         `json:"amount_in_decimal"`
+	FreeQuantity          int32          `json:"free_quantity"`
+	FreeQuantityInDecimal string         `json:"free_quantity_in_decimal"`
+	BillingCycles         int32          `json:"billing_cycles"`
+	ServicePeriodDays     int32          `json:"service_period_days"`
+	MeteredQuantity       string         `json:"metered_quantity"`
+	ChargeOnce            bool           `json:"charge_once"`
+	ChargeOnOption        ChargeOnOption `json:"charge_on_option"`
+	ChargeOnEvent         ChargeOnEvent  `json:"charge_on_event"`
+	Object                string         `json:"object"`
 }
 
 type RampItemsToUpdate struct {
-	ItemPriceId           string                          `json:"item_price_id"`
-	ItemType              RampItemsToUpdateItemType       `json:"item_type"`
-	Quantity              int32                           `json:"quantity"`
-	QuantityInDecimal     string                          `json:"quantity_in_decimal"`
-	UnitPrice             int64                           `json:"unit_price"`
-	UnitPriceInDecimal    string                          `json:"unit_price_in_decimal"`
-	Amount                int64                           `json:"amount"`
-	AmountInDecimal       string                          `json:"amount_in_decimal"`
-	FreeQuantity          int32                           `json:"free_quantity"`
-	FreeQuantityInDecimal string                          `json:"free_quantity_in_decimal"`
-	BillingCycles         int32                           `json:"billing_cycles"`
-	ServicePeriodDays     int32                           `json:"service_period_days"`
-	MeteredQuantity       string                          `json:"metered_quantity"`
-	ChargeOnce            bool                            `json:"charge_once"`
-	ChargeOnOption        RampItemsToUpdateChargeOnOption `json:"charge_on_option"`
-	ChargeOnEvent         RampItemsToUpdateChargeOnEvent  `json:"charge_on_event"`
-	Object                string                          `json:"object"`
+	ItemPriceId           string         `json:"item_price_id"`
+	ItemType              ItemType       `json:"item_type"`
+	Quantity              int32          `json:"quantity"`
+	QuantityInDecimal     string         `json:"quantity_in_decimal"`
+	UnitPrice             int64          `json:"unit_price"`
+	UnitPriceInDecimal    string         `json:"unit_price_in_decimal"`
+	Amount                int64          `json:"amount"`
+	AmountInDecimal       string         `json:"amount_in_decimal"`
+	FreeQuantity          int32          `json:"free_quantity"`
+	FreeQuantityInDecimal string         `json:"free_quantity_in_decimal"`
+	BillingCycles         int32          `json:"billing_cycles"`
+	ServicePeriodDays     int32          `json:"service_period_days"`
+	MeteredQuantity       string         `json:"metered_quantity"`
+	ChargeOnce            bool           `json:"charge_once"`
+	ChargeOnOption        ChargeOnOption `json:"charge_on_option"`
+	ChargeOnEvent         ChargeOnEvent  `json:"charge_on_event"`
+	Object                string         `json:"object"`
 }
 
 type RampCouponsToAdd struct {
@@ -177,33 +97,33 @@ type RampCouponsToAdd struct {
 }
 
 type RampDiscountsToAdd struct {
-	Id            string                         `json:"id"`
-	InvoiceName   string                         `json:"invoice_name"`
-	Type          RampDiscountsToAddType         `json:"type"`
-	Percentage    float64                        `json:"percentage"`
-	Amount        int64                          `json:"amount"`
-	DurationType  RampDiscountsToAddDurationType `json:"duration_type"`
-	Period        int32                          `json:"period"`
-	PeriodUnit    RampDiscountsToAddPeriodUnit   `json:"period_unit"`
-	IncludedInMrr bool                           `json:"included_in_mrr"`
-	ApplyOn       RampDiscountsToAddApplyOn      `json:"apply_on"`
-	ItemPriceId   string                         `json:"item_price_id"`
-	CreatedAt     int64                          `json:"created_at"`
-	Object        string                         `json:"object"`
+	Id            string                 `json:"id"`
+	InvoiceName   string                 `json:"invoice_name"`
+	Type          RampDiscountsToAddType `json:"type"`
+	Percentage    float64                `json:"percentage"`
+	Amount        int64                  `json:"amount"`
+	DurationType  DurationType           `json:"duration_type"`
+	Period        int32                  `json:"period"`
+	PeriodUnit    PeriodUnit             `json:"period_unit"`
+	IncludedInMrr bool                   `json:"included_in_mrr"`
+	ApplyOn       ApplyOn                `json:"apply_on"`
+	ItemPriceId   string                 `json:"item_price_id"`
+	CreatedAt     int64                  `json:"created_at"`
+	Object        string                 `json:"object"`
 }
 
 type RampItemTier struct {
-	ItemPriceId           string                  `json:"item_price_id"`
-	StartingUnit          int32                   `json:"starting_unit"`
-	EndingUnit            int32                   `json:"ending_unit"`
-	Price                 int64                   `json:"price"`
-	StartingUnitInDecimal string                  `json:"starting_unit_in_decimal"`
-	EndingUnitInDecimal   string                  `json:"ending_unit_in_decimal"`
-	PriceInDecimal        string                  `json:"price_in_decimal"`
-	PricingType           RampItemTierPricingType `json:"pricing_type"`
-	PackageSize           int32                   `json:"package_size"`
-	Index                 int32                   `json:"index"`
-	Object                string                  `json:"object"`
+	ItemPriceId           string      `json:"item_price_id"`
+	StartingUnit          int32       `json:"starting_unit"`
+	EndingUnit            int32       `json:"ending_unit"`
+	Price                 int64       `json:"price"`
+	StartingUnitInDecimal string      `json:"starting_unit_in_decimal"`
+	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal"`
+	PriceInDecimal        string      `json:"price_in_decimal"`
+	PricingType           PricingType `json:"pricing_type"`
+	PackageSize           int32       `json:"package_size"`
+	Index                 int32       `json:"index"`
+	Object                string      `json:"object"`
 }
 
 type RampContractTerm struct {
@@ -240,43 +160,43 @@ func (r *RampCreateForSubscriptionRequest) payload() any { return r }
 
 // input sub resource params multi
 type RampCreateForSubscriptionItemsToAdd struct {
-	ItemPriceId        string                       `json:"item_price_id"`
-	Quantity           *int32                       `json:"quantity,omitempty"`
-	QuantityInDecimal  string                       `json:"quantity_in_decimal,omitempty"`
-	UnitPrice          *int64                       `json:"unit_price,omitempty"`
-	UnitPriceInDecimal string                       `json:"unit_price_in_decimal,omitempty"`
-	BillingCycles      *int32                       `json:"billing_cycles,omitempty"`
-	ServicePeriodDays  *int32                       `json:"service_period_days,omitempty"`
-	ChargeOnEvent      RampItemsToAddChargeOnEvent  `json:"charge_on_event,omitempty"`
-	ChargeOnce         *bool                        `json:"charge_once,omitempty"`
-	ChargeOnOption     RampItemsToAddChargeOnOption `json:"charge_on_option,omitempty"`
+	ItemPriceId        string         `json:"item_price_id"`
+	Quantity           *int32         `json:"quantity,omitempty"`
+	QuantityInDecimal  string         `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int64         `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string         `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32         `json:"billing_cycles,omitempty"`
+	ServicePeriodDays  *int32         `json:"service_period_days,omitempty"`
+	ChargeOnEvent      ChargeOnEvent  `json:"charge_on_event,omitempty"`
+	ChargeOnce         *bool          `json:"charge_once,omitempty"`
+	ChargeOnOption     ChargeOnOption `json:"charge_on_option,omitempty"`
 }
 
 // input sub resource params multi
 type RampCreateForSubscriptionItemsToUpdate struct {
-	ItemPriceId        string                          `json:"item_price_id"`
-	Quantity           *int32                          `json:"quantity,omitempty"`
-	QuantityInDecimal  string                          `json:"quantity_in_decimal,omitempty"`
-	UnitPrice          *int64                          `json:"unit_price,omitempty"`
-	UnitPriceInDecimal string                          `json:"unit_price_in_decimal,omitempty"`
-	BillingCycles      *int32                          `json:"billing_cycles,omitempty"`
-	ServicePeriodDays  *int32                          `json:"service_period_days,omitempty"`
-	ChargeOnEvent      RampItemsToUpdateChargeOnEvent  `json:"charge_on_event,omitempty"`
-	ChargeOnce         *bool                           `json:"charge_once,omitempty"`
-	ChargeOnOption     RampItemsToUpdateChargeOnOption `json:"charge_on_option,omitempty"`
+	ItemPriceId        string         `json:"item_price_id"`
+	Quantity           *int32         `json:"quantity,omitempty"`
+	QuantityInDecimal  string         `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int64         `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string         `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32         `json:"billing_cycles,omitempty"`
+	ServicePeriodDays  *int32         `json:"service_period_days,omitempty"`
+	ChargeOnEvent      ChargeOnEvent  `json:"charge_on_event,omitempty"`
+	ChargeOnce         *bool          `json:"charge_once,omitempty"`
+	ChargeOnOption     ChargeOnOption `json:"charge_on_option,omitempty"`
 }
 
 // input sub resource params multi
 type RampCreateForSubscriptionItemTier struct {
-	ItemPriceId           string                  `json:"item_price_id,omitempty"`
-	StartingUnit          *int32                  `json:"starting_unit,omitempty"`
-	EndingUnit            *int32                  `json:"ending_unit,omitempty"`
-	Price                 *int64                  `json:"price,omitempty"`
-	StartingUnitInDecimal string                  `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string                  `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string                  `json:"price_in_decimal,omitempty"`
-	PricingType           RampItemTierPricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32                  `json:"package_size,omitempty"`
+	ItemPriceId           string      `json:"item_price_id,omitempty"`
+	StartingUnit          *int32      `json:"starting_unit,omitempty"`
+	EndingUnit            *int32      `json:"ending_unit,omitempty"`
+	Price                 *int64      `json:"price,omitempty"`
+	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
+	PricingType           PricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32      `json:"package_size,omitempty"`
 }
 
 // input sub resource params multi
@@ -287,21 +207,21 @@ type RampCreateForSubscriptionCouponsToAdd struct {
 
 // input sub resource params multi
 type RampCreateForSubscriptionDiscountsToAdd struct {
-	ApplyOn       RampDiscountsToAddApplyOn      `json:"apply_on"`
-	DurationType  RampDiscountsToAddDurationType `json:"duration_type"`
-	Percentage    *float64                       `json:"percentage,omitempty"`
-	Amount        *int64                         `json:"amount,omitempty"`
-	Period        *int32                         `json:"period,omitempty"`
-	PeriodUnit    RampDiscountsToAddPeriodUnit   `json:"period_unit,omitempty"`
-	IncludedInMrr *bool                          `json:"included_in_mrr,omitempty"`
-	ItemPriceId   string                         `json:"item_price_id,omitempty"`
+	ApplyOn       ApplyOn      `json:"apply_on"`
+	DurationType  DurationType `json:"duration_type"`
+	Percentage    *float64     `json:"percentage,omitempty"`
+	Amount        *int64       `json:"amount,omitempty"`
+	Period        *int32       `json:"period,omitempty"`
+	PeriodUnit    PeriodUnit   `json:"period_unit,omitempty"`
+	IncludedInMrr *bool        `json:"included_in_mrr,omitempty"`
+	ItemPriceId   string       `json:"item_price_id,omitempty"`
 }
 
 // input sub resource params single
 type RampCreateForSubscriptionContractTerm struct {
-	ActionAtTermEnd          RampContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32                          `json:"cancellation_cutoff_period,omitempty"`
-	RenewalBillingCycles     *int32                          `json:"renewal_billing_cycles,omitempty"`
+	ActionAtTermEnd          ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                      `json:"cancellation_cutoff_period,omitempty"`
+	RenewalBillingCycles     *int32                      `json:"renewal_billing_cycles,omitempty"`
 }
 
 type RampUpdateRequest struct {
@@ -323,43 +243,43 @@ func (r *RampUpdateRequest) payload() any { return r }
 
 // input sub resource params multi
 type RampUpdateItemsToAdd struct {
-	ItemPriceId        string                       `json:"item_price_id"`
-	Quantity           *int32                       `json:"quantity,omitempty"`
-	QuantityInDecimal  string                       `json:"quantity_in_decimal,omitempty"`
-	UnitPrice          *int64                       `json:"unit_price,omitempty"`
-	UnitPriceInDecimal string                       `json:"unit_price_in_decimal,omitempty"`
-	BillingCycles      *int32                       `json:"billing_cycles,omitempty"`
-	ServicePeriodDays  *int32                       `json:"service_period_days,omitempty"`
-	ChargeOnEvent      RampItemsToAddChargeOnEvent  `json:"charge_on_event,omitempty"`
-	ChargeOnce         *bool                        `json:"charge_once,omitempty"`
-	ChargeOnOption     RampItemsToAddChargeOnOption `json:"charge_on_option,omitempty"`
+	ItemPriceId        string         `json:"item_price_id"`
+	Quantity           *int32         `json:"quantity,omitempty"`
+	QuantityInDecimal  string         `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int64         `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string         `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32         `json:"billing_cycles,omitempty"`
+	ServicePeriodDays  *int32         `json:"service_period_days,omitempty"`
+	ChargeOnEvent      ChargeOnEvent  `json:"charge_on_event,omitempty"`
+	ChargeOnce         *bool          `json:"charge_once,omitempty"`
+	ChargeOnOption     ChargeOnOption `json:"charge_on_option,omitempty"`
 }
 
 // input sub resource params multi
 type RampUpdateItemsToUpdate struct {
-	ItemPriceId        string                          `json:"item_price_id"`
-	Quantity           *int32                          `json:"quantity,omitempty"`
-	QuantityInDecimal  string                          `json:"quantity_in_decimal,omitempty"`
-	UnitPrice          *int64                          `json:"unit_price,omitempty"`
-	UnitPriceInDecimal string                          `json:"unit_price_in_decimal,omitempty"`
-	BillingCycles      *int32                          `json:"billing_cycles,omitempty"`
-	ServicePeriodDays  *int32                          `json:"service_period_days,omitempty"`
-	ChargeOnEvent      RampItemsToUpdateChargeOnEvent  `json:"charge_on_event,omitempty"`
-	ChargeOnce         *bool                           `json:"charge_once,omitempty"`
-	ChargeOnOption     RampItemsToUpdateChargeOnOption `json:"charge_on_option,omitempty"`
+	ItemPriceId        string         `json:"item_price_id"`
+	Quantity           *int32         `json:"quantity,omitempty"`
+	QuantityInDecimal  string         `json:"quantity_in_decimal,omitempty"`
+	UnitPrice          *int64         `json:"unit_price,omitempty"`
+	UnitPriceInDecimal string         `json:"unit_price_in_decimal,omitempty"`
+	BillingCycles      *int32         `json:"billing_cycles,omitempty"`
+	ServicePeriodDays  *int32         `json:"service_period_days,omitempty"`
+	ChargeOnEvent      ChargeOnEvent  `json:"charge_on_event,omitempty"`
+	ChargeOnce         *bool          `json:"charge_once,omitempty"`
+	ChargeOnOption     ChargeOnOption `json:"charge_on_option,omitempty"`
 }
 
 // input sub resource params multi
 type RampUpdateItemTier struct {
-	ItemPriceId           string                  `json:"item_price_id,omitempty"`
-	StartingUnit          *int32                  `json:"starting_unit,omitempty"`
-	EndingUnit            *int32                  `json:"ending_unit,omitempty"`
-	Price                 *int64                  `json:"price,omitempty"`
-	StartingUnitInDecimal string                  `json:"starting_unit_in_decimal,omitempty"`
-	EndingUnitInDecimal   string                  `json:"ending_unit_in_decimal,omitempty"`
-	PriceInDecimal        string                  `json:"price_in_decimal,omitempty"`
-	PricingType           RampItemTierPricingType `json:"pricing_type,omitempty"`
-	PackageSize           *int32                  `json:"package_size,omitempty"`
+	ItemPriceId           string      `json:"item_price_id,omitempty"`
+	StartingUnit          *int32      `json:"starting_unit,omitempty"`
+	EndingUnit            *int32      `json:"ending_unit,omitempty"`
+	Price                 *int64      `json:"price,omitempty"`
+	StartingUnitInDecimal string      `json:"starting_unit_in_decimal,omitempty"`
+	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal,omitempty"`
+	PriceInDecimal        string      `json:"price_in_decimal,omitempty"`
+	PricingType           PricingType `json:"pricing_type,omitempty"`
+	PackageSize           *int32      `json:"package_size,omitempty"`
 }
 
 // input sub resource params multi
@@ -370,21 +290,21 @@ type RampUpdateCouponsToAdd struct {
 
 // input sub resource params multi
 type RampUpdateDiscountsToAdd struct {
-	ApplyOn       RampDiscountsToAddApplyOn      `json:"apply_on"`
-	DurationType  RampDiscountsToAddDurationType `json:"duration_type"`
-	Percentage    *float64                       `json:"percentage,omitempty"`
-	Amount        *int64                         `json:"amount,omitempty"`
-	Period        *int32                         `json:"period,omitempty"`
-	PeriodUnit    RampDiscountsToAddPeriodUnit   `json:"period_unit,omitempty"`
-	IncludedInMrr *bool                          `json:"included_in_mrr,omitempty"`
-	ItemPriceId   string                         `json:"item_price_id,omitempty"`
+	ApplyOn       ApplyOn      `json:"apply_on"`
+	DurationType  DurationType `json:"duration_type"`
+	Percentage    *float64     `json:"percentage,omitempty"`
+	Amount        *int64       `json:"amount,omitempty"`
+	Period        *int32       `json:"period,omitempty"`
+	PeriodUnit    PeriodUnit   `json:"period_unit,omitempty"`
+	IncludedInMrr *bool        `json:"included_in_mrr,omitempty"`
+	ItemPriceId   string       `json:"item_price_id,omitempty"`
 }
 
 // input sub resource params single
 type RampUpdateContractTerm struct {
-	ActionAtTermEnd          RampContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
-	CancellationCutoffPeriod *int32                          `json:"cancellation_cutoff_period,omitempty"`
-	RenewalBillingCycles     *int32                          `json:"renewal_billing_cycles,omitempty"`
+	ActionAtTermEnd          ContractTermActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                      `json:"cancellation_cutoff_period,omitempty"`
+	RenewalBillingCycles     *int32                      `json:"renewal_billing_cycles,omitempty"`
 }
 
 type RampListRequest struct {

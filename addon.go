@@ -4,16 +4,6 @@ import (
 	"encoding/json"
 )
 
-type AddonPricingModel string
-
-const (
-	AddonPricingModelFlatFee   AddonPricingModel = "flat_fee"
-	AddonPricingModelPerUnit   AddonPricingModel = "per_unit"
-	AddonPricingModelTiered    AddonPricingModel = "tiered"
-	AddonPricingModelVolume    AddonPricingModel = "volume"
-	AddonPricingModelStairstep AddonPricingModel = "stairstep"
-)
-
 type AddonType string
 
 const (
@@ -49,15 +39,6 @@ const (
 	AddonStatusDeleted  AddonStatus = "deleted"
 )
 
-type AddonAvalaraSaleType string
-
-const (
-	AddonAvalaraSaleTypeWholesale AddonAvalaraSaleType = "wholesale"
-	AddonAvalaraSaleTypeRetail    AddonAvalaraSaleType = "retail"
-	AddonAvalaraSaleTypeConsumed  AddonAvalaraSaleType = "consumed"
-	AddonAvalaraSaleTypeVendorUse AddonAvalaraSaleType = "vendor_use"
-)
-
 type AddonShippingFrequencyPeriodUnit string
 
 const (
@@ -65,14 +46,6 @@ const (
 	AddonShippingFrequencyPeriodUnitMonth AddonShippingFrequencyPeriodUnit = "month"
 	AddonShippingFrequencyPeriodUnitWeek  AddonShippingFrequencyPeriodUnit = "week"
 	AddonShippingFrequencyPeriodUnitDay   AddonShippingFrequencyPeriodUnit = "day"
-)
-
-type AddonChannel string
-
-const (
-	AddonChannelWeb       AddonChannel = "web"
-	AddonChannelAppStore  AddonChannel = "app_store"
-	AddonChannelPlayStore AddonChannel = "play_store"
 )
 
 type AddonProrationType string
@@ -83,21 +56,13 @@ const (
 	AddonProrationTypeFullTerm    AddonProrationType = "full_term"
 )
 
-type AddonTierPricingType string
-
-const (
-	AddonTierPricingTypePerUnit AddonTierPricingType = "per_unit"
-	AddonTierPricingTypeFlatFee AddonTierPricingType = "flat_fee"
-	AddonTierPricingTypePackage AddonTierPricingType = "package"
-)
-
 // just struct
 type Addon struct {
 	Id                          string                           `json:"id"`
 	Name                        string                           `json:"name"`
 	InvoiceName                 string                           `json:"invoice_name"`
 	Description                 string                           `json:"description"`
-	PricingModel                AddonPricingModel                `json:"pricing_model"`
+	PricingModel                PricingModel                     `json:"pricing_model"`
 	ChargeType                  AddonChargeType                  `json:"charge_type"`
 	Price                       int64                            `json:"price"`
 	CurrencyCode                string                           `json:"currency_code"`
@@ -110,7 +75,7 @@ type Addon struct {
 	TaxCode                     string                           `json:"tax_code"`
 	HsnCode                     string                           `json:"hsn_code"`
 	TaxjarProductCode           string                           `json:"taxjar_product_code"`
-	AvalaraSaleType             AddonAvalaraSaleType             `json:"avalara_sale_type"`
+	AvalaraSaleType             AvalaraSaleType                  `json:"avalara_sale_type"`
 	AvalaraTransactionType      int32                            `json:"avalara_transaction_type"`
 	AvalaraServiceType          int32                            `json:"avalara_service_type"`
 	Sku                         string                           `json:"sku"`
@@ -126,7 +91,7 @@ type Addon struct {
 	UpdatedAt                   int64                            `json:"updated_at"`
 	PriceInDecimal              string                           `json:"price_in_decimal"`
 	IncludedInMrr               bool                             `json:"included_in_mrr"`
-	Channel                     AddonChannel                     `json:"channel"`
+	Channel                     Channel                          `json:"channel"`
 	ProrationType               AddonProrationType               `json:"proration_type"`
 	InvoiceNotes                string                           `json:"invoice_notes"`
 	Taxable                     bool                             `json:"taxable"`
@@ -142,15 +107,15 @@ type Addon struct {
 
 // sub resources
 type AddonTier struct {
-	StartingUnit          int32                `json:"starting_unit"`
-	EndingUnit            int32                `json:"ending_unit"`
-	Price                 int64                `json:"price"`
-	StartingUnitInDecimal string               `json:"starting_unit_in_decimal"`
-	EndingUnitInDecimal   string               `json:"ending_unit_in_decimal"`
-	PriceInDecimal        string               `json:"price_in_decimal"`
-	PricingType           AddonTierPricingType `json:"pricing_type"`
-	PackageSize           int32                `json:"package_size"`
-	Object                string               `json:"object"`
+	StartingUnit          int32       `json:"starting_unit"`
+	EndingUnit            int32       `json:"ending_unit"`
+	Price                 int64       `json:"price"`
+	StartingUnitInDecimal string      `json:"starting_unit_in_decimal"`
+	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal"`
+	PriceInDecimal        string      `json:"price_in_decimal"`
+	PricingType           PricingType `json:"pricing_type"`
+	PackageSize           int32       `json:"package_size"`
+	Object                string      `json:"object"`
 }
 
 type AddonTaxProvidersField struct {
@@ -173,12 +138,12 @@ type AddonCreateRequest struct {
 	CurrencyCode                string                           `json:"currency_code,omitempty"`
 	Period                      *int32                           `json:"period,omitempty"`
 	PeriodUnit                  AddonPeriodUnit                  `json:"period_unit,omitempty"`
-	PricingModel                AddonPricingModel                `json:"pricing_model,omitempty"`
+	PricingModel                PricingModel                     `json:"pricing_model,omitempty"`
 	Unit                        string                           `json:"unit,omitempty"`
 	EnabledInPortal             *bool                            `json:"enabled_in_portal,omitempty"`
 	Taxable                     *bool                            `json:"taxable,omitempty"`
 	TaxProfileId                string                           `json:"tax_profile_id,omitempty"`
-	AvalaraSaleType             AddonAvalaraSaleType             `json:"avalara_sale_type,omitempty"`
+	AvalaraSaleType             AvalaraSaleType                  `json:"avalara_sale_type,omitempty"`
 	AvalaraTransactionType      *int32                           `json:"avalara_transaction_type,omitempty"`
 	AvalaraServiceType          *int32                           `json:"avalara_service_type,omitempty"`
 	TaxCode                     string                           `json:"tax_code,omitempty"`
@@ -234,12 +199,12 @@ type AddonUpdateRequest struct {
 	CurrencyCode                string                           `json:"currency_code,omitempty"`
 	Period                      *int32                           `json:"period,omitempty"`
 	PeriodUnit                  AddonPeriodUnit                  `json:"period_unit,omitempty"`
-	PricingModel                AddonPricingModel                `json:"pricing_model,omitempty"`
+	PricingModel                PricingModel                     `json:"pricing_model,omitempty"`
 	Unit                        string                           `json:"unit,omitempty"`
 	EnabledInPortal             *bool                            `json:"enabled_in_portal,omitempty"`
 	Taxable                     *bool                            `json:"taxable,omitempty"`
 	TaxProfileId                string                           `json:"tax_profile_id,omitempty"`
-	AvalaraSaleType             AddonAvalaraSaleType             `json:"avalara_sale_type,omitempty"`
+	AvalaraSaleType             AvalaraSaleType                  `json:"avalara_sale_type,omitempty"`
 	AvalaraTransactionType      *int32                           `json:"avalara_transaction_type,omitempty"`
 	AvalaraServiceType          *int32                           `json:"avalara_service_type,omitempty"`
 	TaxCode                     string                           `json:"tax_code,omitempty"`

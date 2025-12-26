@@ -43,11 +43,11 @@ const (
 	OmnichannelSubscriptionOmnichannelSubscriptionItemCancellationReasonMerchantRevoked                      OmnichannelSubscriptionOmnichannelSubscriptionItemCancellationReason = "merchant_revoked"
 )
 
-type OmnichannelSubscriptionOmnichannelTransactionType string
+type OmnichannelSubscriptionInitialPurchaseTransactionType string
 
 const (
-	OmnichannelSubscriptionOmnichannelTransactionTypePurchase OmnichannelSubscriptionOmnichannelTransactionType = "purchase"
-	OmnichannelSubscriptionOmnichannelTransactionTypeRenewal  OmnichannelSubscriptionOmnichannelTransactionType = "renewal"
+	OmnichannelSubscriptionInitialPurchaseTransactionTypePurchase OmnichannelSubscriptionInitialPurchaseTransactionType = "purchase"
+	OmnichannelSubscriptionInitialPurchaseTransactionTypeRenewal  OmnichannelSubscriptionInitialPurchaseTransactionType = "renewal"
 )
 
 // just struct

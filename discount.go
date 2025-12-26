@@ -1,58 +1,26 @@
 package chargebee
 
-type DiscountType string
-
-const (
-	DiscountTypeFixedAmount   DiscountType = "fixed_amount"
-	DiscountTypePercentage    DiscountType = "percentage"
-	DiscountTypeOfferQuantity DiscountType = "offer_quantity"
-)
-
-type DiscountDurationType string
-
-const (
-	DiscountDurationTypeOneTime       DiscountDurationType = "one_time"
-	DiscountDurationTypeForever       DiscountDurationType = "forever"
-	DiscountDurationTypeLimitedPeriod DiscountDurationType = "limited_period"
-)
-
-type DiscountPeriodUnit string
-
-const (
-	DiscountPeriodUnitDay   DiscountPeriodUnit = "day"
-	DiscountPeriodUnitWeek  DiscountPeriodUnit = "week"
-	DiscountPeriodUnitMonth DiscountPeriodUnit = "month"
-	DiscountPeriodUnitYear  DiscountPeriodUnit = "year"
-)
-
-type DiscountApplyOn string
-
-const (
-	DiscountApplyOnInvoiceAmount     DiscountApplyOn = "invoice_amount"
-	DiscountApplyOnSpecificItemPrice DiscountApplyOn = "specific_item_price"
-)
-
 // just struct
 type Discount struct {
-	Id            string               `json:"id"`
-	InvoiceName   string               `json:"invoice_name"`
-	Type          DiscountType         `json:"type"`
-	Percentage    float64              `json:"percentage"`
-	Amount        int64                `json:"amount"`
-	Quantity      int32                `json:"quantity"`
-	CurrencyCode  string               `json:"currency_code"`
-	DurationType  DiscountDurationType `json:"duration_type"`
-	Period        int32                `json:"period"`
-	PeriodUnit    DiscountPeriodUnit   `json:"period_unit"`
-	IncludedInMrr bool                 `json:"included_in_mrr"`
-	ApplyOn       DiscountApplyOn      `json:"apply_on"`
-	ItemPriceId   string               `json:"item_price_id"`
-	CreatedAt     int64                `json:"created_at"`
-	ApplyTill     int64                `json:"apply_till"`
-	AppliedCount  int32                `json:"applied_count"`
-	CouponId      string               `json:"coupon_id"`
-	Index         int32                `json:"index"`
-	Object        string               `json:"object"`
+	Id            string       `json:"id"`
+	InvoiceName   string       `json:"invoice_name"`
+	Type          DiscountType `json:"type"`
+	Percentage    float64      `json:"percentage"`
+	Amount        int64        `json:"amount"`
+	Quantity      int32        `json:"quantity"`
+	CurrencyCode  string       `json:"currency_code"`
+	DurationType  DurationType `json:"duration_type"`
+	Period        int32        `json:"period"`
+	PeriodUnit    PeriodUnit   `json:"period_unit"`
+	IncludedInMrr bool         `json:"included_in_mrr"`
+	ApplyOn       ApplyOn      `json:"apply_on"`
+	ItemPriceId   string       `json:"item_price_id"`
+	CreatedAt     int64        `json:"created_at"`
+	ApplyTill     int64        `json:"apply_till"`
+	AppliedCount  int32        `json:"applied_count"`
+	CouponId      string       `json:"coupon_id"`
+	Index         int32        `json:"index"`
+	Object        string       `json:"object"`
 }
 
 // sub resources

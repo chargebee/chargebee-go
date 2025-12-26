@@ -28,16 +28,6 @@ const (
 	PlanTrialEndActionCancelSubscription   PlanTrialEndAction = "cancel_subscription"
 )
 
-type PlanPricingModel string
-
-const (
-	PlanPricingModelFlatFee   PlanPricingModel = "flat_fee"
-	PlanPricingModelPerUnit   PlanPricingModel = "per_unit"
-	PlanPricingModelTiered    PlanPricingModel = "tiered"
-	PlanPricingModelVolume    PlanPricingModel = "volume"
-	PlanPricingModelStairstep PlanPricingModel = "stairstep"
-)
-
 type PlanChargeModel string
 
 const (
@@ -63,15 +53,6 @@ const (
 	PlanAddonApplicabilityRestricted PlanAddonApplicability = "restricted"
 )
 
-type PlanAvalaraSaleType string
-
-const (
-	PlanAvalaraSaleTypeWholesale PlanAvalaraSaleType = "wholesale"
-	PlanAvalaraSaleTypeRetail    PlanAvalaraSaleType = "retail"
-	PlanAvalaraSaleTypeConsumed  PlanAvalaraSaleType = "consumed"
-	PlanAvalaraSaleTypeVendorUse PlanAvalaraSaleType = "vendor_use"
-)
-
 type PlanShippingFrequencyPeriodUnit string
 
 const (
@@ -81,37 +62,11 @@ const (
 	PlanShippingFrequencyPeriodUnitDay   PlanShippingFrequencyPeriodUnit = "day"
 )
 
-type PlanChannel string
-
-const (
-	PlanChannelWeb       PlanChannel = "web"
-	PlanChannelAppStore  PlanChannel = "app_store"
-	PlanChannelPlayStore PlanChannel = "play_store"
-)
-
-type PlanTierPricingType string
-
-const (
-	PlanTierPricingTypePerUnit PlanTierPricingType = "per_unit"
-	PlanTierPricingTypeFlatFee PlanTierPricingType = "flat_fee"
-	PlanTierPricingTypePackage PlanTierPricingType = "package"
-)
-
 type PlanAttachedAddonType string
 
 const (
 	PlanAttachedAddonTypeRecommended PlanAttachedAddonType = "recommended"
 	PlanAttachedAddonTypeMandatory   PlanAttachedAddonType = "mandatory"
-)
-
-type PlanEventBasedAddonOnEvent string
-
-const (
-	PlanEventBasedAddonOnEventSubscriptionCreation   PlanEventBasedAddonOnEvent = "subscription_creation"
-	PlanEventBasedAddonOnEventSubscriptionTrialStart PlanEventBasedAddonOnEvent = "subscription_trial_start"
-	PlanEventBasedAddonOnEventPlanActivation         PlanEventBasedAddonOnEvent = "plan_activation"
-	PlanEventBasedAddonOnEventSubscriptionActivation PlanEventBasedAddonOnEvent = "subscription_activation"
-	PlanEventBasedAddonOnEventContractTermination    PlanEventBasedAddonOnEvent = "contract_termination"
 )
 
 // just struct
@@ -127,7 +82,7 @@ type Plan struct {
 	TrialPeriod                 int32                           `json:"trial_period"`
 	TrialPeriodUnit             PlanTrialPeriodUnit             `json:"trial_period_unit"`
 	TrialEndAction              PlanTrialEndAction              `json:"trial_end_action"`
-	PricingModel                PlanPricingModel                `json:"pricing_model"`
+	PricingModel                PricingModel                    `json:"pricing_model"`
 	FreeQuantity                int32                           `json:"free_quantity"`
 	SetupCost                   int64                           `json:"setup_cost"`
 	Status                      PlanStatus                      `json:"status"`
@@ -140,7 +95,7 @@ type Plan struct {
 	TaxCode                     string                          `json:"tax_code"`
 	HsnCode                     string                          `json:"hsn_code"`
 	TaxjarProductCode           string                          `json:"taxjar_product_code"`
-	AvalaraSaleType             PlanAvalaraSaleType             `json:"avalara_sale_type"`
+	AvalaraSaleType             AvalaraSaleType                 `json:"avalara_sale_type"`
 	AvalaraTransactionType      int32                           `json:"avalara_transaction_type"`
 	AvalaraServiceType          int32                           `json:"avalara_service_type"`
 	Sku                         string                          `json:"sku"`
@@ -158,7 +113,7 @@ type Plan struct {
 	ClaimUrl                    string                          `json:"claim_url"`
 	FreeQuantityInDecimal       string                          `json:"free_quantity_in_decimal"`
 	PriceInDecimal              string                          `json:"price_in_decimal"`
-	Channel                     PlanChannel                     `json:"channel"`
+	Channel                     Channel                         `json:"channel"`
 	InvoiceNotes                string                          `json:"invoice_notes"`
 	Taxable                     bool                            `json:"taxable"`
 	TaxProfileId                string                          `json:"tax_profile_id"`
@@ -176,15 +131,15 @@ type Plan struct {
 
 // sub resources
 type PlanTier struct {
-	StartingUnit          int32               `json:"starting_unit"`
-	EndingUnit            int32               `json:"ending_unit"`
-	Price                 int64               `json:"price"`
-	StartingUnitInDecimal string              `json:"starting_unit_in_decimal"`
-	EndingUnitInDecimal   string              `json:"ending_unit_in_decimal"`
-	PriceInDecimal        string              `json:"price_in_decimal"`
-	PricingType           PlanTierPricingType `json:"pricing_type"`
-	PackageSize           int32               `json:"package_size"`
-	Object                string              `json:"object"`
+	StartingUnit          int32       `json:"starting_unit"`
+	EndingUnit            int32       `json:"ending_unit"`
+	Price                 int64       `json:"price"`
+	StartingUnitInDecimal string      `json:"starting_unit_in_decimal"`
+	EndingUnitInDecimal   string      `json:"ending_unit_in_decimal"`
+	PriceInDecimal        string      `json:"price_in_decimal"`
+	PricingType           PricingType `json:"pricing_type"`
+	PackageSize           int32       `json:"package_size"`
+	Object                string      `json:"object"`
 }
 
 type PlanTaxProvidersField struct {
@@ -209,12 +164,12 @@ type PlanAttachedAddon struct {
 }
 
 type PlanEventBasedAddon struct {
-	Id                string                     `json:"id"`
-	Quantity          int32                      `json:"quantity"`
-	OnEvent           PlanEventBasedAddonOnEvent `json:"on_event"`
-	ChargeOnce        bool                       `json:"charge_once"`
-	QuantityInDecimal string                     `json:"quantity_in_decimal"`
-	Object            string                     `json:"object"`
+	Id                string  `json:"id"`
+	Quantity          int32   `json:"quantity"`
+	OnEvent           OnEvent `json:"on_event"`
+	ChargeOnce        bool    `json:"charge_once"`
+	QuantityInDecimal string  `json:"quantity_in_decimal"`
+	Object            string  `json:"object"`
 }
 
 // operations
@@ -235,7 +190,7 @@ type PlanCreateRequest struct {
 	Tiers                       []*PlanCreateTier               `json:"tiers,omitempty"`
 	CurrencyCode                string                          `json:"currency_code,omitempty"`
 	BillingCycles               *int32                          `json:"billing_cycles,omitempty"`
-	PricingModel                PlanPricingModel                `json:"pricing_model,omitempty"`
+	PricingModel                PricingModel                    `json:"pricing_model,omitempty"`
 	FreeQuantity                *int32                          `json:"free_quantity,omitempty"`
 	FreeQuantityInDecimal       string                          `json:"free_quantity_in_decimal,omitempty"`
 	AddonApplicability          PlanAddonApplicability          `json:"addon_applicability,omitempty"`
@@ -247,7 +202,7 @@ type PlanCreateRequest struct {
 	TaxCode                     string                          `json:"tax_code,omitempty"`
 	HsnCode                     string                          `json:"hsn_code,omitempty"`
 	TaxjarProductCode           string                          `json:"taxjar_product_code,omitempty"`
-	AvalaraSaleType             PlanAvalaraSaleType             `json:"avalara_sale_type,omitempty"`
+	AvalaraSaleType             AvalaraSaleType                 `json:"avalara_sale_type,omitempty"`
 	AvalaraTransactionType      *int32                          `json:"avalara_transaction_type,omitempty"`
 	AvalaraServiceType          *int32                          `json:"avalara_service_type,omitempty"`
 	Sku                         string                          `json:"sku,omitempty"`
@@ -299,11 +254,11 @@ type PlanCreateApplicableAddon struct {
 
 // input sub resource params multi
 type PlanCreateEventBasedAddon struct {
-	Id                string                     `json:"id,omitempty"`
-	Quantity          *int32                     `json:"quantity,omitempty"`
-	QuantityInDecimal string                     `json:"quantity_in_decimal,omitempty"`
-	OnEvent           PlanEventBasedAddonOnEvent `json:"on_event,omitempty"`
-	ChargeOnce        *bool                      `json:"charge_once,omitempty"`
+	Id                string  `json:"id,omitempty"`
+	Quantity          *int32  `json:"quantity,omitempty"`
+	QuantityInDecimal string  `json:"quantity_in_decimal,omitempty"`
+	OnEvent           OnEvent `json:"on_event,omitempty"`
+	ChargeOnce        *bool   `json:"charge_once,omitempty"`
 }
 
 // input sub resource params multi
@@ -330,7 +285,7 @@ type PlanUpdateRequest struct {
 	Tiers                       []*PlanUpdateTier               `json:"tiers,omitempty"`
 	CurrencyCode                string                          `json:"currency_code,omitempty"`
 	BillingCycles               *int32                          `json:"billing_cycles,omitempty"`
-	PricingModel                PlanPricingModel                `json:"pricing_model,omitempty"`
+	PricingModel                PricingModel                    `json:"pricing_model,omitempty"`
 	FreeQuantity                *int32                          `json:"free_quantity,omitempty"`
 	FreeQuantityInDecimal       string                          `json:"free_quantity_in_decimal,omitempty"`
 	AddonApplicability          PlanAddonApplicability          `json:"addon_applicability,omitempty"`
@@ -342,7 +297,7 @@ type PlanUpdateRequest struct {
 	TaxCode                     string                          `json:"tax_code,omitempty"`
 	HsnCode                     string                          `json:"hsn_code,omitempty"`
 	TaxjarProductCode           string                          `json:"taxjar_product_code,omitempty"`
-	AvalaraSaleType             PlanAvalaraSaleType             `json:"avalara_sale_type,omitempty"`
+	AvalaraSaleType             AvalaraSaleType                 `json:"avalara_sale_type,omitempty"`
 	AvalaraTransactionType      *int32                          `json:"avalara_transaction_type,omitempty"`
 	AvalaraServiceType          *int32                          `json:"avalara_service_type,omitempty"`
 	Sku                         string                          `json:"sku,omitempty"`
@@ -391,11 +346,11 @@ type PlanUpdateApplicableAddon struct {
 
 // input sub resource params multi
 type PlanUpdateEventBasedAddon struct {
-	Id                string                     `json:"id,omitempty"`
-	Quantity          *int32                     `json:"quantity,omitempty"`
-	QuantityInDecimal string                     `json:"quantity_in_decimal,omitempty"`
-	OnEvent           PlanEventBasedAddonOnEvent `json:"on_event,omitempty"`
-	ChargeOnce        *bool                      `json:"charge_once,omitempty"`
+	Id                string  `json:"id,omitempty"`
+	Quantity          *int32  `json:"quantity,omitempty"`
+	QuantityInDecimal string  `json:"quantity_in_decimal,omitempty"`
+	OnEvent           OnEvent `json:"on_event,omitempty"`
+	ChargeOnce        *bool   `json:"charge_once,omitempty"`
 }
 
 // input sub resource params multi

@@ -10,11 +10,14 @@ const (
 	ItemEntitlementItemTypeItem         ItemEntitlementItemType = "item"
 )
 
-type ItemEntitlementAction string
+type ItemEntitlementItemEntitlementItemType string
 
 const (
-	ItemEntitlementActionUpsert ItemEntitlementAction = "upsert"
-	ItemEntitlementActionRemove ItemEntitlementAction = "remove"
+	ItemEntitlementItemEntitlementItemTypePlan         ItemEntitlementItemEntitlementItemType = "plan"
+	ItemEntitlementItemEntitlementItemTypeAddon        ItemEntitlementItemEntitlementItemType = "addon"
+	ItemEntitlementItemEntitlementItemTypeCharge       ItemEntitlementItemEntitlementItemType = "charge"
+	ItemEntitlementItemEntitlementItemTypeSubscription ItemEntitlementItemEntitlementItemType = "subscription"
+	ItemEntitlementItemEntitlementItemTypeItem         ItemEntitlementItemEntitlementItemType = "item"
 )
 
 // just struct
@@ -49,7 +52,7 @@ type ItemEntitlementItemEntitlementsForFeatureRequest struct {
 func (r *ItemEntitlementItemEntitlementsForFeatureRequest) payload() any { return r }
 
 type ItemEntitlementAddItemEntitlementsRequest struct {
-	Action           ItemEntitlementAction                                `json:"action"`
+	Action           Action                                               `json:"action"`
 	ItemEntitlements []*ItemEntitlementAddItemEntitlementsItemEntitlement `json:"item_entitlements,omitempty"`
 	apiRequest       `json:"-" form:"-"`
 }
@@ -58,13 +61,13 @@ func (r *ItemEntitlementAddItemEntitlementsRequest) payload() any { return r }
 
 // input sub resource params multi
 type ItemEntitlementAddItemEntitlementsItemEntitlement struct {
-	ItemId   string                                 `json:"item_id"`
-	ItemType ItemEntitlementItemEntitlementItemType `json:"item_type,omitempty"`
-	Value    string                                 `json:"value,omitempty"`
+	ItemId   string                  `json:"item_id"`
+	ItemType ItemEntitlementItemType `json:"item_type,omitempty"`
+	Value    string                  `json:"value,omitempty"`
 }
 
 type ItemEntitlementUpsertOrRemoveItemEntitlementsForItemRequest struct {
-	Action           ItemEntitlementAction                                                  `json:"action"`
+	Action           Action                                                                 `json:"action"`
 	ItemEntitlements []*ItemEntitlementUpsertOrRemoveItemEntitlementsForItemItemEntitlement `json:"item_entitlements,omitempty"`
 	apiRequest       `json:"-" form:"-"`
 }
