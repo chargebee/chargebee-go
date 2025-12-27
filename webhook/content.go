@@ -3,8 +3,22 @@ package webhook
 import (
 	"time"
 
-	"github.com/chargebee/chargebee-go/v3"
+	"github.com/chargebee/chargebee-go/v4"
 )
+
+type BaseEvent struct {
+	Id            string `json:"id"`
+	OccurredAt    int64  `json:"occurred_at"`
+	Source        string `json:"source"`
+	Object        string `json:"object"`
+	ApiVersion    string `json:"api_version"`
+	EventType     string `json:"event_type"`
+	WebhookStatus string `json:"webhook_status"`
+}
+
+func (e *BaseEvent) GetOccurredAtTime() time.Time {
+	return time.Unix(e.OccurredAt, 0)
+}
 
 // Event content structures for each webhook type
 
@@ -1166,20 +1180,6 @@ type PlanCreatedContent struct {
 
 type PlanUpdatedContent struct {
 	Plan *chargebee.Plan `json:"plan,omitempty"`
-}
-
-type BaseEvent struct {
-	Id            string `json:"id"`
-	OccurredAt    int64  `json:"occurred_at"`
-	Source        string `json:"source"`
-	Object        string `json:"object"`
-	ApiVersion    string `json:"api_version"`
-	EventType     string `json:"event_type"`
-	WebhookStatus string `json:"webhook_status"`
-}
-
-func (e *BaseEvent) GetOccurredAtTime() time.Time {
-	return time.Unix(e.OccurredAt, 0)
 }
 
 // SubscriptionPauseScheduledEvent represents a subscription_pause_scheduled webhook event

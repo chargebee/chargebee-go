@@ -5,7 +5,7 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/chargebee/chargebee-go/v3"
+	"github.com/chargebee/chargebee-go/v4"
 )
 
 // ParseEventType reads only the event_type (and validates api_version) from the webhook payload
