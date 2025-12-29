@@ -10,8 +10,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/chargebee/chargebee-go/v4"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/chargebee/chargebee-go/v4"
 )
 
 func makeEventBody(eventType string, content string) []byte {
