@@ -1,20 +1,11 @@
-package tests
+package chargebee
 
 import (
 	"fmt"
-	"github.com/chargebee/chargebee-go/v3/filter"
-	"github.com/chargebee/chargebee-go/v3/models/coupon"
-	couponEnum "github.com/chargebee/chargebee-go/v3/models/coupon/enum"
-	"github.com/chargebee/chargebee-go/v3/models/customer"
-	"github.com/chargebee/chargebee-go/v3/models/export"
-	"github.com/chargebee/chargebee-go/v3/models/purchase"
 	"net/url"
 	"reflect"
 	"testing"
 
-	"github.com/chargebee/chargebee-go/v3"
-	"github.com/chargebee/chargebee-go/v3/enum"
-	"github.com/chargebee/chargebee-go/v3/models/subscription"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -26,9 +17,9 @@ func TestSerializeListParams(t *testing.T) {
 	}{
 		{
 			Name: "Subscription list request",
-			Input: &subscription.ListRequestParams{
-				Limit: chargebee.Int32(2),
-				ItemId: &filter.StringFilter{
+			Input: &SubscriptionListRequest{
+				Limit: Int32(2),
+				ItemId: &StringFilter{
 					In: []string{"9_99_plan", "cbdemo_advanced"},
 					Is: "cbdemo_advanced",
 				},
@@ -41,14 +32,14 @@ func TestSerializeListParams(t *testing.T) {
 		},
 		{
 			Name: "Customer List request",
-			Input: &customer.ListRequestParams{
-				FirstName: &filter.StringFilter{
+			Input: &CustomerListRequest{
+				FirstName: &StringFilter{
 					Is: "John",
 				},
-				LastName: &filter.StringFilter{
+				LastName: &StringFilter{
 					Is: "Doe",
 				},
-				Email: &filter.StringFilter{
+				Email: &StringFilter{
 					Is: "john@test.com",
 				},
 			},
@@ -62,7 +53,7 @@ func TestSerializeListParams(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			out := chargebee.SerializeListParams(tt.Input)
+			out := SerializeListParams(tt.Input)
 			t.Log(out)
 			t.Log(tt.Output)
 			assert.True(t, reflect.DeepEqual(out, tt.Output), fmt.Sprintf("%s Serialized input and output didn't match", tt.Name))
@@ -78,12 +69,12 @@ func TestSerializeParams(t *testing.T) {
 	}{
 		{
 			Name: "Export Customer Request",
-			Input: &export.CustomersRequestParams{
-				Customer: &export.CustomersCustomerParams{
-					FirstName: &filter.StringFilter{
+			Input: &ExportCustomersRequest{
+				Customer: &ExportCustomersCustomer{
+					FirstName: &StringFilter{
 						Is: "John",
 					},
-					LastName: &filter.StringFilter{
+					LastName: &StringFilter{
 						Is: "Doe",
 					},
 				},
@@ -95,17 +86,17 @@ func TestSerializeParams(t *testing.T) {
 		},
 		{
 			Name: "Coupon: Create For Item Request Params",
-			Input: &coupon.CreateForItemsRequestParams{
+			Input: &CouponCreateForItemsRequest{
 				Id:                 "summer_offer",
 				Name:               "Summer Offer",
-				DiscountPercentage: chargebee.Float64(10.0),
-				DiscountType:       couponEnum.DiscountTypePercentage,
-				DurationType:       couponEnum.DurationTypeForever,
-				ApplyOn:            couponEnum.ApplyOnEachSpecifiedItem,
-				ItemConstraints: []*coupon.CreateForItemsItemConstraintParams{
+				DiscountPercentage: Float64(10.0),
+				DiscountType:       CouponDiscountTypePercentage,
+				DurationType:       CouponDurationTypeForever,
+				ApplyOn:            CouponApplyOnEachSpecifiedItem,
+				ItemConstraints: []*CouponCreateForItemsItemConstraint{
 					{
-						Constraint: couponEnum.ItemConstraintConstraintSpecific,
-						ItemType:   couponEnum.ItemConstraintItemTypePlan,
+						Constraint: CouponItemConstraintConstraintSpecific,
+						ItemType:   CouponItemConstraintItemTypePlan,
 					},
 				},
 			},
@@ -122,23 +113,23 @@ func TestSerializeParams(t *testing.T) {
 		},
 		{
 			Name: "Purchase: Create Request Params",
-			Input: &purchase.CreateRequestParams{
+			Input: &PurchaseCreateRequest{
 				CustomerId: "__dev__1234",
-				PurchaseItems: []*purchase.CreatePurchaseItemParams{
+				PurchaseItems: []*PurchaseCreatePurchaseItem{
 					{
-						Index:       chargebee.Int32(2),
+						Index:       Int32(2),
 						ItemPriceId: "cbdemo_basic-USD-weekly",
-						Quantity:    chargebee.Int32(5),
+						Quantity:    Int32(5),
 					},
 					{
-						Index:       chargebee.Int32(0),
+						Index:       Int32(0),
 						ItemPriceId: "cbdemo_basic-USD-monthly",
-						Quantity:    chargebee.Int32(10),
+						Quantity:    Int32(10),
 					},
 				},
-				SubscriptionInfo: []*purchase.CreateSubscriptionInfoParams{
+				SubscriptionInfo: []*PurchaseCreateSubscriptionInfo{
 					{
-						Index: chargebee.Int32(0),
+						Index: Int32(0),
 						MetaData: map[string]interface{}{
 							"features": map[string]interface{}{
 								"usage-limit":        "5GB",
@@ -163,16 +154,16 @@ func TestSerializeParams(t *testing.T) {
 		},
 		{
 			Name: "Customer: Create Request Params",
-			Input: &customer.CreateRequestParams{
+			Input: &CustomerCreateRequest{
 				FirstName: "John",
 				LastName:  "Doe",
 				Email:     "john@test.com",
 				Locale:    "fr-CA",
-				BillingAddress: &customer.CreateBillingAddressParams{
+				BillingAddress: &CustomerCreateBillingAddress{
 					FirstName: "John",
 					LastName:  "Doe",
 				},
-				Taxability: enum.Taxability("Exempt"),
+				Taxability: TaxabilityExempt,
 				ExemptionDetails: []map[string]interface{}{
 					{
 						"loc": map[string]interface{}{
@@ -208,18 +199,18 @@ func TestSerializeParams(t *testing.T) {
 				"locale":                      []string{"fr-CA"},
 				"billing_address[last_name]":  []string{"Doe"},
 				"billing_address[first_name]": []string{"John"},
-				"taxability":                  []string{"Exempt"},
+				"taxability":                  []string{"exempt"},
 			},
 		},
 		{
 			Name: "Subscription: Create With Items",
-			Input: &subscription.CreateWithItemsRequestParams{
-				SubscriptionItems: []*subscription.CreateWithItemsSubscriptionItemParams{
+			Input: &SubscriptionCreateWithItemsRequest{
+				SubscriptionItems: []*SubscriptionCreateWithItemsSubscriptionItem{
 					{
 						ItemPriceId:   "9_99_plan-USD-Monthly",
-						BillingCycles: chargebee.Int32(2),
-						Quantity:      chargebee.Int32(1),
-						UnitPrice:     chargebee.Int64(1000),
+						BillingCycles: Int32(2),
+						Quantity:      Int32(1),
+						UnitPrice:     Int64(1000),
 					},
 				}, CouponIds: []string{"summer_offer1", "summer_offer1"},
 			},
@@ -234,23 +225,23 @@ func TestSerializeParams(t *testing.T) {
 		},
 		{
 			Name: "Subscription: Create Request Params",
-			Input: &subscription.CreateRequestParams{
+			Input: &SubscriptionCreateRequest{
 				PlanId: "cbdemo_grow",
-				Customer: &subscription.CreateCustomerParams{
+				Customer: &SubscriptionCreateCustomer{
 					Email:          "john@user.com",
 					FirstName:      "John",
 					LastName:       "Doe",
 					Locale:         "frCA",
 					Phone:          "+19499999999",
-					AutoCollection: enum.AutoCollectionOn,
+					AutoCollection: AutoCollectionOn,
 				},
-				Addons: []*subscription.CreateAddonParams{
+				Addons: []*SubscriptionCreateAddon{
 					{
 						Id: "cbdemo_conciergesupport",
 					},
 					{
 						Id:       "cbdemo_additionaluser",
-						Quantity: chargebee.Int32(2),
+						Quantity: Int32(2),
 					},
 				},
 				CouponIds: []string{"cbdemo_earlybird", "cb_test"},
@@ -274,7 +265,7 @@ func TestSerializeParams(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			out := chargebee.SerializeParams(tt.Input)
+			out := SerializeParams(tt.Input)
 			t.Log(out)
 			t.Log(tt.Output)
 			assert.True(t, reflect.DeepEqual(out, tt.Output), fmt.Sprintf("%s Serialized input and output didn't match", tt.Name))
@@ -284,23 +275,23 @@ func TestSerializeParams(t *testing.T) {
 
 func TestUtil(t *testing.T) {
 
-	before := &subscription.CreateRequestParams{
+	before := &SubscriptionCreateRequest{
 		PlanId: "cbdemo_grow",
-		Customer: &subscription.CreateCustomerParams{
+		Customer: &SubscriptionCreateCustomer{
 			Email:          "john@user.com",
 			FirstName:      "John",
 			LastName:       "Doe",
 			Locale:         "frCA",
 			Phone:          "+19499999999",
-			AutoCollection: enum.AutoCollectionOn,
+			AutoCollection: AutoCollectionOn,
 		},
-		Addons: []*subscription.CreateAddonParams{
+		Addons: []*SubscriptionCreateAddon{
 			{
 				Id: "cbdemo_conciergesupport",
 			},
 			{
 				Id:       "cbdemo_additionaluser",
-				Quantity: chargebee.Int32(2),
+				Quantity: Int32(2),
 			},
 		},
 		CouponIds: []string{"cbdemo_earlybird"},
@@ -318,5 +309,5 @@ func TestUtil(t *testing.T) {
 		"customer[auto_collection]": []string{"on"},
 		"customer[first_name]":      []string{"John"},
 	}
-	assert.Equal(t, chargebee.SerializeParams(before), after)
+	assert.Equal(t, SerializeParams(before), after)
 }

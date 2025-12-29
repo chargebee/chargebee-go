@@ -1,4 +1,4 @@
-package tests
+package webhook
 
 import (
 	"bytes"
@@ -10,8 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/chargebee/chargebee-go/v3/enum"
-	"github.com/chargebee/chargebee-go/v3/webhook"
+	"github.com/chargebee/chargebee-go/v4"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -36,39 +35,39 @@ func toIntString(v int64) string {
 
 func TestParseEventType_OK(t *testing.T) {
 	body := makeEventBody("pending_invoice_created", "{}")
-	evtType, err := webhook.ParseEventType(body)
+	evtType, err := ParseEventType(body)
 	assert.NoError(t, err)
-	assert.Equal(t, enum.EventTypePendingInvoiceCreated, evtType)
+	assert.Equal(t, chargebee.EventTypePendingInvoiceCreated, evtType)
 }
 
 func TestParseEventType_InvalidJSON(t *testing.T) {
 	body := []byte(`invalid json`)
-	_, err := webhook.ParseEventType(body)
+	_, err := ParseEventType(body)
 	assert.Error(t, err)
 }
 
 func TestParseEventType_ApiVersionMismatch(t *testing.T) {
 	body := []byte(`{"event_type":"pending_invoice_created","api_version":"v1"}`)
-	_, err := webhook.ParseEventType(body)
+	_, err := ParseEventType(body)
 	assert.Error(t, err)
 	assert.Contains(t, err.Error(), "API version")
 }
 
 func TestParseEventType_MissingEventType(t *testing.T) {
 	body := []byte(`{"api_version":"v2"}`)
-	evtType, err := webhook.ParseEventType(body)
+	evtType, err := ParseEventType(body)
 	assert.NoError(t, err)
-	assert.Equal(t, enum.EventType(""), evtType)
+	assert.Equal(t, chargebee.EventType(""), evtType)
 }
 
 func TestHTTPHandler_RoutesToCallback(t *testing.T) {
 	var called bool
-	h := &webhook.WebhookHandler{
+	h := &WebhookHandler{
 		RequestValidator: func(r *http.Request) error { return nil },
 		OnError: func(w http.ResponseWriter, r *http.Request, err error) {
 			t.Fatalf("unexpected error: %v", err)
 		},
-		OnPendingInvoiceCreated: func(e webhook.PendingInvoiceCreatedEvent) error {
+		OnPendingInvoiceCreated: func(e PendingInvoiceCreatedEvent) error {
 			called = true
 			assert.NotEmpty(t, e.Id)
 			assert.NotEmpty(t, e.EventType)
@@ -86,7 +85,7 @@ func TestHTTPHandler_RoutesToCallback(t *testing.T) {
 
 func TestHTTPHandler_ValidatorError(t *testing.T) {
 	var onErrorCalled bool
-	h := &webhook.WebhookHandler{
+	h := &WebhookHandler{
 		RequestValidator: func(r *http.Request) error { return errors.New("bad signature") },
 		OnError: func(w http.ResponseWriter, r *http.Request, err error) {
 			onErrorCalled = true
@@ -102,13 +101,13 @@ func TestHTTPHandler_ValidatorError(t *testing.T) {
 
 func TestHTTPHandler_CallbackError(t *testing.T) {
 	var onErrorCalled bool
-	h := &webhook.WebhookHandler{
+	h := &WebhookHandler{
 		RequestValidator: func(r *http.Request) error { return nil },
 		OnError: func(w http.ResponseWriter, r *http.Request, err error) {
 			onErrorCalled = true
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		},
-		OnPendingInvoiceCreated: func(e webhook.PendingInvoiceCreatedEvent) error {
+		OnPendingInvoiceCreated: func(e PendingInvoiceCreatedEvent) error {
 			return errors.New("user code failed")
 		},
 	}
@@ -120,7 +119,7 @@ func TestHTTPHandler_CallbackError(t *testing.T) {
 }
 
 func TestHTTPHandler_UnknownEvent_Error(t *testing.T) {
-	h := &webhook.WebhookHandler{
+	h := &WebhookHandler{
 		RequestValidator: func(r *http.Request) error { return nil },
 		// Use default error handler which writes 500
 	}
@@ -131,7 +130,7 @@ func TestHTTPHandler_UnknownEvent_Error(t *testing.T) {
 }
 
 func TestHTTPHandler_NoHandlerRegistered_Error(t *testing.T) {
-	h := &webhook.WebhookHandler{
+	h := &WebhookHandler{
 		RequestValidator: func(r *http.Request) error { return nil },
 		// No OnPendingInvoiceCreated handler registered; expect 500 via default error handler
 	}
@@ -143,14 +142,14 @@ func TestHTTPHandler_NoHandlerRegistered_Error(t *testing.T) {
 
 func TestHTTPHandler_MultipleEventTypes(t *testing.T) {
 	var pendingInvoiceCalled, subscriptionCalled bool
-	h := &webhook.WebhookHandler{
+	h := &WebhookHandler{
 		RequestValidator: func(r *http.Request) error { return nil },
 		OnError:          func(w http.ResponseWriter, r *http.Request, err error) { t.Fatalf("unexpected error: %v", err) },
-		OnPendingInvoiceCreated: func(e webhook.PendingInvoiceCreatedEvent) error {
+		OnPendingInvoiceCreated: func(e PendingInvoiceCreatedEvent) error {
 			pendingInvoiceCalled = true
 			return nil
 		},
-		OnSubscriptionCreated: func(e webhook.SubscriptionCreatedEvent) error {
+		OnSubscriptionCreated: func(e SubscriptionCreatedEvent) error {
 			subscriptionCalled = true
 			return nil
 		},
@@ -176,7 +175,7 @@ func TestHTTPHandler_MultipleEventTypes(t *testing.T) {
 
 func TestHTTPHandler_InvalidJSONBody(t *testing.T) {
 	var onErrorCalled bool
-	h := &webhook.WebhookHandler{
+	h := &WebhookHandler{
 		RequestValidator: func(r *http.Request) error { return nil },
 		OnError: func(w http.ResponseWriter, r *http.Request, err error) {
 			onErrorCalled = true
@@ -192,7 +191,7 @@ func TestHTTPHandler_InvalidJSONBody(t *testing.T) {
 
 func TestHTTPHandler_CustomValidator(t *testing.T) {
 	var validatorCalled bool
-	h := &webhook.WebhookHandler{
+	h := &WebhookHandler{
 		RequestValidator: func(r *http.Request) error {
 			validatorCalled = true
 			// Custom validation logic - e.g., check headers
@@ -204,7 +203,7 @@ func TestHTTPHandler_CustomValidator(t *testing.T) {
 		OnError: func(w http.ResponseWriter, r *http.Request, err error) {
 			http.Error(w, err.Error(), http.StatusUnauthorized)
 		},
-		OnPendingInvoiceCreated: func(e webhook.PendingInvoiceCreatedEvent) error {
+		OnPendingInvoiceCreated: func(e PendingInvoiceCreatedEvent) error {
 			return nil
 		},
 	}
@@ -234,7 +233,7 @@ func makeBasicAuth(username, password string) string {
 }
 
 func TestBasicAuthValidator_ValidCredentials(t *testing.T) {
-	validator := webhook.BasicAuthValidator(func(username, password string) bool {
+	validator := BasicAuthValidator(func(username, password string) bool {
 		return username == "testuser" && password == "testpass"
 	})
 
@@ -246,7 +245,7 @@ func TestBasicAuthValidator_ValidCredentials(t *testing.T) {
 }
 
 func TestBasicAuthValidator_InvalidCredentials(t *testing.T) {
-	validator := webhook.BasicAuthValidator(func(username, password string) bool {
+	validator := BasicAuthValidator(func(username, password string) bool {
 		return username == "testuser" && password == "testpass"
 	})
 
@@ -259,7 +258,7 @@ func TestBasicAuthValidator_InvalidCredentials(t *testing.T) {
 }
 
 func TestBasicAuthValidator_MissingAuthorizationHeader(t *testing.T) {
-	validator := webhook.BasicAuthValidator(func(username, password string) bool {
+	validator := BasicAuthValidator(func(username, password string) bool {
 		return true
 	})
 
@@ -272,7 +271,7 @@ func TestBasicAuthValidator_MissingAuthorizationHeader(t *testing.T) {
 }
 
 func TestBasicAuthValidator_InvalidScheme(t *testing.T) {
-	validator := webhook.BasicAuthValidator(func(username, password string) bool {
+	validator := BasicAuthValidator(func(username, password string) bool {
 		return true
 	})
 
@@ -285,7 +284,7 @@ func TestBasicAuthValidator_InvalidScheme(t *testing.T) {
 }
 
 func TestBasicAuthValidator_InvalidBase64Encoding(t *testing.T) {
-	validator := webhook.BasicAuthValidator(func(username, password string) bool {
+	validator := BasicAuthValidator(func(username, password string) bool {
 		return true
 	})
 
@@ -298,7 +297,7 @@ func TestBasicAuthValidator_InvalidBase64Encoding(t *testing.T) {
 }
 
 func TestBasicAuthValidator_InvalidCredentialsFormat(t *testing.T) {
-	validator := webhook.BasicAuthValidator(func(username, password string) bool {
+	validator := BasicAuthValidator(func(username, password string) bool {
 		return true
 	})
 
@@ -314,7 +313,7 @@ func TestBasicAuthValidator_InvalidCredentialsFormat(t *testing.T) {
 
 func TestBasicAuthValidator_EmptyCredentialsAllowed(t *testing.T) {
 	// When validateCredentials always returns true (empty credentials allowed)
-	validator := webhook.BasicAuthValidator(func(username, password string) bool {
+	validator := BasicAuthValidator(func(username, password string) bool {
 		return true // Allow all credentials
 	})
 
@@ -326,7 +325,7 @@ func TestBasicAuthValidator_EmptyCredentialsAllowed(t *testing.T) {
 }
 
 func TestBasicAuthValidator_UsernameWithColon(t *testing.T) {
-	validator := webhook.BasicAuthValidator(func(username, password string) bool {
+	validator := BasicAuthValidator(func(username, password string) bool {
 		// When encoding "user:name:pass:word", SplitN creates username="user" and password="name:pass:word"
 		return username == "user" && password == "name:pass:word"
 	})
@@ -347,7 +346,7 @@ func TestBasicAuthErrorHandler_AuthError(t *testing.T) {
 
 	// Test with missing Authorization header error
 	err := errors.New("missing Authorization header")
-	webhook.BasicAuthErrorHandler(rec, req, err)
+	BasicAuthErrorHandler(rec, req, err)
 
 	assert.Equal(t, http.StatusUnauthorized, rec.Code)
 	assert.Equal(t, `Basic realm="Webhook"`, rec.Header().Get("WWW-Authenticate"))
@@ -359,7 +358,7 @@ func TestBasicAuthErrorHandler_InvalidCredentialsError(t *testing.T) {
 	req := httptest.NewRequest(http.MethodPost, "/webhook", nil)
 
 	err := errors.New("invalid credentials")
-	webhook.BasicAuthErrorHandler(rec, req, err)
+	BasicAuthErrorHandler(rec, req, err)
 
 	assert.Equal(t, http.StatusUnauthorized, rec.Code)
 	assert.Equal(t, `Basic realm="Webhook"`, rec.Header().Get("WWW-Authenticate"))
@@ -371,7 +370,7 @@ func TestBasicAuthErrorHandler_InvalidSchemeError(t *testing.T) {
 	req := httptest.NewRequest(http.MethodPost, "/webhook", nil)
 
 	err := errors.New("invalid authorization scheme, expected Basic")
-	webhook.BasicAuthErrorHandler(rec, req, err)
+	BasicAuthErrorHandler(rec, req, err)
 
 	assert.Equal(t, http.StatusUnauthorized, rec.Code)
 	assert.Equal(t, `Basic realm="Webhook"`, rec.Header().Get("WWW-Authenticate"))
@@ -384,7 +383,7 @@ func TestBasicAuthErrorHandler_NonAuthError(t *testing.T) {
 
 	// Test with a non-auth error
 	err := errors.New("internal server error")
-	webhook.BasicAuthErrorHandler(rec, req, err)
+	BasicAuthErrorHandler(rec, req, err)
 
 	assert.Equal(t, http.StatusUnauthorized, rec.Code)
 	assert.Equal(t, `Basic realm="Webhook"`, rec.Header().Get("WWW-Authenticate"))
@@ -393,14 +392,14 @@ func TestBasicAuthErrorHandler_NonAuthError(t *testing.T) {
 
 func TestBasicAuthValidator_IntegrationWithWebhookHandler(t *testing.T) {
 	var callbackCalled bool
-	validator := webhook.BasicAuthValidator(func(username, password string) bool {
+	validator := BasicAuthValidator(func(username, password string) bool {
 		return username == "admin" && password == "secret"
 	})
 
-	h := &webhook.WebhookHandler{
+	h := &WebhookHandler{
 		RequestValidator: validator,
-		OnError:          webhook.BasicAuthErrorHandler,
-		OnPendingInvoiceCreated: func(e webhook.PendingInvoiceCreatedEvent) error {
+		OnError:          BasicAuthErrorHandler,
+		OnPendingInvoiceCreated: func(e PendingInvoiceCreatedEvent) error {
 			callbackCalled = true
 			return nil
 		},
