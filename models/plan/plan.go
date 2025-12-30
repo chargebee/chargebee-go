@@ -8,21 +8,23 @@ import (
 )
 
 type Plan struct {
-	Id                          string                               `json:"id"`
-	Name                        string                               `json:"name"`
-	InvoiceName                 string                               `json:"invoice_name"`
-	Description                 string                               `json:"description"`
-	Price                       int64                                `json:"price"`
-	CurrencyCode                string                               `json:"currency_code"`
-	Period                      int32                                `json:"period"`
-	PeriodUnit                  planEnum.PeriodUnit                  `json:"period_unit"`
-	TrialPeriod                 int32                                `json:"trial_period"`
-	TrialPeriodUnit             planEnum.TrialPeriodUnit             `json:"trial_period_unit"`
-	TrialEndAction              planEnum.TrialEndAction              `json:"trial_end_action"`
-	PricingModel                enum.PricingModel                    `json:"pricing_model"`
-	ChargeModel                 planEnum.ChargeModel                 `json:"charge_model"`
-	FreeQuantity                int32                                `json:"free_quantity"`
-	SetupCost                   int64                                `json:"setup_cost"`
+	Id              string                   `json:"id"`
+	Name            string                   `json:"name"`
+	InvoiceName     string                   `json:"invoice_name"`
+	Description     string                   `json:"description"`
+	Price           int64                    `json:"price"`
+	CurrencyCode    string                   `json:"currency_code"`
+	Period          int32                    `json:"period"`
+	PeriodUnit      planEnum.PeriodUnit      `json:"period_unit"`
+	TrialPeriod     int32                    `json:"trial_period"`
+	TrialPeriodUnit planEnum.TrialPeriodUnit `json:"trial_period_unit"`
+	TrialEndAction  planEnum.TrialEndAction  `json:"trial_end_action"`
+	PricingModel    enum.PricingModel        `json:"pricing_model"`
+	//Deprecated: this field is deprecated
+	ChargeModel  planEnum.ChargeModel `json:"charge_model"`
+	FreeQuantity int32                `json:"free_quantity"`
+	SetupCost    int64                `json:"setup_cost"`
+	//Deprecated: this field is deprecated
 	DowngradePenalty            float64                              `json:"downgrade_penalty"`
 	Status                      planEnum.Status                      `json:"status"`
 	ArchivedAt                  int64                                `json:"archived_at"`

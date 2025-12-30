@@ -14,10 +14,11 @@ type QuotedRamp struct {
 	Object                      string                        `json:"object"`
 }
 type LineItem struct {
-	ItemPriceId                               string                 `json:"item_price_id"`
-	ItemType                                  enum.ItemType          `json:"item_type"`
-	Quantity                                  int32                  `json:"quantity"`
-	QuantityInDecimal                         string                 `json:"quantity_in_decimal"`
+	ItemPriceId       string        `json:"item_price_id"`
+	ItemType          enum.ItemType `json:"item_type"`
+	Quantity          int32         `json:"quantity"`
+	QuantityInDecimal string        `json:"quantity_in_decimal"`
+	//Deprecated: this field is deprecated
 	MeteredQuantity                           string                 `json:"metered_quantity"`
 	UnitPrice                                 int64                  `json:"unit_price"`
 	UnitPriceInDecimal                        string                 `json:"unit_price_in_decimal"`

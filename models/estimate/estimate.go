@@ -584,10 +584,11 @@ type UpdateSubscriptionForItemsBillingOverrideParams struct {
 	MaxRefundableCreditsUsage *int64 `json:"max_refundable_credits_usage,omitempty"`
 }
 type RenewalEstimateRequestParams struct {
-	IncludeDelayedCharges       *bool `json:"include_delayed_charges,omitempty"`
-	UseExistingBalances         *bool `json:"use_existing_balances,omitempty"`
-	IgnoreScheduledCancellation *bool `json:"ignore_scheduled_cancellation,omitempty"`
-	IgnoreScheduledChanges      *bool `json:"ignore_scheduled_changes,omitempty"`
+	IncludeDelayedCharges       *bool               `json:"include_delayed_charges,omitempty"`
+	UseExistingBalances         *bool               `json:"use_existing_balances,omitempty"`
+	IgnoreScheduledCancellation *bool               `json:"ignore_scheduled_cancellation,omitempty"`
+	IgnoreScheduledChanges      *bool               `json:"ignore_scheduled_changes,omitempty"`
+	ExcludeTaxType              enum.ExcludeTaxType `json:"exclude_tax_type,omitempty"`
 }
 type AdvanceInvoiceEstimateRequestParams struct {
 	TermsToCharge         *int32                                               `json:"terms_to_charge,omitempty"`

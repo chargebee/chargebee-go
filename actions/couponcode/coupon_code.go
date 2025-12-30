@@ -7,6 +7,7 @@ import (
 	"net/url"
 )
 
+// Deprecated: This function is deprecated.
 func Create(params *couponcode.CreateRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/coupon_codes"), params).SetIdempotency(true)
 }

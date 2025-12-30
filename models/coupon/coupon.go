@@ -8,20 +8,22 @@ import (
 )
 
 type Coupon struct {
-	Id                     string                     `json:"id"`
-	Name                   string                     `json:"name"`
-	InvoiceName            string                     `json:"invoice_name"`
-	DiscountType           couponEnum.DiscountType    `json:"discount_type"`
-	DiscountPercentage     float64                    `json:"discount_percentage"`
-	DiscountAmount         int64                      `json:"discount_amount"`
-	DiscountQuantity       int32                      `json:"discount_quantity"`
-	CurrencyCode           string                     `json:"currency_code"`
-	DurationType           couponEnum.DurationType    `json:"duration_type"`
-	DurationMonth          int32                      `json:"duration_month"`
-	ValidFrom              int64                      `json:"valid_from"`
-	ValidTill              int64                      `json:"valid_till"`
-	MaxRedemptions         int32                      `json:"max_redemptions"`
-	Status                 couponEnum.Status          `json:"status"`
+	Id                 string                  `json:"id"`
+	Name               string                  `json:"name"`
+	InvoiceName        string                  `json:"invoice_name"`
+	DiscountType       couponEnum.DiscountType `json:"discount_type"`
+	DiscountPercentage float64                 `json:"discount_percentage"`
+	DiscountAmount     int64                   `json:"discount_amount"`
+	DiscountQuantity   int32                   `json:"discount_quantity"`
+	CurrencyCode       string                  `json:"currency_code"`
+	DurationType       couponEnum.DurationType `json:"duration_type"`
+	//Deprecated: this field is deprecated
+	DurationMonth  int32             `json:"duration_month"`
+	ValidFrom      int64             `json:"valid_from"`
+	ValidTill      int64             `json:"valid_till"`
+	MaxRedemptions int32             `json:"max_redemptions"`
+	Status         couponEnum.Status `json:"status"`
+	//Deprecated: this field is deprecated
 	ApplyDiscountOn        couponEnum.ApplyDiscountOn `json:"apply_discount_on"`
 	ApplyOn                couponEnum.ApplyOn         `json:"apply_on"`
 	PlanConstraint         couponEnum.PlanConstraint  `json:"plan_constraint"`

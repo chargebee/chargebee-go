@@ -37,6 +37,8 @@ func Delete(id string) chargebee.Request {
 func List(params *order.ListRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/orders"), params)
 }
+
+// Deprecated: This function is deprecated.
 func OrdersForInvoice(id string, params *order.OrdersForInvoiceRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/invoices/%v/orders", url.PathEscape(id)), params)
 }

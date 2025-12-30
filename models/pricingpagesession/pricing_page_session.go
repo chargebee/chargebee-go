@@ -17,6 +17,7 @@ type CreateForNewSubscriptionRequestParams struct {
 	Subscription            *CreateForNewSubscriptionSubscriptionParams    `json:"subscription,omitempty"`
 	BusinessEntityId        string                                         `json:"business_entity_id,omitempty"`
 	AutoSelectLocalCurrency *bool                                          `json:"auto_select_local_currency,omitempty"`
+	Custom                  map[string]interface{}                         `json:"custom,omitempty"`
 	Customer                *CreateForNewSubscriptionCustomerParams        `json:"customer,omitempty"`
 	Discounts               []*CreateForNewSubscriptionDiscountParams      `json:"discounts,omitempty"`
 	BillingAddress          *CreateForNewSubscriptionBillingAddressParams  `json:"billing_address,omitempty"`
@@ -85,6 +86,7 @@ type CreateForExistingSubscriptionRequestParams struct {
 	RedirectUrl  string                                           `json:"redirect_url,omitempty"`
 	PricingPage  *CreateForExistingSubscriptionPricingPageParams  `json:"pricing_page,omitempty"`
 	Subscription *CreateForExistingSubscriptionSubscriptionParams `json:"subscription,omitempty"`
+	Custom       map[string]interface{}                           `json:"custom,omitempty"`
 	Discounts    []*CreateForExistingSubscriptionDiscountParams   `json:"discounts,omitempty"`
 }
 type CreateForExistingSubscriptionPricingPageParams struct {

@@ -26,6 +26,8 @@ func CheckoutExisting(params *hostedpage.CheckoutExistingRequestParams) chargebe
 func CheckoutExistingForItems(params *hostedpage.CheckoutExistingForItemsRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/checkout_existing_for_items"), params).SetIdempotency(true)
 }
+
+// Deprecated: This function is deprecated.
 func UpdateCard(params *hostedpage.UpdateCardRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/hosted_pages/update_card"), params).SetIdempotency(true)
 }

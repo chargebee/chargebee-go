@@ -67,41 +67,45 @@ type Subscription struct {
 	DueSince                          int64                              `json:"due_since"`
 	TotalDues                         int64                              `json:"total_dues"`
 	Mrr                               int64                              `json:"mrr"`
-	Arr                               int64                              `json:"arr"`
-	ExchangeRate                      float64                            `json:"exchange_rate"`
-	BaseCurrencyCode                  string                             `json:"base_currency_code"`
-	Addons                            []*Addon                           `json:"addons"`
-	EventBasedAddons                  []*EventBasedAddon                 `json:"event_based_addons"`
-	ChargedEventBasedAddons           []*ChargedEventBasedAddon          `json:"charged_event_based_addons"`
-	Coupon                            string                             `json:"coupon"`
-	Coupons                           []*Coupon                          `json:"coupons"`
-	ShippingAddress                   *ShippingAddress                   `json:"shipping_address"`
-	ReferralInfo                      *ReferralInfo                      `json:"referral_info"`
-	BillingOverride                   *BillingOverride                   `json:"billing_override"`
-	InvoiceNotes                      string                             `json:"invoice_notes"`
-	MetaData                          json.RawMessage                    `json:"meta_data"`
-	Deleted                           bool                               `json:"deleted"`
-	ChangesScheduledAt                int64                              `json:"changes_scheduled_at"`
-	ContractTerm                      *ContractTerm                      `json:"contract_term"`
-	CancelReasonCode                  string                             `json:"cancel_reason_code"`
-	FreePeriod                        int32                              `json:"free_period"`
-	FreePeriodUnit                    enum.FreePeriodUnit                `json:"free_period_unit"`
-	CreatePendingInvoices             bool                               `json:"create_pending_invoices"`
-	AutoCloseInvoices                 bool                               `json:"auto_close_invoices"`
-	Discounts                         []*Discount                        `json:"discounts"`
-	BusinessEntityId                  string                             `json:"business_entity_id"`
-	CustomField                       map[string]interface{}             `json:"custom_field"`
-	Object                            string                             `json:"object"`
+	//Deprecated: this field is deprecated
+	Arr                     int64                     `json:"arr"`
+	ExchangeRate            float64                   `json:"exchange_rate"`
+	BaseCurrencyCode        string                    `json:"base_currency_code"`
+	Addons                  []*Addon                  `json:"addons"`
+	EventBasedAddons        []*EventBasedAddon        `json:"event_based_addons"`
+	ChargedEventBasedAddons []*ChargedEventBasedAddon `json:"charged_event_based_addons"`
+	//Deprecated: this field is deprecated
+	Coupon                string                 `json:"coupon"`
+	Coupons               []*Coupon              `json:"coupons"`
+	ShippingAddress       *ShippingAddress       `json:"shipping_address"`
+	ReferralInfo          *ReferralInfo          `json:"referral_info"`
+	BillingOverride       *BillingOverride       `json:"billing_override"`
+	InvoiceNotes          string                 `json:"invoice_notes"`
+	MetaData              json.RawMessage        `json:"meta_data"`
+	Deleted               bool                   `json:"deleted"`
+	ChangesScheduledAt    int64                  `json:"changes_scheduled_at"`
+	ContractTerm          *ContractTerm          `json:"contract_term"`
+	CancelReasonCode      string                 `json:"cancel_reason_code"`
+	FreePeriod            int32                  `json:"free_period"`
+	FreePeriodUnit        enum.FreePeriodUnit    `json:"free_period_unit"`
+	CreatePendingInvoices bool                   `json:"create_pending_invoices"`
+	AutoCloseInvoices     bool                   `json:"auto_close_invoices"`
+	Discounts             []*Discount            `json:"discounts"`
+	BusinessEntityId      string                 `json:"business_entity_id"`
+	CustomField           map[string]interface{} `json:"custom_field"`
+	Object                string                 `json:"object"`
 
 	// Deprecated: MetaData is deprecated please use MetaData instead.
 	Metadata json.RawMessage `json:"metadata"`
 }
 type SubscriptionItem struct {
-	ItemPriceId                     string                               `json:"item_price_id"`
-	ItemType                        enum.ItemType                        `json:"item_type"`
-	Quantity                        int32                                `json:"quantity"`
-	QuantityInDecimal               string                               `json:"quantity_in_decimal"`
-	MeteredQuantity                 string                               `json:"metered_quantity"`
+	ItemPriceId       string        `json:"item_price_id"`
+	ItemType          enum.ItemType `json:"item_type"`
+	Quantity          int32         `json:"quantity"`
+	QuantityInDecimal string        `json:"quantity_in_decimal"`
+	//Deprecated: this field is deprecated
+	MeteredQuantity string `json:"metered_quantity"`
+	//Deprecated: this field is deprecated
 	LastCalculatedAt                int64                                `json:"last_calculated_at"`
 	UnitPrice                       int64                                `json:"unit_price"`
 	UnitPriceInDecimal              string                               `json:"unit_price_in_decimal"`
@@ -243,9 +247,10 @@ type ChargedEventBasedAddon struct {
 	Object        string `json:"object"`
 }
 type EventBasedAddon struct {
-	Id                  string       `json:"id"`
-	Quantity            int32        `json:"quantity"`
-	UnitPrice           int64        `json:"unit_price"`
+	Id        string `json:"id"`
+	Quantity  int32  `json:"quantity"`
+	UnitPrice int64  `json:"unit_price"`
+	//Deprecated: this field is deprecated
 	ServicePeriodInDays int32        `json:"service_period_in_days"`
 	OnEvent             enum.OnEvent `json:"on_event"`
 	ChargeOnce          bool         `json:"charge_once"`
