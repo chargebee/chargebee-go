@@ -19,6 +19,8 @@ func CreateWithItems(id string, params *subscription.CreateWithItemsRequestParam
 func List(params *subscription.ListRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/subscriptions"), params)
 }
+
+// Deprecated: This function is deprecated.
 func SubscriptionsForCustomer(id string, params *subscription.SubscriptionsForCustomerRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/customers/%v/subscriptions", url.PathEscape(id)), params)
 }

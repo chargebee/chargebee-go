@@ -36,11 +36,13 @@ type Coupon struct {
 	Object   string `json:"object"`
 }
 type SubscriptionItem struct {
-	ItemPriceId                     string                                   `json:"item_price_id"`
-	ItemType                        enum.ItemType                            `json:"item_type"`
-	Quantity                        int32                                    `json:"quantity"`
-	QuantityInDecimal               string                                   `json:"quantity_in_decimal"`
-	MeteredQuantity                 string                                   `json:"metered_quantity"`
+	ItemPriceId       string        `json:"item_price_id"`
+	ItemType          enum.ItemType `json:"item_type"`
+	Quantity          int32         `json:"quantity"`
+	QuantityInDecimal string        `json:"quantity_in_decimal"`
+	//Deprecated: this field is deprecated
+	MeteredQuantity string `json:"metered_quantity"`
+	//Deprecated: this field is deprecated
 	LastCalculatedAt                int64                                    `json:"last_calculated_at"`
 	UnitPrice                       int64                                    `json:"unit_price"`
 	UnitPriceInDecimal              string                                   `json:"unit_price_in_decimal"`
@@ -86,9 +88,10 @@ type QuotedContractTerm struct {
 	Object                   string                                                   `json:"object"`
 }
 type EventBasedAddon struct {
-	Id                  string       `json:"id"`
-	Quantity            int32        `json:"quantity"`
-	UnitPrice           int64        `json:"unit_price"`
+	Id        string `json:"id"`
+	Quantity  int32  `json:"quantity"`
+	UnitPrice int64  `json:"unit_price"`
+	//Deprecated: this field is deprecated
 	ServicePeriodInDays int32        `json:"service_period_in_days"`
 	OnEvent             enum.OnEvent `json:"on_event"`
 	ChargeOnce          bool         `json:"charge_once"`

@@ -6,15 +6,16 @@ import (
 )
 
 type EntitlementOverride struct {
-	Id             string                                 `json:"id"`
-	EntityId       string                                 `json:"entity_id"`
-	EntityType     string                                 `json:"entity_type"`
-	FeatureId      string                                 `json:"feature_id"`
-	FeatureName    string                                 `json:"feature_name"`
-	Value          string                                 `json:"value"`
-	Name           string                                 `json:"name"`
-	ExpiresAt      int64                                  `json:"expires_at"`
-	EffectiveFrom  int64                                  `json:"effective_from"`
+	Id            string `json:"id"`
+	EntityId      string `json:"entity_id"`
+	EntityType    string `json:"entity_type"`
+	FeatureId     string `json:"feature_id"`
+	FeatureName   string `json:"feature_name"`
+	Value         string `json:"value"`
+	Name          string `json:"name"`
+	ExpiresAt     int64  `json:"expires_at"`
+	EffectiveFrom int64  `json:"effective_from"`
+	//Deprecated: this field is deprecated
 	ScheduleStatus entitlementOverrideEnum.ScheduleStatus `json:"schedule_status"`
 	Object         string                                 `json:"object"`
 }

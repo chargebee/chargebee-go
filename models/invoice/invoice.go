@@ -227,6 +227,7 @@ type DunningAttempt struct {
 	CreatedAt     int64                  `json:"created_at"`
 	TxnStatus     transactionEnum.Status `json:"txn_status"`
 	TxnAmount     int64                  `json:"txn_amount"`
+	RetryEngine   enum.RetryEngine       `json:"retry_engine"`
 	Object        string                 `json:"object"`
 }
 type AppliedCredit struct {

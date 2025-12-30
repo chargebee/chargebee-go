@@ -9,10 +9,11 @@ import (
 )
 
 type HostedPage struct {
-	Id               string                       `json:"id"`
-	Type             hostedPageEnum.Type          `json:"type"`
-	Url              string                       `json:"url"`
-	State            hostedPageEnum.State         `json:"state"`
+	Id    string               `json:"id"`
+	Type  hostedPageEnum.Type  `json:"type"`
+	Url   string               `json:"url"`
+	State hostedPageEnum.State `json:"state"`
+	//Deprecated: this field is deprecated
 	FailureReason    hostedPageEnum.FailureReason `json:"failure_reason"`
 	PassThruContent  string                       `json:"pass_thru_content"`
 	Embed            bool                         `json:"embed"`

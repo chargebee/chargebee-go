@@ -25,9 +25,13 @@ func Refund(id string, params *transaction.RefundRequestParams) chargebee.Reques
 func List(params *transaction.ListRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/transactions"), params)
 }
+
+// Deprecated: This function is deprecated.
 func TransactionsForCustomer(id string, params *transaction.TransactionsForCustomerRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/customers/%v/transactions", url.PathEscape(id)), params)
 }
+
+// Deprecated: This function is deprecated.
 func TransactionsForSubscription(id string, params *transaction.TransactionsForSubscriptionRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/subscriptions/%v/transactions", url.PathEscape(id)), params)
 }

@@ -8,11 +8,12 @@ import (
 )
 
 type Addon struct {
-	Id                          string                                `json:"id"`
-	Name                        string                                `json:"name"`
-	InvoiceName                 string                                `json:"invoice_name"`
-	Description                 string                                `json:"description"`
-	PricingModel                enum.PricingModel                     `json:"pricing_model"`
+	Id           string            `json:"id"`
+	Name         string            `json:"name"`
+	InvoiceName  string            `json:"invoice_name"`
+	Description  string            `json:"description"`
+	PricingModel enum.PricingModel `json:"pricing_model"`
+	//Deprecated: this field is deprecated
 	Type                        addonEnum.Type                        `json:"type"`
 	ChargeType                  addonEnum.ChargeType                  `json:"charge_type"`
 	Price                       int64                                 `json:"price"`

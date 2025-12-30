@@ -31,6 +31,8 @@ func VoidCreditNote(id string, params *creditnote.VoidCreditNoteRequestParams) c
 func List(params *creditnote.ListRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/credit_notes"), params)
 }
+
+// Deprecated: This function is deprecated.
 func CreditNotesForCustomer(id string, params *creditnote.CreditNotesForCustomerRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/customers/%v/credit_notes", url.PathEscape(id)), params)
 }

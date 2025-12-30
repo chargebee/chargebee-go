@@ -19,6 +19,8 @@ func Charge(params *invoice.ChargeRequestParams) chargebee.Request {
 func ChargeAddon(params *invoice.ChargeAddonRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/charge_addon"), params).SetIdempotency(true)
 }
+
+// Deprecated: This function is deprecated.
 func CreateForChargeItem(params *invoice.CreateForChargeItemRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/create_for_charge_item"), params).SetIdempotency(true)
 }
@@ -49,9 +51,13 @@ func ApplyCredits(id string, params *invoice.ApplyCreditsRequestParams) chargebe
 func List(params *invoice.ListRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/invoices"), params)
 }
+
+// Deprecated: This function is deprecated.
 func InvoicesForCustomer(id string, params *invoice.InvoicesForCustomerRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/customers/%v/invoices", url.PathEscape(id)), params)
 }
+
+// Deprecated: This function is deprecated.
 func InvoicesForSubscription(id string, params *invoice.InvoicesForSubscriptionRequestParams) chargebee.ListRequest {
 	return chargebee.SendList("GET", fmt.Sprintf("/subscriptions/%v/invoices", url.PathEscape(id)), params)
 }

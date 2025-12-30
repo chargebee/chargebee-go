@@ -45,14 +45,16 @@ type ItemPrice struct {
 	AccountingDetail                *AccountingDetail                    `json:"accounting_detail"`
 	Metadata                        json.RawMessage                      `json:"metadata"`
 	ItemType                        enum.ItemType                        `json:"item_type"`
-	Archivable                      bool                                 `json:"archivable"`
-	ParentItemId                    string                               `json:"parent_item_id"`
-	ShowDescriptionInInvoices       bool                                 `json:"show_description_in_invoices"`
-	ShowDescriptionInQuotes         bool                                 `json:"show_description_in_quotes"`
-	Deleted                         bool                                 `json:"deleted"`
-	BusinessEntityId                string                               `json:"business_entity_id"`
-	CustomField                     map[string]interface{}               `json:"custom_field"`
-	Object                          string                               `json:"object"`
+	//Deprecated: this field is deprecated
+	Archivable bool `json:"archivable"`
+	//Deprecated: this field is deprecated
+	ParentItemId              string                 `json:"parent_item_id"`
+	ShowDescriptionInInvoices bool                   `json:"show_description_in_invoices"`
+	ShowDescriptionInQuotes   bool                   `json:"show_description_in_quotes"`
+	Deleted                   bool                   `json:"deleted"`
+	BusinessEntityId          string                 `json:"business_entity_id"`
+	CustomField               map[string]interface{} `json:"custom_field"`
+	Object                    string                 `json:"object"`
 }
 type Tier struct {
 	StartingUnit          int32            `json:"starting_unit"`
@@ -255,4 +257,5 @@ type FindApplicableItemPricesRequestParams struct {
 }
 type MoveItemPriceRequestParams struct {
 	DestinationItemId string `json:"destination_item_id"`
+	VariantId         string `json:"variant_id,omitempty"`
 }

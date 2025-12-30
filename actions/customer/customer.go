@@ -40,12 +40,18 @@ func UpdateContact(id string, params *customer.UpdateContactRequestParams) charg
 func DeleteContact(id string, params *customer.DeleteContactRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/customers/%v/delete_contact", url.PathEscape(id)), params).SetIdempotency(true)
 }
+
+// Deprecated: This function is deprecated.
 func AddPromotionalCredits(id string, params *customer.AddPromotionalCreditsRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/customers/%v/add_promotional_credits", url.PathEscape(id)), params).SetIdempotency(true)
 }
+
+// Deprecated: This function is deprecated.
 func DeductPromotionalCredits(id string, params *customer.DeductPromotionalCreditsRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/customers/%v/deduct_promotional_credits", url.PathEscape(id)), params).SetIdempotency(true)
 }
+
+// Deprecated: This function is deprecated.
 func SetPromotionalCredits(id string, params *customer.SetPromotionalCreditsRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/customers/%v/set_promotional_credits", url.PathEscape(id)), params).SetIdempotency(true)
 }
