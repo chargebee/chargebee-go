@@ -122,9 +122,9 @@ func send[ResType responseWrapper](rw requestWrapper, cfg *ClientConfig) (ResTyp
 	}
 
 	if req.context != nil {
-		reqObj = reqObj.WithContext(context.WithValue(req.context, cbEnvKey, cfg))
+		reqObj = reqObj.WithContext(context.WithValue(req.context, configCtxKey, cfg))
 	} else {
-		reqObj = reqObj.WithContext(context.WithValue(reqObj.Context(), cbEnvKey, cfg))
+		reqObj = reqObj.WithContext(context.WithValue(reqObj.Context(), configCtxKey, cfg))
 	}
 
 	res, requestError := Do(reqObj, req.isIdempotent, cfg)
@@ -151,16 +151,16 @@ func basicAuth(key string) string {
 	return base64.StdEncoding.EncodeToString([]byte(key))
 }
 
-func newRequest(cc *ClientConfig, method string, path string, body io.Reader, headers *http.Header, subDomain string, isJsonRequest bool) (*http.Request, error) {
+func newRequest(cfg *ClientConfig, method string, path string, body io.Reader, headers *http.Header, subDomain string, isJsonRequest bool) (*http.Request, error) {
 	if !strings.HasPrefix(path, "/") {
 		path = "/" + path
 	}
-	path = cc.apiBaseUrl(subDomain) + path
+	path = cfg.apiBaseUrl(subDomain) + path
 	httpReq, err := http.NewRequest(method, path, body)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create http request: %w", err)
 	}
-	addHeaders(httpReq, cc, isJsonRequest)
+	addHeaders(httpReq, cfg, isJsonRequest)
 	addCustomHeaders(httpReq, headers)
 	return httpReq, err
 }

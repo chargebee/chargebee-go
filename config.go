@@ -6,13 +6,9 @@ import (
 	"time"
 )
 
-type ApiKey string
-
-type SiteName string
-
 type ClientConfig struct {
-	ApiKey          ApiKey
-	SiteName        SiteName
+	ApiKey          string
+	SiteName        string
 	ChargebeeDomain string
 	Protocol        string
 	RetryConfig     *RetryConfig
@@ -24,49 +20,41 @@ type RetryConfig struct {
 	Enabled    bool
 	MaxRetries int
 	DelayMs    int
-	RetryOn    map[int]struct{}
+	RetryOn    []int
 }
 
 var (
-	TotalHTTPTimeout      = 80 * time.Second
-	ExportWaitInSecs      = 3 * time.Second
-	TimeMachineWaitInSecs = 3 * time.Second
+	ConfigHTTPTimeout           = 80 * time.Second
+	ConfigExportWaitInSecs      = 3 * time.Second
+	ConfigTimeMachineWaitInSecs = 3 * time.Second
 )
+
+var defaultHTTPClient = &http.Client{Timeout: ConfigHTTPTimeout}
 
 const (
 	APIVersion = "v2"
 	Charset    = "UTF-8"
 )
 
-type cbCtxKey string
+type ctxKey string
 
-const cbEnvKey cbCtxKey = "cb_env"
+const configCtxKey ctxKey = "config"
 
-// func WithEnvironment(ctx context.Context, env ClientConfig) context.Context {
-// 	return context.WithValue(ctx, cbEnvKey, env)
-// }
-
-// func Configure(key string, siteName string) {
-// 	if key == "" || siteName == "" {
-// 		panic(errors.New("Key/siteName cannot be empty"))
-// 	}
-// 	DefaultEnv = ClientConfig{Key: key, SiteName: siteName}
-// }
-
-// func WithHTTPClient(c *http.Client) {
-// 	if c.Timeout == 0 {
-// 		c.Timeout = TotalHTTPTimeout
-// 	}
-// 	httpClient = c
-// }
-
-// func WithRetryConfig(c *RetryConfig) {
-// 	DefaultEnv.RetryConfig = c
-// }
-
-// func WithEnableDebugLogs(enabled bool) {
-// 	DefaultEnv.EnableDebugLogs = enabled
-// }
+// NewClientConfig creates a new ClientConfig with the default HTTP client
+// and retry config.
+func NewClientConfig(siteName string, apiKey string) *ClientConfig {
+	return &ClientConfig{
+		SiteName:   siteName,
+		ApiKey:     apiKey,
+		HTTPClient: defaultHTTPClient,
+		RetryConfig: &RetryConfig{
+			Enabled:    true,
+			MaxRetries: 3,
+			DelayMs:    500,
+			RetryOn:    []int{500, 502, 503, 504},
+		},
+	}
+}
 
 func (config *ClientConfig) apiBaseUrl(subDomain string) string {
 	if config.Protocol == "" {
@@ -83,21 +71,3 @@ func (config *ClientConfig) apiBaseUrl(subDomain string) string {
 	}
 	return fmt.Sprintf("https://%v.chargebee.com/api/%v", config.SiteName, APIVersion)
 }
-
-// func DefaultConfig() ClientConfig {
-// 	if DefaultEnv == (ClientConfig{}) {
-// 		panic(errors.New("The default environment has not been configured"))
-// 	}
-// 	return DefaultEnv
-// }
-
-// func NewDefaultHTTPClient() *http.Client {
-// 	return &http.Client{Timeout: TotalHTTPTimeout}
-// }
-
-// func UpdateTotalHTTPTimeout(timeout time.Duration) {
-// 	TotalHTTPTimeout = timeout
-// 	if httpClient != nil {
-// 		httpClient.Timeout = TotalHTTPTimeout
-// 	}
-// }

@@ -42,7 +42,7 @@ func (s *TimeMachineService) WaitForTimeTravelCompletion(tm TimeMachine) (TimeMa
 			return tm, errors.New("time travel is taking too much time")
 		}
 		count++
-		time.Sleep(TimeMachineWaitInSecs)
+		time.Sleep(ConfigTimeMachineWaitInSecs)
 		response, err := s.Retrieve(tm.Name)
 		if err != nil {
 			return tm, err

@@ -146,7 +146,7 @@ func (s *ExportService) WaitForExportCompletion(exp Export) (Export, error) {
 			return exp, errors.New("Export is taking too long")
 		}
 		count++
-		time.Sleep(ExportWaitInSecs)
+		time.Sleep(ConfigExportWaitInSecs)
 		response, err := s.Retrieve(exp.Id)
 		if err != nil {
 			return exp, err

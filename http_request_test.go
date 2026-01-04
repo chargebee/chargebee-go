@@ -1,4 +1,4 @@
-package tests
+package chargebee
 
 import (
 	"bytes"
@@ -10,8 +10,6 @@ import (
 	"sync/atomic"
 	"testing"
 	"time"
-
-	"github.com/chargebee/chargebee-go/v3"
 )
 
 type mockTransport struct {
@@ -26,6 +24,14 @@ func (m *mockTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	return http.DefaultTransport.RoundTrip(mockReq)
 }
 
+func TestDo_NilConfig(t *testing.T) {
+	req, _ := http.NewRequest("GET", "https://example.com", nil)
+	_, err := Do(req, true, nil)
+	if err == nil {
+		t.Errorf("expected error, got nil")
+	}
+}
+
 func TestDo_SuccessFirstTry(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(200)
@@ -34,7 +40,7 @@ func TestDo_SuccessFirstTry(t *testing.T) {
 	defer server.Close()
 
 	req, _ := http.NewRequest("GET", server.URL, nil)
-	resp, err := chargebee.Do(req, true)
+	resp, err := Do(req, true, &ClientConfig{})
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -54,17 +60,16 @@ func TestDo_RetryOn503(t *testing.T) {
 	defer server.Close()
 
 	req, _ := http.NewRequest("GET", server.URL, nil)
-	ctx := chargebee.WithEnvironment(req.Context(), chargebee.ClientConfig{
-		RetryConfig: &chargebee.RetryConfig{
+	cfg := &ClientConfig{
+		RetryConfig: &RetryConfig{
 			Enabled:    true,
 			MaxRetries: 2,
 			DelayMs:    10,
-			RetryOn:    map[int]struct{}{503: {}},
+			RetryOn:    []int{503},
 		},
-	})
-	req = req.WithContext(ctx)
+	}
 
-	_, err := chargebee.Do(req, true)
+	_, err := Do(req, true, cfg)
 	if err == nil || !strings.Contains(err.Error(), "operation_failed") {
 		t.Errorf("expected retryable error, got: %v", err)
 	}
@@ -93,17 +98,16 @@ func TestDo_RetryAfterHeader(t *testing.T) {
 	defer server.Close()
 
 	req, _ := http.NewRequest("GET", server.URL, nil)
-	ctx := chargebee.WithEnvironment(req.Context(), chargebee.ClientConfig{
-		RetryConfig: &chargebee.RetryConfig{
+	cfg := &ClientConfig{
+		RetryConfig: &RetryConfig{
 			Enabled:    true,
 			MaxRetries: 2,
 			DelayMs:    10,
-			RetryOn:    map[int]struct{}{503: {}},
+			RetryOn:    []int{503},
 		},
-	})
-	req = req.WithContext(ctx)
+	}
 
-	resp, err := chargebee.Do(req, false)
+	resp, err := Do(req, false, cfg)
 	if err != nil {
 		t.Fatalf("expected success after retry, got error: %v", err)
 	}
@@ -128,17 +132,16 @@ func TestDo_RetryDisabled(t *testing.T) {
 	defer server.Close()
 
 	req, _ := http.NewRequest("GET", server.URL, nil)
-	ctx := chargebee.WithEnvironment(req.Context(), chargebee.ClientConfig{
-		RetryConfig: &chargebee.RetryConfig{
+	cfg := &ClientConfig{
+		RetryConfig: &RetryConfig{
 			Enabled:    false,
 			MaxRetries: 5,
 			DelayMs:    10,
-			RetryOn:    map[int]struct{}{503: {}},
+			RetryOn:    []int{503},
 		},
-	})
-	req = req.WithContext(ctx)
+	}
 
-	_, err := chargebee.Do(req, false)
+	_, err := Do(req, false, cfg)
 	if err == nil || !strings.Contains(err.Error(), "disabled_retry") {
 		t.Errorf("expected error without retries, got: %v", err)
 	}
@@ -155,24 +158,25 @@ func TestRequestWithEnv_RetryOverride(t *testing.T) {
 		io.WriteString(w, `{"type":"operation_failed","api_error_code":"temporary_failure"}`)
 	}))
 	defer server.Close()
-	req := chargebee.Send("GET", "/customers", nil)
+	req, _ := http.NewRequest("GET", server.URL, nil)
+
 	mockClient := &http.Client{
 		Transport: &mockTransport{server: server},
 	}
-	chargebee.WithHTTPClient(mockClient)
 
-	env := chargebee.ClientConfig{
-		Key:      "test_key",
+	cfg := &ClientConfig{
+		ApiKey:   "test_key",
 		SiteName: "test_site",
-		RetryConfig: &chargebee.RetryConfig{
+		RetryConfig: &RetryConfig{
 			Enabled:    true,
 			MaxRetries: 3,
 			DelayMs:    10,
-			RetryOn:    map[int]struct{}{503: {}},
+			RetryOn:    []int{503},
 		},
+		HTTPClient: mockClient,
 	}
 
-	_, err := req.RequestWithEnv(env)
+	_, err := Do(req, false, cfg)
 	if err == nil || !strings.Contains(err.Error(), "operation_failed") {
 		t.Errorf("expected retryable error, got: %v", err)
 	}

@@ -9,15 +9,18 @@ import (
 	"log"
 	"math/rand"
 	"net/http"
+	"slices"
 	"strconv"
 	"strings"
 	"time"
 )
 
 func Do(req *http.Request, isIdempotent bool, cfg *ClientConfig) (*apiResponse, error) {
-	client := cfg.HTTPClient
-	if client == nil {
-		client = &http.Client{Timeout: TotalHTTPTimeout}
+	if cfg == nil {
+		return nil, fmt.Errorf("client config cannot be nil")
+	}
+	if cfg.HTTPClient == nil {
+		cfg.HTTPClient = defaultHTTPClient
 	}
 
 	// env := DefaultEnv
@@ -33,7 +36,7 @@ func Do(req *http.Request, isIdempotent bool, cfg *ClientConfig) (*apiResponse, 
 	retryEnabled := false
 	maxRetries := 3
 	delayMs := 500
-	retryOn := map[int]struct{}{500: {}, 502: {}, 503: {}, 504: {}}
+	retryOn := []int{500, 502, 503, 504}
 	enableDebug := cfg.EnableDebugLogs
 
 	if retryConfig := cfg.RetryConfig; retryConfig != nil {
@@ -68,7 +71,7 @@ func Do(req *http.Request, isIdempotent bool, cfg *ClientConfig) (*apiResponse, 
 		if err != nil {
 			return nil, err
 		}
-		resp, err := client.Do(clonedReq)
+		resp, err := cfg.HTTPClient.Do(clonedReq)
 		if err != nil {
 			lastErr = err
 			if enableDebug {
@@ -103,7 +106,7 @@ func Do(req *http.Request, isIdempotent bool, cfg *ClientConfig) (*apiResponse, 
 		}
 
 		if resp.StatusCode < 200 || resp.StatusCode > 299 {
-			_, shouldRetry := retryOn[resp.StatusCode]
+			shouldRetry := slices.Contains(retryOn, resp.StatusCode)
 			retryAfter := resp.Header.Get("Retry-After")
 
 			if retryEnabled && shouldRetry && attempt <= maxRetries {
@@ -117,7 +120,7 @@ func Do(req *http.Request, isIdempotent bool, cfg *ClientConfig) (*apiResponse, 
 				continue
 			}
 
-			return cbResponse, ErrorHandling(body)
+			return cbResponse, apiErrorFromResponse(body)
 		}
 
 		return cbResponse, nil
@@ -154,7 +157,7 @@ func sleepWithBackoff(baseDelayMs, attempt int, debug bool, retryAfter, statusCo
 	time.Sleep(sleep)
 }
 
-func ErrorHandling(resBody []byte) error {
+func apiErrorFromResponse(resBody []byte) error {
 	cbErr := &Error{}
 	err := json.Unmarshal(resBody, cbErr)
 	if err != nil {
