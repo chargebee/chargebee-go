@@ -1,6 +1,9 @@
 package chargebee
 
-import "net/http"
+import (
+	"net/http"
+	"strconv"
+)
 
 type responseWrapper interface {
 	setMeta(meta *apiResponse)
@@ -18,6 +21,15 @@ func (r *apiResponse) setMeta(meta *apiResponse) {
 	r.StatusText = meta.StatusText
 	r.StatusCode = meta.StatusCode
 	r.Body = meta.Body
+}
+
+func (r *apiResponse) IsIdempotencyReplayed() bool {
+	value := r.Headers.Get(IdempotencyReplayHeader)
+	if replayed, err := strconv.ParseBool(value); err != nil {
+		return false
+	} else {
+		return replayed
+	}
 }
 
 type UnknownResponse struct {
