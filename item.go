@@ -64,8 +64,15 @@ type Item struct {
 	Metadata             json.RawMessage          `json:"metadata"`
 	Deleted              bool                     `json:"deleted"`
 	BusinessEntityId     string                   `json:"business_entity_id"`
-	CustomField          CustomField              `json:"custom_field"`
+	CustomFields         *customFields            `json:"-"`
 	Object               string                   `json:"object"`
+}
+
+func (r *Item) setCustomFields(cf *customFields) { r.CustomFields = cf }
+
+func (r *Item) UnmarshalJSON(data []byte) error {
+	type Alias Item
+	return unmarshalObjectWithCustomField(data, r, (*Alias)(r))
 }
 
 type ItemApplicableItem struct {

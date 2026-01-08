@@ -57,6 +57,13 @@ func (r *apiRequest) AddParam(key string, value string) {
 	r.urlParams.Set(key, value)
 }
 
+func (r *apiRequest) AddCustomField(key, value string) {
+	if !strings.HasPrefix(key, "cf_") {
+		key = "cf_" + key
+	}
+	r.AddParam(key, value)
+}
+
 func (r *apiRequest) AddHeader(key string, value string) {
 	if r.headers == nil {
 		r.headers = &http.Header{}
@@ -128,7 +135,6 @@ func send[ResType responseWrapper](rw requestWrapper, cfg *ClientConfig) (ResTyp
 	}
 
 	res, requestError := Do(reqObj, req.isIdempotent, cfg)
-	// result = *new(ResType)
 	if requestError != nil {
 		return result, requestError
 	}

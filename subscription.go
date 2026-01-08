@@ -178,11 +178,18 @@ type Subscription struct {
 	AutoCloseInvoices                 bool                                  `json:"auto_close_invoices"`
 	Discounts                         []*SubscriptionDiscount               `json:"discounts"`
 	BusinessEntityId                  string                                `json:"business_entity_id"`
-	CustomField                       CustomField                           `json:"custom_field"`
+	CustomFields                      *customFields                         `json:"-"`
 	Object                            string                                `json:"object"`
 
 	// Deprecated: MetaData is deprecated please use MetaData instead.
 	Metadata json.RawMessage `json:"metadata"`
+}
+
+func (r *Subscription) setCustomFields(cf *customFields) { r.CustomFields = cf }
+
+func (r *Subscription) UnmarshalJSON(data []byte) error {
+	type Alias Subscription
+	return unmarshalObjectWithCustomField(data, r, (*Alias)(r))
 }
 
 type SubscriptionSubscriptionItem struct {

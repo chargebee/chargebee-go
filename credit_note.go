@@ -170,8 +170,15 @@ type CreditNote struct {
 	BillingAddress            *CreditNoteBillingAddress        `json:"billing_address"`
 	Einvoice                  *CreditNoteEinvoice              `json:"einvoice"`
 	SiteDetailsAtCreation     *CreditNoteSiteDetailsAtCreation `json:"site_details_at_creation"`
-	CustomField               CustomField                      `json:"custom_field"`
+	CustomFields              *customFields                    `json:"-"`
 	Object                    string                           `json:"object"`
+}
+
+func (r *CreditNote) setCustomFields(cf *customFields) { r.CustomFields = cf }
+
+func (r *CreditNote) UnmarshalJSON(data []byte) error {
+	type Alias CreditNote
+	return unmarshalObjectWithCustomField(data, r, (*Alias)(r))
 }
 
 type CreditNoteLineItem struct {

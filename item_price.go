@@ -96,8 +96,15 @@ type ItemPrice struct {
 	ShowDescriptionInQuotes         bool                            `json:"show_description_in_quotes"`
 	Deleted                         bool                            `json:"deleted"`
 	BusinessEntityId                string                          `json:"business_entity_id"`
-	CustomField                     CustomField                     `json:"custom_field"`
+	CustomFields                    *customFields                   `json:"-"`
 	Object                          string                          `json:"object"`
+}
+
+func (r *ItemPrice) setCustomFields(cf *customFields) { r.CustomFields = cf }
+
+func (r *ItemPrice) UnmarshalJSON(data []byte) error {
+	type Alias ItemPrice
+	return unmarshalObjectWithCustomField(data, r, (*Alias)(r))
 }
 
 type ItemPriceTier struct {

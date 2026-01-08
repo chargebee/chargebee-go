@@ -101,8 +101,15 @@ type Addon struct {
 	TaxProvidersFields          []*AddonTaxProvidersField        `json:"tax_providers_fields"`
 	ShowDescriptionInInvoices   bool                             `json:"show_description_in_invoices"`
 	ShowDescriptionInQuotes     bool                             `json:"show_description_in_quotes"`
-	CustomField                 CustomField                      `json:"custom_field"`
+	CustomFields                *customFields                    `json:"-"`
 	Object                      string                           `json:"object"`
+}
+
+func (r *Addon) setCustomFields(cf *customFields) { r.CustomFields = cf }
+
+func (r *Addon) UnmarshalJSON(data []byte) error {
+	type Alias Addon
+	return unmarshalObjectWithCustomField(data, r, (*Alias)(r))
 }
 
 type AddonTier struct {

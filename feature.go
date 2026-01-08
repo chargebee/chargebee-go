@@ -29,8 +29,15 @@ type Feature struct {
 	UpdatedAt       int64           `json:"updated_at"`
 	CreatedAt       int64           `json:"created_at"`
 	Levels          []*FeatureLevel `json:"levels"`
-	CustomField     CustomField     `json:"custom_field"`
+	CustomFields    *customFields   `json:"-"`
 	Object          string          `json:"object"`
+}
+
+func (r *Feature) setCustomFields(cf *customFields) { r.CustomFields = cf }
+
+func (r *Feature) UnmarshalJSON(data []byte) error {
+	type Alias Feature
+	return unmarshalObjectWithCustomField(data, r, (*Alias)(r))
 }
 
 type FeatureLevel struct {

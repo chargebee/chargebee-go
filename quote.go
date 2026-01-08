@@ -120,8 +120,15 @@ type Quote struct {
 	Deleted                    bool                     `json:"deleted"`
 	TotalContractValue         int64                    `json:"total_contract_value"`
 	TotalDiscount              int64                    `json:"total_discount"`
-	CustomField                CustomField              `json:"custom_field"`
+	CustomFields               *customFields            `json:"-"`
 	Object                     string                   `json:"object"`
+}
+
+func (r *Quote) setCustomFields(cf *customFields) { r.CustomFields = cf }
+
+func (r *Quote) UnmarshalJSON(data []byte) error {
+	type Alias Quote
+	return unmarshalObjectWithCustomField(data, r, (*Alias)(r))
 }
 
 type QuoteLineItem struct {

@@ -1,38 +1,35 @@
 package chargebee
 
 import (
-	"encoding/json"
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
-func TestCustomFieldExtractionFromResponse(t *testing.T) {
+type testObjectWithCustomField struct {
+	Id           string        `json:"id"`
+	CustomFields *customFields `json:"-"`
+}
+
+func (t *testObjectWithCustomField) setCustomFields(cf *customFields) {
+	t.CustomFields = cf
+}
+
+func TestUnmarshalWithCustomField(t *testing.T) {
 	data := []byte(`{
-		"subscription": {
-			"id": "123",
-			"custom_field": {
-				"cf_gender": "Female",
-				"foo": "bar"
-			}
-		},
-		"customer": {
-			"id": "123",
-			"custom_field": {
-				"cf_DOB": "12-10-1994"
-			}
+		"id": "123",
+		"cf_age": "25",
+		"nested": {
+			"cf_app": "google"
 		}
 	}`)
-	var response struct {
-		Subscription struct {
-			CustomField CustomField `json:"custom_field"`
-		} `json:"subscription"`
-		Customer struct {
-			CustomField CustomField `json:"custom_field"`
-		} `json:"customer"`
-	}
-	err := json.Unmarshal(data, &response)
+
+	var obj = new(testObjectWithCustomField)
+	err := unmarshalObjectWithCustomField(data, obj, obj)
+	fmt.Printf("decoded:+%v\n", obj)
 	assert.NoError(t, err)
-	assert.Equal(t, "Female", response.Subscription.CustomField["cf_gender"])
-	assert.Equal(t, "12-10-1994", response.Customer.CustomField["cf_DOB"])
+	assert.Equal(t, "123", obj.Id)
+	assert.Equal(t, "25", obj.CustomFields.GetCustomField("cf_age"))
+	assert.Equal(t, "google", obj.CustomFields.GetCustomField("app"))
 }
