@@ -1,7 +1,6 @@
 package chargebee
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -27,7 +26,6 @@ func TestUnmarshalWithCustomField(t *testing.T) {
 
 	var obj = new(testObjectWithCustomField)
 	err := unmarshalObjectWithCustomField(data, obj, obj)
-	fmt.Printf("decoded:+%v\n", obj)
 	assert.NoError(t, err)
 	assert.Equal(t, "123", obj.Id)
 	assert.Equal(t, "25", obj.CustomFields.GetCustomField("cf_age"))

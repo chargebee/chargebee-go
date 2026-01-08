@@ -54,8 +54,6 @@ func TestSerializeListParams(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			out := SerializeListParams(tt.Input)
-			t.Log(out)
-			t.Log(tt.Output)
 			assert.True(t, reflect.DeepEqual(out, tt.Output), fmt.Sprintf("%s Serialized input and output didn't match", tt.Name))
 		})
 	}
@@ -266,8 +264,6 @@ func TestSerializeParams(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			out := SerializeParams(tt.Input)
-			t.Log(out)
-			t.Log(tt.Output)
 			assert.True(t, reflect.DeepEqual(out, tt.Output), fmt.Sprintf("%s Serialized input and output didn't match", tt.Name))
 		})
 	}
