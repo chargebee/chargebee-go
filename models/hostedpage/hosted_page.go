@@ -582,6 +582,7 @@ type CheckoutExistingForItemsRequestParams struct {
 	ChangeOption               enum.ChangeOption                                 `json:"change_option,omitempty"`
 	ChangesScheduledAt         *int64                                            `json:"changes_scheduled_at,omitempty"`
 	Customer                   *CheckoutExistingForItemsCustomerParams           `json:"customer,omitempty"`
+	InvoiceUsages              *bool                                             `json:"invoice_usages,omitempty"`
 	EntityIdentifiers          []*CheckoutExistingForItemsEntityIdentifierParams `json:"entity_identifiers,omitempty"`
 	Card                       *CheckoutExistingForItemsCardParams               `json:"card,omitempty"`
 	RedirectUrl                string                                            `json:"redirect_url,omitempty"`
