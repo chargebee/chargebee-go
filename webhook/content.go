@@ -135,7 +135,7 @@ type SubscriptionAdvanceInvoiceScheduleAddedContent struct {
 
 	Customer *customer.Customer `json:"customer,omitempty"`
 
-	AdvanceInvoiceSchedule *advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
+	AdvanceInvoiceSchedule []*advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
 }
 
 type GiftExpiredContent struct {
@@ -151,7 +151,7 @@ type TaxWithheldDeletedContent struct {
 }
 
 type UnbilledChargesDeletedContent struct {
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	UnbilledCharge []*unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type CouponUpdatedContent struct {
@@ -182,7 +182,7 @@ type OmnichannelSubscriptionItemRenewedContent struct {
 }
 
 type UnbilledChargesCreatedContent struct {
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	UnbilledCharge []*unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type SubscriptionResumedContent struct {
@@ -194,7 +194,7 @@ type SubscriptionResumedContent struct {
 
 	Invoice *invoice.Invoice `json:"invoice,omitempty"`
 
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	UnbilledCharge []*unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type OmnichannelOneTimeOrderItemCancelledContent struct {
@@ -216,9 +216,9 @@ type SubscriptionCancelledContent struct {
 
 	Invoice *invoice.Invoice `json:"invoice,omitempty"`
 
-	CreditNote *creditnote.CreditNote `json:"credit_note,omitempty"`
+	CreditNote []*creditnote.CreditNote `json:"credit_note,omitempty"`
 
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	UnbilledCharge []*unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type ItemEntitlementsRemovedContent struct {
@@ -268,7 +268,7 @@ type SubscriptionActivatedWithBackdatingContent struct {
 
 	Invoice *invoice.Invoice `json:"invoice,omitempty"`
 
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	UnbilledCharge []*unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type SubscriptionTrialEndReminderContent struct {
@@ -304,7 +304,7 @@ type CustomerDeletedContent struct {
 
 	Card *card.Card `json:"card,omitempty"`
 
-	Subscription *subscription.Subscription `json:"subscription,omitempty"`
+	Subscription []*subscription.Subscription `json:"subscription,omitempty"`
 }
 
 type RefundInitiatedContent struct {
@@ -398,9 +398,9 @@ type SubscriptionChangedWithBackdatingContent struct {
 
 	Invoice *invoice.Invoice `json:"invoice,omitempty"`
 
-	CreditNote *creditnote.CreditNote `json:"credit_note,omitempty"`
+	CreditNote []*creditnote.CreditNote `json:"credit_note,omitempty"`
 
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	UnbilledCharge []*unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type VariantCreatedContent struct {
@@ -469,7 +469,7 @@ type SubscriptionAdvanceInvoiceScheduleUpdatedContent struct {
 
 	Customer *customer.Customer `json:"customer,omitempty"`
 
-	AdvanceInvoiceSchedule *advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
+	AdvanceInvoiceSchedule []*advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
 }
 
 type ItemDeletedContent struct {
@@ -521,7 +521,7 @@ type SubscriptionRenewedContent struct {
 
 	Invoice *invoice.Invoice `json:"invoice,omitempty"`
 
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	UnbilledCharge []*unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type FeatureUpdatedContent struct {
@@ -643,9 +643,9 @@ type SubscriptionPausedContent struct {
 
 	Invoice *invoice.Invoice `json:"invoice,omitempty"`
 
-	CreditNote *creditnote.CreditNote `json:"credit_note,omitempty"`
+	CreditNote []*creditnote.CreditNote `json:"credit_note,omitempty"`
 
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	UnbilledCharge []*unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type OrderReadyToProcessContent struct {
@@ -704,7 +704,7 @@ type MrrUpdatedContent struct {
 }
 
 type UnbilledChargesInvoicedContent struct {
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	UnbilledCharge []*unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
 
 	Invoice *invoice.Invoice `json:"invoice,omitempty"`
 }
@@ -738,9 +738,9 @@ type SubscriptionChangedContent struct {
 
 	Invoice *invoice.Invoice `json:"invoice,omitempty"`
 
-	CreditNote *creditnote.CreditNote `json:"credit_note,omitempty"`
+	CreditNote []*creditnote.CreditNote `json:"credit_note,omitempty"`
 
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	UnbilledCharge []*unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type PaymentFailedContent struct {
@@ -929,7 +929,7 @@ type SubscriptionAdvanceInvoiceScheduleRemovedContent struct {
 
 	Customer *customer.Customer `json:"customer,omitempty"`
 
-	AdvanceInvoiceSchedule *advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
+	AdvanceInvoiceSchedule []*advanceinvoiceschedule.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
 }
 
 type CardDeletedContent struct {
@@ -994,7 +994,7 @@ type SubscriptionReactivatedWithBackdatingContent struct {
 
 	Invoice *invoice.Invoice `json:"invoice,omitempty"`
 
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	UnbilledCharge []*unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type OmnichannelSubscriptionImportedContent struct {
@@ -1060,7 +1060,7 @@ type SubscriptionCreatedContent struct {
 
 	Invoice *invoice.Invoice `json:"invoice,omitempty"`
 
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	UnbilledCharge []*unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type SubscriptionEntitlementsCreatedContent struct {
@@ -1169,13 +1169,13 @@ type SubscriptionCanceledWithBackdatingContent struct {
 
 	Invoice *invoice.Invoice `json:"invoice,omitempty"`
 
-	CreditNote *creditnote.CreditNote `json:"credit_note,omitempty"`
+	CreditNote []*creditnote.CreditNote `json:"credit_note,omitempty"`
 
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	UnbilledCharge []*unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type UnbilledChargesVoidedContent struct {
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	UnbilledCharge []*unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type QuoteCreatedContent struct {
@@ -1236,7 +1236,7 @@ type SubscriptionReactivatedContent struct {
 
 	Invoice *invoice.Invoice `json:"invoice,omitempty"`
 
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	UnbilledCharge []*unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type OrderUpdatedContent struct {
@@ -1272,7 +1272,7 @@ type SubscriptionCreatedWithBackdatingContent struct {
 
 	Invoice *invoice.Invoice `json:"invoice,omitempty"`
 
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	UnbilledCharge []*unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type SubscriptionRampCreatedContent struct {
@@ -1442,9 +1442,9 @@ type SubscriptionItemsRenewedContent struct {
 
 	Invoice *invoice.Invoice `json:"invoice,omitempty"`
 
-	CreditNote *creditnote.CreditNote `json:"credit_note,omitempty"`
+	CreditNote []*creditnote.CreditNote `json:"credit_note,omitempty"`
 
-	UnbilledCharge *unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+	UnbilledCharge []*unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
 }
 
 type RuleCreatedContent struct {

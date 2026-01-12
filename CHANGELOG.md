@@ -1,3 +1,12 @@
+### v3.43.0 (2026-01-12)
+* * * 
+
+### New Parameters:
+* invoice_usages has been added to HostedPage#CheckoutExistingForItemsInputParam.
+
+### Bug fix: 
+* webhook event content types array resource incorrectly marked as object fixed.
+
 ### v3.42.0 (2025-12-30)
 * * * 
 
