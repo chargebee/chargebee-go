@@ -190,7 +190,7 @@ func TestSerializeParams(t *testing.T) {
 				},
 			},
 			Output: &url.Values{
-				"exemption_details":           []string{"[{\"cat\":0,\"exnb\":true,\"frc\":true,\"loc\":{\"addr\":\"sdfsd,dsf\",\"ctry\":\"USA\",\"st\":\"TX\",\"zip\":\"87799\"},\"scp\":1920},{\"cat\":0,\"exnb\":true,\"frc\":true,\"loc\":{\"addr\":\"john.doe street\",\"ctry\":\"EUR\",\"st\":\"FR\",\"zip\":\"1234\"},\"scp\":1920}]\n"},
+				"exemption_details":           []string{"[{\"cat\":0,\"exnb\":true,\"frc\":true,\"loc\":{\"addr\":\"sdfsd,dsf\",\"ctry\":\"USA\",\"st\":\"TX\",\"zip\":\"87799\"},\"scp\":1920},{\"cat\":0,\"exnb\":true,\"frc\":true,\"loc\":{\"addr\":\"john.doe street\",\"ctry\":\"EUR\",\"st\":\"FR\",\"zip\":\"1234\"},\"scp\":1920}]"},
 				"last_name":                   []string{"Doe"},
 				"first_name":                  []string{"John"},
 				"email":                       []string{"john@test.com"},
@@ -265,6 +265,10 @@ func TestSerializeParams(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			out := SerializeParams(tt.Input)
 			assert.True(t, reflect.DeepEqual(out, tt.Output), fmt.Sprintf("%s Serialized input and output didn't match", tt.Name))
+			if t.Failed() {
+				t.Log(out)
+				t.Log(tt.Output)
+			}
 		})
 	}
 }

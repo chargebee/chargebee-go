@@ -1,7 +1,6 @@
 package chargebee
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -10,172 +9,236 @@ import (
 	"strings"
 )
 
-func getParamTypes(params interface{}) map[string]string {
-	v := reflect.TypeOf(params).Elem()
-	m := map[string]string{}
-	for i := 0; i < v.NumField(); i++ {
-		f := v.Field(i)
-		m[f.Name] = f.Type.String()
-	}
-	return m
-}
-
 // SerializeParams is to used to serialize the inputParams request .
 // Eg : Customer : { FirstName : "John" } is serialized as "customer[first_name]" : "John".
 func SerializeParams(params interface{}) *url.Values {
-	queryParams, err := json.Marshal(params)
-	if err != nil {
-		panic(err)
-	}
-	data := json.NewDecoder(strings.NewReader(string(queryParams)))
-	data.UseNumber()
-	var m map[string]interface{}
-	if err := data.Decode(&m); err != nil {
-		panic(err)
-	}
-	serParams := make(map[string]interface{})
-	parseMap(m, serParams, "", "", getParamTypes(params))
-	body := &url.Values{}
-	for k, v := range serParams {
-		body.Set(k, fmt.Sprintf("%v", v))
-	}
-	return body
-}
-
-func parseMap(aMap, serParams map[string]interface{}, prefix string, idx string, paramTypes map[string]string) {
-	for key, val := range aMap {
-		switch value := val.(type) {
-		case map[string]interface{}:
-			if paramTypes[camelCase(key)] == "map[string]interface {}" {
-				buf := new(bytes.Buffer)
-				enc := json.NewEncoder(buf)
-				err := enc.Encode(value)
-				if err != nil {
-					fmt.Println(err.Error())
-				}
-				if prefix != "" && idx != "" {
-					key = prefix + "[" + key + "]" + "[" + idx + "]"
-				} else if prefix != "" {
-					key = prefix + "[" + key + "]"
-				}
-				serParams[key] = buf.String()
-			} else {
-				if prefix != "" {
-					key = prefix + "[" + key + "]"
-				}
-				parseMap(val.(map[string]interface{}), serParams, key, "", paramTypes)
-			}
-		case []interface{}:
-			parseArray(val.([]interface{}), serParams, key, "", paramTypes)
-		default:
-			if prefix != "" && idx != "" {
-				key = prefix + "[" + key + "]" + "[" + idx + "]"
-			} else if prefix != "" {
-				key = prefix + "[" + key + "]"
-			}
-			serParams[key] = value
-		}
-	}
-}
-
-func parseArray(anArray []interface{}, serParams map[string]interface{}, prefix string, idx string, paramTypes map[string]string) {
-	if paramTypes[camelCase(prefix)] == "[]map[string]interface {}" {
-		buf := new(bytes.Buffer)
-		enc := json.NewEncoder(buf)
-		err := enc.Encode(anArray)
-		if err != nil {
-			fmt.Println(err.Error())
-		}
-		serParams[prefix] = buf.String()
-		return
-	}
-	for i, val := range anArray {
-		switch value := val.(type) {
-		case map[string]interface{}:
-			for mk, mv := range val.(map[string]interface{}) {
-				k := prefix + "[" + mk + "]" + "[" + strconv.Itoa(i) + "]"
-				if mvArray, ok := mv.([]interface{}); ok {
-					if out, err := json.Marshal(mvArray); err == nil {
-						serParams[k] = string(out)
-					}
-				} else if mvSlice, ok := mv.(map[string]interface{}); ok {
-					if out, err := json.Marshal(mvSlice); err == nil {
-						serParams[k] = string(out)
-					}
-				} else {
-					serParams[k] = mv
-				}
-			}
-
-		default:
-			k := prefix + "[" + strconv.Itoa(i) + "]"
-			serParams[k] = value
-		}
-	}
+	values := &url.Values{}
+	serialize(values, params, "", false)
+	return values
 }
 
 // SerializeListParams is to used to serialize the inputParams of list request.
 func SerializeListParams(params interface{}) *url.Values {
-	queryParams, err := json.Marshal(params)
-	if err != nil {
-		panic(err)
-	}
-	data := json.NewDecoder(strings.NewReader(string(queryParams)))
-	data.UseNumber()
-	var m map[string]interface{}
-	if err := data.Decode(&m); err != nil {
-		panic(err)
-	}
-
-	serListParams := make(map[string]interface{})
-	parseMapListParams(m, serListParams, "")
-	body := &url.Values{}
-	for k, v := range serListParams {
-		switch val := v.(type) {
-		case []interface{}:
-			value := "[\""
-			str := []string{}
-			for _, element := range val {
-				str = append(str, fmt.Sprintf("%v", element))
-			}
-			value = value + strings.Join(str, "\",\"")
-			value = value + "\"]"
-			body.Set(k, value)
-		default:
-			body.Set(k, fmt.Sprintf("%v", v))
-		}
-	}
-	return body
-
+	values := &url.Values{}
+	serialize(values, params, "", true)
+	return values
 }
 
-func parseMapListParams(aMap, serListParams map[string]interface{}, prefix string) {
-	for key, val := range aMap {
-		switch value := val.(type) {
-		case map[string]interface{}:
-			parseMapListParams(val.(map[string]interface{}), serListParams, key)
-		default:
-			if prefix != "" {
-				k := prefix + "[" + key + "]"
-				serListParams[k] = value
-			} else {
-				serListParams[key] = value
-			}
-
+func serialize(values *url.Values, params interface{}, prefix string, isList bool) {
+	if params == nil {
+		return
+	}
+	v := reflect.ValueOf(params)
+	if v.Kind() == reflect.Ptr {
+		if v.IsNil() {
+			return
 		}
+		v = v.Elem()
+	}
+	if v.Kind() == reflect.Struct {
+		serializeStruct(values, v, prefix, isList)
 	}
 }
 
-func camelCase(str string) string {
-	var val []string
-	res := ""
-	val = strings.SplitAfter(str, "_")
-	for _, element := range val {
-		if element != "_" {
-			res = res + strings.Title(strings.Trim(element, "_"))
+func serializeStruct(values *url.Values, v reflect.Value, prefix string, isList bool) {
+	t := v.Type()
+	for i := 0; i < v.NumField(); i++ {
+		field := t.Field(i)
+		tag := field.Tag.Get("json")
+		if tag == "-" {
+			continue
+		}
+		name, opts, _ := strings.Cut(tag, ",")
+		if name == "" {
+			name = field.Name
+		}
+
+		key := name
+		if prefix != "" {
+			key = prefix + "[" + name + "]"
+		}
+
+		value := v.Field(i)
+		if strings.Contains(opts, "omitempty") && isEmptyValue(value) {
+			continue
+		}
+
+		// Handle pointer
+		if value.Kind() == reflect.Ptr {
+			if value.IsNil() {
+				continue
+			}
+			value = value.Elem()
+		}
+
+		serializeValue(values, value, key, isList, field.Type)
+	}
+}
+
+func serializeValue(values *url.Values, v reflect.Value, key string, isList bool, t reflect.Type) {
+	// Special cases: map[string]interface{} or []map[string]interface{}
+	// These are typically "bag of attributes" (like MetaData) and should be serialized as a JSON string.
+	if isMapStringInterface(t) || isSliceMapStringInterface(t) {
+		b, err := json.Marshal(v.Interface())
+		if err == nil {
+			values.Set(key, string(b))
+		}
+		return
+	}
+
+	switch v.Kind() {
+	case reflect.Struct:
+		serializeStruct(values, v, key, isList)
+	case reflect.Map:
+		serializeMap(values, v, key, isList)
+	case reflect.Slice, reflect.Array:
+		serializeSlice(values, v, key, isList)
+	default:
+		values.Set(key, fmt.Sprintf("%v", v.Interface()))
+	}
+}
+
+func isMapStringInterface(t reflect.Type) bool {
+	return t.Kind() == reflect.Map && t.Key().Kind() == reflect.String && t.Elem().Kind() == reflect.Interface
+}
+
+func isSliceMapStringInterface(t reflect.Type) bool {
+	return t.Kind() == reflect.Slice && isMapStringInterface(t.Elem())
+}
+
+func serializeMap(values *url.Values, v reflect.Value, prefix string, isList bool) {
+	iter := v.MapRange()
+	for iter.Next() {
+		k := iter.Key().String()
+		val := iter.Value()
+
+		newKey := prefix + "[" + k + "]"
+
+		// Handle interface value in map
+		if val.Kind() == reflect.Interface {
+			val = val.Elem()
+		}
+
+		if val.Kind() == reflect.Ptr {
+			if val.IsNil() {
+				continue
+			}
+			val = val.Elem()
+		}
+
+		serializeValue(values, val, newKey, isList, val.Type())
+	}
+}
+
+func serializeSlice(values *url.Values, v reflect.Value, prefix string, isList bool) {
+	if isList {
+		// List Params: Serialize as JSON array of strings
+		var items []string
+		for i := 0; i < v.Len(); i++ {
+			val := v.Index(i)
+			if val.Kind() == reflect.Ptr && !val.IsNil() {
+				val = val.Elem()
+			}
+			items = append(items, fmt.Sprintf("%v", val.Interface()))
+		}
+		if len(items) > 0 {
+			b, _ := json.Marshal(items) // ["a","b"]
+			values.Set(prefix, string(b))
+		}
+		return
+	}
+
+	// Standard Params
+	// Check if slice of structs
+	elemType := v.Type().Elem()
+	if elemType.Kind() == reflect.Ptr {
+		elemType = elemType.Elem()
+	}
+
+	if elemType.Kind() == reflect.Struct {
+		// Inverted Indexing for arrays of structs: prefix[field][index]
+		for i := 0; i < v.Len(); i++ {
+			item := v.Index(i)
+			if item.Kind() == reflect.Ptr {
+				if item.IsNil() {
+					continue
+				}
+				item = item.Elem()
+			}
+			serializeStructInverted(values, item, prefix, i)
+		}
+	} else {
+		// Normal Indexing: prefix[index]
+		for i := 0; i < v.Len(); i++ {
+			item := v.Index(i)
+			key := prefix + "[" + strconv.Itoa(i) + "]"
+
+			if item.Kind() == reflect.Ptr {
+				if item.IsNil() {
+					continue
+				}
+				item = item.Elem()
+			}
+			serializeValue(values, item, key, isList, item.Type())
 		}
 	}
-	return res
+}
+
+func serializeStructInverted(values *url.Values, v reflect.Value, prefix string, index int) {
+	t := v.Type()
+	for i := 0; i < v.NumField(); i++ {
+		field := t.Field(i)
+		tag := field.Tag.Get("json")
+		if tag == "-" {
+			continue
+		}
+		name, opts, _ := strings.Cut(tag, ",")
+		if name == "" {
+			name = field.Name
+		}
+
+		val := v.Field(i)
+		if strings.Contains(opts, "omitempty") && isEmptyValue(val) {
+			continue
+		}
+
+		key := prefix + "[" + name + "][" + strconv.Itoa(index) + "]"
+
+		// If the value is complex (slice/map), encode as JSON string (per original behavior)
+		if val.Kind() == reflect.Ptr {
+			if val.IsNil() {
+				continue
+			}
+			val = val.Elem()
+		}
+
+		if val.Kind() == reflect.Map || val.Kind() == reflect.Slice || val.Kind() == reflect.Array {
+			b, err := json.Marshal(val.Interface())
+			if err == nil {
+				values.Set(key, string(b))
+			}
+		} else {
+			values.Set(key, fmt.Sprintf("%v", val.Interface()))
+		}
+	}
+}
+
+func isEmptyValue(v reflect.Value) bool {
+	switch v.Kind() {
+	case reflect.Array, reflect.Map, reflect.Slice, reflect.String:
+		return v.Len() == 0
+	case reflect.Bool:
+		return !v.Bool()
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		return v.Int() == 0
+	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
+		return v.Uint() == 0
+	case reflect.Float32, reflect.Float64:
+		return v.Float() == 0
+	case reflect.Interface, reflect.Ptr:
+		return v.IsNil()
+	}
+	return false
 }
 
 // Bool returns a pointer to the bool value passed.
