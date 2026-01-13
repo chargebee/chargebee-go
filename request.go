@@ -17,7 +17,8 @@ import (
 )
 
 // apiRequest represents request metadata like headers, context, etc
-// It is embedded by other concrete types like AddonCreateRequest, CustomerUpdateRequest, etc
+// It is embedded by other concrete types like AddonCreateRequest,
+// CustomerUpdateRequest, etc
 type apiRequest struct {
 	method    string          `json:"-" form:"-"`
 	path      string          `json:"-" form:"-"`
@@ -206,14 +207,14 @@ func ensureRetryCountHeader(req *http.Request, attempt int) {
 }
 
 // GetMap is used to unmarshal the json.RawMessage to map[string]interface{}.
-func GetMap(rawMessage json.RawMessage) map[string]interface{} {
+func GetMap(rawMessage json.RawMessage) (map[string]any, error) {
 	data := json.NewDecoder(strings.NewReader(string(rawMessage)))
 	data.UseNumber()
-	var m map[string]interface{}
+	var m map[string]any
 	if err := data.Decode(&m); err != nil {
-		panic(err)
+		return nil, fmt.Errorf("failed to decode to map[string]any: %w", err)
 	}
-	return m
+	return m, nil
 }
 
 func getBody(method string, path string, form *url.Values) (string, io.Reader) {

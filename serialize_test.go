@@ -311,3 +311,37 @@ func TestUtil(t *testing.T) {
 	}
 	assert.Equal(t, SerializeParams(before), after)
 }
+
+func TestSerializeParams_CustomFields(t *testing.T) {
+	cf := customFields{
+		"cf_app_name": "bar",
+		"bingo":       "dog",
+	}
+	cust := &Customer{
+		Id:           "foo",
+		CustomFields: &cf,
+	}
+
+	params := SerializeParams(cust)
+
+	assert.Equal(t, "foo", params.Get("id"))
+	assert.Equal(t, "bar", params.Get("cf_app_name"))
+	assert.Equal(t, "dog", params.Get("bingo"))
+}
+
+func TestSerializeListParams_CustomFields(t *testing.T) {
+	cf := customFields{
+		"cf_app_name": "bar",
+		"bingo":       "dog",
+	}
+	cust := &Customer{
+		Id:           "foo",
+		CustomFields: &cf,
+	}
+
+	params := SerializeListParams(cust)
+
+	assert.Equal(t, "foo", params.Get("id"))
+	assert.Equal(t, "bar", params.Get("cf_app_name"))
+	assert.Equal(t, "dog", params.Get("bingo"))
+}

@@ -1,8 +1,8 @@
 build:
-	go build ./...
+	go build -gcflags="-e" ./...
 
 test: build
-	go test -v -race -coverprofile=coverage.out .
+	go test -v -race -coverprofile=coverage.out ./...
 	go tool cover -html=coverage.out -o coverage.html
 
 format:

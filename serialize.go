@@ -44,6 +44,24 @@ func serializeStruct(values *url.Values, v reflect.Value, prefix string, isList 
 	t := v.Type()
 	for i := 0; i < v.NumField(); i++ {
 		field := t.Field(i)
+
+		// Special handling for CustomFields: Flatten them
+		if field.Name == "CustomFields" {
+			val := v.Field(i)
+			if val.Kind() == reflect.Ptr {
+				if val.IsNil() {
+					continue
+				}
+				val = val.Elem()
+			}
+			if val.Kind() == reflect.Map {
+				// Pass prefix directly to serializeMap so keys are merged at current level
+				// e.g. "cf_app_name" or "customer[cf_app_name]"
+				serializeMap(values, val, prefix, isList)
+			}
+			continue
+		}
+
 		tag := field.Tag.Get("json")
 		if tag == "-" {
 			continue
@@ -112,7 +130,12 @@ func serializeMap(values *url.Values, v reflect.Value, prefix string, isList boo
 		k := iter.Key().String()
 		val := iter.Value()
 
-		newKey := prefix + "[" + k + "]"
+		var newKey string
+		if prefix != "" {
+			newKey = prefix + "[" + k + "]"
+		} else {
+			newKey = k
+		}
 
 		// Handle interface value in map
 		if val.Kind() == reflect.Interface {
@@ -239,56 +262,4 @@ func isEmptyValue(v reflect.Value) bool {
 		return v.IsNil()
 	}
 	return false
-}
-
-// Bool returns a pointer to the bool value passed.
-func Bool(val bool) *bool {
-	return &val
-}
-
-// BoolValue returns the value of the bool pointer passed or false if the pointer is nil.
-func BoolValue(val *bool) bool {
-	if val != nil {
-		return *val
-	}
-	return false
-}
-
-// Int32 returns a pointer to the int32 value passed.
-func Int32(val int32) *int32 {
-	return &val
-}
-
-// Int32Value returns the value of the int32 pointer passed or 0 if the pointer is nil.
-func Int32Value(val *int32) int32 {
-	if val != nil {
-		return *val
-	}
-	return 0
-}
-
-// Int64 returns a pointer to the int64 value passed.
-func Int64(val int64) *int64 {
-	return &val
-}
-
-// Int64Value returns the value of the int64 pointer passed or 0 if the pointer is nil.
-func Int64Value(val *int64) int64 {
-	if val != nil {
-		return *val
-	}
-	return 0
-}
-
-// Float64 returns a pointer to the float64 value passed.
-func Float64(val float64) *float64 {
-	return &val
-}
-
-// Float64Value returns the value of the float64 pointer passed or 0 if the pointer is nil.
-func Float64Value(val *float64) float64 {
-	if val != nil {
-		return *val
-	}
-	return 0
 }
