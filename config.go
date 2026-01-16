@@ -43,6 +43,9 @@ const configCtxKey ctxKey = "config"
 // NewClientConfig creates a new ClientConfig with the default HTTP client
 // and retry config.
 func NewClientConfig(siteName string, apiKey string) *ClientConfig {
+	if siteName == "" || apiKey == "" {
+		panic("Chargebee siteName and apiKey cannot be empty")
+	}
 	return &ClientConfig{
 		SiteName:   siteName,
 		ApiKey:     apiKey,

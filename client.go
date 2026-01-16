@@ -70,6 +70,9 @@ type Client struct {
 }
 
 func NewClient(config *ClientConfig) *Client {
+	if config.SiteName == "" || config.ApiKey == "" {
+		panic("Chargebee siteName and apiKey cannot be empty")
+	}
 	return &Client{
 		config: config,
 

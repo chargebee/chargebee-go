@@ -58,6 +58,17 @@ func (r *apiRequest) AddParam(key string, value string) {
 	r.urlParams.Set(key, value)
 }
 
+func (r *apiRequest) mergeUrlParams(params *url.Values) {
+	if r.urlParams == nil {
+		r.urlParams = &url.Values{}
+	}
+	for key, value := range *params {
+		for _, v := range value {
+			r.urlParams.Add(key, v)
+		}
+	}
+}
+
 func (r *apiRequest) AddCustomField(key, value string) {
 	if !strings.HasPrefix(key, "cf_") {
 		key = "cf_" + key
@@ -92,18 +103,21 @@ func (r *apiRequest) prepare(payload any) error {
 	if r == nil {
 		return fmt.Errorf("request is nil")
 	}
-	if payload != nil {
-		if r.isJsonRequest && strings.ToUpper(r.method) == "POST" {
-			if jsonData, err := json.Marshal(payload); err != nil {
-				return fmt.Errorf("failed to marshal payload: %w", err)
-			} else {
-				r.jsonBody = string(jsonData)
-			}
-		} else if r.isListRequest {
-			r.urlParams = SerializeListParams(payload)
+	if payload == nil {
+		return nil
+	}
+	if r.isJsonRequest && strings.ToUpper(r.method) == "POST" {
+		if jsonData, err := json.Marshal(payload); err != nil {
+			return fmt.Errorf("failed to marshal payload: %w", err)
 		} else {
-			r.urlParams = SerializeParams(payload)
+			r.jsonBody = string(jsonData)
 		}
+	} else if r.isListRequest {
+		params := SerializeListParams(payload)
+		r.mergeUrlParams(params)
+	} else {
+		params := SerializeParams(payload)
+		r.mergeUrlParams(params)
 	}
 	return nil
 }
