@@ -28,6 +28,6 @@ func TestUnmarshalWithCustomField(t *testing.T) {
 	err := unmarshalObjectWithCustomField(data, obj, obj)
 	assert.NoError(t, err)
 	assert.Equal(t, "123", obj.Id)
-	assert.Equal(t, "25", obj.CustomFields.GetCustomField("cf_age"))
-	assert.Equal(t, "google", obj.CustomFields.GetCustomField("app"))
+	assert.Equal(t, "25", obj.CustomFields.Get("cf_age"))
+	assert.Equal(t, "google", obj.CustomFields.Get("app"))
 }

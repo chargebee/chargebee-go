@@ -12,14 +12,14 @@ type hasCustomField interface {
 	setCustomFields(*customFields)
 }
 
-func (c *customFields) setCustomField(key string, value any) {
+func (c *customFields) set(key string, value any) {
 	if *c == nil {
 		*c = make(customFields)
 	}
 	(*c)[key] = value
 }
 
-func (c *customFields) GetCustomField(key string) any {
+func (c *customFields) Get(key string) any {
 	if !strings.HasPrefix(key, "cf_") {
 		key = "cf_" + key
 	}
@@ -51,7 +51,7 @@ func extractCustomFields(node any, cf *customFields) {
 	case map[string]any:
 		for k, v := range x {
 			if strings.HasPrefix(k, "cf_") {
-				cf.setCustomField(k, v)
+				cf.set(k, v)
 			}
 			extractCustomFields(v, cf)
 		}
