@@ -10,7 +10,7 @@ This is the official Go library for integrating with Chargebee
 - 📘 For a complete reference of available APIs, check out our [API Documentation](https://apidocs.chargebee.com/docs/api/?lang=go).  
 - 🧪 To explore and test API capabilities interactively, head over to our [API Explorer](https://api-explorer.chargebee.com).
 
-**Go version**: v3 and v2 of the library require Go v1.3 or higher.
+**Go version**: v4 requires Go 1.21 or higher. v3 requires Go v1.3 or higher.
 
 ## Library versions
 ***
@@ -21,15 +21,14 @@ The following table provides some details for each major version:
 
 | Library major version | Status   | Compatible API versions                                                                             | **Branch**        |
 |----------------------------|----------|-----------------------------------------------------------------------------------------------------|---------------|
+| v4                         | Active   | [v2](https://apidocs.chargebee.com/docs/api/v2?lang=go) and [v1](https://apidocs.chargebee.com/docs/api/v1?lang=go) | `v4`      |
 | v3                         | Active   | [v2](https://apidocs.chargebee.com/docs/api/v2?lang=go) and [v1](https://apidocs.chargebee.com/docs/api/v1?lang=go) | `master`      |
-| v2                         | Inactive | [v2](https://apidocs.chargebee.com/docs/api/v2?lang=go) and [v1](https://apidocs.chargebee.com/docs/api/v1?lang=go) | `chargebee-v2`|
 
 
 A couple of terms used in the above table are explained below:
 - **Status**: The current development status for the library version. An **Active** major version is currently being maintained and continues to get backward-compatible changes.
 - **Branch**: The branch in this repository containing the source code for the latest release of the library version. Every version of the library has been [tagged](https://github.com/chargebee/chargebee-go/tags). You can check out the source code for any version using its tag.
 
-🔴 **Attention**: The support for v2 will eventually be discontinued on **December 31st 2023** and will no longer receive any further updates. We strongly recommend [upgrading to v3](https://github.com/chargebee/chargebee-go/wiki/Migration-guide-for-v3) as soon as possible.
 
 **Note:** See the [changelog](CHANGELOG.md) for a history of changes.
 
@@ -38,183 +37,153 @@ A couple of terms used in the above table are explained below:
 
 Install the latest version of the library with the following commands:
 
-### Install v3
 ``` shell
-go get github.com/chargebee/chargebee-go/v3
+go get github.com/chargebee/chargebee-go/v4
 ```
-
-### Install v2
-``` shell
-go get github.com/chargebee/chargebee-go
-```
-
 
 ## Use the library
 ***
 
 Some examples for using the library are listed below.
 
-### Create a customer and subscription
+### Create a subscription with items
 
 ```go
+package main
+
 import (
-  "fmt"
-  "github.com/chargebee/chargebee-go/v3"
-  subscriptionAction "github.com/chargebee/chargebee-go/v3/actions/subscription"
-  "github.com/chargebee/chargebee-go/v3/models/subscription"
+	"fmt"
+	"os"
+
+	"github.com/chargebee/chargebee-go/v4"
 )
 
 func main() {
-  chargebee.Configure("{site_api_key}", "{site}")
-  res, err := subscriptionAction.Create(&subscription.CreateRequestParams{
-    PlanId:         "cbdemo_grow",
-    BillingCycles:  chargebee.Int32(3),
-    AutoCollection: enum.AutoCollectionOff,
-    Customer: &subscription.CreateCustomerParams{
-      Email:          "john@user.com",
-      FirstName:      "John",
-      LastName:       "Doe",
-      Locale:         "fr-CA",
-      Phone:          "+1-949-999-9999",
-      AutoCollection: enum.AutoCollectionOff,
-    }}).Request()
-  if err != nil {
-    panic(err)
-  }else{
-     Subscription := res.Subscription
-     Customer := res.Customer
-     Invoice := res.Invoice
-  }
+	config := &chargebee.ClientConfig{
+		SiteName: os.Getenv("CHARGEBEE_SITE"),
+		ApiKey:   os.Getenv("CHARGEBEE_API_KEY"),
+	}
+	client := chargebee.NewClient(config)
+	
+	req := &chargebee.SubscriptionCreateWithItemsRequest{
+		Id: "__test__8asz8Ru9WhHOJO",
+		SubscriptionItems: []*chargebee.SubscriptionCreateWithItemsSubscriptionItem{
+			{
+				ItemPriceId: "day-pass-USD",
+				UnitPrice:   chargebee.Int64(100),
+			},
+			{
+				ItemPriceId:   "basic-USD",
+				BillingCycles: chargebee.Int32(2),
+				Quantity:      chargebee.Int32(1),
+			},
+		},
+	}
+	if response, err := client.Subscription.CreateWithItems("__test__8asz8Ru9WhHOJO", req); err == nil {
+		fmt.Println(string(response.Subscription.Id))
+	}
 }
 ```
 
-### Create a subscription with addons, metadata, and coupons
+### Create a subscription with metadata, custom headers and fields
 
 ```go
+package main
+
 import (
-  "fmt"
-  "github.com/chargebee/chargebee-go/v3"
-  subscriptionAction "github.com/chargebee/chargebee-go/v3/actions/subscription"
-  "github.com/chargebee/chargebee-go/v3/models/subscription"
+	"fmt"
+	"os"
+
+	"github.com/chargebee/chargebee-go/v4"
 )
 
 func main() {
-  chargebee.Configure("{site_api_key}", "{site}")
-  res, err := subscriptionAction.Create(&subscription.CreateRequestParams{
-    PlanId:         "cbdemo_grow",
-    BillingCycles:  chargebee.Int32(3),
-    AutoCollection: enum.AutoCollectionOff,
-    Customer: &subscription.CreateCustomerParams{
-      Email:          "john@user.com",
-      FirstName:      "John",
-      LastName:       "Doe",
-      Locale:         "fr-CA",
-      Phone:          "+1-949-999-9999",
-      AutoCollection: enum.AutoCollectionOff,
-    },
-    BillingAddress: &subscription.CreateBillingAddressParams{
-      FirstName: "John",
-      LastName:  "Doe",
-      Line1:     "PO Box 9999",
-      City:      "Walnut",
-      State:     "California",
-      Zip:       "91789",
-      Country:   "US",
-    },
-    MetaData: map[string]interface{}{
-      "features": map[string]interface{}{
+	config := &chargebee.ClientConfig{
+		SiteName: os.Getenv("CHARGEBEE_SITE"),
+		ApiKey:   os.Getenv("CHARGEBEE_API_KEY"),
+	}
+	client := chargebee.NewClient(config)
+	
+	req := &chargebee.SubscriptionCreateWithItemsRequest{
+		Id: "__test__8asz8Ru9WhHOJO",
+		SubscriptionItems: []*chargebee.SubscriptionCreateWithItemsSubscriptionItem{
+			{
+				ItemPriceId: "day-pass-USD",
+				UnitPrice:   chargebee.Int64(100),
+			},
+			{
+				ItemPriceId:   "basic-USD",
+				BillingCycles: chargebee.Int32(2),
+				Quantity:      chargebee.Int32(1),
+			},
+		},
+    MetaData: map[string]any{
+      "features": map[string]any{
         "usage-limit":        "5GB",
         "speed-within-quota": "2MBbps",
         "post-usage-quota":   "512kbps",
       },
     },
-    Addons: []*subscription.CreateAddonParams{
-      {
-        Id: "cbdemo_conciergesupport",
-      },
-      {
-        Id:       "cbdemo_additionaluser",
-        Quantity: chargebee.Int32(2),
-      },
-    },
-    CouponIds: []string{"cbdemo_earlybird"},
-  }).Request()
-  if err != nil {
-    panic(err)
-  }else{
-  Subscription := res.Subscription
-  Customer := res.Customer
-  Card := res.Card
-  Invoice := res.Invoice
-  UnbilledCharges := res.UnbilledCharges
-  }
-}
-```
+	}
 
-### Create a subscription with custom headers, custom fields and custom context
-
-```go
-import (
-  "fmt"
-  "github.com/chargebee/chargebee-go/v3"
-  subscriptionAction "github.com/chargebee/chargebee-go/v3/actions/subscription"
-  "github.com/chargebee/chargebee-go/v3/models/subscription"
-)
-
-func main() {
-  chargebee.Configure("{site_api_key}", "{site}")
-  res, err := subscriptionAction.Create(&subscription.CreateRequestParams{
-    PlanId: "cbdemo_grow",
-  }).Headers("chargebee-request-origin-ip", "192.168.1.2").Contexts(ctx).AddParams("cf_gender","Female").Request() // Customer level custom field. 
-  if err != nil {
-    panic(err)
-  }else{
-  Subscription := res.Subscription
-  Customer := res.Customer
-  Card := res.Card
-  Invoice := res.Invoice
-  UnbilledCharges := res.UnbilledCharges
-  }
+  req.AddHeader("chargebee-request-origin-ip", "192.168.1.2")
+  req.AddCustomField("cf_gender", "Female")
+	
+  if response, err := client.Subscription.CreateWithItems("__test__8asz8Ru9WhHOJO", req); err == nil {
+		fmt.Println(string(response.Subscription.Id))
+	}
 }
 ```
 
 ### Retrieve a filtered list of subscriptions
 
 ```go
+package main
+
 import (
-  "fmt"
-  "github.com/chargebee/chargebee-go/v3"
-  subscriptionAction "github.com/chargebee/chargebee-go/v3/actions/subscription"
-  "github.com/chargebee/chargebee-go/v3/filter"
-  "github.com/chargebee/chargebee-go/v3/models/subscription"
+	"fmt"
+	"os"
+
+	"github.com/chargebee/chargebee-go/v4"
 )
 
 func main() {
-  chargebee.Configure("{site_api_key}", "{site}")
-  res, err := subscriptionAction.List(&subscription.ListRequestParams{
-    Limit: chargebee.Int32(5),
-    Id: &filter.StringFilter{
-      In: []string{"cbdemo_john-sub", "cbdemo_ricky-sub"},
-    },
-    PlanId: &filter.StringFilter{
-      IsNot: "basic",
-    },
-    Status: &filter.EnumFilter{
-      Is: subscriptionEnum.StatusActive,
-    },
-    SortBy: &filter.SortFilter{
-      Asc: "created_at",
-    },
-  }).ListRequest()
-  if err != nil {
-    panic(err)
-  }else{
-  for i := range res.List {
-    Subscription := res.List[i].Subscription
-    Customer := res.List[i].Customer
-    Card := res.List[i].Card
-  }
-  }
+	config := &chargebee.ClientConfig{
+		SiteName: os.Getenv("CHARGEBEE_SITE"),
+		ApiKey:   os.Getenv("CHARGEBEE_API_KEY"),
+	}
+	client := chargebee.NewClient(config)
+
+	res, err := client.Subscription.List(&chargebee.SubscriptionListRequest{
+		Limit: chargebee.Int32(5),
+		Id: &chargebee.StringFilter{
+			In: []string{"cbdemo_john-sub", "cbdemo_ricky-sub"},
+		},
+		PlanId: &chargebee.StringFilter{
+			IsNot: "basic",
+		},
+		Status: &chargebee.EnumFilter{
+			Is: chargebee.SubscriptionStatusActive,
+		},
+		SortBy: &chargebee.SortFilter{
+			Asc: "created_at",
+		},
+	})
+
+	if err != nil {
+		panic(err)
+	} else {
+		for i := range res.List {
+			subscription := res.List[i].Subscription
+			customer := res.List[i].Customer
+			card := res.List[i].Card
+			
+			fmt.Printf("Subscription: %s, Customer: %s\n", subscription.Id, customer.Id)
+			if card.Status != "" {
+				fmt.Printf("Card: %s\n", card.MaskedNumber)
+			}
+		}
+	}
 }
 ```
 
@@ -223,41 +192,54 @@ func main() {
 [Idempotency keys](https://apidocs.chargebee.com/docs/api/idempotency?prod_cat_ver=2) are passed along with request headers to allow a safe retry of POST requests. 
 
 ```go
+package main
+
 import (
 	"fmt"
-	"github.com/chargebee/chargebee-go/v3"
-	customerAction "github.com/chargebee/chargebee-go/v3/actions/customer"
-	"github.com/chargebee/chargebee-go/v3/models/customer"
+	"os"
+
+	"github.com/chargebee/chargebee-go/v4"
+	"github.com/google/uuid"
 )
 
 func main() {
-    chargebee.Configure("{site_api_key}", "{site}")
-	res, err := customerAction.Create(&customer.CreateRequestParams{
+	config := &chargebee.ClientConfig{
+		SiteName: os.Getenv("CHARGEBEE_SITE"),
+		ApiKey:   os.Getenv("CHARGEBEE_API_KEY"),
+	}
+	client := chargebee.NewClient(config)
+
+	req := &chargebee.CustomerCreateRequest{
 		FirstName: "John",
 		LastName:  "Doe",
 		Email:     "john@test.com",
-	})
-	.SetIdempotencyKey("ghggh") // Replace <<UUID>> with a unique string
-	.Request()
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		Customer := res.Customer
-		fmt.Println(Customer)
 	}
-  headerValue := res.GetResponseHeaders() // Retrieves response headers
-	fmt.Println(headerValue)
-  idempotencyReplayedValue := res.IsIdempotencyReplayed()// Retrieves idempotency replayed header value 
-  fmt.Println(idempotencyReplayedValue)
+	
+	// Set Idempotency Key
+	req.SetIdempotencyKey(uuid.NewString()) // Replace with a unique string
+
+	if res, err := client.Customer.Create(req); err == nil {
+		fmt.Println(res.Customer)
+		fmt.Println(res.IsIdempotencyReplayed())
+	}
+
+	// Try the same request again with the same idempotency key
+	// This throw a HTTP 422 error since the same key is being reused
+	if res, err := client.Customer.Create(req); err == nil {
+		fmt.Println(res.IsIdempotencyReplayed())
+	} else {
+		fmt.Println(err)
+	}
 }
 ```
+
 `IsIdempotencyReplayed()` method can be accessed to differentiate between original and replayed requests.
 
 ### Handle webhooks
 
 Use the `webhook` package to parse and route webhook payloads from Chargebee.
 
-High-level: route events with callbacks using `WebhookHandler`:
+*High-level*: route events with callbacks using `WebhookHandler`:
 
 ```go
 package main
@@ -266,7 +248,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/chargebee/chargebee-go/v3/webhook"
+	"github.com/chargebee/chargebee-go/v4/webhook"
 )
 
 func main() {
@@ -293,18 +275,16 @@ func main() {
 }
 ```
 
-Low-level: parse just the event type and unmarshal yourself:
+*Low-level*: parse just the event type and unmarshal yourself:
 
 ```go
-package main
-
 import (
 	"encoding/json"
 	"io"
 	"net/http"
 
-	"github.com/chargebee/chargebee-go/v3/enum"
-	"github.com/chargebee/chargebee-go/v3/webhook"
+	"github.com/chargebee/chargebee-go/v4"
+	"github.com/chargebee/chargebee-go/v4/webhook"
 )
 
 func cbWebhook(w http.ResponseWriter, r *http.Request) {
@@ -315,14 +295,14 @@ func cbWebhook(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	evtType, err := webhook.ParseEventType(body) // validates api_version too
+	evtType, err := webhook.ParseEventType(body) 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
 	switch evtType {
-	case enum.EventTypeSubscriptionCreated:
+	case chargebee.EventTypeSubscriptionCreated:
 		var e webhook.SubscriptionCreatedEvent
 		if err := json.Unmarshal(body, &e); err != nil {
 			http.Error(w, err.Error(), http.StatusBadRequest)
@@ -345,27 +325,20 @@ If you prefer to acknowledge unknown/unregistered events (return 200) and just l
 ```go
 import (
 	"log"
-	"github.com/chargebee/chargebee-go/v3/enum"
-	"github.com/chargebee/chargebee-go/v3/webhook"
+	"github.com/chargebee/chargebee-go/v4"
+	"github.com/chargebee/chargebee-go/v4/webhook"
 )
 
+// Create a webhook handler with the OnUnhandledEvent callback
 handler := &webhook.WebhookHandler{
-	OnUnhandledEvent: func(t enum.EventType, body []byte) error {
+	OnUnhandledEvent: func(t chargebee.EventType, body []byte) error {
 		log.Printf("Ignoring unhandled event: %s", t)
 		return nil // swallow as OK
 	},
 }
 ```
 
-## Use the test suite
-***
-Use [Testify's `require`](https://github.com/stretchr/testify/#require-package) package to run the test suite
-
-```shell
-go get github.com/stretchr/testify/require
-```
-
-## Handle errors
+## Handling API errors
 ***
 
 ```go
@@ -424,7 +397,7 @@ if err != nil {
 }
 ```
 
- ### Retry Handling
+ ### Retrying API requests
 
 Chargebee's SDK includes built-in retry logic to handle temporary network issues and server-side errors. This feature is **disabled by default** but can be **enabled when needed**.
 
@@ -441,53 +414,30 @@ Chargebee's SDK includes built-in retry logic to handle temporary network issues
 You can enable and configure the retry logic by passing a `retryConfig` object when initializing the Chargebee environment:
 
 ```go
+package main
+
 import (
-"fmt"
-"github.com/chargebee/chargebee-go/v3"
-customerAction "github.com/chargebee/chargebee-go/v3/actions/customer"
-"github.com/chargebee/chargebee-go/v3/models/customer"
+	"os"
+
+	"github.com/chargebee/chargebee-go/v4"
 )
 
 func main() {
-    chargebee.Configure("{site_api_key}", "{site}")
-    retryConfig := &chargebee.RetryConfig{
-        Enabled:       true,
-        MaxRetries:    3,
-		DelayMs:   500,
-        RetryOn: map[int]struct{}{500: {}, 503: {}},
-    }
-    chargebee.WithRetryConfig(retryConfig)
+	config := &chargebee.ClientConfig{
+		SiteName: os.Getenv("CHARGEBEE_SITE"),
+		ApiKey:   os.Getenv("CHARGEBEE_API_KEY"),
+		RetryConfig: &chargebee.RetryConfig{
+			Enabled:    true,
+			MaxRetries: 3,
+			DelayMs:    500,
+			RetryOn:    []int{500, 503}, // Retry on specific status codes
+		},
+	}
+	
+	client := chargebee.NewClient(config)
+	
+	// ... your Chargebee API operations below ...
 }
-
-// ... your Chargebee API operations below ...
-
-```
-
-#### Example: Rate Limit retry logic
-
-You can enable and configure the retry logic for rate-limit by passing a `retryConfig` object when initializing the Chargebee environment:
-
-```go
-import (
-"fmt"
-"github.com/chargebee/chargebee-go/v3"
-customerAction "github.com/chargebee/chargebee-go/v3/actions/customer"
-"github.com/chargebee/chargebee-go/v3/models/customer"
-)
-
-func main() {
-    chargebee.Configure("{site_api_key}", "{site}")
-    retryConfig := &chargebee.RetryConfig{
-        Enabled:       true,
-        MaxRetries:    3,
-        DelayMs:   500,
-        RetryOn: map[int]struct{}{429: {}},
-    }
-    chargebee.WithRetryConfig(retryConfig)
-}
-
-// ... your Chargebee API operations below ...
-
 ```
 
 ## Contribution
