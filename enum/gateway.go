@@ -58,6 +58,7 @@ const (
 	GatewayJpMorgan              Gateway = "jp_morgan"
 	GatewayDeutscheBank          Gateway = "deutsche_bank"
 	GatewayEzidebit              Gateway = "ezidebit"
+	GatewayTwikey                Gateway = "twikey"
 	GatewayGocardless            Gateway = "gocardless"
 	GatewayNotApplicable         Gateway = "not_applicable"
 )
