@@ -397,7 +397,7 @@ if err != nil {
 }
 ```
 
- ### Retrying API requests
+### Retrying API requests
 
 Chargebee's SDK includes built-in retry logic to handle temporary network issues and server-side errors. This feature is **disabled by default** but can be **enabled when needed**.
 
@@ -437,6 +437,35 @@ func main() {
 	client := chargebee.NewClient(config)
 	
 	// ... your Chargebee API operations below ...
+}
+```
+
+### Using a custom HTTP Client
+
+The default http client can be overridden if required with a client that satisfies the `http.Client` interface. To do this, simply override the `HTTPClient` field in `ClientConfig`:
+
+```go
+package main
+
+import (
+	"crypto/tls"
+	"os"
+	"net/http"
+	"time"
+
+	"github.com/chargebee/chargebee-go/v4"
+)
+
+func main() {
+	config := chargebee.NewClientConfig(os.Getenv("CHARGEBEE_SITE"), os.Getenv("CHARGEBEE_API_KEY"))
+	config.HTTPClient = &http.Client{
+		Transport: &http.Transport{
+			MaxIdleConns: 100,
+			TLSClientConfig: &tls.Config{MinVersion: tls.VersionTLS12},
+		},
+		Timeout: 10 * time.Second,
+	}
+	client := chargebee.NewClient(config)
 }
 ```
 
