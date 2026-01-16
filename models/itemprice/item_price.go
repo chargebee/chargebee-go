@@ -255,7 +255,3 @@ type FindApplicableItemPricesRequestParams struct {
 	ItemId string             `json:"item_id,omitempty"`
 	SortBy *filter.SortFilter `json:"sort_by,omitempty"`
 }
-type MoveItemPriceRequestParams struct {
-	DestinationItemId string `json:"destination_item_id"`
-	VariantId         string `json:"variant_id,omitempty"`
-}

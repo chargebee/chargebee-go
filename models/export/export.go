@@ -197,8 +197,9 @@ type AddonsAddonParams struct {
 	Channel    *filter.EnumFilter      `json:"channel,omitempty"`
 }
 type CouponsRequestParams struct {
-	Coupon       *CouponsCouponParams `json:"coupon,omitempty"`
-	CurrencyCode *filter.StringFilter `json:"currency_code,omitempty"`
+	Coupon                 *CouponsCouponParams `json:"coupon,omitempty"`
+	CurrencyCode           *filter.StringFilter `json:"currency_code,omitempty"`
+	ApplicableItemPriceIds *filter.StringFilter `json:"applicable_item_price_ids,omitempty"`
 }
 type CouponsCouponParams struct {
 	Id           *filter.StringFilter    `json:"id,omitempty"`
