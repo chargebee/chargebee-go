@@ -189,7 +189,7 @@ func newRequest(cfg *ClientConfig, method string, path string, body io.Reader, h
 func addHeaders(httpReq *http.Request, cc *ClientConfig, isJsonRequest bool) {
 	httpReq.Header.Add("Accept-Charset", Charset)
 	httpReq.Header.Add("Accept", "application/json")
-	httpReq.Header.Add("User-Agent", "ChargeBee-Go-Client v"+Version)
+	httpReq.Header.Add("User-Agent", "Chargebee-Go-Client v"+Version)
 	httpReq.Header.Add("Authorization", "Basic "+basicAuth(string(cc.ApiKey)))
 	httpReq.Header.Add("Lang-Version", runtime.Version())
 	httpReq.Header.Add("OS-Version", runtime.GOOS+" "+runtime.GOARCH)
