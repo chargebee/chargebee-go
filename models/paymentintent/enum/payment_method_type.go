@@ -29,4 +29,10 @@ const (
 	PaymentMethodTypePayByBank                 PaymentMethodType = "pay_by_bank"
 	PaymentMethodTypeTrustly                   PaymentMethodType = "trustly"
 	PaymentMethodTypeStablecoin                PaymentMethodType = "stablecoin"
+	PaymentMethodTypeKakaoPay                  PaymentMethodType = "kakao_pay"
+	PaymentMethodTypeNaverPay                  PaymentMethodType = "naver_pay"
+	PaymentMethodTypeRevolutPay                PaymentMethodType = "revolut_pay"
+	PaymentMethodTypeCashAppPay                PaymentMethodType = "cash_app_pay"
+	PaymentMethodTypeWechatPay                 PaymentMethodType = "wechat_pay"
+	PaymentMethodTypeAlipay                    PaymentMethodType = "alipay"
 )

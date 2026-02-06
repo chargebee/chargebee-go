@@ -20,10 +20,15 @@ type OmnichannelSubscription struct {
 	Object                       string                                                     `json:"object"`
 }
 type ListRequestParams struct {
-	Limit      *int32               `json:"limit,omitempty"`
-	Offset     string               `json:"offset,omitempty"`
-	Source     *filter.EnumFilter   `json:"source,omitempty"`
-	CustomerId *filter.StringFilter `json:"customer_id,omitempty"`
+	Limit                       *int32                                 `json:"limit,omitempty"`
+	Offset                      string                                 `json:"offset,omitempty"`
+	OmnichannelSubscriptionItem *ListOmnichannelSubscriptionItemParams `json:"omnichannel_subscription_item,omitempty"`
+	Source                      *filter.EnumFilter                     `json:"source,omitempty"`
+	CustomerId                  *filter.StringFilter                   `json:"customer_id,omitempty"`
+}
+type ListOmnichannelSubscriptionItemParams struct {
+	Status         *filter.EnumFilter   `json:"status,omitempty"`
+	ItemIdAtSource *filter.StringFilter `json:"item_id_at_source,omitempty"`
 }
 type OmnichannelTransactionsForOmnichannelSubscriptionRequestParams struct {
 	Limit  *int32 `json:"limit,omitempty"`

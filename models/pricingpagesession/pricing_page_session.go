@@ -90,7 +90,7 @@ type CreateForExistingSubscriptionRequestParams struct {
 	Discounts    []*CreateForExistingSubscriptionDiscountParams   `json:"discounts,omitempty"`
 }
 type CreateForExistingSubscriptionPricingPageParams struct {
-	Id string `json:"id"`
+	Id string `json:"id,omitempty"`
 }
 type CreateForExistingSubscriptionSubscriptionParams struct {
 	Id string `json:"id"`

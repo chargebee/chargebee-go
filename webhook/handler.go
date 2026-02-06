@@ -251,6 +251,8 @@ type WebhookHandler struct {
 
 	OnOrderUpdated func(OrderUpdatedEvent) error
 
+	OnPaymentDueReminder func(PaymentDueReminderEvent) error
+
 	OnPaymentFailed func(PaymentFailedEvent) error
 
 	OnPaymentInitiated func(PaymentInitiatedEvent) error
@@ -1768,6 +1770,17 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 				return err
 			}
 			return h.OnOrderUpdated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case enum.EventTypePaymentDueReminder:
+		if h.OnPaymentDueReminder != nil {
+			var e PaymentDueReminderEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnPaymentDueReminder(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}

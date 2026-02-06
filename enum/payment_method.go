@@ -41,4 +41,8 @@ const (
 	PaymentMethodPayByBank                 PaymentMethod = "pay_by_bank"
 	PaymentMethodTrustly                   PaymentMethod = "trustly"
 	PaymentMethodStablecoin                PaymentMethod = "stablecoin"
+	PaymentMethodKakaoPay                  PaymentMethod = "kakao_pay"
+	PaymentMethodNaverPay                  PaymentMethod = "naver_pay"
+	PaymentMethodRevolutPay                PaymentMethod = "revolut_pay"
+	PaymentMethodCashAppPay                PaymentMethod = "cash_app_pay"
 )

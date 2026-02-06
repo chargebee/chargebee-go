@@ -59,6 +59,7 @@ const (
 	GatewayDeutscheBank          Gateway = "deutsche_bank"
 	GatewayEzidebit              Gateway = "ezidebit"
 	GatewayTwikey                Gateway = "twikey"
+	GatewayTempus                Gateway = "tempus"
 	GatewayGocardless            Gateway = "gocardless"
 	GatewayNotApplicable         Gateway = "not_applicable"
 )

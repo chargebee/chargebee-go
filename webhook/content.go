@@ -809,6 +809,12 @@ type NetdPaymentDueReminderContent struct {
 	Invoice *invoice.Invoice `json:"invoice,omitempty"`
 }
 
+type PaymentDueReminderContent struct {
+	Customer *customer.Customer `json:"customer,omitempty"`
+
+	Invoice *invoice.Invoice `json:"invoice,omitempty"`
+}
+
 type OrderDeliveredContent struct {
 	Order *order.Order `json:"order,omitempty"`
 }
@@ -2194,6 +2200,12 @@ type SubscriptionRenewalReminderEvent struct {
 type NetdPaymentDueReminderEvent struct {
 	BaseEvent
 	Content *NetdPaymentDueReminderContent `json:"content"`
+}
+
+// PaymentDueReminderEvent represents a payment_due_reminder webhook event
+type PaymentDueReminderEvent struct {
+	BaseEvent
+	Content *PaymentDueReminderContent `json:"content"`
 }
 
 // OrderDeliveredEvent represents a order_delivered webhook event

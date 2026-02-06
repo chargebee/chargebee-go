@@ -359,8 +359,8 @@ type CheckoutOneTimeForItemsShippingAddressParams struct {
 type CheckoutNewForItemsRequestParams struct {
 	Subscription               *CheckoutNewForItemsSubscriptionParams       `json:"subscription,omitempty"`
 	Layout                     enum.Layout                                  `json:"layout,omitempty"`
-	Customer                   *CheckoutNewForItemsCustomerParams           `json:"customer,omitempty"`
 	BusinessEntityId           string                                       `json:"business_entity_id,omitempty"`
+	Customer                   *CheckoutNewForItemsCustomerParams           `json:"customer,omitempty"`
 	BillingCycles              *int32                                       `json:"billing_cycles,omitempty"`
 	SubscriptionItems          []*CheckoutNewForItemsSubscriptionItemParams `json:"subscription_items,omitempty"`
 	Discounts                  []*CheckoutNewForItemsDiscountParams         `json:"discounts,omitempty"`
@@ -711,10 +711,11 @@ type ManagePaymentSourcesCardParams struct {
 	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
 }
 type CollectNowRequestParams struct {
-	Customer     *CollectNowCustomerParams `json:"customer,omitempty"`
-	RedirectUrl  string                    `json:"redirect_url,omitempty"`
-	Card         *CollectNowCardParams     `json:"card,omitempty"`
-	CurrencyCode string                    `json:"currency_code,omitempty"`
+	Customer                *CollectNowCustomerParams    `json:"customer,omitempty"`
+	RedirectUrl             string                       `json:"redirect_url,omitempty"`
+	Card                    *CollectNowCardParams        `json:"card,omitempty"`
+	CurrencyCode            string                       `json:"currency_code,omitempty"`
+	PaymentMethodSavePolicy enum.PaymentMethodSavePolicy `json:"payment_method_save_policy,omitempty"`
 }
 type CollectNowCustomerParams struct {
 	Id string `json:"id"`
