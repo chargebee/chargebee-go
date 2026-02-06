@@ -92,6 +92,7 @@ type Subscription struct {
 	AutoCloseInvoices     bool                   `json:"auto_close_invoices"`
 	Discounts             []*Discount            `json:"discounts"`
 	BusinessEntityId      string                 `json:"business_entity_id"`
+	Decommissioned        bool                   `json:"decommissioned"`
 	CustomField           map[string]interface{} `json:"custom_field"`
 	Object                string                 `json:"object"`
 
@@ -1650,6 +1651,7 @@ type CancelForItemsRequestParams struct {
 	InvoiceDate                       *int64                                  `json:"invoice_date,omitempty"`
 	SubscriptionItems                 []*CancelForItemsSubscriptionItemParams `json:"subscription_items,omitempty"`
 	CancelReasonCode                  string                                  `json:"cancel_reason_code,omitempty"`
+	Decommissioned                    *bool                                   `json:"decommissioned,omitempty"`
 }
 type CancelForItemsSubscriptionItemParams struct {
 	ItemPriceId        string `json:"item_price_id,omitempty"`

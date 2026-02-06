@@ -121,6 +121,7 @@ const (
 	EventTypeOrderResent                                             EventType = "order_resent"
 	EventTypeOrderReturned                                           EventType = "order_returned"
 	EventTypeOrderUpdated                                            EventType = "order_updated"
+	EventTypePaymentDueReminder                                      EventType = "payment_due_reminder"
 	EventTypePaymentFailed                                           EventType = "payment_failed"
 	EventTypePaymentInitiated                                        EventType = "payment_initiated"
 	EventTypePaymentIntentCreated                                    EventType = "payment_intent_created"

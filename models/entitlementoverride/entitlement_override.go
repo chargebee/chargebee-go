@@ -6,15 +6,17 @@ import (
 )
 
 type EntitlementOverride struct {
-	Id            string `json:"id"`
-	EntityId      string `json:"entity_id"`
-	EntityType    string `json:"entity_type"`
-	FeatureId     string `json:"feature_id"`
-	FeatureName   string `json:"feature_name"`
-	Value         string `json:"value"`
-	Name          string `json:"name"`
-	ExpiresAt     int64  `json:"expires_at"`
-	EffectiveFrom int64  `json:"effective_from"`
+	Id             string `json:"id"`
+	SubscriptionId string `json:"subscription_id"`
+	EntityId       string `json:"entity_id"`
+	EntityType     string `json:"entity_type"`
+	FeatureId      string `json:"feature_id"`
+	FeatureName    string `json:"feature_name"`
+	Value          string `json:"value"`
+	Name           string `json:"name"`
+	ExpiresAt      int64  `json:"expires_at"`
+	EffectiveFrom  int64  `json:"effective_from"`
+	IsEnabled      bool   `json:"is_enabled"`
 	//Deprecated: this field is deprecated
 	ScheduleStatus entitlementOverrideEnum.ScheduleStatus `json:"schedule_status"`
 	Object         string                                 `json:"object"`
@@ -24,10 +26,13 @@ type AddEntitlementOverrideForSubscriptionRequestParams struct {
 	EntitlementOverrides []*AddEntitlementOverrideForSubscriptionEntitlementOverrideParams `json:"entitlement_overrides,omitempty"`
 }
 type AddEntitlementOverrideForSubscriptionEntitlementOverrideParams struct {
-	FeatureId     string `json:"feature_id"`
-	Value         string `json:"value,omitempty"`
-	ExpiresAt     *int64 `json:"expires_at,omitempty"`
-	EffectiveFrom *int64 `json:"effective_from,omitempty"`
+	FeatureId     string          `json:"feature_id"`
+	EntityId      string          `json:"entity_id,omitempty"`
+	EntityType    enum.EntityType `json:"entity_type,omitempty"`
+	Value         string          `json:"value,omitempty"`
+	ExpiresAt     *int64          `json:"expires_at,omitempty"`
+	EffectiveFrom *int64          `json:"effective_from,omitempty"`
+	IsEnabled     *bool           `json:"is_enabled,omitempty"`
 }
 type ListEntitlementOverrideForSubscriptionRequestParams struct {
 	Limit                     *int32 `json:"limit,omitempty"`

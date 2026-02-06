@@ -43,4 +43,5 @@ const (
 	EntityTypeUsageFile                                  EntityType = "usage_file"
 	EntityTypeBusinessRule                               EntityType = "business_rule"
 	EntityTypeRuleset                                    EntityType = "ruleset"
+	EntityTypeCharge                                     EntityType = "charge"
 )
