@@ -108,19 +108,23 @@ const (
 )
 
 type Coupon struct {
-	Id                     string                          `json:"id"`
-	Name                   string                          `json:"name"`
-	InvoiceName            string                          `json:"invoice_name"`
-	DiscountType           CouponDiscountType              `json:"discount_type"`
-	DiscountPercentage     float64                         `json:"discount_percentage"`
-	DiscountAmount         int64                           `json:"discount_amount"`
-	DiscountQuantity       int32                           `json:"discount_quantity"`
-	CurrencyCode           string                          `json:"currency_code"`
-	DurationType           CouponDurationType              `json:"duration_type"`
-	ValidFrom              int64                           `json:"valid_from"`
-	ValidTill              int64                           `json:"valid_till"`
-	MaxRedemptions         int32                           `json:"max_redemptions"`
-	Status                 CouponStatus                    `json:"status"`
+	Id                 string             `json:"id"`
+	Name               string             `json:"name"`
+	InvoiceName        string             `json:"invoice_name"`
+	DiscountType       CouponDiscountType `json:"discount_type"`
+	DiscountPercentage float64            `json:"discount_percentage"`
+	DiscountAmount     int64              `json:"discount_amount"`
+	DiscountQuantity   int32              `json:"discount_quantity"`
+	CurrencyCode       string             `json:"currency_code"`
+	DurationType       CouponDurationType `json:"duration_type"`
+	//Deprecated: this field is deprecated
+	DurationMonth  int32        `json:"duration_month"`
+	ValidFrom      int64        `json:"valid_from"`
+	ValidTill      int64        `json:"valid_till"`
+	MaxRedemptions int32        `json:"max_redemptions"`
+	Status         CouponStatus `json:"status"`
+	//Deprecated: this field is deprecated
+	ApplyDiscountOn        CouponApplyDiscountOn           `json:"apply_discount_on"`
 	ApplyOn                CouponApplyOn                   `json:"apply_on"`
 	PlanConstraint         CouponPlanConstraint            `json:"plan_constraint"`
 	AddonConstraint        CouponAddonConstraint           `json:"addon_constraint"`
@@ -297,19 +301,20 @@ type CouponUpdateForItemsCouponConstraint struct {
 }
 
 type CouponListRequest struct {
-	Limit        *int32           `json:"limit,omitempty"`
-	Offset       string           `json:"offset,omitempty"`
-	Id           *StringFilter    `json:"id,omitempty"`
-	Name         *StringFilter    `json:"name,omitempty"`
-	DiscountType *EnumFilter      `json:"discount_type,omitempty"`
-	DurationType *EnumFilter      `json:"duration_type,omitempty"`
-	Status       *EnumFilter      `json:"status,omitempty"`
-	ApplyOn      *EnumFilter      `json:"apply_on,omitempty"`
-	CreatedAt    *TimestampFilter `json:"created_at,omitempty"`
-	UpdatedAt    *TimestampFilter `json:"updated_at,omitempty"`
-	SortBy       *SortFilter      `json:"sort_by,omitempty"`
-	CurrencyCode *StringFilter    `json:"currency_code,omitempty"`
-	apiRequest   `json:"-" form:"-"`
+	Limit                  *int32           `json:"limit,omitempty"`
+	Offset                 string           `json:"offset,omitempty"`
+	Id                     *StringFilter    `json:"id,omitempty"`
+	Name                   *StringFilter    `json:"name,omitempty"`
+	DiscountType           *EnumFilter      `json:"discount_type,omitempty"`
+	DurationType           *EnumFilter      `json:"duration_type,omitempty"`
+	Status                 *EnumFilter      `json:"status,omitempty"`
+	ApplyOn                *EnumFilter      `json:"apply_on,omitempty"`
+	CreatedAt              *TimestampFilter `json:"created_at,omitempty"`
+	UpdatedAt              *TimestampFilter `json:"updated_at,omitempty"`
+	SortBy                 *SortFilter      `json:"sort_by,omitempty"`
+	CurrencyCode           *StringFilter    `json:"currency_code,omitempty"`
+	ApplicableItemPriceIds *StringFilter    `json:"applicable_item_price_ids,omitempty"`
+	apiRequest             `json:"-" form:"-"`
 }
 
 func (r *CouponListRequest) payload() any { return r }

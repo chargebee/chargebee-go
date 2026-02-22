@@ -15,6 +15,7 @@ type PricingPageSessionCreateForNewSubscriptionRequest struct {
 	Subscription            *PricingPageSessionCreateForNewSubscriptionSubscription    `json:"subscription,omitempty"`
 	BusinessEntityId        string                                                     `json:"business_entity_id,omitempty"`
 	AutoSelectLocalCurrency *bool                                                      `json:"auto_select_local_currency,omitempty"`
+	Custom                  map[string]interface{}                                     `json:"custom,omitempty"`
 	Customer                *PricingPageSessionCreateForNewSubscriptionCustomer        `json:"customer,omitempty"`
 	Discounts               []*PricingPageSessionCreateForNewSubscriptionDiscount      `json:"discounts,omitempty"`
 	BillingAddress          *PricingPageSessionCreateForNewSubscriptionBillingAddress  `json:"billing_address,omitempty"`
@@ -93,6 +94,7 @@ type PricingPageSessionCreateForExistingSubscriptionRequest struct {
 	RedirectUrl  string                                                       `json:"redirect_url,omitempty"`
 	PricingPage  *PricingPageSessionCreateForExistingSubscriptionPricingPage  `json:"pricing_page,omitempty"`
 	Subscription *PricingPageSessionCreateForExistingSubscriptionSubscription `json:"subscription,omitempty"`
+	Custom       map[string]interface{}                                       `json:"custom,omitempty"`
 	Discounts    []*PricingPageSessionCreateForExistingSubscriptionDiscount   `json:"discounts,omitempty"`
 	apiRequest   `json:"-" form:"-"`
 }
@@ -100,7 +102,7 @@ type PricingPageSessionCreateForExistingSubscriptionRequest struct {
 func (r *PricingPageSessionCreateForExistingSubscriptionRequest) payload() any { return r }
 
 type PricingPageSessionCreateForExistingSubscriptionPricingPage struct {
-	Id string `json:"id"`
+	Id string `json:"id,omitempty"`
 }
 
 type PricingPageSessionCreateForExistingSubscriptionSubscription struct {

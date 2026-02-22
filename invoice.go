@@ -245,12 +245,19 @@ const (
 type InvoiceEinvoiceStatus string
 
 const (
-	InvoiceEinvoiceStatusScheduled  InvoiceEinvoiceStatus = "scheduled"
-	InvoiceEinvoiceStatusSkipped    InvoiceEinvoiceStatus = "skipped"
-	InvoiceEinvoiceStatusInProgress InvoiceEinvoiceStatus = "in_progress"
-	InvoiceEinvoiceStatusSuccess    InvoiceEinvoiceStatus = "success"
-	InvoiceEinvoiceStatusFailed     InvoiceEinvoiceStatus = "failed"
-	InvoiceEinvoiceStatusRegistered InvoiceEinvoiceStatus = "registered"
+	InvoiceEinvoiceStatusScheduled              InvoiceEinvoiceStatus = "scheduled"
+	InvoiceEinvoiceStatusSkipped                InvoiceEinvoiceStatus = "skipped"
+	InvoiceEinvoiceStatusInProgress             InvoiceEinvoiceStatus = "in_progress"
+	InvoiceEinvoiceStatusSuccess                InvoiceEinvoiceStatus = "success"
+	InvoiceEinvoiceStatusFailed                 InvoiceEinvoiceStatus = "failed"
+	InvoiceEinvoiceStatusRegistered             InvoiceEinvoiceStatus = "registered"
+	InvoiceEinvoiceStatusAccepted               InvoiceEinvoiceStatus = "accepted"
+	InvoiceEinvoiceStatusRejected               InvoiceEinvoiceStatus = "rejected"
+	InvoiceEinvoiceStatusMessageAcknowledgement InvoiceEinvoiceStatus = "message_acknowledgement"
+	InvoiceEinvoiceStatusInProcess              InvoiceEinvoiceStatus = "in_process"
+	InvoiceEinvoiceStatusUnderQuery             InvoiceEinvoiceStatus = "under_query"
+	InvoiceEinvoiceStatusConditionallyAccepted  InvoiceEinvoiceStatus = "conditionally_accepted"
+	InvoiceEinvoiceStatusPaid                   InvoiceEinvoiceStatus = "paid"
 )
 
 type InvoiceCardPreferredScheme string
@@ -506,6 +513,7 @@ type InvoiceDunningAttempt struct {
 	CreatedAt     int64                          `json:"created_at"`
 	TxnStatus     InvoiceDunningAttemptTxnStatus `json:"txn_status"`
 	TxnAmount     int64                          `json:"txn_amount"`
+	RetryEngine   RetryEngine                    `json:"retry_engine"`
 	Object        string                         `json:"object"`
 }
 

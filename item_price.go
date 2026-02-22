@@ -92,12 +92,16 @@ type ItemPrice struct {
 	AccountingDetail                *ItemPriceAccountingDetail      `json:"accounting_detail"`
 	Metadata                        json.RawMessage                 `json:"metadata"`
 	ItemType                        ItemType                        `json:"item_type"`
-	ShowDescriptionInInvoices       bool                            `json:"show_description_in_invoices"`
-	ShowDescriptionInQuotes         bool                            `json:"show_description_in_quotes"`
-	Deleted                         bool                            `json:"deleted"`
-	BusinessEntityId                string                          `json:"business_entity_id"`
-	CustomFields                    *customFields                   `json:"-"`
-	Object                          string                          `json:"object"`
+	//Deprecated: this field is deprecated
+	Archivable bool `json:"archivable"`
+	//Deprecated: this field is deprecated
+	ParentItemId              string        `json:"parent_item_id"`
+	ShowDescriptionInInvoices bool          `json:"show_description_in_invoices"`
+	ShowDescriptionInQuotes   bool          `json:"show_description_in_quotes"`
+	Deleted                   bool          `json:"deleted"`
+	BusinessEntityId          string        `json:"business_entity_id"`
+	CustomFields              *customFields `json:"-"`
+	Object                    string        `json:"object"`
 }
 
 func (r *ItemPrice) setCustomFields(cf *customFields) { r.CustomFields = cf }
@@ -338,13 +342,6 @@ type ItemPriceFindApplicableItemPricesRequest struct {
 
 func (r *ItemPriceFindApplicableItemPricesRequest) payload() any { return r }
 
-type ItemPriceMoveItemPriceRequest struct {
-	DestinationItemId string `json:"destination_item_id"`
-	apiRequest        `json:"-" form:"-"`
-}
-
-func (r *ItemPriceMoveItemPriceRequest) payload() any { return r }
-
 type ItemPriceCreateResponse struct {
 	ItemPrice *ItemPrice `json:"item_price,omitempty"`
 	apiResponse
@@ -392,10 +389,5 @@ type ItemPriceFindApplicableItemPricesItemPriceResponse struct {
 type ItemPriceFindApplicableItemPricesResponse struct {
 	List       []*ItemPriceFindApplicableItemPricesItemPriceResponse `json:"list,omitempty"`
 	NextOffset string                                                `json:"next_offset,omitempty"`
-	apiResponse
-}
-
-type ItemPriceMoveItemPriceResponse struct {
-	ItemPrice *ItemPrice `json:"item_price,omitempty"`
 	apiResponse
 }

@@ -19,12 +19,22 @@ const (
 )
 
 type TaxWithheld struct {
-	Id              string `json:"id"`
+	Id string `json:"id"`
+	//Deprecated: this field is deprecated
+	User            string `json:"user"`
 	ReferenceNumber string `json:"reference_number"`
 	Description     string `json:"description"`
-	Date            int64  `json:"date"`
+	//Deprecated: this field is deprecated
+	Type TaxWithheldType `json:"type"`
+	//Deprecated: this field is deprecated
+	PaymentMethod TaxWithheldPaymentMethod `json:"payment_method"`
+	Date          int64                    `json:"date"`
+	//Deprecated: this field is deprecated
+	CurrencyCode    string `json:"currency_code"`
 	Amount          int64  `json:"amount"`
 	ResourceVersion int64  `json:"resource_version"`
 	UpdatedAt       int64  `json:"updated_at"`
-	Object          string `json:"object"`
+	//Deprecated: this field is deprecated
+	ExchangeRate float64 `json:"exchange_rate"`
+	Object       string  `json:"object"`
 }

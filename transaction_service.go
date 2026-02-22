@@ -54,6 +54,7 @@ func (s *TransactionService) List(req *TransactionListRequest) (*TransactionList
 	return send[*TransactionListResponse](req, s.config)
 }
 
+// Deprecated: This function is deprecated.
 func (s *TransactionService) TransactionsForCustomer(id string, req *TransactionTransactionsForCustomerRequest) (*TransactionTransactionsForCustomerResponse, error) {
 	req.method = "GET"
 	req.path = fmt.Sprintf("/customers/%v/transactions", url.PathEscape(id))
@@ -61,6 +62,7 @@ func (s *TransactionService) TransactionsForCustomer(id string, req *Transaction
 	return send[*TransactionTransactionsForCustomerResponse](req, s.config)
 }
 
+// Deprecated: This function is deprecated.
 func (s *TransactionService) TransactionsForSubscription(id string, req *TransactionTransactionsForSubscriptionRequest) (*TransactionTransactionsForSubscriptionResponse, error) {
 	req.method = "GET"
 	req.path = fmt.Sprintf("/subscriptions/%v/transactions", url.PathEscape(id))

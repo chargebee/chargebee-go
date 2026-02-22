@@ -11,6 +11,8 @@ const (
 )
 
 type InAppSubscription struct {
+	//Deprecated: this field is deprecated
+	AppId          string                       `json:"app_id"`
 	SubscriptionId string                       `json:"subscription_id"`
 	CustomerId     string                       `json:"customer_id"`
 	PlanId         string                       `json:"plan_id"`

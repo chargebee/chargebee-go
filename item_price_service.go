@@ -60,10 +60,3 @@ func (s *ItemPriceService) FindApplicableItemPrices(id string, req *ItemPriceFin
 	req.isListRequest = true
 	return send[*ItemPriceFindApplicableItemPricesResponse](req, s.config)
 }
-
-func (s *ItemPriceService) MoveItemPrice(id string, req *ItemPriceMoveItemPriceRequest) (*ItemPriceMoveItemPriceResponse, error) {
-	req.method = "POST"
-	req.path = fmt.Sprintf("/item_prices/%v/move", url.PathEscape(id))
-	req.isIdempotent = true
-	return send[*ItemPriceMoveItemPriceResponse](req, s.config)
-}

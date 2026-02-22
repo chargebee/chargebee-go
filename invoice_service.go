@@ -39,6 +39,7 @@ func (s *InvoiceService) ChargeAddon(req *InvoiceChargeAddonRequest) (*InvoiceCh
 	return send[*InvoiceChargeAddonResponse](req, s.config)
 }
 
+// Deprecated: This function is deprecated.
 func (s *InvoiceService) CreateForChargeItem(req *InvoiceCreateForChargeItemRequest) (*InvoiceCreateForChargeItemResponse, error) {
 	req.method = "POST"
 	req.path = "/invoices/create_for_charge_item"
@@ -110,6 +111,7 @@ func (s *InvoiceService) List(req *InvoiceListRequest) (*InvoiceListResponse, er
 	return send[*InvoiceListResponse](req, s.config)
 }
 
+// Deprecated: This function is deprecated.
 func (s *InvoiceService) InvoicesForCustomer(id string, req *InvoiceInvoicesForCustomerRequest) (*InvoiceInvoicesForCustomerResponse, error) {
 	req.method = "GET"
 	req.path = fmt.Sprintf("/customers/%v/invoices", url.PathEscape(id))
@@ -117,6 +119,7 @@ func (s *InvoiceService) InvoicesForCustomer(id string, req *InvoiceInvoicesForC
 	return send[*InvoiceInvoicesForCustomerResponse](req, s.config)
 }
 
+// Deprecated: This function is deprecated.
 func (s *InvoiceService) InvoicesForSubscription(id string, req *InvoiceInvoicesForSubscriptionRequest) (*InvoiceInvoicesForSubscriptionResponse, error) {
 	req.method = "GET"
 	req.path = fmt.Sprintf("/subscriptions/%v/invoices", url.PathEscape(id))

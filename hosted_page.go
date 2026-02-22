@@ -50,20 +50,22 @@ const (
 )
 
 type HostedPage struct {
-	Id               string          `json:"id"`
-	Type             HostedPageType  `json:"type"`
-	Url              string          `json:"url"`
-	State            HostedPageState `json:"state"`
-	PassThruContent  string          `json:"pass_thru_content"`
-	Embed            bool            `json:"embed"`
-	CreatedAt        int64           `json:"created_at"`
-	ExpiresAt        int64           `json:"expires_at"`
-	Content          json.RawMessage `json:"content"`
-	UpdatedAt        int64           `json:"updated_at"`
-	ResourceVersion  int64           `json:"resource_version"`
-	CheckoutInfo     json.RawMessage `json:"checkout_info"`
-	BusinessEntityId string          `json:"business_entity_id"`
-	Object           string          `json:"object"`
+	Id    string          `json:"id"`
+	Type  HostedPageType  `json:"type"`
+	Url   string          `json:"url"`
+	State HostedPageState `json:"state"`
+	//Deprecated: this field is deprecated
+	FailureReason    HostedPageFailureReason `json:"failure_reason"`
+	PassThruContent  string                  `json:"pass_thru_content"`
+	Embed            bool                    `json:"embed"`
+	CreatedAt        int64                   `json:"created_at"`
+	ExpiresAt        int64                   `json:"expires_at"`
+	Content          json.RawMessage         `json:"content"`
+	UpdatedAt        int64                   `json:"updated_at"`
+	ResourceVersion  int64                   `json:"resource_version"`
+	CheckoutInfo     json.RawMessage         `json:"checkout_info"`
+	BusinessEntityId string                  `json:"business_entity_id"`
+	Object           string                  `json:"object"`
 }
 
 type HostedPageCheckoutNewRequest struct {
@@ -434,8 +436,8 @@ type HostedPageCheckoutOneTimeForItemsShippingAddress struct {
 type HostedPageCheckoutNewForItemsRequest struct {
 	Subscription               *HostedPageCheckoutNewForItemsSubscription       `json:"subscription,omitempty"`
 	Layout                     Layout                                           `json:"layout,omitempty"`
-	Customer                   *HostedPageCheckoutNewForItemsCustomer           `json:"customer,omitempty"`
 	BusinessEntityId           string                                           `json:"business_entity_id,omitempty"`
+	Customer                   *HostedPageCheckoutNewForItemsCustomer           `json:"customer,omitempty"`
 	BillingCycles              *int32                                           `json:"billing_cycles,omitempty"`
 	SubscriptionItems          []*HostedPageCheckoutNewForItemsSubscriptionItem `json:"subscription_items,omitempty"`
 	Discounts                  []*HostedPageCheckoutNewForItemsDiscount         `json:"discounts,omitempty"`
@@ -681,6 +683,7 @@ type HostedPageCheckoutExistingForItemsRequest struct {
 	ChangeOption               ChangeOption                                          `json:"change_option,omitempty"`
 	ChangesScheduledAt         *int64                                                `json:"changes_scheduled_at,omitempty"`
 	Customer                   *HostedPageCheckoutExistingForItemsCustomer           `json:"customer,omitempty"`
+	InvoiceUsages              *bool                                                 `json:"invoice_usages,omitempty"`
 	EntityIdentifiers          []*HostedPageCheckoutExistingForItemsEntityIdentifier `json:"entity_identifiers,omitempty"`
 	Card                       *HostedPageCheckoutExistingForItemsCard               `json:"card,omitempty"`
 	RedirectUrl                string                                                `json:"redirect_url,omitempty"`
@@ -839,11 +842,12 @@ type HostedPageManagePaymentSourcesCard struct {
 }
 
 type HostedPageCollectNowRequest struct {
-	Customer     *HostedPageCollectNowCustomer `json:"customer,omitempty"`
-	RedirectUrl  string                        `json:"redirect_url,omitempty"`
-	Card         *HostedPageCollectNowCard     `json:"card,omitempty"`
-	CurrencyCode string                        `json:"currency_code,omitempty"`
-	apiRequest   `json:"-" form:"-"`
+	Customer                *HostedPageCollectNowCustomer `json:"customer,omitempty"`
+	RedirectUrl             string                        `json:"redirect_url,omitempty"`
+	Card                    *HostedPageCollectNowCard     `json:"card,omitempty"`
+	CurrencyCode            string                        `json:"currency_code,omitempty"`
+	PaymentMethodSavePolicy PaymentMethodSavePolicy       `json:"payment_method_save_policy,omitempty"`
+	apiRequest              `json:"-" form:"-"`
 }
 
 func (r *HostedPageCollectNowRequest) payload() any { return r }

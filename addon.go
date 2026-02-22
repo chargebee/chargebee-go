@@ -58,11 +58,13 @@ const (
 )
 
 type Addon struct {
-	Id                          string                           `json:"id"`
-	Name                        string                           `json:"name"`
-	InvoiceName                 string                           `json:"invoice_name"`
-	Description                 string                           `json:"description"`
-	PricingModel                PricingModel                     `json:"pricing_model"`
+	Id           string       `json:"id"`
+	Name         string       `json:"name"`
+	InvoiceName  string       `json:"invoice_name"`
+	Description  string       `json:"description"`
+	PricingModel PricingModel `json:"pricing_model"`
+	//Deprecated: this field is deprecated
+	Type                        AddonType                        `json:"type"`
 	ChargeType                  AddonChargeType                  `json:"charge_type"`
 	Price                       int64                            `json:"price"`
 	CurrencyCode                string                           `json:"currency_code"`

@@ -269,12 +269,13 @@ type OrderLineItemTax struct {
 }
 
 type OrderLineItemDiscount struct {
-	LineItemId     string                            `json:"line_item_id"`
-	DiscountType   OrderLineItemDiscountDiscountType `json:"discount_type"`
-	CouponId       string                            `json:"coupon_id"`
-	EntityId       string                            `json:"entity_id"`
-	DiscountAmount int64                             `json:"discount_amount"`
-	Object         string                            `json:"object"`
+	LineItemId   string                            `json:"line_item_id"`
+	DiscountType OrderLineItemDiscountDiscountType `json:"discount_type"`
+	//Deprecated: this field is deprecated
+	CouponId       string `json:"coupon_id"`
+	EntityId       string `json:"entity_id"`
+	DiscountAmount int64  `json:"discount_amount"`
+	Object         string `json:"object"`
 }
 
 type OrderLinkedCreditNote struct {

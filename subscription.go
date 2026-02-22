@@ -102,84 +102,89 @@ const (
 )
 
 type Subscription struct {
-	Id                                string                                `json:"id"`
-	CurrencyCode                      string                                `json:"currency_code"`
-	PlanId                            string                                `json:"plan_id"`
-	PlanQuantity                      int32                                 `json:"plan_quantity"`
-	PlanUnitPrice                     int64                                 `json:"plan_unit_price"`
-	SetupFee                          int64                                 `json:"setup_fee"`
-	BillingPeriod                     int32                                 `json:"billing_period"`
-	BillingPeriodUnit                 SubscriptionBillingPeriodUnit         `json:"billing_period_unit"`
-	StartDate                         int64                                 `json:"start_date"`
-	TrialEnd                          int64                                 `json:"trial_end"`
-	RemainingBillingCycles            int32                                 `json:"remaining_billing_cycles"`
-	PoNumber                          string                                `json:"po_number"`
-	AutoCollection                    AutoCollection                        `json:"auto_collection"`
-	PlanQuantityInDecimal             string                                `json:"plan_quantity_in_decimal"`
-	PlanUnitPriceInDecimal            string                                `json:"plan_unit_price_in_decimal"`
-	CustomerId                        string                                `json:"customer_id"`
-	PlanAmount                        int64                                 `json:"plan_amount"`
-	PlanFreeQuantity                  int32                                 `json:"plan_free_quantity"`
-	Status                            SubscriptionStatus                    `json:"status"`
-	TrialStart                        int64                                 `json:"trial_start"`
-	TrialEndAction                    TrialEndAction                        `json:"trial_end_action"`
-	CurrentTermStart                  int64                                 `json:"current_term_start"`
-	CurrentTermEnd                    int64                                 `json:"current_term_end"`
-	NextBillingAt                     int64                                 `json:"next_billing_at"`
-	CreatedAt                         int64                                 `json:"created_at"`
-	StartedAt                         int64                                 `json:"started_at"`
-	ActivatedAt                       int64                                 `json:"activated_at"`
-	GiftId                            string                                `json:"gift_id"`
-	ContractTermBillingCycleOnRenewal int32                                 `json:"contract_term_billing_cycle_on_renewal"`
-	OverrideRelationship              bool                                  `json:"override_relationship"`
-	PauseDate                         int64                                 `json:"pause_date"`
-	ResumeDate                        int64                                 `json:"resume_date"`
-	CancelledAt                       int64                                 `json:"cancelled_at"`
-	CancelReason                      SubscriptionCancelReason              `json:"cancel_reason"`
-	AffiliateToken                    string                                `json:"affiliate_token"`
-	CreatedFromIp                     string                                `json:"created_from_ip"`
-	ResourceVersion                   int64                                 `json:"resource_version"`
-	UpdatedAt                         int64                                 `json:"updated_at"`
-	HasScheduledAdvanceInvoices       bool                                  `json:"has_scheduled_advance_invoices"`
-	HasScheduledChanges               bool                                  `json:"has_scheduled_changes"`
-	PaymentSourceId                   string                                `json:"payment_source_id"`
-	PlanFreeQuantityInDecimal         string                                `json:"plan_free_quantity_in_decimal"`
-	PlanAmountInDecimal               string                                `json:"plan_amount_in_decimal"`
-	CancelScheduleCreatedAt           int64                                 `json:"cancel_schedule_created_at"`
-	OfflinePaymentMethod              OfflinePaymentMethod                  `json:"offline_payment_method"`
-	Channel                           Channel                               `json:"channel"`
-	NetTermDays                       int32                                 `json:"net_term_days"`
-	ActiveId                          string                                `json:"active_id"`
-	SubscriptionItems                 []*SubscriptionSubscriptionItem       `json:"subscription_items"`
-	ItemTiers                         []*SubscriptionItemTier               `json:"item_tiers"`
-	ChargedItems                      []*SubscriptionChargedItem            `json:"charged_items"`
-	DueInvoicesCount                  int32                                 `json:"due_invoices_count"`
-	DueSince                          int64                                 `json:"due_since"`
-	TotalDues                         int64                                 `json:"total_dues"`
-	Mrr                               int64                                 `json:"mrr"`
-	ExchangeRate                      float64                               `json:"exchange_rate"`
-	BaseCurrencyCode                  string                                `json:"base_currency_code"`
-	Addons                            []*SubscriptionAddon                  `json:"addons"`
-	EventBasedAddons                  []*SubscriptionEventBasedAddon        `json:"event_based_addons"`
-	ChargedEventBasedAddons           []*SubscriptionChargedEventBasedAddon `json:"charged_event_based_addons"`
-	Coupons                           []*SubscriptionCoupon                 `json:"coupons"`
-	ShippingAddress                   *SubscriptionShippingAddress          `json:"shipping_address"`
-	ReferralInfo                      *SubscriptionReferralInfo             `json:"referral_info"`
-	BillingOverride                   *SubscriptionBillingOverride          `json:"billing_override"`
-	InvoiceNotes                      string                                `json:"invoice_notes"`
-	MetaData                          json.RawMessage                       `json:"meta_data"`
-	Deleted                           bool                                  `json:"deleted"`
-	ChangesScheduledAt                int64                                 `json:"changes_scheduled_at"`
-	ContractTerm                      *SubscriptionContractTerm             `json:"contract_term"`
-	CancelReasonCode                  string                                `json:"cancel_reason_code"`
-	FreePeriod                        int32                                 `json:"free_period"`
-	FreePeriodUnit                    FreePeriodUnit                        `json:"free_period_unit"`
-	CreatePendingInvoices             bool                                  `json:"create_pending_invoices"`
-	AutoCloseInvoices                 bool                                  `json:"auto_close_invoices"`
-	Discounts                         []*SubscriptionDiscount               `json:"discounts"`
-	BusinessEntityId                  string                                `json:"business_entity_id"`
-	CustomFields                      *customFields                         `json:"-"`
-	Object                            string                                `json:"object"`
+	Id                                string                          `json:"id"`
+	CurrencyCode                      string                          `json:"currency_code"`
+	PlanId                            string                          `json:"plan_id"`
+	PlanQuantity                      int32                           `json:"plan_quantity"`
+	PlanUnitPrice                     int64                           `json:"plan_unit_price"`
+	SetupFee                          int64                           `json:"setup_fee"`
+	BillingPeriod                     int32                           `json:"billing_period"`
+	BillingPeriodUnit                 SubscriptionBillingPeriodUnit   `json:"billing_period_unit"`
+	StartDate                         int64                           `json:"start_date"`
+	TrialEnd                          int64                           `json:"trial_end"`
+	RemainingBillingCycles            int32                           `json:"remaining_billing_cycles"`
+	PoNumber                          string                          `json:"po_number"`
+	AutoCollection                    AutoCollection                  `json:"auto_collection"`
+	PlanQuantityInDecimal             string                          `json:"plan_quantity_in_decimal"`
+	PlanUnitPriceInDecimal            string                          `json:"plan_unit_price_in_decimal"`
+	CustomerId                        string                          `json:"customer_id"`
+	PlanAmount                        int64                           `json:"plan_amount"`
+	PlanFreeQuantity                  int32                           `json:"plan_free_quantity"`
+	Status                            SubscriptionStatus              `json:"status"`
+	TrialStart                        int64                           `json:"trial_start"`
+	TrialEndAction                    TrialEndAction                  `json:"trial_end_action"`
+	CurrentTermStart                  int64                           `json:"current_term_start"`
+	CurrentTermEnd                    int64                           `json:"current_term_end"`
+	NextBillingAt                     int64                           `json:"next_billing_at"`
+	CreatedAt                         int64                           `json:"created_at"`
+	StartedAt                         int64                           `json:"started_at"`
+	ActivatedAt                       int64                           `json:"activated_at"`
+	GiftId                            string                          `json:"gift_id"`
+	ContractTermBillingCycleOnRenewal int32                           `json:"contract_term_billing_cycle_on_renewal"`
+	OverrideRelationship              bool                            `json:"override_relationship"`
+	PauseDate                         int64                           `json:"pause_date"`
+	ResumeDate                        int64                           `json:"resume_date"`
+	CancelledAt                       int64                           `json:"cancelled_at"`
+	CancelReason                      SubscriptionCancelReason        `json:"cancel_reason"`
+	AffiliateToken                    string                          `json:"affiliate_token"`
+	CreatedFromIp                     string                          `json:"created_from_ip"`
+	ResourceVersion                   int64                           `json:"resource_version"`
+	UpdatedAt                         int64                           `json:"updated_at"`
+	HasScheduledAdvanceInvoices       bool                            `json:"has_scheduled_advance_invoices"`
+	HasScheduledChanges               bool                            `json:"has_scheduled_changes"`
+	PaymentSourceId                   string                          `json:"payment_source_id"`
+	PlanFreeQuantityInDecimal         string                          `json:"plan_free_quantity_in_decimal"`
+	PlanAmountInDecimal               string                          `json:"plan_amount_in_decimal"`
+	CancelScheduleCreatedAt           int64                           `json:"cancel_schedule_created_at"`
+	OfflinePaymentMethod              OfflinePaymentMethod            `json:"offline_payment_method"`
+	Channel                           Channel                         `json:"channel"`
+	NetTermDays                       int32                           `json:"net_term_days"`
+	ActiveId                          string                          `json:"active_id"`
+	SubscriptionItems                 []*SubscriptionSubscriptionItem `json:"subscription_items"`
+	ItemTiers                         []*SubscriptionItemTier         `json:"item_tiers"`
+	ChargedItems                      []*SubscriptionChargedItem      `json:"charged_items"`
+	DueInvoicesCount                  int32                           `json:"due_invoices_count"`
+	DueSince                          int64                           `json:"due_since"`
+	TotalDues                         int64                           `json:"total_dues"`
+	Mrr                               int64                           `json:"mrr"`
+	//Deprecated: this field is deprecated
+	Arr                     int64                                 `json:"arr"`
+	ExchangeRate            float64                               `json:"exchange_rate"`
+	BaseCurrencyCode        string                                `json:"base_currency_code"`
+	Addons                  []*SubscriptionAddon                  `json:"addons"`
+	EventBasedAddons        []*SubscriptionEventBasedAddon        `json:"event_based_addons"`
+	ChargedEventBasedAddons []*SubscriptionChargedEventBasedAddon `json:"charged_event_based_addons"`
+	//Deprecated: this field is deprecated
+	Coupon                string                       `json:"coupon"`
+	Coupons               []*SubscriptionCoupon        `json:"coupons"`
+	ShippingAddress       *SubscriptionShippingAddress `json:"shipping_address"`
+	ReferralInfo          *SubscriptionReferralInfo    `json:"referral_info"`
+	BillingOverride       *SubscriptionBillingOverride `json:"billing_override"`
+	InvoiceNotes          string                       `json:"invoice_notes"`
+	MetaData              json.RawMessage              `json:"meta_data"`
+	Deleted               bool                         `json:"deleted"`
+	ChangesScheduledAt    int64                        `json:"changes_scheduled_at"`
+	ContractTerm          *SubscriptionContractTerm    `json:"contract_term"`
+	CancelReasonCode      string                       `json:"cancel_reason_code"`
+	FreePeriod            int32                        `json:"free_period"`
+	FreePeriodUnit        FreePeriodUnit               `json:"free_period_unit"`
+	CreatePendingInvoices bool                         `json:"create_pending_invoices"`
+	AutoCloseInvoices     bool                         `json:"auto_close_invoices"`
+	Discounts             []*SubscriptionDiscount      `json:"discounts"`
+	BusinessEntityId      string                       `json:"business_entity_id"`
+	Decommissioned        bool                         `json:"decommissioned"`
+	CustomFields          *customFields                `json:"-"`
+	Object                string                       `json:"object"`
 
 	// Deprecated: MetaData is deprecated please use MetaData instead.
 	Metadata json.RawMessage `json:"metadata"`
@@ -193,11 +198,13 @@ func (r *Subscription) UnmarshalJSON(data []byte) error {
 }
 
 type SubscriptionSubscriptionItem struct {
-	ItemPriceId                     string                          `json:"item_price_id"`
-	ItemType                        ItemType                        `json:"item_type"`
-	Quantity                        int32                           `json:"quantity"`
-	QuantityInDecimal               string                          `json:"quantity_in_decimal"`
-	MeteredQuantity                 string                          `json:"metered_quantity"`
+	ItemPriceId       string   `json:"item_price_id"`
+	ItemType          ItemType `json:"item_type"`
+	Quantity          int32    `json:"quantity"`
+	QuantityInDecimal string   `json:"quantity_in_decimal"`
+	//Deprecated: this field is deprecated
+	MeteredQuantity string `json:"metered_quantity"`
+	//Deprecated: this field is deprecated
 	LastCalculatedAt                int64                           `json:"last_calculated_at"`
 	UnitPrice                       int64                           `json:"unit_price"`
 	UnitPriceInDecimal              string                          `json:"unit_price_in_decimal"`
@@ -350,9 +357,10 @@ type SubscriptionChargedEventBasedAddon struct {
 }
 
 type SubscriptionEventBasedAddon struct {
-	Id                  string  `json:"id"`
-	Quantity            int32   `json:"quantity"`
-	UnitPrice           int64   `json:"unit_price"`
+	Id        string `json:"id"`
+	Quantity  int32  `json:"quantity"`
+	UnitPrice int64  `json:"unit_price"`
+	//Deprecated: this field is deprecated
 	ServicePeriodInDays int32   `json:"service_period_in_days"`
 	OnEvent             OnEvent `json:"on_event"`
 	ChargeOnce          bool    `json:"charge_once"`
@@ -1945,6 +1953,7 @@ type SubscriptionCancelForItemsRequest struct {
 	InvoiceDate                       *int64                                        `json:"invoice_date,omitempty"`
 	SubscriptionItems                 []*SubscriptionCancelForItemsSubscriptionItem `json:"subscription_items,omitempty"`
 	CancelReasonCode                  string                                        `json:"cancel_reason_code,omitempty"`
+	Decommissioned                    *bool                                         `json:"decommissioned,omitempty"`
 	apiRequest                        `json:"-" form:"-"`
 }
 

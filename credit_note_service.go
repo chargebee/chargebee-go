@@ -66,6 +66,7 @@ func (s *CreditNoteService) List(req *CreditNoteListRequest) (*CreditNoteListRes
 	return send[*CreditNoteListResponse](req, s.config)
 }
 
+// Deprecated: This function is deprecated.
 func (s *CreditNoteService) CreditNotesForCustomer(id string, req *CreditNoteCreditNotesForCustomerRequest) (*CreditNoteCreditNotesForCustomerResponse, error) {
 	req.method = "GET"
 	req.path = fmt.Sprintf("/customers/%v/credit_notes", url.PathEscape(id))

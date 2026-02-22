@@ -113,12 +113,19 @@ const (
 type CreditNoteEinvoiceStatus string
 
 const (
-	CreditNoteEinvoiceStatusScheduled  CreditNoteEinvoiceStatus = "scheduled"
-	CreditNoteEinvoiceStatusSkipped    CreditNoteEinvoiceStatus = "skipped"
-	CreditNoteEinvoiceStatusInProgress CreditNoteEinvoiceStatus = "in_progress"
-	CreditNoteEinvoiceStatusSuccess    CreditNoteEinvoiceStatus = "success"
-	CreditNoteEinvoiceStatusFailed     CreditNoteEinvoiceStatus = "failed"
-	CreditNoteEinvoiceStatusRegistered CreditNoteEinvoiceStatus = "registered"
+	CreditNoteEinvoiceStatusScheduled              CreditNoteEinvoiceStatus = "scheduled"
+	CreditNoteEinvoiceStatusSkipped                CreditNoteEinvoiceStatus = "skipped"
+	CreditNoteEinvoiceStatusInProgress             CreditNoteEinvoiceStatus = "in_progress"
+	CreditNoteEinvoiceStatusSuccess                CreditNoteEinvoiceStatus = "success"
+	CreditNoteEinvoiceStatusFailed                 CreditNoteEinvoiceStatus = "failed"
+	CreditNoteEinvoiceStatusRegistered             CreditNoteEinvoiceStatus = "registered"
+	CreditNoteEinvoiceStatusAccepted               CreditNoteEinvoiceStatus = "accepted"
+	CreditNoteEinvoiceStatusRejected               CreditNoteEinvoiceStatus = "rejected"
+	CreditNoteEinvoiceStatusMessageAcknowledgement CreditNoteEinvoiceStatus = "message_acknowledgement"
+	CreditNoteEinvoiceStatusInProcess              CreditNoteEinvoiceStatus = "in_process"
+	CreditNoteEinvoiceStatusUnderQuery             CreditNoteEinvoiceStatus = "under_query"
+	CreditNoteEinvoiceStatusConditionallyAccepted  CreditNoteEinvoiceStatus = "conditionally_accepted"
+	CreditNoteEinvoiceStatusPaid                   CreditNoteEinvoiceStatus = "paid"
 )
 
 type CreditNote struct {

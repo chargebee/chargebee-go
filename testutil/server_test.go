@@ -6,9 +6,10 @@ import (
 	"net/http"
 	"testing"
 
-	chargebee "github.com/chargebee/chargebee-go/v4"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	chargebee "github.com/chargebee/chargebee-go/v4"
 )
 
 func TestServer_QueuedResponseAndRequestCapture(t *testing.T) {

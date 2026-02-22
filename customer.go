@@ -103,38 +103,40 @@ const (
 )
 
 type Customer struct {
-	Id                               string                       `json:"id"`
-	FirstName                        string                       `json:"first_name"`
-	LastName                         string                       `json:"last_name"`
-	Email                            string                       `json:"email"`
-	Phone                            string                       `json:"phone"`
-	Company                          string                       `json:"company"`
-	VatNumber                        string                       `json:"vat_number"`
-	AutoCollection                   AutoCollection               `json:"auto_collection"`
-	OfflinePaymentMethod             OfflinePaymentMethod         `json:"offline_payment_method"`
-	NetTermDays                      int32                        `json:"net_term_days"`
-	VatNumberValidatedTime           int64                        `json:"vat_number_validated_time"`
-	VatNumberStatus                  CustomerVatNumberStatus      `json:"vat_number_status"`
-	AllowDirectDebit                 bool                         `json:"allow_direct_debit"`
-	IsLocationValid                  bool                         `json:"is_location_valid"`
-	CreatedAt                        int64                        `json:"created_at"`
-	CreatedFromIp                    string                       `json:"created_from_ip"`
-	ExemptionDetails                 json.RawMessage              `json:"exemption_details"`
-	Taxability                       Taxability                   `json:"taxability"`
-	EntityCode                       EntityCode                   `json:"entity_code"`
-	ExemptNumber                     string                       `json:"exempt_number"`
-	ResourceVersion                  int64                        `json:"resource_version"`
-	UpdatedAt                        int64                        `json:"updated_at"`
-	Locale                           string                       `json:"locale"`
-	BillingDate                      int32                        `json:"billing_date"`
-	BillingMonth                     int32                        `json:"billing_month"`
-	BillingDateMode                  BillingDateMode              `json:"billing_date_mode"`
-	BillingDayOfWeek                 CustomerBillingDayOfWeek     `json:"billing_day_of_week"`
-	BillingDayOfWeekMode             BillingDayOfWeekMode         `json:"billing_day_of_week_mode"`
-	PiiCleared                       CustomerPiiCleared           `json:"pii_cleared"`
-	AutoCloseInvoices                bool                         `json:"auto_close_invoices"`
-	Channel                          Channel                      `json:"channel"`
-	ActiveId                         string                       `json:"active_id"`
+	Id                     string                   `json:"id"`
+	FirstName              string                   `json:"first_name"`
+	LastName               string                   `json:"last_name"`
+	Email                  string                   `json:"email"`
+	Phone                  string                   `json:"phone"`
+	Company                string                   `json:"company"`
+	VatNumber              string                   `json:"vat_number"`
+	AutoCollection         AutoCollection           `json:"auto_collection"`
+	OfflinePaymentMethod   OfflinePaymentMethod     `json:"offline_payment_method"`
+	NetTermDays            int32                    `json:"net_term_days"`
+	VatNumberValidatedTime int64                    `json:"vat_number_validated_time"`
+	VatNumberStatus        CustomerVatNumberStatus  `json:"vat_number_status"`
+	AllowDirectDebit       bool                     `json:"allow_direct_debit"`
+	IsLocationValid        bool                     `json:"is_location_valid"`
+	CreatedAt              int64                    `json:"created_at"`
+	CreatedFromIp          string                   `json:"created_from_ip"`
+	ExemptionDetails       json.RawMessage          `json:"exemption_details"`
+	Taxability             Taxability               `json:"taxability"`
+	EntityCode             EntityCode               `json:"entity_code"`
+	ExemptNumber           string                   `json:"exempt_number"`
+	ResourceVersion        int64                    `json:"resource_version"`
+	UpdatedAt              int64                    `json:"updated_at"`
+	Locale                 string                   `json:"locale"`
+	BillingDate            int32                    `json:"billing_date"`
+	BillingMonth           int32                    `json:"billing_month"`
+	BillingDateMode        BillingDateMode          `json:"billing_date_mode"`
+	BillingDayOfWeek       CustomerBillingDayOfWeek `json:"billing_day_of_week"`
+	BillingDayOfWeekMode   BillingDayOfWeekMode     `json:"billing_day_of_week_mode"`
+	PiiCleared             CustomerPiiCleared       `json:"pii_cleared"`
+	AutoCloseInvoices      bool                     `json:"auto_close_invoices"`
+	Channel                Channel                  `json:"channel"`
+	ActiveId               string                   `json:"active_id"`
+	//Deprecated: this field is deprecated
+	CardStatus                       CustomerCardStatus           `json:"card_status"`
 	FraudFlag                        CustomerFraudFlag            `json:"fraud_flag"`
 	PrimaryPaymentSourceId           string                       `json:"primary_payment_source_id"`
 	BackupPaymentSourceId            string                       `json:"backup_payment_source_id"`
@@ -233,11 +235,12 @@ type CustomerPaymentMethod struct {
 }
 
 type CustomerBalance struct {
-	PromotionalCredits  int64  `json:"promotional_credits"`
-	ExcessPayments      int64  `json:"excess_payments"`
-	RefundableCredits   int64  `json:"refundable_credits"`
-	UnbilledCharges     int64  `json:"unbilled_charges"`
-	CurrencyCode        string `json:"currency_code"`
+	PromotionalCredits int64  `json:"promotional_credits"`
+	ExcessPayments     int64  `json:"excess_payments"`
+	RefundableCredits  int64  `json:"refundable_credits"`
+	UnbilledCharges    int64  `json:"unbilled_charges"`
+	CurrencyCode       string `json:"currency_code"`
+	//Deprecated: this field is deprecated
 	BalanceCurrencyCode string `json:"balance_currency_code"`
 	BusinessEntityId    string `json:"business_entity_id"`
 	Object              string `json:"object"`

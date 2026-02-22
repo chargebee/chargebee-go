@@ -83,6 +83,7 @@ func (s *OrderService) List(req *OrderListRequest) (*OrderListResponse, error) {
 	return send[*OrderListResponse](req, s.config)
 }
 
+// Deprecated: This function is deprecated.
 func (s *OrderService) OrdersForInvoice(id string, req *OrderOrdersForInvoiceRequest) (*OrderOrdersForInvoiceResponse, error) {
 	req.method = "GET"
 	req.path = fmt.Sprintf("/invoices/%v/orders", url.PathEscape(id))

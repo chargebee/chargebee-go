@@ -11,6 +11,7 @@ type CouponCodeService struct {
 	config *ClientConfig
 }
 
+// Deprecated: This function is deprecated.
 func (s *CouponCodeService) Create(req *CouponCodeCreateRequest) (*CouponCodeCreateResponse, error) {
 	req.method = "POST"
 	req.path = "/coupon_codes"

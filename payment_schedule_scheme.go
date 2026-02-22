@@ -19,7 +19,9 @@ type PaymentScheduleScheme struct {
 	CreatedAt         int64                           `json:"created_at"`
 	ResourceVersion   int64                           `json:"resource_version"`
 	UpdatedAt         int64                           `json:"updated_at"`
-	Object            string                          `json:"object"`
+	//Deprecated: this field is deprecated
+	PreferredSchedules []*PaymentScheduleSchemePreferredSchedule `json:"preferred_schedules"`
+	Object             string                                    `json:"object"`
 }
 
 type PaymentScheduleSchemePreferredSchedule struct {

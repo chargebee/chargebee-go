@@ -235,9 +235,10 @@ type ExportAddonsAddon struct {
 }
 
 type ExportCouponsRequest struct {
-	Coupon       *ExportCouponsCoupon `json:"coupon,omitempty"`
-	CurrencyCode *StringFilter        `json:"currency_code,omitempty"`
-	apiRequest   `json:"-" form:"-"`
+	Coupon                 *ExportCouponsCoupon `json:"coupon,omitempty"`
+	CurrencyCode           *StringFilter        `json:"currency_code,omitempty"`
+	ApplicableItemPriceIds *StringFilter        `json:"applicable_item_price_ids,omitempty"`
+	apiRequest             `json:"-" form:"-"`
 }
 
 func (r *ExportCouponsRequest) payload() any { return r }

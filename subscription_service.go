@@ -39,6 +39,7 @@ func (s *SubscriptionService) List(req *SubscriptionListRequest) (*SubscriptionL
 	return send[*SubscriptionListResponse](req, s.config)
 }
 
+// Deprecated: This function is deprecated.
 func (s *SubscriptionService) SubscriptionsForCustomer(id string, req *SubscriptionSubscriptionsForCustomerRequest) (*SubscriptionSubscriptionsForCustomerResponse, error) {
 	req.method = "GET"
 	req.path = fmt.Sprintf("/customers/%v/subscriptions", url.PathEscape(id))

@@ -88,6 +88,7 @@ func (s *CustomerService) DeleteContact(id string, req *CustomerDeleteContactReq
 	return send[*CustomerDeleteContactResponse](req, s.config)
 }
 
+// Deprecated: This function is deprecated.
 func (s *CustomerService) AddPromotionalCredits(id string, req *CustomerAddPromotionalCreditsRequest) (*CustomerAddPromotionalCreditsResponse, error) {
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/add_promotional_credits", url.PathEscape(id))
@@ -95,6 +96,7 @@ func (s *CustomerService) AddPromotionalCredits(id string, req *CustomerAddPromo
 	return send[*CustomerAddPromotionalCreditsResponse](req, s.config)
 }
 
+// Deprecated: This function is deprecated.
 func (s *CustomerService) DeductPromotionalCredits(id string, req *CustomerDeductPromotionalCreditsRequest) (*CustomerDeductPromotionalCreditsResponse, error) {
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/deduct_promotional_credits", url.PathEscape(id))
@@ -102,6 +104,7 @@ func (s *CustomerService) DeductPromotionalCredits(id string, req *CustomerDeduc
 	return send[*CustomerDeductPromotionalCreditsResponse](req, s.config)
 }
 
+// Deprecated: This function is deprecated.
 func (s *CustomerService) SetPromotionalCredits(id string, req *CustomerSetPromotionalCreditsRequest) (*CustomerSetPromotionalCreditsResponse, error) {
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/set_promotional_credits", url.PathEscape(id))

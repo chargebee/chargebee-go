@@ -689,10 +689,11 @@ type EstimateUpdateSubscriptionForItemsBillingOverride struct {
 }
 
 type EstimateRenewalEstimateRequest struct {
-	IncludeDelayedCharges       *bool `json:"include_delayed_charges,omitempty"`
-	UseExistingBalances         *bool `json:"use_existing_balances,omitempty"`
-	IgnoreScheduledCancellation *bool `json:"ignore_scheduled_cancellation,omitempty"`
-	IgnoreScheduledChanges      *bool `json:"ignore_scheduled_changes,omitempty"`
+	IncludeDelayedCharges       *bool          `json:"include_delayed_charges,omitempty"`
+	UseExistingBalances         *bool          `json:"use_existing_balances,omitempty"`
+	IgnoreScheduledCancellation *bool          `json:"ignore_scheduled_cancellation,omitempty"`
+	IgnoreScheduledChanges      *bool          `json:"ignore_scheduled_changes,omitempty"`
+	ExcludeTaxType              ExcludeTaxType `json:"exclude_tax_type,omitempty"`
 	apiRequest                  `json:"-" form:"-"`
 }
 

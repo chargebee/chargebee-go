@@ -65,14 +65,20 @@ type OmnichannelSubscription struct {
 }
 
 type OmnichannelSubscriptionListRequest struct {
-	Limit      *int32        `json:"limit,omitempty"`
-	Offset     string        `json:"offset,omitempty"`
-	Source     *EnumFilter   `json:"source,omitempty"`
-	CustomerId *StringFilter `json:"customer_id,omitempty"`
-	apiRequest `json:"-" form:"-"`
+	Limit                       *int32                                                  `json:"limit,omitempty"`
+	Offset                      string                                                  `json:"offset,omitempty"`
+	OmnichannelSubscriptionItem *OmnichannelSubscriptionListOmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
+	Source                      *EnumFilter                                             `json:"source,omitempty"`
+	CustomerId                  *StringFilter                                           `json:"customer_id,omitempty"`
+	apiRequest                  `json:"-" form:"-"`
 }
 
 func (r *OmnichannelSubscriptionListRequest) payload() any { return r }
+
+type OmnichannelSubscriptionListOmnichannelSubscriptionItem struct {
+	Status         *EnumFilter   `json:"status,omitempty"`
+	ItemIdAtSource *StringFilter `json:"item_id_at_source,omitempty"`
+}
 
 type OmnichannelSubscriptionOmnichannelTransactionsForOmnichannelSubscriptionRequest struct {
 	Limit      *int32 `json:"limit,omitempty"`

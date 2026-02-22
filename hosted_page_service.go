@@ -53,6 +53,7 @@ func (s *HostedPageService) CheckoutExistingForItems(req *HostedPageCheckoutExis
 	return send[*HostedPageCheckoutExistingForItemsResponse](req, s.config)
 }
 
+// Deprecated: This function is deprecated.
 func (s *HostedPageService) UpdateCard(req *HostedPageUpdateCardRequest) (*HostedPageUpdateCardResponse, error) {
 	req.method = "POST"
 	req.path = "/hosted_pages/update_card"
