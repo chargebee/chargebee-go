@@ -91,8 +91,10 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/transaction"
 	"github.com/chargebee/chargebee-go/v3/models/unbilledcharge"
 	"github.com/chargebee/chargebee-go/v3/models/usage"
+	"github.com/chargebee/chargebee-go/v3/models/usagecharge"
 	"github.com/chargebee/chargebee-go/v3/models/usageevent"
 	"github.com/chargebee/chargebee-go/v3/models/usagefile"
+	"github.com/chargebee/chargebee-go/v3/models/usagesummary"
 	"github.com/chargebee/chargebee-go/v3/models/virtualbankaccount"
 	"github.com/chargebee/chargebee-go/v3/models/webhookendpoint"
 	"net/http"
@@ -197,6 +199,8 @@ type Result struct {
 	OfferFulfillment                           *offerfulfillment.OfferFulfillment                                                     `json:"offer_fulfillment,omitempty"`
 	OfferEvent                                 *offerevent.OfferEvent                                                                 `json:"offer_event,omitempty"`
 	WebhookEndpoint                            *webhookendpoint.WebhookEndpoint                                                       `json:"webhook_endpoint,omitempty"`
+	UsageSummary                               *usagesummary.UsageSummary                                                             `json:"usage_summary,omitempty"`
+	UsageCharge                                *usagecharge.UsageCharge                                                               `json:"usage_charge,omitempty"`
 	ImpactedCustomer                           *impactedcustomer.ImpactedCustomer                                                     `json:"impacted_customer,omitempty"`
 	SubscriptionEntitlementsUpdatedDetail      *subscriptionentitlementsupdateddetail.SubscriptionEntitlementsUpdatedDetail           `json:"subscription_entitlements_updated_detail,omitempty"`
 	SubscriptionEntitlementsCreatedDetail      *subscriptionentitlementscreateddetail.SubscriptionEntitlementsCreatedDetail           `json:"subscription_entitlements_created_detail,omitempty"`

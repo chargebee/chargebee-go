@@ -2,6 +2,7 @@ package pricingpagesession
 
 import (
 	"github.com/chargebee/chargebee-go/v3/enum"
+	contractTermEnum "github.com/chargebee/chargebee-go/v3/models/contractterm/enum"
 )
 
 type PricingPageSession struct {
@@ -22,6 +23,7 @@ type CreateForNewSubscriptionRequestParams struct {
 	Discounts               []*CreateForNewSubscriptionDiscountParams      `json:"discounts,omitempty"`
 	BillingAddress          *CreateForNewSubscriptionBillingAddressParams  `json:"billing_address,omitempty"`
 	ShippingAddress         *CreateForNewSubscriptionShippingAddressParams `json:"shipping_address,omitempty"`
+	ContractTerm            *CreateForNewSubscriptionContractTermParams    `json:"contract_term,omitempty"`
 }
 type CreateForNewSubscriptionPricingPageParams struct {
 	Id string `json:"id"`
@@ -82,12 +84,17 @@ type CreateForNewSubscriptionShippingAddressParams struct {
 	Country          string                `json:"country,omitempty"`
 	ValidationStatus enum.ValidationStatus `json:"validation_status,omitempty"`
 }
+type CreateForNewSubscriptionContractTermParams struct {
+	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
+}
 type CreateForExistingSubscriptionRequestParams struct {
 	RedirectUrl  string                                           `json:"redirect_url,omitempty"`
 	PricingPage  *CreateForExistingSubscriptionPricingPageParams  `json:"pricing_page,omitempty"`
 	Subscription *CreateForExistingSubscriptionSubscriptionParams `json:"subscription,omitempty"`
 	Custom       map[string]interface{}                           `json:"custom,omitempty"`
 	Discounts    []*CreateForExistingSubscriptionDiscountParams   `json:"discounts,omitempty"`
+	ContractTerm *CreateForExistingSubscriptionContractTermParams `json:"contract_term,omitempty"`
 }
 type CreateForExistingSubscriptionPricingPageParams struct {
 	Id string `json:"id,omitempty"`
@@ -106,4 +113,8 @@ type CreateForExistingSubscriptionDiscountParams struct {
 	ItemPriceId   string            `json:"item_price_id,omitempty"`
 	Quantity      *int32            `json:"quantity,omitempty"`
 	Label         string            `json:"label,omitempty"`
+}
+type CreateForExistingSubscriptionContractTermParams struct {
+	ActionAtTermEnd          contractTermEnum.ActionAtTermEnd `json:"action_at_term_end,omitempty"`
+	CancellationCutoffPeriod *int32                           `json:"cancellation_cutoff_period,omitempty"`
 }

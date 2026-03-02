@@ -229,19 +229,6 @@ type Discount struct {
 	Index         int32                         `json:"index"`
 	Object        string                        `json:"object"`
 }
-type Addon struct {
-	Id                     string             `json:"id"`
-	Quantity               int32              `json:"quantity"`
-	UnitPrice              int64              `json:"unit_price"`
-	Amount                 int64              `json:"amount"`
-	TrialEnd               int64              `json:"trial_end"`
-	RemainingBillingCycles int32              `json:"remaining_billing_cycles"`
-	QuantityInDecimal      string             `json:"quantity_in_decimal"`
-	UnitPriceInDecimal     string             `json:"unit_price_in_decimal"`
-	AmountInDecimal        string             `json:"amount_in_decimal"`
-	ProrationType          enum.ProrationType `json:"proration_type"`
-	Object                 string             `json:"object"`
-}
 type ChargedEventBasedAddon struct {
 	Id            string `json:"id"`
 	LastChargedAt int64  `json:"last_charged_at"`
@@ -258,6 +245,19 @@ type EventBasedAddon struct {
 	QuantityInDecimal   string       `json:"quantity_in_decimal"`
 	UnitPriceInDecimal  string       `json:"unit_price_in_decimal"`
 	Object              string       `json:"object"`
+}
+type Addon struct {
+	Id                     string             `json:"id"`
+	Quantity               int32              `json:"quantity"`
+	UnitPrice              int64              `json:"unit_price"`
+	Amount                 int64              `json:"amount"`
+	TrialEnd               int64              `json:"trial_end"`
+	RemainingBillingCycles int32              `json:"remaining_billing_cycles"`
+	QuantityInDecimal      string             `json:"quantity_in_decimal"`
+	UnitPriceInDecimal     string             `json:"unit_price_in_decimal"`
+	AmountInDecimal        string             `json:"amount_in_decimal"`
+	ProrationType          enum.ProrationType `json:"proration_type"`
+	Object                 string             `json:"object"`
 }
 type CreateRequestParams struct {
 	Id                                string                           `json:"id,omitempty"`
