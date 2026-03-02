@@ -481,6 +481,7 @@ type CreateForChargeItemsAndChargesRequestParams struct {
 	AuthorizationTransactionId  string                                                   `json:"authorization_transaction_id,omitempty"`
 	PaymentSourceId             string                                                   `json:"payment_source_id,omitempty"`
 	AutoCollection              enum.AutoCollection                                      `json:"auto_collection,omitempty"`
+	NetTermDays                 *int32                                                   `json:"net_term_days,omitempty"`
 	TaxProvidersFields          []*CreateForChargeItemsAndChargesTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
 	Discounts                   []*CreateForChargeItemsAndChargesDiscountParams          `json:"discounts,omitempty"`
 	InvoiceDate                 *int64                                                   `json:"invoice_date,omitempty"`

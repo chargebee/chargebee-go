@@ -636,6 +636,8 @@ type CreateSubItemsForCustomerQuoteSubscriptionParams struct {
 	StartDate                         *int64                    `json:"start_date,omitempty"`
 	OfflinePaymentMethod              enum.OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
 	ContractTermBillingCycleOnRenewal *int32                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	FreePeriod                        *int32                    `json:"free_period,omitempty"`
+	FreePeriodUnit                    enum.FreePeriodUnit       `json:"free_period_unit,omitempty"`
 }
 type CreateSubItemsForCustomerQuoteSubscriptionItemParams struct {
 	ItemPriceId        string              `json:"item_price_id"`
@@ -747,6 +749,8 @@ type EditCreateSubCustomerQuoteForItemsSubscriptionParams struct {
 	StartDate                         *int64                    `json:"start_date,omitempty"`
 	OfflinePaymentMethod              enum.OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
 	ContractTermBillingCycleOnRenewal *int32                    `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	FreePeriod                        *int32                    `json:"free_period,omitempty"`
+	FreePeriodUnit                    enum.FreePeriodUnit       `json:"free_period_unit,omitempty"`
 }
 type EditCreateSubCustomerQuoteForItemsSubscriptionItemParams struct {
 	ItemPriceId        string              `json:"item_price_id"`

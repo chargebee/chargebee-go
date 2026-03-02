@@ -22,6 +22,8 @@ type QuotedSubscription struct {
 	PlanUnitPriceInDecimal            string                                   `json:"plan_unit_price_in_decimal"`
 	ChangesScheduledAt                int64                                    `json:"changes_scheduled_at"`
 	ChangeOption                      quotedSubscriptionEnum.ChangeOption      `json:"change_option"`
+	FreePeriod                        int32                                    `json:"free_period"`
+	FreePeriodUnit                    enum.FreePeriodUnit                      `json:"free_period_unit"`
 	ContractTermBillingCycleOnRenewal int32                                    `json:"contract_term_billing_cycle_on_renewal"`
 	Addons                            []*Addon                                 `json:"addons"`
 	EventBasedAddons                  []*EventBasedAddon                       `json:"event_based_addons"`
