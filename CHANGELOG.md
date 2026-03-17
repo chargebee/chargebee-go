@@ -1,3 +1,8 @@
+### v3.46.1 (2026-03-17)
+* * *
+### Bug Fixes: 
+- Fixed missing custom field mapping for several resources by extending handling across all supported entities.
+
 ### v3.46.0 (2026-03-02)
 * * *
 ### New Resources:

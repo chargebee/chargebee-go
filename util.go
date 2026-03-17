@@ -209,22 +209,33 @@ func prepareResultCF(resbody []byte, v interface{}) {
 	}
 
 	for key, val := range m {
-		if key == "customer" {
-			v.(*Result).Customer.CustomField = customMapping(val)
-		} else if key == "subscription" {
-			v.(*Result).Subscription.CustomField = customMapping(val)
-		} else if key == "addon" {
+		switch key {
+		case "addon":
 			v.(*Result).Addon.CustomField = customMapping(val)
-		} else if key == "plan" {
-			v.(*Result).Plan.CustomField = customMapping(val)
-		} else if key == "item" {
+		case "coupon":
+			v.(*Result).Coupon.CustomField = customMapping(val)
+		case "credit_note":
+			v.(*Result).CreditNote.CustomField = customMapping(val)
+		case "customer":
+			v.(*Result).Customer.CustomField = customMapping(val)
+		case "feature":
+			v.(*Result).Feature.CustomField = customMapping(val)
+		case "invoice":
+			v.(*Result).Invoice.CustomField = customMapping(val)
+		case "item":
 			v.(*Result).Item.CustomField = customMapping(val)
-		} else if key == "item_price" {
-			v.(*Result).ItemPrice.CustomField = customMapping(val)
-		} else if key == "item_family" {
+		case "item_family":
 			v.(*Result).ItemFamily.CustomField = customMapping(val)
-		}
+		case "item_price":
+			v.(*Result).ItemPrice.CustomField = customMapping(val)
+		case "plan":
+			v.(*Result).Plan.CustomField = customMapping(val)
+		case "quote":
+			v.(*Result).Quote.CustomField = customMapping(val)
+		case "subscription":
+			v.(*Result).Subscription.CustomField = customMapping(val)
 
+		}
 	}
 
 }
@@ -236,26 +247,39 @@ func prepareResultListCF(resbody []byte, v interface{}) {
 	if err := data.Decode(&m); err != nil {
 		panic(err)
 	}
+
 	for index, val := range m["list"].([]interface{}) {
 		for key, value := range val.(map[string]interface{}) {
-			if key == "customer" {
-				v.(*ResultList).List[index].Customer.CustomField = customMapping(value)
-			} else if key == "subscription" {
-				v.(*ResultList).List[index].Subscription.CustomField = customMapping(value)
-			} else if key == "addon" {
+			switch key {
+			case "addon":
 				v.(*ResultList).List[index].Addon.CustomField = customMapping(value)
-			} else if key == "plan" {
-				v.(*ResultList).List[index].Plan.CustomField = customMapping(value)
-			} else if key == "item" {
+			case "coupon":
+				v.(*ResultList).List[index].Coupon.CustomField = customMapping(value)
+			case "credit_note":
+				v.(*ResultList).List[index].CreditNote.CustomField = customMapping(value)
+			case "customer":
+				v.(*ResultList).List[index].Customer.CustomField = customMapping(value)
+			case "feature":
+				v.(*ResultList).List[index].Feature.CustomField = customMapping(value)
+			case "invoice":
+				v.(*ResultList).List[index].Invoice.CustomField = customMapping(value)
+			case "item":
 				v.(*ResultList).List[index].Item.CustomField = customMapping(value)
-			} else if key == "item_price" {
-				v.(*ResultList).List[index].ItemPrice.CustomField = customMapping(value)
-			} else if key == "item_family" {
+			case "item_family":
 				v.(*ResultList).List[index].ItemFamily.CustomField = customMapping(value)
-			}
+			case "item_price":
+				v.(*ResultList).List[index].ItemPrice.CustomField = customMapping(value)
+			case "plan":
+				v.(*ResultList).List[index].Plan.CustomField = customMapping(value)
+			case "quote":
+				v.(*ResultList).List[index].Quote.CustomField = customMapping(value)
+			case "subscription":
+				v.(*ResultList).List[index].Subscription.CustomField = customMapping(value)
 
+			}
 		}
 	}
+
 }
 
 // Bool returns a pointer to the bool value passed.
