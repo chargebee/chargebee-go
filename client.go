@@ -63,8 +63,10 @@ type Client struct {
 	Transaction                 *TransactionService
 	UnbilledCharge              *UnbilledChargeService
 	Usage                       *UsageService
+	UsageCharge                 *UsageChargeService
 	UsageEvent                  *UsageEventService
 	UsageFile                   *UsageFileService
+	UsageSummary                *UsageSummaryService
 	VirtualBankAccount          *VirtualBankAccountService
 	WebhookEndpoint             *WebhookEndpointService
 }
@@ -134,8 +136,10 @@ func NewClient(config *ClientConfig) *Client {
 		Transaction:                 &TransactionService{config},
 		UnbilledCharge:              &UnbilledChargeService{config},
 		Usage:                       &UsageService{config},
+		UsageCharge:                 &UsageChargeService{config},
 		UsageEvent:                  &UsageEventService{config},
 		UsageFile:                   &UsageFileService{config},
+		UsageSummary:                &UsageSummaryService{config},
 		VirtualBankAccount:          &VirtualBankAccountService{config},
 		WebhookEndpoint:             &WebhookEndpointService{config},
 	}

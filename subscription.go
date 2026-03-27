@@ -5,6 +5,15 @@ import (
 	"encoding/json"
 )
 
+type SubscriptionBillingPeriodUnit string
+
+const (
+	SubscriptionBillingPeriodUnitDay   SubscriptionBillingPeriodUnit = "day"
+	SubscriptionBillingPeriodUnitWeek  SubscriptionBillingPeriodUnit = "week"
+	SubscriptionBillingPeriodUnitMonth SubscriptionBillingPeriodUnit = "month"
+	SubscriptionBillingPeriodUnitYear  SubscriptionBillingPeriodUnit = "year"
+)
+
 type SubscriptionStatus string
 
 const (
@@ -27,15 +36,6 @@ const (
 	SubscriptionCancelReasonTaxCalculationFailed            SubscriptionCancelReason = "tax_calculation_failed"
 	SubscriptionCancelReasonCurrencyIncompatibleWithGateway SubscriptionCancelReason = "currency_incompatible_with_gateway"
 	SubscriptionCancelReasonNonCompliantCustomer            SubscriptionCancelReason = "non_compliant_customer"
-)
-
-type SubscriptionBillingPeriodUnit string
-
-const (
-	SubscriptionBillingPeriodUnitDay   SubscriptionBillingPeriodUnit = "day"
-	SubscriptionBillingPeriodUnitWeek  SubscriptionBillingPeriodUnit = "week"
-	SubscriptionBillingPeriodUnitMonth SubscriptionBillingPeriodUnit = "month"
-	SubscriptionBillingPeriodUnitYear  SubscriptionBillingPeriodUnit = "year"
 )
 
 type SubscriptionReferralInfoRewardStatus string
@@ -336,20 +336,6 @@ type SubscriptionDiscount struct {
 	Object        string                   `json:"object"`
 }
 
-type SubscriptionAddon struct {
-	Id                     string        `json:"id"`
-	Quantity               int32         `json:"quantity"`
-	UnitPrice              int64         `json:"unit_price"`
-	Amount                 int64         `json:"amount"`
-	TrialEnd               int64         `json:"trial_end"`
-	RemainingBillingCycles int32         `json:"remaining_billing_cycles"`
-	QuantityInDecimal      string        `json:"quantity_in_decimal"`
-	UnitPriceInDecimal     string        `json:"unit_price_in_decimal"`
-	AmountInDecimal        string        `json:"amount_in_decimal"`
-	ProrationType          ProrationType `json:"proration_type"`
-	Object                 string        `json:"object"`
-}
-
 type SubscriptionChargedEventBasedAddon struct {
 	Id            string `json:"id"`
 	LastChargedAt int64  `json:"last_charged_at"`
@@ -367,6 +353,20 @@ type SubscriptionEventBasedAddon struct {
 	QuantityInDecimal   string  `json:"quantity_in_decimal"`
 	UnitPriceInDecimal  string  `json:"unit_price_in_decimal"`
 	Object              string  `json:"object"`
+}
+
+type SubscriptionAddon struct {
+	Id                     string        `json:"id"`
+	Quantity               int32         `json:"quantity"`
+	UnitPrice              int64         `json:"unit_price"`
+	Amount                 int64         `json:"amount"`
+	TrialEnd               int64         `json:"trial_end"`
+	RemainingBillingCycles int32         `json:"remaining_billing_cycles"`
+	QuantityInDecimal      string        `json:"quantity_in_decimal"`
+	UnitPriceInDecimal     string        `json:"unit_price_in_decimal"`
+	AmountInDecimal        string        `json:"amount_in_decimal"`
+	ProrationType          ProrationType `json:"proration_type"`
+	Object                 string        `json:"object"`
 }
 
 type SubscriptionCreateRequest struct {

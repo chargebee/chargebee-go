@@ -782,6 +782,8 @@ type QuoteCreateSubItemsForCustomerQuoteSubscription struct {
 	StartDate                         *int64               `json:"start_date,omitempty"`
 	OfflinePaymentMethod              OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
 	ContractTermBillingCycleOnRenewal *int32               `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	FreePeriod                        *int32               `json:"free_period,omitempty"`
+	FreePeriodUnit                    FreePeriodUnit       `json:"free_period_unit,omitempty"`
 }
 
 type QuoteCreateSubItemsForCustomerQuoteSubscriptionItem struct {
@@ -905,6 +907,8 @@ type QuoteEditCreateSubCustomerQuoteForItemsSubscription struct {
 	StartDate                         *int64               `json:"start_date,omitempty"`
 	OfflinePaymentMethod              OfflinePaymentMethod `json:"offline_payment_method,omitempty"`
 	ContractTermBillingCycleOnRenewal *int32               `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	FreePeriod                        *int32               `json:"free_period,omitempty"`
+	FreePeriodUnit                    FreePeriodUnit       `json:"free_period_unit,omitempty"`
 }
 
 type QuoteEditCreateSubCustomerQuoteForItemsSubscriptionItem struct {

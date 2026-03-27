@@ -790,6 +790,7 @@ type InvoiceCreateForChargeItemsAndChargesRequest struct {
 	AuthorizationTransactionId  string                                                    `json:"authorization_transaction_id,omitempty"`
 	PaymentSourceId             string                                                    `json:"payment_source_id,omitempty"`
 	AutoCollection              AutoCollection                                            `json:"auto_collection,omitempty"`
+	NetTermDays                 *int32                                                    `json:"net_term_days,omitempty"`
 	TaxProvidersFields          []*InvoiceCreateForChargeItemsAndChargesTaxProvidersField `json:"tax_providers_fields,omitempty"`
 	Discounts                   []*InvoiceCreateForChargeItemsAndChargesDiscount          `json:"discounts,omitempty"`
 	InvoiceDate                 *int64                                                    `json:"invoice_date,omitempty"`

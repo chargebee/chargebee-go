@@ -95,12 +95,20 @@ type ItemEntitlementItemEntitlementsForFeatureResponse struct {
 	apiResponse
 }
 
-type ItemEntitlementAddItemEntitlementsResponse struct {
+type ItemEntitlementAddItemEntitlementsItemEntitlementResponse struct {
 	ItemEntitlement *ItemEntitlement `json:"item_entitlement,omitempty"`
+}
+
+type ItemEntitlementAddItemEntitlementsResponse struct {
+	List []*ItemEntitlementAddItemEntitlementsItemEntitlementResponse `json:"list,omitempty"`
 	apiResponse
 }
 
-type ItemEntitlementUpsertOrRemoveItemEntitlementsForItemResponse struct {
+type ItemEntitlementUpsertOrRemoveItemEntitlementsForItemItemEntitlementResponse struct {
 	ItemEntitlement *ItemEntitlement `json:"item_entitlement,omitempty"`
+}
+
+type ItemEntitlementUpsertOrRemoveItemEntitlementsForItemResponse struct {
+	List []*ItemEntitlementUpsertOrRemoveItemEntitlementsForItemItemEntitlementResponse `json:"list,omitempty"`
 	apiResponse
 }
