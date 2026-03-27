@@ -34,8 +34,8 @@ func AdvanceInvoiceEstimate(id string, params *estimate.AdvanceInvoiceEstimateRe
 func RegenerateInvoiceEstimate(id string, params *estimate.RegenerateInvoiceEstimateRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/subscriptions/%v/regenerate_invoice_estimate", url.PathEscape(id)), params)
 }
-func UpcomingInvoicesEstimate(id string) chargebee.Request {
-	return chargebee.Send("GET", fmt.Sprintf("/customers/%v/upcoming_invoices_estimate", url.PathEscape(id)), nil)
+func UpcomingInvoicesEstimate(id string, params *estimate.UpcomingInvoicesEstimateRequestParams) chargebee.Request {
+	return chargebee.Send("GET", fmt.Sprintf("/customers/%v/upcoming_invoices_estimate", url.PathEscape(id)), params)
 }
 func ChangeTermEnd(id string, params *estimate.ChangeTermEndRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/subscriptions/%v/change_term_end_estimate", url.PathEscape(id)), params)

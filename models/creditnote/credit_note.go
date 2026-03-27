@@ -222,11 +222,13 @@ type BillingAddress struct {
 	Object           string                `json:"object"`
 }
 type Einvoice struct {
-	Id              string                        `json:"id"`
-	ReferenceNumber string                        `json:"reference_number"`
-	Status          creditNoteEnum.EinvoiceStatus `json:"status"`
-	Message         string                        `json:"message"`
-	Object          string                        `json:"object"`
+	Id                 string                        `json:"id"`
+	ReferenceId        string                        `json:"reference_id"`
+	ReferenceNumber    string                        `json:"reference_number"`
+	Status             creditNoteEnum.EinvoiceStatus `json:"status"`
+	Message            string                        `json:"message"`
+	ProviderReferences json.RawMessage               `json:"provider_references"`
+	Object             string                        `json:"object"`
 }
 type SiteDetailsAtCreation struct {
 	Timezone            string          `json:"timezone"`

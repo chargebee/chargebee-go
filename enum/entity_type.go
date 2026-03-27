@@ -43,5 +43,6 @@ const (
 	EntityTypeUsageFile                                  EntityType = "usage_file"
 	EntityTypeBusinessRule                               EntityType = "business_rule"
 	EntityTypeRuleset                                    EntityType = "ruleset"
+	EntityTypeAlertStatus                                EntityType = "alert_status"
 	EntityTypeCharge                                     EntityType = "charge"
 )

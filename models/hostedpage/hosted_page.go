@@ -699,9 +699,10 @@ type UpdatePaymentMethodCardParams struct {
 	GatewayAccountId string       `json:"gateway_account_id,omitempty"`
 }
 type ManagePaymentSourcesRequestParams struct {
-	Customer    *ManagePaymentSourcesCustomerParams `json:"customer,omitempty"`
-	RedirectUrl string                              `json:"redirect_url,omitempty"`
-	Card        *ManagePaymentSourcesCardParams     `json:"card,omitempty"`
+	BusinessEntityId string                              `json:"business_entity_id,omitempty"`
+	Customer         *ManagePaymentSourcesCustomerParams `json:"customer,omitempty"`
+	RedirectUrl      string                              `json:"redirect_url,omitempty"`
+	Card             *ManagePaymentSourcesCardParams     `json:"card,omitempty"`
 }
 type ManagePaymentSourcesCustomerParams struct {
 	Id string `json:"id"`

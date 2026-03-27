@@ -613,6 +613,9 @@ type RegenerateInvoiceEstimateRequestParams struct {
 	Prorate            *bool  `json:"prorate,omitempty"`
 	InvoiceImmediately *bool  `json:"invoice_immediately,omitempty"`
 }
+type UpcomingInvoicesEstimateRequestParams struct {
+	IncludeUsageCharges *bool `json:"include_usage_charges,omitempty"`
+}
 type ChangeTermEndRequestParams struct {
 	TermEndsAt         *int64 `json:"term_ends_at"`
 	Prorate            *bool  `json:"prorate,omitempty"`

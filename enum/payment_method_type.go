@@ -37,4 +37,5 @@ const (
 	PaymentMethodTypeNaverPay                  PaymentMethodType = "naver_pay"
 	PaymentMethodTypeRevolutPay                PaymentMethodType = "revolut_pay"
 	PaymentMethodTypeCashAppPay                PaymentMethodType = "cash_app_pay"
+	PaymentMethodTypePix                       PaymentMethodType = "pix"
 )

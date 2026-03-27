@@ -7,6 +7,7 @@ const (
 	EventTypeAddonCreated                                            EventType = "addon_created"
 	EventTypeAddonDeleted                                            EventType = "addon_deleted"
 	EventTypeAddonUpdated                                            EventType = "addon_updated"
+	EventTypeAlertStatusChanged                                      EventType = "alert_status_changed"
 	EventTypeAttachedItemCreated                                     EventType = "attached_item_created"
 	EventTypeAttachedItemDeleted                                     EventType = "attached_item_deleted"
 	EventTypeAttachedItemUpdated                                     EventType = "attached_item_updated"

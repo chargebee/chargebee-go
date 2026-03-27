@@ -67,3 +67,33 @@ func Delete(id string, params *quote.DeleteRequestParams) chargebee.Request {
 func Pdf(id string, params *quote.PdfRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/quotes/%v/pdf", url.PathEscape(id)), params).SetIdempotency(true)
 }
+
+// Deprecated: This function is deprecated.
+func RetrieveSignature(id string) chargebee.Request {
+	return chargebee.Send("GET", fmt.Sprintf("/quotes/%v/retrieve_signature", url.PathEscape(id)), nil)
+}
+
+// Deprecated: This function is deprecated.
+func RetrieveSignedPdf(id string) chargebee.Request {
+	return chargebee.Send("POST", fmt.Sprintf("/quotes/%v/retrieve_signed_pdf", url.PathEscape(id)), nil).SetIdempotency(true)
+}
+
+// Deprecated: This function is deprecated.
+func CreateSignature(id string) chargebee.Request {
+	return chargebee.Send("POST", fmt.Sprintf("/quotes/%v/create_signature", url.PathEscape(id)), nil).SetIdempotency(true)
+}
+
+// Deprecated: This function is deprecated.
+func UpdateSignature(id string) chargebee.Request {
+	return chargebee.Send("POST", fmt.Sprintf("/quotes/%v/update_signature", url.PathEscape(id)), nil).SetIdempotency(true)
+}
+
+// Deprecated: This function is deprecated.
+func UpdateSignatureStatus(id string, params *quote.UpdateSignatureStatusRequestParams) chargebee.Request {
+	return chargebee.Send("POST", fmt.Sprintf("/quotes/%v/update_signature_status", url.PathEscape(id)), params).SetIdempotency(true)
+}
+
+// Deprecated: This function is deprecated.
+func RefreshSignatureLink(id string) chargebee.Request {
+	return chargebee.Send("POST", fmt.Sprintf("/quotes/%v/refresh_signature_link", url.PathEscape(id)), nil).SetIdempotency(true)
+}

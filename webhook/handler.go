@@ -23,6 +23,8 @@ type WebhookHandler struct {
 
 	OnAddonUpdated func(AddonUpdatedEvent) error
 
+	OnAlertStatusChanged func(AlertStatusChangedEvent) error
+
 	OnAttachedItemCreated func(AttachedItemCreatedEvent) error
 
 	OnAttachedItemDeleted func(AttachedItemDeletedEvent) error
@@ -516,6 +518,17 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 				return err
 			}
 			return h.OnAddonUpdated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case enum.EventTypeAlertStatusChanged:
+		if h.OnAlertStatusChanged != nil {
+			var e AlertStatusChangedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnAlertStatusChanged(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}

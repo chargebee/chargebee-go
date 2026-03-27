@@ -454,6 +454,9 @@ type PriceVariantDeletedContent struct {
 	Attribute *attribute.Attribute `json:"attribute,omitempty"`
 }
 
+type AlertStatusChangedContent struct {
+}
+
 type SubscriptionMovementFailedContent struct {
 	Subscription *subscription.Subscription `json:"subscription,omitempty"`
 }
@@ -1870,6 +1873,12 @@ type OrderCreatedEvent struct {
 type PriceVariantDeletedEvent struct {
 	BaseEvent
 	Content *PriceVariantDeletedContent `json:"content"`
+}
+
+// AlertStatusChangedEvent represents a alert_status_changed webhook event
+type AlertStatusChangedEvent struct {
+	BaseEvent
+	Content *AlertStatusChangedContent `json:"content"`
 }
 
 // SubscriptionMovementFailedEvent represents a subscription_movement_failed webhook event

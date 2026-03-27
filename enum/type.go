@@ -37,7 +37,9 @@ const (
 	TypeNaverPay                  Type = "naver_pay"
 	TypeRevolutPay                Type = "revolut_pay"
 	TypeCashAppPay                Type = "cash_app_pay"
+	TypePix                       Type = "pix"
 	TypeFreeTrial                 Type = "free_trial"
 	TypePayUpFront                Type = "pay_up_front"
 	TypePayAsYouGo                Type = "pay_as_you_go"
+	TypeUsageExceeded             Type = "usage_exceeded"
 )
