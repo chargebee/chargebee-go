@@ -5,6 +5,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
 	contractTermEnum "github.com/chargebee/chargebee-go/v3/models/contractterm/enum"
+	cpqQuoteSignatureEnum "github.com/chargebee/chargebee-go/v3/models/cpqquotesignature/enum"
 	quoteEnum "github.com/chargebee/chargebee-go/v3/models/quote/enum"
 )
 
@@ -1305,4 +1306,10 @@ type DeleteRequestParams struct {
 type PdfRequestParams struct {
 	ConsolidatedView *bool                `json:"consolidated_view,omitempty"`
 	DispositionType  enum.DispositionType `json:"disposition_type,omitempty"`
+}
+type UpdateSignatureStatusRequestParams struct {
+	CpqQuoteSignature *UpdateSignatureStatusCpqQuoteSignatureParams `json:"cpq_quote_signature,omitempty"`
+}
+type UpdateSignatureStatusCpqQuoteSignatureParams struct {
+	Status cpqQuoteSignatureEnum.Status `json:"status,omitempty"`
 }

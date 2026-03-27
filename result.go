@@ -4,6 +4,8 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/addon"
 	"github.com/chargebee/chargebee-go/v3/models/address"
 	"github.com/chargebee/chargebee-go/v3/models/advanceinvoiceschedule"
+	"github.com/chargebee/chargebee-go/v3/models/alert"
+	"github.com/chargebee/chargebee-go/v3/models/alertstatus"
 	"github.com/chargebee/chargebee-go/v3/models/attacheditem"
 	"github.com/chargebee/chargebee-go/v3/models/attribute"
 	"github.com/chargebee/chargebee-go/v3/models/billingconfiguration"
@@ -18,6 +20,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/coupon"
 	"github.com/chargebee/chargebee-go/v3/models/couponcode"
 	"github.com/chargebee/chargebee-go/v3/models/couponset"
+	"github.com/chargebee/chargebee-go/v3/models/cpqquotesignature"
 	"github.com/chargebee/chargebee-go/v3/models/creditnote"
 	"github.com/chargebee/chargebee-go/v3/models/currency"
 	"github.com/chargebee/chargebee-go/v3/models/customer"
@@ -141,6 +144,7 @@ type Result struct {
 	QuotedDeltaRamp                            *quoteddeltaramp.QuotedDeltaRamp                                                       `json:"quoted_delta_ramp,omitempty"`
 	BillingConfiguration                       *billingconfiguration.BillingConfiguration                                             `json:"billing_configuration,omitempty"`
 	QuoteLineGroup                             *quotelinegroup.QuoteLineGroup                                                         `json:"quote_line_group,omitempty"`
+	CpqQuoteSignature                          *cpqquotesignature.CpqQuoteSignature                                                   `json:"cpq_quote_signature,omitempty"`
 	Plan                                       *plan.Plan                                                                             `json:"plan,omitempty"`
 	Addon                                      *addon.Addon                                                                           `json:"addon,omitempty"`
 	Coupon                                     *coupon.Coupon                                                                         `json:"coupon,omitempty"`
@@ -201,6 +205,8 @@ type Result struct {
 	WebhookEndpoint                            *webhookendpoint.WebhookEndpoint                                                       `json:"webhook_endpoint,omitempty"`
 	UsageSummary                               *usagesummary.UsageSummary                                                             `json:"usage_summary,omitempty"`
 	UsageCharge                                *usagecharge.UsageCharge                                                               `json:"usage_charge,omitempty"`
+	Alert                                      *alert.Alert                                                                           `json:"alert,omitempty"`
+	AlertStatus                                *alertstatus.AlertStatus                                                               `json:"alert_status,omitempty"`
 	ImpactedCustomer                           *impactedcustomer.ImpactedCustomer                                                     `json:"impacted_customer,omitempty"`
 	SubscriptionEntitlementsUpdatedDetail      *subscriptionentitlementsupdateddetail.SubscriptionEntitlementsUpdatedDetail           `json:"subscription_entitlements_updated_detail,omitempty"`
 	SubscriptionEntitlementsCreatedDetail      *subscriptionentitlementscreateddetail.SubscriptionEntitlementsCreatedDetail           `json:"subscription_entitlements_created_detail,omitempty"`

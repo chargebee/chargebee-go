@@ -35,4 +35,5 @@ const (
 	PaymentMethodTypeCashAppPay                PaymentMethodType = "cash_app_pay"
 	PaymentMethodTypeWechatPay                 PaymentMethodType = "wechat_pay"
 	PaymentMethodTypeAlipay                    PaymentMethodType = "alipay"
+	PaymentMethodTypePix                       PaymentMethodType = "pix"
 )
