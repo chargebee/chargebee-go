@@ -184,3 +184,24 @@ func TestRequestWithEnv_RetryOverride(t *testing.T) {
 		t.Errorf("expected 4 attempts, got: %d", count)
 	}
 }
+
+func TestDo_WithHeaders(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(200)
+		io.WriteString(w, `{"message":"ok"}`)
+	}))
+	defer server.Close()
+	req, _ := http.NewRequest("GET", server.URL, nil)
+	cfg := &ClientConfig{
+		Headers: &http.Header{
+			"X-Test-Header": {"test_value"},
+		},
+	}
+	_, err := Do(req, false, cfg)
+	if err != nil {
+		t.Fatalf("expected success, got error: %v", err)
+	}
+	if req.Header.Get("X-Test-Header") != "test_value" {
+		t.Errorf("expected X-Test-Header to be test_value, got: %s", req.Header.Get("X-Test-Header"))
+	}
+}

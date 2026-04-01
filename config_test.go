@@ -13,3 +13,11 @@ func TestNewClientConfig(t *testing.T) {
 	assert.Equal(t, cfg.HTTPClient, defaultHTTPClient)
 	assert.Equal(t, cfg.RetryConfig, &RetryConfig{Enabled: true, MaxRetries: 3, DelayMs: 500, RetryOn: []int{500, 502, 503, 504}})
 }
+
+func TestApiBaseUrl(t *testing.T) {
+	cfg := NewClientConfig("test_site", "test_api_key")
+	cfg.Protocol = "http"
+	cfg.ChargebeeDomain = "mock.com"
+	assert.Equal(t, cfg.apiBaseUrl(""), "http://test_site.mock.com/api/v2")
+	assert.Equal(t, cfg.apiBaseUrl("test_domain"), "http://test_site.test_domain.mock.com/api/v2")
+}

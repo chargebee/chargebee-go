@@ -158,3 +158,12 @@ func TestSendRequestWithCustomFields(t *testing.T) {
 	assert.Equal(t, "value_string", result.Customer.CustomFields.Get("cf_string"))
 	assert.Equal(t, "value_another", result.Customer.CustomFields.Get("cf_another"))
 }
+
+func TestNewRequest(t *testing.T) {
+	cfg := NewClientConfig("test_site", "test_api_key")
+	cfg.Protocol = "http"
+	cfg.ChargebeeDomain = "mock.com"
+	req, err := newRequest(cfg, "GET", "/customers", nil, nil, "", false)
+	assert.NoError(t, err)
+	assert.Equal(t, "http://test_site.mock.com/api/v2/customers", req.URL.String())
+}

@@ -14,6 +14,7 @@ type ClientConfig struct {
 	RetryConfig     *RetryConfig
 	EnableDebugLogs bool
 	HTTPClient      *http.Client
+	Headers         *http.Header
 }
 
 type RetryConfig struct {
