@@ -193,7 +193,7 @@ func TestDo_WithHeaders(t *testing.T) {
 	defer server.Close()
 	req, _ := http.NewRequest("GET", server.URL, nil)
 	cfg := &ClientConfig{
-		Headers: &http.Header{
+		DefaultHeaders: &http.Header{
 			"X-Test-Header": {"test_value"},
 		},
 	}

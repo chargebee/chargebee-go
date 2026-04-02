@@ -22,8 +22,8 @@ func Do(req *http.Request, isIdempotent bool, cfg *ClientConfig) (*apiResponse, 
 	if cfg.HTTPClient == nil {
 		cfg.HTTPClient = defaultHTTPClient
 	}
-	if cfg.Headers != nil {
-		for k, v := range *cfg.Headers {
+	if cfg.DefaultHeaders != nil {
+		for k, v := range *cfg.DefaultHeaders {
 			for _, vv := range v {
 				req.Header.Add(k, vv)
 			}
