@@ -14,7 +14,7 @@ type ClientConfig struct {
 	RetryConfig     *RetryConfig
 	EnableDebugLogs bool
 	HTTPClient      *http.Client
-	DefaultHeaders  *http.Header
+	RequestHeaders  *http.Header
 }
 
 type RetryConfig struct {
@@ -57,7 +57,7 @@ func NewClientConfig(siteName string, apiKey string) *ClientConfig {
 			DelayMs:    500,
 			RetryOn:    []int{500, 502, 503, 504},
 		},
-		DefaultHeaders: &http.Header{},
+		RequestHeaders: &http.Header{},
 	}
 }
 

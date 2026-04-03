@@ -21,3 +21,9 @@ func TestApiBaseUrl(t *testing.T) {
 	assert.Equal(t, cfg.apiBaseUrl(""), "http://test_site.mock.com/api/v2")
 	assert.Equal(t, cfg.apiBaseUrl("test_domain"), "http://test_site.test_domain.mock.com/api/v2")
 }
+
+func TestRequestHeaders(t *testing.T) {
+	cfg := NewClientConfig("test_site", "test_api_key")
+	cfg.RequestHeaders.Add("X-Test-Header", "test_value")
+	assert.Equal(t, cfg.RequestHeaders.Get("X-Test-Header"), "test_value")
+}
