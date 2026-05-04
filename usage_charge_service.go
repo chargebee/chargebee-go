@@ -11,7 +11,6 @@ type UsageChargeService struct {
 	config *ClientConfig
 }
 
-// Deprecated: This function is deprecated.
 func (s *UsageChargeService) RetrieveUsageChargesForSubscription(id string, req *UsageChargeRetrieveUsageChargesForSubscriptionRequest) (*UsageChargeRetrieveUsageChargesForSubscriptionResponse, error) {
 	req.method = "GET"
 	req.path = fmt.Sprintf("/subscriptions/%v/usage_charges", url.PathEscape(id))

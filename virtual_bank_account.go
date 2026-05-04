@@ -33,19 +33,21 @@ type VirtualBankAccount struct {
 }
 
 type VirtualBankAccountCreateUsingPermanentTokenRequest struct {
-	CustomerId  string                   `json:"customer_id"`
-	ReferenceId string                   `json:"reference_id"`
-	Scheme      VirtualBankAccountScheme `json:"scheme,omitempty"`
-	apiRequest  `json:"-" form:"-"`
+	CustomerId       string                   `json:"customer_id"`
+	ReferenceId      string                   `json:"reference_id"`
+	GatewayAccountId string                   `json:"gateway_account_id,omitempty"`
+	Scheme           VirtualBankAccountScheme `json:"scheme,omitempty"`
+	apiRequest       `json:"-" form:"-"`
 }
 
 func (r *VirtualBankAccountCreateUsingPermanentTokenRequest) payload() any { return r }
 
 type VirtualBankAccountCreateRequest struct {
-	CustomerId string                   `json:"customer_id"`
-	Email      string                   `json:"email,omitempty"`
-	Scheme     VirtualBankAccountScheme `json:"scheme,omitempty"`
-	apiRequest `json:"-" form:"-"`
+	CustomerId       string                   `json:"customer_id"`
+	Email            string                   `json:"email,omitempty"`
+	GatewayAccountId string                   `json:"gateway_account_id,omitempty"`
+	Scheme           VirtualBankAccountScheme `json:"scheme,omitempty"`
+	apiRequest       `json:"-" form:"-"`
 }
 
 func (r *VirtualBankAccountCreateRequest) payload() any { return r }

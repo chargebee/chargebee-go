@@ -7,6 +7,8 @@ type Client struct {
 
 	Addon                       *AddonService
 	Address                     *AddressService
+	Alert                       *AlertService
+	AlertStatus                 *AlertStatusService
 	AttachedItem                *AttachedItemService
 	BusinessEntity              *BusinessEntityService
 	Card                        *CardService
@@ -80,6 +82,8 @@ func NewClient(config *ClientConfig) *Client {
 
 		Addon:                       &AddonService{config},
 		Address:                     &AddressService{config},
+		Alert:                       &AlertService{config},
+		AlertStatus:                 &AlertStatusService{config},
 		AttachedItem:                &AttachedItemService{config},
 		BusinessEntity:              &BusinessEntityService{config},
 		Card:                        &CardService{config},

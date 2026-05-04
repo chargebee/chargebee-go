@@ -32,6 +32,7 @@ const (
 	CardCardTypeMaestro         CardCardType = "maestro"
 	CardCardTypeDankort         CardCardType = "dankort"
 	CardCardTypeCartesBancaires CardCardType = "cartes_bancaires"
+	CardCardTypeMada            CardCardType = "mada"
 	CardCardTypeOther           CardCardType = "other"
 	CardCardTypeNotApplicable   CardCardType = "not_applicable"
 )

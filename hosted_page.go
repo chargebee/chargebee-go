@@ -824,10 +824,11 @@ type HostedPageUpdatePaymentMethodCard struct {
 }
 
 type HostedPageManagePaymentSourcesRequest struct {
-	Customer    *HostedPageManagePaymentSourcesCustomer `json:"customer,omitempty"`
-	RedirectUrl string                                  `json:"redirect_url,omitempty"`
-	Card        *HostedPageManagePaymentSourcesCard     `json:"card,omitempty"`
-	apiRequest  `json:"-" form:"-"`
+	BusinessEntityId string                                  `json:"business_entity_id,omitempty"`
+	Customer         *HostedPageManagePaymentSourcesCustomer `json:"customer,omitempty"`
+	RedirectUrl      string                                  `json:"redirect_url,omitempty"`
+	Card             *HostedPageManagePaymentSourcesCard     `json:"card,omitempty"`
+	apiRequest       `json:"-" form:"-"`
 }
 
 func (r *HostedPageManagePaymentSourcesRequest) payload() any { return r }

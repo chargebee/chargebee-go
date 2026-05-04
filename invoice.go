@@ -611,11 +611,13 @@ type InvoiceStatementDescriptor struct {
 }
 
 type InvoiceEinvoice struct {
-	Id              string                `json:"id"`
-	ReferenceNumber string                `json:"reference_number"`
-	Status          InvoiceEinvoiceStatus `json:"status"`
-	Message         string                `json:"message"`
-	Object          string                `json:"object"`
+	Id                 string                `json:"id"`
+	ReferenceId        string                `json:"reference_id"`
+	ReferenceNumber    string                `json:"reference_number"`
+	Status             InvoiceEinvoiceStatus `json:"status"`
+	Message            string                `json:"message"`
+	ProviderReferences json.RawMessage       `json:"provider_references"`
+	Object             string                `json:"object"`
 }
 
 type InvoiceSiteDetailsAtCreation struct {
@@ -1303,6 +1305,7 @@ type InvoiceListRequest struct {
 	VoidedAt       *TimestampFilter     `json:"voided_at,omitempty"`
 	VoidReasonCode *StringFilter        `json:"void_reason_code,omitempty"`
 	SortBy         *SortFilter          `json:"sort_by,omitempty"`
+	Exclude        *StringFilter        `json:"exclude,omitempty"`
 	apiRequest     `json:"-" form:"-"`
 }
 

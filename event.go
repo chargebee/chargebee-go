@@ -16,6 +16,7 @@ const (
 	EventWebhookStatusSkipped       EventWebhookStatus = "skipped"
 	EventWebhookStatusNotApplicable EventWebhookStatus = "not_applicable"
 	EventWebhookStatusDisabled      EventWebhookStatus = "disabled"
+	EventWebhookStatusRateLimited   EventWebhookStatus = "rate_limited"
 )
 
 type EventWebhookWebhookStatus string
@@ -29,6 +30,7 @@ const (
 	EventWebhookWebhookStatusSkipped       EventWebhookWebhookStatus = "skipped"
 	EventWebhookWebhookStatusNotApplicable EventWebhookWebhookStatus = "not_applicable"
 	EventWebhookWebhookStatusDisabled      EventWebhookWebhookStatus = "disabled"
+	EventWebhookWebhookStatusRateLimited   EventWebhookWebhookStatus = "rate_limited"
 )
 
 type Event struct {
