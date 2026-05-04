@@ -7,6 +7,10 @@ import (
 
 	"github.com/chargebee/chargebee-go/v3/models/advanceinvoiceschedule"
 
+	"github.com/chargebee/chargebee-go/v3/models/alert"
+
+	"github.com/chargebee/chargebee-go/v3/models/alertstatus"
+
 	"github.com/chargebee/chargebee-go/v3/models/attacheditem"
 
 	"github.com/chargebee/chargebee-go/v3/models/attribute"
@@ -455,6 +459,9 @@ type PriceVariantDeletedContent struct {
 }
 
 type AlertStatusChangedContent struct {
+	Alert *alert.Alert `json:"alert,omitempty"`
+
+	AlertStatus *alertstatus.AlertStatus `json:"alert_status,omitempty"`
 }
 
 type SubscriptionMovementFailedContent struct {

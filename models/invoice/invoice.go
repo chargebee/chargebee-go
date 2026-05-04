@@ -926,6 +926,7 @@ type ListRequestParams struct {
 	VoidedAt       *filter.TimestampFilter `json:"voided_at,omitempty"`
 	VoidReasonCode *filter.StringFilter    `json:"void_reason_code,omitempty"`
 	SortBy         *filter.SortFilter      `json:"sort_by,omitempty"`
+	Exclude        *filter.StringFilter    `json:"exclude,omitempty"`
 }
 type ListEinvoiceParams struct {
 	Status *filter.EnumFilter `json:"status,omitempty"`

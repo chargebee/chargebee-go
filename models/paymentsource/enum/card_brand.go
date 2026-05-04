@@ -24,5 +24,6 @@ const (
 	CardBrandMaestro         CardBrand = "maestro"
 	CardBrandDankort         CardBrand = "dankort"
 	CardBrandCartesBancaires CardBrand = "cartes_bancaires"
+	CardBrandMada            CardBrand = "mada"
 	CardBrandNotApplicable   CardBrand = "not_applicable"
 )

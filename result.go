@@ -35,6 +35,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/event"
 	"github.com/chargebee/chargebee-go/v3/models/export"
 	"github.com/chargebee/chargebee-go/v3/models/feature"
+	"github.com/chargebee/chargebee-go/v3/models/filtercondition"
 	"github.com/chargebee/chargebee-go/v3/models/gatewayerrordetail"
 	"github.com/chargebee/chargebee-go/v3/models/gift"
 	"github.com/chargebee/chargebee-go/v3/models/hierarchy"
@@ -77,6 +78,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/quoteddeltaramp"
 	"github.com/chargebee/chargebee-go/v3/models/quotedramp"
 	"github.com/chargebee/chargebee-go/v3/models/quotedsubscription"
+	"github.com/chargebee/chargebee-go/v3/models/quoteentitlement"
 	"github.com/chargebee/chargebee-go/v3/models/quotelinegroup"
 	"github.com/chargebee/chargebee-go/v3/models/ramp"
 	"github.com/chargebee/chargebee-go/v3/models/recordedpurchase"
@@ -144,6 +146,7 @@ type Result struct {
 	QuotedDeltaRamp                            *quoteddeltaramp.QuotedDeltaRamp                                                       `json:"quoted_delta_ramp,omitempty"`
 	BillingConfiguration                       *billingconfiguration.BillingConfiguration                                             `json:"billing_configuration,omitempty"`
 	QuoteLineGroup                             *quotelinegroup.QuoteLineGroup                                                         `json:"quote_line_group,omitempty"`
+	QuoteEntitlement                           *quoteentitlement.QuoteEntitlement                                                     `json:"quote_entitlement,omitempty"`
 	CpqQuoteSignature                          *cpqquotesignature.CpqQuoteSignature                                                   `json:"cpq_quote_signature,omitempty"`
 	Plan                                       *plan.Plan                                                                             `json:"plan,omitempty"`
 	Addon                                      *addon.Addon                                                                           `json:"addon,omitempty"`
@@ -206,6 +209,7 @@ type Result struct {
 	UsageSummary                               *usagesummary.UsageSummary                                                             `json:"usage_summary,omitempty"`
 	UsageCharge                                *usagecharge.UsageCharge                                                               `json:"usage_charge,omitempty"`
 	Alert                                      *alert.Alert                                                                           `json:"alert,omitempty"`
+	FilterCondition                            *filtercondition.FilterCondition                                                       `json:"filter_condition,omitempty"`
 	AlertStatus                                *alertstatus.AlertStatus                                                               `json:"alert_status,omitempty"`
 	ImpactedCustomer                           *impactedcustomer.ImpactedCustomer                                                     `json:"impacted_customer,omitempty"`
 	SubscriptionEntitlementsUpdatedDetail      *subscriptionentitlementsupdateddetail.SubscriptionEntitlementsUpdatedDetail           `json:"subscription_entitlements_updated_detail,omitempty"`

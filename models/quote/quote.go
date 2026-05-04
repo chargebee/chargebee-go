@@ -1101,6 +1101,7 @@ type CreateForChargeItemsAndChargesRequestParams struct {
 	Coupon             string                                                   `json:"coupon,omitempty"`
 	CouponIds          []string                                                 `json:"coupon_ids,omitempty"`
 	BillingAddress     *CreateForChargeItemsAndChargesBillingAddressParams      `json:"billing_address,omitempty"`
+	NetTermDays        *int32                                                   `json:"net_term_days,omitempty"`
 	ShippingAddress    *CreateForChargeItemsAndChargesShippingAddressParams     `json:"shipping_address,omitempty"`
 	Discounts          []*CreateForChargeItemsAndChargesDiscountParams          `json:"discounts,omitempty"`
 	TaxProvidersFields []*CreateForChargeItemsAndChargesTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
@@ -1188,6 +1189,7 @@ type EditForChargeItemsAndChargesRequestParams struct {
 	Coupon             string                                                 `json:"coupon,omitempty"`
 	CouponIds          []string                                               `json:"coupon_ids,omitempty"`
 	BillingAddress     *EditForChargeItemsAndChargesBillingAddressParams      `json:"billing_address,omitempty"`
+	NetTermDays        *int32                                                 `json:"net_term_days,omitempty"`
 	ShippingAddress    *EditForChargeItemsAndChargesShippingAddressParams     `json:"shipping_address,omitempty"`
 	Discounts          []*EditForChargeItemsAndChargesDiscountParams          `json:"discounts,omitempty"`
 	TaxProvidersFields []*EditForChargeItemsAndChargesTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
