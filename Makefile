@@ -37,7 +37,7 @@ format:
 	@echo "Formatting code..."
 	@command -v goimports-reviser >/dev/null 2>&1 || { \
 		echo "Installing goimports-reviser..."; \
-		go install github.com/rinchsan/go-action-lint/cmd/goimports-reviser@latest; \
+		go install -v github.com/incu6us/goimports-reviser/v3@latest; \
 	}
 	goimports-reviser -rm-unused -use-cache -format -apply-to-generated-files ./...
 

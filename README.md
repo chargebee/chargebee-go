@@ -2,12 +2,7 @@
 
 > [!NOTE]
 > [![Join Discord](https://img.shields.io/badge/Discord-Early%20Access-blue?logo=discord&logoColor=white)](https://discord.gg/S3SXDzXHAg)
->
-> We are trialing a Discord server for developers building with Chargebee. Limited spots are open on a first-come basis. Join [here](https://discord.gg/S3SXDzXHAg) if interested.
 
-> [!CAUTION]
-> This new major version (v4) of the Chargebee GO SDK contains BREAKING CHANGES and is currently in beta. It is a complete rewrite and addresses feedback raised by the community. If interested, please try it out and share your feedback with us on the Discord channel.
->
 > A [migration guide](https://github.com/chargebee/chargebee-go/wiki/Go-SDK-v4-migration-guide) is available on the wiki for users upgrading from v3.
 
 
