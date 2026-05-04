@@ -150,3 +150,55 @@ func (s *QuoteService) Pdf(id string, req *QuotePdfRequest) (*QuotePdfResponse, 
 	req.isIdempotent = true
 	return send[*QuotePdfResponse](req, s.config)
 }
+
+// Deprecated: This function is deprecated.
+func (s *QuoteService) RetrieveSignature(id string) (*QuoteRetrieveSignatureResponse, error) {
+	req := &BlankRequest{}
+	req.method = "GET"
+	req.path = fmt.Sprintf("/quotes/%v/retrieve_signature", url.PathEscape(id))
+	return send[*QuoteRetrieveSignatureResponse](req, s.config)
+}
+
+// Deprecated: This function is deprecated.
+func (s *QuoteService) RetrieveSignedPdf(id string) (*QuoteRetrieveSignedPdfResponse, error) {
+	req := &BlankRequest{}
+	req.method = "POST"
+	req.path = fmt.Sprintf("/quotes/%v/retrieve_signed_pdf", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*QuoteRetrieveSignedPdfResponse](req, s.config)
+}
+
+// Deprecated: This function is deprecated.
+func (s *QuoteService) CreateSignature(id string) (*QuoteCreateSignatureResponse, error) {
+	req := &BlankRequest{}
+	req.method = "POST"
+	req.path = fmt.Sprintf("/quotes/%v/create_signature", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*QuoteCreateSignatureResponse](req, s.config)
+}
+
+// Deprecated: This function is deprecated.
+func (s *QuoteService) UpdateSignature(id string) (*QuoteUpdateSignatureResponse, error) {
+	req := &BlankRequest{}
+	req.method = "POST"
+	req.path = fmt.Sprintf("/quotes/%v/update_signature", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*QuoteUpdateSignatureResponse](req, s.config)
+}
+
+// Deprecated: This function is deprecated.
+func (s *QuoteService) UpdateSignatureStatus(id string, req *QuoteUpdateSignatureStatusRequest) (*QuoteUpdateSignatureStatusResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/quotes/%v/update_signature_status", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*QuoteUpdateSignatureStatusResponse](req, s.config)
+}
+
+// Deprecated: This function is deprecated.
+func (s *QuoteService) RefreshSignatureLink(id string) (*QuoteRefreshSignatureLinkResponse, error) {
+	req := &BlankRequest{}
+	req.method = "POST"
+	req.path = fmt.Sprintf("/quotes/%v/refresh_signature_link", url.PathEscape(id))
+	req.isIdempotent = true
+	return send[*QuoteRefreshSignatureLinkResponse](req, s.config)
+}

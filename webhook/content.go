@@ -348,6 +348,12 @@ type PriceVariantDeletedContent struct {
 	Attribute *chargebee.Attribute `json:"attribute,omitempty"`
 }
 
+type AlertStatusChangedContent struct {
+	Alert *chargebee.Alert `json:"alert,omitempty"`
+
+	AlertStatus *chargebee.AlertStatus `json:"alert_status,omitempty"`
+}
+
 type SubscriptionMovementFailedContent struct {
 	Subscription *chargebee.Subscription `json:"subscription,omitempty"`
 }
@@ -1764,6 +1770,12 @@ type OrderCreatedEvent struct {
 type PriceVariantDeletedEvent struct {
 	BaseEvent
 	Content *PriceVariantDeletedContent `json:"content"`
+}
+
+// AlertStatusChangedEvent represents a alert_status_changed webhook event
+type AlertStatusChangedEvent struct {
+	BaseEvent
+	Content *AlertStatusChangedContent `json:"content"`
 }
 
 // SubscriptionMovementFailedEvent represents a subscription_movement_failed webhook event

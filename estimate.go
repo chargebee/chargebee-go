@@ -732,6 +732,13 @@ type EstimateRegenerateInvoiceEstimateRequest struct {
 
 func (r *EstimateRegenerateInvoiceEstimateRequest) payload() any { return r }
 
+type EstimateUpcomingInvoicesEstimateRequest struct {
+	IncludeUsageCharges *bool `json:"include_usage_charges,omitempty"`
+	apiRequest          `json:"-" form:"-"`
+}
+
+func (r *EstimateUpcomingInvoicesEstimateRequest) payload() any { return r }
+
 type EstimateChangeTermEndRequest struct {
 	TermEndsAt         *int64 `json:"term_ends_at"`
 	Prorate            *bool  `json:"prorate,omitempty"`

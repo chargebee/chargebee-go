@@ -33,6 +33,13 @@ const (
 	ActionRemove Action = "remove"
 )
 
+type AlarmStatus string
+
+const (
+	AlarmStatusWithinLimit AlarmStatus = "within_limit"
+	AlarmStatusInAlarm     AlarmStatus = "in_alarm"
+)
+
 type ApiVersion string
 
 const (
@@ -322,6 +329,10 @@ const (
 	EntityTypePlanItemPrice                              EntityType = "plan_item_price"
 	EntityTypeAddonItemPrice                             EntityType = "addon_item_price"
 	EntityTypeChargeItemPrice                            EntityType = "charge_item_price"
+	EntityTypePlanPrice                                  EntityType = "plan_price"
+	EntityTypeAddonPrice                                 EntityType = "addon_price"
+	EntityTypeChargePrice                                EntityType = "charge_price"
+	EntityTypeCharge                                     EntityType = "charge"
 	EntityTypeInvoice                                    EntityType = "invoice"
 	EntityTypeQuote                                      EntityType = "quote"
 	EntityTypeCreditNote                                 EntityType = "credit_note"
@@ -335,9 +346,6 @@ const (
 	EntityTypePlanItem                                   EntityType = "plan_item"
 	EntityTypeAddonItem                                  EntityType = "addon_item"
 	EntityTypeChargeItem                                 EntityType = "charge_item"
-	EntityTypePlanPrice                                  EntityType = "plan_price"
-	EntityTypeAddonPrice                                 EntityType = "addon_price"
-	EntityTypeChargePrice                                EntityType = "charge_price"
 	EntityTypeDifferentialPrice                          EntityType = "differential_price"
 	EntityTypeAttachedItem                               EntityType = "attached_item"
 	EntityTypeFeature                                    EntityType = "feature"
@@ -356,7 +364,7 @@ const (
 	EntityTypeUsageFile                                  EntityType = "usage_file"
 	EntityTypeBusinessRule                               EntityType = "business_rule"
 	EntityTypeRuleset                                    EntityType = "ruleset"
-	EntityTypeCharge                                     EntityType = "charge"
+	EntityTypeAlertStatus                                EntityType = "alert_status"
 )
 
 type EventName string
@@ -456,6 +464,8 @@ const (
 	GatewayEzidebit              Gateway = "ezidebit"
 	GatewayTwikey                Gateway = "twikey"
 	GatewayTempus                Gateway = "tempus"
+	GatewayMoyasar               Gateway = "moyasar"
+	GatewayPayway                Gateway = "payway"
 	GatewayGocardless            Gateway = "gocardless"
 	GatewayNotApplicable         Gateway = "not_applicable"
 )
@@ -488,6 +498,13 @@ type Layout string
 const (
 	LayoutInApp    Layout = "in_app"
 	LayoutFullPage Layout = "full_page"
+)
+
+type Mode string
+
+const (
+	ModeAbsolute   Mode = "absolute"
+	ModePercentage Mode = "percentage"
 )
 
 type NotifyReferralSystem string
@@ -602,6 +619,14 @@ const (
 	PaymentMethodNaverPay                  PaymentMethod = "naver_pay"
 	PaymentMethodRevolutPay                PaymentMethod = "revolut_pay"
 	PaymentMethodCashAppPay                PaymentMethod = "cash_app_pay"
+	PaymentMethodPix                       PaymentMethod = "pix"
+	PaymentMethodTwint                     PaymentMethod = "twint"
+	PaymentMethodGoPay                     PaymentMethod = "go_pay"
+	PaymentMethodGrabPay                   PaymentMethod = "grab_pay"
+	PaymentMethodPayCo                     PaymentMethod = "pay_co"
+	PaymentMethodAfterPay                  PaymentMethod = "after_pay"
+	PaymentMethodSwish                     PaymentMethod = "swish"
+	PaymentMethodPayme                     PaymentMethod = "payme"
 )
 
 type PaymentMethodSavePolicy string
@@ -649,6 +674,14 @@ const (
 	PaymentMethodTypeNaverPay                  PaymentMethodType = "naver_pay"
 	PaymentMethodTypeRevolutPay                PaymentMethodType = "revolut_pay"
 	PaymentMethodTypeCashAppPay                PaymentMethodType = "cash_app_pay"
+	PaymentMethodTypePix                       PaymentMethodType = "pix"
+	PaymentMethodTypeTwint                     PaymentMethodType = "twint"
+	PaymentMethodTypeGoPay                     PaymentMethodType = "go_pay"
+	PaymentMethodTypeGrabPay                   PaymentMethodType = "grab_pay"
+	PaymentMethodTypePayCo                     PaymentMethodType = "pay_co"
+	PaymentMethodTypeAfterPay                  PaymentMethodType = "after_pay"
+	PaymentMethodTypeSwish                     PaymentMethodType = "swish"
+	PaymentMethodTypePayme                     PaymentMethodType = "payme"
 )
 
 type PaymentVoucherType string
@@ -883,9 +916,18 @@ const (
 	TypeNaverPay                  Type = "naver_pay"
 	TypeRevolutPay                Type = "revolut_pay"
 	TypeCashAppPay                Type = "cash_app_pay"
+	TypePix                       Type = "pix"
+	TypeTwint                     Type = "twint"
+	TypeGoPay                     Type = "go_pay"
+	TypeGrabPay                   Type = "grab_pay"
+	TypePayCo                     Type = "pay_co"
+	TypeAfterPay                  Type = "after_pay"
+	TypeSwish                     Type = "swish"
+	TypePayme                     Type = "payme"
 	TypeFreeTrial                 Type = "free_trial"
 	TypePayUpFront                Type = "pay_up_front"
 	TypePayAsYouGo                Type = "pay_as_you_go"
+	TypeUsageExceeded             Type = "usage_exceeded"
 )
 
 type UnbilledChargesHandling string
@@ -948,6 +990,7 @@ const (
 	EventTypeAddonCreated                                            EventType = "addon_created"
 	EventTypeAddonDeleted                                            EventType = "addon_deleted"
 	EventTypeAddonUpdated                                            EventType = "addon_updated"
+	EventTypeAlertStatusChanged                                      EventType = "alert_status_changed"
 	EventTypeAttachedItemCreated                                     EventType = "attached_item_created"
 	EventTypeAttachedItemDeleted                                     EventType = "attached_item_deleted"
 	EventTypeAttachedItemUpdated                                     EventType = "attached_item_updated"

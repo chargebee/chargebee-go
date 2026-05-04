@@ -65,8 +65,7 @@ func (s *EstimateService) RegenerateInvoiceEstimate(id string, req *EstimateRege
 	return send[*EstimateRegenerateInvoiceEstimateResponse](req, s.config)
 }
 
-func (s *EstimateService) UpcomingInvoicesEstimate(id string) (*EstimateUpcomingInvoicesEstimateResponse, error) {
-	req := &BlankRequest{}
+func (s *EstimateService) UpcomingInvoicesEstimate(id string, req *EstimateUpcomingInvoicesEstimateRequest) (*EstimateUpcomingInvoicesEstimateResponse, error) {
 	req.method = "GET"
 	req.path = fmt.Sprintf("/customers/%v/upcoming_invoices_estimate", url.PathEscape(id))
 	return send[*EstimateUpcomingInvoicesEstimateResponse](req, s.config)

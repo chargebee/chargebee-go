@@ -35,6 +35,7 @@ const (
 	PaymentSourceCardBrandMaestro         PaymentSourceCardBrand = "maestro"
 	PaymentSourceCardBrandDankort         PaymentSourceCardBrand = "dankort"
 	PaymentSourceCardBrandCartesBancaires PaymentSourceCardBrand = "cartes_bancaires"
+	PaymentSourceCardBrandMada            PaymentSourceCardBrand = "mada"
 	PaymentSourceCardBrandNotApplicable   PaymentSourceCardBrand = "not_applicable"
 )
 

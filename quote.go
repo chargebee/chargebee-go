@@ -78,6 +78,17 @@ const (
 	QuoteContractTermActionAtTermEndCancel    QuoteContractTermActionAtTermEnd = "cancel"
 )
 
+type QuoteCpqQuoteSignatureStatus string
+
+const (
+	QuoteCpqQuoteSignatureStatusDraft     QuoteCpqQuoteSignatureStatus = "draft"
+	QuoteCpqQuoteSignatureStatusActive    QuoteCpqQuoteSignatureStatus = "active"
+	QuoteCpqQuoteSignatureStatusSigned    QuoteCpqQuoteSignatureStatus = "signed"
+	QuoteCpqQuoteSignatureStatusExpired   QuoteCpqQuoteSignatureStatus = "expired"
+	QuoteCpqQuoteSignatureStatusCancelled QuoteCpqQuoteSignatureStatus = "cancelled"
+	QuoteCpqQuoteSignatureStatusDeclined  QuoteCpqQuoteSignatureStatus = "declined"
+)
+
 type Quote struct {
 	Id                         string                   `json:"id"`
 	Name                       string                   `json:"name"`
@@ -1292,6 +1303,7 @@ type QuoteCreateForChargeItemsAndChargesRequest struct {
 	Coupon             string                                                  `json:"coupon,omitempty"`
 	CouponIds          []string                                                `json:"coupon_ids,omitempty"`
 	BillingAddress     *QuoteCreateForChargeItemsAndChargesBillingAddress      `json:"billing_address,omitempty"`
+	NetTermDays        *int32                                                  `json:"net_term_days,omitempty"`
 	ShippingAddress    *QuoteCreateForChargeItemsAndChargesShippingAddress     `json:"shipping_address,omitempty"`
 	Discounts          []*QuoteCreateForChargeItemsAndChargesDiscount          `json:"discounts,omitempty"`
 	TaxProvidersFields []*QuoteCreateForChargeItemsAndChargesTaxProvidersField `json:"tax_providers_fields,omitempty"`
@@ -1390,6 +1402,7 @@ type QuoteEditForChargeItemsAndChargesRequest struct {
 	Coupon             string                                                `json:"coupon,omitempty"`
 	CouponIds          []string                                              `json:"coupon_ids,omitempty"`
 	BillingAddress     *QuoteEditForChargeItemsAndChargesBillingAddress      `json:"billing_address,omitempty"`
+	NetTermDays        *int32                                                `json:"net_term_days,omitempty"`
 	ShippingAddress    *QuoteEditForChargeItemsAndChargesShippingAddress     `json:"shipping_address,omitempty"`
 	Discounts          []*QuoteEditForChargeItemsAndChargesDiscount          `json:"discounts,omitempty"`
 	TaxProvidersFields []*QuoteEditForChargeItemsAndChargesTaxProvidersField `json:"tax_providers_fields,omitempty"`
@@ -1549,6 +1562,17 @@ type QuotePdfRequest struct {
 
 func (r *QuotePdfRequest) payload() any { return r }
 
+type QuoteUpdateSignatureStatusRequest struct {
+	CpqQuoteSignature *QuoteUpdateSignatureStatusCpqQuoteSignature `json:"cpq_quote_signature,omitempty"`
+	apiRequest        `json:"-" form:"-"`
+}
+
+func (r *QuoteUpdateSignatureStatusRequest) payload() any { return r }
+
+type QuoteUpdateSignatureStatusCpqQuoteSignature struct {
+	Status CpqQuoteSignatureStatus `json:"status,omitempty"`
+}
+
 type QuoteRetrieveResponse struct {
 	Quote              *Quote             `json:"quote,omitempty"`
 	QuotedSubscription QuotedSubscription `json:"quoted_subscription,omitempty"`
@@ -1694,5 +1718,35 @@ type QuoteDeleteResponse struct {
 
 type QuotePdfResponse struct {
 	Download Download `json:"download,omitempty"`
+	apiResponse
+}
+
+type QuoteRetrieveSignatureResponse struct {
+	CpqQuoteSignature CpqQuoteSignature `json:"cpq_quote_signature,omitempty"`
+	apiResponse
+}
+
+type QuoteRetrieveSignedPdfResponse struct {
+	Download Download `json:"download,omitempty"`
+	apiResponse
+}
+
+type QuoteCreateSignatureResponse struct {
+	CpqQuoteSignature CpqQuoteSignature `json:"cpq_quote_signature,omitempty"`
+	apiResponse
+}
+
+type QuoteUpdateSignatureResponse struct {
+	CpqQuoteSignature CpqQuoteSignature `json:"cpq_quote_signature,omitempty"`
+	apiResponse
+}
+
+type QuoteUpdateSignatureStatusResponse struct {
+	CpqQuoteSignature CpqQuoteSignature `json:"cpq_quote_signature,omitempty"`
+	apiResponse
+}
+
+type QuoteRefreshSignatureLinkResponse struct {
+	CpqQuoteSignature CpqQuoteSignature `json:"cpq_quote_signature,omitempty"`
 	apiResponse
 }

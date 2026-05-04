@@ -11,7 +11,6 @@ type UsageSummaryService struct {
 	config *ClientConfig
 }
 
-// Deprecated: This function is deprecated.
 func (s *UsageSummaryService) RetrieveUsageSummaryForSubscription(id string, req *UsageSummaryRetrieveUsageSummaryForSubscriptionRequest) (*UsageSummaryRetrieveUsageSummaryForSubscriptionResponse, error) {
 	req.method = "GET"
 	req.path = fmt.Sprintf("/subscriptions/%v/usage_summary", url.PathEscape(id))

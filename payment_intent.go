@@ -46,6 +46,14 @@ const (
 	PaymentIntentPaymentMethodTypeCashAppPay                PaymentIntentPaymentMethodType = "cash_app_pay"
 	PaymentIntentPaymentMethodTypeWechatPay                 PaymentIntentPaymentMethodType = "wechat_pay"
 	PaymentIntentPaymentMethodTypeAlipay                    PaymentIntentPaymentMethodType = "alipay"
+	PaymentIntentPaymentMethodTypePix                       PaymentIntentPaymentMethodType = "pix"
+	PaymentIntentPaymentMethodTypeTwint                     PaymentIntentPaymentMethodType = "twint"
+	PaymentIntentPaymentMethodTypeGoPay                     PaymentIntentPaymentMethodType = "go_pay"
+	PaymentIntentPaymentMethodTypeGrabPay                   PaymentIntentPaymentMethodType = "grab_pay"
+	PaymentIntentPaymentMethodTypePayCo                     PaymentIntentPaymentMethodType = "pay_co"
+	PaymentIntentPaymentMethodTypeAfterPay                  PaymentIntentPaymentMethodType = "after_pay"
+	PaymentIntentPaymentMethodTypeSwish                     PaymentIntentPaymentMethodType = "swish"
+	PaymentIntentPaymentMethodTypePayme                     PaymentIntentPaymentMethodType = "payme"
 )
 
 type PaymentIntentActivePaymentAttemptStatus string
@@ -95,6 +103,14 @@ const (
 	PaymentIntentActivePaymentAttemptPaymentMethodTypeCashAppPay                PaymentIntentActivePaymentAttemptPaymentMethodType = "cash_app_pay"
 	PaymentIntentActivePaymentAttemptPaymentMethodTypeWechatPay                 PaymentIntentActivePaymentAttemptPaymentMethodType = "wechat_pay"
 	PaymentIntentActivePaymentAttemptPaymentMethodTypeAlipay                    PaymentIntentActivePaymentAttemptPaymentMethodType = "alipay"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypePix                       PaymentIntentActivePaymentAttemptPaymentMethodType = "pix"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeTwint                     PaymentIntentActivePaymentAttemptPaymentMethodType = "twint"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeGoPay                     PaymentIntentActivePaymentAttemptPaymentMethodType = "go_pay"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeGrabPay                   PaymentIntentActivePaymentAttemptPaymentMethodType = "grab_pay"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypePayCo                     PaymentIntentActivePaymentAttemptPaymentMethodType = "pay_co"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeAfterPay                  PaymentIntentActivePaymentAttemptPaymentMethodType = "after_pay"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeSwish                     PaymentIntentActivePaymentAttemptPaymentMethodType = "swish"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypePayme                     PaymentIntentActivePaymentAttemptPaymentMethodType = "payme"
 )
 
 type PaymentIntentPaymentAttemptStatus string
@@ -144,6 +160,14 @@ const (
 	PaymentIntentPaymentAttemptPaymentMethodTypeCashAppPay                PaymentIntentPaymentAttemptPaymentMethodType = "cash_app_pay"
 	PaymentIntentPaymentAttemptPaymentMethodTypeWechatPay                 PaymentIntentPaymentAttemptPaymentMethodType = "wechat_pay"
 	PaymentIntentPaymentAttemptPaymentMethodTypeAlipay                    PaymentIntentPaymentAttemptPaymentMethodType = "alipay"
+	PaymentIntentPaymentAttemptPaymentMethodTypePix                       PaymentIntentPaymentAttemptPaymentMethodType = "pix"
+	PaymentIntentPaymentAttemptPaymentMethodTypeTwint                     PaymentIntentPaymentAttemptPaymentMethodType = "twint"
+	PaymentIntentPaymentAttemptPaymentMethodTypeGoPay                     PaymentIntentPaymentAttemptPaymentMethodType = "go_pay"
+	PaymentIntentPaymentAttemptPaymentMethodTypeGrabPay                   PaymentIntentPaymentAttemptPaymentMethodType = "grab_pay"
+	PaymentIntentPaymentAttemptPaymentMethodTypePayCo                     PaymentIntentPaymentAttemptPaymentMethodType = "pay_co"
+	PaymentIntentPaymentAttemptPaymentMethodTypeAfterPay                  PaymentIntentPaymentAttemptPaymentMethodType = "after_pay"
+	PaymentIntentPaymentAttemptPaymentMethodTypeSwish                     PaymentIntentPaymentAttemptPaymentMethodType = "swish"
+	PaymentIntentPaymentAttemptPaymentMethodTypePayme                     PaymentIntentPaymentAttemptPaymentMethodType = "payme"
 )
 
 type PaymentIntent struct {
@@ -184,16 +208,17 @@ type PaymentIntentPaymentAttempt struct {
 }
 
 type PaymentIntentCreateRequest struct {
-	BusinessEntityId  string                         `json:"business_entity_id,omitempty"`
-	CustomerId        string                         `json:"customer_id,omitempty"`
-	Amount            *int64                         `json:"amount"`
-	CurrencyCode      string                         `json:"currency_code"`
-	GatewayAccountId  string                         `json:"gateway_account_id,omitempty"`
-	ReferenceId       string                         `json:"reference_id,omitempty"`
-	PaymentMethodType PaymentIntentPaymentMethodType `json:"payment_method_type,omitempty"`
-	SuccessUrl        string                         `json:"success_url,omitempty"`
-	FailureUrl        string                         `json:"failure_url,omitempty"`
-	apiRequest        `json:"-" form:"-"`
+	BusinessEntityId       string                         `json:"business_entity_id,omitempty"`
+	CustomerId             string                         `json:"customer_id,omitempty"`
+	Amount                 *int64                         `json:"amount"`
+	CurrencyCode           string                         `json:"currency_code"`
+	GatewayAccountId       string                         `json:"gateway_account_id,omitempty"`
+	ReferenceId            string                         `json:"reference_id,omitempty"`
+	DeferPaymentMethodType *bool                          `json:"defer_payment_method_type,omitempty"`
+	PaymentMethodType      PaymentIntentPaymentMethodType `json:"payment_method_type,omitempty"`
+	SuccessUrl             string                         `json:"success_url,omitempty"`
+	FailureUrl             string                         `json:"failure_url,omitempty"`
+	apiRequest             `json:"-" form:"-"`
 }
 
 func (r *PaymentIntentCreateRequest) payload() any { return r }
