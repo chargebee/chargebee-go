@@ -41,15 +41,16 @@ type PaymentAttempt struct {
 	Object            string                                 `json:"object"`
 }
 type CreateRequestParams struct {
-	BusinessEntityId  string                              `json:"business_entity_id,omitempty"`
-	CustomerId        string                              `json:"customer_id,omitempty"`
-	Amount            *int64                              `json:"amount"`
-	CurrencyCode      string                              `json:"currency_code"`
-	GatewayAccountId  string                              `json:"gateway_account_id,omitempty"`
-	ReferenceId       string                              `json:"reference_id,omitempty"`
-	PaymentMethodType paymentIntentEnum.PaymentMethodType `json:"payment_method_type,omitempty"`
-	SuccessUrl        string                              `json:"success_url,omitempty"`
-	FailureUrl        string                              `json:"failure_url,omitempty"`
+	BusinessEntityId       string                              `json:"business_entity_id,omitempty"`
+	CustomerId             string                              `json:"customer_id,omitempty"`
+	Amount                 *int64                              `json:"amount"`
+	CurrencyCode           string                              `json:"currency_code"`
+	GatewayAccountId       string                              `json:"gateway_account_id,omitempty"`
+	ReferenceId            string                              `json:"reference_id,omitempty"`
+	DeferPaymentMethodType *bool                               `json:"defer_payment_method_type,omitempty"`
+	PaymentMethodType      paymentIntentEnum.PaymentMethodType `json:"payment_method_type,omitempty"`
+	SuccessUrl             string                              `json:"success_url,omitempty"`
+	FailureUrl             string                              `json:"failure_url,omitempty"`
 }
 type UpdateRequestParams struct {
 	Amount            *int64                              `json:"amount,omitempty"`

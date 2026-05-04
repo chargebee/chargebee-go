@@ -25,14 +25,16 @@ type VirtualBankAccount struct {
 	Object           string                        `json:"object"`
 }
 type CreateUsingPermanentTokenRequestParams struct {
-	CustomerId  string                        `json:"customer_id"`
-	ReferenceId string                        `json:"reference_id"`
-	Scheme      virtualBankAccountEnum.Scheme `json:"scheme,omitempty"`
+	CustomerId       string                        `json:"customer_id"`
+	ReferenceId      string                        `json:"reference_id"`
+	GatewayAccountId string                        `json:"gateway_account_id,omitempty"`
+	Scheme           virtualBankAccountEnum.Scheme `json:"scheme,omitempty"`
 }
 type CreateRequestParams struct {
-	CustomerId string                        `json:"customer_id"`
-	Email      string                        `json:"email,omitempty"`
-	Scheme     virtualBankAccountEnum.Scheme `json:"scheme,omitempty"`
+	CustomerId       string                        `json:"customer_id"`
+	Email            string                        `json:"email,omitempty"`
+	GatewayAccountId string                        `json:"gateway_account_id,omitempty"`
+	Scheme           virtualBankAccountEnum.Scheme `json:"scheme,omitempty"`
 }
 type ListRequestParams struct {
 	Limit      *int32                  `json:"limit,omitempty"`

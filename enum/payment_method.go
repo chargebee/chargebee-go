@@ -46,4 +46,11 @@ const (
 	PaymentMethodRevolutPay                PaymentMethod = "revolut_pay"
 	PaymentMethodCashAppPay                PaymentMethod = "cash_app_pay"
 	PaymentMethodPix                       PaymentMethod = "pix"
+	PaymentMethodTwint                     PaymentMethod = "twint"
+	PaymentMethodGoPay                     PaymentMethod = "go_pay"
+	PaymentMethodGrabPay                   PaymentMethod = "grab_pay"
+	PaymentMethodPayCo                     PaymentMethod = "pay_co"
+	PaymentMethodAfterPay                  PaymentMethod = "after_pay"
+	PaymentMethodSwish                     PaymentMethod = "swish"
+	PaymentMethodPayme                     PaymentMethod = "payme"
 )
