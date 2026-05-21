@@ -1,3 +1,11 @@
+### v4.2.0 (2026-05-21)
+
+#### Bug Fixes:
+
+- `CustomFields` values can only be of type `string` - this was incorrectly exposed as `any` previously
+- `CustomFields.Get()` method has been updated to return a `string`
+- `CustomFields` is now exported from the package
+
 ### v4.1.0 (2026-05-04)
 * * *
 ### New Resources:
