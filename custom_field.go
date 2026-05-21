@@ -3,28 +3,32 @@ package chargebee
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"strings"
 )
 
-type customFields map[string]any
+type CustomFields map[string]string
 
 type hasCustomField interface {
-	setCustomFields(*customFields)
+	setCustomFields(*CustomFields)
 }
 
-func (c *customFields) set(key string, value any) {
+func (c *CustomFields) set(key string, value string) {
 	if *c == nil {
-		*c = make(customFields)
+		*c = make(CustomFields)
 	}
 	(*c)[key] = value
 }
 
-func (c *customFields) Get(key string) any {
+// Get returns the value of the custom field as a string.
+// Custom fields are stored and returned as strings, so
+// any conversion to other types should be done by the caller.
+func (c *CustomFields) Get(key string) string {
 	if !strings.HasPrefix(key, "cf_") {
 		key = "cf_" + key
 	}
 	if value, ok := (*c)[key]; ok {
-		return value.(string)
+		return value
 	}
 	return ""
 }
@@ -33,7 +37,7 @@ func unmarshalObjectWithCustomField[T hasCustomField](data []byte, out T, alias 
 	if err := json.Unmarshal(data, alias); err != nil {
 		return err
 	}
-	cf := new(customFields)
+	cf := new(CustomFields)
 
 	var tree any
 	dec := json.NewDecoder(bytes.NewReader(data))
@@ -46,12 +50,12 @@ func unmarshalObjectWithCustomField[T hasCustomField](data []byte, out T, alias 
 	return nil
 }
 
-func extractCustomFields(node any, cf *customFields) {
+func extractCustomFields(node any, cf *CustomFields) {
 	switch x := node.(type) {
 	case map[string]any:
 		for k, v := range x {
 			if strings.HasPrefix(k, "cf_") {
-				cf.set(k, v)
+				cf.set(k, fmt.Sprintf("%v", v))
 			}
 			extractCustomFields(v, cf)
 		}

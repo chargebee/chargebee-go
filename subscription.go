@@ -183,14 +183,14 @@ type Subscription struct {
 	Discounts             []*SubscriptionDiscount      `json:"discounts"`
 	BusinessEntityId      string                       `json:"business_entity_id"`
 	Decommissioned        bool                         `json:"decommissioned"`
-	CustomFields          *customFields                `json:"-"`
+	CustomFields          *CustomFields                `json:"-"`
 	Object                string                       `json:"object"`
 
 	// Deprecated: MetaData is deprecated please use MetaData instead.
 	Metadata json.RawMessage `json:"metadata"`
 }
 
-func (r *Subscription) setCustomFields(cf *customFields) { r.CustomFields = cf }
+func (r *Subscription) setCustomFields(cf *CustomFields) { r.CustomFields = cf }
 
 func (r *Subscription) UnmarshalJSON(data []byte) error {
 	type Alias Subscription

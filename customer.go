@@ -170,12 +170,12 @@ type Customer struct {
 	VatNumberPrefix                  string                       `json:"vat_number_prefix"`
 	EntityIdentifierScheme           string                       `json:"entity_identifier_scheme"`
 	EntityIdentifierStandard         string                       `json:"entity_identifier_standard"`
-	CustomFields                     *customFields                `json:"-"`
+	CustomFields                     *CustomFields                `json:"-"`
 	Consents                         map[string]interface{}       `json:"consents"`
 	Object                           string                       `json:"object"`
 }
 
-func (r *Customer) setCustomFields(cf *customFields) { r.CustomFields = cf }
+func (r *Customer) setCustomFields(cf *CustomFields) { r.CustomFields = cf }
 
 func (r *Customer) UnmarshalJSON(data []byte) error {
 	type Alias Customer

@@ -144,11 +144,11 @@ type Coupon struct {
 	MetaData               json.RawMessage                 `json:"meta_data"`
 	CouponConstraints      []*CouponCouponConstraint       `json:"coupon_constraints"`
 	Deleted                bool                            `json:"deleted"`
-	CustomFields           *customFields                   `json:"-"`
+	CustomFields           *CustomFields                   `json:"-"`
 	Object                 string                          `json:"object"`
 }
 
-func (r *Coupon) setCustomFields(cf *customFields) { r.CustomFields = cf }
+func (r *Coupon) setCustomFields(cf *CustomFields) { r.CustomFields = cf }
 
 func (r *Coupon) UnmarshalJSON(data []byte) error {
 	type Alias Coupon

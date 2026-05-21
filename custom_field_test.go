@@ -8,10 +8,10 @@ import (
 
 type testObjectWithCustomField struct {
 	Id           string        `json:"id"`
-	CustomFields *customFields `json:"-"`
+	CustomFields *CustomFields `json:"-"`
 }
 
-func (t *testObjectWithCustomField) setCustomFields(cf *customFields) {
+func (t *testObjectWithCustomField) setCustomFields(cf *CustomFields) {
 	t.CustomFields = cf
 }
 

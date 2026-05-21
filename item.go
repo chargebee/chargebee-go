@@ -64,11 +64,11 @@ type Item struct {
 	Metadata             json.RawMessage          `json:"metadata"`
 	Deleted              bool                     `json:"deleted"`
 	BusinessEntityId     string                   `json:"business_entity_id"`
-	CustomFields         *customFields            `json:"-"`
+	CustomFields         *CustomFields            `json:"-"`
 	Object               string                   `json:"object"`
 }
 
-func (r *Item) setCustomFields(cf *customFields) { r.CustomFields = cf }
+func (r *Item) setCustomFields(cf *CustomFields) { r.CustomFields = cf }
 
 func (r *Item) UnmarshalJSON(data []byte) error {
 	type Alias Item

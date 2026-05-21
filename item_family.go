@@ -18,11 +18,11 @@ type ItemFamily struct {
 	Channel          Channel          `json:"channel"`
 	BusinessEntityId string           `json:"business_entity_id"`
 	Deleted          bool             `json:"deleted"`
-	CustomFields     *customFields    `json:"-"`
+	CustomFields     *CustomFields    `json:"-"`
 	Object           string           `json:"object"`
 }
 
-func (r *ItemFamily) setCustomFields(cf *customFields) { r.CustomFields = cf }
+func (r *ItemFamily) setCustomFields(cf *CustomFields) { r.CustomFields = cf }
 
 func (r *ItemFamily) UnmarshalJSON(data []byte) error {
 	type Alias ItemFamily

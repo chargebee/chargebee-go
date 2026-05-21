@@ -129,11 +129,11 @@ type Plan struct {
 	EventBasedAddons            []*PlanEventBasedAddon          `json:"event_based_addons"`
 	ShowDescriptionInInvoices   bool                            `json:"show_description_in_invoices"`
 	ShowDescriptionInQuotes     bool                            `json:"show_description_in_quotes"`
-	CustomFields                *customFields                   `json:"-"`
+	CustomFields                *CustomFields                   `json:"-"`
 	Object                      string                          `json:"object"`
 }
 
-func (r *Plan) setCustomFields(cf *customFields) { r.CustomFields = cf }
+func (r *Plan) setCustomFields(cf *CustomFields) { r.CustomFields = cf }
 
 func (r *Plan) UnmarshalJSON(data []byte) error {
 	type Alias Plan

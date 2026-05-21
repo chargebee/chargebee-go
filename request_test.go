@@ -152,8 +152,6 @@ func TestSendRequestWithCustomFields(t *testing.T) {
 	assert.Equal(t, "cust_123", result.Customer.Id)
 
 	// Verify custom fields
-	// Note: CustomFields methods are not directly exposed on Customer but accessible via getter or field if public.
-	// Customer struct has `CustomFields *customFields`.
 	assert.NotNil(t, result.Customer.CustomFields)
 	assert.Equal(t, "value_string", result.Customer.CustomFields.Get("cf_string"))
 	assert.Equal(t, "value_another", result.Customer.CustomFields.Get("cf_another"))

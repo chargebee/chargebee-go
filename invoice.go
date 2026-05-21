@@ -350,11 +350,11 @@ type Invoice struct {
 	Channel                   Channel                        `json:"channel"`
 	BusinessEntityId          string                         `json:"business_entity_id"`
 	SiteDetailsAtCreation     *InvoiceSiteDetailsAtCreation  `json:"site_details_at_creation"`
-	CustomFields              *customFields                  `json:"-"`
+	CustomFields              *CustomFields                  `json:"-"`
 	Object                    string                         `json:"object"`
 }
 
-func (r *Invoice) setCustomFields(cf *customFields) { r.CustomFields = cf }
+func (r *Invoice) setCustomFields(cf *CustomFields) { r.CustomFields = cf }
 
 func (r *Invoice) UnmarshalJSON(data []byte) error {
 	type Alias Invoice

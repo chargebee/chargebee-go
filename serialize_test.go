@@ -313,7 +313,7 @@ func TestUtil(t *testing.T) {
 }
 
 func TestSerializeParams_CustomFields(t *testing.T) {
-	cf := customFields{
+	cf := CustomFields{
 		"cf_app_name": "bar",
 		"bingo":       "dog",
 	}
@@ -330,7 +330,7 @@ func TestSerializeParams_CustomFields(t *testing.T) {
 }
 
 func TestSerializeListParams_CustomFields(t *testing.T) {
-	cf := customFields{
+	cf := CustomFields{
 		"cf_app_name": "bar",
 		"bingo":       "dog",
 	}
