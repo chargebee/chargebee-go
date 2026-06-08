@@ -53,4 +53,9 @@ const (
 	PaymentMethodAfterPay                  PaymentMethod = "after_pay"
 	PaymentMethodSwish                     PaymentMethod = "swish"
 	PaymentMethodPayme                     PaymentMethod = "payme"
+	PaymentMethodKlarna                    PaymentMethod = "klarna"
+	PaymentMethodAlipayHk                  PaymentMethod = "alipay_hk"
+	PaymentMethodPaypay                    PaymentMethod = "paypay"
+	PaymentMethodGcash                     PaymentMethod = "gcash"
+	PaymentMethodSouthKoreanCards          PaymentMethod = "south_korean_cards"
 )

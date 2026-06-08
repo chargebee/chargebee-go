@@ -35,7 +35,6 @@ const (
 	PaymentMethodTypeCashAppPay                PaymentMethodType = "cash_app_pay"
 	PaymentMethodTypeWechatPay                 PaymentMethodType = "wechat_pay"
 	PaymentMethodTypeAlipay                    PaymentMethodType = "alipay"
-	PaymentMethodTypePix                       PaymentMethodType = "pix"
 	PaymentMethodTypeTwint                     PaymentMethodType = "twint"
 	PaymentMethodTypeGoPay                     PaymentMethodType = "go_pay"
 	PaymentMethodTypeGrabPay                   PaymentMethodType = "grab_pay"
@@ -43,4 +42,10 @@ const (
 	PaymentMethodTypeAfterPay                  PaymentMethodType = "after_pay"
 	PaymentMethodTypeSwish                     PaymentMethodType = "swish"
 	PaymentMethodTypePayme                     PaymentMethodType = "payme"
+	PaymentMethodTypePix                       PaymentMethodType = "pix"
+	PaymentMethodTypeKlarna                    PaymentMethodType = "klarna"
+	PaymentMethodTypeAlipayHk                  PaymentMethodType = "alipay_hk"
+	PaymentMethodTypePaypay                    PaymentMethodType = "paypay"
+	PaymentMethodTypeGcash                     PaymentMethodType = "gcash"
+	PaymentMethodTypeSouthKoreanCards          PaymentMethodType = "south_korean_cards"
 )

@@ -217,6 +217,8 @@ type WebhookHandler struct {
 
 	OnOmnichannelSubscriptionItemReactivated func(OmnichannelSubscriptionItemReactivatedEvent) error
 
+	OnOmnichannelSubscriptionItemRecovered func(OmnichannelSubscriptionItemRecoveredEvent) error
+
 	OnOmnichannelSubscriptionItemRenewed func(OmnichannelSubscriptionItemRenewedEvent) error
 
 	OnOmnichannelSubscriptionItemResubscribed func(OmnichannelSubscriptionItemResubscribedEvent) error
@@ -228,6 +230,8 @@ type WebhookHandler struct {
 	OnOmnichannelSubscriptionItemScheduledChangeRemoved func(OmnichannelSubscriptionItemScheduledChangeRemovedEvent) error
 
 	OnOmnichannelSubscriptionItemScheduledDowngradeRemoved func(OmnichannelSubscriptionItemScheduledDowngradeRemovedEvent) error
+
+	OnOmnichannelSubscriptionItemUpdated func(OmnichannelSubscriptionItemUpdatedEvent) error
 
 	OnOmnichannelSubscriptionItemUpgraded func(OmnichannelSubscriptionItemUpgradedEvent) error
 
@@ -1589,6 +1593,17 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
+	case enum.EventTypeOmnichannelSubscriptionItemRecovered:
+		if h.OnOmnichannelSubscriptionItemRecovered != nil {
+			var e OmnichannelSubscriptionItemRecoveredEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnOmnichannelSubscriptionItemRecovered(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
 	case enum.EventTypeOmnichannelSubscriptionItemRenewed:
 		if h.OnOmnichannelSubscriptionItemRenewed != nil {
 			var e OmnichannelSubscriptionItemRenewedEvent
@@ -1651,6 +1666,17 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 				return err
 			}
 			return h.OnOmnichannelSubscriptionItemScheduledDowngradeRemoved(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case enum.EventTypeOmnichannelSubscriptionItemUpdated:
+		if h.OnOmnichannelSubscriptionItemUpdated != nil {
+			var e OmnichannelSubscriptionItemUpdatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnOmnichannelSubscriptionItemUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}

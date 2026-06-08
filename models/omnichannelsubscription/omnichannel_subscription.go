@@ -14,6 +14,8 @@ type OmnichannelSubscription struct {
 	Source                       omnichannelSubscriptionEnum.Source                         `json:"source"`
 	CustomerId                   string                                                     `json:"customer_id"`
 	CreatedAt                    int64                                                      `json:"created_at"`
+	PurchasedAt                  int64                                                      `json:"purchased_at"`
+	UpdatedAt                    int64                                                      `json:"updated_at"`
 	ResourceVersion              int64                                                      `json:"resource_version"`
 	OmnichannelSubscriptionItems []*omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_items"`
 	InitialPurchaseTransaction   *omnichanneltransaction.OmnichannelTransaction             `json:"initial_purchase_transaction"`
@@ -25,6 +27,10 @@ type ListRequestParams struct {
 	OmnichannelSubscriptionItem *ListOmnichannelSubscriptionItemParams `json:"omnichannel_subscription_item,omitempty"`
 	Source                      *filter.EnumFilter                     `json:"source,omitempty"`
 	CustomerId                  *filter.StringFilter                   `json:"customer_id,omitempty"`
+	Id                          *filter.StringFilter                   `json:"id,omitempty"`
+	IdAtSource                  *filter.StringFilter                   `json:"id_at_source,omitempty"`
+	UpdatedAt                   *filter.TimestampFilter                `json:"updated_at,omitempty"`
+	PurchasedAt                 *filter.TimestampFilter                `json:"purchased_at,omitempty"`
 }
 type ListOmnichannelSubscriptionItemParams struct {
 	Status         *filter.EnumFilter   `json:"status,omitempty"`
