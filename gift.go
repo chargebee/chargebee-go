@@ -227,12 +227,19 @@ type GiftListGifter struct {
 }
 
 type GiftUpdateGiftRequest struct {
-	ScheduledAt *int64 `json:"scheduled_at"`
-	Comment     string `json:"comment,omitempty"`
-	apiRequest  `json:"-" form:"-"`
+	ScheduledAt  *int64                      `json:"scheduled_at,omitempty"`
+	GiftReceiver *GiftUpdateGiftGiftReceiver `json:"gift_receiver,omitempty"`
+	Comment      string                      `json:"comment,omitempty"`
+	apiRequest   `json:"-" form:"-"`
 }
 
 func (r *GiftUpdateGiftRequest) payload() any { return r }
+
+type GiftUpdateGiftGiftReceiver struct {
+	Email     string `json:"email,omitempty"`
+	FirstName string `json:"first_name,omitempty"`
+	LastName  string `json:"last_name,omitempty"`
+}
 
 type GiftCreateResponse struct {
 	Gift         *Gift        `json:"gift,omitempty"`

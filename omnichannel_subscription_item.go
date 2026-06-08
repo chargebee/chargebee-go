@@ -52,6 +52,7 @@ type OmnichannelSubscriptionItem struct {
 	GracePeriodExpiresAt              int64                                         `json:"grace_period_expires_at"`
 	ResumesAt                         int64                                         `json:"resumes_at"`
 	HasScheduledChanges               bool                                          `json:"has_scheduled_changes"`
+	UpdatedAt                         int64                                         `json:"updated_at"`
 	ResourceVersion                   int64                                         `json:"resource_version"`
 	OmnichannelSubscriptionItemOffers []*OmnichannelSubscriptionItemOffer           `json:"omnichannel_subscription_item_offers"`
 	UpcomingRenewal                   *OmnichannelSubscriptionItemUpcomingRenewal   `json:"upcoming_renewal"`

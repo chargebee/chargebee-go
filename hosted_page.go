@@ -917,6 +917,7 @@ type HostedPageCheckoutGiftAddon struct {
 }
 
 type HostedPageCheckoutGiftForItemsRequest struct {
+	Layout            Layout                                            `json:"layout,omitempty"`
 	BusinessEntityId  string                                            `json:"business_entity_id,omitempty"`
 	Gifter            *HostedPageCheckoutGiftForItemsGifter             `json:"gifter,omitempty"`
 	RedirectUrl       string                                            `json:"redirect_url,omitempty"`

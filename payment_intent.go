@@ -46,7 +46,6 @@ const (
 	PaymentIntentPaymentMethodTypeCashAppPay                PaymentIntentPaymentMethodType = "cash_app_pay"
 	PaymentIntentPaymentMethodTypeWechatPay                 PaymentIntentPaymentMethodType = "wechat_pay"
 	PaymentIntentPaymentMethodTypeAlipay                    PaymentIntentPaymentMethodType = "alipay"
-	PaymentIntentPaymentMethodTypePix                       PaymentIntentPaymentMethodType = "pix"
 	PaymentIntentPaymentMethodTypeTwint                     PaymentIntentPaymentMethodType = "twint"
 	PaymentIntentPaymentMethodTypeGoPay                     PaymentIntentPaymentMethodType = "go_pay"
 	PaymentIntentPaymentMethodTypeGrabPay                   PaymentIntentPaymentMethodType = "grab_pay"
@@ -54,6 +53,12 @@ const (
 	PaymentIntentPaymentMethodTypeAfterPay                  PaymentIntentPaymentMethodType = "after_pay"
 	PaymentIntentPaymentMethodTypeSwish                     PaymentIntentPaymentMethodType = "swish"
 	PaymentIntentPaymentMethodTypePayme                     PaymentIntentPaymentMethodType = "payme"
+	PaymentIntentPaymentMethodTypePix                       PaymentIntentPaymentMethodType = "pix"
+	PaymentIntentPaymentMethodTypeKlarna                    PaymentIntentPaymentMethodType = "klarna"
+	PaymentIntentPaymentMethodTypeAlipayHk                  PaymentIntentPaymentMethodType = "alipay_hk"
+	PaymentIntentPaymentMethodTypePaypay                    PaymentIntentPaymentMethodType = "paypay"
+	PaymentIntentPaymentMethodTypeGcash                     PaymentIntentPaymentMethodType = "gcash"
+	PaymentIntentPaymentMethodTypeSouthKoreanCards          PaymentIntentPaymentMethodType = "south_korean_cards"
 )
 
 type PaymentIntentActivePaymentAttemptStatus string
@@ -103,7 +108,6 @@ const (
 	PaymentIntentActivePaymentAttemptPaymentMethodTypeCashAppPay                PaymentIntentActivePaymentAttemptPaymentMethodType = "cash_app_pay"
 	PaymentIntentActivePaymentAttemptPaymentMethodTypeWechatPay                 PaymentIntentActivePaymentAttemptPaymentMethodType = "wechat_pay"
 	PaymentIntentActivePaymentAttemptPaymentMethodTypeAlipay                    PaymentIntentActivePaymentAttemptPaymentMethodType = "alipay"
-	PaymentIntentActivePaymentAttemptPaymentMethodTypePix                       PaymentIntentActivePaymentAttemptPaymentMethodType = "pix"
 	PaymentIntentActivePaymentAttemptPaymentMethodTypeTwint                     PaymentIntentActivePaymentAttemptPaymentMethodType = "twint"
 	PaymentIntentActivePaymentAttemptPaymentMethodTypeGoPay                     PaymentIntentActivePaymentAttemptPaymentMethodType = "go_pay"
 	PaymentIntentActivePaymentAttemptPaymentMethodTypeGrabPay                   PaymentIntentActivePaymentAttemptPaymentMethodType = "grab_pay"
@@ -111,6 +115,12 @@ const (
 	PaymentIntentActivePaymentAttemptPaymentMethodTypeAfterPay                  PaymentIntentActivePaymentAttemptPaymentMethodType = "after_pay"
 	PaymentIntentActivePaymentAttemptPaymentMethodTypeSwish                     PaymentIntentActivePaymentAttemptPaymentMethodType = "swish"
 	PaymentIntentActivePaymentAttemptPaymentMethodTypePayme                     PaymentIntentActivePaymentAttemptPaymentMethodType = "payme"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypePix                       PaymentIntentActivePaymentAttemptPaymentMethodType = "pix"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeKlarna                    PaymentIntentActivePaymentAttemptPaymentMethodType = "klarna"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeAlipayHk                  PaymentIntentActivePaymentAttemptPaymentMethodType = "alipay_hk"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypePaypay                    PaymentIntentActivePaymentAttemptPaymentMethodType = "paypay"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeGcash                     PaymentIntentActivePaymentAttemptPaymentMethodType = "gcash"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeSouthKoreanCards          PaymentIntentActivePaymentAttemptPaymentMethodType = "south_korean_cards"
 )
 
 type PaymentIntentPaymentAttemptStatus string
@@ -160,7 +170,6 @@ const (
 	PaymentIntentPaymentAttemptPaymentMethodTypeCashAppPay                PaymentIntentPaymentAttemptPaymentMethodType = "cash_app_pay"
 	PaymentIntentPaymentAttemptPaymentMethodTypeWechatPay                 PaymentIntentPaymentAttemptPaymentMethodType = "wechat_pay"
 	PaymentIntentPaymentAttemptPaymentMethodTypeAlipay                    PaymentIntentPaymentAttemptPaymentMethodType = "alipay"
-	PaymentIntentPaymentAttemptPaymentMethodTypePix                       PaymentIntentPaymentAttemptPaymentMethodType = "pix"
 	PaymentIntentPaymentAttemptPaymentMethodTypeTwint                     PaymentIntentPaymentAttemptPaymentMethodType = "twint"
 	PaymentIntentPaymentAttemptPaymentMethodTypeGoPay                     PaymentIntentPaymentAttemptPaymentMethodType = "go_pay"
 	PaymentIntentPaymentAttemptPaymentMethodTypeGrabPay                   PaymentIntentPaymentAttemptPaymentMethodType = "grab_pay"
@@ -168,6 +177,12 @@ const (
 	PaymentIntentPaymentAttemptPaymentMethodTypeAfterPay                  PaymentIntentPaymentAttemptPaymentMethodType = "after_pay"
 	PaymentIntentPaymentAttemptPaymentMethodTypeSwish                     PaymentIntentPaymentAttemptPaymentMethodType = "swish"
 	PaymentIntentPaymentAttemptPaymentMethodTypePayme                     PaymentIntentPaymentAttemptPaymentMethodType = "payme"
+	PaymentIntentPaymentAttemptPaymentMethodTypePix                       PaymentIntentPaymentAttemptPaymentMethodType = "pix"
+	PaymentIntentPaymentAttemptPaymentMethodTypeKlarna                    PaymentIntentPaymentAttemptPaymentMethodType = "klarna"
+	PaymentIntentPaymentAttemptPaymentMethodTypeAlipayHk                  PaymentIntentPaymentAttemptPaymentMethodType = "alipay_hk"
+	PaymentIntentPaymentAttemptPaymentMethodTypePaypay                    PaymentIntentPaymentAttemptPaymentMethodType = "paypay"
+	PaymentIntentPaymentAttemptPaymentMethodTypeGcash                     PaymentIntentPaymentAttemptPaymentMethodType = "gcash"
+	PaymentIntentPaymentAttemptPaymentMethodTypeSouthKoreanCards          PaymentIntentPaymentAttemptPaymentMethodType = "south_korean_cards"
 )
 
 type PaymentIntent struct {
