@@ -58,6 +58,8 @@ type OmnichannelSubscription struct {
 	Source                       OmnichannelSubscriptionSource  `json:"source"`
 	CustomerId                   string                         `json:"customer_id"`
 	CreatedAt                    int64                          `json:"created_at"`
+	PurchasedAt                  int64                          `json:"purchased_at"`
+	UpdatedAt                    int64                          `json:"updated_at"`
 	ResourceVersion              int64                          `json:"resource_version"`
 	OmnichannelSubscriptionItems []*OmnichannelSubscriptionItem `json:"omnichannel_subscription_items"`
 	InitialPurchaseTransaction   *OmnichannelTransaction        `json:"initial_purchase_transaction"`
@@ -70,6 +72,10 @@ type OmnichannelSubscriptionListRequest struct {
 	OmnichannelSubscriptionItem *OmnichannelSubscriptionListOmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
 	Source                      *EnumFilter                                             `json:"source,omitempty"`
 	CustomerId                  *StringFilter                                           `json:"customer_id,omitempty"`
+	Id                          *StringFilter                                           `json:"id,omitempty"`
+	IdAtSource                  *StringFilter                                           `json:"id_at_source,omitempty"`
+	UpdatedAt                   *TimestampFilter                                        `json:"updated_at,omitempty"`
+	PurchasedAt                 *TimestampFilter                                        `json:"purchased_at,omitempty"`
 	apiRequest                  `json:"-" form:"-"`
 }
 

@@ -1305,7 +1305,6 @@ type InvoiceListRequest struct {
 	VoidedAt       *TimestampFilter     `json:"voided_at,omitempty"`
 	VoidReasonCode *StringFilter        `json:"void_reason_code,omitempty"`
 	SortBy         *SortFilter          `json:"sort_by,omitempty"`
-	Exclude        *StringFilter        `json:"exclude,omitempty"`
 	apiRequest     `json:"-" form:"-"`
 }
 

@@ -70,8 +70,6 @@ type OmnichannelSubscriptionItemRenewedContent struct {
 
 	OmnichannelTransaction *chargebee.OmnichannelTransaction `json:"omnichannel_transaction,omitempty"`
 
-	OmnichannelSubscriptionItemScheduledChange *chargebee.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
-
 	Customer *chargebee.Customer `json:"customer,omitempty"`
 }
 
@@ -326,6 +324,16 @@ type PaymentIntentCreatedContent struct {
 	PaymentIntent *chargebee.PaymentIntent `json:"payment_intent,omitempty"`
 }
 
+type OmnichannelSubscriptionItemUpdatedContent struct {
+	OmnichannelSubscriptionItem *chargebee.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
+
+	OmnichannelSubscription *chargebee.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
+
+	OmnichannelTransaction *chargebee.OmnichannelTransaction `json:"omnichannel_transaction,omitempty"`
+
+	Customer *chargebee.Customer `json:"customer,omitempty"`
+}
+
 type CreditNoteCreatedWithBackdatingContent struct {
 	CreditNote *chargebee.CreditNote `json:"credit_note,omitempty"`
 }
@@ -382,6 +390,16 @@ type SubscriptionRampDraftedContent struct {
 
 type DunningUpdatedContent struct {
 	Invoice *chargebee.Invoice `json:"invoice,omitempty"`
+}
+
+type OmnichannelSubscriptionItemRecoveredContent struct {
+	OmnichannelSubscriptionItem *chargebee.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
+
+	OmnichannelSubscription *chargebee.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
+
+	OmnichannelTransaction *chargebee.OmnichannelTransaction `json:"omnichannel_transaction,omitempty"`
+
+	Customer *chargebee.Customer `json:"customer,omitempty"`
 }
 
 type ItemEntitlementsUpdatedContent struct {
@@ -1316,8 +1334,6 @@ type OmnichannelSubscriptionCreatedContent struct {
 
 	OmnichannelTransaction *chargebee.OmnichannelTransaction `json:"omnichannel_transaction,omitempty"`
 
-	OmnichannelSubscriptionItemScheduledChange *chargebee.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
-
 	Customer *chargebee.Customer `json:"customer,omitempty"`
 }
 
@@ -1742,6 +1758,12 @@ type PaymentIntentCreatedEvent struct {
 	Content *PaymentIntentCreatedContent `json:"content"`
 }
 
+// OmnichannelSubscriptionItemUpdatedEvent represents a omnichannel_subscription_item_updated webhook event
+type OmnichannelSubscriptionItemUpdatedEvent struct {
+	BaseEvent
+	Content *OmnichannelSubscriptionItemUpdatedContent `json:"content"`
+}
+
 // CreditNoteCreatedWithBackdatingEvent represents a credit_note_created_with_backdating webhook event
 type CreditNoteCreatedWithBackdatingEvent struct {
 	BaseEvent
@@ -1812,6 +1834,12 @@ type SubscriptionRampDraftedEvent struct {
 type DunningUpdatedEvent struct {
 	BaseEvent
 	Content *DunningUpdatedContent `json:"content"`
+}
+
+// OmnichannelSubscriptionItemRecoveredEvent represents a omnichannel_subscription_item_recovered webhook event
+type OmnichannelSubscriptionItemRecoveredEvent struct {
+	BaseEvent
+	Content *OmnichannelSubscriptionItemRecoveredContent `json:"content"`
 }
 
 // ItemEntitlementsUpdatedEvent represents a item_entitlements_updated webhook event
