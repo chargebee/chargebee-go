@@ -223,6 +223,8 @@ const (
 	EnabledEventsOmnichannelSubscriptionMovedIn                          EnabledEvents = "omnichannel_subscription_moved_in"
 	EnabledEventsOmnichannelTransactionCreated                           EnabledEvents = "omnichannel_transaction_created"
 	EnabledEventsAlertStatusChanged                                      EnabledEvents = "alert_status_changed"
+	EnabledEventsOmnichannelSubscriptionItemUpdated                      EnabledEvents = "omnichannel_subscription_item_updated"
+	EnabledEventsOmnichannelSubscriptionItemRecovered                    EnabledEvents = "omnichannel_subscription_item_recovered"
 	EnabledEventsPlanCreated                                             EnabledEvents = "plan_created"
 	EnabledEventsPlanUpdated                                             EnabledEvents = "plan_updated"
 	EnabledEventsPlanDeleted                                             EnabledEvents = "plan_deleted"

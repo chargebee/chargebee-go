@@ -763,6 +763,7 @@ type CheckoutGiftAddonParams struct {
 	QuantityInDecimal string `json:"quantity_in_decimal,omitempty"`
 }
 type CheckoutGiftForItemsRequestParams struct {
+	Layout            enum.Layout                                   `json:"layout,omitempty"`
 	BusinessEntityId  string                                        `json:"business_entity_id,omitempty"`
 	Gifter            *CheckoutGiftForItemsGifterParams             `json:"gifter,omitempty"`
 	RedirectUrl       string                                        `json:"redirect_url,omitempty"`

@@ -78,7 +78,6 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/quoteddeltaramp"
 	"github.com/chargebee/chargebee-go/v3/models/quotedramp"
 	"github.com/chargebee/chargebee-go/v3/models/quotedsubscription"
-	"github.com/chargebee/chargebee-go/v3/models/quoteentitlement"
 	"github.com/chargebee/chargebee-go/v3/models/quotelinegroup"
 	"github.com/chargebee/chargebee-go/v3/models/ramp"
 	"github.com/chargebee/chargebee-go/v3/models/recordedpurchase"
@@ -146,7 +145,6 @@ type Result struct {
 	QuotedDeltaRamp                            *quoteddeltaramp.QuotedDeltaRamp                                                       `json:"quoted_delta_ramp,omitempty"`
 	BillingConfiguration                       *billingconfiguration.BillingConfiguration                                             `json:"billing_configuration,omitempty"`
 	QuoteLineGroup                             *quotelinegroup.QuoteLineGroup                                                         `json:"quote_line_group,omitempty"`
-	QuoteEntitlement                           *quoteentitlement.QuoteEntitlement                                                     `json:"quote_entitlement,omitempty"`
 	CpqQuoteSignature                          *cpqquotesignature.CpqQuoteSignature                                                   `json:"cpq_quote_signature,omitempty"`
 	Plan                                       *plan.Plan                                                                             `json:"plan,omitempty"`
 	Addon                                      *addon.Addon                                                                           `json:"addon,omitempty"`
@@ -191,6 +189,7 @@ type Result struct {
 	Ramp                                       *ramp.Ramp                                                                             `json:"ramp,omitempty"`
 	PaymentScheduleScheme                      *paymentschedulescheme.PaymentScheduleScheme                                           `json:"payment_schedule_scheme,omitempty"`
 	PricingPageSession                         *pricingpagesession.PricingPageSession                                                 `json:"pricing_page_session,omitempty"`
+	OmnichannelSubscriptionItemScheduledChange *omnichannelsubscriptionitemscheduledchange.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
 	OmnichannelSubscription                    *omnichannelsubscription.OmnichannelSubscription                                       `json:"omnichannel_subscription,omitempty"`
 	OmnichannelTransaction                     *omnichanneltransaction.OmnichannelTransaction                                         `json:"omnichannel_transaction,omitempty"`
 	OmnichannelSubscriptionItem                *omnichannelsubscriptionitem.OmnichannelSubscriptionItem                               `json:"omnichannel_subscription_item,omitempty"`
@@ -199,7 +198,6 @@ type Result struct {
 	OmnichannelOneTimeOrderItem                *omnichannelonetimeorderitem.OmnichannelOneTimeOrderItem                               `json:"omnichannel_one_time_order_item,omitempty"`
 	Rule                                       *rule.Rule                                                                             `json:"rule,omitempty"`
 	UsageEvent                                 *usageevent.UsageEvent                                                                 `json:"usage_event,omitempty"`
-	OmnichannelSubscriptionItemScheduledChange *omnichannelsubscriptionitemscheduledchange.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
 	UsageFile                                  *usagefile.UsageFile                                                                   `json:"usage_file,omitempty"`
 	PersonalizedOffer                          *personalizedoffer.PersonalizedOffer                                                   `json:"personalized_offer,omitempty"`
 	Brand                                      *brand.Brand                                                                           `json:"brand,omitempty"`

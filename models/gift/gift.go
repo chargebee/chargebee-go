@@ -183,6 +183,12 @@ type ListGifterParams struct {
 	CustomerId *filter.StringFilter `json:"customer_id,omitempty"`
 }
 type UpdateGiftRequestParams struct {
-	ScheduledAt *int64 `json:"scheduled_at"`
-	Comment     string `json:"comment,omitempty"`
+	ScheduledAt  *int64                        `json:"scheduled_at,omitempty"`
+	GiftReceiver *UpdateGiftGiftReceiverParams `json:"gift_receiver,omitempty"`
+	Comment      string                        `json:"comment,omitempty"`
+}
+type UpdateGiftGiftReceiverParams struct {
+	Email     string `json:"email,omitempty"`
+	FirstName string `json:"first_name,omitempty"`
+	LastName  string `json:"last_name,omitempty"`
 }
