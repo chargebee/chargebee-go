@@ -19,6 +19,7 @@ type HostedPage struct {
 	Embed            bool                         `json:"embed"`
 	CreatedAt        int64                        `json:"created_at"`
 	ExpiresAt        int64                        `json:"expires_at"`
+	Layout           enum.Layout                  `json:"layout"`
 	Content          json.RawMessage              `json:"content"`
 	UpdatedAt        int64                        `json:"updated_at"`
 	ResourceVersion  int64                        `json:"resource_version"`

@@ -38,6 +38,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/filtercondition"
 	"github.com/chargebee/chargebee-go/v3/models/gatewayerrordetail"
 	"github.com/chargebee/chargebee-go/v3/models/gift"
+	"github.com/chargebee/chargebee-go/v3/models/grantblock"
 	"github.com/chargebee/chargebee-go/v3/models/hierarchy"
 	"github.com/chargebee/chargebee-go/v3/models/hostedpage"
 	"github.com/chargebee/chargebee-go/v3/models/impactedcustomer"
@@ -50,6 +51,8 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/itementitlement"
 	"github.com/chargebee/chargebee-go/v3/models/itemfamily"
 	"github.com/chargebee/chargebee-go/v3/models/itemprice"
+	"github.com/chargebee/chargebee-go/v3/models/ledgeraccountbalance"
+	"github.com/chargebee/chargebee-go/v3/models/ledgeroperation"
 	"github.com/chargebee/chargebee-go/v3/models/metadata"
 	"github.com/chargebee/chargebee-go/v3/models/offerevent"
 	"github.com/chargebee/chargebee-go/v3/models/offerfulfillment"
@@ -72,6 +75,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/pricevariant"
 	"github.com/chargebee/chargebee-go/v3/models/pricingpagesession"
 	"github.com/chargebee/chargebee-go/v3/models/promotionalcredit"
+	"github.com/chargebee/chargebee-go/v3/models/promotionalgrant"
 	"github.com/chargebee/chargebee-go/v3/models/purchase"
 	"github.com/chargebee/chargebee-go/v3/models/quote"
 	"github.com/chargebee/chargebee-go/v3/models/quotedcharge"
@@ -209,6 +213,10 @@ type Result struct {
 	Alert                                      *alert.Alert                                                                           `json:"alert,omitempty"`
 	FilterCondition                            *filtercondition.FilterCondition                                                       `json:"filter_condition,omitempty"`
 	AlertStatus                                *alertstatus.AlertStatus                                                               `json:"alert_status,omitempty"`
+	LedgerAccountBalance                       *ledgeraccountbalance.LedgerAccountBalance                                             `json:"ledger_account_balance,omitempty"`
+	LedgerOperation                            *ledgeroperation.LedgerOperation                                                       `json:"ledger_operation,omitempty"`
+	GrantBlock                                 *grantblock.GrantBlock                                                                 `json:"grant_block,omitempty"`
+	PromotionalGrant                           *promotionalgrant.PromotionalGrant                                                     `json:"promotional_grant,omitempty"`
 	ImpactedCustomer                           *impactedcustomer.ImpactedCustomer                                                     `json:"impacted_customer,omitempty"`
 	SubscriptionEntitlementsUpdatedDetail      *subscriptionentitlementsupdateddetail.SubscriptionEntitlementsUpdatedDetail           `json:"subscription_entitlements_updated_detail,omitempty"`
 	SubscriptionEntitlementsCreatedDetail      *subscriptionentitlementscreateddetail.SubscriptionEntitlementsCreatedDetail           `json:"subscription_entitlements_created_detail,omitempty"`
@@ -222,6 +230,8 @@ type Result struct {
 	Configurations                             []*configuration.Configuration                                                         `json:"configurations,omitempty"`
 	InAppSubscriptions                         []*inappsubscription.InAppSubscription                                                 `json:"in_app_subscriptions,omitempty"`
 	PersonalizedOffers                         []*personalizedoffer.PersonalizedOffer                                                 `json:"personalized_offers,omitempty"`
+	LedgerOperations                           []*ledgeroperation.LedgerOperation                                                     `json:"ledger_operations,omitempty"`
+	GrantBlocks                                []*grantblock.GrantBlock                                                               `json:"grant_blocks,omitempty"`
 	FailedEvents                               interface{}                                                                            `json:"failed_events,omitempty"`
 	ExpiresAt                                  interface{}                                                                            `json:"expires_at,omitempty"`
 	BatchId                                    interface{}                                                                            `json:"batch_id,omitempty"`

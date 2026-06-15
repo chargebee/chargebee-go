@@ -31,6 +31,7 @@ type ListRequestParams struct {
 	IdAtSource                  *filter.StringFilter                   `json:"id_at_source,omitempty"`
 	UpdatedAt                   *filter.TimestampFilter                `json:"updated_at,omitempty"`
 	PurchasedAt                 *filter.TimestampFilter                `json:"purchased_at,omitempty"`
+	SortBy                      *filter.SortFilter                     `json:"sort_by,omitempty"`
 }
 type ListOmnichannelSubscriptionItemParams struct {
 	Status         *filter.EnumFilter   `json:"status,omitempty"`
