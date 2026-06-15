@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"time"
+
+	"github.com/chargebee/chargebee-go/v3/telemetry"
 )
 
 type RetryConfig struct {
@@ -16,12 +18,13 @@ type RetryConfig struct {
 }
 
 type Environment struct {
-	Key             string
-	SiteName        string
-	ChargebeeDomain string
-	Protocol        string
-	RetryConfig     *RetryConfig
-	EnableDebugLogs bool
+	Key              string
+	SiteName         string
+	ChargebeeDomain  string
+	Protocol         string
+	RetryConfig      *RetryConfig
+	EnableDebugLogs  bool
+	TelemetryAdapter telemetry.TelemetryAdapter
 }
 
 type cbCtxKey string
@@ -63,6 +66,14 @@ func WithRetryConfig(c *RetryConfig) {
 
 func WithEnableDebugLogs(enabled bool) {
 	DefaultEnv.EnableDebugLogs = enabled
+}
+
+func WithTelemetryAdapter(adapter telemetry.TelemetryAdapter) {
+	DefaultEnv.TelemetryAdapter = adapter
+}
+
+func (env *Environment) ApiBaseURL(subDomain string) string {
+	return env.apiBaseUrl(subDomain)
 }
 
 func (env *Environment) apiBaseUrl(subDomain string) string {

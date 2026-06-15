@@ -17,28 +17,32 @@ import (
 
 // RequestObj is the structure that contains the properties of regular request data.
 type RequestObj struct {
-	Params        *url.Values
-	Method        string
-	Path          string
-	Header        map[string]string
-	Context       context.Context `form:"-"`
-	subDomain     string
-	isJsonRequest bool
-	JsonBody      string
-	idempotent    bool
+	Params             *url.Values
+	Method             string
+	Path               string
+	Header             map[string]string
+	Context            context.Context `form:"-"`
+	subDomain          string
+	isJsonRequest      bool
+	JsonBody           string
+	idempotent         bool
+	telemetryResource  string
+	telemetryOperation string
 }
 
 // ListRequestObj is the structure that contains the properties of list request data.
 type ListRequestObj struct {
-	Params        *url.Values
-	Method        string
-	Path          string
-	Header        map[string]string
-	Context       context.Context `form:"-"`
-	subDomain     string
-	isJsonRequest bool
-	JsonBody      string
-	idempotent    bool
+	Params             *url.Values
+	Method             string
+	Path               string
+	Header             map[string]string
+	Context            context.Context `form:"-"`
+	subDomain          string
+	isJsonRequest      bool
+	JsonBody           string
+	idempotent         bool
+	telemetryResource  string
+	telemetryOperation string
 }
 
 type Request = RequestObj
@@ -135,6 +139,16 @@ func (request Request) SetIdempotency(idempotent bool) Request {
 	return request
 }
 
+func (request Request) WithTelemetryResource(resource string) Request {
+	request.telemetryResource = resource
+	return request
+}
+
+func (request Request) WithTelemetryOperation(operation string) Request {
+	request.telemetryOperation = operation
+	return request
+}
+
 // Context used for request. It may carry deadlines, cancelation signals,
 // and other request-scoped values across API boundaries and between
 // processes.
@@ -178,6 +192,16 @@ func (request ListRequest) SetSubDomain(subDomain string) ListRequest {
 
 func (request ListRequest) SetIdempotency(idempotent bool) ListRequest {
 	request.idempotent = idempotent
+	return request
+}
+
+func (request ListRequest) WithTelemetryResource(resource string) ListRequest {
+	request.telemetryResource = resource
+	return request
+}
+
+func (request ListRequest) WithTelemetryOperation(operation string) ListRequest {
+	request.telemetryOperation = operation
 	return request
 }
 

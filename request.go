@@ -13,7 +13,41 @@ func (request Request) Request() (*Result, error) {
 	result, err := request.RequestWithEnv(DefaultConfig())
 	return result, err
 }
+
 func (request Request) RequestWithEnv(env Environment) (*Result, error) {
+	var path string
+	if request.isJsonRequest {
+		path, _ = getJsonBody(request.Method, request.Path, request.JsonBody)
+	} else {
+		path, _ = getBody(request.Method, request.Path, request.Params)
+	}
+	httpURL := buildTelemetryHTTPURL(env, request.subDomain, path)
+
+	result := &Result{}
+	err := executeWithTelemetry(env, telemetryExecuteInput{
+		resource:  request.telemetryResource,
+		operation: request.telemetryOperation,
+		method:    request.Method,
+		httpURL:   httpURL,
+	}, func(headers map[string]string) (int, error) {
+		req := request
+		for key, value := range headers {
+			req = req.Headers(key, value)
+		}
+		res, requestError := req.doRequestWithEnv(env)
+		if requestError != nil {
+			return 0, requestError
+		}
+		*result = *res
+		return res.httpStatusCode, nil
+	})
+	if err != nil {
+		return result, err
+	}
+	return result, nil
+}
+
+func (request Request) doRequestWithEnv(env Environment) (*Result, error) {
 	var body io.Reader
 	var path string
 	if request.isJsonRequest {
@@ -43,6 +77,7 @@ func (request Request) RequestWithEnv(env Environment) (*Result, error) {
 	result.httpStatusCode = res.StatusCode
 	return result, requestError
 }
+
 func getBody(method string, path string, form *url.Values) (string, io.Reader) {
 	var body io.Reader
 	if form != nil && len(*form) > 0 {
