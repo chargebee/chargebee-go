@@ -76,6 +76,7 @@ type OmnichannelSubscriptionListRequest struct {
 	IdAtSource                  *StringFilter                                           `json:"id_at_source,omitempty"`
 	UpdatedAt                   *TimestampFilter                                        `json:"updated_at,omitempty"`
 	PurchasedAt                 *TimestampFilter                                        `json:"purchased_at,omitempty"`
+	SortBy                      *SortFilter                                             `json:"sort_by,omitempty"`
 	apiRequest                  `json:"-" form:"-"`
 }
 

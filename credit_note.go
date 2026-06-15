@@ -157,6 +157,7 @@ type CreditNote struct {
 	LocalCurrencyCode         string                           `json:"local_currency_code"`
 	RoundOffAmount            int64                            `json:"round_off_amount"`
 	FractionalCorrection      int64                            `json:"fractional_correction"`
+	Notes                     []string                         `json:"notes"`
 	LineItems                 []*CreditNoteLineItem            `json:"line_items"`
 	LineItemTiers             []*CreditNoteLineItemTier        `json:"line_item_tiers"`
 	LineItemDiscounts         []*CreditNoteLineItemDiscount    `json:"line_item_discounts"`

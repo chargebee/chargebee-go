@@ -10,7 +10,6 @@ type HostedPageType string
 const (
 	HostedPageTypeCheckoutNew          HostedPageType = "checkout_new"
 	HostedPageTypeCheckoutExisting     HostedPageType = "checkout_existing"
-	HostedPageTypeUpdatePaymentMethod  HostedPageType = "update_payment_method"
 	HostedPageTypeManagePaymentSources HostedPageType = "manage_payment_sources"
 	HostedPageTypeCollectNow           HostedPageType = "collect_now"
 	HostedPageTypeExtendSubscription   HostedPageType = "extend_subscription"
@@ -21,6 +20,7 @@ const (
 	HostedPageTypeCheckoutGift         HostedPageType = "checkout_gift"
 	HostedPageTypeClaimGift            HostedPageType = "claim_gift"
 	HostedPageTypeUpdateCard           HostedPageType = "update_card"
+	HostedPageTypeUpdatePaymentMethod  HostedPageType = "update_payment_method"
 )
 
 type HostedPageState string
@@ -60,6 +60,7 @@ type HostedPage struct {
 	Embed            bool                    `json:"embed"`
 	CreatedAt        int64                   `json:"created_at"`
 	ExpiresAt        int64                   `json:"expires_at"`
+	Layout           Layout                  `json:"layout"`
 	Content          json.RawMessage         `json:"content"`
 	UpdatedAt        int64                   `json:"updated_at"`
 	ResourceVersion  int64                   `json:"resource_version"`
