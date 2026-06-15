@@ -22,7 +22,6 @@ func (s *OfferFulfillmentService) OfferFulfillmentsGet(id string) (*OfferFulfill
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/offer_fulfillments/%v", url.PathEscape(id))
-	req.isJsonRequest = true
 	return send[*OfferFulfillmentOfferFulfillmentsGetResponse](req, s.config)
 }
 

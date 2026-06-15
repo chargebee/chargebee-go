@@ -29,6 +29,7 @@ type Client struct {
 	Export                      *ExportService
 	Feature                     *FeatureService
 	Gift                        *GiftService
+	GrantBlock                  *GrantBlockService
 	HostedPage                  *HostedPageService
 	InAppSubscription           *InAppSubscriptionService
 	Invoice                     *InvoiceService
@@ -36,6 +37,8 @@ type Client struct {
 	ItemEntitlement             *ItemEntitlementService
 	ItemFamily                  *ItemFamilyService
 	ItemPrice                   *ItemPriceService
+	LedgerAccountBalance        *LedgerAccountBalanceService
+	LedgerOperation             *LedgerOperationService
 	OfferEvent                  *OfferEventService
 	OfferFulfillment            *OfferFulfillmentService
 	OmnichannelOneTimeOrder     *OmnichannelOneTimeOrderService
@@ -52,6 +55,7 @@ type Client struct {
 	PriceVariant                *PriceVariantService
 	PricingPageSession          *PricingPageSessionService
 	PromotionalCredit           *PromotionalCreditService
+	PromotionalGrant            *PromotionalGrantService
 	Purchase                    *PurchaseService
 	Quote                       *QuoteService
 	Ramp                        *RampService
@@ -104,6 +108,7 @@ func NewClient(config *ClientConfig) *Client {
 		Export:                      &ExportService{config},
 		Feature:                     &FeatureService{config},
 		Gift:                        &GiftService{config},
+		GrantBlock:                  &GrantBlockService{config},
 		HostedPage:                  &HostedPageService{config},
 		InAppSubscription:           &InAppSubscriptionService{config},
 		Invoice:                     &InvoiceService{config},
@@ -111,6 +116,8 @@ func NewClient(config *ClientConfig) *Client {
 		ItemEntitlement:             &ItemEntitlementService{config},
 		ItemFamily:                  &ItemFamilyService{config},
 		ItemPrice:                   &ItemPriceService{config},
+		LedgerAccountBalance:        &LedgerAccountBalanceService{config},
+		LedgerOperation:             &LedgerOperationService{config},
 		OfferEvent:                  &OfferEventService{config},
 		OfferFulfillment:            &OfferFulfillmentService{config},
 		OmnichannelOneTimeOrder:     &OmnichannelOneTimeOrderService{config},
@@ -127,6 +134,7 @@ func NewClient(config *ClientConfig) *Client {
 		PriceVariant:                &PriceVariantService{config},
 		PricingPageSession:          &PricingPageSessionService{config},
 		PromotionalCredit:           &PromotionalCreditService{config},
+		PromotionalGrant:            &PromotionalGrantService{config},
 		Purchase:                    &PurchaseService{config},
 		Quote:                       &QuoteService{config},
 		Ramp:                        &RampService{config},

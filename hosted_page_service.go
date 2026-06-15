@@ -61,6 +61,7 @@ func (s *HostedPageService) UpdateCard(req *HostedPageUpdateCardRequest) (*Hoste
 	return send[*HostedPageUpdateCardResponse](req, s.config)
 }
 
+// Deprecated: This function is deprecated.
 func (s *HostedPageService) UpdatePaymentMethod(req *HostedPageUpdatePaymentMethodRequest) (*HostedPageUpdatePaymentMethodResponse, error) {
 	req.method = "POST"
 	req.path = "/hosted_pages/update_payment_method"
