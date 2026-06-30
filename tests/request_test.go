@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/chargebee/chargebee-go/v3"
+	"github.com/chargebee/chargebee-go/v3/telemetry"
 )
 
 type mockTransport struct {
@@ -179,4 +180,87 @@ func TestRequestWithEnv_RetryOverride(t *testing.T) {
 	if atomic.LoadInt32(&count) != 4 { // 1 initial + 3 retries
 		t.Errorf("expected 4 attempts, got: %d", count)
 	}
+}
+
+type injectTraceAdapter struct{}
+
+func (injectTraceAdapter) OnRequestStart(_ telemetry.RequestTelemetryContext, requestHeaders map[string]string) any {
+	requestHeaders["traceparent"] = "00-test-trace"
+	return nil
+}
+
+func (injectTraceAdapter) OnRequestEnd(any, telemetry.RequestTelemetryResult) {}
+
+func snapshotHeaders(headers map[string]string) map[string]string {
+	snapshot := make(map[string]string, len(headers))
+	for key, value := range headers {
+		snapshot[key] = value
+	}
+	return snapshot
+}
+
+func TestRequestWithEnv_DoesNotMutateRequestHeadersWithTelemetry(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Header.Get("traceparent") != "00-test-trace" {
+			t.Errorf("expected traceparent on outbound request, got %q", r.Header.Get("traceparent"))
+		}
+		if r.Header.Get("chargebee-foo") != "bar" {
+			t.Errorf("expected chargebee-foo on outbound request, got %q", r.Header.Get("chargebee-foo"))
+		}
+		w.WriteHeader(http.StatusOK)
+		io.WriteString(w, `{"list":[]}`)
+	}))
+	defer server.Close()
+
+	chargebee.WithHTTPClient(&http.Client{Transport: &mockTransport{server: server}})
+
+	env := chargebee.Environment{
+		Key:              "test_key",
+		SiteName:         "test_site",
+		TelemetryAdapter: injectTraceAdapter{},
+	}
+
+	t.Run("RequestWithEnv", func(t *testing.T) {
+		req := chargebee.Send("GET", "/customers/1", nil).
+			Headers("chargebee-foo", "bar").
+			WithTelemetryResource("customer").
+			WithTelemetryOperation("retrieve")
+		before := snapshotHeaders(req.Header)
+
+		_, err := req.RequestWithEnv(env)
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		if after := snapshotHeaders(req.Header); !headersEqual(before, after) {
+			t.Fatalf("request headers mutated: before=%v after=%v", before, after)
+		}
+	})
+
+	t.Run("ListRequestWithEnv", func(t *testing.T) {
+		req := chargebee.SendList("GET", "/customers", nil).
+			Headers("chargebee-foo", "bar").
+			WithTelemetryResource("customer").
+			WithTelemetryOperation("list")
+		before := snapshotHeaders(req.Header)
+
+		_, err := req.ListRequestWithEnv(env)
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		if after := snapshotHeaders(req.Header); !headersEqual(before, after) {
+			t.Fatalf("request headers mutated: before=%v after=%v", before, after)
+		}
+	})
+}
+
+func headersEqual(a, b map[string]string) bool {
+	if len(a) != len(b) {
+		return false
+	}
+	for key, value := range a {
+		if b[key] != value {
+			return false
+		}
+	}
+	return true
 }

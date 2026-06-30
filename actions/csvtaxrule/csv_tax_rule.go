@@ -8,5 +8,5 @@ import (
 )
 
 func Create(params *csvtaxrule.CreateRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/csv_tax_rules"), params)
+	return chargebee.Send("POST", fmt.Sprintf("/csv_tax_rules"), params).WithTelemetryResource("csvTaxRule").WithTelemetryOperation("create").SetIdempotency(true)
 }

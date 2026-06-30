@@ -32,8 +32,8 @@ func (request Request) RequestWithEnv(env Environment) (*Result, error) {
 		requestHeaders: request.Header,
 	}, func(headers map[string]string) (int, error) {
 		req := request
-		for key, value := range headers {
-			req = req.Headers(key, value)
+		if len(headers) > 0 {
+			req.Header = mergeRequestHeaders(request.Header, headers)
 		}
 		res, requestError := req.doRequestWithEnv(env)
 		if requestError != nil {

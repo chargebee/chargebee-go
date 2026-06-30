@@ -490,6 +490,50 @@ func main() {
 
 ```
 
+### Telemetry (OpenTelemetry)
+
+**Optional add-on.** Existing integrations do not need any changes — if you never set a telemetry adapter, API calls behave exactly as before.
+
+Set a `telemetry.TelemetryAdapter` when you want Chargebee API calls traced in your observability stack (Datadog, Splunk, Honeycomb, Jaeger, etc.). OpenTelemetry is **not** bundled with the Chargebee SDK; install and configure OTel (or your APM SDK) in your application and wire it through the adapter.
+
+The SDK builds standardized span attributes (`StartAttributes`, `EndAttributes`) following stable [OpenTelemetry HTTP semantic conventions](https://opentelemetry.io/docs/specs/semconv/http/http-spans/) (`url.full`, `http.request.method`, `http.response.status_code`, `server.address`, `error.type`) plus Chargebee-specific `chargebee.*` attributes (see constants in the `telemetry` package).
+
+Span names follow `chargebee.{resource}.{operation}`. One span is created per SDK API call; retries reuse the same span. Adapter failures are logged and never affect the underlying API request.
+
+Configure at startup:
+
+```go
+import (
+    "github.com/chargebee/chargebee-go/v3"
+    "github.com/chargebee/chargebee-go/v3/telemetry"
+)
+
+func main() {
+    // Configure the site first — Configure replaces DefaultEnv, so call it before other DefaultEnv helpers.
+    chargebee.Configure("{site_api_key}", "{site}")
+    chargebee.WithTelemetryAdapter(yourAdapter) // implements telemetry.TelemetryAdapter
+}
+```
+
+If you use `RequestWithEnv` or `ListRequestWithEnv` with a custom `Environment`, set `TelemetryAdapter` on that struct — `WithTelemetryAdapter` only updates `DefaultEnv`:
+
+```go
+env := chargebee.Environment{
+    Key:              "{site_api_key}",
+    SiteName:         "{site}",
+    TelemetryAdapter: yourAdapter,
+}
+result, err := customerAction.List(params).ListRequestWithEnv(env)
+```
+
+To pass custom `chargebee-*` headers (promoted to `http.request.header.chargebee-*` span attributes), chain `.Headers(...)` on the request:
+
+```go
+customerAction.List(params).
+    Headers("chargebee-business-entity-id", "entity-id").
+    ListRequest()
+```
+
 ## Contribution
 ***
 You may contribute patches to any of the **Active** versions of this library. To do so, raise a PR against the [respective branch](#library-versions).

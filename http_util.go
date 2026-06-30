@@ -256,6 +256,20 @@ func ensureRetryCountHeader(req *http.Request, attempt int) {
 	req.Header.Set("X-CB-Retry-Attempt", strconv.Itoa(attempt))
 }
 
+func mergeRequestHeaders(base, extra map[string]string) map[string]string {
+	if len(extra) == 0 {
+		return base
+	}
+	merged := make(map[string]string, len(base)+len(extra))
+	for key, value := range base {
+		merged[key] = value
+	}
+	for key, value := range extra {
+		merged[key] = value
+	}
+	return merged
+}
+
 // UnmarshalJSON is used to unmarshal the response to Result / ResultList struct.
 func UnmarshalJSON(response []byte, result interface{}) error {
 	err := json.Unmarshal(response, result)

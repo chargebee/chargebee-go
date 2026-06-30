@@ -136,3 +136,38 @@ func TestExecuteWithTelemetryPromotesChargebeeRequestHeaders(t *testing.T) {
 	require.Equal(t, "bar", adapter.startContext.StartAttributes["http.request.header.chargebee-foo"])
 	require.NotContains(t, adapter.startContext.StartAttributes, "http.request.header.chargebee-request-origin-ip")
 }
+
+func TestMergeRequestHeadersDoesNotMutateBase(t *testing.T) {
+	base := map[string]string{"chargebee-foo": "bar"}
+
+	merged := mergeRequestHeaders(base, map[string]string{"traceparent": "00-test-trace"})
+
+	require.Equal(t, map[string]string{"chargebee-foo": "bar"}, base)
+	require.NotContains(t, base, "traceparent")
+	require.Equal(t, "bar", merged["chargebee-foo"])
+	require.Equal(t, "00-test-trace", merged["traceparent"])
+}
+
+func TestExecuteWithTelemetryDoesNotMutateRequestHeaders(t *testing.T) {
+	adapter := &recordingAdapter{}
+	env := Environment{
+		SiteName:         "acme",
+		Key:              "test_key",
+		TelemetryAdapter: adapter,
+	}
+	originalHeaders := map[string]string{"chargebee-foo": "bar"}
+
+	err := executeWithTelemetry(env, telemetryExecuteInput{
+		resource:       "customer",
+		operation:      "list",
+		method:         "GET",
+		httpURL:        "https://acme.chargebee.com/api/v2/customers",
+		requestHeaders: originalHeaders,
+	}, func(headers map[string]string) (int, error) {
+		require.Equal(t, "00-test-trace", headers["traceparent"])
+		return 200, nil
+	})
+	require.NoError(t, err)
+	require.Equal(t, map[string]string{"chargebee-foo": "bar"}, originalHeaders)
+	require.NotContains(t, originalHeaders, "traceparent")
+}
