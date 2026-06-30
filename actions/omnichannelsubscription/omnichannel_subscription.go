@@ -8,14 +8,14 @@ import (
 )
 
 func Retrieve(id string) chargebee.Request {
-	return chargebee.Send("GET", fmt.Sprintf("/omnichannel_subscriptions/%v", url.PathEscape(id)), nil)
+	return chargebee.Send("GET", fmt.Sprintf("/omnichannel_subscriptions/%v", url.PathEscape(id)), nil).WithTelemetryResource("omnichannelSubscription").WithTelemetryOperation("retrieve")
 }
 func List(params *omnichannelsubscription.ListRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/omnichannel_subscriptions"), params)
+	return chargebee.SendList("GET", fmt.Sprintf("/omnichannel_subscriptions"), params).WithTelemetryResource("omnichannelSubscription").WithTelemetryOperation("list")
 }
 func OmnichannelTransactionsForOmnichannelSubscription(id string, params *omnichannelsubscription.OmnichannelTransactionsForOmnichannelSubscriptionRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/omnichannel_subscriptions/%v/omnichannel_transactions", url.PathEscape(id)), params)
+	return chargebee.SendList("GET", fmt.Sprintf("/omnichannel_subscriptions/%v/omnichannel_transactions", url.PathEscape(id)), params).WithTelemetryResource("omnichannelSubscription").WithTelemetryOperation("omnichannelTransactionsForOmnichannelSubscription")
 }
 func Move(id string, params *omnichannelsubscription.MoveRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/omnichannel_subscriptions/%v/move", url.PathEscape(id)), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/omnichannel_subscriptions/%v/move", url.PathEscape(id)), params).WithTelemetryResource("omnichannelSubscription").WithTelemetryOperation("move").SetIdempotency(true)
 }

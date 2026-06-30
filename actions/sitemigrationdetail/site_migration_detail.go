@@ -7,5 +7,5 @@ import (
 )
 
 func List(params *sitemigrationdetail.ListRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/site_migration_details"), params)
+	return chargebee.SendList("GET", fmt.Sprintf("/site_migration_details"), params).WithTelemetryResource("siteMigrationDetail").WithTelemetryOperation("list")
 }

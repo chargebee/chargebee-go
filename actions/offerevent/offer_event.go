@@ -7,5 +7,5 @@ import (
 )
 
 func OfferEvents(params *offerevent.OfferEventsRequestParams) chargebee.Request {
-	return chargebee.SendJsonRequest("POST", fmt.Sprintf("/offer_events"), params).SetSubDomain("grow")
+	return chargebee.SendJsonRequest("POST", fmt.Sprintf("/offer_events"), params).WithTelemetryResource("offerEvent").WithTelemetryOperation("offerEvents").SetSubDomain("grow")
 }

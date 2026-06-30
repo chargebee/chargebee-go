@@ -8,26 +8,26 @@ import (
 )
 
 func List(params *feature.ListRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/features"), params)
+	return chargebee.SendList("GET", fmt.Sprintf("/features"), params).WithTelemetryResource("feature").WithTelemetryOperation("list")
 }
 func Create(params *feature.CreateRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/features"), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/features"), params).WithTelemetryResource("feature").WithTelemetryOperation("create").SetIdempotency(true)
 }
 func Update(id string, params *feature.UpdateRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/features/%v", url.PathEscape(id)), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/features/%v", url.PathEscape(id)), params).WithTelemetryResource("feature").WithTelemetryOperation("update").SetIdempotency(true)
 }
 func Retrieve(id string) chargebee.Request {
-	return chargebee.Send("GET", fmt.Sprintf("/features/%v", url.PathEscape(id)), nil)
+	return chargebee.Send("GET", fmt.Sprintf("/features/%v", url.PathEscape(id)), nil).WithTelemetryResource("feature").WithTelemetryOperation("retrieve")
 }
 func Delete(id string) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/features/%v/delete", url.PathEscape(id)), nil).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/features/%v/delete", url.PathEscape(id)), nil).WithTelemetryResource("feature").WithTelemetryOperation("delete").SetIdempotency(true)
 }
 func Activate(id string) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/features/%v/activate_command", url.PathEscape(id)), nil).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/features/%v/activate_command", url.PathEscape(id)), nil).WithTelemetryResource("feature").WithTelemetryOperation("activate").SetIdempotency(true)
 }
 func Archive(id string) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/features/%v/archive_command", url.PathEscape(id)), nil).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/features/%v/archive_command", url.PathEscape(id)), nil).WithTelemetryResource("feature").WithTelemetryOperation("archive").SetIdempotency(true)
 }
 func Reactivate(id string) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/features/%v/reactivate_command", url.PathEscape(id)), nil).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/features/%v/reactivate_command", url.PathEscape(id)), nil).WithTelemetryResource("feature").WithTelemetryOperation("reactivate").SetIdempotency(true)
 }

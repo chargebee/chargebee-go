@@ -8,20 +8,20 @@ import (
 )
 
 func List(params *currency.ListRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/currencies/list"), params)
+	return chargebee.SendList("GET", fmt.Sprintf("/currencies/list"), params).WithTelemetryResource("currency").WithTelemetryOperation("list")
 }
 func Retrieve(id string) chargebee.Request {
-	return chargebee.Send("GET", fmt.Sprintf("/currencies/%v", url.PathEscape(id)), nil)
+	return chargebee.Send("GET", fmt.Sprintf("/currencies/%v", url.PathEscape(id)), nil).WithTelemetryResource("currency").WithTelemetryOperation("retrieve")
 }
 func Create(params *currency.CreateRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/currencies"), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/currencies"), params).WithTelemetryResource("currency").WithTelemetryOperation("create").SetIdempotency(true)
 }
 func Update(id string, params *currency.UpdateRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/currencies/%v", url.PathEscape(id)), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/currencies/%v", url.PathEscape(id)), params).WithTelemetryResource("currency").WithTelemetryOperation("update").SetIdempotency(true)
 }
 func AddSchedule(id string, params *currency.AddScheduleRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/currencies/%v/add_schedule", url.PathEscape(id)), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/currencies/%v/add_schedule", url.PathEscape(id)), params).WithTelemetryResource("currency").WithTelemetryOperation("addSchedule").SetIdempotency(true)
 }
 func RemoveSchedule(id string) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/currencies/%v/remove_schedule", url.PathEscape(id)), nil).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/currencies/%v/remove_schedule", url.PathEscape(id)), nil).WithTelemetryResource("currency").WithTelemetryOperation("removeSchedule").SetIdempotency(true)
 }

@@ -7,5 +7,5 @@ import (
 )
 
 func PromotionalGrants(params *promotionalgrant.PromotionalGrantsRequestParams) chargebee.Request {
-	return chargebee.SendJsonRequest("POST", fmt.Sprintf("/promotional_grants"), params).SetIdempotency(true)
+	return chargebee.SendJsonRequest("POST", fmt.Sprintf("/promotional_grants"), params).WithTelemetryResource("promotionalGrant").WithTelemetryOperation("promotionalGrants").SetIdempotency(true)
 }

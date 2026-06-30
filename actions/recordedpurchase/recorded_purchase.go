@@ -8,8 +8,8 @@ import (
 )
 
 func Create(params *recordedpurchase.CreateRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/recorded_purchases"), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/recorded_purchases"), params).WithTelemetryResource("recordedPurchase").WithTelemetryOperation("create").SetIdempotency(true)
 }
 func Retrieve(id string) chargebee.Request {
-	return chargebee.Send("GET", fmt.Sprintf("/recorded_purchases/%v", url.PathEscape(id)), nil)
+	return chargebee.Send("GET", fmt.Sprintf("/recorded_purchases/%v", url.PathEscape(id)), nil).WithTelemetryResource("recordedPurchase").WithTelemetryOperation("retrieve")
 }

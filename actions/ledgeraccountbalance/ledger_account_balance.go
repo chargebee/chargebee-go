@@ -7,5 +7,5 @@ import (
 )
 
 func ListLedgerAccountBalances(params *ledgeraccountbalance.ListLedgerAccountBalancesRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/ledger_account_balances"), params)
+	return chargebee.SendList("GET", fmt.Sprintf("/ledger_account_balances"), params).WithTelemetryResource("ledgerAccountBalance").WithTelemetryOperation("listLedgerAccountBalances")
 }

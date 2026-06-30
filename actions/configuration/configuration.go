@@ -6,5 +6,5 @@ import (
 )
 
 func List() chargebee.Request {
-	return chargebee.Send("GET", fmt.Sprintf("/configurations"), nil)
+	return chargebee.Send("GET", fmt.Sprintf("/configurations"), nil).WithTelemetryResource("configuration").WithTelemetryOperation("list")
 }

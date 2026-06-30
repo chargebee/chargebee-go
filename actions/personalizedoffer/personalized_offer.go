@@ -7,5 +7,5 @@ import (
 )
 
 func PersonalizedOffers(params *personalizedoffer.PersonalizedOffersRequestParams) chargebee.Request {
-	return chargebee.SendJsonRequest("POST", fmt.Sprintf("/personalized_offers"), params).SetSubDomain("grow")
+	return chargebee.SendJsonRequest("POST", fmt.Sprintf("/personalized_offers"), params).WithTelemetryResource("personalizedOffer").WithTelemetryOperation("personalizedOffers").SetSubDomain("grow")
 }

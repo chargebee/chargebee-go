@@ -8,11 +8,11 @@ import (
 )
 
 func OfferFulfillments(params *offerfulfillment.OfferFulfillmentsRequestParams) chargebee.Request {
-	return chargebee.SendJsonRequest("POST", fmt.Sprintf("/offer_fulfillments"), params).SetSubDomain("grow")
+	return chargebee.SendJsonRequest("POST", fmt.Sprintf("/offer_fulfillments"), params).WithTelemetryResource("offerFulfillment").WithTelemetryOperation("offerFulfillments").SetSubDomain("grow")
 }
 func OfferFulfillmentsGet(id string) chargebee.Request {
-	return chargebee.Send("GET", fmt.Sprintf("/offer_fulfillments/%v", url.PathEscape(id)), nil).SetSubDomain("grow")
+	return chargebee.SendJsonRequest("GET", fmt.Sprintf("/offer_fulfillments/%v", url.PathEscape(id)), nil).WithTelemetryResource("offerFulfillment").WithTelemetryOperation("offerFulfillmentsGet").SetSubDomain("grow")
 }
 func OfferFulfillmentsUpdate(id string, params *offerfulfillment.OfferFulfillmentsUpdateRequestParams) chargebee.Request {
-	return chargebee.SendJsonRequest("POST", fmt.Sprintf("/offer_fulfillments/%v", url.PathEscape(id)), params).SetSubDomain("grow")
+	return chargebee.SendJsonRequest("POST", fmt.Sprintf("/offer_fulfillments/%v", url.PathEscape(id)), params).WithTelemetryResource("offerFulfillment").WithTelemetryOperation("offerFulfillmentsUpdate").SetSubDomain("grow")
 }

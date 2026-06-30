@@ -12,13 +12,13 @@ import (
 )
 
 func Retrieve(id string) chargebee.Request {
-	return chargebee.Send("GET", fmt.Sprintf("/time_machines/%v", url.PathEscape(id)), nil)
+	return chargebee.Send("GET", fmt.Sprintf("/time_machines/%v", url.PathEscape(id)), nil).WithTelemetryResource("timeMachine").WithTelemetryOperation("retrieve")
 }
 func StartAfresh(id string, params *timemachine.StartAfreshRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/time_machines/%v/start_afresh", url.PathEscape(id)), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/time_machines/%v/start_afresh", url.PathEscape(id)), params).WithTelemetryResource("timeMachine").WithTelemetryOperation("startAfresh").SetIdempotency(true)
 }
 func TravelForward(id string, params *timemachine.TravelForwardRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/time_machines/%v/travel_forward", url.PathEscape(id)), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/time_machines/%v/travel_forward", url.PathEscape(id)), params).WithTelemetryResource("timeMachine").WithTelemetryOperation("travelForward").SetIdempotency(true)
 }
 func WaitForTimeTravelCompletion(tm timemachine.TimeMachine) (timemachine.TimeMachine, error) {
 	return WaitForTimeTravelCompletionWithEnv(tm, chargebee.DefaultConfig())

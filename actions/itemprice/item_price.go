@@ -8,23 +8,23 @@ import (
 )
 
 func Create(params *itemprice.CreateRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/item_prices"), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/item_prices"), params).WithTelemetryResource("itemPrice").WithTelemetryOperation("create").SetIdempotency(true)
 }
 func Retrieve(id string) chargebee.Request {
-	return chargebee.Send("GET", fmt.Sprintf("/item_prices/%v", url.PathEscape(id)), nil)
+	return chargebee.Send("GET", fmt.Sprintf("/item_prices/%v", url.PathEscape(id)), nil).WithTelemetryResource("itemPrice").WithTelemetryOperation("retrieve")
 }
 func Update(id string, params *itemprice.UpdateRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/item_prices/%v", url.PathEscape(id)), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/item_prices/%v", url.PathEscape(id)), params).WithTelemetryResource("itemPrice").WithTelemetryOperation("update").SetIdempotency(true)
 }
 func List(params *itemprice.ListRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/item_prices"), params)
+	return chargebee.SendList("GET", fmt.Sprintf("/item_prices"), params).WithTelemetryResource("itemPrice").WithTelemetryOperation("list")
 }
 func Delete(id string) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/item_prices/%v/delete", url.PathEscape(id)), nil).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/item_prices/%v/delete", url.PathEscape(id)), nil).WithTelemetryResource("itemPrice").WithTelemetryOperation("delete").SetIdempotency(true)
 }
 func FindApplicableItems(id string, params *itemprice.FindApplicableItemsRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/item_prices/%v/applicable_items", url.PathEscape(id)), params)
+	return chargebee.SendList("GET", fmt.Sprintf("/item_prices/%v/applicable_items", url.PathEscape(id)), params).WithTelemetryResource("itemPrice").WithTelemetryOperation("findApplicableItems")
 }
 func FindApplicableItemPrices(id string, params *itemprice.FindApplicableItemPricesRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/item_prices/%v/applicable_item_prices", url.PathEscape(id)), params)
+	return chargebee.SendList("GET", fmt.Sprintf("/item_prices/%v/applicable_item_prices", url.PathEscape(id)), params).WithTelemetryResource("itemPrice").WithTelemetryOperation("findApplicableItemPrices")
 }

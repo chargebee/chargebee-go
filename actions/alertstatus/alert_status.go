@@ -8,8 +8,8 @@ import (
 )
 
 func AlertStatusesForSubscription(id string, params *alertstatus.AlertStatusesForSubscriptionRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/subscriptions/%v/alert_statuses", url.PathEscape(id)), params)
+	return chargebee.SendList("GET", fmt.Sprintf("/subscriptions/%v/alert_statuses", url.PathEscape(id)), params).WithTelemetryResource("alertStatus").WithTelemetryOperation("alertStatusesForSubscription")
 }
 func AlertStatusesForAlert(id string, params *alertstatus.AlertStatusesForAlertRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/alerts/%v/alert_statuses", url.PathEscape(id)), params)
+	return chargebee.SendList("GET", fmt.Sprintf("/alerts/%v/alert_statuses", url.PathEscape(id)), params).WithTelemetryResource("alertStatus").WithTelemetryOperation("alertStatusesForAlert")
 }

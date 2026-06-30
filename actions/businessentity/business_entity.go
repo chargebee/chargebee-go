@@ -7,8 +7,8 @@ import (
 )
 
 func CreateTransfers(params *businessentity.CreateTransfersRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/business_entities/transfers"), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/business_entities/transfers"), params).WithTelemetryResource("businessEntity").WithTelemetryOperation("createTransfers").SetIdempotency(true)
 }
 func GetTransfers(params *businessentity.GetTransfersRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/business_entities/transfers"), params)
+	return chargebee.SendList("GET", fmt.Sprintf("/business_entities/transfers"), params).WithTelemetryResource("businessEntity").WithTelemetryOperation("getTransfers")
 }

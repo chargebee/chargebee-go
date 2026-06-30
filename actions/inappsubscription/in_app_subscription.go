@@ -8,14 +8,14 @@ import (
 )
 
 func ProcessReceipt(id string, params *inappsubscription.ProcessReceiptRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/in_app_subscriptions/%v/process_purchase_command", url.PathEscape(id)), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/in_app_subscriptions/%v/process_purchase_command", url.PathEscape(id)), params).WithTelemetryResource("inAppSubscription").WithTelemetryOperation("processReceipt").SetIdempotency(true)
 }
 func ImportReceipt(id string, params *inappsubscription.ImportReceiptRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/in_app_subscriptions/%v/import_receipt", url.PathEscape(id)), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/in_app_subscriptions/%v/import_receipt", url.PathEscape(id)), params).WithTelemetryResource("inAppSubscription").WithTelemetryOperation("importReceipt").SetIdempotency(true)
 }
 func ImportSubscription(id string, params *inappsubscription.ImportSubscriptionRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/in_app_subscriptions/%v/import_subscription", url.PathEscape(id)), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/in_app_subscriptions/%v/import_subscription", url.PathEscape(id)), params).WithTelemetryResource("inAppSubscription").WithTelemetryOperation("importSubscription").SetIdempotency(true)
 }
 func RetrieveStoreSubs(id string, params *inappsubscription.RetrieveStoreSubsRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/in_app_subscriptions/%v/retrieve", url.PathEscape(id)), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/in_app_subscriptions/%v/retrieve", url.PathEscape(id)), params).WithTelemetryResource("inAppSubscription").WithTelemetryOperation("retrieveStoreSubs").SetIdempotency(true)
 }

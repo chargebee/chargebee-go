@@ -7,8 +7,8 @@ import (
 )
 
 func Create(params *purchase.CreateRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/purchases"), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/purchases"), params).WithTelemetryResource("purchase").WithTelemetryOperation("create").SetIdempotency(true)
 }
 func Estimate(params *purchase.EstimateRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/purchases/estimate"), params)
+	return chargebee.Send("POST", fmt.Sprintf("/purchases/estimate"), params).WithTelemetryResource("purchase").WithTelemetryOperation("estimate")
 }

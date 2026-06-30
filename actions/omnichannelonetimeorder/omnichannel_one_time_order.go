@@ -8,8 +8,8 @@ import (
 )
 
 func Retrieve(id string) chargebee.Request {
-	return chargebee.Send("GET", fmt.Sprintf("/omnichannel_one_time_orders/%v", url.PathEscape(id)), nil)
+	return chargebee.Send("GET", fmt.Sprintf("/omnichannel_one_time_orders/%v", url.PathEscape(id)), nil).WithTelemetryResource("omnichannelOneTimeOrder").WithTelemetryOperation("retrieve")
 }
 func List(params *omnichannelonetimeorder.ListRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/omnichannel_one_time_orders"), params)
+	return chargebee.SendList("GET", fmt.Sprintf("/omnichannel_one_time_orders"), params).WithTelemetryResource("omnichannelOneTimeOrder").WithTelemetryOperation("list")
 }

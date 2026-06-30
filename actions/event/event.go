@@ -11,10 +11,10 @@ import (
 )
 
 func List(params *event.ListRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/events"), params)
+	return chargebee.SendList("GET", fmt.Sprintf("/events"), params).WithTelemetryResource("event").WithTelemetryOperation("list")
 }
 func Retrieve(id string) chargebee.Request {
-	return chargebee.Send("GET", fmt.Sprintf("/events/%v", url.PathEscape(id)), nil)
+	return chargebee.Send("GET", fmt.Sprintf("/events/%v", url.PathEscape(id)), nil).WithTelemetryResource("event").WithTelemetryOperation("retrieve")
 }
 func Content(event event.Event) *chargebee.Result {
 	content := &chargebee.Result{}

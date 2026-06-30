@@ -7,8 +7,8 @@ import (
 )
 
 func List(params *entitlement.ListRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/entitlements"), params)
+	return chargebee.SendList("GET", fmt.Sprintf("/entitlements"), params).WithTelemetryResource("entitlement").WithTelemetryOperation("list")
 }
 func Create(params *entitlement.CreateRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/entitlements"), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/entitlements"), params).WithTelemetryResource("entitlement").WithTelemetryOperation("create").SetIdempotency(true)
 }

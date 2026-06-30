@@ -8,8 +8,8 @@ import (
 )
 
 func UploadUrl(params *usagefile.UploadUrlRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/usage_files/upload_url"), params).SetSubDomain("file-ingest")
+	return chargebee.Send("POST", fmt.Sprintf("/usage_files/upload_url"), params).WithTelemetryResource("usageFile").WithTelemetryOperation("uploadUrl").SetSubDomain("file-ingest")
 }
 func ProcessingStatus(id string) chargebee.Request {
-	return chargebee.Send("GET", fmt.Sprintf("/usage_files/%v/processing_status", url.PathEscape(id)), nil).SetSubDomain("file-ingest")
+	return chargebee.Send("GET", fmt.Sprintf("/usage_files/%v/processing_status", url.PathEscape(id)), nil).WithTelemetryResource("usageFile").WithTelemetryOperation("processingStatus").SetSubDomain("file-ingest")
 }

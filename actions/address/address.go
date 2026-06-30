@@ -7,8 +7,8 @@ import (
 )
 
 func Retrieve(params *address.RetrieveRequestParams) chargebee.Request {
-	return chargebee.Send("GET", fmt.Sprintf("/addresses"), params)
+	return chargebee.Send("GET", fmt.Sprintf("/addresses"), params).WithTelemetryResource("address").WithTelemetryOperation("retrieve")
 }
 func Update(params *address.UpdateRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/addresses"), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/addresses"), params).WithTelemetryResource("address").WithTelemetryOperation("update").SetIdempotency(true)
 }

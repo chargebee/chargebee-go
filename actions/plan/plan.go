@@ -8,23 +8,23 @@ import (
 )
 
 func Create(params *plan.CreateRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/plans"), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/plans"), params).WithTelemetryResource("plan").WithTelemetryOperation("create").SetIdempotency(true)
 }
 func Update(id string, params *plan.UpdateRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/plans/%v", url.PathEscape(id)), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/plans/%v", url.PathEscape(id)), params).WithTelemetryResource("plan").WithTelemetryOperation("update").SetIdempotency(true)
 }
 func List(params *plan.ListRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/plans"), params)
+	return chargebee.SendList("GET", fmt.Sprintf("/plans"), params).WithTelemetryResource("plan").WithTelemetryOperation("list")
 }
 func Retrieve(id string) chargebee.Request {
-	return chargebee.Send("GET", fmt.Sprintf("/plans/%v", url.PathEscape(id)), nil)
+	return chargebee.Send("GET", fmt.Sprintf("/plans/%v", url.PathEscape(id)), nil).WithTelemetryResource("plan").WithTelemetryOperation("retrieve")
 }
 func Delete(id string) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/plans/%v/delete", url.PathEscape(id)), nil).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/plans/%v/delete", url.PathEscape(id)), nil).WithTelemetryResource("plan").WithTelemetryOperation("delete").SetIdempotency(true)
 }
 func Copy(params *plan.CopyRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/plans/copy"), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/plans/copy"), params).WithTelemetryResource("plan").WithTelemetryOperation("copy").SetIdempotency(true)
 }
 func Unarchive(id string) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/plans/%v/unarchive", url.PathEscape(id)), nil).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/plans/%v/unarchive", url.PathEscape(id)), nil).WithTelemetryResource("plan").WithTelemetryOperation("unarchive").SetIdempotency(true)
 }

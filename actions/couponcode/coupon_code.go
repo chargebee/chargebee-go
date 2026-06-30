@@ -9,14 +9,14 @@ import (
 
 // Deprecated: This function is deprecated.
 func Create(params *couponcode.CreateRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/coupon_codes"), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/coupon_codes"), params).WithTelemetryResource("couponCode").WithTelemetryOperation("create").SetIdempotency(true)
 }
 func Retrieve(id string) chargebee.Request {
-	return chargebee.Send("GET", fmt.Sprintf("/coupon_codes/%v", url.PathEscape(id)), nil)
+	return chargebee.Send("GET", fmt.Sprintf("/coupon_codes/%v", url.PathEscape(id)), nil).WithTelemetryResource("couponCode").WithTelemetryOperation("retrieve")
 }
 func List(params *couponcode.ListRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/coupon_codes"), params)
+	return chargebee.SendList("GET", fmt.Sprintf("/coupon_codes"), params).WithTelemetryResource("couponCode").WithTelemetryOperation("list")
 }
 func Archive(id string) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/coupon_codes/%v/archive", url.PathEscape(id)), nil).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/coupon_codes/%v/archive", url.PathEscape(id)), nil).WithTelemetryResource("couponCode").WithTelemetryOperation("archive").SetIdempotency(true)
 }

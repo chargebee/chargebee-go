@@ -7,5 +7,5 @@ import (
 )
 
 func ListGrantBlocks(params *grantblock.ListGrantBlocksRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/grant_blocks"), params)
+	return chargebee.SendList("GET", fmt.Sprintf("/grant_blocks"), params).WithTelemetryResource("grantBlock").WithTelemetryOperation("listGrantBlocks")
 }

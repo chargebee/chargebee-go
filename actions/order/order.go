@@ -8,40 +8,40 @@ import (
 )
 
 func Create(params *order.CreateRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/orders"), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/orders"), params).WithTelemetryResource("order").WithTelemetryOperation("create").SetIdempotency(true)
 }
 func Update(id string, params *order.UpdateRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/orders/%v", url.PathEscape(id)), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/orders/%v", url.PathEscape(id)), params).WithTelemetryResource("order").WithTelemetryOperation("update").SetIdempotency(true)
 }
 func ImportOrder(params *order.ImportOrderRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/orders/import_order"), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/orders/import_order"), params).WithTelemetryResource("order").WithTelemetryOperation("importOrder").SetIdempotency(true)
 }
 func AssignOrderNumber(id string) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/orders/%v/assign_order_number", url.PathEscape(id)), nil).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/orders/%v/assign_order_number", url.PathEscape(id)), nil).WithTelemetryResource("order").WithTelemetryOperation("assignOrderNumber").SetIdempotency(true)
 }
 func Cancel(id string, params *order.CancelRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/orders/%v/cancel", url.PathEscape(id)), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/orders/%v/cancel", url.PathEscape(id)), params).WithTelemetryResource("order").WithTelemetryOperation("cancel").SetIdempotency(true)
 }
 func CreateRefundableCreditNote(id string, params *order.CreateRefundableCreditNoteRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/orders/%v/create_refundable_credit_note", url.PathEscape(id)), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/orders/%v/create_refundable_credit_note", url.PathEscape(id)), params).WithTelemetryResource("order").WithTelemetryOperation("createRefundableCreditNote").SetIdempotency(true)
 }
 func Reopen(id string, params *order.ReopenRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/orders/%v/reopen", url.PathEscape(id)), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/orders/%v/reopen", url.PathEscape(id)), params).WithTelemetryResource("order").WithTelemetryOperation("reopen").SetIdempotency(true)
 }
 func Retrieve(id string) chargebee.Request {
-	return chargebee.Send("GET", fmt.Sprintf("/orders/%v", url.PathEscape(id)), nil)
+	return chargebee.Send("GET", fmt.Sprintf("/orders/%v", url.PathEscape(id)), nil).WithTelemetryResource("order").WithTelemetryOperation("retrieve")
 }
 func Delete(id string) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/orders/%v/delete", url.PathEscape(id)), nil).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/orders/%v/delete", url.PathEscape(id)), nil).WithTelemetryResource("order").WithTelemetryOperation("delete").SetIdempotency(true)
 }
 func List(params *order.ListRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/orders"), params)
+	return chargebee.SendList("GET", fmt.Sprintf("/orders"), params).WithTelemetryResource("order").WithTelemetryOperation("list")
 }
 
 // Deprecated: This function is deprecated.
 func OrdersForInvoice(id string, params *order.OrdersForInvoiceRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/invoices/%v/orders", url.PathEscape(id)), params)
+	return chargebee.SendList("GET", fmt.Sprintf("/invoices/%v/orders", url.PathEscape(id)), params).WithTelemetryResource("order").WithTelemetryOperation("ordersForInvoice")
 }
 func Resend(id string, params *order.ResendRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/orders/%v/resend", url.PathEscape(id)), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/orders/%v/resend", url.PathEscape(id)), params).WithTelemetryResource("order").WithTelemetryOperation("resend").SetIdempotency(true)
 }

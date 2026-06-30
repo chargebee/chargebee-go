@@ -8,14 +8,14 @@ import (
 )
 
 func ItemEntitlementsForItem(id string, params *itementitlement.ItemEntitlementsForItemRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/items/%v/item_entitlements", url.PathEscape(id)), params)
+	return chargebee.SendList("GET", fmt.Sprintf("/items/%v/item_entitlements", url.PathEscape(id)), params).WithTelemetryResource("itemEntitlement").WithTelemetryOperation("itemEntitlementsForItem")
 }
 func ItemEntitlementsForFeature(id string, params *itementitlement.ItemEntitlementsForFeatureRequestParams) chargebee.ListRequest {
-	return chargebee.SendList("GET", fmt.Sprintf("/features/%v/item_entitlements", url.PathEscape(id)), params)
+	return chargebee.SendList("GET", fmt.Sprintf("/features/%v/item_entitlements", url.PathEscape(id)), params).WithTelemetryResource("itemEntitlement").WithTelemetryOperation("itemEntitlementsForFeature")
 }
 func AddItemEntitlements(id string, params *itementitlement.AddItemEntitlementsRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/features/%v/item_entitlements", url.PathEscape(id)), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/features/%v/item_entitlements", url.PathEscape(id)), params).WithTelemetryResource("itemEntitlement").WithTelemetryOperation("addItemEntitlements").SetIdempotency(true)
 }
 func UpsertOrRemoveItemEntitlementsForItem(id string, params *itementitlement.UpsertOrRemoveItemEntitlementsForItemRequestParams) chargebee.Request {
-	return chargebee.Send("POST", fmt.Sprintf("/items/%v/item_entitlements", url.PathEscape(id)), params).SetIdempotency(true)
+	return chargebee.Send("POST", fmt.Sprintf("/items/%v/item_entitlements", url.PathEscape(id)), params).WithTelemetryResource("itemEntitlement").WithTelemetryOperation("upsertOrRemoveItemEntitlementsForItem").SetIdempotency(true)
 }

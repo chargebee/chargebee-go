@@ -7,5 +7,5 @@ import (
 )
 
 func RetrieveLatest(params *resourcemigration.RetrieveLatestRequestParams) chargebee.Request {
-	return chargebee.Send("GET", fmt.Sprintf("/resource_migrations/retrieve_latest"), params)
+	return chargebee.Send("GET", fmt.Sprintf("/resource_migrations/retrieve_latest"), params).WithTelemetryResource("resourceMigration").WithTelemetryOperation("retrieveLatest")
 }
