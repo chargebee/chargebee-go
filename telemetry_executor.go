@@ -11,10 +11,11 @@ import (
 )
 
 type telemetryExecuteInput struct {
-	resource  string
-	operation string
-	method    string
-	httpURL   string
+	resource       string
+	operation      string
+	method         string
+	httpURL        string
+	requestHeaders map[string]string
 }
 
 func executeWithTelemetry(
@@ -30,7 +31,7 @@ func executeWithTelemetry(
 
 	start := time.Now()
 	headers := map[string]string{}
-	handle := startTelemetry(env, adapter, input, headers)
+	handle := startTelemetry(env, adapter, input, input.requestHeaders, headers)
 	mergedHeaders := headers
 	if len(mergedHeaders) == 0 {
 		mergedHeaders = nil
@@ -50,6 +51,7 @@ func startTelemetry(
 	env Environment,
 	adapter telemetry.TelemetryAdapter,
 	input telemetryExecuteInput,
+	requestHeaders map[string]string,
 	headers map[string]string,
 ) any {
 	parsed, parseErr := url.Parse(input.httpURL)
@@ -72,6 +74,7 @@ func startTelemetry(
 		env.SiteName,
 		telemetry.ResolveChargebeeAPIVersion(apiPath),
 		Version,
+		requestHeaders,
 	)
 
 	return safeOnRequestStart(adapter, context, headers)

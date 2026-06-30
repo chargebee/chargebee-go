@@ -111,3 +111,28 @@ func TestExecuteWithTelemetryRecordsChargebeeError(t *testing.T) {
 	require.Equal(t, 404, adapter.endResult.HTTPStatusCode)
 	require.Equal(t, "resource_not_found", adapter.endResult.Error.ChargebeeErrorCode)
 }
+
+func TestExecuteWithTelemetryPromotesChargebeeRequestHeaders(t *testing.T) {
+	adapter := &recordingAdapter{}
+	env := Environment{
+		SiteName:         "acme",
+		Key:              "test_key",
+		TelemetryAdapter: adapter,
+	}
+
+	err := executeWithTelemetry(env, telemetryExecuteInput{
+		resource:  "customer",
+		operation: "list",
+		method:    "GET",
+		httpURL:   "https://acme.chargebee.com/api/v2/customers",
+		requestHeaders: map[string]string{
+			"chargebee-foo":               "bar",
+			"chargebee-request-origin-ip": "202.170.207.70",
+		},
+	}, func(headers map[string]string) (int, error) {
+		return 200, nil
+	})
+	require.NoError(t, err)
+	require.Equal(t, "bar", adapter.startContext.StartAttributes["http.request.header.chargebee-foo"])
+	require.NotContains(t, adapter.startContext.StartAttributes, "http.request.header.chargebee-request-origin-ip")
+}

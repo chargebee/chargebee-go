@@ -11,9 +11,13 @@ package telemetry
 // chargebee.* namespace for Chargebee-specific data.
 const (
 	// SDKName is the SDK identifier value recorded on chargebee.sdk.name spans.
-	SDKName                 = "chargebee-go"
+	SDKName = "chargebee-go"
 	// TelemetrySpanNamePrefix is the standard span name prefix: chargebee.{resource}.{operation}
 	TelemetrySpanNamePrefix = "chargebee"
+
+	HTTPRequestHeaderAttributePrefix      = "http.request.header."
+	ChargebeeTelemetryHeaderPrefix        = "chargebee-"
+	ChargebeeTelemetryHeaderExcludePrefix = "chargebee-request-origin-"
 
 	URLFull                = "url.full"
 	HTTPRequestMethod      = "http.request.method"

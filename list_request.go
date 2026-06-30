@@ -15,10 +15,11 @@ func (request ListRequest) ListRequestWithEnv(env Environment) (*ResultList, err
 
 	result := &ResultList{}
 	err := executeWithTelemetry(env, telemetryExecuteInput{
-		resource:  request.telemetryResource,
-		operation: request.telemetryOperation,
-		method:    request.Method,
-		httpURL:   httpURL,
+		resource:       request.telemetryResource,
+		operation:      request.telemetryOperation,
+		method:         request.Method,
+		httpURL:        httpURL,
+		requestHeaders: request.Header,
 	}, func(headers map[string]string) (int, error) {
 		req := request
 		for key, value := range headers {

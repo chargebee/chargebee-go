@@ -5,6 +5,8 @@
 
 package telemetry
 
+import "strings"
+
 // Helpers for building standardized Chargebee telemetry context and results.
 
 // BuildSpanName returns the standardized Chargebee span name.
@@ -23,8 +25,9 @@ func ResolveChargebeeAPIVersion(apiPath string) string {
 // BuildRequestStartSpanAttributes builds standardized start span attributes.
 func BuildRequestStartSpanAttributes(
 	resource, operation, httpMethod, httpURL, serverAddress, chargebeeSite, chargebeeAPIVersion, sdkVersion string,
+	requestHeaders map[string]string,
 ) map[string]string {
-	return map[string]string{
+	attributes := map[string]string{
 		URLFull:             httpURL,
 		HTTPRequestMethod:   httpMethod,
 		ServerAddress:       serverAddress,
@@ -35,6 +38,24 @@ func BuildRequestStartSpanAttributes(
 		ChargebeeSDKName:    SDKName,
 		ChargebeeSDKVersion: sdkVersion,
 	}
+	for key, value := range BuildRequestHeaderSpanAttributes(requestHeaders) {
+		attributes[key] = value
+	}
+	return attributes
+}
+
+// BuildRequestHeaderSpanAttributes promotes chargebee-* request headers to http.request.header.* attributes; excludes the chargebee-request-origin-* PII family.
+func BuildRequestHeaderSpanAttributes(requestHeaders map[string]string) map[string]string {
+	attributes := map[string]string{}
+	for name, value := range requestHeaders {
+		lowerName := strings.ToLower(name)
+		if !strings.HasPrefix(lowerName, ChargebeeTelemetryHeaderPrefix) ||
+			strings.HasPrefix(lowerName, ChargebeeTelemetryHeaderExcludePrefix) {
+			continue
+		}
+		attributes[HTTPRequestHeaderAttributePrefix+lowerName] = value
+	}
+	return attributes
 }
 
 // BuildRequestEndSpanAttributes builds standardized end span attributes.
@@ -60,6 +81,7 @@ func BuildRequestEndSpanAttributes(httpStatusCode int, err *RequestTelemetryErro
 // BuildRequestTelemetryContext builds a RequestTelemetryContext.
 func BuildRequestTelemetryContext(
 	resource, operation, httpMethod, httpURL, serverAddress, chargebeeSite, chargebeeAPIVersion, sdkVersion string,
+	requestHeaders map[string]string,
 ) RequestTelemetryContext {
 	return RequestTelemetryContext{
 		SpanName:            BuildSpanName(resource, operation),
@@ -73,7 +95,7 @@ func BuildRequestTelemetryContext(
 		SDKName:             SDKName,
 		SDKVersion:          sdkVersion,
 		StartAttributes: BuildRequestStartSpanAttributes(
-			resource, operation, httpMethod, httpURL, serverAddress, chargebeeSite, chargebeeAPIVersion, sdkVersion,
+			resource, operation, httpMethod, httpURL, serverAddress, chargebeeSite, chargebeeAPIVersion, sdkVersion, requestHeaders,
 		),
 	}
 }
