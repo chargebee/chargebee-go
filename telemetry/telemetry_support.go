@@ -64,12 +64,12 @@ func BuildRequestEndSpanAttributes(httpStatusCode int, err *RequestTelemetryErro
 		HTTPResponseStatusCode: httpStatusCode,
 	}
 	if err != nil {
-		attributes[ErrorType] = httpStatusCode
+		if err.ChargebeeAPIErrorType != "" {
+			attributes[ErrorType] = err.ChargebeeAPIErrorType
+			attributes[ChargebeeErrorType] = err.ChargebeeAPIErrorType
+		}
 		if err.ChargebeeErrorCode != "" {
 			attributes[ChargebeeErrorCode] = err.ChargebeeErrorCode
-		}
-		if err.ChargebeeAPIErrorType != "" {
-			attributes[ChargebeeErrorType] = err.ChargebeeAPIErrorType
 		}
 		if err.ChargebeeErrorParam != "" {
 			attributes[ChargebeeErrorParam] = err.ChargebeeErrorParam

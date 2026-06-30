@@ -40,3 +40,26 @@ func TestBuildRequestHeaderSpanAttributesIgnoresNonChargebeeHeaders(t *testing.T
 
 	require.Empty(t, attributes)
 }
+
+func TestBuildRequestEndSpanAttributesUsesChargebeeErrorType(t *testing.T) {
+	attributes := BuildRequestEndSpanAttributes(404, &RequestTelemetryError{
+		Message:               "Not found",
+		ChargebeeAPIErrorType: "invalid_request",
+		ChargebeeErrorCode:    "resource_not_found",
+	})
+
+	require.Equal(t, 404, attributes[HTTPResponseStatusCode])
+	require.Equal(t, "invalid_request", attributes[ErrorType])
+	require.Equal(t, "invalid_request", attributes[ChargebeeErrorType])
+	require.Equal(t, "resource_not_found", attributes[ChargebeeErrorCode])
+}
+
+func TestBuildRequestEndSpanAttributesOmitsErrorTypeWithoutClassification(t *testing.T) {
+	attributes := BuildRequestEndSpanAttributes(500, &RequestTelemetryError{
+		Message: "request failed",
+	})
+
+	require.Equal(t, 500, attributes[HTTPResponseStatusCode])
+	require.NotContains(t, attributes, ErrorType)
+	require.NotContains(t, attributes, ChargebeeErrorType)
+}
