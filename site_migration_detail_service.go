@@ -10,5 +10,8 @@ func (s *SiteMigrationDetailService) List(req *SiteMigrationDetailListRequest) (
 	req.method = "GET"
 	req.path = "/site_migration_details"
 	req.isListRequest = true
+	req.telemetryResource = "siteMigrationDetail"
+	req.telemetryOperation = "list"
+
 	return send[*SiteMigrationDetailListResponse](req, s.config)
 }

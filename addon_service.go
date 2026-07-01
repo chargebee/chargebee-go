@@ -15,6 +15,9 @@ func (s *AddonService) Create(req *AddonCreateRequest) (*AddonCreateResponse, er
 	req.method = "POST"
 	req.path = "/addons"
 	req.isIdempotent = true
+	req.telemetryResource = "addon"
+	req.telemetryOperation = "create"
+
 	return send[*AddonCreateResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *AddonService) Update(id string, req *AddonUpdateRequest) (*AddonUpdateR
 	req.method = "POST"
 	req.path = fmt.Sprintf("/addons/%v", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "addon"
+	req.telemetryOperation = "update"
+
 	return send[*AddonUpdateResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *AddonService) List(req *AddonListRequest) (*AddonListResponse, error) {
 	req.method = "GET"
 	req.path = "/addons"
 	req.isListRequest = true
+	req.telemetryResource = "addon"
+	req.telemetryOperation = "list"
+
 	return send[*AddonListResponse](req, s.config)
 }
 
@@ -36,6 +45,9 @@ func (s *AddonService) Retrieve(id string) (*AddonRetrieveResponse, error) {
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/addons/%v", url.PathEscape(id))
+	req.telemetryResource = "addon"
+	req.telemetryOperation = "retrieve"
+
 	return send[*AddonRetrieveResponse](req, s.config)
 }
 
@@ -44,6 +56,9 @@ func (s *AddonService) Delete(id string) (*AddonDeleteResponse, error) {
 	req.method = "POST"
 	req.path = fmt.Sprintf("/addons/%v/delete", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "addon"
+	req.telemetryOperation = "delete"
+
 	return send[*AddonDeleteResponse](req, s.config)
 }
 
@@ -51,6 +66,9 @@ func (s *AddonService) Copy(req *AddonCopyRequest) (*AddonCopyResponse, error) {
 	req.method = "POST"
 	req.path = "/addons/copy"
 	req.isIdempotent = true
+	req.telemetryResource = "addon"
+	req.telemetryOperation = "copy"
+
 	return send[*AddonCopyResponse](req, s.config)
 }
 
@@ -59,5 +77,8 @@ func (s *AddonService) Unarchive(id string) (*AddonUnarchiveResponse, error) {
 	req.method = "POST"
 	req.path = fmt.Sprintf("/addons/%v/unarchive", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "addon"
+	req.telemetryOperation = "unarchive"
+
 	return send[*AddonUnarchiveResponse](req, s.config)
 }

@@ -15,6 +15,9 @@ func (s *InAppSubscriptionService) ProcessReceipt(id string, req *InAppSubscript
 	req.method = "POST"
 	req.path = fmt.Sprintf("/in_app_subscriptions/%v/process_purchase_command", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "inAppSubscription"
+	req.telemetryOperation = "processReceipt"
+
 	return send[*InAppSubscriptionProcessReceiptResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *InAppSubscriptionService) ImportReceipt(id string, req *InAppSubscripti
 	req.method = "POST"
 	req.path = fmt.Sprintf("/in_app_subscriptions/%v/import_receipt", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "inAppSubscription"
+	req.telemetryOperation = "importReceipt"
+
 	return send[*InAppSubscriptionImportReceiptResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *InAppSubscriptionService) ImportSubscription(id string, req *InAppSubsc
 	req.method = "POST"
 	req.path = fmt.Sprintf("/in_app_subscriptions/%v/import_subscription", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "inAppSubscription"
+	req.telemetryOperation = "importSubscription"
+
 	return send[*InAppSubscriptionImportSubscriptionResponse](req, s.config)
 }
 
@@ -36,5 +45,8 @@ func (s *InAppSubscriptionService) RetrieveStoreSubs(id string, req *InAppSubscr
 	req.method = "POST"
 	req.path = fmt.Sprintf("/in_app_subscriptions/%v/retrieve", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "inAppSubscription"
+	req.telemetryOperation = "retrieveStoreSubs"
+
 	return send[*InAppSubscriptionRetrieveStoreSubsResponse](req, s.config)
 }

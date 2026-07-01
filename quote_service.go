@@ -15,6 +15,9 @@ func (s *QuoteService) Retrieve(id string) (*QuoteRetrieveResponse, error) {
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/quotes/%v", url.PathEscape(id))
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "retrieve"
+
 	return send[*QuoteRetrieveResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *QuoteService) CreateSubForCustomerQuote(id string, req *QuoteCreateSubF
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/create_subscription_quote", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "createSubForCustomerQuote"
+
 	return send[*QuoteCreateSubForCustomerQuoteResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *QuoteService) EditCreateSubForCustomerQuote(id string, req *QuoteEditCr
 	req.method = "POST"
 	req.path = fmt.Sprintf("/quotes/%v/edit_create_subscription_quote", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "editCreateSubForCustomerQuote"
+
 	return send[*QuoteEditCreateSubForCustomerQuoteResponse](req, s.config)
 }
 
@@ -36,6 +45,9 @@ func (s *QuoteService) UpdateSubscriptionQuote(req *QuoteUpdateSubscriptionQuote
 	req.method = "POST"
 	req.path = "/quotes/update_subscription_quote"
 	req.isIdempotent = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "updateSubscriptionQuote"
+
 	return send[*QuoteUpdateSubscriptionQuoteResponse](req, s.config)
 }
 
@@ -43,6 +55,9 @@ func (s *QuoteService) EditUpdateSubscriptionQuote(id string, req *QuoteEditUpda
 	req.method = "POST"
 	req.path = fmt.Sprintf("/quotes/%v/edit_update_subscription_quote", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "editUpdateSubscriptionQuote"
+
 	return send[*QuoteEditUpdateSubscriptionQuoteResponse](req, s.config)
 }
 
@@ -50,6 +65,9 @@ func (s *QuoteService) CreateForOnetimeCharges(req *QuoteCreateForOnetimeCharges
 	req.method = "POST"
 	req.path = "/quotes/create_for_onetime_charges"
 	req.isIdempotent = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "createForOnetimeCharges"
+
 	return send[*QuoteCreateForOnetimeChargesResponse](req, s.config)
 }
 
@@ -57,6 +75,9 @@ func (s *QuoteService) EditOneTimeQuote(id string, req *QuoteEditOneTimeQuoteReq
 	req.method = "POST"
 	req.path = fmt.Sprintf("/quotes/%v/edit_one_time_quote", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "editOneTimeQuote"
+
 	return send[*QuoteEditOneTimeQuoteResponse](req, s.config)
 }
 
@@ -64,6 +85,9 @@ func (s *QuoteService) CreateSubItemsForCustomerQuote(id string, req *QuoteCreat
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/create_subscription_quote_for_items", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "createSubItemsForCustomerQuote"
+
 	return send[*QuoteCreateSubItemsForCustomerQuoteResponse](req, s.config)
 }
 
@@ -71,6 +95,9 @@ func (s *QuoteService) EditCreateSubCustomerQuoteForItems(id string, req *QuoteE
 	req.method = "POST"
 	req.path = fmt.Sprintf("/quotes/%v/edit_create_subscription_quote_for_items", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "editCreateSubCustomerQuoteForItems"
+
 	return send[*QuoteEditCreateSubCustomerQuoteForItemsResponse](req, s.config)
 }
 
@@ -78,6 +105,9 @@ func (s *QuoteService) UpdateSubscriptionQuoteForItems(req *QuoteUpdateSubscript
 	req.method = "POST"
 	req.path = "/quotes/update_subscription_quote_for_items"
 	req.isIdempotent = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "updateSubscriptionQuoteForItems"
+
 	return send[*QuoteUpdateSubscriptionQuoteForItemsResponse](req, s.config)
 }
 
@@ -85,6 +115,9 @@ func (s *QuoteService) EditUpdateSubscriptionQuoteForItems(id string, req *Quote
 	req.method = "POST"
 	req.path = fmt.Sprintf("/quotes/%v/edit_update_subscription_quote_for_items", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "editUpdateSubscriptionQuoteForItems"
+
 	return send[*QuoteEditUpdateSubscriptionQuoteForItemsResponse](req, s.config)
 }
 
@@ -92,6 +125,9 @@ func (s *QuoteService) CreateForChargeItemsAndCharges(req *QuoteCreateForChargeI
 	req.method = "POST"
 	req.path = "/quotes/create_for_charge_items_and_charges"
 	req.isIdempotent = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "createForChargeItemsAndCharges"
+
 	return send[*QuoteCreateForChargeItemsAndChargesResponse](req, s.config)
 }
 
@@ -99,6 +135,9 @@ func (s *QuoteService) EditForChargeItemsAndCharges(id string, req *QuoteEditFor
 	req.method = "POST"
 	req.path = fmt.Sprintf("/quotes/%v/edit_for_charge_items_and_charges", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "editForChargeItemsAndCharges"
+
 	return send[*QuoteEditForChargeItemsAndChargesResponse](req, s.config)
 }
 
@@ -106,6 +145,9 @@ func (s *QuoteService) List(req *QuoteListRequest) (*QuoteListResponse, error) {
 	req.method = "GET"
 	req.path = "/quotes"
 	req.isListRequest = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "list"
+
 	return send[*QuoteListResponse](req, s.config)
 }
 
@@ -113,6 +155,9 @@ func (s *QuoteService) QuoteLineGroupsForQuote(id string, req *QuoteQuoteLineGro
 	req.method = "GET"
 	req.path = fmt.Sprintf("/quotes/%v/quote_line_groups", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "quoteLineGroupsForQuote"
+
 	return send[*QuoteQuoteLineGroupsForQuoteResponse](req, s.config)
 }
 
@@ -120,6 +165,9 @@ func (s *QuoteService) Convert(id string, req *QuoteConvertRequest) (*QuoteConve
 	req.method = "POST"
 	req.path = fmt.Sprintf("/quotes/%v/convert", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "convert"
+
 	return send[*QuoteConvertResponse](req, s.config)
 }
 
@@ -127,6 +175,9 @@ func (s *QuoteService) UpdateStatus(id string, req *QuoteUpdateStatusRequest) (*
 	req.method = "POST"
 	req.path = fmt.Sprintf("/quotes/%v/update_status", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "updateStatus"
+
 	return send[*QuoteUpdateStatusResponse](req, s.config)
 }
 
@@ -134,6 +185,9 @@ func (s *QuoteService) ExtendExpiryDate(id string, req *QuoteExtendExpiryDateReq
 	req.method = "POST"
 	req.path = fmt.Sprintf("/quotes/%v/extend_expiry_date", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "extendExpiryDate"
+
 	return send[*QuoteExtendExpiryDateResponse](req, s.config)
 }
 
@@ -141,6 +195,9 @@ func (s *QuoteService) Delete(id string, req *QuoteDeleteRequest) (*QuoteDeleteR
 	req.method = "POST"
 	req.path = fmt.Sprintf("/quotes/%v/delete", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "delete"
+
 	return send[*QuoteDeleteResponse](req, s.config)
 }
 
@@ -148,6 +205,9 @@ func (s *QuoteService) Pdf(id string, req *QuotePdfRequest) (*QuotePdfResponse, 
 	req.method = "POST"
 	req.path = fmt.Sprintf("/quotes/%v/pdf", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "pdf"
+
 	return send[*QuotePdfResponse](req, s.config)
 }
 
@@ -156,6 +216,9 @@ func (s *QuoteService) RetrieveSignature(id string) (*QuoteRetrieveSignatureResp
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/quotes/%v/retrieve_signature", url.PathEscape(id))
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "retrieveSignature"
+
 	return send[*QuoteRetrieveSignatureResponse](req, s.config)
 }
 
@@ -165,6 +228,9 @@ func (s *QuoteService) RetrieveSignedPdf(id string) (*QuoteRetrieveSignedPdfResp
 	req.method = "POST"
 	req.path = fmt.Sprintf("/quotes/%v/retrieve_signed_pdf", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "retrieveSignedPdf"
+
 	return send[*QuoteRetrieveSignedPdfResponse](req, s.config)
 }
 
@@ -174,6 +240,9 @@ func (s *QuoteService) CreateSignature(id string) (*QuoteCreateSignatureResponse
 	req.method = "POST"
 	req.path = fmt.Sprintf("/quotes/%v/create_signature", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "createSignature"
+
 	return send[*QuoteCreateSignatureResponse](req, s.config)
 }
 
@@ -183,6 +252,9 @@ func (s *QuoteService) UpdateSignature(id string) (*QuoteUpdateSignatureResponse
 	req.method = "POST"
 	req.path = fmt.Sprintf("/quotes/%v/update_signature", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "updateSignature"
+
 	return send[*QuoteUpdateSignatureResponse](req, s.config)
 }
 
@@ -191,6 +263,9 @@ func (s *QuoteService) UpdateSignatureStatus(id string, req *QuoteUpdateSignatur
 	req.method = "POST"
 	req.path = fmt.Sprintf("/quotes/%v/update_signature_status", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "updateSignatureStatus"
+
 	return send[*QuoteUpdateSignatureStatusResponse](req, s.config)
 }
 
@@ -200,5 +275,8 @@ func (s *QuoteService) RefreshSignatureLink(id string) (*QuoteRefreshSignatureLi
 	req.method = "POST"
 	req.path = fmt.Sprintf("/quotes/%v/refresh_signature_link", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "quote"
+	req.telemetryOperation = "refreshSignatureLink"
+
 	return send[*QuoteRefreshSignatureLinkResponse](req, s.config)
 }

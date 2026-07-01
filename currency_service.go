@@ -15,6 +15,9 @@ func (s *CurrencyService) List(req *CurrencyListRequest) (*CurrencyListResponse,
 	req.method = "GET"
 	req.path = "/currencies/list"
 	req.isListRequest = true
+	req.telemetryResource = "currency"
+	req.telemetryOperation = "list"
+
 	return send[*CurrencyListResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *CurrencyService) Retrieve(id string) (*CurrencyRetrieveResponse, error)
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/currencies/%v", url.PathEscape(id))
+	req.telemetryResource = "currency"
+	req.telemetryOperation = "retrieve"
+
 	return send[*CurrencyRetrieveResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *CurrencyService) Create(req *CurrencyCreateRequest) (*CurrencyCreateRes
 	req.method = "POST"
 	req.path = "/currencies"
 	req.isIdempotent = true
+	req.telemetryResource = "currency"
+	req.telemetryOperation = "create"
+
 	return send[*CurrencyCreateResponse](req, s.config)
 }
 
@@ -36,6 +45,9 @@ func (s *CurrencyService) Update(id string, req *CurrencyUpdateRequest) (*Curren
 	req.method = "POST"
 	req.path = fmt.Sprintf("/currencies/%v", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "currency"
+	req.telemetryOperation = "update"
+
 	return send[*CurrencyUpdateResponse](req, s.config)
 }
 
@@ -43,6 +55,9 @@ func (s *CurrencyService) AddSchedule(id string, req *CurrencyAddScheduleRequest
 	req.method = "POST"
 	req.path = fmt.Sprintf("/currencies/%v/add_schedule", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "currency"
+	req.telemetryOperation = "addSchedule"
+
 	return send[*CurrencyAddScheduleResponse](req, s.config)
 }
 
@@ -51,5 +66,8 @@ func (s *CurrencyService) RemoveSchedule(id string) (*CurrencyRemoveScheduleResp
 	req.method = "POST"
 	req.path = fmt.Sprintf("/currencies/%v/remove_schedule", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "currency"
+	req.telemetryOperation = "removeSchedule"
+
 	return send[*CurrencyRemoveScheduleResponse](req, s.config)
 }

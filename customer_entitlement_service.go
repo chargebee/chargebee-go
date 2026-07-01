@@ -15,5 +15,8 @@ func (s *CustomerEntitlementService) EntitlementsForCustomer(id string, req *Cus
 	req.method = "GET"
 	req.path = fmt.Sprintf("/customers/%v/customer_entitlements", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "customerEntitlement"
+	req.telemetryOperation = "entitlementsForCustomer"
+
 	return send[*CustomerEntitlementEntitlementsForCustomerResponse](req, s.config)
 }

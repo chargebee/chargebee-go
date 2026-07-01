@@ -15,5 +15,8 @@ func (s *UsageSummaryService) RetrieveUsageSummaryForSubscription(id string, req
 	req.method = "GET"
 	req.path = fmt.Sprintf("/subscriptions/%v/usage_summary", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "usageSummary"
+	req.telemetryOperation = "retrieveUsageSummaryForSubscription"
+
 	return send[*UsageSummaryRetrieveUsageSummaryForSubscriptionResponse](req, s.config)
 }

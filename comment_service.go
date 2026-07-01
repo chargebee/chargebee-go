@@ -15,6 +15,9 @@ func (s *CommentService) Create(req *CommentCreateRequest) (*CommentCreateRespon
 	req.method = "POST"
 	req.path = "/comments"
 	req.isIdempotent = true
+	req.telemetryResource = "comment"
+	req.telemetryOperation = "create"
+
 	return send[*CommentCreateResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *CommentService) Retrieve(id string) (*CommentRetrieveResponse, error) {
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/comments/%v", url.PathEscape(id))
+	req.telemetryResource = "comment"
+	req.telemetryOperation = "retrieve"
+
 	return send[*CommentRetrieveResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *CommentService) List(req *CommentListRequest) (*CommentListResponse, er
 	req.method = "GET"
 	req.path = "/comments"
 	req.isListRequest = true
+	req.telemetryResource = "comment"
+	req.telemetryOperation = "list"
+
 	return send[*CommentListResponse](req, s.config)
 }
 
@@ -37,5 +46,8 @@ func (s *CommentService) Delete(id string) (*CommentDeleteResponse, error) {
 	req.method = "POST"
 	req.path = fmt.Sprintf("/comments/%v/delete", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "comment"
+	req.telemetryOperation = "delete"
+
 	return send[*CommentDeleteResponse](req, s.config)
 }

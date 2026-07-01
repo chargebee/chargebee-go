@@ -15,6 +15,9 @@ func (s *CardService) Retrieve(id string) (*CardRetrieveResponse, error) {
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/cards/%v", url.PathEscape(id))
+	req.telemetryResource = "card"
+	req.telemetryOperation = "retrieve"
+
 	return send[*CardRetrieveResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *CardService) UpdateCardForCustomer(id string, req *CardUpdateCardForCus
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/credit_card", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "card"
+	req.telemetryOperation = "updateCardForCustomer"
+
 	return send[*CardUpdateCardForCustomerResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *CardService) SwitchGatewayForCustomer(id string, req *CardSwitchGateway
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/switch_gateway", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "card"
+	req.telemetryOperation = "switchGatewayForCustomer"
+
 	return send[*CardSwitchGatewayForCustomerResponse](req, s.config)
 }
 
@@ -36,6 +45,9 @@ func (s *CardService) CopyCardForCustomer(id string, req *CardCopyCardForCustome
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/copy_card", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "card"
+	req.telemetryOperation = "copyCardForCustomer"
+
 	return send[*CardCopyCardForCustomerResponse](req, s.config)
 }
 
@@ -44,5 +56,8 @@ func (s *CardService) DeleteCardForCustomer(id string) (*CardDeleteCardForCustom
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/delete_card", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "card"
+	req.telemetryOperation = "deleteCardForCustomer"
+
 	return send[*CardDeleteCardForCustomerResponse](req, s.config)
 }

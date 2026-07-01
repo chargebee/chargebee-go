@@ -10,6 +10,9 @@ func (s *EntitlementService) List(req *EntitlementListRequest) (*EntitlementList
 	req.method = "GET"
 	req.path = "/entitlements"
 	req.isListRequest = true
+	req.telemetryResource = "entitlement"
+	req.telemetryOperation = "list"
+
 	return send[*EntitlementListResponse](req, s.config)
 }
 
@@ -17,5 +20,8 @@ func (s *EntitlementService) Create(req *EntitlementCreateRequest) (*Entitlement
 	req.method = "POST"
 	req.path = "/entitlements"
 	req.isIdempotent = true
+	req.telemetryResource = "entitlement"
+	req.telemetryOperation = "create"
+
 	return send[*EntitlementCreateResponse](req, s.config)
 }

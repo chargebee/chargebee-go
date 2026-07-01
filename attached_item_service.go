@@ -15,6 +15,9 @@ func (s *AttachedItemService) Create(id string, req *AttachedItemCreateRequest) 
 	req.method = "POST"
 	req.path = fmt.Sprintf("/items/%v/attached_items", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "attachedItem"
+	req.telemetryOperation = "create"
+
 	return send[*AttachedItemCreateResponse](req, s.config)
 }
 
@@ -22,12 +25,18 @@ func (s *AttachedItemService) Update(id string, req *AttachedItemUpdateRequest) 
 	req.method = "POST"
 	req.path = fmt.Sprintf("/attached_items/%v", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "attachedItem"
+	req.telemetryOperation = "update"
+
 	return send[*AttachedItemUpdateResponse](req, s.config)
 }
 
 func (s *AttachedItemService) Retrieve(id string, req *AttachedItemRetrieveRequest) (*AttachedItemRetrieveResponse, error) {
 	req.method = "GET"
 	req.path = fmt.Sprintf("/attached_items/%v", url.PathEscape(id))
+	req.telemetryResource = "attachedItem"
+	req.telemetryOperation = "retrieve"
+
 	return send[*AttachedItemRetrieveResponse](req, s.config)
 }
 
@@ -35,6 +44,9 @@ func (s *AttachedItemService) Delete(id string, req *AttachedItemDeleteRequest) 
 	req.method = "POST"
 	req.path = fmt.Sprintf("/attached_items/%v/delete", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "attachedItem"
+	req.telemetryOperation = "delete"
+
 	return send[*AttachedItemDeleteResponse](req, s.config)
 }
 
@@ -42,5 +54,8 @@ func (s *AttachedItemService) List(id string, req *AttachedItemListRequest) (*At
 	req.method = "GET"
 	req.path = fmt.Sprintf("/items/%v/attached_items", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "attachedItem"
+	req.telemetryOperation = "list"
+
 	return send[*AttachedItemListResponse](req, s.config)
 }

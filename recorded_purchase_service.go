@@ -15,6 +15,9 @@ func (s *RecordedPurchaseService) Create(req *RecordedPurchaseCreateRequest) (*R
 	req.method = "POST"
 	req.path = "/recorded_purchases"
 	req.isIdempotent = true
+	req.telemetryResource = "recordedPurchase"
+	req.telemetryOperation = "create"
+
 	return send[*RecordedPurchaseCreateResponse](req, s.config)
 }
 
@@ -22,5 +25,8 @@ func (s *RecordedPurchaseService) Retrieve(id string) (*RecordedPurchaseRetrieve
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/recorded_purchases/%v", url.PathEscape(id))
+	req.telemetryResource = "recordedPurchase"
+	req.telemetryOperation = "retrieve"
+
 	return send[*RecordedPurchaseRetrieveResponse](req, s.config)
 }

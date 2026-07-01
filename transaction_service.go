@@ -15,6 +15,9 @@ func (s *TransactionService) CreateAuthorization(req *TransactionCreateAuthoriza
 	req.method = "POST"
 	req.path = "/transactions/create_authorization"
 	req.isIdempotent = true
+	req.telemetryResource = "transaction"
+	req.telemetryOperation = "createAuthorization"
+
 	return send[*TransactionCreateAuthorizationResponse](req, s.config)
 }
 
@@ -23,6 +26,9 @@ func (s *TransactionService) VoidTransaction(id string) (*TransactionVoidTransac
 	req.method = "POST"
 	req.path = fmt.Sprintf("/transactions/%v/void", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "transaction"
+	req.telemetryOperation = "voidTransaction"
+
 	return send[*TransactionVoidTransactionResponse](req, s.config)
 }
 
@@ -30,6 +36,9 @@ func (s *TransactionService) RecordRefund(id string, req *TransactionRecordRefun
 	req.method = "POST"
 	req.path = fmt.Sprintf("/transactions/%v/record_refund", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "transaction"
+	req.telemetryOperation = "recordRefund"
+
 	return send[*TransactionRecordRefundResponse](req, s.config)
 }
 
@@ -37,6 +46,9 @@ func (s *TransactionService) Reconcile(id string, req *TransactionReconcileReque
 	req.method = "POST"
 	req.path = fmt.Sprintf("/transactions/%v/reconcile", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "transaction"
+	req.telemetryOperation = "reconcile"
+
 	return send[*TransactionReconcileResponse](req, s.config)
 }
 
@@ -44,6 +56,9 @@ func (s *TransactionService) Refund(id string, req *TransactionRefundRequest) (*
 	req.method = "POST"
 	req.path = fmt.Sprintf("/transactions/%v/refund", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "transaction"
+	req.telemetryOperation = "refund"
+
 	return send[*TransactionRefundResponse](req, s.config)
 }
 
@@ -51,6 +66,9 @@ func (s *TransactionService) List(req *TransactionListRequest) (*TransactionList
 	req.method = "GET"
 	req.path = "/transactions"
 	req.isListRequest = true
+	req.telemetryResource = "transaction"
+	req.telemetryOperation = "list"
+
 	return send[*TransactionListResponse](req, s.config)
 }
 
@@ -59,6 +77,9 @@ func (s *TransactionService) TransactionsForCustomer(id string, req *Transaction
 	req.method = "GET"
 	req.path = fmt.Sprintf("/customers/%v/transactions", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "transaction"
+	req.telemetryOperation = "transactionsForCustomer"
+
 	return send[*TransactionTransactionsForCustomerResponse](req, s.config)
 }
 
@@ -67,6 +88,9 @@ func (s *TransactionService) TransactionsForSubscription(id string, req *Transac
 	req.method = "GET"
 	req.path = fmt.Sprintf("/subscriptions/%v/transactions", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "transaction"
+	req.telemetryOperation = "transactionsForSubscription"
+
 	return send[*TransactionTransactionsForSubscriptionResponse](req, s.config)
 }
 
@@ -74,6 +98,9 @@ func (s *TransactionService) PaymentsForInvoice(id string, req *TransactionPayme
 	req.method = "GET"
 	req.path = fmt.Sprintf("/invoices/%v/payments", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "transaction"
+	req.telemetryOperation = "paymentsForInvoice"
+
 	return send[*TransactionPaymentsForInvoiceResponse](req, s.config)
 }
 
@@ -81,6 +108,9 @@ func (s *TransactionService) Retrieve(id string) (*TransactionRetrieveResponse, 
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/transactions/%v", url.PathEscape(id))
+	req.telemetryResource = "transaction"
+	req.telemetryOperation = "retrieve"
+
 	return send[*TransactionRetrieveResponse](req, s.config)
 }
 
@@ -88,5 +118,8 @@ func (s *TransactionService) DeleteOfflineTransaction(id string, req *Transactio
 	req.method = "POST"
 	req.path = fmt.Sprintf("/transactions/%v/delete_offline_transaction", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "transaction"
+	req.telemetryOperation = "deleteOfflineTransaction"
+
 	return send[*TransactionDeleteOfflineTransactionResponse](req, s.config)
 }

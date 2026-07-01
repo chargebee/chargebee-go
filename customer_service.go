@@ -15,6 +15,9 @@ func (s *CustomerService) Create(req *CustomerCreateRequest) (*CustomerCreateRes
 	req.method = "POST"
 	req.path = "/customers"
 	req.isIdempotent = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "create"
+
 	return send[*CustomerCreateResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *CustomerService) List(req *CustomerListRequest) (*CustomerListResponse,
 	req.method = "GET"
 	req.path = "/customers"
 	req.isListRequest = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "list"
+
 	return send[*CustomerListResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *CustomerService) Retrieve(id string) (*CustomerRetrieveResponse, error)
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/customers/%v", url.PathEscape(id))
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "retrieve"
+
 	return send[*CustomerRetrieveResponse](req, s.config)
 }
 
@@ -36,6 +45,9 @@ func (s *CustomerService) Update(id string, req *CustomerUpdateRequest) (*Custom
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "update"
+
 	return send[*CustomerUpdateResponse](req, s.config)
 }
 
@@ -43,6 +55,9 @@ func (s *CustomerService) UpdatePaymentMethod(id string, req *CustomerUpdatePaym
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/update_payment_method", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "updatePaymentMethod"
+
 	return send[*CustomerUpdatePaymentMethodResponse](req, s.config)
 }
 
@@ -50,6 +65,9 @@ func (s *CustomerService) UpdateBillingInfo(id string, req *CustomerUpdateBillin
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/update_billing_info", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "updateBillingInfo"
+
 	return send[*CustomerUpdateBillingInfoResponse](req, s.config)
 }
 
@@ -57,6 +75,9 @@ func (s *CustomerService) ContactsForCustomer(id string, req *CustomerContactsFo
 	req.method = "GET"
 	req.path = fmt.Sprintf("/customers/%v/contacts", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "contactsForCustomer"
+
 	return send[*CustomerContactsForCustomerResponse](req, s.config)
 }
 
@@ -64,6 +85,9 @@ func (s *CustomerService) AssignPaymentRole(id string, req *CustomerAssignPaymen
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/assign_payment_role", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "assignPaymentRole"
+
 	return send[*CustomerAssignPaymentRoleResponse](req, s.config)
 }
 
@@ -71,6 +95,9 @@ func (s *CustomerService) AddContact(id string, req *CustomerAddContactRequest) 
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/add_contact", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "addContact"
+
 	return send[*CustomerAddContactResponse](req, s.config)
 }
 
@@ -78,6 +105,9 @@ func (s *CustomerService) UpdateContact(id string, req *CustomerUpdateContactReq
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/update_contact", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "updateContact"
+
 	return send[*CustomerUpdateContactResponse](req, s.config)
 }
 
@@ -85,6 +115,9 @@ func (s *CustomerService) DeleteContact(id string, req *CustomerDeleteContactReq
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/delete_contact", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "deleteContact"
+
 	return send[*CustomerDeleteContactResponse](req, s.config)
 }
 
@@ -93,6 +126,9 @@ func (s *CustomerService) AddPromotionalCredits(id string, req *CustomerAddPromo
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/add_promotional_credits", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "addPromotionalCredits"
+
 	return send[*CustomerAddPromotionalCreditsResponse](req, s.config)
 }
 
@@ -101,6 +137,9 @@ func (s *CustomerService) DeductPromotionalCredits(id string, req *CustomerDeduc
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/deduct_promotional_credits", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "deductPromotionalCredits"
+
 	return send[*CustomerDeductPromotionalCreditsResponse](req, s.config)
 }
 
@@ -109,6 +148,9 @@ func (s *CustomerService) SetPromotionalCredits(id string, req *CustomerSetPromo
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/set_promotional_credits", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "setPromotionalCredits"
+
 	return send[*CustomerSetPromotionalCreditsResponse](req, s.config)
 }
 
@@ -116,6 +158,9 @@ func (s *CustomerService) RecordExcessPayment(id string, req *CustomerRecordExce
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/record_excess_payment", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "recordExcessPayment"
+
 	return send[*CustomerRecordExcessPaymentResponse](req, s.config)
 }
 
@@ -123,6 +168,9 @@ func (s *CustomerService) CollectPayment(id string, req *CustomerCollectPaymentR
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/collect_payment", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "collectPayment"
+
 	return send[*CustomerCollectPaymentResponse](req, s.config)
 }
 
@@ -130,6 +178,9 @@ func (s *CustomerService) Delete(id string, req *CustomerDeleteRequest) (*Custom
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/delete", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "delete"
+
 	return send[*CustomerDeleteResponse](req, s.config)
 }
 
@@ -137,6 +188,9 @@ func (s *CustomerService) Move(req *CustomerMoveRequest) (*CustomerMoveResponse,
 	req.method = "POST"
 	req.path = "/customers/move"
 	req.isIdempotent = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "move"
+
 	return send[*CustomerMoveResponse](req, s.config)
 }
 
@@ -144,6 +198,9 @@ func (s *CustomerService) ChangeBillingDate(id string, req *CustomerChangeBillin
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/change_billing_date", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "changeBillingDate"
+
 	return send[*CustomerChangeBillingDateResponse](req, s.config)
 }
 
@@ -151,6 +208,9 @@ func (s *CustomerService) Merge(req *CustomerMergeRequest) (*CustomerMergeRespon
 	req.method = "POST"
 	req.path = "/customers/merge"
 	req.isIdempotent = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "merge"
+
 	return send[*CustomerMergeResponse](req, s.config)
 }
 
@@ -159,6 +219,9 @@ func (s *CustomerService) ClearPersonalData(id string) (*CustomerClearPersonalDa
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/clear_personal_data", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "clearPersonalData"
+
 	return send[*CustomerClearPersonalDataResponse](req, s.config)
 }
 
@@ -166,6 +229,9 @@ func (s *CustomerService) Relationships(id string, req *CustomerRelationshipsReq
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/relationships", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "relationships"
+
 	return send[*CustomerRelationshipsResponse](req, s.config)
 }
 
@@ -174,12 +240,18 @@ func (s *CustomerService) DeleteRelationship(id string) (*CustomerDeleteRelation
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/delete_relationship", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "deleteRelationship"
+
 	return send[*CustomerDeleteRelationshipResponse](req, s.config)
 }
 
 func (s *CustomerService) Hierarchy(id string, req *CustomerHierarchyRequest) (*CustomerHierarchyResponse, error) {
 	req.method = "GET"
 	req.path = fmt.Sprintf("/customers/%v/hierarchy", url.PathEscape(id))
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "hierarchy"
+
 	return send[*CustomerHierarchyResponse](req, s.config)
 }
 
@@ -187,6 +259,9 @@ func (s *CustomerService) ListHierarchyDetail(id string, req *CustomerListHierar
 	req.method = "GET"
 	req.path = fmt.Sprintf("/customers/%v/hierarchy_detail", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "listHierarchyDetail"
+
 	return send[*CustomerListHierarchyDetailResponse](req, s.config)
 }
 
@@ -194,5 +269,8 @@ func (s *CustomerService) UpdateHierarchySettings(id string, req *CustomerUpdate
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/update_hierarchy_settings", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "updateHierarchySettings"
+
 	return send[*CustomerUpdateHierarchySettingsResponse](req, s.config)
 }

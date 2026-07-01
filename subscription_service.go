@@ -15,6 +15,9 @@ func (s *SubscriptionService) Create(req *SubscriptionCreateRequest) (*Subscript
 	req.method = "POST"
 	req.path = "/subscriptions"
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "create"
+
 	return send[*SubscriptionCreateResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *SubscriptionService) CreateForCustomer(id string, req *SubscriptionCrea
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/subscriptions", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "createForCustomer"
+
 	return send[*SubscriptionCreateForCustomerResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *SubscriptionService) CreateWithItems(id string, req *SubscriptionCreate
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/subscription_for_items", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "createWithItems"
+
 	return send[*SubscriptionCreateWithItemsResponse](req, s.config)
 }
 
@@ -36,6 +45,9 @@ func (s *SubscriptionService) List(req *SubscriptionListRequest) (*SubscriptionL
 	req.method = "GET"
 	req.path = "/subscriptions"
 	req.isListRequest = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "list"
+
 	return send[*SubscriptionListResponse](req, s.config)
 }
 
@@ -44,6 +56,9 @@ func (s *SubscriptionService) SubscriptionsForCustomer(id string, req *Subscript
 	req.method = "GET"
 	req.path = fmt.Sprintf("/customers/%v/subscriptions", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "subscriptionsForCustomer"
+
 	return send[*SubscriptionSubscriptionsForCustomerResponse](req, s.config)
 }
 
@@ -51,6 +66,9 @@ func (s *SubscriptionService) ContractTermsForSubscription(id string, req *Subsc
 	req.method = "GET"
 	req.path = fmt.Sprintf("/subscriptions/%v/contract_terms", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "contractTermsForSubscription"
+
 	return send[*SubscriptionContractTermsForSubscriptionResponse](req, s.config)
 }
 
@@ -58,6 +76,9 @@ func (s *SubscriptionService) ListDiscounts(id string, req *SubscriptionListDisc
 	req.method = "GET"
 	req.path = fmt.Sprintf("/subscriptions/%v/discounts", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "listDiscounts"
+
 	return send[*SubscriptionListDiscountsResponse](req, s.config)
 }
 
@@ -65,6 +86,9 @@ func (s *SubscriptionService) Retrieve(id string) (*SubscriptionRetrieveResponse
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/subscriptions/%v", url.PathEscape(id))
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "retrieve"
+
 	return send[*SubscriptionRetrieveResponse](req, s.config)
 }
 
@@ -72,6 +96,9 @@ func (s *SubscriptionService) RetrieveWithScheduledChanges(id string) (*Subscrip
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/subscriptions/%v/retrieve_with_scheduled_changes", url.PathEscape(id))
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "retrieveWithScheduledChanges"
+
 	return send[*SubscriptionRetrieveWithScheduledChangesResponse](req, s.config)
 }
 
@@ -80,6 +107,9 @@ func (s *SubscriptionService) RemoveScheduledChanges(id string) (*SubscriptionRe
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/remove_scheduled_changes", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "removeScheduledChanges"
+
 	return send[*SubscriptionRemoveScheduledChangesResponse](req, s.config)
 }
 
@@ -87,6 +117,9 @@ func (s *SubscriptionService) RemoveScheduledCancellation(id string, req *Subscr
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/remove_scheduled_cancellation", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "removeScheduledCancellation"
+
 	return send[*SubscriptionRemoveScheduledCancellationResponse](req, s.config)
 }
 
@@ -94,6 +127,9 @@ func (s *SubscriptionService) RemoveCoupons(id string, req *SubscriptionRemoveCo
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/remove_coupons", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "removeCoupons"
+
 	return send[*SubscriptionRemoveCouponsResponse](req, s.config)
 }
 
@@ -101,6 +137,9 @@ func (s *SubscriptionService) Update(id string, req *SubscriptionUpdateRequest) 
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "update"
+
 	return send[*SubscriptionUpdateResponse](req, s.config)
 }
 
@@ -108,6 +147,9 @@ func (s *SubscriptionService) UpdateForItems(id string, req *SubscriptionUpdateF
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/update_for_items", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "updateForItems"
+
 	return send[*SubscriptionUpdateForItemsResponse](req, s.config)
 }
 
@@ -115,6 +157,9 @@ func (s *SubscriptionService) ChangeTermEnd(id string, req *SubscriptionChangeTe
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/change_term_end", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "changeTermEnd"
+
 	return send[*SubscriptionChangeTermEndResponse](req, s.config)
 }
 
@@ -122,6 +167,9 @@ func (s *SubscriptionService) Reactivate(id string, req *SubscriptionReactivateR
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/reactivate", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "reactivate"
+
 	return send[*SubscriptionReactivateResponse](req, s.config)
 }
 
@@ -129,6 +177,9 @@ func (s *SubscriptionService) AddChargeAtTermEnd(id string, req *SubscriptionAdd
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/add_charge_at_term_end", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "addChargeAtTermEnd"
+
 	return send[*SubscriptionAddChargeAtTermEndResponse](req, s.config)
 }
 
@@ -136,6 +187,9 @@ func (s *SubscriptionService) ChargeAddonAtTermEnd(id string, req *SubscriptionC
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/charge_addon_at_term_end", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "chargeAddonAtTermEnd"
+
 	return send[*SubscriptionChargeAddonAtTermEndResponse](req, s.config)
 }
 
@@ -143,6 +197,9 @@ func (s *SubscriptionService) ChargeFutureRenewals(id string, req *SubscriptionC
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/charge_future_renewals", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "chargeFutureRenewals"
+
 	return send[*SubscriptionChargeFutureRenewalsResponse](req, s.config)
 }
 
@@ -150,6 +207,9 @@ func (s *SubscriptionService) EditAdvanceInvoiceSchedule(id string, req *Subscri
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/edit_advance_invoice_schedule", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "editAdvanceInvoiceSchedule"
+
 	return send[*SubscriptionEditAdvanceInvoiceScheduleResponse](req, s.config)
 }
 
@@ -157,6 +217,9 @@ func (s *SubscriptionService) RetrieveAdvanceInvoiceSchedule(id string) (*Subscr
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/subscriptions/%v/retrieve_advance_invoice_schedule", url.PathEscape(id))
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "retrieveAdvanceInvoiceSchedule"
+
 	return send[*SubscriptionRetrieveAdvanceInvoiceScheduleResponse](req, s.config)
 }
 
@@ -164,6 +227,9 @@ func (s *SubscriptionService) RemoveAdvanceInvoiceSchedule(id string, req *Subsc
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/remove_advance_invoice_schedule", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "removeAdvanceInvoiceSchedule"
+
 	return send[*SubscriptionRemoveAdvanceInvoiceScheduleResponse](req, s.config)
 }
 
@@ -171,6 +237,9 @@ func (s *SubscriptionService) RegenerateInvoice(id string, req *SubscriptionRege
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/regenerate_invoice", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "regenerateInvoice"
+
 	return send[*SubscriptionRegenerateInvoiceResponse](req, s.config)
 }
 
@@ -178,6 +247,9 @@ func (s *SubscriptionService) ImportSubscription(req *SubscriptionImportSubscrip
 	req.method = "POST"
 	req.path = "/subscriptions/import_subscription"
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "importSubscription"
+
 	return send[*SubscriptionImportSubscriptionResponse](req, s.config)
 }
 
@@ -185,6 +257,9 @@ func (s *SubscriptionService) ImportForCustomer(id string, req *SubscriptionImpo
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/import_subscription", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "importForCustomer"
+
 	return send[*SubscriptionImportForCustomerResponse](req, s.config)
 }
 
@@ -192,6 +267,9 @@ func (s *SubscriptionService) ImportContractTerm(id string, req *SubscriptionImp
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/import_contract_term", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "importContractTerm"
+
 	return send[*SubscriptionImportContractTermResponse](req, s.config)
 }
 
@@ -199,6 +277,9 @@ func (s *SubscriptionService) ImportUnbilledCharges(id string, req *Subscription
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/import_unbilled_charges", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "importUnbilledCharges"
+
 	return send[*SubscriptionImportUnbilledChargesResponse](req, s.config)
 }
 
@@ -206,6 +287,9 @@ func (s *SubscriptionService) ImportForItems(id string, req *SubscriptionImportF
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/import_for_items", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "importForItems"
+
 	return send[*SubscriptionImportForItemsResponse](req, s.config)
 }
 
@@ -213,6 +297,9 @@ func (s *SubscriptionService) OverrideBillingProfile(id string, req *Subscriptio
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/override_billing_profile", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "overrideBillingProfile"
+
 	return send[*SubscriptionOverrideBillingProfileResponse](req, s.config)
 }
 
@@ -221,6 +308,9 @@ func (s *SubscriptionService) Delete(id string) (*SubscriptionDeleteResponse, er
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/delete", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "delete"
+
 	return send[*SubscriptionDeleteResponse](req, s.config)
 }
 
@@ -228,6 +318,9 @@ func (s *SubscriptionService) Pause(id string, req *SubscriptionPauseRequest) (*
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/pause", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "pause"
+
 	return send[*SubscriptionPauseResponse](req, s.config)
 }
 
@@ -235,6 +328,9 @@ func (s *SubscriptionService) Cancel(id string, req *SubscriptionCancelRequest) 
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/cancel", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "cancel"
+
 	return send[*SubscriptionCancelResponse](req, s.config)
 }
 
@@ -242,6 +338,9 @@ func (s *SubscriptionService) CancelForItems(id string, req *SubscriptionCancelF
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/cancel_for_items", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "cancelForItems"
+
 	return send[*SubscriptionCancelForItemsResponse](req, s.config)
 }
 
@@ -249,6 +348,9 @@ func (s *SubscriptionService) Resume(id string, req *SubscriptionResumeRequest) 
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/resume", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "resume"
+
 	return send[*SubscriptionResumeResponse](req, s.config)
 }
 
@@ -257,6 +359,9 @@ func (s *SubscriptionService) RemoveScheduledPause(id string) (*SubscriptionRemo
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/remove_scheduled_pause", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "removeScheduledPause"
+
 	return send[*SubscriptionRemoveScheduledPauseResponse](req, s.config)
 }
 
@@ -265,6 +370,9 @@ func (s *SubscriptionService) RemoveScheduledResumption(id string) (*Subscriptio
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/remove_scheduled_resumption", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "removeScheduledResumption"
+
 	return send[*SubscriptionRemoveScheduledResumptionResponse](req, s.config)
 }
 
@@ -272,5 +380,8 @@ func (s *SubscriptionService) Move(id string, req *SubscriptionMoveRequest) (*Su
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/move", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscription"
+	req.telemetryOperation = "move"
+
 	return send[*SubscriptionMoveResponse](req, s.config)
 }

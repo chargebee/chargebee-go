@@ -15,6 +15,9 @@ func (s *PriceVariantService) Create(req *PriceVariantCreateRequest) (*PriceVari
 	req.method = "POST"
 	req.path = "/price_variants"
 	req.isIdempotent = true
+	req.telemetryResource = "priceVariant"
+	req.telemetryOperation = "create"
+
 	return send[*PriceVariantCreateResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *PriceVariantService) Retrieve(id string) (*PriceVariantRetrieveResponse
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/price_variants/%v", url.PathEscape(id))
+	req.telemetryResource = "priceVariant"
+	req.telemetryOperation = "retrieve"
+
 	return send[*PriceVariantRetrieveResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *PriceVariantService) Update(id string, req *PriceVariantUpdateRequest) 
 	req.method = "POST"
 	req.path = fmt.Sprintf("/price_variants/%v", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "priceVariant"
+	req.telemetryOperation = "update"
+
 	return send[*PriceVariantUpdateResponse](req, s.config)
 }
 
@@ -37,6 +46,9 @@ func (s *PriceVariantService) Delete(id string) (*PriceVariantDeleteResponse, er
 	req.method = "POST"
 	req.path = fmt.Sprintf("/price_variants/%v/delete", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "priceVariant"
+	req.telemetryOperation = "delete"
+
 	return send[*PriceVariantDeleteResponse](req, s.config)
 }
 
@@ -44,5 +56,8 @@ func (s *PriceVariantService) List(req *PriceVariantListRequest) (*PriceVariantL
 	req.method = "GET"
 	req.path = "/price_variants"
 	req.isListRequest = true
+	req.telemetryResource = "priceVariant"
+	req.telemetryOperation = "list"
+
 	return send[*PriceVariantListResponse](req, s.config)
 }

@@ -17,6 +17,9 @@ func (s *ExportService) Retrieve(id string) (*ExportRetrieveResponse, error) {
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/exports/%v", url.PathEscape(id))
+	req.telemetryResource = "export"
+	req.telemetryOperation = "retrieve"
+
 	return send[*ExportRetrieveResponse](req, s.config)
 }
 
@@ -24,6 +27,9 @@ func (s *ExportService) RevenueRecognition(req *ExportRevenueRecognitionRequest)
 	req.method = "POST"
 	req.path = "/exports/revenue_recognition"
 	req.isIdempotent = true
+	req.telemetryResource = "export"
+	req.telemetryOperation = "revenueRecognition"
+
 	return send[*ExportRevenueRecognitionResponse](req, s.config)
 }
 
@@ -31,6 +37,9 @@ func (s *ExportService) DeferredRevenue(req *ExportDeferredRevenueRequest) (*Exp
 	req.method = "POST"
 	req.path = "/exports/deferred_revenue"
 	req.isIdempotent = true
+	req.telemetryResource = "export"
+	req.telemetryOperation = "deferredRevenue"
+
 	return send[*ExportDeferredRevenueResponse](req, s.config)
 }
 
@@ -38,6 +47,9 @@ func (s *ExportService) Plans(req *ExportPlansRequest) (*ExportPlansResponse, er
 	req.method = "POST"
 	req.path = "/exports/plans"
 	req.isIdempotent = true
+	req.telemetryResource = "export"
+	req.telemetryOperation = "plans"
+
 	return send[*ExportPlansResponse](req, s.config)
 }
 
@@ -45,6 +57,9 @@ func (s *ExportService) Addons(req *ExportAddonsRequest) (*ExportAddonsResponse,
 	req.method = "POST"
 	req.path = "/exports/addons"
 	req.isIdempotent = true
+	req.telemetryResource = "export"
+	req.telemetryOperation = "addons"
+
 	return send[*ExportAddonsResponse](req, s.config)
 }
 
@@ -52,6 +67,9 @@ func (s *ExportService) Coupons(req *ExportCouponsRequest) (*ExportCouponsRespon
 	req.method = "POST"
 	req.path = "/exports/coupons"
 	req.isIdempotent = true
+	req.telemetryResource = "export"
+	req.telemetryOperation = "coupons"
+
 	return send[*ExportCouponsResponse](req, s.config)
 }
 
@@ -59,6 +77,9 @@ func (s *ExportService) Customers(req *ExportCustomersRequest) (*ExportCustomers
 	req.method = "POST"
 	req.path = "/exports/customers"
 	req.isIdempotent = true
+	req.telemetryResource = "export"
+	req.telemetryOperation = "customers"
+
 	return send[*ExportCustomersResponse](req, s.config)
 }
 
@@ -66,6 +87,9 @@ func (s *ExportService) Subscriptions(req *ExportSubscriptionsRequest) (*ExportS
 	req.method = "POST"
 	req.path = "/exports/subscriptions"
 	req.isIdempotent = true
+	req.telemetryResource = "export"
+	req.telemetryOperation = "subscriptions"
+
 	return send[*ExportSubscriptionsResponse](req, s.config)
 }
 
@@ -73,6 +97,9 @@ func (s *ExportService) Invoices(req *ExportInvoicesRequest) (*ExportInvoicesRes
 	req.method = "POST"
 	req.path = "/exports/invoices"
 	req.isIdempotent = true
+	req.telemetryResource = "export"
+	req.telemetryOperation = "invoices"
+
 	return send[*ExportInvoicesResponse](req, s.config)
 }
 
@@ -80,6 +107,9 @@ func (s *ExportService) CreditNotes(req *ExportCreditNotesRequest) (*ExportCredi
 	req.method = "POST"
 	req.path = "/exports/credit_notes"
 	req.isIdempotent = true
+	req.telemetryResource = "export"
+	req.telemetryOperation = "creditNotes"
+
 	return send[*ExportCreditNotesResponse](req, s.config)
 }
 
@@ -87,6 +117,9 @@ func (s *ExportService) Transactions(req *ExportTransactionsRequest) (*ExportTra
 	req.method = "POST"
 	req.path = "/exports/transactions"
 	req.isIdempotent = true
+	req.telemetryResource = "export"
+	req.telemetryOperation = "transactions"
+
 	return send[*ExportTransactionsResponse](req, s.config)
 }
 
@@ -94,6 +127,9 @@ func (s *ExportService) Orders(req *ExportOrdersRequest) (*ExportOrdersResponse,
 	req.method = "POST"
 	req.path = "/exports/orders"
 	req.isIdempotent = true
+	req.telemetryResource = "export"
+	req.telemetryOperation = "orders"
+
 	return send[*ExportOrdersResponse](req, s.config)
 }
 
@@ -101,6 +137,9 @@ func (s *ExportService) ItemFamilies(req *ExportItemFamiliesRequest) (*ExportIte
 	req.method = "POST"
 	req.path = "/exports/item_families"
 	req.isIdempotent = true
+	req.telemetryResource = "export"
+	req.telemetryOperation = "itemFamilies"
+
 	return send[*ExportItemFamiliesResponse](req, s.config)
 }
 
@@ -108,6 +147,9 @@ func (s *ExportService) Items(req *ExportItemsRequest) (*ExportItemsResponse, er
 	req.method = "POST"
 	req.path = "/exports/items"
 	req.isIdempotent = true
+	req.telemetryResource = "export"
+	req.telemetryOperation = "items"
+
 	return send[*ExportItemsResponse](req, s.config)
 }
 
@@ -115,6 +157,9 @@ func (s *ExportService) ItemPrices(req *ExportItemPricesRequest) (*ExportItemPri
 	req.method = "POST"
 	req.path = "/exports/item_prices"
 	req.isIdempotent = true
+	req.telemetryResource = "export"
+	req.telemetryOperation = "itemPrices"
+
 	return send[*ExportItemPricesResponse](req, s.config)
 }
 
@@ -122,6 +167,9 @@ func (s *ExportService) AttachedItems(req *ExportAttachedItemsRequest) (*ExportA
 	req.method = "POST"
 	req.path = "/exports/attached_items"
 	req.isIdempotent = true
+	req.telemetryResource = "export"
+	req.telemetryOperation = "attachedItems"
+
 	return send[*ExportAttachedItemsResponse](req, s.config)
 }
 
@@ -129,6 +177,9 @@ func (s *ExportService) DifferentialPrices(req *ExportDifferentialPricesRequest)
 	req.method = "POST"
 	req.path = "/exports/differential_prices"
 	req.isIdempotent = true
+	req.telemetryResource = "export"
+	req.telemetryOperation = "differentialPrices"
+
 	return send[*ExportDifferentialPricesResponse](req, s.config)
 }
 
@@ -136,6 +187,9 @@ func (s *ExportService) PriceVariants(req *ExportPriceVariantsRequest) (*ExportP
 	req.method = "POST"
 	req.path = "/exports/price_variants"
 	req.isIdempotent = true
+	req.telemetryResource = "export"
+	req.telemetryOperation = "priceVariants"
+
 	return send[*ExportPriceVariantsResponse](req, s.config)
 }
 

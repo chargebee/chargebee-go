@@ -15,6 +15,9 @@ func (s *PaymentSourceService) CreateUsingTempToken(req *PaymentSourceCreateUsin
 	req.method = "POST"
 	req.path = "/payment_sources/create_using_temp_token"
 	req.isIdempotent = true
+	req.telemetryResource = "paymentSource"
+	req.telemetryOperation = "createUsingTempToken"
+
 	return send[*PaymentSourceCreateUsingTempTokenResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *PaymentSourceService) CreateUsingPermanentToken(req *PaymentSourceCreat
 	req.method = "POST"
 	req.path = "/payment_sources/create_using_permanent_token"
 	req.isIdempotent = true
+	req.telemetryResource = "paymentSource"
+	req.telemetryOperation = "createUsingPermanentToken"
+
 	return send[*PaymentSourceCreateUsingPermanentTokenResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *PaymentSourceService) CreateUsingToken(req *PaymentSourceCreateUsingTok
 	req.method = "POST"
 	req.path = "/payment_sources/create_using_token"
 	req.isIdempotent = true
+	req.telemetryResource = "paymentSource"
+	req.telemetryOperation = "createUsingToken"
+
 	return send[*PaymentSourceCreateUsingTokenResponse](req, s.config)
 }
 
@@ -36,6 +45,9 @@ func (s *PaymentSourceService) CreateUsingPaymentIntent(req *PaymentSourceCreate
 	req.method = "POST"
 	req.path = "/payment_sources/create_using_payment_intent"
 	req.isIdempotent = true
+	req.telemetryResource = "paymentSource"
+	req.telemetryOperation = "createUsingPaymentIntent"
+
 	return send[*PaymentSourceCreateUsingPaymentIntentResponse](req, s.config)
 }
 
@@ -43,6 +55,9 @@ func (s *PaymentSourceService) CreateVoucherPaymentSource(req *PaymentSourceCrea
 	req.method = "POST"
 	req.path = "/payment_sources/create_voucher_payment_source"
 	req.isIdempotent = true
+	req.telemetryResource = "paymentSource"
+	req.telemetryOperation = "createVoucherPaymentSource"
+
 	return send[*PaymentSourceCreateVoucherPaymentSourceResponse](req, s.config)
 }
 
@@ -50,6 +65,9 @@ func (s *PaymentSourceService) CreateCard(req *PaymentSourceCreateCardRequest) (
 	req.method = "POST"
 	req.path = "/payment_sources/create_card"
 	req.isIdempotent = true
+	req.telemetryResource = "paymentSource"
+	req.telemetryOperation = "createCard"
+
 	return send[*PaymentSourceCreateCardResponse](req, s.config)
 }
 
@@ -57,6 +75,9 @@ func (s *PaymentSourceService) CreateBankAccount(req *PaymentSourceCreateBankAcc
 	req.method = "POST"
 	req.path = "/payment_sources/create_bank_account"
 	req.isIdempotent = true
+	req.telemetryResource = "paymentSource"
+	req.telemetryOperation = "createBankAccount"
+
 	return send[*PaymentSourceCreateBankAccountResponse](req, s.config)
 }
 
@@ -64,6 +85,9 @@ func (s *PaymentSourceService) UpdateCard(id string, req *PaymentSourceUpdateCar
 	req.method = "POST"
 	req.path = fmt.Sprintf("/payment_sources/%v/update_card", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "paymentSource"
+	req.telemetryOperation = "updateCard"
+
 	return send[*PaymentSourceUpdateCardResponse](req, s.config)
 }
 
@@ -71,6 +95,9 @@ func (s *PaymentSourceService) UpdateBankAccount(id string, req *PaymentSourceUp
 	req.method = "POST"
 	req.path = fmt.Sprintf("/payment_sources/%v/update_bank_account", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "paymentSource"
+	req.telemetryOperation = "updateBankAccount"
+
 	return send[*PaymentSourceUpdateBankAccountResponse](req, s.config)
 }
 
@@ -78,6 +105,9 @@ func (s *PaymentSourceService) VerifyBankAccount(id string, req *PaymentSourceVe
 	req.method = "POST"
 	req.path = fmt.Sprintf("/payment_sources/%v/verify_bank_account", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "paymentSource"
+	req.telemetryOperation = "verifyBankAccount"
+
 	return send[*PaymentSourceVerifyBankAccountResponse](req, s.config)
 }
 
@@ -85,6 +115,9 @@ func (s *PaymentSourceService) Retrieve(id string) (*PaymentSourceRetrieveRespon
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/payment_sources/%v", url.PathEscape(id))
+	req.telemetryResource = "paymentSource"
+	req.telemetryOperation = "retrieve"
+
 	return send[*PaymentSourceRetrieveResponse](req, s.config)
 }
 
@@ -92,6 +125,9 @@ func (s *PaymentSourceService) List(req *PaymentSourceListRequest) (*PaymentSour
 	req.method = "GET"
 	req.path = "/payment_sources"
 	req.isListRequest = true
+	req.telemetryResource = "paymentSource"
+	req.telemetryOperation = "list"
+
 	return send[*PaymentSourceListResponse](req, s.config)
 }
 
@@ -99,6 +135,9 @@ func (s *PaymentSourceService) SwitchGatewayAccount(id string, req *PaymentSourc
 	req.method = "POST"
 	req.path = fmt.Sprintf("/payment_sources/%v/switch_gateway_account", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "paymentSource"
+	req.telemetryOperation = "switchGatewayAccount"
+
 	return send[*PaymentSourceSwitchGatewayAccountResponse](req, s.config)
 }
 
@@ -106,6 +145,9 @@ func (s *PaymentSourceService) ExportPaymentSource(id string, req *PaymentSource
 	req.method = "POST"
 	req.path = fmt.Sprintf("/payment_sources/%v/export_payment_source", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "paymentSource"
+	req.telemetryOperation = "exportPaymentSource"
+
 	return send[*PaymentSourceExportPaymentSourceResponse](req, s.config)
 }
 
@@ -114,6 +156,9 @@ func (s *PaymentSourceService) Delete(id string) (*PaymentSourceDeleteResponse, 
 	req.method = "POST"
 	req.path = fmt.Sprintf("/payment_sources/%v/delete", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "paymentSource"
+	req.telemetryOperation = "delete"
+
 	return send[*PaymentSourceDeleteResponse](req, s.config)
 }
 
@@ -122,5 +167,8 @@ func (s *PaymentSourceService) DeleteLocal(id string) (*PaymentSourceDeleteLocal
 	req.method = "POST"
 	req.path = fmt.Sprintf("/payment_sources/%v/delete_local", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "paymentSource"
+	req.telemetryOperation = "deleteLocal"
+
 	return send[*PaymentSourceDeleteLocalResponse](req, s.config)
 }

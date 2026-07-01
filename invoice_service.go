@@ -15,6 +15,9 @@ func (s *InvoiceService) Create(req *InvoiceCreateRequest) (*InvoiceCreateRespon
 	req.method = "POST"
 	req.path = "/invoices"
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "create"
+
 	return send[*InvoiceCreateResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *InvoiceService) CreateForChargeItemsAndCharges(req *InvoiceCreateForCha
 	req.method = "POST"
 	req.path = "/invoices/create_for_charge_items_and_charges"
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "createForChargeItemsAndCharges"
+
 	return send[*InvoiceCreateForChargeItemsAndChargesResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *InvoiceService) Charge(req *InvoiceChargeRequest) (*InvoiceChargeRespon
 	req.method = "POST"
 	req.path = "/invoices/charge"
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "charge"
+
 	return send[*InvoiceChargeResponse](req, s.config)
 }
 
@@ -36,6 +45,9 @@ func (s *InvoiceService) ChargeAddon(req *InvoiceChargeAddonRequest) (*InvoiceCh
 	req.method = "POST"
 	req.path = "/invoices/charge_addon"
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "chargeAddon"
+
 	return send[*InvoiceChargeAddonResponse](req, s.config)
 }
 
@@ -44,6 +56,9 @@ func (s *InvoiceService) CreateForChargeItem(req *InvoiceCreateForChargeItemRequ
 	req.method = "POST"
 	req.path = "/invoices/create_for_charge_item"
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "createForChargeItem"
+
 	return send[*InvoiceCreateForChargeItemResponse](req, s.config)
 }
 
@@ -51,6 +66,9 @@ func (s *InvoiceService) StopDunning(id string, req *InvoiceStopDunningRequest) 
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/stop_dunning", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "stopDunning"
+
 	return send[*InvoiceStopDunningResponse](req, s.config)
 }
 
@@ -58,6 +76,9 @@ func (s *InvoiceService) PauseDunning(id string, req *InvoicePauseDunningRequest
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/pause_dunning", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "pauseDunning"
+
 	return send[*InvoicePauseDunningResponse](req, s.config)
 }
 
@@ -65,6 +86,9 @@ func (s *InvoiceService) ResumeDunning(id string, req *InvoiceResumeDunningReque
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/resume_dunning", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "resumeDunning"
+
 	return send[*InvoiceResumeDunningResponse](req, s.config)
 }
 
@@ -72,6 +96,9 @@ func (s *InvoiceService) ImportInvoice(req *InvoiceImportInvoiceRequest) (*Invoi
 	req.method = "POST"
 	req.path = "/invoices/import_invoice"
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "importInvoice"
+
 	return send[*InvoiceImportInvoiceResponse](req, s.config)
 }
 
@@ -79,6 +106,9 @@ func (s *InvoiceService) ApplyPayments(id string, req *InvoiceApplyPaymentsReque
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/apply_payments", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "applyPayments"
+
 	return send[*InvoiceApplyPaymentsResponse](req, s.config)
 }
 
@@ -87,6 +117,9 @@ func (s *InvoiceService) SyncUsages(id string) (*InvoiceSyncUsagesResponse, erro
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/sync_usages", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "syncUsages"
+
 	return send[*InvoiceSyncUsagesResponse](req, s.config)
 }
 
@@ -94,6 +127,9 @@ func (s *InvoiceService) DeleteLineItems(id string, req *InvoiceDeleteLineItemsR
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/delete_line_items", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "deleteLineItems"
+
 	return send[*InvoiceDeleteLineItemsResponse](req, s.config)
 }
 
@@ -101,6 +137,9 @@ func (s *InvoiceService) ApplyCredits(id string, req *InvoiceApplyCreditsRequest
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/apply_credits", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "applyCredits"
+
 	return send[*InvoiceApplyCreditsResponse](req, s.config)
 }
 
@@ -108,6 +147,9 @@ func (s *InvoiceService) List(req *InvoiceListRequest) (*InvoiceListResponse, er
 	req.method = "GET"
 	req.path = "/invoices"
 	req.isListRequest = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "list"
+
 	return send[*InvoiceListResponse](req, s.config)
 }
 
@@ -116,6 +158,9 @@ func (s *InvoiceService) InvoicesForCustomer(id string, req *InvoiceInvoicesForC
 	req.method = "GET"
 	req.path = fmt.Sprintf("/customers/%v/invoices", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "invoicesForCustomer"
+
 	return send[*InvoiceInvoicesForCustomerResponse](req, s.config)
 }
 
@@ -124,12 +169,18 @@ func (s *InvoiceService) InvoicesForSubscription(id string, req *InvoiceInvoices
 	req.method = "GET"
 	req.path = fmt.Sprintf("/subscriptions/%v/invoices", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "invoicesForSubscription"
+
 	return send[*InvoiceInvoicesForSubscriptionResponse](req, s.config)
 }
 
 func (s *InvoiceService) Retrieve(id string, req *InvoiceRetrieveRequest) (*InvoiceRetrieveResponse, error) {
 	req.method = "GET"
 	req.path = fmt.Sprintf("/invoices/%v", url.PathEscape(id))
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "retrieve"
+
 	return send[*InvoiceRetrieveResponse](req, s.config)
 }
 
@@ -137,6 +188,9 @@ func (s *InvoiceService) Pdf(id string, req *InvoicePdfRequest) (*InvoicePdfResp
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/pdf", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "pdf"
+
 	return send[*InvoicePdfResponse](req, s.config)
 }
 
@@ -144,6 +198,9 @@ func (s *InvoiceService) DownloadEinvoice(id string) (*InvoiceDownloadEinvoiceRe
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/invoices/%v/download_einvoice", url.PathEscape(id))
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "downloadEinvoice"
+
 	return send[*InvoiceDownloadEinvoiceResponse](req, s.config)
 }
 
@@ -151,6 +208,9 @@ func (s *InvoiceService) ListPaymentReferenceNumbers(req *InvoiceListPaymentRefe
 	req.method = "GET"
 	req.path = "/invoices/payment_reference_numbers"
 	req.isListRequest = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "listPaymentReferenceNumbers"
+
 	return send[*InvoiceListPaymentReferenceNumbersResponse](req, s.config)
 }
 
@@ -158,6 +218,9 @@ func (s *InvoiceService) AddCharge(id string, req *InvoiceAddChargeRequest) (*In
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/add_charge", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "addCharge"
+
 	return send[*InvoiceAddChargeResponse](req, s.config)
 }
 
@@ -165,6 +228,9 @@ func (s *InvoiceService) AddAddonCharge(id string, req *InvoiceAddAddonChargeReq
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/add_addon_charge", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "addAddonCharge"
+
 	return send[*InvoiceAddAddonChargeResponse](req, s.config)
 }
 
@@ -172,6 +238,9 @@ func (s *InvoiceService) AddChargeItem(id string, req *InvoiceAddChargeItemReque
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/add_charge_item", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "addChargeItem"
+
 	return send[*InvoiceAddChargeItemResponse](req, s.config)
 }
 
@@ -179,6 +248,9 @@ func (s *InvoiceService) Close(id string, req *InvoiceCloseRequest) (*InvoiceClo
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/close", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "close"
+
 	return send[*InvoiceCloseResponse](req, s.config)
 }
 
@@ -186,6 +258,9 @@ func (s *InvoiceService) CollectPayment(id string, req *InvoiceCollectPaymentReq
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/collect_payment", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "collectPayment"
+
 	return send[*InvoiceCollectPaymentResponse](req, s.config)
 }
 
@@ -193,6 +268,9 @@ func (s *InvoiceService) RecordPayment(id string, req *InvoiceRecordPaymentReque
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/record_payment", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "recordPayment"
+
 	return send[*InvoiceRecordPaymentResponse](req, s.config)
 }
 
@@ -200,6 +278,9 @@ func (s *InvoiceService) RecordTaxWithheld(id string, req *InvoiceRecordTaxWithh
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/record_tax_withheld", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "recordTaxWithheld"
+
 	return send[*InvoiceRecordTaxWithheldResponse](req, s.config)
 }
 
@@ -207,6 +288,9 @@ func (s *InvoiceService) RemoveTaxWithheld(id string, req *InvoiceRemoveTaxWithh
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/remove_tax_withheld", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "removeTaxWithheld"
+
 	return send[*InvoiceRemoveTaxWithheldResponse](req, s.config)
 }
 
@@ -214,6 +298,9 @@ func (s *InvoiceService) Refund(id string, req *InvoiceRefundRequest) (*InvoiceR
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/refund", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "refund"
+
 	return send[*InvoiceRefundResponse](req, s.config)
 }
 
@@ -221,6 +308,9 @@ func (s *InvoiceService) RecordRefund(id string, req *InvoiceRecordRefundRequest
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/record_refund", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "recordRefund"
+
 	return send[*InvoiceRecordRefundResponse](req, s.config)
 }
 
@@ -228,6 +318,9 @@ func (s *InvoiceService) RemovePayment(id string, req *InvoiceRemovePaymentReque
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/remove_payment", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "removePayment"
+
 	return send[*InvoiceRemovePaymentResponse](req, s.config)
 }
 
@@ -235,6 +328,9 @@ func (s *InvoiceService) RemoveCreditNote(id string, req *InvoiceRemoveCreditNot
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/remove_credit_note", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "removeCreditNote"
+
 	return send[*InvoiceRemoveCreditNoteResponse](req, s.config)
 }
 
@@ -242,6 +338,9 @@ func (s *InvoiceService) VoidInvoice(id string, req *InvoiceVoidInvoiceRequest) 
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/void", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "voidInvoice"
+
 	return send[*InvoiceVoidInvoiceResponse](req, s.config)
 }
 
@@ -249,6 +348,9 @@ func (s *InvoiceService) WriteOff(id string, req *InvoiceWriteOffRequest) (*Invo
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/write_off", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "writeOff"
+
 	return send[*InvoiceWriteOffResponse](req, s.config)
 }
 
@@ -256,6 +358,9 @@ func (s *InvoiceService) Delete(id string, req *InvoiceDeleteRequest) (*InvoiceD
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/delete", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "delete"
+
 	return send[*InvoiceDeleteResponse](req, s.config)
 }
 
@@ -263,6 +368,9 @@ func (s *InvoiceService) UpdateDetails(id string, req *InvoiceUpdateDetailsReque
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/update_details", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "updateDetails"
+
 	return send[*InvoiceUpdateDetailsResponse](req, s.config)
 }
 
@@ -270,6 +378,9 @@ func (s *InvoiceService) ApplyPaymentScheduleScheme(id string, req *InvoiceApply
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/apply_payment_schedule_scheme", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "applyPaymentScheduleScheme"
+
 	return send[*InvoiceApplyPaymentScheduleSchemeResponse](req, s.config)
 }
 
@@ -277,6 +388,9 @@ func (s *InvoiceService) PaymentSchedules(id string) (*InvoicePaymentSchedulesRe
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/invoices/%v/payment_schedules", url.PathEscape(id))
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "paymentSchedules"
+
 	return send[*InvoicePaymentSchedulesResponse](req, s.config)
 }
 
@@ -285,6 +399,9 @@ func (s *InvoiceService) ResendEinvoice(id string) (*InvoiceResendEinvoiceRespon
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/resend_einvoice", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "resendEinvoice"
+
 	return send[*InvoiceResendEinvoiceResponse](req, s.config)
 }
 
@@ -293,5 +410,8 @@ func (s *InvoiceService) SendEinvoice(id string) (*InvoiceSendEinvoiceResponse, 
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/send_einvoice", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "sendEinvoice"
+
 	return send[*InvoiceSendEinvoiceResponse](req, s.config)
 }

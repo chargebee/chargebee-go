@@ -15,5 +15,8 @@ func (s *OmnichannelSubscriptionItemService) ListOmniSubItemScheduleChanges(id s
 	req.method = "GET"
 	req.path = fmt.Sprintf("/omnichannel_subscription_items/%v/scheduled_changes", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "omnichannelSubscriptionItem"
+	req.telemetryOperation = "listOmniSubItemScheduleChanges"
+
 	return send[*OmnichannelSubscriptionItemListOmniSubItemScheduleChangesResponse](req, s.config)
 }

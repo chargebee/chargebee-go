@@ -15,6 +15,9 @@ func (s *OmnichannelSubscriptionService) Retrieve(id string) (*OmnichannelSubscr
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/omnichannel_subscriptions/%v", url.PathEscape(id))
+	req.telemetryResource = "omnichannelSubscription"
+	req.telemetryOperation = "retrieve"
+
 	return send[*OmnichannelSubscriptionRetrieveResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *OmnichannelSubscriptionService) List(req *OmnichannelSubscriptionListRe
 	req.method = "GET"
 	req.path = "/omnichannel_subscriptions"
 	req.isListRequest = true
+	req.telemetryResource = "omnichannelSubscription"
+	req.telemetryOperation = "list"
+
 	return send[*OmnichannelSubscriptionListResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *OmnichannelSubscriptionService) OmnichannelTransactionsForOmnichannelSu
 	req.method = "GET"
 	req.path = fmt.Sprintf("/omnichannel_subscriptions/%v/omnichannel_transactions", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "omnichannelSubscription"
+	req.telemetryOperation = "omnichannelTransactionsForOmnichannelSubscription"
+
 	return send[*OmnichannelSubscriptionOmnichannelTransactionsForOmnichannelSubscriptionResponse](req, s.config)
 }
 
@@ -36,5 +45,8 @@ func (s *OmnichannelSubscriptionService) Move(id string, req *OmnichannelSubscri
 	req.method = "POST"
 	req.path = fmt.Sprintf("/omnichannel_subscriptions/%v/move", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "omnichannelSubscription"
+	req.telemetryOperation = "move"
+
 	return send[*OmnichannelSubscriptionMoveResponse](req, s.config)
 }

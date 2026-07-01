@@ -15,6 +15,9 @@ func (s *WebhookEndpointService) Create(req *WebhookEndpointCreateRequest) (*Web
 	req.method = "POST"
 	req.path = "/webhook_endpoints"
 	req.isIdempotent = true
+	req.telemetryResource = "webhookEndpoint"
+	req.telemetryOperation = "create"
+
 	return send[*WebhookEndpointCreateResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *WebhookEndpointService) Update(id string, req *WebhookEndpointUpdateReq
 	req.method = "POST"
 	req.path = fmt.Sprintf("/webhook_endpoints/%v", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "webhookEndpoint"
+	req.telemetryOperation = "update"
+
 	return send[*WebhookEndpointUpdateResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *WebhookEndpointService) Retrieve(id string) (*WebhookEndpointRetrieveRe
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/webhook_endpoints/%v", url.PathEscape(id))
+	req.telemetryResource = "webhookEndpoint"
+	req.telemetryOperation = "retrieve"
+
 	return send[*WebhookEndpointRetrieveResponse](req, s.config)
 }
 
@@ -37,6 +46,9 @@ func (s *WebhookEndpointService) Delete(id string) (*WebhookEndpointDeleteRespon
 	req.method = "POST"
 	req.path = fmt.Sprintf("/webhook_endpoints/%v/delete", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "webhookEndpoint"
+	req.telemetryOperation = "delete"
+
 	return send[*WebhookEndpointDeleteResponse](req, s.config)
 }
 
@@ -44,5 +56,8 @@ func (s *WebhookEndpointService) List(req *WebhookEndpointListRequest) (*Webhook
 	req.method = "GET"
 	req.path = "/webhook_endpoints"
 	req.isListRequest = true
+	req.telemetryResource = "webhookEndpoint"
+	req.telemetryOperation = "list"
+
 	return send[*WebhookEndpointListResponse](req, s.config)
 }

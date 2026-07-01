@@ -15,6 +15,9 @@ func (s *AlertStatusService) AlertStatusesForSubscription(id string, req *AlertS
 	req.method = "GET"
 	req.path = fmt.Sprintf("/subscriptions/%v/alert_statuses", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "alertStatus"
+	req.telemetryOperation = "alertStatusesForSubscription"
+
 	return send[*AlertStatusAlertStatusesForSubscriptionResponse](req, s.config)
 }
 
@@ -22,5 +25,8 @@ func (s *AlertStatusService) AlertStatusesForAlert(id string, req *AlertStatusAl
 	req.method = "GET"
 	req.path = fmt.Sprintf("/alerts/%v/alert_statuses", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "alertStatus"
+	req.telemetryOperation = "alertStatusesForAlert"
+
 	return send[*AlertStatusAlertStatusesForAlertResponse](req, s.config)
 }

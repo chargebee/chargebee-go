@@ -15,6 +15,9 @@ func (s *OrderService) Create(req *OrderCreateRequest) (*OrderCreateResponse, er
 	req.method = "POST"
 	req.path = "/orders"
 	req.isIdempotent = true
+	req.telemetryResource = "order"
+	req.telemetryOperation = "create"
+
 	return send[*OrderCreateResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *OrderService) Update(id string, req *OrderUpdateRequest) (*OrderUpdateR
 	req.method = "POST"
 	req.path = fmt.Sprintf("/orders/%v", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "order"
+	req.telemetryOperation = "update"
+
 	return send[*OrderUpdateResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *OrderService) ImportOrder(req *OrderImportOrderRequest) (*OrderImportOr
 	req.method = "POST"
 	req.path = "/orders/import_order"
 	req.isIdempotent = true
+	req.telemetryResource = "order"
+	req.telemetryOperation = "importOrder"
+
 	return send[*OrderImportOrderResponse](req, s.config)
 }
 
@@ -37,6 +46,9 @@ func (s *OrderService) AssignOrderNumber(id string) (*OrderAssignOrderNumberResp
 	req.method = "POST"
 	req.path = fmt.Sprintf("/orders/%v/assign_order_number", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "order"
+	req.telemetryOperation = "assignOrderNumber"
+
 	return send[*OrderAssignOrderNumberResponse](req, s.config)
 }
 
@@ -44,6 +56,9 @@ func (s *OrderService) Cancel(id string, req *OrderCancelRequest) (*OrderCancelR
 	req.method = "POST"
 	req.path = fmt.Sprintf("/orders/%v/cancel", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "order"
+	req.telemetryOperation = "cancel"
+
 	return send[*OrderCancelResponse](req, s.config)
 }
 
@@ -51,6 +66,9 @@ func (s *OrderService) CreateRefundableCreditNote(id string, req *OrderCreateRef
 	req.method = "POST"
 	req.path = fmt.Sprintf("/orders/%v/create_refundable_credit_note", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "order"
+	req.telemetryOperation = "createRefundableCreditNote"
+
 	return send[*OrderCreateRefundableCreditNoteResponse](req, s.config)
 }
 
@@ -58,6 +76,9 @@ func (s *OrderService) Reopen(id string, req *OrderReopenRequest) (*OrderReopenR
 	req.method = "POST"
 	req.path = fmt.Sprintf("/orders/%v/reopen", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "order"
+	req.telemetryOperation = "reopen"
+
 	return send[*OrderReopenResponse](req, s.config)
 }
 
@@ -65,6 +86,9 @@ func (s *OrderService) Retrieve(id string) (*OrderRetrieveResponse, error) {
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/orders/%v", url.PathEscape(id))
+	req.telemetryResource = "order"
+	req.telemetryOperation = "retrieve"
+
 	return send[*OrderRetrieveResponse](req, s.config)
 }
 
@@ -73,6 +97,9 @@ func (s *OrderService) Delete(id string) (*OrderDeleteResponse, error) {
 	req.method = "POST"
 	req.path = fmt.Sprintf("/orders/%v/delete", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "order"
+	req.telemetryOperation = "delete"
+
 	return send[*OrderDeleteResponse](req, s.config)
 }
 
@@ -80,6 +107,9 @@ func (s *OrderService) List(req *OrderListRequest) (*OrderListResponse, error) {
 	req.method = "GET"
 	req.path = "/orders"
 	req.isListRequest = true
+	req.telemetryResource = "order"
+	req.telemetryOperation = "list"
+
 	return send[*OrderListResponse](req, s.config)
 }
 
@@ -88,6 +118,9 @@ func (s *OrderService) OrdersForInvoice(id string, req *OrderOrdersForInvoiceReq
 	req.method = "GET"
 	req.path = fmt.Sprintf("/invoices/%v/orders", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "order"
+	req.telemetryOperation = "ordersForInvoice"
+
 	return send[*OrderOrdersForInvoiceResponse](req, s.config)
 }
 
@@ -95,5 +128,8 @@ func (s *OrderService) Resend(id string, req *OrderResendRequest) (*OrderResendR
 	req.method = "POST"
 	req.path = fmt.Sprintf("/orders/%v/resend", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "order"
+	req.telemetryOperation = "resend"
+
 	return send[*OrderResendResponse](req, s.config)
 }

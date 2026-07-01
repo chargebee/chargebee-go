@@ -1,3 +1,9 @@
+### v4.5.0 (2026-06-30)
+* * *
+
+### New Enhancement:
+* Added an optional telemetry adapter hook for tracing Chargebee API calls via OpenTelemetry (or any APM). Configure it via `ClientConfig.TelemetryAdapter`. When unconfigured, the SDK skips all telemetry work — no behavior change for existing integrations.
+
 ### v4.4.0 (2026-06-15)
 * * *
 ### New Resources:

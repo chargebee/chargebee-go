@@ -4,10 +4,12 @@ package chargebee
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
-	"net/url"
+
+	"errors"
 	"time"
+
+	"net/url"
 )
 
 type TimeMachineService struct {
@@ -18,6 +20,9 @@ func (s *TimeMachineService) Retrieve(id string) (*TimeMachineRetrieveResponse, 
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/time_machines/%v", url.PathEscape(id))
+	req.telemetryResource = "timeMachine"
+	req.telemetryOperation = "retrieve"
+
 	return send[*TimeMachineRetrieveResponse](req, s.config)
 }
 
@@ -25,6 +30,9 @@ func (s *TimeMachineService) StartAfresh(id string, req *TimeMachineStartAfreshR
 	req.method = "POST"
 	req.path = fmt.Sprintf("/time_machines/%v/start_afresh", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "timeMachine"
+	req.telemetryOperation = "startAfresh"
+
 	return send[*TimeMachineStartAfreshResponse](req, s.config)
 }
 
@@ -32,6 +40,9 @@ func (s *TimeMachineService) TravelForward(id string, req *TimeMachineTravelForw
 	req.method = "POST"
 	req.path = fmt.Sprintf("/time_machines/%v/travel_forward", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "timeMachine"
+	req.telemetryOperation = "travelForward"
+
 	return send[*TimeMachineTravelForwardResponse](req, s.config)
 }
 

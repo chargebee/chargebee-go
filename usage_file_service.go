@@ -14,6 +14,9 @@ type UsageFileService struct {
 func (s *UsageFileService) UploadUrl(req *UsageFileUploadUrlRequest) (*UsageFileUploadUrlResponse, error) {
 	req.method = "POST"
 	req.path = "/usage_files/upload_url"
+	req.telemetryResource = "usageFile"
+	req.telemetryOperation = "uploadUrl"
+
 	return send[*UsageFileUploadUrlResponse](req, s.config)
 }
 
@@ -21,5 +24,8 @@ func (s *UsageFileService) ProcessingStatus(id string) (*UsageFileProcessingStat
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/usage_files/%v/processing_status", url.PathEscape(id))
+	req.telemetryResource = "usageFile"
+	req.telemetryOperation = "processingStatus"
+
 	return send[*UsageFileProcessingStatusResponse](req, s.config)
 }

@@ -15,6 +15,9 @@ func (s *ItemPriceService) Create(req *ItemPriceCreateRequest) (*ItemPriceCreate
 	req.method = "POST"
 	req.path = "/item_prices"
 	req.isIdempotent = true
+	req.telemetryResource = "itemPrice"
+	req.telemetryOperation = "create"
+
 	return send[*ItemPriceCreateResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *ItemPriceService) Retrieve(id string) (*ItemPriceRetrieveResponse, erro
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/item_prices/%v", url.PathEscape(id))
+	req.telemetryResource = "itemPrice"
+	req.telemetryOperation = "retrieve"
+
 	return send[*ItemPriceRetrieveResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *ItemPriceService) Update(id string, req *ItemPriceUpdateRequest) (*Item
 	req.method = "POST"
 	req.path = fmt.Sprintf("/item_prices/%v", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "itemPrice"
+	req.telemetryOperation = "update"
+
 	return send[*ItemPriceUpdateResponse](req, s.config)
 }
 
@@ -36,6 +45,9 @@ func (s *ItemPriceService) List(req *ItemPriceListRequest) (*ItemPriceListRespon
 	req.method = "GET"
 	req.path = "/item_prices"
 	req.isListRequest = true
+	req.telemetryResource = "itemPrice"
+	req.telemetryOperation = "list"
+
 	return send[*ItemPriceListResponse](req, s.config)
 }
 
@@ -44,6 +56,9 @@ func (s *ItemPriceService) Delete(id string) (*ItemPriceDeleteResponse, error) {
 	req.method = "POST"
 	req.path = fmt.Sprintf("/item_prices/%v/delete", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "itemPrice"
+	req.telemetryOperation = "delete"
+
 	return send[*ItemPriceDeleteResponse](req, s.config)
 }
 
@@ -51,6 +66,9 @@ func (s *ItemPriceService) FindApplicableItems(id string, req *ItemPriceFindAppl
 	req.method = "GET"
 	req.path = fmt.Sprintf("/item_prices/%v/applicable_items", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "itemPrice"
+	req.telemetryOperation = "findApplicableItems"
+
 	return send[*ItemPriceFindApplicableItemsResponse](req, s.config)
 }
 
@@ -58,5 +76,8 @@ func (s *ItemPriceService) FindApplicableItemPrices(id string, req *ItemPriceFin
 	req.method = "GET"
 	req.path = fmt.Sprintf("/item_prices/%v/applicable_item_prices", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "itemPrice"
+	req.telemetryOperation = "findApplicableItemPrices"
+
 	return send[*ItemPriceFindApplicableItemPricesResponse](req, s.config)
 }

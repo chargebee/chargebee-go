@@ -15,6 +15,9 @@ func (s *RampService) CreateForSubscription(id string, req *RampCreateForSubscri
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/create_ramp", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "ramp"
+	req.telemetryOperation = "createForSubscription"
+
 	return send[*RampCreateForSubscriptionResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *RampService) Update(id string, req *RampUpdateRequest) (*RampUpdateResp
 	req.method = "POST"
 	req.path = fmt.Sprintf("/ramps/%v/update", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "ramp"
+	req.telemetryOperation = "update"
+
 	return send[*RampUpdateResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *RampService) Retrieve(id string) (*RampRetrieveResponse, error) {
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/ramps/%v", url.PathEscape(id))
+	req.telemetryResource = "ramp"
+	req.telemetryOperation = "retrieve"
+
 	return send[*RampRetrieveResponse](req, s.config)
 }
 
@@ -37,6 +46,9 @@ func (s *RampService) Delete(id string) (*RampDeleteResponse, error) {
 	req.method = "POST"
 	req.path = fmt.Sprintf("/ramps/%v/delete", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "ramp"
+	req.telemetryOperation = "delete"
+
 	return send[*RampDeleteResponse](req, s.config)
 }
 
@@ -44,5 +56,8 @@ func (s *RampService) List(req *RampListRequest) (*RampListResponse, error) {
 	req.method = "GET"
 	req.path = "/ramps"
 	req.isListRequest = true
+	req.telemetryResource = "ramp"
+	req.telemetryOperation = "list"
+
 	return send[*RampListResponse](req, s.config)
 }
