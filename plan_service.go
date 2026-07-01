@@ -15,6 +15,9 @@ func (s *PlanService) Create(req *PlanCreateRequest) (*PlanCreateResponse, error
 	req.method = "POST"
 	req.path = "/plans"
 	req.isIdempotent = true
+	req.telemetryResource = "plan"
+	req.telemetryOperation = "create"
+
 	return send[*PlanCreateResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *PlanService) Update(id string, req *PlanUpdateRequest) (*PlanUpdateResp
 	req.method = "POST"
 	req.path = fmt.Sprintf("/plans/%v", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "plan"
+	req.telemetryOperation = "update"
+
 	return send[*PlanUpdateResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *PlanService) List(req *PlanListRequest) (*PlanListResponse, error) {
 	req.method = "GET"
 	req.path = "/plans"
 	req.isListRequest = true
+	req.telemetryResource = "plan"
+	req.telemetryOperation = "list"
+
 	return send[*PlanListResponse](req, s.config)
 }
 
@@ -36,6 +45,9 @@ func (s *PlanService) Retrieve(id string) (*PlanRetrieveResponse, error) {
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/plans/%v", url.PathEscape(id))
+	req.telemetryResource = "plan"
+	req.telemetryOperation = "retrieve"
+
 	return send[*PlanRetrieveResponse](req, s.config)
 }
 
@@ -44,6 +56,9 @@ func (s *PlanService) Delete(id string) (*PlanDeleteResponse, error) {
 	req.method = "POST"
 	req.path = fmt.Sprintf("/plans/%v/delete", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "plan"
+	req.telemetryOperation = "delete"
+
 	return send[*PlanDeleteResponse](req, s.config)
 }
 
@@ -51,6 +66,9 @@ func (s *PlanService) Copy(req *PlanCopyRequest) (*PlanCopyResponse, error) {
 	req.method = "POST"
 	req.path = "/plans/copy"
 	req.isIdempotent = true
+	req.telemetryResource = "plan"
+	req.telemetryOperation = "copy"
+
 	return send[*PlanCopyResponse](req, s.config)
 }
 
@@ -59,5 +77,8 @@ func (s *PlanService) Unarchive(id string) (*PlanUnarchiveResponse, error) {
 	req.method = "POST"
 	req.path = fmt.Sprintf("/plans/%v/unarchive", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "plan"
+	req.telemetryOperation = "unarchive"
+
 	return send[*PlanUnarchiveResponse](req, s.config)
 }

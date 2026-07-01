@@ -9,6 +9,10 @@ type LedgerAccountBalanceService struct {
 func (s *LedgerAccountBalanceService) ListLedgerAccountBalances(req *LedgerAccountBalanceListLedgerAccountBalancesRequest) (*LedgerAccountBalanceListLedgerAccountBalancesResponse, error) {
 	req.method = "GET"
 	req.path = "/ledger_account_balances"
+	req.isJsonRequest = true
 	req.isListRequest = true
+	req.telemetryResource = "ledgerAccountBalance"
+	req.telemetryOperation = "listLedgerAccountBalances"
+
 	return send[*LedgerAccountBalanceListLedgerAccountBalancesResponse](req, s.config)
 }

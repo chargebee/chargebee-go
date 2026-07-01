@@ -15,6 +15,9 @@ func (s *PaymentScheduleSchemeService) Create(req *PaymentScheduleSchemeCreateRe
 	req.method = "POST"
 	req.path = "/payment_schedule_schemes"
 	req.isIdempotent = true
+	req.telemetryResource = "paymentScheduleScheme"
+	req.telemetryOperation = "create"
+
 	return send[*PaymentScheduleSchemeCreateResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *PaymentScheduleSchemeService) Retrieve(id string) (*PaymentScheduleSche
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/payment_schedule_schemes/%v", url.PathEscape(id))
+	req.telemetryResource = "paymentScheduleScheme"
+	req.telemetryOperation = "retrieve"
+
 	return send[*PaymentScheduleSchemeRetrieveResponse](req, s.config)
 }
 
@@ -30,5 +36,8 @@ func (s *PaymentScheduleSchemeService) Delete(id string) (*PaymentScheduleScheme
 	req.method = "POST"
 	req.path = fmt.Sprintf("/payment_schedule_schemes/%v/delete", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "paymentScheduleScheme"
+	req.telemetryOperation = "delete"
+
 	return send[*PaymentScheduleSchemeDeleteResponse](req, s.config)
 }

@@ -15,6 +15,9 @@ func (s *HostedPageService) CheckoutNew(req *HostedPageCheckoutNewRequest) (*Hos
 	req.method = "POST"
 	req.path = "/hosted_pages/checkout_new"
 	req.isIdempotent = true
+	req.telemetryResource = "hostedPage"
+	req.telemetryOperation = "checkoutNew"
+
 	return send[*HostedPageCheckoutNewResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *HostedPageService) CheckoutOneTime(req *HostedPageCheckoutOneTimeReques
 	req.method = "POST"
 	req.path = "/hosted_pages/checkout_one_time"
 	req.isIdempotent = true
+	req.telemetryResource = "hostedPage"
+	req.telemetryOperation = "checkoutOneTime"
+
 	return send[*HostedPageCheckoutOneTimeResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *HostedPageService) CheckoutOneTimeForItems(req *HostedPageCheckoutOneTi
 	req.method = "POST"
 	req.path = "/hosted_pages/checkout_one_time_for_items"
 	req.isIdempotent = true
+	req.telemetryResource = "hostedPage"
+	req.telemetryOperation = "checkoutOneTimeForItems"
+
 	return send[*HostedPageCheckoutOneTimeForItemsResponse](req, s.config)
 }
 
@@ -36,6 +45,9 @@ func (s *HostedPageService) CheckoutNewForItems(req *HostedPageCheckoutNewForIte
 	req.method = "POST"
 	req.path = "/hosted_pages/checkout_new_for_items"
 	req.isIdempotent = true
+	req.telemetryResource = "hostedPage"
+	req.telemetryOperation = "checkoutNewForItems"
+
 	return send[*HostedPageCheckoutNewForItemsResponse](req, s.config)
 }
 
@@ -43,6 +55,9 @@ func (s *HostedPageService) CheckoutExisting(req *HostedPageCheckoutExistingRequ
 	req.method = "POST"
 	req.path = "/hosted_pages/checkout_existing"
 	req.isIdempotent = true
+	req.telemetryResource = "hostedPage"
+	req.telemetryOperation = "checkoutExisting"
+
 	return send[*HostedPageCheckoutExistingResponse](req, s.config)
 }
 
@@ -50,6 +65,9 @@ func (s *HostedPageService) CheckoutExistingForItems(req *HostedPageCheckoutExis
 	req.method = "POST"
 	req.path = "/hosted_pages/checkout_existing_for_items"
 	req.isIdempotent = true
+	req.telemetryResource = "hostedPage"
+	req.telemetryOperation = "checkoutExistingForItems"
+
 	return send[*HostedPageCheckoutExistingForItemsResponse](req, s.config)
 }
 
@@ -58,6 +76,9 @@ func (s *HostedPageService) UpdateCard(req *HostedPageUpdateCardRequest) (*Hoste
 	req.method = "POST"
 	req.path = "/hosted_pages/update_card"
 	req.isIdempotent = true
+	req.telemetryResource = "hostedPage"
+	req.telemetryOperation = "updateCard"
+
 	return send[*HostedPageUpdateCardResponse](req, s.config)
 }
 
@@ -66,6 +87,9 @@ func (s *HostedPageService) UpdatePaymentMethod(req *HostedPageUpdatePaymentMeth
 	req.method = "POST"
 	req.path = "/hosted_pages/update_payment_method"
 	req.isIdempotent = true
+	req.telemetryResource = "hostedPage"
+	req.telemetryOperation = "updatePaymentMethod"
+
 	return send[*HostedPageUpdatePaymentMethodResponse](req, s.config)
 }
 
@@ -73,6 +97,9 @@ func (s *HostedPageService) ManagePaymentSources(req *HostedPageManagePaymentSou
 	req.method = "POST"
 	req.path = "/hosted_pages/manage_payment_sources"
 	req.isIdempotent = true
+	req.telemetryResource = "hostedPage"
+	req.telemetryOperation = "managePaymentSources"
+
 	return send[*HostedPageManagePaymentSourcesResponse](req, s.config)
 }
 
@@ -80,6 +107,9 @@ func (s *HostedPageService) CollectNow(req *HostedPageCollectNowRequest) (*Hoste
 	req.method = "POST"
 	req.path = "/hosted_pages/collect_now"
 	req.isIdempotent = true
+	req.telemetryResource = "hostedPage"
+	req.telemetryOperation = "collectNow"
+
 	return send[*HostedPageCollectNowResponse](req, s.config)
 }
 
@@ -87,6 +117,9 @@ func (s *HostedPageService) AcceptQuote(req *HostedPageAcceptQuoteRequest) (*Hos
 	req.method = "POST"
 	req.path = "/hosted_pages/accept_quote"
 	req.isIdempotent = true
+	req.telemetryResource = "hostedPage"
+	req.telemetryOperation = "acceptQuote"
+
 	return send[*HostedPageAcceptQuoteResponse](req, s.config)
 }
 
@@ -94,6 +127,9 @@ func (s *HostedPageService) ExtendSubscription(req *HostedPageExtendSubscription
 	req.method = "POST"
 	req.path = "/hosted_pages/extend_subscription"
 	req.isIdempotent = true
+	req.telemetryResource = "hostedPage"
+	req.telemetryOperation = "extendSubscription"
+
 	return send[*HostedPageExtendSubscriptionResponse](req, s.config)
 }
 
@@ -101,6 +137,9 @@ func (s *HostedPageService) CheckoutGift(req *HostedPageCheckoutGiftRequest) (*H
 	req.method = "POST"
 	req.path = "/hosted_pages/checkout_gift"
 	req.isIdempotent = true
+	req.telemetryResource = "hostedPage"
+	req.telemetryOperation = "checkoutGift"
+
 	return send[*HostedPageCheckoutGiftResponse](req, s.config)
 }
 
@@ -108,6 +147,9 @@ func (s *HostedPageService) CheckoutGiftForItems(req *HostedPageCheckoutGiftForI
 	req.method = "POST"
 	req.path = "/hosted_pages/checkout_gift_for_items"
 	req.isIdempotent = true
+	req.telemetryResource = "hostedPage"
+	req.telemetryOperation = "checkoutGiftForItems"
+
 	return send[*HostedPageCheckoutGiftForItemsResponse](req, s.config)
 }
 
@@ -115,6 +157,9 @@ func (s *HostedPageService) ClaimGift(req *HostedPageClaimGiftRequest) (*HostedP
 	req.method = "POST"
 	req.path = "/hosted_pages/claim_gift"
 	req.isIdempotent = true
+	req.telemetryResource = "hostedPage"
+	req.telemetryOperation = "claimGift"
+
 	return send[*HostedPageClaimGiftResponse](req, s.config)
 }
 
@@ -122,6 +167,9 @@ func (s *HostedPageService) RetrieveAgreementPdf(req *HostedPageRetrieveAgreemen
 	req.method = "POST"
 	req.path = "/hosted_pages/retrieve_agreement_pdf"
 	req.isIdempotent = true
+	req.telemetryResource = "hostedPage"
+	req.telemetryOperation = "retrieveAgreementPdf"
+
 	return send[*HostedPageRetrieveAgreementPdfResponse](req, s.config)
 }
 
@@ -130,6 +178,9 @@ func (s *HostedPageService) Acknowledge(id string) (*HostedPageAcknowledgeRespon
 	req.method = "POST"
 	req.path = fmt.Sprintf("/hosted_pages/%v/acknowledge", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "hostedPage"
+	req.telemetryOperation = "acknowledge"
+
 	return send[*HostedPageAcknowledgeResponse](req, s.config)
 }
 
@@ -137,6 +188,9 @@ func (s *HostedPageService) Retrieve(id string) (*HostedPageRetrieveResponse, er
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/hosted_pages/%v", url.PathEscape(id))
+	req.telemetryResource = "hostedPage"
+	req.telemetryOperation = "retrieve"
+
 	return send[*HostedPageRetrieveResponse](req, s.config)
 }
 
@@ -144,6 +198,9 @@ func (s *HostedPageService) List(req *HostedPageListRequest) (*HostedPageListRes
 	req.method = "GET"
 	req.path = "/hosted_pages"
 	req.isListRequest = true
+	req.telemetryResource = "hostedPage"
+	req.telemetryOperation = "list"
+
 	return send[*HostedPageListResponse](req, s.config)
 }
 
@@ -151,6 +208,9 @@ func (s *HostedPageService) PreCancel(req *HostedPagePreCancelRequest) (*HostedP
 	req.method = "POST"
 	req.path = "/hosted_pages/pre_cancel"
 	req.isIdempotent = true
+	req.telemetryResource = "hostedPage"
+	req.telemetryOperation = "preCancel"
+
 	return send[*HostedPagePreCancelResponse](req, s.config)
 }
 
@@ -158,6 +218,9 @@ func (s *HostedPageService) Events(req *HostedPageEventsRequest) (*HostedPageEve
 	req.method = "POST"
 	req.path = "/hosted_pages/events"
 	req.isIdempotent = true
+	req.telemetryResource = "hostedPage"
+	req.telemetryOperation = "events"
+
 	return send[*HostedPageEventsResponse](req, s.config)
 }
 
@@ -165,5 +228,8 @@ func (s *HostedPageService) ViewVoucher(req *HostedPageViewVoucherRequest) (*Hos
 	req.method = "POST"
 	req.path = "/hosted_pages/view_voucher"
 	req.isIdempotent = true
+	req.telemetryResource = "hostedPage"
+	req.telemetryOperation = "viewVoucher"
+
 	return send[*HostedPageViewVoucherResponse](req, s.config)
 }

@@ -15,6 +15,9 @@ func (s *LedgerOperationService) RetrieveLedgerOperation(id string) (*LedgerOper
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/ledger_operations/%v", url.PathEscape(id))
+	req.telemetryResource = "ledgerOperation"
+	req.telemetryOperation = "retrieveLedgerOperation"
+
 	return send[*LedgerOperationRetrieveLedgerOperationResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *LedgerOperationService) ListLedgerOperations(req *LedgerOperationListLe
 	req.method = "GET"
 	req.path = "/ledger_operations"
 	req.isListRequest = true
+	req.telemetryResource = "ledgerOperation"
+	req.telemetryOperation = "listLedgerOperations"
+
 	return send[*LedgerOperationListLedgerOperationsResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *LedgerOperationService) Capture(req *LedgerOperationCaptureRequest) (*L
 	req.method = "POST"
 	req.path = "/ledger_operations/capture"
 	req.isJsonRequest = true
+	req.telemetryResource = "ledgerOperation"
+	req.telemetryOperation = "capture"
+
 	return send[*LedgerOperationCaptureResponse](req, s.config)
 }
 
@@ -36,6 +45,9 @@ func (s *LedgerOperationService) Authorize(req *LedgerOperationAuthorizeRequest)
 	req.method = "POST"
 	req.path = "/ledger_operations/authorize"
 	req.isJsonRequest = true
+	req.telemetryResource = "ledgerOperation"
+	req.telemetryOperation = "authorize"
+
 	return send[*LedgerOperationAuthorizeResponse](req, s.config)
 }
 
@@ -43,6 +55,9 @@ func (s *LedgerOperationService) CaptureAuthorization(req *LedgerOperationCaptur
 	req.method = "POST"
 	req.path = "/ledger_operations/capture_authorization"
 	req.isJsonRequest = true
+	req.telemetryResource = "ledgerOperation"
+	req.telemetryOperation = "captureAuthorization"
+
 	return send[*LedgerOperationCaptureAuthorizationResponse](req, s.config)
 }
 
@@ -50,5 +65,8 @@ func (s *LedgerOperationService) ReleaseAuthorization(req *LedgerOperationReleas
 	req.method = "POST"
 	req.path = "/ledger_operations/release_authorization"
 	req.isJsonRequest = true
+	req.telemetryResource = "ledgerOperation"
+	req.telemetryOperation = "releaseAuthorization"
+
 	return send[*LedgerOperationReleaseAuthorizationResponse](req, s.config)
 }

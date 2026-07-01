@@ -10,5 +10,8 @@ func (s *OfferEventService) OfferEvents(req *OfferEventOfferEventsRequest) (*Off
 	req.method = "POST"
 	req.path = "/offer_events"
 	req.isJsonRequest = true
+	req.telemetryResource = "offerEvent"
+	req.telemetryOperation = "offerEvents"
+
 	return send[*OfferEventOfferEventsResponse](req, s.config)
 }

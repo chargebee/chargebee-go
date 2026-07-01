@@ -9,5 +9,8 @@ type ResourceMigrationService struct {
 func (s *ResourceMigrationService) RetrieveLatest(req *ResourceMigrationRetrieveLatestRequest) (*ResourceMigrationRetrieveLatestResponse, error) {
 	req.method = "GET"
 	req.path = "/resource_migrations/retrieve_latest"
+	req.telemetryResource = "resourceMigration"
+	req.telemetryOperation = "retrieveLatest"
+
 	return send[*ResourceMigrationRetrieveLatestResponse](req, s.config)
 }

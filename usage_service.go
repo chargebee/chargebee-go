@@ -15,12 +15,18 @@ func (s *UsageService) Create(id string, req *UsageCreateRequest) (*UsageCreateR
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/usages", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "usage"
+	req.telemetryOperation = "create"
+
 	return send[*UsageCreateResponse](req, s.config)
 }
 
 func (s *UsageService) Retrieve(id string, req *UsageRetrieveRequest) (*UsageRetrieveResponse, error) {
 	req.method = "GET"
 	req.path = fmt.Sprintf("/subscriptions/%v/usages", url.PathEscape(id))
+	req.telemetryResource = "usage"
+	req.telemetryOperation = "retrieve"
+
 	return send[*UsageRetrieveResponse](req, s.config)
 }
 
@@ -28,6 +34,9 @@ func (s *UsageService) Delete(id string, req *UsageDeleteRequest) (*UsageDeleteR
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/delete_usage", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "usage"
+	req.telemetryOperation = "delete"
+
 	return send[*UsageDeleteResponse](req, s.config)
 }
 
@@ -35,6 +44,9 @@ func (s *UsageService) List(req *UsageListRequest) (*UsageListResponse, error) {
 	req.method = "GET"
 	req.path = "/usages"
 	req.isListRequest = true
+	req.telemetryResource = "usage"
+	req.telemetryOperation = "list"
+
 	return send[*UsageListResponse](req, s.config)
 }
 
@@ -42,5 +54,8 @@ func (s *UsageService) Pdf(req *UsagePdfRequest) (*UsagePdfResponse, error) {
 	req.method = "POST"
 	req.path = "/usages/pdf"
 	req.isIdempotent = true
+	req.telemetryResource = "usage"
+	req.telemetryOperation = "pdf"
+
 	return send[*UsagePdfResponse](req, s.config)
 }

@@ -15,6 +15,9 @@ func (s *SubscriptionEntitlementService) SubscriptionEntitlementsForSubscription
 	req.method = "GET"
 	req.path = fmt.Sprintf("/subscriptions/%v/subscription_entitlements", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "subscriptionEntitlement"
+	req.telemetryOperation = "subscriptionEntitlementsForSubscription"
+
 	return send[*SubscriptionEntitlementSubscriptionEntitlementsForSubscriptionResponse](req, s.config)
 }
 
@@ -22,5 +25,8 @@ func (s *SubscriptionEntitlementService) SetSubscriptionEntitlementAvailability(
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/subscription_entitlements/set_availability", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "subscriptionEntitlement"
+	req.telemetryOperation = "setSubscriptionEntitlementAvailability"
+
 	return send[*SubscriptionEntitlementSetSubscriptionEntitlementAvailabilityResponse](req, s.config)
 }

@@ -15,6 +15,9 @@ func (s *PortalSessionService) Create(req *PortalSessionCreateRequest) (*PortalS
 	req.method = "POST"
 	req.path = "/portal_sessions"
 	req.isIdempotent = true
+	req.telemetryResource = "portalSession"
+	req.telemetryOperation = "create"
+
 	return send[*PortalSessionCreateResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *PortalSessionService) Retrieve(id string) (*PortalSessionRetrieveRespon
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/portal_sessions/%v", url.PathEscape(id))
+	req.telemetryResource = "portalSession"
+	req.telemetryOperation = "retrieve"
+
 	return send[*PortalSessionRetrieveResponse](req, s.config)
 }
 
@@ -30,6 +36,9 @@ func (s *PortalSessionService) Logout(id string) (*PortalSessionLogoutResponse, 
 	req.method = "POST"
 	req.path = fmt.Sprintf("/portal_sessions/%v/logout", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "portalSession"
+	req.telemetryOperation = "logout"
+
 	return send[*PortalSessionLogoutResponse](req, s.config)
 }
 
@@ -37,5 +46,8 @@ func (s *PortalSessionService) Activate(id string, req *PortalSessionActivateReq
 	req.method = "POST"
 	req.path = fmt.Sprintf("/portal_sessions/%v/activate", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "portalSession"
+	req.telemetryOperation = "activate"
+
 	return send[*PortalSessionActivateResponse](req, s.config)
 }

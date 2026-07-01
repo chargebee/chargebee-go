@@ -9,6 +9,9 @@ type AddressService struct {
 func (s *AddressService) Retrieve(req *AddressRetrieveRequest) (*AddressRetrieveResponse, error) {
 	req.method = "GET"
 	req.path = "/addresses"
+	req.telemetryResource = "address"
+	req.telemetryOperation = "retrieve"
+
 	return send[*AddressRetrieveResponse](req, s.config)
 }
 
@@ -16,5 +19,8 @@ func (s *AddressService) Update(req *AddressUpdateRequest) (*AddressUpdateRespon
 	req.method = "POST"
 	req.path = "/addresses"
 	req.isIdempotent = true
+	req.telemetryResource = "address"
+	req.telemetryOperation = "update"
+
 	return send[*AddressUpdateResponse](req, s.config)
 }

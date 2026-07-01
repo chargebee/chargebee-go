@@ -15,6 +15,9 @@ func (s *ItemFamilyService) Create(req *ItemFamilyCreateRequest) (*ItemFamilyCre
 	req.method = "POST"
 	req.path = "/item_families"
 	req.isIdempotent = true
+	req.telemetryResource = "itemFamily"
+	req.telemetryOperation = "create"
+
 	return send[*ItemFamilyCreateResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *ItemFamilyService) Retrieve(id string) (*ItemFamilyRetrieveResponse, er
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/item_families/%v", url.PathEscape(id))
+	req.telemetryResource = "itemFamily"
+	req.telemetryOperation = "retrieve"
+
 	return send[*ItemFamilyRetrieveResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *ItemFamilyService) List(req *ItemFamilyListRequest) (*ItemFamilyListRes
 	req.method = "GET"
 	req.path = "/item_families"
 	req.isListRequest = true
+	req.telemetryResource = "itemFamily"
+	req.telemetryOperation = "list"
+
 	return send[*ItemFamilyListResponse](req, s.config)
 }
 
@@ -36,6 +45,9 @@ func (s *ItemFamilyService) Update(id string, req *ItemFamilyUpdateRequest) (*It
 	req.method = "POST"
 	req.path = fmt.Sprintf("/item_families/%v", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "itemFamily"
+	req.telemetryOperation = "update"
+
 	return send[*ItemFamilyUpdateResponse](req, s.config)
 }
 
@@ -44,5 +56,8 @@ func (s *ItemFamilyService) Delete(id string) (*ItemFamilyDeleteResponse, error)
 	req.method = "POST"
 	req.path = fmt.Sprintf("/item_families/%v/delete", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "itemFamily"
+	req.telemetryOperation = "delete"
+
 	return send[*ItemFamilyDeleteResponse](req, s.config)
 }

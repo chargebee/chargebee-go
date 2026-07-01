@@ -15,6 +15,9 @@ func (s *FeatureService) List(req *FeatureListRequest) (*FeatureListResponse, er
 	req.method = "GET"
 	req.path = "/features"
 	req.isListRequest = true
+	req.telemetryResource = "feature"
+	req.telemetryOperation = "list"
+
 	return send[*FeatureListResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *FeatureService) Create(req *FeatureCreateRequest) (*FeatureCreateRespon
 	req.method = "POST"
 	req.path = "/features"
 	req.isIdempotent = true
+	req.telemetryResource = "feature"
+	req.telemetryOperation = "create"
+
 	return send[*FeatureCreateResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *FeatureService) Update(id string, req *FeatureUpdateRequest) (*FeatureU
 	req.method = "POST"
 	req.path = fmt.Sprintf("/features/%v", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "feature"
+	req.telemetryOperation = "update"
+
 	return send[*FeatureUpdateResponse](req, s.config)
 }
 
@@ -36,6 +45,9 @@ func (s *FeatureService) Retrieve(id string) (*FeatureRetrieveResponse, error) {
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/features/%v", url.PathEscape(id))
+	req.telemetryResource = "feature"
+	req.telemetryOperation = "retrieve"
+
 	return send[*FeatureRetrieveResponse](req, s.config)
 }
 
@@ -44,6 +56,9 @@ func (s *FeatureService) Delete(id string) (*FeatureDeleteResponse, error) {
 	req.method = "POST"
 	req.path = fmt.Sprintf("/features/%v/delete", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "feature"
+	req.telemetryOperation = "delete"
+
 	return send[*FeatureDeleteResponse](req, s.config)
 }
 
@@ -52,6 +67,9 @@ func (s *FeatureService) Activate(id string) (*FeatureActivateResponse, error) {
 	req.method = "POST"
 	req.path = fmt.Sprintf("/features/%v/activate_command", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "feature"
+	req.telemetryOperation = "activate"
+
 	return send[*FeatureActivateResponse](req, s.config)
 }
 
@@ -60,6 +78,9 @@ func (s *FeatureService) Archive(id string) (*FeatureArchiveResponse, error) {
 	req.method = "POST"
 	req.path = fmt.Sprintf("/features/%v/archive_command", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "feature"
+	req.telemetryOperation = "archive"
+
 	return send[*FeatureArchiveResponse](req, s.config)
 }
 
@@ -68,5 +89,8 @@ func (s *FeatureService) Reactivate(id string) (*FeatureReactivateResponse, erro
 	req.method = "POST"
 	req.path = fmt.Sprintf("/features/%v/reactivate_command", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "feature"
+	req.telemetryOperation = "reactivate"
+
 	return send[*FeatureReactivateResponse](req, s.config)
 }

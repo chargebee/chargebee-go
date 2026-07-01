@@ -15,5 +15,8 @@ func (s *RuleService) Retrieve(id string) (*RuleRetrieveResponse, error) {
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/rules/%v", url.PathEscape(id))
+	req.telemetryResource = "rule"
+	req.telemetryOperation = "retrieve"
+
 	return send[*RuleRetrieveResponse](req, s.config)
 }

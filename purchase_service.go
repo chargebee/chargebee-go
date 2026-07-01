@@ -10,11 +10,17 @@ func (s *PurchaseService) Create(req *PurchaseCreateRequest) (*PurchaseCreateRes
 	req.method = "POST"
 	req.path = "/purchases"
 	req.isIdempotent = true
+	req.telemetryResource = "purchase"
+	req.telemetryOperation = "create"
+
 	return send[*PurchaseCreateResponse](req, s.config)
 }
 
 func (s *PurchaseService) Estimate(req *PurchaseEstimateRequest) (*PurchaseEstimateResponse, error) {
 	req.method = "POST"
 	req.path = "/purchases/estimate"
+	req.telemetryResource = "purchase"
+	req.telemetryOperation = "estimate"
+
 	return send[*PurchaseEstimateResponse](req, s.config)
 }

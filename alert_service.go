@@ -15,6 +15,9 @@ func (s *AlertService) Create(req *AlertCreateRequest) (*AlertCreateResponse, er
 	req.method = "POST"
 	req.path = "/alerts"
 	req.isIdempotent = true
+	req.telemetryResource = "alert"
+	req.telemetryOperation = "create"
+
 	return send[*AlertCreateResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *AlertService) Retrieve(id string) (*AlertRetrieveResponse, error) {
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/alerts/%v", url.PathEscape(id))
+	req.telemetryResource = "alert"
+	req.telemetryOperation = "retrieve"
+
 	return send[*AlertRetrieveResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *AlertService) List(req *AlertListRequest) (*AlertListResponse, error) {
 	req.method = "GET"
 	req.path = "/alerts"
 	req.isListRequest = true
+	req.telemetryResource = "alert"
+	req.telemetryOperation = "list"
+
 	return send[*AlertListResponse](req, s.config)
 }
 
@@ -36,6 +45,9 @@ func (s *AlertService) Update(id string, req *AlertUpdateRequest) (*AlertUpdateR
 	req.method = "POST"
 	req.path = fmt.Sprintf("/alerts/%v", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "alert"
+	req.telemetryOperation = "update"
+
 	return send[*AlertUpdateResponse](req, s.config)
 }
 
@@ -44,6 +56,9 @@ func (s *AlertService) Delete(id string) (*AlertDeleteResponse, error) {
 	req.method = "POST"
 	req.path = fmt.Sprintf("/alerts/%v/delete", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "alert"
+	req.telemetryOperation = "delete"
+
 	return send[*AlertDeleteResponse](req, s.config)
 }
 
@@ -51,5 +66,8 @@ func (s *AlertService) ApplicationAlertsForSubscription(id string, req *AlertApp
 	req.method = "GET"
 	req.path = fmt.Sprintf("/subscriptions/%v/applicable_alerts", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "alert"
+	req.telemetryOperation = "applicationAlertsForSubscription"
+
 	return send[*AlertApplicationAlertsForSubscriptionResponse](req, s.config)
 }

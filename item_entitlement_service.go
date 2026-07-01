@@ -15,6 +15,9 @@ func (s *ItemEntitlementService) ItemEntitlementsForItem(id string, req *ItemEnt
 	req.method = "GET"
 	req.path = fmt.Sprintf("/items/%v/item_entitlements", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "itemEntitlement"
+	req.telemetryOperation = "itemEntitlementsForItem"
+
 	return send[*ItemEntitlementItemEntitlementsForItemResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *ItemEntitlementService) ItemEntitlementsForFeature(id string, req *Item
 	req.method = "GET"
 	req.path = fmt.Sprintf("/features/%v/item_entitlements", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "itemEntitlement"
+	req.telemetryOperation = "itemEntitlementsForFeature"
+
 	return send[*ItemEntitlementItemEntitlementsForFeatureResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *ItemEntitlementService) AddItemEntitlements(id string, req *ItemEntitle
 	req.method = "POST"
 	req.path = fmt.Sprintf("/features/%v/item_entitlements", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "itemEntitlement"
+	req.telemetryOperation = "addItemEntitlements"
+
 	return send[*ItemEntitlementAddItemEntitlementsResponse](req, s.config)
 }
 
@@ -36,5 +45,8 @@ func (s *ItemEntitlementService) UpsertOrRemoveItemEntitlementsForItem(id string
 	req.method = "POST"
 	req.path = fmt.Sprintf("/items/%v/item_entitlements", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "itemEntitlement"
+	req.telemetryOperation = "upsertOrRemoveItemEntitlementsForItem"
+
 	return send[*ItemEntitlementUpsertOrRemoveItemEntitlementsForItemResponse](req, s.config)
 }

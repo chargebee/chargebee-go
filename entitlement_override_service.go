@@ -15,6 +15,9 @@ func (s *EntitlementOverrideService) AddEntitlementOverrideForSubscription(id st
 	req.method = "POST"
 	req.path = fmt.Sprintf("/subscriptions/%v/entitlement_overrides", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "entitlementOverride"
+	req.telemetryOperation = "addEntitlementOverrideForSubscription"
+
 	return send[*EntitlementOverrideAddEntitlementOverrideForSubscriptionResponse](req, s.config)
 }
 
@@ -22,5 +25,8 @@ func (s *EntitlementOverrideService) ListEntitlementOverrideForSubscription(id s
 	req.method = "GET"
 	req.path = fmt.Sprintf("/subscriptions/%v/entitlement_overrides", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "entitlementOverride"
+	req.telemetryOperation = "listEntitlementOverrideForSubscription"
+
 	return send[*EntitlementOverrideListEntitlementOverrideForSubscriptionResponse](req, s.config)
 }

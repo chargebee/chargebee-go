@@ -28,10 +28,12 @@ type apiRequest struct {
 	// request payload for all url encoded requests
 	urlParams *url.Values `json:"-" form:"-"`
 	// request payload for json requests
-	jsonBody      string `json:"-" form:"-"`
-	isJsonRequest bool   `json:"-" form:"-"`
-	isListRequest bool   `json:"-" form:"-"`
-	isIdempotent  bool   `json:"-" form:"-"`
+	jsonBody           string `json:"-" form:"-"`
+	isJsonRequest      bool   `json:"-" form:"-"`
+	isListRequest      bool   `json:"-" form:"-"`
+	isIdempotent       bool   `json:"-" form:"-"`
+	telemetryResource  string `json:"-" form:"-"`
+	telemetryOperation string `json:"-" form:"-"`
 }
 
 type requestWrapper interface {
@@ -138,20 +140,37 @@ func send[ResType responseWrapper](rw requestWrapper, cfg *ClientConfig) (ResTyp
 		path, body = getBody(req.method, req.path, req.urlParams)
 	}
 
-	reqObj, err := newRequest(cfg, req.method, path, body, req.headers, req.subDomain, req.isJsonRequest)
+	httpURL := buildTelemetryHTTPURL(cfg, req.subDomain, path)
+	var res *apiResponse
+
+	err := executeWithTelemetry(cfg, telemetryExecuteInput{
+		resource:       req.telemetryResource,
+		operation:      req.telemetryOperation,
+		method:         req.method,
+		httpURL:        httpURL,
+		requestHeaders: httpHeaderToMap(req.headers),
+	}, func(extraHeaders map[string]string) (int, error) {
+		headers := mergeExtraHTTPHeaders(req.headers, extraHeaders)
+		reqObj, err := newRequest(cfg, req.method, path, body, headers, req.subDomain, req.isJsonRequest)
+		if err != nil {
+			return 0, fmt.Errorf("failed to create new chargebee request: %w", err)
+		}
+
+		if req.context != nil {
+			reqObj = reqObj.WithContext(context.WithValue(req.context, configCtxKey, cfg))
+		} else {
+			reqObj = reqObj.WithContext(context.WithValue(reqObj.Context(), configCtxKey, cfg))
+		}
+
+		var requestError error
+		res, requestError = Do(reqObj, req.isIdempotent, cfg)
+		if requestError != nil {
+			return 0, requestError
+		}
+		return res.StatusCode, nil
+	})
 	if err != nil {
-		return result, fmt.Errorf("failed to create new chargebee request: %w", err)
-	}
-
-	if req.context != nil {
-		reqObj = reqObj.WithContext(context.WithValue(req.context, configCtxKey, cfg))
-	} else {
-		reqObj = reqObj.WithContext(context.WithValue(reqObj.Context(), configCtxKey, cfg))
-	}
-
-	res, requestError := Do(reqObj, req.isIdempotent, cfg)
-	if requestError != nil {
-		return result, requestError
+		return result, err
 	}
 
 	if err := json.Unmarshal(res.Body, &result); err != nil && res.StatusCode != http.StatusNoContent {
@@ -165,7 +184,7 @@ func send[ResType responseWrapper](rw requestWrapper, cfg *ClientConfig) (ResTyp
 		Body:       res.Body,
 	})
 
-	return result, requestError
+	return result, nil
 }
 
 func basicAuth(key string) string {

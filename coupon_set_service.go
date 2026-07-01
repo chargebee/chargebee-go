@@ -15,6 +15,9 @@ func (s *CouponSetService) Create(req *CouponSetCreateRequest) (*CouponSetCreate
 	req.method = "POST"
 	req.path = "/coupon_sets"
 	req.isIdempotent = true
+	req.telemetryResource = "couponSet"
+	req.telemetryOperation = "create"
+
 	return send[*CouponSetCreateResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *CouponSetService) AddCouponCodes(id string, req *CouponSetAddCouponCode
 	req.method = "POST"
 	req.path = fmt.Sprintf("/coupon_sets/%v/add_coupon_codes", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "couponSet"
+	req.telemetryOperation = "addCouponCodes"
+
 	return send[*CouponSetAddCouponCodesResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *CouponSetService) List(req *CouponSetListRequest) (*CouponSetListRespon
 	req.method = "GET"
 	req.path = "/coupon_sets"
 	req.isListRequest = true
+	req.telemetryResource = "couponSet"
+	req.telemetryOperation = "list"
+
 	return send[*CouponSetListResponse](req, s.config)
 }
 
@@ -36,6 +45,9 @@ func (s *CouponSetService) Retrieve(id string) (*CouponSetRetrieveResponse, erro
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/coupon_sets/%v", url.PathEscape(id))
+	req.telemetryResource = "couponSet"
+	req.telemetryOperation = "retrieve"
+
 	return send[*CouponSetRetrieveResponse](req, s.config)
 }
 
@@ -43,6 +55,9 @@ func (s *CouponSetService) Update(id string, req *CouponSetUpdateRequest) (*Coup
 	req.method = "POST"
 	req.path = fmt.Sprintf("/coupon_sets/%v/update", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "couponSet"
+	req.telemetryOperation = "update"
+
 	return send[*CouponSetUpdateResponse](req, s.config)
 }
 
@@ -51,6 +66,9 @@ func (s *CouponSetService) Delete(id string) (*CouponSetDeleteResponse, error) {
 	req.method = "POST"
 	req.path = fmt.Sprintf("/coupon_sets/%v/delete", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "couponSet"
+	req.telemetryOperation = "delete"
+
 	return send[*CouponSetDeleteResponse](req, s.config)
 }
 
@@ -59,5 +77,8 @@ func (s *CouponSetService) DeleteUnusedCouponCodes(id string) (*CouponSetDeleteU
 	req.method = "POST"
 	req.path = fmt.Sprintf("/coupon_sets/%v/delete_unused_coupon_codes", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "couponSet"
+	req.telemetryOperation = "deleteUnusedCouponCodes"
+
 	return send[*CouponSetDeleteUnusedCouponCodesResponse](req, s.config)
 }

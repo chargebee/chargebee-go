@@ -10,6 +10,9 @@ func (s *UsageEventService) Create(req *UsageEventCreateRequest) (*UsageEventCre
 	req.method = "POST"
 	req.path = "/usage_events"
 	req.isJsonRequest = true
+	req.telemetryResource = "usageEvent"
+	req.telemetryOperation = "create"
+
 	return send[*UsageEventCreateResponse](req, s.config)
 }
 
@@ -17,5 +20,8 @@ func (s *UsageEventService) BatchIngest(req *UsageEventBatchIngestRequest) (*Usa
 	req.method = "POST"
 	req.path = "/batch/usage_events"
 	req.isJsonRequest = true
+	req.telemetryResource = "usageEvent"
+	req.telemetryOperation = "batchIngest"
+
 	return send[*UsageEventBatchIngestResponse](req, s.config)
 }

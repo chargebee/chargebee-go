@@ -15,6 +15,9 @@ func (s *PaymentVoucherService) Create(req *PaymentVoucherCreateRequest) (*Payme
 	req.method = "POST"
 	req.path = "/payment_vouchers"
 	req.isIdempotent = true
+	req.telemetryResource = "paymentVoucher"
+	req.telemetryOperation = "create"
+
 	return send[*PaymentVoucherCreateResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *PaymentVoucherService) Retrieve(id string) (*PaymentVoucherRetrieveResp
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/payment_vouchers/%v", url.PathEscape(id))
+	req.telemetryResource = "paymentVoucher"
+	req.telemetryOperation = "retrieve"
+
 	return send[*PaymentVoucherRetrieveResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *PaymentVoucherService) PaymentVouchersForInvoice(id string, req *Paymen
 	req.method = "GET"
 	req.path = fmt.Sprintf("/invoices/%v/payment_vouchers", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "paymentVoucher"
+	req.telemetryOperation = "paymentVouchersForInvoice"
+
 	return send[*PaymentVoucherPaymentVouchersForInvoiceResponse](req, s.config)
 }
 
@@ -36,5 +45,8 @@ func (s *PaymentVoucherService) PaymentVouchersForCustomer(id string, req *Payme
 	req.method = "GET"
 	req.path = fmt.Sprintf("/customers/%v/payment_vouchers", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "paymentVoucher"
+	req.telemetryOperation = "paymentVouchersForCustomer"
+
 	return send[*PaymentVoucherPaymentVouchersForCustomerResponse](req, s.config)
 }

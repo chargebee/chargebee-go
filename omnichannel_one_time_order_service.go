@@ -15,6 +15,9 @@ func (s *OmnichannelOneTimeOrderService) Retrieve(id string) (*OmnichannelOneTim
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/omnichannel_one_time_orders/%v", url.PathEscape(id))
+	req.telemetryResource = "omnichannelOneTimeOrder"
+	req.telemetryOperation = "retrieve"
+
 	return send[*OmnichannelOneTimeOrderRetrieveResponse](req, s.config)
 }
 
@@ -22,5 +25,8 @@ func (s *OmnichannelOneTimeOrderService) List(req *OmnichannelOneTimeOrderListRe
 	req.method = "GET"
 	req.path = "/omnichannel_one_time_orders"
 	req.isListRequest = true
+	req.telemetryResource = "omnichannelOneTimeOrder"
+	req.telemetryOperation = "list"
+
 	return send[*OmnichannelOneTimeOrderListResponse](req, s.config)
 }

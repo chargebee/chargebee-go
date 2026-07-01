@@ -10,5 +10,8 @@ func (s *PersonalizedOfferService) PersonalizedOffers(req *PersonalizedOfferPers
 	req.method = "POST"
 	req.path = "/personalized_offers"
 	req.isJsonRequest = true
+	req.telemetryResource = "personalizedOffer"
+	req.telemetryOperation = "personalizedOffers"
+
 	return send[*PersonalizedOfferPersonalizedOffersResponse](req, s.config)
 }

@@ -15,6 +15,9 @@ func (s *PromotionalCreditService) Add(req *PromotionalCreditAddRequest) (*Promo
 	req.method = "POST"
 	req.path = "/promotional_credits/add"
 	req.isIdempotent = true
+	req.telemetryResource = "promotionalCredit"
+	req.telemetryOperation = "add"
+
 	return send[*PromotionalCreditAddResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *PromotionalCreditService) Deduct(req *PromotionalCreditDeductRequest) (
 	req.method = "POST"
 	req.path = "/promotional_credits/deduct"
 	req.isIdempotent = true
+	req.telemetryResource = "promotionalCredit"
+	req.telemetryOperation = "deduct"
+
 	return send[*PromotionalCreditDeductResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *PromotionalCreditService) Set(req *PromotionalCreditSetRequest) (*Promo
 	req.method = "POST"
 	req.path = "/promotional_credits/set"
 	req.isIdempotent = true
+	req.telemetryResource = "promotionalCredit"
+	req.telemetryOperation = "set"
+
 	return send[*PromotionalCreditSetResponse](req, s.config)
 }
 
@@ -36,6 +45,9 @@ func (s *PromotionalCreditService) List(req *PromotionalCreditListRequest) (*Pro
 	req.method = "GET"
 	req.path = "/promotional_credits"
 	req.isListRequest = true
+	req.telemetryResource = "promotionalCredit"
+	req.telemetryOperation = "list"
+
 	return send[*PromotionalCreditListResponse](req, s.config)
 }
 
@@ -43,5 +55,8 @@ func (s *PromotionalCreditService) Retrieve(id string) (*PromotionalCreditRetrie
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/promotional_credits/%v", url.PathEscape(id))
+	req.telemetryResource = "promotionalCredit"
+	req.telemetryOperation = "retrieve"
+
 	return send[*PromotionalCreditRetrieveResponse](req, s.config)
 }

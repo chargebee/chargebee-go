@@ -15,5 +15,8 @@ func (s *UsageChargeService) RetrieveUsageChargesForSubscription(id string, req 
 	req.method = "GET"
 	req.path = fmt.Sprintf("/subscriptions/%v/usage_charges", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "usageCharge"
+	req.telemetryOperation = "retrieveUsageChargesForSubscription"
+
 	return send[*UsageChargeRetrieveUsageChargesForSubscriptionResponse](req, s.config)
 }

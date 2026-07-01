@@ -15,6 +15,9 @@ func (s *UnbilledChargeService) CreateUnbilledCharge(req *UnbilledChargeCreateUn
 	req.method = "POST"
 	req.path = "/unbilled_charges/create"
 	req.isIdempotent = true
+	req.telemetryResource = "unbilledCharge"
+	req.telemetryOperation = "createUnbilledCharge"
+
 	return send[*UnbilledChargeCreateUnbilledChargeResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *UnbilledChargeService) Create(req *UnbilledChargeCreateRequest) (*Unbil
 	req.method = "POST"
 	req.path = "/unbilled_charges"
 	req.isIdempotent = true
+	req.telemetryResource = "unbilledCharge"
+	req.telemetryOperation = "create"
+
 	return send[*UnbilledChargeCreateResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *UnbilledChargeService) InvoiceUnbilledCharges(req *UnbilledChargeInvoic
 	req.method = "POST"
 	req.path = "/unbilled_charges/invoice_unbilled_charges"
 	req.isIdempotent = true
+	req.telemetryResource = "unbilledCharge"
+	req.telemetryOperation = "invoiceUnbilledCharges"
+
 	return send[*UnbilledChargeInvoiceUnbilledChargesResponse](req, s.config)
 }
 
@@ -37,6 +46,9 @@ func (s *UnbilledChargeService) Delete(id string) (*UnbilledChargeDeleteResponse
 	req.method = "POST"
 	req.path = fmt.Sprintf("/unbilled_charges/%v/delete", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "unbilledCharge"
+	req.telemetryOperation = "delete"
+
 	return send[*UnbilledChargeDeleteResponse](req, s.config)
 }
 
@@ -44,11 +56,17 @@ func (s *UnbilledChargeService) List(req *UnbilledChargeListRequest) (*UnbilledC
 	req.method = "GET"
 	req.path = "/unbilled_charges"
 	req.isListRequest = true
+	req.telemetryResource = "unbilledCharge"
+	req.telemetryOperation = "list"
+
 	return send[*UnbilledChargeListResponse](req, s.config)
 }
 
 func (s *UnbilledChargeService) InvoiceNowEstimate(req *UnbilledChargeInvoiceNowEstimateRequest) (*UnbilledChargeInvoiceNowEstimateResponse, error) {
 	req.method = "POST"
 	req.path = "/unbilled_charges/invoice_now_estimate"
+	req.telemetryResource = "unbilledCharge"
+	req.telemetryOperation = "invoiceNowEstimate"
+
 	return send[*UnbilledChargeInvoiceNowEstimateResponse](req, s.config)
 }

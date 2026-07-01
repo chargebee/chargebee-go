@@ -15,12 +15,18 @@ func (s *CreditNoteService) Create(req *CreditNoteCreateRequest) (*CreditNoteCre
 	req.method = "POST"
 	req.path = "/credit_notes"
 	req.isIdempotent = true
+	req.telemetryResource = "creditNote"
+	req.telemetryOperation = "create"
+
 	return send[*CreditNoteCreateResponse](req, s.config)
 }
 
 func (s *CreditNoteService) Retrieve(id string, req *CreditNoteRetrieveRequest) (*CreditNoteRetrieveResponse, error) {
 	req.method = "GET"
 	req.path = fmt.Sprintf("/credit_notes/%v", url.PathEscape(id))
+	req.telemetryResource = "creditNote"
+	req.telemetryOperation = "retrieve"
+
 	return send[*CreditNoteRetrieveResponse](req, s.config)
 }
 
@@ -28,6 +34,9 @@ func (s *CreditNoteService) Pdf(id string, req *CreditNotePdfRequest) (*CreditNo
 	req.method = "POST"
 	req.path = fmt.Sprintf("/credit_notes/%v/pdf", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "creditNote"
+	req.telemetryOperation = "pdf"
+
 	return send[*CreditNotePdfResponse](req, s.config)
 }
 
@@ -35,6 +44,9 @@ func (s *CreditNoteService) DownloadEinvoice(id string) (*CreditNoteDownloadEinv
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/credit_notes/%v/download_einvoice", url.PathEscape(id))
+	req.telemetryResource = "creditNote"
+	req.telemetryOperation = "downloadEinvoice"
+
 	return send[*CreditNoteDownloadEinvoiceResponse](req, s.config)
 }
 
@@ -42,6 +54,9 @@ func (s *CreditNoteService) Refund(id string, req *CreditNoteRefundRequest) (*Cr
 	req.method = "POST"
 	req.path = fmt.Sprintf("/credit_notes/%v/refund", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "creditNote"
+	req.telemetryOperation = "refund"
+
 	return send[*CreditNoteRefundResponse](req, s.config)
 }
 
@@ -49,6 +64,9 @@ func (s *CreditNoteService) RecordRefund(id string, req *CreditNoteRecordRefundR
 	req.method = "POST"
 	req.path = fmt.Sprintf("/credit_notes/%v/record_refund", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "creditNote"
+	req.telemetryOperation = "recordRefund"
+
 	return send[*CreditNoteRecordRefundResponse](req, s.config)
 }
 
@@ -56,6 +74,9 @@ func (s *CreditNoteService) VoidCreditNote(id string, req *CreditNoteVoidCreditN
 	req.method = "POST"
 	req.path = fmt.Sprintf("/credit_notes/%v/void", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "creditNote"
+	req.telemetryOperation = "voidCreditNote"
+
 	return send[*CreditNoteVoidCreditNoteResponse](req, s.config)
 }
 
@@ -63,6 +84,9 @@ func (s *CreditNoteService) List(req *CreditNoteListRequest) (*CreditNoteListRes
 	req.method = "GET"
 	req.path = "/credit_notes"
 	req.isListRequest = true
+	req.telemetryResource = "creditNote"
+	req.telemetryOperation = "list"
+
 	return send[*CreditNoteListResponse](req, s.config)
 }
 
@@ -71,6 +95,9 @@ func (s *CreditNoteService) CreditNotesForCustomer(id string, req *CreditNoteCre
 	req.method = "GET"
 	req.path = fmt.Sprintf("/customers/%v/credit_notes", url.PathEscape(id))
 	req.isListRequest = true
+	req.telemetryResource = "creditNote"
+	req.telemetryOperation = "creditNotesForCustomer"
+
 	return send[*CreditNoteCreditNotesForCustomerResponse](req, s.config)
 }
 
@@ -78,6 +105,9 @@ func (s *CreditNoteService) Delete(id string, req *CreditNoteDeleteRequest) (*Cr
 	req.method = "POST"
 	req.path = fmt.Sprintf("/credit_notes/%v/delete", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "creditNote"
+	req.telemetryOperation = "delete"
+
 	return send[*CreditNoteDeleteResponse](req, s.config)
 }
 
@@ -85,6 +115,9 @@ func (s *CreditNoteService) RemoveTaxWithheldRefund(id string, req *CreditNoteRe
 	req.method = "POST"
 	req.path = fmt.Sprintf("/credit_notes/%v/remove_tax_withheld_refund", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "creditNote"
+	req.telemetryOperation = "removeTaxWithheldRefund"
+
 	return send[*CreditNoteRemoveTaxWithheldRefundResponse](req, s.config)
 }
 
@@ -93,6 +126,9 @@ func (s *CreditNoteService) ResendEinvoice(id string) (*CreditNoteResendEinvoice
 	req.method = "POST"
 	req.path = fmt.Sprintf("/credit_notes/%v/resend_einvoice", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "creditNote"
+	req.telemetryOperation = "resendEinvoice"
+
 	return send[*CreditNoteResendEinvoiceResponse](req, s.config)
 }
 
@@ -101,6 +137,9 @@ func (s *CreditNoteService) SendEinvoice(id string) (*CreditNoteSendEinvoiceResp
 	req.method = "POST"
 	req.path = fmt.Sprintf("/credit_notes/%v/send_einvoice", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "creditNote"
+	req.telemetryOperation = "sendEinvoice"
+
 	return send[*CreditNoteSendEinvoiceResponse](req, s.config)
 }
 
@@ -108,5 +147,8 @@ func (s *CreditNoteService) ImportCreditNote(req *CreditNoteImportCreditNoteRequ
 	req.method = "POST"
 	req.path = "/credit_notes/import_credit_note"
 	req.isIdempotent = true
+	req.telemetryResource = "creditNote"
+	req.telemetryOperation = "importCreditNote"
+
 	return send[*CreditNoteImportCreditNoteResponse](req, s.config)
 }

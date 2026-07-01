@@ -10,6 +10,9 @@ func (s *PricingPageSessionService) CreateForNewSubscription(req *PricingPageSes
 	req.method = "POST"
 	req.path = "/pricing_page_sessions/create_for_new_subscription"
 	req.isIdempotent = true
+	req.telemetryResource = "pricingPageSession"
+	req.telemetryOperation = "createForNewSubscription"
+
 	return send[*PricingPageSessionCreateForNewSubscriptionResponse](req, s.config)
 }
 
@@ -17,5 +20,8 @@ func (s *PricingPageSessionService) CreateForExistingSubscription(req *PricingPa
 	req.method = "POST"
 	req.path = "/pricing_page_sessions/create_for_existing_subscription"
 	req.isIdempotent = true
+	req.telemetryResource = "pricingPageSession"
+	req.telemetryOperation = "createForExistingSubscription"
+
 	return send[*PricingPageSessionCreateForExistingSubscriptionResponse](req, s.config)
 }

@@ -10,5 +10,8 @@ func (s *ConfigurationService) List() (*ConfigurationListResponse, error) {
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = "/configurations"
+	req.telemetryResource = "configuration"
+	req.telemetryOperation = "list"
+
 	return send[*ConfigurationListResponse](req, s.config)
 }

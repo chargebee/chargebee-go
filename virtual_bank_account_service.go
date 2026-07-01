@@ -15,6 +15,9 @@ func (s *VirtualBankAccountService) CreateUsingPermanentToken(req *VirtualBankAc
 	req.method = "POST"
 	req.path = "/virtual_bank_accounts/create_using_permanent_token"
 	req.isIdempotent = true
+	req.telemetryResource = "virtualBankAccount"
+	req.telemetryOperation = "createUsingPermanentToken"
+
 	return send[*VirtualBankAccountCreateUsingPermanentTokenResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *VirtualBankAccountService) Create(req *VirtualBankAccountCreateRequest)
 	req.method = "POST"
 	req.path = "/virtual_bank_accounts"
 	req.isIdempotent = true
+	req.telemetryResource = "virtualBankAccount"
+	req.telemetryOperation = "create"
+
 	return send[*VirtualBankAccountCreateResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *VirtualBankAccountService) Retrieve(id string) (*VirtualBankAccountRetr
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/virtual_bank_accounts/%v", url.PathEscape(id))
+	req.telemetryResource = "virtualBankAccount"
+	req.telemetryOperation = "retrieve"
+
 	return send[*VirtualBankAccountRetrieveResponse](req, s.config)
 }
 
@@ -36,6 +45,9 @@ func (s *VirtualBankAccountService) List(req *VirtualBankAccountListRequest) (*V
 	req.method = "GET"
 	req.path = "/virtual_bank_accounts"
 	req.isListRequest = true
+	req.telemetryResource = "virtualBankAccount"
+	req.telemetryOperation = "list"
+
 	return send[*VirtualBankAccountListResponse](req, s.config)
 }
 
@@ -44,6 +56,9 @@ func (s *VirtualBankAccountService) Delete(id string) (*VirtualBankAccountDelete
 	req.method = "POST"
 	req.path = fmt.Sprintf("/virtual_bank_accounts/%v/delete", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "virtualBankAccount"
+	req.telemetryOperation = "delete"
+
 	return send[*VirtualBankAccountDeleteResponse](req, s.config)
 }
 
@@ -52,5 +67,8 @@ func (s *VirtualBankAccountService) DeleteLocal(id string) (*VirtualBankAccountD
 	req.method = "POST"
 	req.path = fmt.Sprintf("/virtual_bank_accounts/%v/delete_local", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "virtualBankAccount"
+	req.telemetryOperation = "deleteLocal"
+
 	return send[*VirtualBankAccountDeleteLocalResponse](req, s.config)
 }

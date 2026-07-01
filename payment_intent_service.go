@@ -15,6 +15,9 @@ func (s *PaymentIntentService) Create(req *PaymentIntentCreateRequest) (*Payment
 	req.method = "POST"
 	req.path = "/payment_intents"
 	req.isIdempotent = true
+	req.telemetryResource = "paymentIntent"
+	req.telemetryOperation = "create"
+
 	return send[*PaymentIntentCreateResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *PaymentIntentService) Update(id string, req *PaymentIntentUpdateRequest
 	req.method = "POST"
 	req.path = fmt.Sprintf("/payment_intents/%v", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "paymentIntent"
+	req.telemetryOperation = "update"
+
 	return send[*PaymentIntentUpdateResponse](req, s.config)
 }
 
@@ -29,5 +35,8 @@ func (s *PaymentIntentService) Retrieve(id string) (*PaymentIntentRetrieveRespon
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/payment_intents/%v", url.PathEscape(id))
+	req.telemetryResource = "paymentIntent"
+	req.telemetryOperation = "retrieve"
+
 	return send[*PaymentIntentRetrieveResponse](req, s.config)
 }

@@ -11,5 +11,8 @@ func (s *PromotionalGrantService) PromotionalGrants(req *PromotionalGrantPromoti
 	req.path = "/promotional_grants"
 	req.isJsonRequest = true
 	req.isIdempotent = true
+	req.telemetryResource = "promotionalGrant"
+	req.telemetryOperation = "promotionalGrants"
+
 	return send[*PromotionalGrantPromotionalGrantsResponse](req, s.config)
 }

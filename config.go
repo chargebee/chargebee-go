@@ -4,17 +4,20 @@ import (
 	"fmt"
 	"net/http"
 	"time"
+
+	"github.com/chargebee/chargebee-go/v4/telemetry"
 )
 
 type ClientConfig struct {
-	ApiKey          string
-	SiteName        string
-	ChargebeeDomain string
-	Protocol        string
-	RetryConfig     *RetryConfig
-	EnableDebugLogs bool
-	HTTPClient      *http.Client
-	RequestHeaders  *http.Header
+	ApiKey           string
+	SiteName         string
+	ChargebeeDomain  string
+	Protocol         string
+	RetryConfig      *RetryConfig
+	EnableDebugLogs  bool
+	HTTPClient       *http.Client
+	RequestHeaders   *http.Header
+	TelemetryAdapter telemetry.TelemetryAdapter
 }
 
 type RetryConfig struct {

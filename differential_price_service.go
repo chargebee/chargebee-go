@@ -15,12 +15,18 @@ func (s *DifferentialPriceService) Create(id string, req *DifferentialPriceCreat
 	req.method = "POST"
 	req.path = fmt.Sprintf("/item_prices/%v/differential_prices", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "differentialPrice"
+	req.telemetryOperation = "create"
+
 	return send[*DifferentialPriceCreateResponse](req, s.config)
 }
 
 func (s *DifferentialPriceService) Retrieve(id string, req *DifferentialPriceRetrieveRequest) (*DifferentialPriceRetrieveResponse, error) {
 	req.method = "GET"
 	req.path = fmt.Sprintf("/differential_prices/%v", url.PathEscape(id))
+	req.telemetryResource = "differentialPrice"
+	req.telemetryOperation = "retrieve"
+
 	return send[*DifferentialPriceRetrieveResponse](req, s.config)
 }
 
@@ -28,6 +34,9 @@ func (s *DifferentialPriceService) Update(id string, req *DifferentialPriceUpdat
 	req.method = "POST"
 	req.path = fmt.Sprintf("/differential_prices/%v", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "differentialPrice"
+	req.telemetryOperation = "update"
+
 	return send[*DifferentialPriceUpdateResponse](req, s.config)
 }
 
@@ -35,6 +44,9 @@ func (s *DifferentialPriceService) Delete(id string, req *DifferentialPriceDelet
 	req.method = "POST"
 	req.path = fmt.Sprintf("/differential_prices/%v/delete", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "differentialPrice"
+	req.telemetryOperation = "delete"
+
 	return send[*DifferentialPriceDeleteResponse](req, s.config)
 }
 
@@ -42,5 +54,8 @@ func (s *DifferentialPriceService) List(req *DifferentialPriceListRequest) (*Dif
 	req.method = "GET"
 	req.path = "/differential_prices"
 	req.isListRequest = true
+	req.telemetryResource = "differentialPrice"
+	req.telemetryOperation = "list"
+
 	return send[*DifferentialPriceListResponse](req, s.config)
 }

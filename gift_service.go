@@ -15,6 +15,9 @@ func (s *GiftService) Create(req *GiftCreateRequest) (*GiftCreateResponse, error
 	req.method = "POST"
 	req.path = "/gifts"
 	req.isIdempotent = true
+	req.telemetryResource = "gift"
+	req.telemetryOperation = "create"
+
 	return send[*GiftCreateResponse](req, s.config)
 }
 
@@ -22,6 +25,9 @@ func (s *GiftService) CreateForItems(req *GiftCreateForItemsRequest) (*GiftCreat
 	req.method = "POST"
 	req.path = "/gifts/create_for_items"
 	req.isIdempotent = true
+	req.telemetryResource = "gift"
+	req.telemetryOperation = "createForItems"
+
 	return send[*GiftCreateForItemsResponse](req, s.config)
 }
 
@@ -29,6 +35,9 @@ func (s *GiftService) Retrieve(id string) (*GiftRetrieveResponse, error) {
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/gifts/%v", url.PathEscape(id))
+	req.telemetryResource = "gift"
+	req.telemetryOperation = "retrieve"
+
 	return send[*GiftRetrieveResponse](req, s.config)
 }
 
@@ -36,6 +45,9 @@ func (s *GiftService) List(req *GiftListRequest) (*GiftListResponse, error) {
 	req.method = "GET"
 	req.path = "/gifts"
 	req.isListRequest = true
+	req.telemetryResource = "gift"
+	req.telemetryOperation = "list"
+
 	return send[*GiftListResponse](req, s.config)
 }
 
@@ -44,6 +56,9 @@ func (s *GiftService) Claim(id string) (*GiftClaimResponse, error) {
 	req.method = "POST"
 	req.path = fmt.Sprintf("/gifts/%v/claim", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "gift"
+	req.telemetryOperation = "claim"
+
 	return send[*GiftClaimResponse](req, s.config)
 }
 
@@ -52,6 +67,9 @@ func (s *GiftService) Cancel(id string) (*GiftCancelResponse, error) {
 	req.method = "POST"
 	req.path = fmt.Sprintf("/gifts/%v/cancel", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "gift"
+	req.telemetryOperation = "cancel"
+
 	return send[*GiftCancelResponse](req, s.config)
 }
 
@@ -59,5 +77,8 @@ func (s *GiftService) UpdateGift(id string, req *GiftUpdateGiftRequest) (*GiftUp
 	req.method = "POST"
 	req.path = fmt.Sprintf("/gifts/%v/update_gift", url.PathEscape(id))
 	req.isIdempotent = true
+	req.telemetryResource = "gift"
+	req.telemetryOperation = "updateGift"
+
 	return send[*GiftUpdateGiftResponse](req, s.config)
 }

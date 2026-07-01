@@ -15,6 +15,9 @@ func (s *OfferFulfillmentService) OfferFulfillments(req *OfferFulfillmentOfferFu
 	req.method = "POST"
 	req.path = "/offer_fulfillments"
 	req.isJsonRequest = true
+	req.telemetryResource = "offerFulfillment"
+	req.telemetryOperation = "offerFulfillments"
+
 	return send[*OfferFulfillmentOfferFulfillmentsResponse](req, s.config)
 }
 
@@ -22,6 +25,10 @@ func (s *OfferFulfillmentService) OfferFulfillmentsGet(id string) (*OfferFulfill
 	req := &BlankRequest{}
 	req.method = "GET"
 	req.path = fmt.Sprintf("/offer_fulfillments/%v", url.PathEscape(id))
+	req.isJsonRequest = true
+	req.telemetryResource = "offerFulfillment"
+	req.telemetryOperation = "offerFulfillmentsGet"
+
 	return send[*OfferFulfillmentOfferFulfillmentsGetResponse](req, s.config)
 }
 
@@ -29,5 +36,8 @@ func (s *OfferFulfillmentService) OfferFulfillmentsUpdate(id string, req *OfferF
 	req.method = "POST"
 	req.path = fmt.Sprintf("/offer_fulfillments/%v", url.PathEscape(id))
 	req.isJsonRequest = true
+	req.telemetryResource = "offerFulfillment"
+	req.telemetryOperation = "offerFulfillmentsUpdate"
+
 	return send[*OfferFulfillmentOfferFulfillmentsUpdateResponse](req, s.config)
 }
