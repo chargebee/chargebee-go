@@ -58,4 +58,7 @@ const (
 	PaymentMethodPaypay                    PaymentMethod = "paypay"
 	PaymentMethodGcash                     PaymentMethod = "gcash"
 	PaymentMethodSouthKoreanCards          PaymentMethod = "south_korean_cards"
+	PaymentMethodPaynow                    PaymentMethod = "paynow"
+	PaymentMethodBizum                     PaymentMethod = "bizum"
+	PaymentMethodPromptpay                 PaymentMethod = "promptpay"
 )

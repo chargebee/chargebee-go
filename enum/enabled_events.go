@@ -164,6 +164,7 @@ const (
 	EnabledEventsBusinessEntityDeleted                                   EnabledEvents = "business_entity_deleted"
 	EnabledEventsCustomerBusinessEntityChanged                           EnabledEvents = "customer_business_entity_changed"
 	EnabledEventsSubscriptionBusinessEntityChanged                       EnabledEvents = "subscription_business_entity_changed"
+	EnabledEventsPaymentSourceBusinessEntityChanged                      EnabledEvents = "payment_source_business_entity_changed"
 	EnabledEventsPurchaseCreated                                         EnabledEvents = "purchase_created"
 	EnabledEventsVoucherCreated                                          EnabledEvents = "voucher_created"
 	EnabledEventsVoucherExpired                                          EnabledEvents = "voucher_expired"

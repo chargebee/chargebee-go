@@ -705,6 +705,7 @@ type ListRequestParams struct {
 	SortBy                 *filter.SortFilter      `json:"sort_by,omitempty"`
 	BusinessEntityId       *filter.StringFilter    `json:"business_entity_id,omitempty"`
 	Channel                *filter.EnumFilter      `json:"channel,omitempty"`
+	Decommissioned         *filter.BooleanFilter   `json:"decommissioned,omitempty"`
 }
 type SubscriptionsForCustomerRequestParams struct {
 	Limit  *int32 `json:"limit,omitempty"`

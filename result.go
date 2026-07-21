@@ -6,6 +6,8 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/advanceinvoiceschedule"
 	"github.com/chargebee/chargebee-go/v3/models/alert"
 	"github.com/chargebee/chargebee-go/v3/models/alertstatus"
+	"github.com/chargebee/chargebee-go/v3/models/asyncresponse"
+	"github.com/chargebee/chargebee-go/v3/models/asyncresponselist"
 	"github.com/chargebee/chargebee-go/v3/models/attacheditem"
 	"github.com/chargebee/chargebee-go/v3/models/attribute"
 	"github.com/chargebee/chargebee-go/v3/models/billingconfiguration"
@@ -54,6 +56,8 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/ledgeraccountbalance"
 	"github.com/chargebee/chargebee-go/v3/models/ledgeroperation"
 	"github.com/chargebee/chargebee-go/v3/models/metadata"
+	"github.com/chargebee/chargebee-go/v3/models/meter"
+	"github.com/chargebee/chargebee-go/v3/models/meteredfeature"
 	"github.com/chargebee/chargebee-go/v3/models/offerevent"
 	"github.com/chargebee/chargebee-go/v3/models/offerfulfillment"
 	"github.com/chargebee/chargebee-go/v3/models/omnichannelonetimeorder"
@@ -116,6 +120,8 @@ type ResultList struct {
 	httpStatusCode  int
 }
 type Result struct {
+	AsyncResponseList                          *asyncresponselist.AsyncResponseList                                                   `json:"async_response_list,omitempty"`
+	AsyncResponse                              *asyncresponse.AsyncResponse                                                           `json:"async_response,omitempty"`
 	Subscription                               *subscription.Subscription                                                             `json:"subscription,omitempty"`
 	ContractTerm                               *contractterm.ContractTerm                                                             `json:"contract_term,omitempty"`
 	Discount                                   *discount.Discount                                                                     `json:"discount,omitempty"`
@@ -201,7 +207,9 @@ type Result struct {
 	OmnichannelOneTimeOrder                    *omnichannelonetimeorder.OmnichannelOneTimeOrder                                       `json:"omnichannel_one_time_order,omitempty"`
 	OmnichannelOneTimeOrderItem                *omnichannelonetimeorderitem.OmnichannelOneTimeOrderItem                               `json:"omnichannel_one_time_order_item,omitempty"`
 	Rule                                       *rule.Rule                                                                             `json:"rule,omitempty"`
+	Meter                                      *meter.Meter                                                                           `json:"meter,omitempty"`
 	UsageEvent                                 *usageevent.UsageEvent                                                                 `json:"usage_event,omitempty"`
+	MeteredFeature                             *meteredfeature.MeteredFeature                                                         `json:"metered_feature,omitempty"`
 	UsageFile                                  *usagefile.UsageFile                                                                   `json:"usage_file,omitempty"`
 	PersonalizedOffer                          *personalizedoffer.PersonalizedOffer                                                   `json:"personalized_offer,omitempty"`
 	Brand                                      *brand.Brand                                                                           `json:"brand,omitempty"`

@@ -135,6 +135,7 @@ const (
 	EventTypePaymentSchedulesCreated                                 EventType = "payment_schedules_created"
 	EventTypePaymentSchedulesUpdated                                 EventType = "payment_schedules_updated"
 	EventTypePaymentSourceAdded                                      EventType = "payment_source_added"
+	EventTypePaymentSourceBusinessEntityChanged                      EventType = "payment_source_business_entity_changed"
 	EventTypePaymentSourceDeleted                                    EventType = "payment_source_deleted"
 	EventTypePaymentSourceExpired                                    EventType = "payment_source_expired"
 	EventTypePaymentSourceExpiring                                   EventType = "payment_source_expiring"

@@ -915,6 +915,8 @@ type CreateInvoiceForItemsItemPriceParams struct {
 	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
 	DateFrom           *int64 `json:"date_from,omitempty"`
 	DateTo             *int64 `json:"date_to,omitempty"`
+	Description        string `json:"description,omitempty"`
+	EntityDescription  string `json:"entity_description,omitempty"`
 }
 type CreateInvoiceForItemsItemTierParams struct {
 	ItemPriceId           string           `json:"item_price_id,omitempty"`
@@ -941,6 +943,7 @@ type CreateInvoiceForItemsChargeParams struct {
 	AvalaraServiceType     *int32               `json:"avalara_service_type,omitempty"`
 	DateFrom               *int64               `json:"date_from,omitempty"`
 	DateTo                 *int64               `json:"date_to,omitempty"`
+	EntityDescription      string               `json:"entity_description,omitempty"`
 }
 type CreateInvoiceForItemsNotesToRemoveParams struct {
 	EntityType enum.EntityType `json:"entity_type,omitempty"`

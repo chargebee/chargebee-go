@@ -1,6 +1,7 @@
 package ledgeroperation
 
 import (
+	"encoding/json"
 	"github.com/chargebee/chargebee-go/v3/filter"
 	ledgerOperationEnum "github.com/chargebee/chargebee-go/v3/models/ledgeroperation/enum"
 )
@@ -9,8 +10,6 @@ type LedgerOperation struct {
 	Id                       string                       `json:"id"`
 	Type                     ledgerOperationEnum.Type     `json:"type"`
 	Amount                   string                       `json:"amount"`
-	StartBalance             string                       `json:"start_balance"`
-	EndBalance               string                       `json:"end_balance"`
 	ProvisionedStartBalance  string                       `json:"provisioned_start_balance"`
 	ProvisionedEndBalance    string                       `json:"provisioned_end_balance"`
 	OverdraftStartBalance    string                       `json:"overdraft_start_balance"`
@@ -18,12 +17,12 @@ type LedgerOperation struct {
 	ParentLedgerOperationId  string                       `json:"parent_ledger_operation_id"`
 	LedgerOperationTimestamp int64                        `json:"ledger_operation_timestamp"`
 	AutoReleaseTimestamp     int64                        `json:"auto_release_timestamp"`
-	Metadata                 string                       `json:"metadata"`
 	CreatedAt                int64                        `json:"created_at"`
 	ModifiedAt               int64                        `json:"modified_at"`
 	SubscriptionId           string                       `json:"subscription_id"`
 	UnitId                   string                       `json:"unit_id"`
 	UnitType                 ledgerOperationEnum.UnitType `json:"unit_type"`
+	Metadata                 json.RawMessage              `json:"metadata"`
 	Object                   string                       `json:"object"`
 }
 type ListLedgerOperationsRequestParams struct {
