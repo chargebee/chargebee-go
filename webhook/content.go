@@ -1357,6 +1357,12 @@ type TokenCreatedContent struct {
 	Token *token.Token `json:"token,omitempty"`
 }
 
+type PaymentSourceBusinessEntityChangedContent struct {
+	BusinessEntityTransfer *businessentitytransfer.BusinessEntityTransfer `json:"business_entity_transfer,omitempty"`
+
+	PaymentSource *paymentsource.PaymentSource `json:"payment_source,omitempty"`
+}
+
 type PromotionalCreditsAddedContent struct {
 	Customer *customer.Customer `json:"customer,omitempty"`
 
@@ -2712,6 +2718,12 @@ type CardExpiryReminderEvent struct {
 type TokenCreatedEvent struct {
 	BaseEvent
 	Content *TokenCreatedContent `json:"content"`
+}
+
+// PaymentSourceBusinessEntityChangedEvent represents a payment_source_business_entity_changed webhook event
+type PaymentSourceBusinessEntityChangedEvent struct {
+	BaseEvent
+	Content *PaymentSourceBusinessEntityChangedContent `json:"content"`
 }
 
 // PromotionalCreditsAddedEvent represents a promotional_credits_added webhook event

@@ -77,6 +77,7 @@ type DiscountsToAdd struct {
 	Type          rampEnum.DiscountsToAddType `json:"type"`
 	Percentage    float64                     `json:"percentage"`
 	Amount        int64                       `json:"amount"`
+	Quantity      int32                       `json:"quantity"`
 	DurationType  enum.DurationType           `json:"duration_type"`
 	Period        int32                       `json:"period"`
 	PeriodUnit    enum.PeriodUnit             `json:"period_unit"`
@@ -167,6 +168,7 @@ type CreateForSubscriptionDiscountsToAddParams struct {
 	DurationType  enum.DurationType `json:"duration_type"`
 	Percentage    *float64          `json:"percentage,omitempty"`
 	Amount        *int64            `json:"amount,omitempty"`
+	Quantity      *int32            `json:"quantity,omitempty"`
 	Period        *int32            `json:"period,omitempty"`
 	PeriodUnit    enum.PeriodUnit   `json:"period_unit,omitempty"`
 	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`
@@ -234,6 +236,7 @@ type UpdateDiscountsToAddParams struct {
 	DurationType  enum.DurationType `json:"duration_type"`
 	Percentage    *float64          `json:"percentage,omitempty"`
 	Amount        *int64            `json:"amount,omitempty"`
+	Quantity      *int32            `json:"quantity,omitempty"`
 	Period        *int32            `json:"period,omitempty"`
 	PeriodUnit    enum.PeriodUnit   `json:"period_unit,omitempty"`
 	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`

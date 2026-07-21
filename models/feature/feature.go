@@ -15,6 +15,7 @@ type Feature struct {
 	ResourceVersion int64                  `json:"resource_version"`
 	UpdatedAt       int64                  `json:"updated_at"`
 	CreatedAt       int64                  `json:"created_at"`
+	Metered         bool                   `json:"metered"`
 	Levels          []*Level               `json:"levels"`
 	CustomField     map[string]interface{} `json:"custom_field"`
 	Object          string                 `json:"object"`
@@ -27,12 +28,13 @@ type Level struct {
 	Object      string `json:"object"`
 }
 type ListRequestParams struct {
-	Limit  *int32               `json:"limit,omitempty"`
-	Offset string               `json:"offset,omitempty"`
-	Name   *filter.StringFilter `json:"name,omitempty"`
-	Id     *filter.StringFilter `json:"id,omitempty"`
-	Status *filter.EnumFilter   `json:"status,omitempty"`
-	Type   *filter.EnumFilter   `json:"type,omitempty"`
+	Limit   *int32                `json:"limit,omitempty"`
+	Offset  string                `json:"offset,omitempty"`
+	Name    *filter.StringFilter  `json:"name,omitempty"`
+	Id      *filter.StringFilter  `json:"id,omitempty"`
+	Status  *filter.EnumFilter    `json:"status,omitempty"`
+	Type    *filter.EnumFilter    `json:"type,omitempty"`
+	Metered *filter.BooleanFilter `json:"metered,omitempty"`
 }
 type CreateRequestParams struct {
 	Id          string               `json:"id,omitempty"`

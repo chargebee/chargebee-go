@@ -1,6 +1,7 @@
 package grantblock
 
 import (
+	"encoding/json"
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
 	grantBlockEnum "github.com/chargebee/chargebee-go/v3/models/grantblock/enum"
@@ -19,12 +20,12 @@ type GrantBlock struct {
 	VoidedAmount       string                     `json:"voided_amount"`
 	OriginGrantBlockId string                     `json:"origin_grant_block_id"`
 	Status             enum.Status                `json:"status"`
-	Metadata           string                     `json:"metadata"`
 	GrantSource        grantBlockEnum.GrantSource `json:"grant_source"`
 	CreatedAt          int64                      `json:"created_at"`
 	AccountType        grantBlockEnum.AccountType `json:"account_type"`
 	UnitId             string                     `json:"unit_id"`
 	UnitType           grantBlockEnum.UnitType    `json:"unit_type"`
+	Metadata           json.RawMessage            `json:"metadata"`
 	Object             string                     `json:"object"`
 }
 type ListGrantBlocksRequestParams struct {

@@ -279,6 +279,8 @@ type WebhookHandler struct {
 
 	OnPaymentSourceAdded func(PaymentSourceAddedEvent) error
 
+	OnPaymentSourceBusinessEntityChanged func(PaymentSourceBusinessEntityChangedEvent) error
+
 	OnPaymentSourceDeleted func(PaymentSourceDeletedEvent) error
 
 	OnPaymentSourceExpired func(PaymentSourceExpiredEvent) error
@@ -1930,6 +1932,17 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 				return err
 			}
 			return h.OnPaymentSourceAdded(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case enum.EventTypePaymentSourceBusinessEntityChanged:
+		if h.OnPaymentSourceBusinessEntityChanged != nil {
+			var e PaymentSourceBusinessEntityChangedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnPaymentSourceBusinessEntityChanged(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}

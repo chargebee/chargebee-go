@@ -259,6 +259,7 @@ type SubscriptionsSubscriptionParams struct {
 	OfflinePaymentMethod   *filter.EnumFilter      `json:"offline_payment_method,omitempty"`
 	AutoCloseInvoices      *filter.BooleanFilter   `json:"auto_close_invoices,omitempty"`
 	Channel                *filter.EnumFilter      `json:"channel,omitempty"`
+	Decommissioned         *filter.BooleanFilter   `json:"decommissioned,omitempty"`
 	PlanId                 *filter.StringFilter    `json:"plan_id,omitempty"`
 }
 type InvoicesRequestParams struct {
