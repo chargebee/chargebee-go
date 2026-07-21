@@ -28,6 +28,7 @@ type Feature struct {
 	ResourceVersion int64           `json:"resource_version"`
 	UpdatedAt       int64           `json:"updated_at"`
 	CreatedAt       int64           `json:"created_at"`
+	Metered         bool            `json:"metered"`
 	Levels          []*FeatureLevel `json:"levels"`
 	CustomFields    *CustomFields   `json:"-"`
 	Object          string          `json:"object"`
@@ -49,12 +50,13 @@ type FeatureLevel struct {
 }
 
 type FeatureListRequest struct {
-	Limit      *int32        `json:"limit,omitempty"`
-	Offset     string        `json:"offset,omitempty"`
-	Name       *StringFilter `json:"name,omitempty"`
-	Id         *StringFilter `json:"id,omitempty"`
-	Status     *EnumFilter   `json:"status,omitempty"`
-	Type       *EnumFilter   `json:"type,omitempty"`
+	Limit      *int32         `json:"limit,omitempty"`
+	Offset     string         `json:"offset,omitempty"`
+	Name       *StringFilter  `json:"name,omitempty"`
+	Id         *StringFilter  `json:"id,omitempty"`
+	Status     *EnumFilter    `json:"status,omitempty"`
+	Type       *EnumFilter    `json:"type,omitempty"`
+	Metered    *BooleanFilter `json:"metered,omitempty"`
 	apiRequest `json:"-" form:"-"`
 }
 

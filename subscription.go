@@ -852,6 +852,7 @@ type SubscriptionListRequest struct {
 	SortBy                 *SortFilter      `json:"sort_by,omitempty"`
 	BusinessEntityId       *StringFilter    `json:"business_entity_id,omitempty"`
 	Channel                *EnumFilter      `json:"channel,omitempty"`
+	Decommissioned         *BooleanFilter   `json:"decommissioned,omitempty"`
 	apiRequest             `json:"-" form:"-"`
 }
 

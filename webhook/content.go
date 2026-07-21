@@ -1247,6 +1247,12 @@ type TokenCreatedContent struct {
 	Token *chargebee.Token `json:"token,omitempty"`
 }
 
+type PaymentSourceBusinessEntityChangedContent struct {
+	BusinessEntityTransfer *chargebee.BusinessEntityTransfer `json:"business_entity_transfer,omitempty"`
+
+	PaymentSource *chargebee.PaymentSource `json:"payment_source,omitempty"`
+}
+
 type PromotionalCreditsAddedContent struct {
 	Customer *chargebee.Customer `json:"customer,omitempty"`
 
@@ -2602,6 +2608,12 @@ type CardExpiryReminderEvent struct {
 type TokenCreatedEvent struct {
 	BaseEvent
 	Content *TokenCreatedContent `json:"content"`
+}
+
+// PaymentSourceBusinessEntityChangedEvent represents a payment_source_business_entity_changed webhook event
+type PaymentSourceBusinessEntityChangedEvent struct {
+	BaseEvent
+	Content *PaymentSourceBusinessEntityChangedContent `json:"content"`
 }
 
 // PromotionalCreditsAddedEvent represents a promotional_credits_added webhook event

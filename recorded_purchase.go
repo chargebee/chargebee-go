@@ -59,7 +59,10 @@ type RecordedPurchaseCreateRequest struct {
 func (r *RecordedPurchaseCreateRequest) payload() any { return r }
 
 type RecordedPurchaseCreateCustomer struct {
-	Id string `json:"id"`
+	Id        string `json:"id"`
+	Email     string `json:"email,omitempty"`
+	FirstName string `json:"first_name,omitempty"`
+	LastName  string `json:"last_name,omitempty"`
 }
 
 type RecordedPurchaseCreateAppleAppStore struct {

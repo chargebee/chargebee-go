@@ -51,6 +51,15 @@ const (
 	CreditNoteLineItemEntityTypeAddon           CreditNoteLineItemEntityType = "addon"
 )
 
+type CreditNoteLineItemProrationMode string
+
+const (
+	CreditNoteLineItemProrationModeReset                 CreditNoteLineItemProrationMode = "reset"
+	CreditNoteLineItemProrationModeDelta                 CreditNoteLineItemProrationMode = "delta"
+	CreditNoteLineItemProrationModeServicePeriodRevision CreditNoteLineItemProrationMode = "service_period_revision"
+	CreditNoteLineItemProrationModeAdjustedTerm          CreditNoteLineItemProrationMode = "adjusted_term"
+)
+
 type CreditNoteLineItemDiscountDiscountType string
 
 const (
@@ -171,6 +180,7 @@ type CreditNote struct {
 	Deleted                   bool                             `json:"deleted"`
 	TaxCategory               string                           `json:"tax_category"`
 	LocalCurrencyExchangeRate float64                          `json:"local_currency_exchange_rate"`
+	ExchangeRates             []*CreditNoteExchangeRate        `json:"exchange_rates"`
 	CreateReasonCode          string                           `json:"create_reason_code"`
 	VatNumberPrefix           string                           `json:"vat_number_prefix"`
 	BusinessEntityId          string                           `json:"business_entity_id"`
@@ -190,32 +200,33 @@ func (r *CreditNote) UnmarshalJSON(data []byte) error {
 }
 
 type CreditNoteLineItem struct {
-	Id                      string                       `json:"id"`
-	SubscriptionId          string                       `json:"subscription_id"`
-	DateFrom                int64                        `json:"date_from"`
-	DateTo                  int64                        `json:"date_to"`
-	UnitAmount              int64                        `json:"unit_amount"`
-	Quantity                int32                        `json:"quantity"`
-	Amount                  int64                        `json:"amount"`
-	PricingModel            PricingModel                 `json:"pricing_model"`
-	IsTaxed                 bool                         `json:"is_taxed"`
-	TaxAmount               int64                        `json:"tax_amount"`
-	TaxRate                 float64                      `json:"tax_rate"`
-	UnitAmountInDecimal     string                       `json:"unit_amount_in_decimal"`
-	QuantityInDecimal       string                       `json:"quantity_in_decimal"`
-	AmountInDecimal         string                       `json:"amount_in_decimal"`
-	DiscountAmount          int64                        `json:"discount_amount"`
-	ItemLevelDiscountAmount int64                        `json:"item_level_discount_amount"`
-	Metered                 bool                         `json:"metered"`
-	IsPercentagePricing     bool                         `json:"is_percentage_pricing"`
-	ReferenceLineItemId     string                       `json:"reference_line_item_id"`
-	Description             string                       `json:"description"`
-	EntityDescription       string                       `json:"entity_description"`
-	EntityType              CreditNoteLineItemEntityType `json:"entity_type"`
-	TaxExemptReason         TaxExemptReason              `json:"tax_exempt_reason"`
-	EntityId                string                       `json:"entity_id"`
-	CustomerId              string                       `json:"customer_id"`
-	Object                  string                       `json:"object"`
+	Id                      string                          `json:"id"`
+	SubscriptionId          string                          `json:"subscription_id"`
+	DateFrom                int64                           `json:"date_from"`
+	DateTo                  int64                           `json:"date_to"`
+	UnitAmount              int64                           `json:"unit_amount"`
+	Quantity                int32                           `json:"quantity"`
+	Amount                  int64                           `json:"amount"`
+	PricingModel            PricingModel                    `json:"pricing_model"`
+	IsTaxed                 bool                            `json:"is_taxed"`
+	TaxAmount               int64                           `json:"tax_amount"`
+	TaxRate                 float64                         `json:"tax_rate"`
+	UnitAmountInDecimal     string                          `json:"unit_amount_in_decimal"`
+	QuantityInDecimal       string                          `json:"quantity_in_decimal"`
+	AmountInDecimal         string                          `json:"amount_in_decimal"`
+	DiscountAmount          int64                           `json:"discount_amount"`
+	ItemLevelDiscountAmount int64                           `json:"item_level_discount_amount"`
+	Metered                 bool                            `json:"metered"`
+	IsPercentagePricing     bool                            `json:"is_percentage_pricing"`
+	ReferenceLineItemId     string                          `json:"reference_line_item_id"`
+	Description             string                          `json:"description"`
+	EntityDescription       string                          `json:"entity_description"`
+	EntityType              CreditNoteLineItemEntityType    `json:"entity_type"`
+	TaxExemptReason         TaxExemptReason                 `json:"tax_exempt_reason"`
+	EntityId                string                          `json:"entity_id"`
+	CustomerId              string                          `json:"customer_id"`
+	ProrationMode           CreditNoteLineItemProrationMode `json:"proration_mode"`
+	Object                  string                          `json:"object"`
 }
 
 type CreditNoteLineItemTier struct {
@@ -323,6 +334,12 @@ type CreditNoteAllocation struct {
 	InvoiceStatus   CreditNoteAllocationInvoiceStatus  `json:"invoice_status"`
 	TaxApplication  CreditNoteAllocationTaxApplication `json:"tax_application"`
 	Object          string                             `json:"object"`
+}
+
+type CreditNoteExchangeRate struct {
+	CurrencyCode string  `json:"currency_code"`
+	Rate         float64 `json:"rate"`
+	Object       string  `json:"object"`
 }
 
 type CreditNoteShippingAddress struct {
@@ -549,44 +566,45 @@ type CreditNoteImportCreditNoteRequest struct {
 func (r *CreditNoteImportCreditNoteRequest) payload() any { return r }
 
 type CreditNoteImportCreditNoteLineItem struct {
-	ReferenceLineItemId        string                       `json:"reference_line_item_id,omitempty"`
-	Id                         string                       `json:"id,omitempty"`
-	DateFrom                   *int64                       `json:"date_from,omitempty"`
-	DateTo                     *int64                       `json:"date_to,omitempty"`
-	SubscriptionId             string                       `json:"subscription_id,omitempty"`
-	Description                string                       `json:"description"`
-	UnitAmount                 *int64                       `json:"unit_amount,omitempty"`
-	Quantity                   *int32                       `json:"quantity,omitempty"`
-	Amount                     *int64                       `json:"amount,omitempty"`
-	UnitAmountInDecimal        string                       `json:"unit_amount_in_decimal,omitempty"`
-	QuantityInDecimal          string                       `json:"quantity_in_decimal,omitempty"`
-	AmountInDecimal            string                       `json:"amount_in_decimal,omitempty"`
-	EntityType                 CreditNoteLineItemEntityType `json:"entity_type,omitempty"`
-	EntityId                   string                       `json:"entity_id,omitempty"`
-	ItemLevelDiscount1EntityId string                       `json:"item_level_discount1_entity_id,omitempty"`
-	ItemLevelDiscount1Amount   *int64                       `json:"item_level_discount1_amount,omitempty"`
-	ItemLevelDiscount2EntityId string                       `json:"item_level_discount2_entity_id,omitempty"`
-	ItemLevelDiscount2Amount   *int64                       `json:"item_level_discount2_amount,omitempty"`
-	Tax1Name                   string                       `json:"tax1_name,omitempty"`
-	Tax1Amount                 *int64                       `json:"tax1_amount,omitempty"`
-	Tax2Name                   string                       `json:"tax2_name,omitempty"`
-	Tax2Amount                 *int64                       `json:"tax2_amount,omitempty"`
-	Tax3Name                   string                       `json:"tax3_name,omitempty"`
-	Tax3Amount                 *int64                       `json:"tax3_amount,omitempty"`
-	Tax4Name                   string                       `json:"tax4_name,omitempty"`
-	Tax4Amount                 *int64                       `json:"tax4_amount,omitempty"`
-	Tax5Name                   string                       `json:"tax5_name,omitempty"`
-	Tax5Amount                 *int64                       `json:"tax5_amount,omitempty"`
-	Tax6Name                   string                       `json:"tax6_name,omitempty"`
-	Tax6Amount                 *int64                       `json:"tax6_amount,omitempty"`
-	Tax7Name                   string                       `json:"tax7_name,omitempty"`
-	Tax7Amount                 *int64                       `json:"tax7_amount,omitempty"`
-	Tax8Name                   string                       `json:"tax8_name,omitempty"`
-	Tax8Amount                 *int64                       `json:"tax8_amount,omitempty"`
-	Tax9Name                   string                       `json:"tax9_name,omitempty"`
-	Tax9Amount                 *int64                       `json:"tax9_amount,omitempty"`
-	Tax10Name                  string                       `json:"tax10_name,omitempty"`
-	Tax10Amount                *int64                       `json:"tax10_amount,omitempty"`
+	ReferenceLineItemId        string                          `json:"reference_line_item_id,omitempty"`
+	Id                         string                          `json:"id,omitempty"`
+	DateFrom                   *int64                          `json:"date_from,omitempty"`
+	DateTo                     *int64                          `json:"date_to,omitempty"`
+	SubscriptionId             string                          `json:"subscription_id,omitempty"`
+	Description                string                          `json:"description"`
+	UnitAmount                 *int64                          `json:"unit_amount,omitempty"`
+	Quantity                   *int32                          `json:"quantity,omitempty"`
+	Amount                     *int64                          `json:"amount,omitempty"`
+	UnitAmountInDecimal        string                          `json:"unit_amount_in_decimal,omitempty"`
+	QuantityInDecimal          string                          `json:"quantity_in_decimal,omitempty"`
+	AmountInDecimal            string                          `json:"amount_in_decimal,omitempty"`
+	EntityType                 CreditNoteLineItemEntityType    `json:"entity_type,omitempty"`
+	EntityId                   string                          `json:"entity_id,omitempty"`
+	ItemLevelDiscount1EntityId string                          `json:"item_level_discount1_entity_id,omitempty"`
+	ItemLevelDiscount1Amount   *int64                          `json:"item_level_discount1_amount,omitempty"`
+	ItemLevelDiscount2EntityId string                          `json:"item_level_discount2_entity_id,omitempty"`
+	ItemLevelDiscount2Amount   *int64                          `json:"item_level_discount2_amount,omitempty"`
+	Tax1Name                   string                          `json:"tax1_name,omitempty"`
+	Tax1Amount                 *int64                          `json:"tax1_amount,omitempty"`
+	Tax2Name                   string                          `json:"tax2_name,omitempty"`
+	Tax2Amount                 *int64                          `json:"tax2_amount,omitempty"`
+	Tax3Name                   string                          `json:"tax3_name,omitempty"`
+	Tax3Amount                 *int64                          `json:"tax3_amount,omitempty"`
+	Tax4Name                   string                          `json:"tax4_name,omitempty"`
+	Tax4Amount                 *int64                          `json:"tax4_amount,omitempty"`
+	Tax5Name                   string                          `json:"tax5_name,omitempty"`
+	Tax5Amount                 *int64                          `json:"tax5_amount,omitempty"`
+	Tax6Name                   string                          `json:"tax6_name,omitempty"`
+	Tax6Amount                 *int64                          `json:"tax6_amount,omitempty"`
+	Tax7Name                   string                          `json:"tax7_name,omitempty"`
+	Tax7Amount                 *int64                          `json:"tax7_amount,omitempty"`
+	Tax8Name                   string                          `json:"tax8_name,omitempty"`
+	Tax8Amount                 *int64                          `json:"tax8_amount,omitempty"`
+	Tax9Name                   string                          `json:"tax9_name,omitempty"`
+	Tax9Amount                 *int64                          `json:"tax9_amount,omitempty"`
+	Tax10Name                  string                          `json:"tax10_name,omitempty"`
+	Tax10Amount                *int64                          `json:"tax10_amount,omitempty"`
+	ProrationMode              CreditNoteLineItemProrationMode `json:"proration_mode,omitempty"`
 }
 
 type CreditNoteImportCreditNoteLineItemTier struct {

@@ -15,6 +15,7 @@ type QuotedChargeCharge struct {
 	Amount                 int64           `json:"amount"`
 	AmountInDecimal        string          `json:"amount_in_decimal"`
 	Description            string          `json:"description"`
+	EntityDescription      string          `json:"entity_description"`
 	ServicePeriodInDays    int32           `json:"service_period_in_days"`
 	AvalaraSaleType        AvalaraSaleType `json:"avalara_sale_type"`
 	AvalaraTransactionType int32           `json:"avalara_transaction_type"`
@@ -28,6 +29,8 @@ type QuotedChargeInvoiceItem struct {
 	QuantityInDecimal  string `json:"quantity_in_decimal"`
 	UnitPrice          int64  `json:"unit_price"`
 	UnitPriceInDecimal string `json:"unit_price_in_decimal"`
+	Description        string `json:"description"`
+	EntityDescription  string `json:"entity_description"`
 	ServicePeriodDays  int32  `json:"service_period_days"`
 	Object             string `json:"object"`
 }

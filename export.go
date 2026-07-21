@@ -312,6 +312,7 @@ type ExportSubscriptionsSubscription struct {
 	OfflinePaymentMethod   *EnumFilter      `json:"offline_payment_method,omitempty"`
 	AutoCloseInvoices      *BooleanFilter   `json:"auto_close_invoices,omitempty"`
 	Channel                *EnumFilter      `json:"channel,omitempty"`
+	Decommissioned         *BooleanFilter   `json:"decommissioned,omitempty"`
 	PlanId                 *StringFilter    `json:"plan_id,omitempty"`
 }
 
