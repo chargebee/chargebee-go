@@ -10,6 +10,9 @@ func (s *BusinessEntityService) CreateTransfers(req *BusinessEntityCreateTransfe
 	req.method = "POST"
 	req.path = "/business_entities/transfers"
 	req.isIdempotent = true
+	req.telemetryResource = "businessEntity"
+	req.telemetryOperation = "createTransfers"
+
 	return send[*BusinessEntityCreateTransfersResponse](req, s.config)
 }
 
@@ -17,5 +20,8 @@ func (s *BusinessEntityService) GetTransfers(req *BusinessEntityGetTransfersRequ
 	req.method = "GET"
 	req.path = "/business_entities/transfers"
 	req.isListRequest = true
+	req.telemetryResource = "businessEntity"
+	req.telemetryOperation = "getTransfers"
+
 	return send[*BusinessEntityGetTransfersResponse](req, s.config)
 }

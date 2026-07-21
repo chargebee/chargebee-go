@@ -4,8 +4,9 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/chargebee/chargebee-go/v4/telemetry"
 	"github.com/stretchr/testify/require"
+
+	"github.com/chargebee/chargebee-go/v4/telemetry"
 )
 
 type recordingAdapter struct {

@@ -41,6 +41,15 @@ const (
 	QuoteLineItemEntityTypeAddon           QuoteLineItemEntityType = "addon"
 )
 
+type QuoteLineItemProrationMode string
+
+const (
+	QuoteLineItemProrationModeReset                 QuoteLineItemProrationMode = "reset"
+	QuoteLineItemProrationModeDelta                 QuoteLineItemProrationMode = "delta"
+	QuoteLineItemProrationModeServicePeriodRevision QuoteLineItemProrationMode = "service_period_revision"
+	QuoteLineItemProrationModeAdjustedTerm          QuoteLineItemProrationMode = "adjusted_term"
+)
+
 type QuoteLineItemDiscountDiscountType string
 
 const (
@@ -143,32 +152,33 @@ func (r *Quote) UnmarshalJSON(data []byte) error {
 }
 
 type QuoteLineItem struct {
-	Id                      string                  `json:"id"`
-	SubscriptionId          string                  `json:"subscription_id"`
-	DateFrom                int64                   `json:"date_from"`
-	DateTo                  int64                   `json:"date_to"`
-	UnitAmount              int64                   `json:"unit_amount"`
-	Quantity                int32                   `json:"quantity"`
-	Amount                  int64                   `json:"amount"`
-	PricingModel            PricingModel            `json:"pricing_model"`
-	IsTaxed                 bool                    `json:"is_taxed"`
-	TaxAmount               int64                   `json:"tax_amount"`
-	TaxRate                 float64                 `json:"tax_rate"`
-	UnitAmountInDecimal     string                  `json:"unit_amount_in_decimal"`
-	QuantityInDecimal       string                  `json:"quantity_in_decimal"`
-	AmountInDecimal         string                  `json:"amount_in_decimal"`
-	DiscountAmount          int64                   `json:"discount_amount"`
-	ItemLevelDiscountAmount int64                   `json:"item_level_discount_amount"`
-	Metered                 bool                    `json:"metered"`
-	IsPercentagePricing     bool                    `json:"is_percentage_pricing"`
-	ReferenceLineItemId     string                  `json:"reference_line_item_id"`
-	Description             string                  `json:"description"`
-	EntityDescription       string                  `json:"entity_description"`
-	EntityType              QuoteLineItemEntityType `json:"entity_type"`
-	TaxExemptReason         TaxExemptReason         `json:"tax_exempt_reason"`
-	EntityId                string                  `json:"entity_id"`
-	CustomerId              string                  `json:"customer_id"`
-	Object                  string                  `json:"object"`
+	Id                      string                     `json:"id"`
+	SubscriptionId          string                     `json:"subscription_id"`
+	DateFrom                int64                      `json:"date_from"`
+	DateTo                  int64                      `json:"date_to"`
+	UnitAmount              int64                      `json:"unit_amount"`
+	Quantity                int32                      `json:"quantity"`
+	Amount                  int64                      `json:"amount"`
+	PricingModel            PricingModel               `json:"pricing_model"`
+	IsTaxed                 bool                       `json:"is_taxed"`
+	TaxAmount               int64                      `json:"tax_amount"`
+	TaxRate                 float64                    `json:"tax_rate"`
+	UnitAmountInDecimal     string                     `json:"unit_amount_in_decimal"`
+	QuantityInDecimal       string                     `json:"quantity_in_decimal"`
+	AmountInDecimal         string                     `json:"amount_in_decimal"`
+	DiscountAmount          int64                      `json:"discount_amount"`
+	ItemLevelDiscountAmount int64                      `json:"item_level_discount_amount"`
+	Metered                 bool                       `json:"metered"`
+	IsPercentagePricing     bool                       `json:"is_percentage_pricing"`
+	ReferenceLineItemId     string                     `json:"reference_line_item_id"`
+	Description             string                     `json:"description"`
+	EntityDescription       string                     `json:"entity_description"`
+	EntityType              QuoteLineItemEntityType    `json:"entity_type"`
+	TaxExemptReason         TaxExemptReason            `json:"tax_exempt_reason"`
+	EntityId                string                     `json:"entity_id"`
+	CustomerId              string                     `json:"customer_id"`
+	ProrationMode           QuoteLineItemProrationMode `json:"proration_mode"`
+	Object                  string                     `json:"object"`
 }
 
 type QuoteLineItemTier struct {

@@ -9,7 +9,6 @@ type GrantBlockService struct {
 func (s *GrantBlockService) ListGrantBlocks(req *GrantBlockListGrantBlocksRequest) (*GrantBlockListGrantBlocksResponse, error) {
 	req.method = "GET"
 	req.path = "/grant_blocks"
-	req.isJsonRequest = true
 	req.isListRequest = true
 	req.telemetryResource = "grantBlock"
 	req.telemetryOperation = "listGrantBlocks"

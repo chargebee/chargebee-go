@@ -4,12 +4,10 @@ package chargebee
 
 import (
 	"encoding/json"
-	"fmt"
-
 	"errors"
-	"time"
-
+	"fmt"
 	"net/url"
+	"time"
 )
 
 type TimeMachineService struct {

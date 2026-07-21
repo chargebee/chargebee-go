@@ -13,8 +13,9 @@ const (
 type RampDiscountsToAddType string
 
 const (
-	RampDiscountsToAddTypeFixedAmount RampDiscountsToAddType = "fixed_amount"
-	RampDiscountsToAddTypePercentage  RampDiscountsToAddType = "percentage"
+	RampDiscountsToAddTypeFixedAmount   RampDiscountsToAddType = "fixed_amount"
+	RampDiscountsToAddTypePercentage    RampDiscountsToAddType = "percentage"
+	RampDiscountsToAddTypeOfferQuantity RampDiscountsToAddType = "offer_quantity"
 )
 
 type RampContractTermActionAtTermEnd string
@@ -101,6 +102,7 @@ type RampDiscountsToAdd struct {
 	Type          RampDiscountsToAddType `json:"type"`
 	Percentage    float64                `json:"percentage"`
 	Amount        int64                  `json:"amount"`
+	Quantity      int32                  `json:"quantity"`
 	DurationType  DurationType           `json:"duration_type"`
 	Period        int32                  `json:"period"`
 	PeriodUnit    PeriodUnit             `json:"period_unit"`
@@ -203,6 +205,7 @@ type RampCreateForSubscriptionDiscountsToAdd struct {
 	DurationType  DurationType `json:"duration_type"`
 	Percentage    *float64     `json:"percentage,omitempty"`
 	Amount        *int64       `json:"amount,omitempty"`
+	Quantity      *int32       `json:"quantity,omitempty"`
 	Period        *int32       `json:"period,omitempty"`
 	PeriodUnit    PeriodUnit   `json:"period_unit,omitempty"`
 	IncludedInMrr *bool        `json:"included_in_mrr,omitempty"`
@@ -280,6 +283,7 @@ type RampUpdateDiscountsToAdd struct {
 	DurationType  DurationType `json:"duration_type"`
 	Percentage    *float64     `json:"percentage,omitempty"`
 	Amount        *int64       `json:"amount,omitempty"`
+	Quantity      *int32       `json:"quantity,omitempty"`
 	Period        *int32       `json:"period,omitempty"`
 	PeriodUnit    PeriodUnit   `json:"period_unit,omitempty"`
 	IncludedInMrr *bool        `json:"included_in_mrr,omitempty"`

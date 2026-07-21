@@ -39,6 +39,8 @@ type Client struct {
 	ItemPrice                   *ItemPriceService
 	LedgerAccountBalance        *LedgerAccountBalanceService
 	LedgerOperation             *LedgerOperationService
+	Meter                       *MeterService
+	MeteredFeature              *MeteredFeatureService
 	OfferEvent                  *OfferEventService
 	OfferFulfillment            *OfferFulfillmentService
 	OmnichannelOneTimeOrder     *OmnichannelOneTimeOrderService
@@ -118,6 +120,8 @@ func NewClient(config *ClientConfig) *Client {
 		ItemPrice:                   &ItemPriceService{config},
 		LedgerAccountBalance:        &LedgerAccountBalanceService{config},
 		LedgerOperation:             &LedgerOperationService{config},
+		Meter:                       &MeterService{config},
+		MeteredFeature:              &MeteredFeatureService{config},
 		OfferEvent:                  &OfferEventService{config},
 		OfferFulfillment:            &OfferFulfillmentService{config},
 		OmnichannelOneTimeOrder:     &OmnichannelOneTimeOrderService{config},

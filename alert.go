@@ -22,24 +22,41 @@ const (
 )
 
 type Alert struct {
-	Id               string          `json:"id"`
-	Type             Type            `json:"type"`
-	Name             string          `json:"name"`
-	Description      string          `json:"description"`
-	MeteredFeatureId string          `json:"metered_feature_id"`
-	SubscriptionId   string          `json:"subscription_id"`
-	Status           AlertStatusType `json:"status"`
-	Meta             string          `json:"meta"`
-	CreatedAt        int64           `json:"created_at"`
-	UpdatedAt        int64           `json:"updated_at"`
-	Object           string          `json:"object"`
+	Id               string                  `json:"id"`
+	Type             Type                    `json:"type"`
+	Name             string                  `json:"name"`
+	Description      string                  `json:"description"`
+	MeteredFeatureId string                  `json:"metered_feature_id"`
+	CurrencyCode     string                  `json:"currency_code"`
+	SubscriptionId   string                  `json:"subscription_id"`
+	Status           AlertStatusType         `json:"status"`
+	Meta             string                  `json:"meta"`
+	CreatedAt        int64                   `json:"created_at"`
+	UpdatedAt        int64                   `json:"updated_at"`
+	Threshold        []*AlertThreshold       `json:"threshold"`
+	FilterConditions []*AlertFilterCondition `json:"filter_conditions"`
+	Object           string                  `json:"object"`
+}
+
+type AlertThreshold struct {
+	Mode   Mode    `json:"mode"`
+	Value  float64 `json:"value"`
+	Object string  `json:"object"`
+}
+
+type AlertFilterCondition struct {
+	Field    AlertFilterConditionField    `json:"field"`
+	Operator AlertFilterConditionOperator `json:"operator"`
+	Value    string                       `json:"value"`
+	Object   string                       `json:"object"`
 }
 
 type AlertCreateRequest struct {
 	Type             Type                          `json:"type"`
 	Name             string                        `json:"name"`
 	Description      string                        `json:"description,omitempty"`
-	MeteredFeatureId string                        `json:"metered_feature_id"`
+	MeteredFeatureId string                        `json:"metered_feature_id,omitempty"`
+	CurrencyCode     string                        `json:"currency_code,omitempty"`
 	SubscriptionId   string                        `json:"subscription_id,omitempty"`
 	Threshold        *AlertCreateThreshold         `json:"threshold,omitempty"`
 	Meta             string                        `json:"meta,omitempty"`
@@ -50,7 +67,7 @@ type AlertCreateRequest struct {
 func (r *AlertCreateRequest) payload() any { return r }
 
 type AlertCreateThreshold struct {
-	Mode  Mode     `json:"mode"`
+	Mode  Mode     `json:"mode,omitempty"`
 	Value *float64 `json:"value"`
 }
 

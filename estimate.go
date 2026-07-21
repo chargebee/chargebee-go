@@ -1097,6 +1097,8 @@ type EstimateCreateInvoiceForItemsItemPrice struct {
 	UnitPriceInDecimal string `json:"unit_price_in_decimal,omitempty"`
 	DateFrom           *int64 `json:"date_from,omitempty"`
 	DateTo             *int64 `json:"date_to,omitempty"`
+	Description        string `json:"description,omitempty"`
+	EntityDescription  string `json:"entity_description,omitempty"`
 }
 
 type EstimateCreateInvoiceForItemsItemTier struct {
@@ -1125,6 +1127,7 @@ type EstimateCreateInvoiceForItemsCharge struct {
 	AvalaraServiceType     *int32          `json:"avalara_service_type,omitempty"`
 	DateFrom               *int64          `json:"date_from,omitempty"`
 	DateTo                 *int64          `json:"date_to,omitempty"`
+	EntityDescription      string          `json:"entity_description,omitempty"`
 }
 
 type EstimateCreateInvoiceForItemsNotesToRemove struct {

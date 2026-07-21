@@ -259,9 +259,10 @@ const (
 type DunningType string
 
 const (
-	DunningTypeAutoCollect DunningType = "auto_collect"
-	DunningTypeOffline     DunningType = "offline"
-	DunningTypeDirectDebit DunningType = "direct_debit"
+	DunningTypeAutoCollect      DunningType = "auto_collect"
+	DunningTypeOffline          DunningType = "offline"
+	DunningTypeDirectDebit      DunningType = "direct_debit"
+	DunningTypeRealTimePayments DunningType = "real_time_payments"
 )
 
 type DurationType string
@@ -632,6 +633,9 @@ const (
 	PaymentMethodPaypay                    PaymentMethod = "paypay"
 	PaymentMethodGcash                     PaymentMethod = "gcash"
 	PaymentMethodSouthKoreanCards          PaymentMethod = "south_korean_cards"
+	PaymentMethodPaynow                    PaymentMethod = "paynow"
+	PaymentMethodBizum                     PaymentMethod = "bizum"
+	PaymentMethodPromptpay                 PaymentMethod = "promptpay"
 )
 
 type PaymentMethodSavePolicy string
@@ -692,6 +696,9 @@ const (
 	PaymentMethodTypePaypay                    PaymentMethodType = "paypay"
 	PaymentMethodTypeGcash                     PaymentMethodType = "gcash"
 	PaymentMethodTypeSouthKoreanCards          PaymentMethodType = "south_korean_cards"
+	PaymentMethodTypePaynow                    PaymentMethodType = "paynow"
+	PaymentMethodTypeBizum                     PaymentMethodType = "bizum"
+	PaymentMethodTypePromptpay                 PaymentMethodType = "promptpay"
 )
 
 type PaymentVoucherType string
@@ -832,6 +839,9 @@ const (
 type Status string
 
 const (
+	StatusActive        Status = "active"
+	StatusArchived      Status = "archived"
+	StatusDeleted       Status = "deleted"
 	StatusAvailable     Status = "available"
 	StatusExhausted     Status = "exhausted"
 	StatusScheduled     Status = "scheduled"
@@ -869,9 +879,15 @@ const (
 type TaxOverrideReason string
 
 const (
-	TaxOverrideReasonIdExempt       TaxOverrideReason = "id_exempt"
-	TaxOverrideReasonCustomerExempt TaxOverrideReason = "customer_exempt"
-	TaxOverrideReasonExport         TaxOverrideReason = "export"
+	TaxOverrideReasonZeroRated                        TaxOverrideReason = "zero_rated"
+	TaxOverrideReasonIdExempt                         TaxOverrideReason = "id_exempt"
+	TaxOverrideReasonCustomerExempt                   TaxOverrideReason = "customer_exempt"
+	TaxOverrideReasonRegionNonTaxable                 TaxOverrideReason = "region_non_taxable"
+	TaxOverrideReasonProductExempt                    TaxOverrideReason = "product_exempt"
+	TaxOverrideReasonExport                           TaxOverrideReason = "export"
+	TaxOverrideReasonHighValuePhysicalGoods           TaxOverrideReason = "high_value_physical_goods"
+	TaxOverrideReasonZeroValueItem                    TaxOverrideReason = "zero_value_item"
+	TaxOverrideReasonTaxNotConfiguredExternalProvider TaxOverrideReason = "tax_not_configured_external_provider"
 )
 
 type Taxability string
@@ -948,10 +964,16 @@ const (
 	TypePaypay                    Type = "paypay"
 	TypeGcash                     Type = "gcash"
 	TypeSouthKoreanCards          Type = "south_korean_cards"
+	TypePaynow                    Type = "paynow"
+	TypeBizum                     Type = "bizum"
+	TypePromptpay                 Type = "promptpay"
 	TypeFreeTrial                 Type = "free_trial"
 	TypePayUpFront                Type = "pay_up_front"
 	TypePayAsYouGo                Type = "pay_as_you_go"
+	TypeSimple                    Type = "simple"
+	TypeCompound                  Type = "compound"
 	TypeUsageExceeded             Type = "usage_exceeded"
+	TypeSpendExceeded             Type = "spend_exceeded"
 )
 
 type UnbilledChargesHandling string
@@ -1142,6 +1164,7 @@ const (
 	EventTypePaymentSchedulesCreated                                 EventType = "payment_schedules_created"
 	EventTypePaymentSchedulesUpdated                                 EventType = "payment_schedules_updated"
 	EventTypePaymentSourceAdded                                      EventType = "payment_source_added"
+	EventTypePaymentSourceBusinessEntityChanged                      EventType = "payment_source_business_entity_changed"
 	EventTypePaymentSourceDeleted                                    EventType = "payment_source_deleted"
 	EventTypePaymentSourceExpired                                    EventType = "payment_source_expired"
 	EventTypePaymentSourceExpiring                                   EventType = "payment_source_expiring"
