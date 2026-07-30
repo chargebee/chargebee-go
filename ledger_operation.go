@@ -5,6 +5,12 @@ import (
 	"encoding/json"
 )
 
+type LedgerOperationUnitType string
+
+const (
+	LedgerOperationUnitTypeCreditUnit LedgerOperationUnitType = "credit_unit"
+)
+
 type LedgerOperationType string
 
 const (
@@ -19,14 +25,11 @@ const (
 	LedgerOperationTypeAdjustment           LedgerOperationType = "adjustment"
 )
 
-type LedgerOperationUnitType string
-
-const (
-	LedgerOperationUnitTypeCreditUnit LedgerOperationUnitType = "credit_unit"
-)
-
 type LedgerOperation struct {
 	Id                       string                  `json:"id"`
+	SubscriptionId           string                  `json:"subscription_id"`
+	UnitId                   string                  `json:"unit_id"`
+	UnitType                 LedgerOperationUnitType `json:"unit_type"`
 	Type                     LedgerOperationType     `json:"type"`
 	Amount                   string                  `json:"amount"`
 	ProvisionedStartBalance  string                  `json:"provisioned_start_balance"`
@@ -38,9 +41,6 @@ type LedgerOperation struct {
 	AutoReleaseTimestamp     int64                   `json:"auto_release_timestamp"`
 	CreatedAt                int64                   `json:"created_at"`
 	ModifiedAt               int64                   `json:"modified_at"`
-	SubscriptionId           string                  `json:"subscription_id"`
-	UnitId                   string                  `json:"unit_id"`
-	UnitType                 LedgerOperationUnitType `json:"unit_type"`
 	Metadata                 json.RawMessage         `json:"metadata"`
 	Object                   string                  `json:"object"`
 }
@@ -104,6 +104,17 @@ type LedgerOperationReleaseAuthorizationRequest struct {
 
 func (r *LedgerOperationReleaseAuthorizationRequest) payload() any { return r }
 
+type LedgerOperationAllocateRequest struct {
+	SubscriptionId string                 `json:"subscription_id"`
+	UnitId         string                 `json:"unit_id"`
+	Amount         string                 `json:"amount"`
+	ExpiresAt      *int64                 `json:"expires_at"`
+	Metadata       map[string]interface{} `json:"metadata,omitempty"`
+	apiRequest     `json:"-" form:"-"`
+}
+
+func (r *LedgerOperationAllocateRequest) payload() any { return r }
+
 type LedgerOperationRetrieveLedgerOperationResponse struct {
 	LedgerOperation *LedgerOperation `json:"ledger_operation,omitempty"`
 	apiResponse
@@ -122,23 +133,39 @@ type LedgerOperationListLedgerOperationsResponse struct {
 type LedgerOperationCaptureResponse struct {
 	LedgerOperation      *LedgerOperation     `json:"ledger_operation,omitempty"`
 	LedgerAccountBalance LedgerAccountBalance `json:"ledger_account_balance,omitempty"`
+	GrantBlocks          []GrantBlock         `json:"grant_blocks,omitempty"`
+	LedgerEntries        []LedgerEntry        `json:"ledger_entries,omitempty"`
 	apiResponse
 }
 
 type LedgerOperationAuthorizeResponse struct {
 	LedgerOperation      *LedgerOperation     `json:"ledger_operation,omitempty"`
 	LedgerAccountBalance LedgerAccountBalance `json:"ledger_account_balance,omitempty"`
+	GrantBlocks          []GrantBlock         `json:"grant_blocks,omitempty"`
+	LedgerEntries        []LedgerEntry        `json:"ledger_entries,omitempty"`
 	apiResponse
 }
 
 type LedgerOperationCaptureAuthorizationResponse struct {
 	LedgerOperation      *LedgerOperation     `json:"ledger_operation,omitempty"`
 	LedgerAccountBalance LedgerAccountBalance `json:"ledger_account_balance,omitempty"`
+	GrantBlocks          []GrantBlock         `json:"grant_blocks,omitempty"`
+	LedgerEntries        []LedgerEntry        `json:"ledger_entries,omitempty"`
 	apiResponse
 }
 
 type LedgerOperationReleaseAuthorizationResponse struct {
 	LedgerOperation      *LedgerOperation     `json:"ledger_operation,omitempty"`
 	LedgerAccountBalance LedgerAccountBalance `json:"ledger_account_balance,omitempty"`
+	GrantBlocks          []GrantBlock         `json:"grant_blocks,omitempty"`
+	LedgerEntries        []LedgerEntry        `json:"ledger_entries,omitempty"`
+	apiResponse
+}
+
+type LedgerOperationAllocateResponse struct {
+	LedgerAccountBalance LedgerAccountBalance `json:"ledger_account_balance,omitempty"`
+	LedgerOperations     []*LedgerOperation   `json:"ledger_operations,omitempty"`
+	GrantBlocks          []GrantBlock         `json:"grant_blocks,omitempty"`
+	LedgerEntries        []LedgerEntry        `json:"ledger_entries,omitempty"`
 	apiResponse
 }

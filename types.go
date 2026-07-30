@@ -583,6 +583,10 @@ const (
 	PaymentMethodBankTransfer              PaymentMethod = "bank_transfer"
 	PaymentMethodOther                     PaymentMethod = "other"
 	PaymentMethodCustom                    PaymentMethod = "custom"
+	PaymentMethodDana                      PaymentMethod = "dana"
+	PaymentMethodTouchNGo                  PaymentMethod = "touch_n_go"
+	PaymentMethodTamara                    PaymentMethod = "tamara"
+	PaymentMethodQpay                      PaymentMethod = "qpay"
 	PaymentMethodChargeback                PaymentMethod = "chargeback"
 	PaymentMethodCard                      PaymentMethod = "card"
 	PaymentMethodAmazonPayments            PaymentMethod = "amazon_payments"
@@ -699,6 +703,10 @@ const (
 	PaymentMethodTypePaynow                    PaymentMethodType = "paynow"
 	PaymentMethodTypeBizum                     PaymentMethodType = "bizum"
 	PaymentMethodTypePromptpay                 PaymentMethodType = "promptpay"
+	PaymentMethodTypeDana                      PaymentMethodType = "dana"
+	PaymentMethodTypeTouchNGo                  PaymentMethodType = "touch_n_go"
+	PaymentMethodTypeTamara                    PaymentMethodType = "tamara"
+	PaymentMethodTypeQpay                      PaymentMethodType = "qpay"
 )
 
 type PaymentVoucherType string
@@ -967,6 +975,10 @@ const (
 	TypePaynow                    Type = "paynow"
 	TypeBizum                     Type = "bizum"
 	TypePromptpay                 Type = "promptpay"
+	TypeDana                      Type = "dana"
+	TypeTouchNGo                  Type = "touch_n_go"
+	TypeTamara                    Type = "tamara"
+	TypeQpay                      Type = "qpay"
 	TypeFreeTrial                 Type = "free_trial"
 	TypePayUpFront                Type = "pay_up_front"
 	TypePayAsYouGo                Type = "pay_as_you_go"
@@ -974,6 +986,11 @@ const (
 	TypeCompound                  Type = "compound"
 	TypeUsageExceeded             Type = "usage_exceeded"
 	TypeSpendExceeded             Type = "spend_exceeded"
+	TypeCreditBalanceDropped      Type = "credit_balance_dropped"
+	TypeCredit                    Type = "credit"
+	TypeDebit                     Type = "debit"
+	TypeHold                      Type = "hold"
+	TypeUnhold                    Type = "unhold"
 )
 
 type UnbilledChargesHandling string
@@ -1094,6 +1111,8 @@ const (
 	EventTypeGiftScheduled                                           EventType = "gift_scheduled"
 	EventTypeGiftUnclaimed                                           EventType = "gift_unclaimed"
 	EventTypeGiftUpdated                                             EventType = "gift_updated"
+	EventTypeGrantBlocksCreated                                      EventType = "grant_blocks_created"
+	EventTypeGrantBlocksUpdated                                      EventType = "grant_blocks_updated"
 	EventTypeHierarchyCreated                                        EventType = "hierarchy_created"
 	EventTypeHierarchyDeleted                                        EventType = "hierarchy_deleted"
 	EventTypeInvoiceDeleted                                          EventType = "invoice_deleted"
@@ -1113,6 +1132,8 @@ const (
 	EventTypeItemPriceEntitlementsUpdated                            EventType = "item_price_entitlements_updated"
 	EventTypeItemPriceUpdated                                        EventType = "item_price_updated"
 	EventTypeItemUpdated                                             EventType = "item_updated"
+	EventTypeLedgerAccountBalanceUpdated                             EventType = "ledger_account_balance_updated"
+	EventTypeLedgerUpdated                                           EventType = "ledger_updated"
 	EventTypeMrrUpdated                                              EventType = "mrr_updated"
 	EventTypeNetdPaymentDueReminder                                  EventType = "netd_payment_due_reminder"
 	EventTypeOmnichannelOneTimeOrderCreated                          EventType = "omnichannel_one_time_order_created"

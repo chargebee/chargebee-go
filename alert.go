@@ -28,12 +28,13 @@ type Alert struct {
 	Description      string                  `json:"description"`
 	MeteredFeatureId string                  `json:"metered_feature_id"`
 	CurrencyCode     string                  `json:"currency_code"`
+	UnitId           string                  `json:"unit_id"`
 	SubscriptionId   string                  `json:"subscription_id"`
 	Status           AlertStatusType         `json:"status"`
 	Meta             string                  `json:"meta"`
 	CreatedAt        int64                   `json:"created_at"`
 	UpdatedAt        int64                   `json:"updated_at"`
-	Threshold        []*AlertThreshold       `json:"threshold"`
+	Threshold        *AlertThreshold         `json:"threshold"`
 	FilterConditions []*AlertFilterCondition `json:"filter_conditions"`
 	Object           string                  `json:"object"`
 }
@@ -57,6 +58,7 @@ type AlertCreateRequest struct {
 	Description      string                        `json:"description,omitempty"`
 	MeteredFeatureId string                        `json:"metered_feature_id,omitempty"`
 	CurrencyCode     string                        `json:"currency_code,omitempty"`
+	UnitId           string                        `json:"unit_id,omitempty"`
 	SubscriptionId   string                        `json:"subscription_id,omitempty"`
 	Threshold        *AlertCreateThreshold         `json:"threshold,omitempty"`
 	Meta             string                        `json:"meta,omitempty"`

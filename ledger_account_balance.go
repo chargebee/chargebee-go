@@ -11,7 +11,9 @@ type LedgerAccountBalance struct {
 	SubscriptionId     string                                  `json:"subscription_id"`
 	UnitId             string                                  `json:"unit_id"`
 	UnitType           LedgerAccountBalanceUnitType            `json:"unit_type"`
+	CreatedAt          int64                                   `json:"created_at"`
 	ModifiedAt         int64                                   `json:"modified_at"`
+	ResourceVersion    int64                                   `json:"resource_version"`
 	ProvisionedBalance *LedgerAccountBalanceProvisionedBalance `json:"provisioned_balance"`
 	OverdraftBalance   *LedgerAccountBalanceOverdraftBalance   `json:"overdraft_balance"`
 	Object             string                                  `json:"object"`
