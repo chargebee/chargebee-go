@@ -18,6 +18,7 @@ type Client struct {
 	CouponCode                  *CouponCodeService
 	CouponSet                   *CouponSetService
 	CreditNote                  *CreditNoteService
+	CreditUnit                  *CreditUnitService
 	Currency                    *CurrencyService
 	Customer                    *CustomerService
 	CustomerEntitlement         *CustomerEntitlementService
@@ -99,6 +100,7 @@ func NewClient(config *ClientConfig) *Client {
 		CouponCode:                  &CouponCodeService{config},
 		CouponSet:                   &CouponSetService{config},
 		CreditNote:                  &CreditNoteService{config},
+		CreditUnit:                  &CreditUnitService{config},
 		Currency:                    &CurrencyService{config},
 		Customer:                    &CustomerService{config},
 		CustomerEntitlement:         &CustomerEntitlementService{config},

@@ -52,6 +52,10 @@ type CouponUpdatedContent struct {
 	Coupon *chargebee.Coupon `json:"coupon,omitempty"`
 }
 
+type GrantBlocksCreatedContent struct {
+	GrantBlock []*chargebee.GrantBlock `json:"grant_block,omitempty"`
+}
+
 type ProductUpdatedContent struct {
 }
 
@@ -1015,6 +1019,16 @@ type SubscriptionMovedInContent struct {
 	Subscription *chargebee.Subscription `json:"subscription,omitempty"`
 }
 
+type LedgerUpdatedContent struct {
+	LedgerOperation []*chargebee.LedgerOperation `json:"ledger_operation,omitempty"`
+
+	LedgerAccountBalance *chargebee.LedgerAccountBalance `json:"ledger_account_balance,omitempty"`
+
+	GrantBlock []*chargebee.GrantBlock `json:"grant_block,omitempty"`
+
+	LedgerEntry []*chargebee.LedgerEntry `json:"ledger_entry,omitempty"`
+}
+
 type ItemPriceCreatedContent struct {
 	ItemPrice *chargebee.ItemPrice `json:"item_price,omitempty"`
 }
@@ -1263,6 +1277,10 @@ type SubscriptionRampUpdatedContent struct {
 	Ramp *chargebee.Ramp `json:"ramp,omitempty"`
 }
 
+type LedgerAccountBalanceUpdatedContent struct {
+	LedgerAccountBalance *chargebee.LedgerAccountBalance `json:"ledger_account_balance,omitempty"`
+}
+
 type CustomerEntitlementsUpdatedContent struct {
 	ImpactedCustomer *chargebee.ImpactedCustomer `json:"impacted_customer,omitempty"`
 }
@@ -1442,6 +1460,10 @@ type BusinessEntityDeletedContent struct {
 	BusinessEntity *chargebee.BusinessEntity `json:"business_entity,omitempty"`
 }
 
+type GrantBlocksUpdatedContent struct {
+	GrantBlock []*chargebee.GrantBlock `json:"grant_block,omitempty"`
+}
+
 type AuthorizationVoidedContent struct {
 	Transaction *chargebee.Transaction `json:"transaction,omitempty"`
 }
@@ -1528,6 +1550,12 @@ type UnbilledChargesDeletedEvent struct {
 type CouponUpdatedEvent struct {
 	BaseEvent
 	Content *CouponUpdatedContent `json:"content"`
+}
+
+// GrantBlocksCreatedEvent represents a grant_blocks_created webhook event
+type GrantBlocksCreatedEvent struct {
+	BaseEvent
+	Content *GrantBlocksCreatedContent `json:"content"`
 }
 
 // ProductUpdatedEvent represents a product_updated webhook event
@@ -2412,6 +2440,12 @@ type SubscriptionMovedInEvent struct {
 	Content *SubscriptionMovedInContent `json:"content"`
 }
 
+// LedgerUpdatedEvent represents a ledger_updated webhook event
+type LedgerUpdatedEvent struct {
+	BaseEvent
+	Content *LedgerUpdatedContent `json:"content"`
+}
+
 // ItemPriceCreatedEvent represents a item_price_created webhook event
 type ItemPriceCreatedEvent struct {
 	BaseEvent
@@ -2628,6 +2662,12 @@ type SubscriptionRampUpdatedEvent struct {
 	Content *SubscriptionRampUpdatedContent `json:"content"`
 }
 
+// LedgerAccountBalanceUpdatedEvent represents a ledger_account_balance_updated webhook event
+type LedgerAccountBalanceUpdatedEvent struct {
+	BaseEvent
+	Content *LedgerAccountBalanceUpdatedContent `json:"content"`
+}
+
 // CustomerEntitlementsUpdatedEvent represents a customer_entitlements_updated webhook event
 type CustomerEntitlementsUpdatedEvent struct {
 	BaseEvent
@@ -2812,6 +2852,12 @@ type PaymentSourceUpdatedEvent struct {
 type BusinessEntityDeletedEvent struct {
 	BaseEvent
 	Content *BusinessEntityDeletedContent `json:"content"`
+}
+
+// GrantBlocksUpdatedEvent represents a grant_blocks_updated webhook event
+type GrantBlocksUpdatedEvent struct {
+	BaseEvent
+	Content *GrantBlocksUpdatedContent `json:"content"`
 }
 
 // AuthorizationVoidedEvent represents a authorization_voided webhook event

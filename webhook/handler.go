@@ -139,6 +139,10 @@ type WebhookHandler struct {
 
 	OnGiftUpdated func(GiftUpdatedEvent) error
 
+	OnGrantBlocksCreated func(GrantBlocksCreatedEvent) error
+
+	OnGrantBlocksUpdated func(GrantBlocksUpdatedEvent) error
+
 	OnHierarchyCreated func(HierarchyCreatedEvent) error
 
 	OnHierarchyDeleted func(HierarchyDeletedEvent) error
@@ -176,6 +180,10 @@ type WebhookHandler struct {
 	OnItemPriceUpdated func(ItemPriceUpdatedEvent) error
 
 	OnItemUpdated func(ItemUpdatedEvent) error
+
+	OnLedgerAccountBalanceUpdated func(LedgerAccountBalanceUpdatedEvent) error
+
+	OnLedgerUpdated func(LedgerUpdatedEvent) error
 
 	OnMrrUpdated func(MrrUpdatedEvent) error
 
@@ -1166,6 +1174,28 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
+	case chargebee.EventTypeGrantBlocksCreated:
+		if h.OnGrantBlocksCreated != nil {
+			var e GrantBlocksCreatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnGrantBlocksCreated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeGrantBlocksUpdated:
+		if h.OnGrantBlocksUpdated != nil {
+			var e GrantBlocksUpdatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnGrantBlocksUpdated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
 	case chargebee.EventTypeHierarchyCreated:
 		if h.OnHierarchyCreated != nil {
 			var e HierarchyCreatedEvent
@@ -1371,6 +1401,28 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 				return err
 			}
 			return h.OnItemUpdated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeLedgerAccountBalanceUpdated:
+		if h.OnLedgerAccountBalanceUpdated != nil {
+			var e LedgerAccountBalanceUpdatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnLedgerAccountBalanceUpdated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeLedgerUpdated:
+		if h.OnLedgerUpdated != nil {
+			var e LedgerUpdatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnLedgerUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}

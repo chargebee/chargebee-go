@@ -62,6 +62,10 @@ const (
 	PaymentIntentPaymentMethodTypePaynow                    PaymentIntentPaymentMethodType = "paynow"
 	PaymentIntentPaymentMethodTypeBizum                     PaymentIntentPaymentMethodType = "bizum"
 	PaymentIntentPaymentMethodTypePromptpay                 PaymentIntentPaymentMethodType = "promptpay"
+	PaymentIntentPaymentMethodTypeDana                      PaymentIntentPaymentMethodType = "dana"
+	PaymentIntentPaymentMethodTypeTouchNGo                  PaymentIntentPaymentMethodType = "touch_n_go"
+	PaymentIntentPaymentMethodTypeTamara                    PaymentIntentPaymentMethodType = "tamara"
+	PaymentIntentPaymentMethodTypeQpay                      PaymentIntentPaymentMethodType = "qpay"
 )
 
 type PaymentIntentActivePaymentAttemptStatus string
@@ -127,6 +131,10 @@ const (
 	PaymentIntentActivePaymentAttemptPaymentMethodTypePaynow                    PaymentIntentActivePaymentAttemptPaymentMethodType = "paynow"
 	PaymentIntentActivePaymentAttemptPaymentMethodTypeBizum                     PaymentIntentActivePaymentAttemptPaymentMethodType = "bizum"
 	PaymentIntentActivePaymentAttemptPaymentMethodTypePromptpay                 PaymentIntentActivePaymentAttemptPaymentMethodType = "promptpay"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeDana                      PaymentIntentActivePaymentAttemptPaymentMethodType = "dana"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeTouchNGo                  PaymentIntentActivePaymentAttemptPaymentMethodType = "touch_n_go"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeTamara                    PaymentIntentActivePaymentAttemptPaymentMethodType = "tamara"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeQpay                      PaymentIntentActivePaymentAttemptPaymentMethodType = "qpay"
 )
 
 type PaymentIntentPaymentAttemptStatus string
@@ -192,6 +200,10 @@ const (
 	PaymentIntentPaymentAttemptPaymentMethodTypePaynow                    PaymentIntentPaymentAttemptPaymentMethodType = "paynow"
 	PaymentIntentPaymentAttemptPaymentMethodTypeBizum                     PaymentIntentPaymentAttemptPaymentMethodType = "bizum"
 	PaymentIntentPaymentAttemptPaymentMethodTypePromptpay                 PaymentIntentPaymentAttemptPaymentMethodType = "promptpay"
+	PaymentIntentPaymentAttemptPaymentMethodTypeDana                      PaymentIntentPaymentAttemptPaymentMethodType = "dana"
+	PaymentIntentPaymentAttemptPaymentMethodTypeTouchNGo                  PaymentIntentPaymentAttemptPaymentMethodType = "touch_n_go"
+	PaymentIntentPaymentAttemptPaymentMethodTypeTamara                    PaymentIntentPaymentAttemptPaymentMethodType = "tamara"
+	PaymentIntentPaymentAttemptPaymentMethodTypeQpay                      PaymentIntentPaymentAttemptPaymentMethodType = "qpay"
 )
 
 type PaymentIntentPaymentIntentMetadataSource string

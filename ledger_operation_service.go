@@ -70,3 +70,13 @@ func (s *LedgerOperationService) ReleaseAuthorization(req *LedgerOperationReleas
 
 	return send[*LedgerOperationReleaseAuthorizationResponse](req, s.config)
 }
+
+func (s *LedgerOperationService) Allocate(req *LedgerOperationAllocateRequest) (*LedgerOperationAllocateResponse, error) {
+	req.method = "POST"
+	req.path = "/ledger_operations/allocate"
+	req.isJsonRequest = true
+	req.telemetryResource = "ledgerOperation"
+	req.telemetryOperation = "allocate"
+
+	return send[*LedgerOperationAllocateResponse](req, s.config)
+}

@@ -5,16 +5,6 @@ import (
 	"encoding/json"
 )
 
-type GrantBlockGrantSource string
-
-const (
-	GrantBlockGrantSourceSubscriptionCreated GrantBlockGrantSource = "subscription_created"
-	GrantBlockGrantSourceSubscriptionChanged GrantBlockGrantSource = "subscription_changed"
-	GrantBlockGrantSourceTopUp               GrantBlockGrantSource = "top_up"
-	GrantBlockGrantSourcePromotionalGrants   GrantBlockGrantSource = "promotional_grants"
-	GrantBlockGrantSourceRollover            GrantBlockGrantSource = "rollover"
-)
-
 type GrantBlockAccountType string
 
 const (
@@ -28,8 +18,24 @@ const (
 	GrantBlockUnitTypeCreditUnit GrantBlockUnitType = "credit_unit"
 )
 
+type GrantBlockGrantSource string
+
+const (
+	GrantBlockGrantSourceSubscriptionCreated GrantBlockGrantSource = "subscription_created"
+	GrantBlockGrantSourceSubscriptionChanged GrantBlockGrantSource = "subscription_changed"
+	GrantBlockGrantSourceTopUp               GrantBlockGrantSource = "top_up"
+	GrantBlockGrantSourcePromotionalGrants   GrantBlockGrantSource = "promotional_grants"
+	GrantBlockGrantSourceRollover            GrantBlockGrantSource = "rollover"
+	GrantBlockGrantSourceGrantRenewal        GrantBlockGrantSource = "grant_renewal"
+	GrantBlockGrantSourceSubscriptionRenewed GrantBlockGrantSource = "subscription_renewed"
+)
+
 type GrantBlock struct {
 	Id                 string                `json:"id"`
+	SubscriptionId     string                `json:"subscription_id"`
+	AccountType        GrantBlockAccountType `json:"account_type"`
+	UnitId             string                `json:"unit_id"`
+	UnitType           GrantBlockUnitType    `json:"unit_type"`
 	GrantedAmount      string                `json:"granted_amount"`
 	EffectiveFrom      int64                 `json:"effective_from"`
 	ExpiresAt          int64                 `json:"expires_at"`
@@ -43,9 +49,8 @@ type GrantBlock struct {
 	Status             GiftStatus            `json:"status"`
 	GrantSource        GrantBlockGrantSource `json:"grant_source"`
 	CreatedAt          int64                 `json:"created_at"`
-	AccountType        GrantBlockAccountType `json:"account_type"`
-	UnitId             string                `json:"unit_id"`
-	UnitType           GrantBlockUnitType    `json:"unit_type"`
+	ModifiedAt         int64                 `json:"modified_at"`
+	ResourceVersion    int64                 `json:"resource_version"`
 	Metadata           json.RawMessage       `json:"metadata"`
 	Object             string                `json:"object"`
 }
@@ -55,6 +60,7 @@ type GrantBlockListGrantBlocksRequest struct {
 	Offset         string           `json:"offset,omitempty"`
 	SubscriptionId *StringFilter    `json:"subscription_id"`
 	UnitId         *StringFilter    `json:"unit_id,omitempty"`
+	AccountType    *EnumFilter      `json:"account_type,omitempty"`
 	EffectiveFrom  *TimestampFilter `json:"effective_from,omitempty"`
 	ExpiresAt      *TimestampFilter `json:"expires_at,omitempty"`
 	CreatedAt      *TimestampFilter `json:"created_at,omitempty"`
