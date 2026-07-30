@@ -24,6 +24,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/couponset"
 	"github.com/chargebee/chargebee-go/v3/models/cpqquotesignature"
 	"github.com/chargebee/chargebee-go/v3/models/creditnote"
+	"github.com/chargebee/chargebee-go/v3/models/creditunit"
 	"github.com/chargebee/chargebee-go/v3/models/currency"
 	"github.com/chargebee/chargebee-go/v3/models/customer"
 	"github.com/chargebee/chargebee-go/v3/models/customerentitlement"
@@ -54,6 +55,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/itemfamily"
 	"github.com/chargebee/chargebee-go/v3/models/itemprice"
 	"github.com/chargebee/chargebee-go/v3/models/ledgeraccountbalance"
+	"github.com/chargebee/chargebee-go/v3/models/ledgerentry"
 	"github.com/chargebee/chargebee-go/v3/models/ledgeroperation"
 	"github.com/chargebee/chargebee-go/v3/models/metadata"
 	"github.com/chargebee/chargebee-go/v3/models/meter"
@@ -186,6 +188,7 @@ type Result struct {
 	ImpactedItem                               *impacteditem.ImpactedItem                                                             `json:"impacted_item,omitempty"`
 	ImpactedItemPrice                          *impacteditemprice.ImpactedItemPrice                                                   `json:"impacted_item_price,omitempty"`
 	Metadata                                   *metadata.Metadata                                                                     `json:"metadata,omitempty"`
+	CreditUnit                                 *creditunit.CreditUnit                                                                 `json:"credit_unit,omitempty"`
 	SubscriptionEntitlement                    *subscriptionentitlement.SubscriptionEntitlement                                       `json:"subscription_entitlement,omitempty"`
 	CustomerEntitlement                        *customerentitlement.CustomerEntitlement                                               `json:"customer_entitlement,omitempty"`
 	ItemEntitlement                            *itementitlement.ItemEntitlement                                                       `json:"item_entitlement,omitempty"`
@@ -224,6 +227,7 @@ type Result struct {
 	LedgerAccountBalance                       *ledgeraccountbalance.LedgerAccountBalance                                             `json:"ledger_account_balance,omitempty"`
 	LedgerOperation                            *ledgeroperation.LedgerOperation                                                       `json:"ledger_operation,omitempty"`
 	GrantBlock                                 *grantblock.GrantBlock                                                                 `json:"grant_block,omitempty"`
+	LedgerEntry                                *ledgerentry.LedgerEntry                                                               `json:"ledger_entry,omitempty"`
 	PromotionalGrant                           *promotionalgrant.PromotionalGrant                                                     `json:"promotional_grant,omitempty"`
 	ImpactedCustomer                           *impactedcustomer.ImpactedCustomer                                                     `json:"impacted_customer,omitempty"`
 	SubscriptionEntitlementsUpdatedDetail      *subscriptionentitlementsupdateddetail.SubscriptionEntitlementsUpdatedDetail           `json:"subscription_entitlements_updated_detail,omitempty"`
@@ -240,6 +244,7 @@ type Result struct {
 	PersonalizedOffers                         []*personalizedoffer.PersonalizedOffer                                                 `json:"personalized_offers,omitempty"`
 	LedgerOperations                           []*ledgeroperation.LedgerOperation                                                     `json:"ledger_operations,omitempty"`
 	GrantBlocks                                []*grantblock.GrantBlock                                                               `json:"grant_blocks,omitempty"`
+	LedgerEntries                              []*ledgerentry.LedgerEntry                                                             `json:"ledger_entries,omitempty"`
 	FailedEvents                               interface{}                                                                            `json:"failed_events,omitempty"`
 	ExpiresAt                                  interface{}                                                                            `json:"expires_at,omitempty"`
 	BatchId                                    interface{}                                                                            `json:"batch_id,omitempty"`

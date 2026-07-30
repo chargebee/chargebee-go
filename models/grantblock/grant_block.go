@@ -9,6 +9,10 @@ import (
 
 type GrantBlock struct {
 	Id                 string                     `json:"id"`
+	SubscriptionId     string                     `json:"subscription_id"`
+	AccountType        grantBlockEnum.AccountType `json:"account_type"`
+	UnitId             string                     `json:"unit_id"`
+	UnitType           grantBlockEnum.UnitType    `json:"unit_type"`
 	GrantedAmount      string                     `json:"granted_amount"`
 	EffectiveFrom      int64                      `json:"effective_from"`
 	ExpiresAt          int64                      `json:"expires_at"`
@@ -22,9 +26,8 @@ type GrantBlock struct {
 	Status             enum.Status                `json:"status"`
 	GrantSource        grantBlockEnum.GrantSource `json:"grant_source"`
 	CreatedAt          int64                      `json:"created_at"`
-	AccountType        grantBlockEnum.AccountType `json:"account_type"`
-	UnitId             string                     `json:"unit_id"`
-	UnitType           grantBlockEnum.UnitType    `json:"unit_type"`
+	ModifiedAt         int64                      `json:"modified_at"`
+	ResourceVersion    int64                      `json:"resource_version"`
 	Metadata           json.RawMessage            `json:"metadata"`
 	Object             string                     `json:"object"`
 }
@@ -33,6 +36,7 @@ type ListGrantBlocksRequestParams struct {
 	Offset         string                  `json:"offset,omitempty"`
 	SubscriptionId *filter.StringFilter    `json:"subscription_id"`
 	UnitId         *filter.StringFilter    `json:"unit_id,omitempty"`
+	AccountType    *filter.EnumFilter      `json:"account_type,omitempty"`
 	EffectiveFrom  *filter.TimestampFilter `json:"effective_from,omitempty"`
 	ExpiresAt      *filter.TimestampFilter `json:"expires_at,omitempty"`
 	CreatedAt      *filter.TimestampFilter `json:"created_at,omitempty"`

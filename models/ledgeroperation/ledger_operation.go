@@ -8,6 +8,9 @@ import (
 
 type LedgerOperation struct {
 	Id                       string                       `json:"id"`
+	SubscriptionId           string                       `json:"subscription_id"`
+	UnitId                   string                       `json:"unit_id"`
+	UnitType                 ledgerOperationEnum.UnitType `json:"unit_type"`
 	Type                     ledgerOperationEnum.Type     `json:"type"`
 	Amount                   string                       `json:"amount"`
 	ProvisionedStartBalance  string                       `json:"provisioned_start_balance"`
@@ -19,9 +22,6 @@ type LedgerOperation struct {
 	AutoReleaseTimestamp     int64                        `json:"auto_release_timestamp"`
 	CreatedAt                int64                        `json:"created_at"`
 	ModifiedAt               int64                        `json:"modified_at"`
-	SubscriptionId           string                       `json:"subscription_id"`
-	UnitId                   string                       `json:"unit_id"`
-	UnitType                 ledgerOperationEnum.UnitType `json:"unit_type"`
 	Metadata                 json.RawMessage              `json:"metadata"`
 	Object                   string                       `json:"object"`
 }
@@ -63,4 +63,11 @@ type ReleaseAuthorizationRequestParams struct {
 	Id                       string                 `json:"id,omitempty"`
 	LedgerOperationTimestamp *int64                 `json:"ledger_operation_timestamp"`
 	Metadata                 map[string]interface{} `json:"metadata,omitempty"`
+}
+type AllocateRequestParams struct {
+	SubscriptionId string                 `json:"subscription_id"`
+	UnitId         string                 `json:"unit_id"`
+	Amount         string                 `json:"amount"`
+	ExpiresAt      *int64                 `json:"expires_at"`
+	Metadata       map[string]interface{} `json:"metadata,omitempty"`
 }
