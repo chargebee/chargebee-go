@@ -39,6 +39,8 @@ import (
 
 	"github.com/chargebee/chargebee-go/v3/models/gift"
 
+	"github.com/chargebee/chargebee-go/v3/models/grantblock"
+
 	"github.com/chargebee/chargebee-go/v3/models/impactedcustomer"
 
 	"github.com/chargebee/chargebee-go/v3/models/impacteditem"
@@ -54,6 +56,10 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/itemfamily"
 
 	"github.com/chargebee/chargebee-go/v3/models/itemprice"
+
+	"github.com/chargebee/chargebee-go/v3/models/ledgeraccountbalance"
+
+	"github.com/chargebee/chargebee-go/v3/models/ledgeroperation"
 
 	"github.com/chargebee/chargebee-go/v3/models/metadata"
 
@@ -160,6 +166,10 @@ type UnbilledChargesDeletedContent struct {
 
 type CouponUpdatedContent struct {
 	Coupon *coupon.Coupon `json:"coupon,omitempty"`
+}
+
+type GrantBlocksCreatedContent struct {
+	GrantBlock []*grantblock.GrantBlock `json:"grant_block,omitempty"`
 }
 
 type ProductUpdatedContent struct {
@@ -1125,6 +1135,14 @@ type SubscriptionMovedInContent struct {
 	Subscription *subscription.Subscription `json:"subscription,omitempty"`
 }
 
+type LedgerUpdatedContent struct {
+	LedgerOperation []*ledgeroperation.LedgerOperation `json:"ledger_operation,omitempty"`
+
+	LedgerAccountBalance *ledgeraccountbalance.LedgerAccountBalance `json:"ledger_account_balance,omitempty"`
+
+	GrantBlock []*grantblock.GrantBlock `json:"grant_block,omitempty"`
+}
+
 type ItemPriceCreatedContent struct {
 	ItemPrice *itemprice.ItemPrice `json:"item_price,omitempty"`
 }
@@ -1373,6 +1391,10 @@ type SubscriptionRampUpdatedContent struct {
 	Ramp *ramp.Ramp `json:"ramp,omitempty"`
 }
 
+type LedgerAccountBalanceUpdatedContent struct {
+	LedgerAccountBalance *ledgeraccountbalance.LedgerAccountBalance `json:"ledger_account_balance,omitempty"`
+}
+
 type CustomerEntitlementsUpdatedContent struct {
 	ImpactedCustomer *impactedcustomer.ImpactedCustomer `json:"impacted_customer,omitempty"`
 }
@@ -1552,6 +1574,10 @@ type BusinessEntityDeletedContent struct {
 	BusinessEntity *businessentity.BusinessEntity `json:"business_entity,omitempty"`
 }
 
+type GrantBlocksUpdatedContent struct {
+	GrantBlock []*grantblock.GrantBlock `json:"grant_block,omitempty"`
+}
+
 type AuthorizationVoidedContent struct {
 	Transaction *transaction.Transaction `json:"transaction,omitempty"`
 }
@@ -1638,6 +1664,12 @@ type UnbilledChargesDeletedEvent struct {
 type CouponUpdatedEvent struct {
 	BaseEvent
 	Content *CouponUpdatedContent `json:"content"`
+}
+
+// GrantBlocksCreatedEvent represents a grant_blocks_created webhook event
+type GrantBlocksCreatedEvent struct {
+	BaseEvent
+	Content *GrantBlocksCreatedContent `json:"content"`
 }
 
 // ProductUpdatedEvent represents a product_updated webhook event
@@ -2522,6 +2554,12 @@ type SubscriptionMovedInEvent struct {
 	Content *SubscriptionMovedInContent `json:"content"`
 }
 
+// LedgerUpdatedEvent represents a ledger_updated webhook event
+type LedgerUpdatedEvent struct {
+	BaseEvent
+	Content *LedgerUpdatedContent `json:"content"`
+}
+
 // ItemPriceCreatedEvent represents a item_price_created webhook event
 type ItemPriceCreatedEvent struct {
 	BaseEvent
@@ -2738,6 +2776,12 @@ type SubscriptionRampUpdatedEvent struct {
 	Content *SubscriptionRampUpdatedContent `json:"content"`
 }
 
+// LedgerAccountBalanceUpdatedEvent represents a ledger_account_balance_updated webhook event
+type LedgerAccountBalanceUpdatedEvent struct {
+	BaseEvent
+	Content *LedgerAccountBalanceUpdatedContent `json:"content"`
+}
+
 // CustomerEntitlementsUpdatedEvent represents a customer_entitlements_updated webhook event
 type CustomerEntitlementsUpdatedEvent struct {
 	BaseEvent
@@ -2922,6 +2966,12 @@ type PaymentSourceUpdatedEvent struct {
 type BusinessEntityDeletedEvent struct {
 	BaseEvent
 	Content *BusinessEntityDeletedContent `json:"content"`
+}
+
+// GrantBlocksUpdatedEvent represents a grant_blocks_updated webhook event
+type GrantBlocksUpdatedEvent struct {
+	BaseEvent
+	Content *GrantBlocksUpdatedContent `json:"content"`
 }
 
 // AuthorizationVoidedEvent represents a authorization_voided webhook event

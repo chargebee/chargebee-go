@@ -1651,6 +1651,7 @@ type CancelForItemsRequestParams struct {
 	ContractTermCancelOption          enum.ContractTermCancelOption           `json:"contract_term_cancel_option,omitempty"`
 	InvoiceDate                       *int64                                  `json:"invoice_date,omitempty"`
 	SubscriptionItems                 []*CancelForItemsSubscriptionItemParams `json:"subscription_items,omitempty"`
+	IncludeCancellationDayInBilling   *bool                                   `json:"include_cancellation_day_in_billing,omitempty"`
 	CancelReasonCode                  string                                  `json:"cancel_reason_code,omitempty"`
 	Decommissioned                    *bool                                   `json:"decommissioned,omitempty"`
 }

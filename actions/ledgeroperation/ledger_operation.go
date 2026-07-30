@@ -25,3 +25,6 @@ func CaptureAuthorization(params *ledgeroperation.CaptureAuthorizationRequestPar
 func ReleaseAuthorization(params *ledgeroperation.ReleaseAuthorizationRequestParams) chargebee.Request {
 	return chargebee.SendJsonRequest("POST", fmt.Sprintf("/ledger_operations/release_authorization"), params)
 }
+func Allocate(params *ledgeroperation.AllocateRequestParams) chargebee.Request {
+	return chargebee.SendJsonRequest("POST", fmt.Sprintf("/ledger_operations/allocate"), params)
+}

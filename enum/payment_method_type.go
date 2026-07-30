@@ -53,4 +53,8 @@ const (
 	PaymentMethodTypePaynow                    PaymentMethodType = "paynow"
 	PaymentMethodTypeBizum                     PaymentMethodType = "bizum"
 	PaymentMethodTypePromptpay                 PaymentMethodType = "promptpay"
+	PaymentMethodTypeDana                      PaymentMethodType = "dana"
+	PaymentMethodTypeTouchNGo                  PaymentMethodType = "touch_n_go"
+	PaymentMethodTypeTamara                    PaymentMethodType = "tamara"
+	PaymentMethodTypeQpay                      PaymentMethodType = "qpay"
 )
