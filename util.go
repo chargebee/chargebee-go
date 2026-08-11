@@ -88,7 +88,10 @@ func parseMap(aMap, serParams map[string]interface{}, prefix string, idx string,
 				key = prefix + "[" + key + "]"
 			}
 			if arrayOperators[operator] {
-				serParams[key] = serializeArrayOperator(value)
+				// An empty filter is not a filter, so leave it out of the request.
+				if len(value) > 0 {
+					serParams[key] = serializeArrayOperator(value)
+				}
 				continue
 			}
 			parseArray(value, serParams, key, "", paramTypes)

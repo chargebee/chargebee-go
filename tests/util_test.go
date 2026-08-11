@@ -111,6 +111,20 @@ func TestSerializeParams(t *testing.T) {
 			},
 		},
 		{
+			Name: "Export Subscription Request with an empty filter array operator",
+			Input: &export.SubscriptionsRequestParams{
+				ExportType: "data",
+				Subscription: &export.SubscriptionsSubscriptionParams{
+					UpdatedAt: &filter.TimestampFilter{
+						Between: []int64{},
+					},
+				},
+			},
+			Output: &url.Values{
+				"export_type": []string{"data"},
+			},
+		},
+		{
 			Name: "Coupon: Create For Item Request Params",
 			Input: &coupon.CreateForItemsRequestParams{
 				Id:                 "summer_offer",
