@@ -89,7 +89,31 @@ func serializeStruct(values *url.Values, v reflect.Value, prefix string, isList 
 			value = value.Elem()
 		}
 
+		if arrayOperators[name] && value.Kind() == reflect.Slice {
+			serializeArrayAsJSON(values, value, key)
+			continue
+		}
+
 		serializeValue(values, value, key, isList, field.Type)
+	}
+}
+
+// Filter operators whose value is the whole array, sent as a single field
+// (e.g. updated_at[between]=["1704067200","1717199999"]).
+var arrayOperators = map[string]bool{"in": true, "not_in": true, "between": true}
+
+func serializeArrayAsJSON(values *url.Values, v reflect.Value, key string) {
+	var items []string
+	for i := 0; i < v.Len(); i++ {
+		val := v.Index(i)
+		if val.Kind() == reflect.Ptr && !val.IsNil() {
+			val = val.Elem()
+		}
+		items = append(items, fmt.Sprintf("%v", val.Interface()))
+	}
+	if len(items) > 0 {
+		b, _ := json.Marshal(items) // ["a","b"]
+		values.Set(key, string(b))
 	}
 }
 
@@ -156,18 +180,7 @@ func serializeMap(values *url.Values, v reflect.Value, prefix string, isList boo
 func serializeSlice(values *url.Values, v reflect.Value, prefix string, isList bool) {
 	if isList {
 		// List Params: Serialize as JSON array of strings
-		var items []string
-		for i := 0; i < v.Len(); i++ {
-			val := v.Index(i)
-			if val.Kind() == reflect.Ptr && !val.IsNil() {
-				val = val.Elem()
-			}
-			items = append(items, fmt.Sprintf("%v", val.Interface()))
-		}
-		if len(items) > 0 {
-			b, _ := json.Marshal(items) // ["a","b"]
-			values.Set(prefix, string(b))
-		}
+		serializeArrayAsJSON(values, v, prefix)
 		return
 	}
 
