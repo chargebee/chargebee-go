@@ -42,6 +42,23 @@ func SerializeParams(params interface{}) *url.Values {
 	return body
 }
 
+// Filter operators whose value is the whole array, sent as a single field
+// (eg : updated_at[between] : ["1704067200","1717199999"]).
+var arrayOperators = map[string]bool{"in": true, "not_in": true, "between": true}
+
+func serializeArrayOperator(anArray []interface{}) string {
+	items := make([]string, 0, len(anArray))
+	for _, element := range anArray {
+		items = append(items, fmt.Sprintf("%v", element))
+	}
+	encoded, err := json.Marshal(items)
+	if err != nil {
+		fmt.Println(err.Error())
+		return ""
+	}
+	return string(encoded)
+}
+
 func parseMap(aMap, serParams map[string]interface{}, prefix string, idx string, paramTypes map[string]string) {
 	for key, val := range aMap {
 		switch value := val.(type) {
@@ -66,7 +83,18 @@ func parseMap(aMap, serParams map[string]interface{}, prefix string, idx string,
 				parseMap(val.(map[string]interface{}), serParams, key, "", paramTypes)
 			}
 		case []interface{}:
-			parseArray(val.([]interface{}), serParams, key, "", paramTypes)
+			operator := key
+			if prefix != "" {
+				key = prefix + "[" + key + "]"
+			}
+			if arrayOperators[operator] {
+				// An empty filter is not a filter, so leave it out of the request.
+				if len(value) > 0 {
+					serParams[key] = serializeArrayOperator(value)
+				}
+				continue
+			}
+			parseArray(value, serParams, key, "", paramTypes)
 		default:
 			if prefix != "" && idx != "" {
 				key = prefix + "[" + key + "]" + "[" + idx + "]"

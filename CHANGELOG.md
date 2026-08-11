@@ -1,3 +1,8 @@
+### v3.52.1 (2026-08-11)
+* * *
+### Bug Fixes: 
+- `SerializeParams` no longer drops the parent prefix when a nested attribute holds an array, and filter operators `in`, `not_in` and `between` are now sent as a single form field. Filters on export operations, such as `subscription[updated_at][between]`, were sent as `between[0]`/`between[1]` and therefore ignored by the API.
+
 ### v3.52.0 (2026-07-30)
 * * *
 ### New Resources:
