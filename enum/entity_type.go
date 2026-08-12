@@ -45,4 +45,5 @@ const (
 	EntityTypeBusinessRule                               EntityType = "business_rule"
 	EntityTypeRuleset                                    EntityType = "ruleset"
 	EntityTypeAlertStatus                                EntityType = "alert_status"
+	EntityTypeOmnichannelSubscriptionItemMetric          EntityType = "omnichannel_subscription_item_metric"
 )

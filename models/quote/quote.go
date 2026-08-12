@@ -656,6 +656,7 @@ type CreateSubItemsForCustomerQuoteSubscriptionItemParams struct {
 	ChargeOnOption     enum.ChargeOnOption `json:"charge_on_option,omitempty"`
 	StartDate          *int64              `json:"start_date,omitempty"`
 	EndDate            *int64              `json:"end_date,omitempty"`
+	Description        string              `json:"description,omitempty"`
 	RampTierId         string              `json:"ramp_tier_id,omitempty"`
 }
 type CreateSubItemsForCustomerQuoteDiscountParams struct {
@@ -769,6 +770,7 @@ type EditCreateSubCustomerQuoteForItemsSubscriptionItemParams struct {
 	ChargeOnOption     enum.ChargeOnOption `json:"charge_on_option,omitempty"`
 	StartDate          *int64              `json:"start_date,omitempty"`
 	EndDate            *int64              `json:"end_date,omitempty"`
+	Description        string              `json:"description,omitempty"`
 	RampTierId         string              `json:"ramp_tier_id,omitempty"`
 }
 type EditCreateSubCustomerQuoteForItemsDiscountParams struct {
@@ -889,6 +891,7 @@ type UpdateSubscriptionQuoteForItemsSubscriptionItemParams struct {
 	ItemType           enum.ItemType       `json:"item_type,omitempty"`
 	StartDate          *int64              `json:"start_date,omitempty"`
 	EndDate            *int64              `json:"end_date,omitempty"`
+	Description        string              `json:"description,omitempty"`
 	RampTierId         string              `json:"ramp_tier_id,omitempty"`
 }
 type UpdateSubscriptionQuoteForItemsDiscountParams struct {
@@ -1005,6 +1008,7 @@ type EditUpdateSubscriptionQuoteForItemsSubscriptionItemParams struct {
 	ItemType           enum.ItemType       `json:"item_type,omitempty"`
 	StartDate          *int64              `json:"start_date,omitempty"`
 	EndDate            *int64              `json:"end_date,omitempty"`
+	Description        string              `json:"description,omitempty"`
 	RampTierId         string              `json:"ramp_tier_id,omitempty"`
 }
 type EditUpdateSubscriptionQuoteForItemsSubscriptionParams struct {

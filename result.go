@@ -40,6 +40,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/feature"
 	"github.com/chargebee/chargebee-go/v3/models/filtercondition"
 	"github.com/chargebee/chargebee-go/v3/models/gatewayerrordetail"
+	"github.com/chargebee/chargebee-go/v3/models/gatewaypaymentmethodtoken"
 	"github.com/chargebee/chargebee-go/v3/models/gift"
 	"github.com/chargebee/chargebee-go/v3/models/grantblock"
 	"github.com/chargebee/chargebee-go/v3/models/hierarchy"
@@ -66,6 +67,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/omnichannelonetimeorderitem"
 	"github.com/chargebee/chargebee-go/v3/models/omnichannelsubscription"
 	"github.com/chargebee/chargebee-go/v3/models/omnichannelsubscriptionitem"
+	"github.com/chargebee/chargebee-go/v3/models/omnichannelsubscriptionitemmetric"
 	"github.com/chargebee/chargebee-go/v3/models/omnichannelsubscriptionitemscheduledchange"
 	"github.com/chargebee/chargebee-go/v3/models/omnichanneltransaction"
 	"github.com/chargebee/chargebee-go/v3/models/order"
@@ -109,6 +111,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/usageevent"
 	"github.com/chargebee/chargebee-go/v3/models/usagefile"
 	"github.com/chargebee/chargebee-go/v3/models/usagesummary"
+	"github.com/chargebee/chargebee-go/v3/models/vaultedpaymentmethod"
 	"github.com/chargebee/chargebee-go/v3/models/virtualbankaccount"
 	"github.com/chargebee/chargebee-go/v3/models/webhookendpoint"
 	"net/http"
@@ -134,7 +137,9 @@ type Result struct {
 	BusinessEntityTransfer                     *businessentitytransfer.BusinessEntityTransfer                                         `json:"business_entity_transfer,omitempty"`
 	Token                                      *token.Token                                                                           `json:"token,omitempty"`
 	PaymentSource                              *paymentsource.PaymentSource                                                           `json:"payment_source,omitempty"`
+	GatewayPaymentMethodToken                  *gatewaypaymentmethodtoken.GatewayPaymentMethodToken                                   `json:"gateway_payment_method_token,omitempty"`
 	ThirdPartyPaymentMethod                    *thirdpartypaymentmethod.ThirdPartyPaymentMethod                                       `json:"third_party_payment_method,omitempty"`
+	VaultedPaymentMethod                       *vaultedpaymentmethod.VaultedPaymentMethod                                             `json:"vaulted_payment_method,omitempty"`
 	VirtualBankAccount                         *virtualbankaccount.VirtualBankAccount                                                 `json:"virtual_bank_account,omitempty"`
 	Card                                       *card.Card                                                                             `json:"card,omitempty"`
 	PromotionalCredit                          *promotionalcredit.PromotionalCredit                                                   `json:"promotional_credit,omitempty"`
@@ -203,6 +208,7 @@ type Result struct {
 	PaymentScheduleScheme                      *paymentschedulescheme.PaymentScheduleScheme                                           `json:"payment_schedule_scheme,omitempty"`
 	PricingPageSession                         *pricingpagesession.PricingPageSession                                                 `json:"pricing_page_session,omitempty"`
 	OmnichannelSubscriptionItemScheduledChange *omnichannelsubscriptionitemscheduledchange.OmnichannelSubscriptionItemScheduledChange `json:"omnichannel_subscription_item_scheduled_change,omitempty"`
+	OmnichannelSubscriptionItemMetric          *omnichannelsubscriptionitemmetric.OmnichannelSubscriptionItemMetric                   `json:"omnichannel_subscription_item_metric,omitempty"`
 	OmnichannelSubscription                    *omnichannelsubscription.OmnichannelSubscription                                       `json:"omnichannel_subscription,omitempty"`
 	OmnichannelTransaction                     *omnichanneltransaction.OmnichannelTransaction                                         `json:"omnichannel_transaction,omitempty"`
 	OmnichannelSubscriptionItem                *omnichannelsubscriptionitem.OmnichannelSubscriptionItem                               `json:"omnichannel_subscription_item,omitempty"`

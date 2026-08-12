@@ -64,6 +64,9 @@ func DifferentialPrices(params *export.DifferentialPricesRequestParams) chargebe
 func PriceVariants(params *export.PriceVariantsRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/exports/price_variants"), params).SetIdempotency(true)
 }
+func Ramps(params *export.RampsRequestParams) chargebee.Request {
+	return chargebee.Send("POST", fmt.Sprintf("/exports/ramps"), params).SetIdempotency(true)
+}
 func WaitForExportCompletion(exp export.Export) (export.Export, error) {
 	return WaitForExportCompletionWithEnv(exp, chargebee.DefaultConfig())
 }
