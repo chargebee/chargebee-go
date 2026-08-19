@@ -140,6 +140,7 @@ type Quote struct {
 	Deleted                    bool                     `json:"deleted"`
 	TotalContractValue         int64                    `json:"total_contract_value"`
 	TotalDiscount              int64                    `json:"total_discount"`
+	HasEntitlements            bool                     `json:"has_entitlements"`
 	CustomFields               *CustomFields            `json:"-"`
 	Object                     string                   `json:"object"`
 }
@@ -772,24 +773,25 @@ type QuoteEditOneTimeQuoteTaxProvidersField struct {
 }
 
 type QuoteCreateSubItemsForCustomerQuoteRequest struct {
-	Name                   string                                                 `json:"name,omitempty"`
-	Notes                  string                                                 `json:"notes,omitempty"`
-	ExpiresAt              *int64                                                 `json:"expires_at,omitempty"`
-	Subscription           *QuoteCreateSubItemsForCustomerQuoteSubscription       `json:"subscription,omitempty"`
-	BillingCycles          *int32                                                 `json:"billing_cycles,omitempty"`
-	SubscriptionItems      []*QuoteCreateSubItemsForCustomerQuoteSubscriptionItem `json:"subscription_items,omitempty"`
-	Discounts              []*QuoteCreateSubItemsForCustomerQuoteDiscount         `json:"discounts,omitempty"`
-	MandatoryItemsToRemove []string                                               `json:"mandatory_items_to_remove,omitempty"`
-	ItemTiers              []*QuoteCreateSubItemsForCustomerQuoteItemTier         `json:"item_tiers,omitempty"`
-	TermsToCharge          *int32                                                 `json:"terms_to_charge,omitempty"`
-	BillingAlignmentMode   BillingAlignmentMode                                   `json:"billing_alignment_mode,omitempty"`
-	ShippingAddress        *QuoteCreateSubItemsForCustomerQuoteShippingAddress    `json:"shipping_address,omitempty"`
-	ContractTerm           *QuoteCreateSubItemsForCustomerQuoteContractTerm       `json:"contract_term,omitempty"`
-	CouponIds              []string                                               `json:"coupon_ids,omitempty"`
-	BillingStartOption     BillingStartOption                                     `json:"billing_start_option,omitempty"`
-	BillingAddress         *QuoteCreateSubItemsForCustomerQuoteBillingAddress     `json:"billing_address,omitempty"`
-	NetTermDays            *int32                                                 `json:"net_term_days,omitempty"`
-	Coupons                []*QuoteCreateSubItemsForCustomerQuoteCoupon           `json:"coupons,omitempty"`
+	Name                   string                                                    `json:"name,omitempty"`
+	Notes                  string                                                    `json:"notes,omitempty"`
+	ExpiresAt              *int64                                                    `json:"expires_at,omitempty"`
+	Subscription           *QuoteCreateSubItemsForCustomerQuoteSubscription          `json:"subscription,omitempty"`
+	BillingCycles          *int32                                                    `json:"billing_cycles,omitempty"`
+	SubscriptionItems      []*QuoteCreateSubItemsForCustomerQuoteSubscriptionItem    `json:"subscription_items,omitempty"`
+	Discounts              []*QuoteCreateSubItemsForCustomerQuoteDiscount            `json:"discounts,omitempty"`
+	MandatoryItemsToRemove []string                                                  `json:"mandatory_items_to_remove,omitempty"`
+	ItemTiers              []*QuoteCreateSubItemsForCustomerQuoteItemTier            `json:"item_tiers,omitempty"`
+	TermsToCharge          *int32                                                    `json:"terms_to_charge,omitempty"`
+	BillingAlignmentMode   BillingAlignmentMode                                      `json:"billing_alignment_mode,omitempty"`
+	ShippingAddress        *QuoteCreateSubItemsForCustomerQuoteShippingAddress       `json:"shipping_address,omitempty"`
+	ContractTerm           *QuoteCreateSubItemsForCustomerQuoteContractTerm          `json:"contract_term,omitempty"`
+	CouponIds              []string                                                  `json:"coupon_ids,omitempty"`
+	BillingStartOption     BillingStartOption                                        `json:"billing_start_option,omitempty"`
+	BillingAddress         *QuoteCreateSubItemsForCustomerQuoteBillingAddress        `json:"billing_address,omitempty"`
+	NetTermDays            *int32                                                    `json:"net_term_days,omitempty"`
+	Coupons                []*QuoteCreateSubItemsForCustomerQuoteCoupon              `json:"coupons,omitempty"`
+	EntitlementOverrides   []*QuoteCreateSubItemsForCustomerQuoteEntitlementOverride `json:"entitlement_overrides,omitempty"`
 	apiRequest             `json:"-" form:"-"`
 }
 
@@ -822,6 +824,7 @@ type QuoteCreateSubItemsForCustomerQuoteSubscriptionItem struct {
 	ChargeOnOption     ChargeOnOption `json:"charge_on_option,omitempty"`
 	StartDate          *int64         `json:"start_date,omitempty"`
 	EndDate            *int64         `json:"end_date,omitempty"`
+	Description        string         `json:"description,omitempty"`
 	RampTierId         string         `json:"ramp_tier_id,omitempty"`
 }
 
@@ -897,24 +900,35 @@ type QuoteCreateSubItemsForCustomerQuoteCoupon struct {
 	EndDate   *int64 `json:"end_date,omitempty"`
 }
 
+type QuoteCreateSubItemsForCustomerQuoteEntitlementOverride struct {
+	FeatureId  string     `json:"feature_id,omitempty"`
+	EntityId   string     `json:"entity_id,omitempty"`
+	EntityType EntityType `json:"entity_type,omitempty"`
+	Value      string     `json:"value,omitempty"`
+	IsEnabled  *bool      `json:"is_enabled,omitempty"`
+	StartDate  *int64     `json:"start_date,omitempty"`
+	EndDate    *int64     `json:"end_date,omitempty"`
+}
+
 type QuoteEditCreateSubCustomerQuoteForItemsRequest struct {
-	Notes                  string                                                     `json:"notes,omitempty"`
-	ExpiresAt              *int64                                                     `json:"expires_at,omitempty"`
-	Subscription           *QuoteEditCreateSubCustomerQuoteForItemsSubscription       `json:"subscription,omitempty"`
-	BillingCycles          *int32                                                     `json:"billing_cycles,omitempty"`
-	SubscriptionItems      []*QuoteEditCreateSubCustomerQuoteForItemsSubscriptionItem `json:"subscription_items,omitempty"`
-	Discounts              []*QuoteEditCreateSubCustomerQuoteForItemsDiscount         `json:"discounts,omitempty"`
-	MandatoryItemsToRemove []string                                                   `json:"mandatory_items_to_remove,omitempty"`
-	ItemTiers              []*QuoteEditCreateSubCustomerQuoteForItemsItemTier         `json:"item_tiers,omitempty"`
-	TermsToCharge          *int32                                                     `json:"terms_to_charge,omitempty"`
-	BillingAlignmentMode   BillingAlignmentMode                                       `json:"billing_alignment_mode,omitempty"`
-	ShippingAddress        *QuoteEditCreateSubCustomerQuoteForItemsShippingAddress    `json:"shipping_address,omitempty"`
-	ContractTerm           *QuoteEditCreateSubCustomerQuoteForItemsContractTerm       `json:"contract_term,omitempty"`
-	CouponIds              []string                                                   `json:"coupon_ids,omitempty"`
-	BillingStartOption     BillingStartOption                                         `json:"billing_start_option,omitempty"`
-	BillingAddress         *QuoteEditCreateSubCustomerQuoteForItemsBillingAddress     `json:"billing_address,omitempty"`
-	NetTermDays            *int32                                                     `json:"net_term_days,omitempty"`
-	Coupons                []*QuoteEditCreateSubCustomerQuoteForItemsCoupon           `json:"coupons,omitempty"`
+	Notes                  string                                                        `json:"notes,omitempty"`
+	ExpiresAt              *int64                                                        `json:"expires_at,omitempty"`
+	Subscription           *QuoteEditCreateSubCustomerQuoteForItemsSubscription          `json:"subscription,omitempty"`
+	BillingCycles          *int32                                                        `json:"billing_cycles,omitempty"`
+	SubscriptionItems      []*QuoteEditCreateSubCustomerQuoteForItemsSubscriptionItem    `json:"subscription_items,omitempty"`
+	Discounts              []*QuoteEditCreateSubCustomerQuoteForItemsDiscount            `json:"discounts,omitempty"`
+	MandatoryItemsToRemove []string                                                      `json:"mandatory_items_to_remove,omitempty"`
+	ItemTiers              []*QuoteEditCreateSubCustomerQuoteForItemsItemTier            `json:"item_tiers,omitempty"`
+	TermsToCharge          *int32                                                        `json:"terms_to_charge,omitempty"`
+	BillingAlignmentMode   BillingAlignmentMode                                          `json:"billing_alignment_mode,omitempty"`
+	ShippingAddress        *QuoteEditCreateSubCustomerQuoteForItemsShippingAddress       `json:"shipping_address,omitempty"`
+	ContractTerm           *QuoteEditCreateSubCustomerQuoteForItemsContractTerm          `json:"contract_term,omitempty"`
+	CouponIds              []string                                                      `json:"coupon_ids,omitempty"`
+	BillingStartOption     BillingStartOption                                            `json:"billing_start_option,omitempty"`
+	BillingAddress         *QuoteEditCreateSubCustomerQuoteForItemsBillingAddress        `json:"billing_address,omitempty"`
+	NetTermDays            *int32                                                        `json:"net_term_days,omitempty"`
+	Coupons                []*QuoteEditCreateSubCustomerQuoteForItemsCoupon              `json:"coupons,omitempty"`
+	EntitlementOverrides   []*QuoteEditCreateSubCustomerQuoteForItemsEntitlementOverride `json:"entitlement_overrides,omitempty"`
 	apiRequest             `json:"-" form:"-"`
 }
 
@@ -947,6 +961,7 @@ type QuoteEditCreateSubCustomerQuoteForItemsSubscriptionItem struct {
 	ChargeOnOption     ChargeOnOption `json:"charge_on_option,omitempty"`
 	StartDate          *int64         `json:"start_date,omitempty"`
 	EndDate            *int64         `json:"end_date,omitempty"`
+	Description        string         `json:"description,omitempty"`
 	RampTierId         string         `json:"ramp_tier_id,omitempty"`
 }
 
@@ -1022,32 +1037,43 @@ type QuoteEditCreateSubCustomerQuoteForItemsCoupon struct {
 	EndDate   *int64 `json:"end_date,omitempty"`
 }
 
+type QuoteEditCreateSubCustomerQuoteForItemsEntitlementOverride struct {
+	FeatureId  string     `json:"feature_id,omitempty"`
+	EntityId   string     `json:"entity_id,omitempty"`
+	EntityType EntityType `json:"entity_type,omitempty"`
+	Value      string     `json:"value,omitempty"`
+	IsEnabled  *bool      `json:"is_enabled,omitempty"`
+	StartDate  *int64     `json:"start_date,omitempty"`
+	EndDate    *int64     `json:"end_date,omitempty"`
+}
+
 type QuoteUpdateSubscriptionQuoteForItemsRequest struct {
-	Name                   string                                                  `json:"name,omitempty"`
-	Notes                  string                                                  `json:"notes,omitempty"`
-	ExpiresAt              *int64                                                  `json:"expires_at,omitempty"`
-	Subscription           *QuoteUpdateSubscriptionQuoteForItemsSubscription       `json:"subscription,omitempty"`
-	SubscriptionItems      []*QuoteUpdateSubscriptionQuoteForItemsSubscriptionItem `json:"subscription_items,omitempty"`
-	MandatoryItemsToRemove []string                                                `json:"mandatory_items_to_remove,omitempty"`
-	ReplaceItemsList       *bool                                                   `json:"replace_items_list,omitempty"`
-	Discounts              []*QuoteUpdateSubscriptionQuoteForItemsDiscount         `json:"discounts,omitempty"`
-	ItemTiers              []*QuoteUpdateSubscriptionQuoteForItemsItemTier         `json:"item_tiers,omitempty"`
-	BillingCycles          *int32                                                  `json:"billing_cycles,omitempty"`
-	TermsToCharge          *int32                                                  `json:"terms_to_charge,omitempty"`
-	ReactivateFrom         *int64                                                  `json:"reactivate_from,omitempty"`
-	BillingAlignmentMode   BillingAlignmentMode                                    `json:"billing_alignment_mode,omitempty"`
-	CouponIds              []string                                                `json:"coupon_ids,omitempty"`
-	ReplaceCouponList      *bool                                                   `json:"replace_coupon_list,omitempty"`
-	ChangeOption           ChangeOption                                            `json:"change_option,omitempty"`
-	ChangesScheduledAt     *int64                                                  `json:"changes_scheduled_at,omitempty"`
-	ForceTermReset         *bool                                                   `json:"force_term_reset,omitempty"`
-	Reactivate             *bool                                                   `json:"reactivate,omitempty"`
-	BillingAddress         *QuoteUpdateSubscriptionQuoteForItemsBillingAddress     `json:"billing_address,omitempty"`
-	ShippingAddress        *QuoteUpdateSubscriptionQuoteForItemsShippingAddress    `json:"shipping_address,omitempty"`
-	Customer               *QuoteUpdateSubscriptionQuoteForItemsCustomer           `json:"customer,omitempty"`
-	ContractTerm           *QuoteUpdateSubscriptionQuoteForItemsContractTerm       `json:"contract_term,omitempty"`
-	NetTermDays            *int32                                                  `json:"net_term_days,omitempty"`
-	Coupons                []*QuoteUpdateSubscriptionQuoteForItemsCoupon           `json:"coupons,omitempty"`
+	Name                   string                                                     `json:"name,omitempty"`
+	Notes                  string                                                     `json:"notes,omitempty"`
+	ExpiresAt              *int64                                                     `json:"expires_at,omitempty"`
+	Subscription           *QuoteUpdateSubscriptionQuoteForItemsSubscription          `json:"subscription,omitempty"`
+	SubscriptionItems      []*QuoteUpdateSubscriptionQuoteForItemsSubscriptionItem    `json:"subscription_items,omitempty"`
+	MandatoryItemsToRemove []string                                                   `json:"mandatory_items_to_remove,omitempty"`
+	ReplaceItemsList       *bool                                                      `json:"replace_items_list,omitempty"`
+	Discounts              []*QuoteUpdateSubscriptionQuoteForItemsDiscount            `json:"discounts,omitempty"`
+	ItemTiers              []*QuoteUpdateSubscriptionQuoteForItemsItemTier            `json:"item_tiers,omitempty"`
+	BillingCycles          *int32                                                     `json:"billing_cycles,omitempty"`
+	TermsToCharge          *int32                                                     `json:"terms_to_charge,omitempty"`
+	ReactivateFrom         *int64                                                     `json:"reactivate_from,omitempty"`
+	BillingAlignmentMode   BillingAlignmentMode                                       `json:"billing_alignment_mode,omitempty"`
+	CouponIds              []string                                                   `json:"coupon_ids,omitempty"`
+	ReplaceCouponList      *bool                                                      `json:"replace_coupon_list,omitempty"`
+	ChangeOption           ChangeOption                                               `json:"change_option,omitempty"`
+	ChangesScheduledAt     *int64                                                     `json:"changes_scheduled_at,omitempty"`
+	ForceTermReset         *bool                                                      `json:"force_term_reset,omitempty"`
+	Reactivate             *bool                                                      `json:"reactivate,omitempty"`
+	BillingAddress         *QuoteUpdateSubscriptionQuoteForItemsBillingAddress        `json:"billing_address,omitempty"`
+	ShippingAddress        *QuoteUpdateSubscriptionQuoteForItemsShippingAddress       `json:"shipping_address,omitempty"`
+	Customer               *QuoteUpdateSubscriptionQuoteForItemsCustomer              `json:"customer,omitempty"`
+	ContractTerm           *QuoteUpdateSubscriptionQuoteForItemsContractTerm          `json:"contract_term,omitempty"`
+	NetTermDays            *int32                                                     `json:"net_term_days,omitempty"`
+	Coupons                []*QuoteUpdateSubscriptionQuoteForItemsCoupon              `json:"coupons,omitempty"`
+	EntitlementOverrides   []*QuoteUpdateSubscriptionQuoteForItemsEntitlementOverride `json:"entitlement_overrides,omitempty"`
 	apiRequest             `json:"-" form:"-"`
 }
 
@@ -1079,6 +1105,7 @@ type QuoteUpdateSubscriptionQuoteForItemsSubscriptionItem struct {
 	ItemType           ItemType       `json:"item_type,omitempty"`
 	StartDate          *int64         `json:"start_date,omitempty"`
 	EndDate            *int64         `json:"end_date,omitempty"`
+	Description        string         `json:"description,omitempty"`
 	RampTierId         string         `json:"ramp_tier_id,omitempty"`
 }
 
@@ -1162,31 +1189,42 @@ type QuoteUpdateSubscriptionQuoteForItemsCoupon struct {
 	EndDate   *int64 `json:"end_date,omitempty"`
 }
 
+type QuoteUpdateSubscriptionQuoteForItemsEntitlementOverride struct {
+	FeatureId  string     `json:"feature_id,omitempty"`
+	EntityId   string     `json:"entity_id,omitempty"`
+	EntityType EntityType `json:"entity_type,omitempty"`
+	Value      string     `json:"value,omitempty"`
+	IsEnabled  *bool      `json:"is_enabled,omitempty"`
+	StartDate  *int64     `json:"start_date,omitempty"`
+	EndDate    *int64     `json:"end_date,omitempty"`
+}
+
 type QuoteEditUpdateSubscriptionQuoteForItemsRequest struct {
-	Notes                  string                                                      `json:"notes,omitempty"`
-	ExpiresAt              *int64                                                      `json:"expires_at,omitempty"`
-	SubscriptionItems      []*QuoteEditUpdateSubscriptionQuoteForItemsSubscriptionItem `json:"subscription_items,omitempty"`
-	MandatoryItemsToRemove []string                                                    `json:"mandatory_items_to_remove,omitempty"`
-	ReplaceItemsList       *bool                                                       `json:"replace_items_list,omitempty"`
-	Subscription           *QuoteEditUpdateSubscriptionQuoteForItemsSubscription       `json:"subscription,omitempty"`
-	Discounts              []*QuoteEditUpdateSubscriptionQuoteForItemsDiscount         `json:"discounts,omitempty"`
-	ItemTiers              []*QuoteEditUpdateSubscriptionQuoteForItemsItemTier         `json:"item_tiers,omitempty"`
-	BillingCycles          *int32                                                      `json:"billing_cycles,omitempty"`
-	TermsToCharge          *int32                                                      `json:"terms_to_charge,omitempty"`
-	ReactivateFrom         *int64                                                      `json:"reactivate_from,omitempty"`
-	BillingAlignmentMode   BillingAlignmentMode                                        `json:"billing_alignment_mode,omitempty"`
-	CouponIds              []string                                                    `json:"coupon_ids,omitempty"`
-	ReplaceCouponList      *bool                                                       `json:"replace_coupon_list,omitempty"`
-	ChangeOption           ChangeOption                                                `json:"change_option,omitempty"`
-	ChangesScheduledAt     *int64                                                      `json:"changes_scheduled_at,omitempty"`
-	ForceTermReset         *bool                                                       `json:"force_term_reset,omitempty"`
-	Reactivate             *bool                                                       `json:"reactivate,omitempty"`
-	BillingAddress         *QuoteEditUpdateSubscriptionQuoteForItemsBillingAddress     `json:"billing_address,omitempty"`
-	ShippingAddress        *QuoteEditUpdateSubscriptionQuoteForItemsShippingAddress    `json:"shipping_address,omitempty"`
-	Customer               *QuoteEditUpdateSubscriptionQuoteForItemsCustomer           `json:"customer,omitempty"`
-	ContractTerm           *QuoteEditUpdateSubscriptionQuoteForItemsContractTerm       `json:"contract_term,omitempty"`
-	NetTermDays            *int32                                                      `json:"net_term_days,omitempty"`
-	Coupons                []*QuoteEditUpdateSubscriptionQuoteForItemsCoupon           `json:"coupons,omitempty"`
+	Notes                  string                                                         `json:"notes,omitempty"`
+	ExpiresAt              *int64                                                         `json:"expires_at,omitempty"`
+	SubscriptionItems      []*QuoteEditUpdateSubscriptionQuoteForItemsSubscriptionItem    `json:"subscription_items,omitempty"`
+	MandatoryItemsToRemove []string                                                       `json:"mandatory_items_to_remove,omitempty"`
+	ReplaceItemsList       *bool                                                          `json:"replace_items_list,omitempty"`
+	Subscription           *QuoteEditUpdateSubscriptionQuoteForItemsSubscription          `json:"subscription,omitempty"`
+	Discounts              []*QuoteEditUpdateSubscriptionQuoteForItemsDiscount            `json:"discounts,omitempty"`
+	ItemTiers              []*QuoteEditUpdateSubscriptionQuoteForItemsItemTier            `json:"item_tiers,omitempty"`
+	BillingCycles          *int32                                                         `json:"billing_cycles,omitempty"`
+	TermsToCharge          *int32                                                         `json:"terms_to_charge,omitempty"`
+	ReactivateFrom         *int64                                                         `json:"reactivate_from,omitempty"`
+	BillingAlignmentMode   BillingAlignmentMode                                           `json:"billing_alignment_mode,omitempty"`
+	CouponIds              []string                                                       `json:"coupon_ids,omitempty"`
+	ReplaceCouponList      *bool                                                          `json:"replace_coupon_list,omitempty"`
+	ChangeOption           ChangeOption                                                   `json:"change_option,omitempty"`
+	ChangesScheduledAt     *int64                                                         `json:"changes_scheduled_at,omitempty"`
+	ForceTermReset         *bool                                                          `json:"force_term_reset,omitempty"`
+	Reactivate             *bool                                                          `json:"reactivate,omitempty"`
+	BillingAddress         *QuoteEditUpdateSubscriptionQuoteForItemsBillingAddress        `json:"billing_address,omitempty"`
+	ShippingAddress        *QuoteEditUpdateSubscriptionQuoteForItemsShippingAddress       `json:"shipping_address,omitempty"`
+	Customer               *QuoteEditUpdateSubscriptionQuoteForItemsCustomer              `json:"customer,omitempty"`
+	ContractTerm           *QuoteEditUpdateSubscriptionQuoteForItemsContractTerm          `json:"contract_term,omitempty"`
+	NetTermDays            *int32                                                         `json:"net_term_days,omitempty"`
+	Coupons                []*QuoteEditUpdateSubscriptionQuoteForItemsCoupon              `json:"coupons,omitempty"`
+	EntitlementOverrides   []*QuoteEditUpdateSubscriptionQuoteForItemsEntitlementOverride `json:"entitlement_overrides,omitempty"`
 	apiRequest             `json:"-" form:"-"`
 }
 
@@ -1207,6 +1245,7 @@ type QuoteEditUpdateSubscriptionQuoteForItemsSubscriptionItem struct {
 	ItemType           ItemType       `json:"item_type,omitempty"`
 	StartDate          *int64         `json:"start_date,omitempty"`
 	EndDate            *int64         `json:"end_date,omitempty"`
+	Description        string         `json:"description,omitempty"`
 	RampTierId         string         `json:"ramp_tier_id,omitempty"`
 }
 
@@ -1298,6 +1337,16 @@ type QuoteEditUpdateSubscriptionQuoteForItemsCoupon struct {
 	Id        string `json:"id,omitempty"`
 	StartDate *int64 `json:"start_date,omitempty"`
 	EndDate   *int64 `json:"end_date,omitempty"`
+}
+
+type QuoteEditUpdateSubscriptionQuoteForItemsEntitlementOverride struct {
+	FeatureId  string     `json:"feature_id,omitempty"`
+	EntityId   string     `json:"entity_id,omitempty"`
+	EntityType EntityType `json:"entity_type,omitempty"`
+	Value      string     `json:"value,omitempty"`
+	IsEnabled  *bool      `json:"is_enabled,omitempty"`
+	StartDate  *int64     `json:"start_date,omitempty"`
+	EndDate    *int64     `json:"end_date,omitempty"`
 }
 
 type QuoteCreateForChargeItemsAndChargesRequest struct {

@@ -36,7 +36,7 @@ type PricingPageSessionCreateForNewSubscriptionRequest struct {
 func (r *PricingPageSessionCreateForNewSubscriptionRequest) payload() any { return r }
 
 type PricingPageSessionCreateForNewSubscriptionPricingPage struct {
-	Id string `json:"id"`
+	Id string `json:"id,omitempty"`
 }
 
 type PricingPageSessionCreateForNewSubscriptionSubscription struct {

@@ -219,6 +219,8 @@ type WebhookHandler struct {
 
 	OnOmnichannelSubscriptionItemGracePeriodStarted func(OmnichannelSubscriptionItemGracePeriodStartedEvent) error
 
+	OnOmnichannelSubscriptionItemMrrUpdated func(OmnichannelSubscriptionItemMrrUpdatedEvent) error
+
 	OnOmnichannelSubscriptionItemPauseScheduled func(OmnichannelSubscriptionItemPauseScheduledEvent) error
 
 	OnOmnichannelSubscriptionItemPaused func(OmnichannelSubscriptionItemPausedEvent) error
@@ -468,6 +470,12 @@ type WebhookHandler struct {
 	OnVariantDeleted func(VariantDeletedEvent) error
 
 	OnVariantUpdated func(VariantUpdatedEvent) error
+
+	OnVaultTokenCreated func(VaultTokenCreatedEvent) error
+
+	OnVaultTokenDeleted func(VaultTokenDeletedEvent) error
+
+	OnVaultTokenUpdated func(VaultTokenUpdatedEvent) error
 
 	OnVirtualBankAccountAdded func(VirtualBankAccountAddedEvent) error
 
@@ -1610,6 +1618,17 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 				return err
 			}
 			return h.OnOmnichannelSubscriptionItemGracePeriodStarted(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeOmnichannelSubscriptionItemMrrUpdated:
+		if h.OnOmnichannelSubscriptionItemMrrUpdated != nil {
+			var e OmnichannelSubscriptionItemMrrUpdatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnOmnichannelSubscriptionItemMrrUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2985,6 +3004,39 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 				return err
 			}
 			return h.OnVariantUpdated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeVaultTokenCreated:
+		if h.OnVaultTokenCreated != nil {
+			var e VaultTokenCreatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnVaultTokenCreated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeVaultTokenDeleted:
+		if h.OnVaultTokenDeleted != nil {
+			var e VaultTokenDeletedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnVaultTokenDeleted(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeVaultTokenUpdated:
+		if h.OnVaultTokenUpdated != nil {
+			var e VaultTokenUpdatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnVaultTokenUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}

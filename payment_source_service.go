@@ -111,6 +111,16 @@ func (s *PaymentSourceService) VerifyBankAccount(id string, req *PaymentSourceVe
 	return send[*PaymentSourceVerifyBankAccountResponse](req, s.config)
 }
 
+func (s *PaymentSourceService) ListGatewayTokensForPaymentSource(id string, req *PaymentSourceListGatewayTokensForPaymentSourceRequest) (*PaymentSourceListGatewayTokensForPaymentSourceResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/payment_sources/%v/gateway_payment_method_tokens", url.PathEscape(id))
+	req.isListRequest = true
+	req.telemetryResource = "paymentSource"
+	req.telemetryOperation = "listGatewayTokensForPaymentSource"
+
+	return send[*PaymentSourceListGatewayTokensForPaymentSourceResponse](req, s.config)
+}
+
 func (s *PaymentSourceService) Retrieve(id string) (*PaymentSourceRetrieveResponse, error) {
 	req := &BlankRequest{}
 	req.method = "GET"

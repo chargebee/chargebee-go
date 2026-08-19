@@ -526,6 +526,13 @@ type CreditNoteDeleteRequest struct {
 
 func (r *CreditNoteDeleteRequest) payload() any { return r }
 
+type CreditNoteUpdateRequest struct {
+	Comment    string `json:"comment,omitempty"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CreditNoteUpdateRequest) payload() any { return r }
+
 type CreditNoteRemoveTaxWithheldRefundRequest struct {
 	TaxWithheld *CreditNoteRemoveTaxWithheldRefundTaxWithheld `json:"tax_withheld,omitempty"`
 	apiRequest  `json:"-" form:"-"`
@@ -710,6 +717,11 @@ type CreditNoteCreditNotesForCustomerResponse struct {
 }
 
 type CreditNoteDeleteResponse struct {
+	CreditNote *CreditNote `json:"credit_note,omitempty"`
+	apiResponse
+}
+
+type CreditNoteUpdateResponse struct {
 	CreditNote *CreditNote `json:"credit_note,omitempty"`
 	apiResponse
 }

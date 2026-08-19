@@ -538,6 +538,21 @@ type ExportPriceVariantsPriceVariant struct {
 	CreatedAt *TimestampFilter `json:"created_at,omitempty"`
 }
 
+type ExportRampsRequest struct {
+	Ramp       *ExportRampsRamp `json:"ramp,omitempty"`
+	ExportType ExportType       `json:"export_type,omitempty"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *ExportRampsRequest) payload() any { return r }
+
+type ExportRampsRamp struct {
+	Status         *EnumFilter      `json:"status,omitempty"`
+	SubscriptionId *StringFilter    `json:"subscription_id,omitempty"`
+	EffectiveFrom  *TimestampFilter `json:"effective_from,omitempty"`
+	UpdatedAt      *TimestampFilter `json:"updated_at,omitempty"`
+}
+
 type ExportRetrieveResponse struct {
 	Export *Export `json:"export,omitempty"`
 	apiResponse
@@ -624,6 +639,11 @@ type ExportDifferentialPricesResponse struct {
 }
 
 type ExportPriceVariantsResponse struct {
+	Export *Export `json:"export,omitempty"`
+	apiResponse
+}
+
+type ExportRampsResponse struct {
 	Export *Export `json:"export,omitempty"`
 	apiResponse
 }

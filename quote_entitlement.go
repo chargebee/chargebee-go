@@ -10,15 +10,51 @@ const (
 	QuoteEntitlementEntityTypeCharge      QuoteEntitlementEntityType = "charge"
 )
 
+type QuoteEntitlementActionType string
+
+const (
+	QuoteEntitlementActionTypeUpsert QuoteEntitlementActionType = "upsert"
+	QuoteEntitlementActionTypeRemove QuoteEntitlementActionType = "remove"
+)
+
 type QuoteEntitlement struct {
 	EntityId   string                     `json:"entity_id"`
 	EntityType QuoteEntitlementEntityType `json:"entity_type"`
-	FeatureId  string                     `json:"feature_id"`
-	Value      string                     `json:"value"`
-	IsEnabled  bool                       `json:"is_enabled"`
-	StartDate  int64                      `json:"start_date"`
-	EndDate    int64                      `json:"end_date"`
-	CreatedAt  int64                      `json:"created_at"`
-	ModifiedAt int64                      `json:"modified_at"`
-	Object     string                     `json:"object"`
+	//Deprecated: this field is deprecated
+	ActionType   QuoteEntitlementActionType `json:"action_type"`
+	FeatureId    string                     `json:"feature_id"`
+	Value        string                     `json:"value"`
+	IsEnabled    bool                       `json:"is_enabled"`
+	StartDate    int64                      `json:"start_date"`
+	EndDate      int64                      `json:"end_date"`
+	CreatedAt    int64                      `json:"created_at"`
+	ModifiedAt   int64                      `json:"modified_at"`
+	IsOverridden bool                       `json:"is_overridden"`
+	FeatureName  string                     `json:"feature_name"`
+	FeatureUnit  string                     `json:"feature_unit"`
+	FeatureType  string                     `json:"feature_type"`
+	Name         string                     `json:"name"`
+	Metered      bool                       `json:"metered"`
+	Object       string                     `json:"object"`
+}
+
+type QuoteEntitlementListQuoteEntitlementsRequest struct {
+	Limit      *int32           `json:"limit,omitempty"`
+	Offset     string           `json:"offset,omitempty"`
+	EntityId   *StringFilter    `json:"entity_id,omitempty"`
+	StartDate  *TimestampFilter `json:"start_date,omitempty"`
+	EndDate    *TimestampFilter `json:"end_date,omitempty"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *QuoteEntitlementListQuoteEntitlementsRequest) payload() any { return r }
+
+type QuoteEntitlementListQuoteEntitlementsQuoteEntitlementResponse struct {
+	QuoteEntitlement *QuoteEntitlement `json:"quote_entitlement,omitempty"`
+}
+
+type QuoteEntitlementListQuoteEntitlementsResponse struct {
+	List       []*QuoteEntitlementListQuoteEntitlementsQuoteEntitlementResponse `json:"list,omitempty"`
+	NextOffset string                                                           `json:"next_offset,omitempty"`
+	apiResponse
 }

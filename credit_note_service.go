@@ -111,6 +111,16 @@ func (s *CreditNoteService) Delete(id string, req *CreditNoteDeleteRequest) (*Cr
 	return send[*CreditNoteDeleteResponse](req, s.config)
 }
 
+func (s *CreditNoteService) Update(id string, req *CreditNoteUpdateRequest) (*CreditNoteUpdateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/credit_notes/%v/update", url.PathEscape(id))
+	req.isIdempotent = true
+	req.telemetryResource = "creditNote"
+	req.telemetryOperation = "update"
+
+	return send[*CreditNoteUpdateResponse](req, s.config)
+}
+
 func (s *CreditNoteService) RemoveTaxWithheldRefund(id string, req *CreditNoteRemoveTaxWithheldRefundRequest) (*CreditNoteRemoveTaxWithheldRefundResponse, error) {
 	req.method = "POST"
 	req.path = fmt.Sprintf("/credit_notes/%v/remove_tax_withheld_refund", url.PathEscape(id))

@@ -392,6 +392,10 @@ type SubscriptionRampDraftedContent struct {
 	Ramp *chargebee.Ramp `json:"ramp,omitempty"`
 }
 
+type VaultTokenUpdatedContent struct {
+	VaultedPaymentMethod *chargebee.VaultedPaymentMethod `json:"vaulted_payment_method,omitempty"`
+}
+
 type DunningUpdatedContent struct {
 	Invoice *chargebee.Invoice `json:"invoice,omitempty"`
 }
@@ -422,6 +426,10 @@ type TokenConsumedContent struct {
 
 type HierarchyDeletedContent struct {
 	Customer *chargebee.Customer `json:"customer,omitempty"`
+}
+
+type VaultTokenDeletedContent struct {
+	VaultedPaymentMethod *chargebee.VaultedPaymentMethod `json:"vaulted_payment_method,omitempty"`
 }
 
 type SubscriptionCancellationScheduledContent struct {
@@ -725,6 +733,14 @@ type SubscriptionRenewalReminderContent struct {
 	Card *chargebee.Card `json:"card,omitempty"`
 
 	AdvanceInvoiceSchedule *chargebee.AdvanceInvoiceSchedule `json:"advance_invoice_schedule,omitempty"`
+}
+
+type OmnichannelSubscriptionItemMrrUpdatedContent struct {
+	OmnichannelSubscriptionItem *chargebee.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
+
+	OmnichannelSubscription *chargebee.OmnichannelSubscription `json:"omnichannel_subscription,omitempty"`
+
+	OmnichannelSubscriptionItemMetric *chargebee.OmnichannelSubscriptionItemMetric `json:"omnichannel_subscription_item_metric,omitempty"`
 }
 
 type NetdPaymentDueReminderContent struct {
@@ -1279,6 +1295,10 @@ type SubscriptionRampUpdatedContent struct {
 
 type LedgerAccountBalanceUpdatedContent struct {
 	LedgerAccountBalance *chargebee.LedgerAccountBalance `json:"ledger_account_balance,omitempty"`
+}
+
+type VaultTokenCreatedContent struct {
+	VaultedPaymentMethod *chargebee.VaultedPaymentMethod `json:"vaulted_payment_method,omitempty"`
 }
 
 type CustomerEntitlementsUpdatedContent struct {
@@ -1864,6 +1884,12 @@ type SubscriptionRampDraftedEvent struct {
 	Content *SubscriptionRampDraftedContent `json:"content"`
 }
 
+// VaultTokenUpdatedEvent represents a vault_token_updated webhook event
+type VaultTokenUpdatedEvent struct {
+	BaseEvent
+	Content *VaultTokenUpdatedContent `json:"content"`
+}
+
 // DunningUpdatedEvent represents a dunning_updated webhook event
 type DunningUpdatedEvent struct {
 	BaseEvent
@@ -1892,6 +1918,12 @@ type TokenConsumedEvent struct {
 type HierarchyDeletedEvent struct {
 	BaseEvent
 	Content *HierarchyDeletedContent `json:"content"`
+}
+
+// VaultTokenDeletedEvent represents a vault_token_deleted webhook event
+type VaultTokenDeletedEvent struct {
+	BaseEvent
+	Content *VaultTokenDeletedContent `json:"content"`
 }
 
 // SubscriptionCancellationScheduledEvent represents a subscription_cancellation_scheduled webhook event
@@ -2162,6 +2194,12 @@ type CustomerCreatedEvent struct {
 type SubscriptionRenewalReminderEvent struct {
 	BaseEvent
 	Content *SubscriptionRenewalReminderContent `json:"content"`
+}
+
+// OmnichannelSubscriptionItemMrrUpdatedEvent represents a omnichannel_subscription_item_mrr_updated webhook event
+type OmnichannelSubscriptionItemMrrUpdatedEvent struct {
+	BaseEvent
+	Content *OmnichannelSubscriptionItemMrrUpdatedContent `json:"content"`
 }
 
 // NetdPaymentDueReminderEvent represents a netd_payment_due_reminder webhook event
@@ -2666,6 +2704,12 @@ type SubscriptionRampUpdatedEvent struct {
 type LedgerAccountBalanceUpdatedEvent struct {
 	BaseEvent
 	Content *LedgerAccountBalanceUpdatedContent `json:"content"`
+}
+
+// VaultTokenCreatedEvent represents a vault_token_created webhook event
+type VaultTokenCreatedEvent struct {
+	BaseEvent
+	Content *VaultTokenCreatedContent `json:"content"`
 }
 
 // CustomerEntitlementsUpdatedEvent represents a customer_entitlements_updated webhook event
