@@ -39,6 +39,9 @@ func CreditNotesForCustomer(id string, params *creditnote.CreditNotesForCustomer
 func Delete(id string, params *creditnote.DeleteRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/credit_notes/%v/delete", url.PathEscape(id)), params).SetIdempotency(true)
 }
+func Update(id string, params *creditnote.UpdateRequestParams) chargebee.Request {
+	return chargebee.Send("POST", fmt.Sprintf("/credit_notes/%v/update", url.PathEscape(id)), params).SetIdempotency(true)
+}
 func RemoveTaxWithheldRefund(id string, params *creditnote.RemoveTaxWithheldRefundRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/credit_notes/%v/remove_tax_withheld_refund", url.PathEscape(id)), params).SetIdempotency(true)
 }

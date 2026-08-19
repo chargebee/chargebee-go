@@ -44,6 +44,7 @@ type LineItem struct {
 	AmountPerBillingCycleInDecimal            string                 `json:"amount_per_billing_cycle_in_decimal"`
 	NetAmountPerBillingCycle                  int64                  `json:"net_amount_per_billing_cycle"`
 	NetAmountPerBillingCycleInDecimal         string                 `json:"net_amount_per_billing_cycle_in_decimal"`
+	Description                               string                 `json:"description"`
 	Object                                    string                 `json:"object"`
 }
 type Discount struct {

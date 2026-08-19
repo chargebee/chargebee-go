@@ -1122,6 +1122,11 @@ type VoidInvoiceRequestParams struct {
 type WriteOffRequestParams struct {
 	Comment string `json:"comment,omitempty"`
 }
+type VoidBeforeCaptureRequestParams struct {
+	Comment        string             `json:"comment,omitempty"`
+	VoidReasonCode string             `json:"void_reason_code,omitempty"`
+	InvoiceAction  enum.InvoiceAction `json:"invoice_action,omitempty"`
+}
 type DeleteRequestParams struct {
 	Comment string `json:"comment,omitempty"`
 }

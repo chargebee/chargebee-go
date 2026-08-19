@@ -1,6 +1,7 @@
 package paymentintent
 
 import (
+	"encoding/json"
 	"github.com/chargebee/chargebee-go/v3/models/gatewayerrordetail"
 	paymentIntentEnum "github.com/chargebee/chargebee-go/v3/models/paymentintent/enum"
 )
@@ -20,6 +21,7 @@ type PaymentIntent struct {
 	ModifiedAt            int64                               `json:"modified_at"`
 	ResourceVersion       int64                               `json:"resource_version"`
 	UpdatedAt             int64                               `json:"updated_at"`
+	PaymentMethodOptions  json.RawMessage                     `json:"payment_method_options"`
 	CustomerId            string                              `json:"customer_id"`
 	Gateway               string                              `json:"gateway"`
 	ActivePaymentAttempt  *PaymentAttempt                     `json:"active_payment_attempt"`
@@ -29,17 +31,19 @@ type PaymentIntent struct {
 	Object                string                              `json:"object"`
 }
 type PaymentAttempt struct {
-	Id                string                                 `json:"id"`
-	Status            paymentIntentEnum.PaymentAttemptStatus `json:"status"`
-	PaymentMethodType paymentIntentEnum.PaymentMethodType    `json:"payment_method_type"`
-	IdAtGateway       string                                 `json:"id_at_gateway"`
-	ErrorCode         string                                 `json:"error_code"`
-	ErrorText         string                                 `json:"error_text"`
-	CheckoutDetails   string                                 `json:"checkout_details"`
-	CreatedAt         int64                                  `json:"created_at"`
-	ModifiedAt        int64                                  `json:"modified_at"`
-	ErrorDetail       *gatewayerrordetail.GatewayErrorDetail `json:"error_detail"`
-	Object            string                                 `json:"object"`
+	Id                         string                                 `json:"id"`
+	Status                     paymentIntentEnum.PaymentAttemptStatus `json:"status"`
+	PaymentMethodType          paymentIntentEnum.PaymentMethodType    `json:"payment_method_type"`
+	IdAtGateway                string                                 `json:"id_at_gateway"`
+	ErrorCode                  string                                 `json:"error_code"`
+	ErrorText                  string                                 `json:"error_text"`
+	CheckoutDetails            string                                 `json:"checkout_details"`
+	CreatedAt                  int64                                  `json:"created_at"`
+	ModifiedAt                 int64                                  `json:"modified_at"`
+	ErrorDetail                *gatewayerrordetail.GatewayErrorDetail `json:"error_detail"`
+	RoutingRuleId              string                                 `json:"routing_rule_id"`
+	PaymentMethodDisplayRuleId string                                 `json:"payment_method_display_rule_id"`
+	Object                     string                                 `json:"object"`
 }
 type PaymentIntentMetadata struct {
 	Source          paymentIntentEnum.PaymentIntentMetadataSource `json:"source"`
@@ -59,12 +63,14 @@ type CreateRequestParams struct {
 	PaymentMethodType      paymentIntentEnum.PaymentMethodType `json:"payment_method_type,omitempty"`
 	SuccessUrl             string                              `json:"success_url,omitempty"`
 	FailureUrl             string                              `json:"failure_url,omitempty"`
+	PaymentMethodOptions   map[string]interface{}              `json:"payment_method_options,omitempty"`
 }
 type UpdateRequestParams struct {
-	Amount            *int64                              `json:"amount,omitempty"`
-	CurrencyCode      string                              `json:"currency_code,omitempty"`
-	GatewayAccountId  string                              `json:"gateway_account_id,omitempty"`
-	PaymentMethodType paymentIntentEnum.PaymentMethodType `json:"payment_method_type,omitempty"`
-	SuccessUrl        string                              `json:"success_url,omitempty"`
-	FailureUrl        string                              `json:"failure_url,omitempty"`
+	Amount               *int64                              `json:"amount,omitempty"`
+	CurrencyCode         string                              `json:"currency_code,omitempty"`
+	GatewayAccountId     string                              `json:"gateway_account_id,omitempty"`
+	PaymentMethodType    paymentIntentEnum.PaymentMethodType `json:"payment_method_type,omitempty"`
+	SuccessUrl           string                              `json:"success_url,omitempty"`
+	FailureUrl           string                              `json:"failure_url,omitempty"`
+	PaymentMethodOptions map[string]interface{}              `json:"payment_method_options,omitempty"`
 }
