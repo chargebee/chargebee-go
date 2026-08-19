@@ -193,6 +193,16 @@ func (s *ExportService) PriceVariants(req *ExportPriceVariantsRequest) (*ExportP
 	return send[*ExportPriceVariantsResponse](req, s.config)
 }
 
+func (s *ExportService) Ramps(req *ExportRampsRequest) (*ExportRampsResponse, error) {
+	req.method = "POST"
+	req.path = "/exports/ramps"
+	req.isIdempotent = true
+	req.telemetryResource = "export"
+	req.telemetryOperation = "ramps"
+
+	return send[*ExportRampsResponse](req, s.config)
+}
+
 func (s *ExportService) WaitForExportCompletion(exp Export) (Export, error) {
 	count := 0
 	for exp.Status == ExportStatusInProcess {

@@ -1606,6 +1606,15 @@ type InvoiceWriteOffRequest struct {
 
 func (r *InvoiceWriteOffRequest) payload() any { return r }
 
+type InvoiceVoidBeforeCaptureRequest struct {
+	Comment        string        `json:"comment,omitempty"`
+	VoidReasonCode string        `json:"void_reason_code,omitempty"`
+	InvoiceAction  InvoiceAction `json:"invoice_action,omitempty"`
+	apiRequest     `json:"-" form:"-"`
+}
+
+func (r *InvoiceVoidBeforeCaptureRequest) payload() any { return r }
+
 type InvoiceDeleteRequest struct {
 	Comment    string `json:"comment,omitempty"`
 	apiRequest `json:"-" form:"-"`
@@ -1868,6 +1877,12 @@ type InvoiceVoidInvoiceResponse struct {
 }
 
 type InvoiceWriteOffResponse struct {
+	Invoice    *Invoice   `json:"invoice,omitempty"`
+	CreditNote CreditNote `json:"credit_note,omitempty"`
+	apiResponse
+}
+
+type InvoiceVoidBeforeCaptureResponse struct {
 	Invoice    *Invoice   `json:"invoice,omitempty"`
 	CreditNote CreditNote `json:"credit_note,omitempty"`
 	apiResponse

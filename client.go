@@ -61,6 +61,7 @@ type Client struct {
 	PromotionalGrant            *PromotionalGrantService
 	Purchase                    *PurchaseService
 	Quote                       *QuoteService
+	QuoteEntitlement            *QuoteEntitlementService
 	Ramp                        *RampService
 	RecordedPurchase            *RecordedPurchaseService
 	ResourceMigration           *ResourceMigrationService
@@ -76,6 +77,7 @@ type Client struct {
 	UsageEvent                  *UsageEventService
 	UsageFile                   *UsageFileService
 	UsageSummary                *UsageSummaryService
+	VaultedPaymentMethod        *VaultedPaymentMethodService
 	VirtualBankAccount          *VirtualBankAccountService
 	WebhookEndpoint             *WebhookEndpointService
 }
@@ -143,6 +145,7 @@ func NewClient(config *ClientConfig) *Client {
 		PromotionalGrant:            &PromotionalGrantService{config},
 		Purchase:                    &PurchaseService{config},
 		Quote:                       &QuoteService{config},
+		QuoteEntitlement:            &QuoteEntitlementService{config},
 		Ramp:                        &RampService{config},
 		RecordedPurchase:            &RecordedPurchaseService{config},
 		ResourceMigration:           &ResourceMigrationService{config},
@@ -158,6 +161,7 @@ func NewClient(config *ClientConfig) *Client {
 		UsageEvent:                  &UsageEventService{config},
 		UsageFile:                   &UsageFileService{config},
 		UsageSummary:                &UsageSummaryService{config},
+		VaultedPaymentMethod:        &VaultedPaymentMethodService{config},
 		VirtualBankAccount:          &VirtualBankAccountService{config},
 		WebhookEndpoint:             &WebhookEndpointService{config},
 	}

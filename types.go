@@ -199,9 +199,10 @@ const (
 type CreditOptionForCurrentTermCharges string
 
 const (
-	CreditOptionForCurrentTermChargesNone    CreditOptionForCurrentTermCharges = "none"
-	CreditOptionForCurrentTermChargesProrate CreditOptionForCurrentTermCharges = "prorate"
-	CreditOptionForCurrentTermChargesFull    CreditOptionForCurrentTermCharges = "full"
+	CreditOptionForCurrentTermChargesNone             CreditOptionForCurrentTermCharges = "none"
+	CreditOptionForCurrentTermChargesProrate          CreditOptionForCurrentTermCharges = "prorate"
+	CreditOptionForCurrentTermChargesFull             CreditOptionForCurrentTermCharges = "full"
+	CreditOptionForCurrentTermChargesConsumptionBased CreditOptionForCurrentTermCharges = "consumption_based"
 )
 
 type CreditType string
@@ -333,7 +334,6 @@ const (
 	EntityTypePlanPrice                                  EntityType = "plan_price"
 	EntityTypeAddonPrice                                 EntityType = "addon_price"
 	EntityTypeChargePrice                                EntityType = "charge_price"
-	EntityTypeCharge                                     EntityType = "charge"
 	EntityTypeInvoice                                    EntityType = "invoice"
 	EntityTypeQuote                                      EntityType = "quote"
 	EntityTypeCreditNote                                 EntityType = "credit_note"
@@ -366,6 +366,7 @@ const (
 	EntityTypeBusinessRule                               EntityType = "business_rule"
 	EntityTypeRuleset                                    EntityType = "ruleset"
 	EntityTypeAlertStatus                                EntityType = "alert_status"
+	EntityTypeOmnichannelSubscriptionItemMetric          EntityType = "omnichannel_subscription_item_metric"
 )
 
 type EventName string
@@ -471,12 +472,85 @@ const (
 	GatewayNotApplicable         Gateway = "not_applicable"
 )
 
+type GatewayName string
+
+const (
+	GatewayNameChargebee             GatewayName = "chargebee"
+	GatewayNameChargebeePayments     GatewayName = "chargebee_payments"
+	GatewayNameAdyen                 GatewayName = "adyen"
+	GatewayNameStripe                GatewayName = "stripe"
+	GatewayNameWepay                 GatewayName = "wepay"
+	GatewayNameBraintree             GatewayName = "braintree"
+	GatewayNameAuthorizeNet          GatewayName = "authorize_net"
+	GatewayNamePaypalPro             GatewayName = "paypal_pro"
+	GatewayNamePin                   GatewayName = "pin"
+	GatewayNameEway                  GatewayName = "eway"
+	GatewayNameEwayRapid             GatewayName = "eway_rapid"
+	GatewayNameWorldpay              GatewayName = "worldpay"
+	GatewayNameBalancedPayments      GatewayName = "balanced_payments"
+	GatewayNameBeanstream            GatewayName = "beanstream"
+	GatewayNameBluepay               GatewayName = "bluepay"
+	GatewayNameElavon                GatewayName = "elavon"
+	GatewayNameFirstDataGlobal       GatewayName = "first_data_global"
+	GatewayNameHdfc                  GatewayName = "hdfc"
+	GatewayNameMigs                  GatewayName = "migs"
+	GatewayNameNmi                   GatewayName = "nmi"
+	GatewayNameOgone                 GatewayName = "ogone"
+	GatewayNamePaymill               GatewayName = "paymill"
+	GatewayNamePaypalPayflowPro      GatewayName = "paypal_payflow_pro"
+	GatewayNameSagePay               GatewayName = "sage_pay"
+	GatewayNameTco                   GatewayName = "tco"
+	GatewayNameWirecard              GatewayName = "wirecard"
+	GatewayNameAmazonPayments        GatewayName = "amazon_payments"
+	GatewayNamePaypalExpressCheckout GatewayName = "paypal_express_checkout"
+	GatewayNameGocardless            GatewayName = "gocardless"
+	GatewayNameOrbital               GatewayName = "orbital"
+	GatewayNameMonerisUs             GatewayName = "moneris_us"
+	GatewayNameMoneris               GatewayName = "moneris"
+	GatewayNameBluesnap              GatewayName = "bluesnap"
+	GatewayNameCybersource           GatewayName = "cybersource"
+	GatewayNameVantiv                GatewayName = "vantiv"
+	GatewayNameCheckoutCom           GatewayName = "checkout_com"
+	GatewayNamePaypal                GatewayName = "paypal"
+	GatewayNameIngenicoDirect        GatewayName = "ingenico_direct"
+	GatewayNameExact                 GatewayName = "exact"
+	GatewayNameMollie                GatewayName = "mollie"
+	GatewayNameQuickbooks            GatewayName = "quickbooks"
+	GatewayNameRazorpay              GatewayName = "razorpay"
+	GatewayNameGlobalPayments        GatewayName = "global_payments"
+	GatewayNameBankOfAmerica         GatewayName = "bank_of_america"
+	GatewayNameEcentric              GatewayName = "ecentric"
+	GatewayNameMetricsGlobal         GatewayName = "metrics_global"
+	GatewayNameWindcave              GatewayName = "windcave"
+	GatewayNamePayCom                GatewayName = "pay_com"
+	GatewayNameEbanx                 GatewayName = "ebanx"
+	GatewayNameDlocal                GatewayName = "dlocal"
+	GatewayNameNuvei                 GatewayName = "nuvei"
+	GatewayNameSolidgate             GatewayName = "solidgate"
+	GatewayNamePaystack              GatewayName = "paystack"
+	GatewayNameJpMorgan              GatewayName = "jp_morgan"
+	GatewayNameDeutscheBank          GatewayName = "deutsche_bank"
+	GatewayNameEzidebit              GatewayName = "ezidebit"
+	GatewayNameTwikey                GatewayName = "twikey"
+	GatewayNameTempus                GatewayName = "tempus"
+	GatewayNameMoyasar               GatewayName = "moyasar"
+	GatewayNamePayway                GatewayName = "payway"
+	GatewayNameNotApplicable         GatewayName = "not_applicable"
+)
+
 type HierarchyOperationType string
 
 const (
 	HierarchyOperationTypeCompleteHierarchy HierarchyOperationType = "complete_hierarchy"
 	HierarchyOperationTypeSubordinates      HierarchyOperationType = "subordinates"
 	HierarchyOperationTypePathToRoot        HierarchyOperationType = "path_to_root"
+)
+
+type InvoiceAction string
+
+const (
+	InvoiceActionVoid     InvoiceAction = "void"
+	InvoiceActionWriteOff InvoiceAction = "write_off"
 )
 
 type InvoiceDunningHandling string
@@ -1151,6 +1225,7 @@ const (
 	EventTypeOmnichannelSubscriptionItemExpired                      EventType = "omnichannel_subscription_item_expired"
 	EventTypeOmnichannelSubscriptionItemGracePeriodExpired           EventType = "omnichannel_subscription_item_grace_period_expired"
 	EventTypeOmnichannelSubscriptionItemGracePeriodStarted           EventType = "omnichannel_subscription_item_grace_period_started"
+	EventTypeOmnichannelSubscriptionItemMrrUpdated                   EventType = "omnichannel_subscription_item_mrr_updated"
 	EventTypeOmnichannelSubscriptionItemPauseScheduled               EventType = "omnichannel_subscription_item_pause_scheduled"
 	EventTypeOmnichannelSubscriptionItemPaused                       EventType = "omnichannel_subscription_item_paused"
 	EventTypeOmnichannelSubscriptionItemReactivated                  EventType = "omnichannel_subscription_item_reactivated"
@@ -1276,6 +1351,9 @@ const (
 	EventTypeVariantCreated                                          EventType = "variant_created"
 	EventTypeVariantDeleted                                          EventType = "variant_deleted"
 	EventTypeVariantUpdated                                          EventType = "variant_updated"
+	EventTypeVaultTokenCreated                                       EventType = "vault_token_created"
+	EventTypeVaultTokenDeleted                                       EventType = "vault_token_deleted"
+	EventTypeVaultTokenUpdated                                       EventType = "vault_token_updated"
 	EventTypeVirtualBankAccountAdded                                 EventType = "virtual_bank_account_added"
 	EventTypeVirtualBankAccountDeleted                               EventType = "virtual_bank_account_deleted"
 	EventTypeVirtualBankAccountUpdated                               EventType = "virtual_bank_account_updated"
