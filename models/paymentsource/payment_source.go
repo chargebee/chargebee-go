@@ -1,6 +1,7 @@
 package paymentsource
 
 import (
+	"encoding/json"
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
 	cardEnum "github.com/chargebee/chargebee-go/v3/models/card/enum"
@@ -31,6 +32,7 @@ type PaymentSource struct {
 	Venmo            *Venmo                   `json:"venmo"`
 	KlarnaPayNow     *KlarnaPayNow            `json:"klarna_pay_now"`
 	Mandates         []*Mandate               `json:"mandates"`
+	VaultToken       json.RawMessage          `json:"vault_token"`
 	Deleted          bool                     `json:"deleted"`
 	BusinessEntityId string                   `json:"business_entity_id"`
 	Object           string                   `json:"object"`
@@ -273,6 +275,11 @@ type UpdateBankAccountBankAccountParams struct {
 type VerifyBankAccountRequestParams struct {
 	Amount1 *int64 `json:"amount1"`
 	Amount2 *int64 `json:"amount2"`
+}
+type ListGatewayTokensForPaymentSourceRequestParams struct {
+	Limit          *int32 `json:"limit,omitempty"`
+	Offset         string `json:"offset,omitempty"`
+	IncludeDeleted *bool  `json:"include_deleted,omitempty"`
 }
 type ListRequestParams struct {
 	Limit          *int32                  `json:"limit,omitempty"`

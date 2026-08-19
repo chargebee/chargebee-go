@@ -26,7 +26,7 @@ type CreateForNewSubscriptionRequestParams struct {
 	ContractTerm            *CreateForNewSubscriptionContractTermParams    `json:"contract_term,omitempty"`
 }
 type CreateForNewSubscriptionPricingPageParams struct {
-	Id string `json:"id"`
+	Id string `json:"id,omitempty"`
 }
 type CreateForNewSubscriptionSubscriptionParams struct {
 	Id string `json:"id,omitempty"`

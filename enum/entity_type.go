@@ -12,7 +12,6 @@ const (
 	EntityTypePlanPrice                                  EntityType = "plan_price"
 	EntityTypeAddonPrice                                 EntityType = "addon_price"
 	EntityTypeChargePrice                                EntityType = "charge_price"
-	EntityTypeCharge                                     EntityType = "charge"
 	EntityTypeInvoice                                    EntityType = "invoice"
 	EntityTypeQuote                                      EntityType = "quote"
 	EntityTypeCreditNote                                 EntityType = "credit_note"
@@ -45,4 +44,5 @@ const (
 	EntityTypeBusinessRule                               EntityType = "business_rule"
 	EntityTypeRuleset                                    EntityType = "ruleset"
 	EntityTypeAlertStatus                                EntityType = "alert_status"
+	EntityTypeOmnichannelSubscriptionItemMetric          EntityType = "omnichannel_subscription_item_metric"
 )

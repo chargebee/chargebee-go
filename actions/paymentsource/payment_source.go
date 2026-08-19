@@ -37,6 +37,9 @@ func UpdateBankAccount(id string, params *paymentsource.UpdateBankAccountRequest
 func VerifyBankAccount(id string, params *paymentsource.VerifyBankAccountRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/payment_sources/%v/verify_bank_account", url.PathEscape(id)), params).SetIdempotency(true)
 }
+func ListGatewayTokensForPaymentSource(id string, params *paymentsource.ListGatewayTokensForPaymentSourceRequestParams) chargebee.ListRequest {
+	return chargebee.SendList("GET", fmt.Sprintf("/payment_sources/%v/gateway_payment_method_tokens", url.PathEscape(id)), params)
+}
 func Retrieve(id string) chargebee.Request {
 	return chargebee.Send("GET", fmt.Sprintf("/payment_sources/%v", url.PathEscape(id)), nil)
 }

@@ -434,3 +434,13 @@ type PriceVariantsPriceVariantParams struct {
 	UpdatedAt *filter.TimestampFilter `json:"updated_at,omitempty"`
 	CreatedAt *filter.TimestampFilter `json:"created_at,omitempty"`
 }
+type RampsRequestParams struct {
+	Ramp       *RampsRampParams `json:"ramp,omitempty"`
+	ExportType enum.ExportType  `json:"export_type,omitempty"`
+}
+type RampsRampParams struct {
+	Status         *filter.EnumFilter      `json:"status,omitempty"`
+	SubscriptionId *filter.StringFilter    `json:"subscription_id,omitempty"`
+	EffectiveFrom  *filter.TimestampFilter `json:"effective_from,omitempty"`
+	UpdatedAt      *filter.TimestampFilter `json:"updated_at,omitempty"`
+}

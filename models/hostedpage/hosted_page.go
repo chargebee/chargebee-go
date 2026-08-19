@@ -818,6 +818,7 @@ type PreCancelRequestParams struct {
 	PassThruContent string                       `json:"pass_thru_content,omitempty"`
 	CancelUrl       string                       `json:"cancel_url,omitempty"`
 	RedirectUrl     string                       `json:"redirect_url,omitempty"`
+	Locale          string                       `json:"locale,omitempty"`
 }
 type PreCancelSubscriptionParams struct {
 	Id string `json:"id"`
