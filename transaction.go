@@ -224,6 +224,13 @@ type TransactionCreateAuthorizationRequest struct {
 
 func (r *TransactionCreateAuthorizationRequest) payload() any { return r }
 
+type TransactionVoidTransactionRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *TransactionVoidTransactionRequest) payload() any { return r }
+
 type TransactionRecordRefundRequest struct {
 	Amount                *int64        `json:"amount,omitempty"`
 	PaymentMethod         PaymentMethod `json:"payment_method"`
@@ -301,6 +308,13 @@ type TransactionPaymentsForInvoiceRequest struct {
 }
 
 func (r *TransactionPaymentsForInvoiceRequest) payload() any { return r }
+
+type TransactionRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *TransactionRetrieveRequest) payload() any { return r }
 
 type TransactionDeleteOfflineTransactionRequest struct {
 	Comment    string `json:"comment,omitempty"`

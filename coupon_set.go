@@ -47,6 +47,13 @@ type CouponSetListRequest struct {
 
 func (r *CouponSetListRequest) payload() any { return r }
 
+type CouponSetRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CouponSetRetrieveRequest) payload() any { return r }
+
 type CouponSetUpdateRequest struct {
 	Name       string                 `json:"name,omitempty"`
 	MetaData   map[string]interface{} `json:"meta_data,omitempty"`
@@ -54,6 +61,20 @@ type CouponSetUpdateRequest struct {
 }
 
 func (r *CouponSetUpdateRequest) payload() any { return r }
+
+type CouponSetDeleteRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CouponSetDeleteRequest) payload() any { return r }
+
+type CouponSetDeleteUnusedCouponCodesRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CouponSetDeleteUnusedCouponCodesRequest) payload() any { return r }
 
 type CouponSetCreateResponse struct {
 	CouponSet *CouponSet `json:"coupon_set,omitempty"`

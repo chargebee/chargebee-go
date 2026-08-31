@@ -31,10 +31,9 @@ func (s *GiftService) CreateForItems(req *GiftCreateForItemsRequest) (*GiftCreat
 	return send[*GiftCreateForItemsResponse](req, s.config)
 }
 
-func (s *GiftService) Retrieve(id string) (*GiftRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *GiftService) Retrieve(req *GiftRetrieveRequest) (*GiftRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/gifts/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/gifts/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "gift"
 	req.telemetryOperation = "retrieve"
 
@@ -51,10 +50,9 @@ func (s *GiftService) List(req *GiftListRequest) (*GiftListResponse, error) {
 	return send[*GiftListResponse](req, s.config)
 }
 
-func (s *GiftService) Claim(id string) (*GiftClaimResponse, error) {
-	req := &BlankRequest{}
+func (s *GiftService) Claim(req *GiftClaimRequest) (*GiftClaimResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/gifts/%v/claim", url.PathEscape(id))
+	req.path = fmt.Sprintf("/gifts/%v/claim", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "gift"
 	req.telemetryOperation = "claim"
@@ -62,10 +60,9 @@ func (s *GiftService) Claim(id string) (*GiftClaimResponse, error) {
 	return send[*GiftClaimResponse](req, s.config)
 }
 
-func (s *GiftService) Cancel(id string) (*GiftCancelResponse, error) {
-	req := &BlankRequest{}
+func (s *GiftService) Cancel(req *GiftCancelRequest) (*GiftCancelResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/gifts/%v/cancel", url.PathEscape(id))
+	req.path = fmt.Sprintf("/gifts/%v/cancel", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "gift"
 	req.telemetryOperation = "cancel"

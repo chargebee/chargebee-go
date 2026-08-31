@@ -79,6 +79,13 @@ type AlertCreateFilterCondition struct {
 	Value    string                  `json:"value,omitempty"`
 }
 
+type AlertRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *AlertRetrieveRequest) payload() any { return r }
+
 type AlertListRequest struct {
 	Limit          *int32        `json:"limit,omitempty"`
 	Offset         string        `json:"offset,omitempty"`
@@ -103,6 +110,13 @@ type AlertUpdateThreshold struct {
 	Mode  Mode     `json:"mode,omitempty"`
 	Value *float64 `json:"value,omitempty"`
 }
+
+type AlertDeleteRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *AlertDeleteRequest) payload() any { return r }
 
 type AlertApplicationAlertsForSubscriptionRequest struct {
 	Limit      *int32      `json:"limit,omitempty"`

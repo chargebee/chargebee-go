@@ -396,6 +396,13 @@ type PaymentSourceListGatewayTokensForPaymentSourceRequest struct {
 
 func (r *PaymentSourceListGatewayTokensForPaymentSourceRequest) payload() any { return r }
 
+type PaymentSourceRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *PaymentSourceRetrieveRequest) payload() any { return r }
+
 type PaymentSourceListRequest struct {
 	Limit          *int32           `json:"limit,omitempty"`
 	Offset         string           `json:"offset,omitempty"`
@@ -425,6 +432,20 @@ type PaymentSourceExportPaymentSourceRequest struct {
 }
 
 func (r *PaymentSourceExportPaymentSourceRequest) payload() any { return r }
+
+type PaymentSourceDeleteRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *PaymentSourceDeleteRequest) payload() any { return r }
+
+type PaymentSourceDeleteLocalRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *PaymentSourceDeleteLocalRequest) payload() any { return r }
 
 type PaymentSourceCreateUsingTempTokenResponse struct {
 	Customer      Customer       `json:"customer,omitempty"`

@@ -14,10 +14,9 @@ type TimeMachineService struct {
 	config *ClientConfig
 }
 
-func (s *TimeMachineService) Retrieve(id string) (*TimeMachineRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *TimeMachineService) Retrieve(req *TimeMachineRetrieveRequest) (*TimeMachineRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/time_machines/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/time_machines/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "timeMachine"
 	req.telemetryOperation = "retrieve"
 
@@ -52,7 +51,7 @@ func (s *TimeMachineService) WaitForTimeTravelCompletion(tm TimeMachine) (TimeMa
 		}
 		count++
 		time.Sleep(ConfigTimeMachineWaitInSecs)
-		response, err := s.Retrieve(tm.Name)
+		response, err := s.Retrieve(&TimeMachineRetrieveRequest{Id: tm.Name})
 		if err != nil {
 			return tm, err
 		}

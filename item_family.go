@@ -39,6 +39,13 @@ type ItemFamilyCreateRequest struct {
 
 func (r *ItemFamilyCreateRequest) payload() any { return r }
 
+type ItemFamilyRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *ItemFamilyRetrieveRequest) payload() any { return r }
+
 type ItemFamilyListRequest struct {
 	Limit                     *int32           `json:"limit,omitempty"`
 	Offset                    string           `json:"offset,omitempty"`
@@ -59,6 +66,13 @@ type ItemFamilyUpdateRequest struct {
 }
 
 func (r *ItemFamilyUpdateRequest) payload() any { return r }
+
+type ItemFamilyDeleteRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *ItemFamilyDeleteRequest) payload() any { return r }
 
 type ItemFamilyCreateResponse struct {
 	ItemFamily *ItemFamily `json:"item_family,omitempty"`

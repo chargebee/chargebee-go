@@ -21,20 +21,18 @@ func (s *PortalSessionService) Create(req *PortalSessionCreateRequest) (*PortalS
 	return send[*PortalSessionCreateResponse](req, s.config)
 }
 
-func (s *PortalSessionService) Retrieve(id string) (*PortalSessionRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *PortalSessionService) Retrieve(req *PortalSessionRetrieveRequest) (*PortalSessionRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/portal_sessions/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/portal_sessions/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "portalSession"
 	req.telemetryOperation = "retrieve"
 
 	return send[*PortalSessionRetrieveResponse](req, s.config)
 }
 
-func (s *PortalSessionService) Logout(id string) (*PortalSessionLogoutResponse, error) {
-	req := &BlankRequest{}
+func (s *PortalSessionService) Logout(req *PortalSessionLogoutRequest) (*PortalSessionLogoutResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/portal_sessions/%v/logout", url.PathEscape(id))
+	req.path = fmt.Sprintf("/portal_sessions/%v/logout", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "portalSession"
 	req.telemetryOperation = "logout"

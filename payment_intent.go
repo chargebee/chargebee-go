@@ -300,6 +300,13 @@ type PaymentIntentUpdateRequest struct {
 
 func (r *PaymentIntentUpdateRequest) payload() any { return r }
 
+type PaymentIntentRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *PaymentIntentRetrieveRequest) payload() any { return r }
+
 type PaymentIntentCreateResponse struct {
 	PaymentIntent *PaymentIntent `json:"payment_intent,omitempty"`
 	apiResponse

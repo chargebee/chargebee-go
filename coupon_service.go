@@ -51,10 +51,9 @@ func (s *CouponService) List(req *CouponListRequest) (*CouponListResponse, error
 	return send[*CouponListResponse](req, s.config)
 }
 
-func (s *CouponService) Retrieve(id string) (*CouponRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *CouponService) Retrieve(req *CouponRetrieveRequest) (*CouponRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/coupons/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/coupons/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "coupon"
 	req.telemetryOperation = "retrieve"
 
@@ -71,10 +70,9 @@ func (s *CouponService) Update(id string, req *CouponUpdateRequest) (*CouponUpda
 	return send[*CouponUpdateResponse](req, s.config)
 }
 
-func (s *CouponService) Delete(id string) (*CouponDeleteResponse, error) {
-	req := &BlankRequest{}
+func (s *CouponService) Delete(req *CouponDeleteRequest) (*CouponDeleteResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/coupons/%v/delete", url.PathEscape(id))
+	req.path = fmt.Sprintf("/coupons/%v/delete", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "coupon"
 	req.telemetryOperation = "delete"
@@ -92,10 +90,9 @@ func (s *CouponService) Copy(req *CouponCopyRequest) (*CouponCopyResponse, error
 	return send[*CouponCopyResponse](req, s.config)
 }
 
-func (s *CouponService) Unarchive(id string) (*CouponUnarchiveResponse, error) {
-	req := &BlankRequest{}
+func (s *CouponService) Unarchive(req *CouponUnarchiveRequest) (*CouponUnarchiveResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/coupons/%v/unarchive", url.PathEscape(id))
+	req.path = fmt.Sprintf("/coupons/%v/unarchive", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "coupon"
 	req.telemetryOperation = "unarchive"

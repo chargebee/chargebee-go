@@ -11,10 +11,9 @@ type QuoteService struct {
 	config *ClientConfig
 }
 
-func (s *QuoteService) Retrieve(id string) (*QuoteRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *QuoteService) Retrieve(req *QuoteRetrieveRequest) (*QuoteRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/quotes/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/quotes/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "quote"
 	req.telemetryOperation = "retrieve"
 
@@ -212,10 +211,9 @@ func (s *QuoteService) Pdf(id string, req *QuotePdfRequest) (*QuotePdfResponse, 
 }
 
 // Deprecated: This function is deprecated.
-func (s *QuoteService) RetrieveSignature(id string) (*QuoteRetrieveSignatureResponse, error) {
-	req := &BlankRequest{}
+func (s *QuoteService) RetrieveSignature(req *QuoteRetrieveSignatureRequest) (*QuoteRetrieveSignatureResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/quotes/%v/retrieve_signature", url.PathEscape(id))
+	req.path = fmt.Sprintf("/quotes/%v/retrieve_signature", url.PathEscape(req.Id))
 	req.telemetryResource = "quote"
 	req.telemetryOperation = "retrieveSignature"
 
@@ -223,10 +221,9 @@ func (s *QuoteService) RetrieveSignature(id string) (*QuoteRetrieveSignatureResp
 }
 
 // Deprecated: This function is deprecated.
-func (s *QuoteService) RetrieveSignedPdf(id string) (*QuoteRetrieveSignedPdfResponse, error) {
-	req := &BlankRequest{}
+func (s *QuoteService) RetrieveSignedPdf(req *QuoteRetrieveSignedPdfRequest) (*QuoteRetrieveSignedPdfResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/quotes/%v/retrieve_signed_pdf", url.PathEscape(id))
+	req.path = fmt.Sprintf("/quotes/%v/retrieve_signed_pdf", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "quote"
 	req.telemetryOperation = "retrieveSignedPdf"
@@ -235,10 +232,9 @@ func (s *QuoteService) RetrieveSignedPdf(id string) (*QuoteRetrieveSignedPdfResp
 }
 
 // Deprecated: This function is deprecated.
-func (s *QuoteService) CreateSignature(id string) (*QuoteCreateSignatureResponse, error) {
-	req := &BlankRequest{}
+func (s *QuoteService) CreateSignature(req *QuoteCreateSignatureRequest) (*QuoteCreateSignatureResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/quotes/%v/create_signature", url.PathEscape(id))
+	req.path = fmt.Sprintf("/quotes/%v/create_signature", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "quote"
 	req.telemetryOperation = "createSignature"
@@ -247,10 +243,9 @@ func (s *QuoteService) CreateSignature(id string) (*QuoteCreateSignatureResponse
 }
 
 // Deprecated: This function is deprecated.
-func (s *QuoteService) UpdateSignature(id string) (*QuoteUpdateSignatureResponse, error) {
-	req := &BlankRequest{}
+func (s *QuoteService) UpdateSignature(req *QuoteUpdateSignatureRequest) (*QuoteUpdateSignatureResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/quotes/%v/update_signature", url.PathEscape(id))
+	req.path = fmt.Sprintf("/quotes/%v/update_signature", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "quote"
 	req.telemetryOperation = "updateSignature"
@@ -270,10 +265,9 @@ func (s *QuoteService) UpdateSignatureStatus(id string, req *QuoteUpdateSignatur
 }
 
 // Deprecated: This function is deprecated.
-func (s *QuoteService) RefreshSignatureLink(id string) (*QuoteRefreshSignatureLinkResponse, error) {
-	req := &BlankRequest{}
+func (s *QuoteService) RefreshSignatureLink(req *QuoteRefreshSignatureLinkRequest) (*QuoteRefreshSignatureLinkResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/quotes/%v/refresh_signature_link", url.PathEscape(id))
+	req.path = fmt.Sprintf("/quotes/%v/refresh_signature_link", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "quote"
 	req.telemetryOperation = "refreshSignatureLink"

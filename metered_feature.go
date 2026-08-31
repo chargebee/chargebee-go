@@ -53,6 +53,27 @@ type MeteredFeatureCreateColumnDefinition struct {
 	DataType   ColumnDefinitionDataType `json:"data_type"`
 }
 
+type MeteredFeatureArchiveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *MeteredFeatureArchiveRequest) payload() any { return r }
+
+type MeteredFeatureReactivateRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *MeteredFeatureReactivateRequest) payload() any { return r }
+
+type MeteredFeatureDeleteRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *MeteredFeatureDeleteRequest) payload() any { return r }
+
 type MeteredFeatureCreateResponse struct {
 	Meter Meter `json:"meter,omitempty"`
 	apiResponse

@@ -455,6 +455,13 @@ type CustomerListRelationship struct {
 	InvoiceOwnerId *StringFilter `json:"invoice_owner_id,omitempty"`
 }
 
+type CustomerRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CustomerRetrieveRequest) payload() any { return r }
+
 type CustomerUpdateRequest struct {
 	FirstName               string                             `json:"first_name,omitempty"`
 	LastName                string                             `json:"last_name,omitempty"`
@@ -764,6 +771,13 @@ type CustomerMergeRequest struct {
 
 func (r *CustomerMergeRequest) payload() any { return r }
 
+type CustomerClearPersonalDataRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CustomerClearPersonalDataRequest) payload() any { return r }
+
 type CustomerRelationshipsRequest struct {
 	ParentId                    string                                    `json:"parent_id,omitempty"`
 	PaymentOwnerId              string                                    `json:"payment_owner_id,omitempty"`
@@ -791,6 +805,13 @@ type CustomerRelationshipsChildAccountAccess struct {
 	SendPaymentEmails       *bool                                             `json:"send_payment_emails,omitempty"`
 	SendInvoiceEmails       *bool                                             `json:"send_invoice_emails,omitempty"`
 }
+
+type CustomerDeleteRelationshipRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CustomerDeleteRelationshipRequest) payload() any { return r }
 
 type CustomerHierarchyRequest struct {
 	HierarchyOperationType HierarchyOperationType `json:"hierarchy_operation_type"`

@@ -22,10 +22,9 @@ func (s *CouponCodeService) Create(req *CouponCodeCreateRequest) (*CouponCodeCre
 	return send[*CouponCodeCreateResponse](req, s.config)
 }
 
-func (s *CouponCodeService) Retrieve(id string) (*CouponCodeRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *CouponCodeService) Retrieve(req *CouponCodeRetrieveRequest) (*CouponCodeRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/coupon_codes/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/coupon_codes/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "couponCode"
 	req.telemetryOperation = "retrieve"
 
@@ -42,10 +41,9 @@ func (s *CouponCodeService) List(req *CouponCodeListRequest) (*CouponCodeListRes
 	return send[*CouponCodeListResponse](req, s.config)
 }
 
-func (s *CouponCodeService) Archive(id string) (*CouponCodeArchiveResponse, error) {
-	req := &BlankRequest{}
+func (s *CouponCodeService) Archive(req *CouponCodeArchiveRequest) (*CouponCodeArchiveResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/coupon_codes/%v/archive", url.PathEscape(id))
+	req.path = fmt.Sprintf("/coupon_codes/%v/archive", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "couponCode"
 	req.telemetryOperation = "archive"

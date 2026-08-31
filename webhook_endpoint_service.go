@@ -31,20 +31,18 @@ func (s *WebhookEndpointService) Update(id string, req *WebhookEndpointUpdateReq
 	return send[*WebhookEndpointUpdateResponse](req, s.config)
 }
 
-func (s *WebhookEndpointService) Retrieve(id string) (*WebhookEndpointRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *WebhookEndpointService) Retrieve(req *WebhookEndpointRetrieveRequest) (*WebhookEndpointRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/webhook_endpoints/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/webhook_endpoints/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "webhookEndpoint"
 	req.telemetryOperation = "retrieve"
 
 	return send[*WebhookEndpointRetrieveResponse](req, s.config)
 }
 
-func (s *WebhookEndpointService) Delete(id string) (*WebhookEndpointDeleteResponse, error) {
-	req := &BlankRequest{}
+func (s *WebhookEndpointService) Delete(req *WebhookEndpointDeleteRequest) (*WebhookEndpointDeleteResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/webhook_endpoints/%v/delete", url.PathEscape(id))
+	req.path = fmt.Sprintf("/webhook_endpoints/%v/delete", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "webhookEndpoint"
 	req.telemetryOperation = "delete"

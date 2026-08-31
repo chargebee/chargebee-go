@@ -40,10 +40,9 @@ func (s *CreditNoteService) Pdf(id string, req *CreditNotePdfRequest) (*CreditNo
 	return send[*CreditNotePdfResponse](req, s.config)
 }
 
-func (s *CreditNoteService) DownloadEinvoice(id string) (*CreditNoteDownloadEinvoiceResponse, error) {
-	req := &BlankRequest{}
+func (s *CreditNoteService) DownloadEinvoice(req *CreditNoteDownloadEinvoiceRequest) (*CreditNoteDownloadEinvoiceResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/credit_notes/%v/download_einvoice", url.PathEscape(id))
+	req.path = fmt.Sprintf("/credit_notes/%v/download_einvoice", url.PathEscape(req.Id))
 	req.telemetryResource = "creditNote"
 	req.telemetryOperation = "downloadEinvoice"
 
@@ -131,10 +130,9 @@ func (s *CreditNoteService) RemoveTaxWithheldRefund(id string, req *CreditNoteRe
 	return send[*CreditNoteRemoveTaxWithheldRefundResponse](req, s.config)
 }
 
-func (s *CreditNoteService) ResendEinvoice(id string) (*CreditNoteResendEinvoiceResponse, error) {
-	req := &BlankRequest{}
+func (s *CreditNoteService) ResendEinvoice(req *CreditNoteResendEinvoiceRequest) (*CreditNoteResendEinvoiceResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/credit_notes/%v/resend_einvoice", url.PathEscape(id))
+	req.path = fmt.Sprintf("/credit_notes/%v/resend_einvoice", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "creditNote"
 	req.telemetryOperation = "resendEinvoice"
@@ -142,10 +140,9 @@ func (s *CreditNoteService) ResendEinvoice(id string) (*CreditNoteResendEinvoice
 	return send[*CreditNoteResendEinvoiceResponse](req, s.config)
 }
 
-func (s *CreditNoteService) SendEinvoice(id string) (*CreditNoteSendEinvoiceResponse, error) {
-	req := &BlankRequest{}
+func (s *CreditNoteService) SendEinvoice(req *CreditNoteSendEinvoiceRequest) (*CreditNoteSendEinvoiceResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/credit_notes/%v/send_einvoice", url.PathEscape(id))
+	req.path = fmt.Sprintf("/credit_notes/%v/send_einvoice", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "creditNote"
 	req.telemetryOperation = "sendEinvoice"

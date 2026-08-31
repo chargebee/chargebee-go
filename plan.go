@@ -383,6 +383,20 @@ type PlanListRequest struct {
 
 func (r *PlanListRequest) payload() any { return r }
 
+type PlanRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *PlanRetrieveRequest) payload() any { return r }
+
+type PlanDeleteRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *PlanDeleteRequest) payload() any { return r }
+
 type PlanCopyRequest struct {
 	FromSite       string `json:"from_site"`
 	IdAtFromSite   string `json:"id_at_from_site"`
@@ -392,6 +406,13 @@ type PlanCopyRequest struct {
 }
 
 func (r *PlanCopyRequest) payload() any { return r }
+
+type PlanUnarchiveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *PlanUnarchiveRequest) payload() any { return r }
 
 type PlanCreateResponse struct {
 	Plan *Plan `json:"plan,omitempty"`

@@ -21,10 +21,9 @@ func (s *MeteredFeatureService) Create(req *MeteredFeatureCreateRequest) (*Meter
 	return send[*MeteredFeatureCreateResponse](req, s.config)
 }
 
-func (s *MeteredFeatureService) Archive(id string) (*MeteredFeatureArchiveResponse, error) {
-	req := &BlankRequest{}
+func (s *MeteredFeatureService) Archive(req *MeteredFeatureArchiveRequest) (*MeteredFeatureArchiveResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/metered_features/%v/archive_command", url.PathEscape(id))
+	req.path = fmt.Sprintf("/metered_features/%v/archive_command", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "meteredFeature"
 	req.telemetryOperation = "archive"
@@ -32,10 +31,9 @@ func (s *MeteredFeatureService) Archive(id string) (*MeteredFeatureArchiveRespon
 	return send[*MeteredFeatureArchiveResponse](req, s.config)
 }
 
-func (s *MeteredFeatureService) Reactivate(id string) (*MeteredFeatureReactivateResponse, error) {
-	req := &BlankRequest{}
+func (s *MeteredFeatureService) Reactivate(req *MeteredFeatureReactivateRequest) (*MeteredFeatureReactivateResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/metered_features/%v/reactivate_command", url.PathEscape(id))
+	req.path = fmt.Sprintf("/metered_features/%v/reactivate_command", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "meteredFeature"
 	req.telemetryOperation = "reactivate"
@@ -43,10 +41,9 @@ func (s *MeteredFeatureService) Reactivate(id string) (*MeteredFeatureReactivate
 	return send[*MeteredFeatureReactivateResponse](req, s.config)
 }
 
-func (s *MeteredFeatureService) Delete(id string) (*MeteredFeatureDeleteResponse, error) {
-	req := &BlankRequest{}
+func (s *MeteredFeatureService) Delete(req *MeteredFeatureDeleteRequest) (*MeteredFeatureDeleteResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/metered_features/%v/delete", url.PathEscape(id))
+	req.path = fmt.Sprintf("/metered_features/%v/delete", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "meteredFeature"
 	req.telemetryOperation = "delete"

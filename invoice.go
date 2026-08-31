@@ -1280,6 +1280,13 @@ type InvoiceApplyPaymentsTransaction struct {
 	Amount *int64 `json:"amount,omitempty"`
 }
 
+type InvoiceSyncUsagesRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *InvoiceSyncUsagesRequest) payload() any { return r }
+
 type InvoiceDeleteLineItemsRequest struct {
 	LineItems  []*InvoiceDeleteLineItemsLineItem `json:"line_items,omitempty"`
 	apiRequest `json:"-" form:"-"`
@@ -1372,6 +1379,13 @@ type InvoicePdfRequest struct {
 }
 
 func (r *InvoicePdfRequest) payload() any { return r }
+
+type InvoiceDownloadEinvoiceRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *InvoiceDownloadEinvoiceRequest) payload() any { return r }
 
 type InvoiceListPaymentReferenceNumbersRequest struct {
 	Limit                  *int32                                                    `json:"limit,omitempty"`
@@ -1680,6 +1694,27 @@ type InvoiceApplyPaymentScheduleSchemeRequest struct {
 }
 
 func (r *InvoiceApplyPaymentScheduleSchemeRequest) payload() any { return r }
+
+type InvoicePaymentSchedulesRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *InvoicePaymentSchedulesRequest) payload() any { return r }
+
+type InvoiceResendEinvoiceRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *InvoiceResendEinvoiceRequest) payload() any { return r }
+
+type InvoiceSendEinvoiceRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *InvoiceSendEinvoiceRequest) payload() any { return r }
 
 type InvoiceCreateResponse struct {
 	Invoice *Invoice `json:"invoice,omitempty"`

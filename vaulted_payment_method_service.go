@@ -11,10 +11,9 @@ type VaultedPaymentMethodService struct {
 	config *ClientConfig
 }
 
-func (s *VaultedPaymentMethodService) Retrieve(id string) (*VaultedPaymentMethodRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *VaultedPaymentMethodService) Retrieve(req *VaultedPaymentMethodRetrieveRequest) (*VaultedPaymentMethodRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/vaulted_payment_methods/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/vaulted_payment_methods/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "vaultedPaymentMethod"
 	req.telemetryOperation = "retrieve"
 

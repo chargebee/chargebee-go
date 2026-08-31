@@ -52,6 +52,20 @@ type CreditUnitUpdateRequest struct {
 
 func (r *CreditUnitUpdateRequest) payload() any { return r }
 
+type CreditUnitArchiveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CreditUnitArchiveRequest) payload() any { return r }
+
+type CreditUnitReactivateRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CreditUnitReactivateRequest) payload() any { return r }
+
 type CreditUnitListCreditUnitResponse struct {
 	CreditUnit *CreditUnit `json:"credit_unit,omitempty"`
 }

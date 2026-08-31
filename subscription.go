@@ -883,6 +883,27 @@ type SubscriptionListDiscountsRequest struct {
 
 func (r *SubscriptionListDiscountsRequest) payload() any { return r }
 
+type SubscriptionRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *SubscriptionRetrieveRequest) payload() any { return r }
+
+type SubscriptionRetrieveWithScheduledChangesRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *SubscriptionRetrieveWithScheduledChangesRequest) payload() any { return r }
+
+type SubscriptionRemoveScheduledChangesRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *SubscriptionRemoveScheduledChangesRequest) payload() any { return r }
+
 type SubscriptionRemoveScheduledCancellationRequest struct {
 	BillingCycles                     *int32                                               `json:"billing_cycles,omitempty"`
 	ContractTerm                      *SubscriptionRemoveScheduledCancellationContractTerm `json:"contract_term,omitempty"`
@@ -1402,6 +1423,13 @@ type SubscriptionEditAdvanceInvoiceScheduleFixedIntervalSchedule struct {
 	EndDate             *int64        `json:"end_date,omitempty"`
 }
 
+type SubscriptionRetrieveAdvanceInvoiceScheduleRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *SubscriptionRetrieveAdvanceInvoiceScheduleRequest) payload() any { return r }
+
 type SubscriptionRemoveAdvanceInvoiceScheduleRequest struct {
 	SpecificDatesSchedule []*SubscriptionRemoveAdvanceInvoiceScheduleSpecificDatesSchedule `json:"specific_dates_schedule,omitempty"`
 	apiRequest            `json:"-" form:"-"`
@@ -1906,6 +1934,13 @@ type SubscriptionOverrideBillingProfileRequest struct {
 
 func (r *SubscriptionOverrideBillingProfileRequest) payload() any { return r }
 
+type SubscriptionDeleteRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *SubscriptionDeleteRequest) payload() any { return r }
+
 type SubscriptionPauseRequest struct {
 	PauseOption             PauseOption             `json:"pause_option,omitempty"`
 	PauseDate               *int64                  `json:"pause_date,omitempty"`
@@ -1991,6 +2026,20 @@ type SubscriptionResumePaymentIntent struct {
 	GwPaymentMethodId     string                         `json:"gw_payment_method_id,omitempty"`
 	AdditionalInformation map[string]interface{}         `json:"additional_information,omitempty"`
 }
+
+type SubscriptionRemoveScheduledPauseRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *SubscriptionRemoveScheduledPauseRequest) payload() any { return r }
+
+type SubscriptionRemoveScheduledResumptionRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *SubscriptionRemoveScheduledResumptionRequest) payload() any { return r }
 
 type SubscriptionMoveRequest struct {
 	ToCustomerId      string `json:"to_customer_id"`

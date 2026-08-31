@@ -13,10 +13,9 @@ type ExportService struct {
 	config *ClientConfig
 }
 
-func (s *ExportService) Retrieve(id string) (*ExportRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *ExportService) Retrieve(req *ExportRetrieveRequest) (*ExportRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/exports/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/exports/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "export"
 	req.telemetryOperation = "retrieve"
 
@@ -211,7 +210,7 @@ func (s *ExportService) WaitForExportCompletion(exp Export) (Export, error) {
 		}
 		count++
 		time.Sleep(ConfigExportWaitInSecs)
-		response, err := s.Retrieve(exp.Id)
+		response, err := s.Retrieve(&ExportRetrieveRequest{Id: exp.Id})
 		if err != nil {
 			return exp, err
 		}

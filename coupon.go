@@ -319,6 +319,13 @@ type CouponListRequest struct {
 
 func (r *CouponListRequest) payload() any { return r }
 
+type CouponRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CouponRetrieveRequest) payload() any { return r }
+
 type CouponUpdateRequest struct {
 	Name               string                 `json:"name,omitempty"`
 	InvoiceName        string                 `json:"invoice_name,omitempty"`
@@ -346,6 +353,13 @@ type CouponUpdateRequest struct {
 
 func (r *CouponUpdateRequest) payload() any { return r }
 
+type CouponDeleteRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CouponDeleteRequest) payload() any { return r }
+
 type CouponCopyRequest struct {
 	FromSite       string `json:"from_site"`
 	IdAtFromSite   string `json:"id_at_from_site"`
@@ -355,6 +369,13 @@ type CouponCopyRequest struct {
 }
 
 func (r *CouponCopyRequest) payload() any { return r }
+
+type CouponUnarchiveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CouponUnarchiveRequest) payload() any { return r }
 
 type CouponCreateResponse struct {
 	Coupon *Coupon `json:"coupon,omitempty"`

@@ -976,6 +976,20 @@ type HostedPageRetrieveAgreementPdfRequest struct {
 
 func (r *HostedPageRetrieveAgreementPdfRequest) payload() any { return r }
 
+type HostedPageAcknowledgeRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *HostedPageAcknowledgeRequest) payload() any { return r }
+
+type HostedPageRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *HostedPageRetrieveRequest) payload() any { return r }
+
 type HostedPageListRequest struct {
 	Limit      *int32           `json:"limit,omitempty"`
 	Offset     string           `json:"offset,omitempty"`

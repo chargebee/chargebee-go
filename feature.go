@@ -98,6 +98,41 @@ type FeatureUpdateLevel struct {
 	Level       *int32 `json:"level,omitempty"`
 }
 
+type FeatureRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *FeatureRetrieveRequest) payload() any { return r }
+
+type FeatureDeleteRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *FeatureDeleteRequest) payload() any { return r }
+
+type FeatureActivateRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *FeatureActivateRequest) payload() any { return r }
+
+type FeatureArchiveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *FeatureArchiveRequest) payload() any { return r }
+
+type FeatureReactivateRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *FeatureReactivateRequest) payload() any { return r }
+
 type FeatureListFeatureResponse struct {
 	Feature *Feature `json:"feature,omitempty"`
 }

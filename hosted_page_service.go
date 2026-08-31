@@ -173,10 +173,9 @@ func (s *HostedPageService) RetrieveAgreementPdf(req *HostedPageRetrieveAgreemen
 	return send[*HostedPageRetrieveAgreementPdfResponse](req, s.config)
 }
 
-func (s *HostedPageService) Acknowledge(id string) (*HostedPageAcknowledgeResponse, error) {
-	req := &BlankRequest{}
+func (s *HostedPageService) Acknowledge(req *HostedPageAcknowledgeRequest) (*HostedPageAcknowledgeResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/hosted_pages/%v/acknowledge", url.PathEscape(id))
+	req.path = fmt.Sprintf("/hosted_pages/%v/acknowledge", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "hostedPage"
 	req.telemetryOperation = "acknowledge"
@@ -184,10 +183,9 @@ func (s *HostedPageService) Acknowledge(id string) (*HostedPageAcknowledgeRespon
 	return send[*HostedPageAcknowledgeResponse](req, s.config)
 }
 
-func (s *HostedPageService) Retrieve(id string) (*HostedPageRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *HostedPageService) Retrieve(req *HostedPageRetrieveRequest) (*HostedPageRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/hosted_pages/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/hosted_pages/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "hostedPage"
 	req.telemetryOperation = "retrieve"
 

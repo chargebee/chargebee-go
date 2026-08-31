@@ -41,10 +41,9 @@ func (s *CreditUnitService) Update(id string, req *CreditUnitUpdateRequest) (*Cr
 	return send[*CreditUnitUpdateResponse](req, s.config)
 }
 
-func (s *CreditUnitService) Archive(id string) (*CreditUnitArchiveResponse, error) {
-	req := &BlankRequest{}
+func (s *CreditUnitService) Archive(req *CreditUnitArchiveRequest) (*CreditUnitArchiveResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/credit_units/%v/archive_command", url.PathEscape(id))
+	req.path = fmt.Sprintf("/credit_units/%v/archive_command", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "creditUnit"
 	req.telemetryOperation = "archive"
@@ -52,10 +51,9 @@ func (s *CreditUnitService) Archive(id string) (*CreditUnitArchiveResponse, erro
 	return send[*CreditUnitArchiveResponse](req, s.config)
 }
 
-func (s *CreditUnitService) Reactivate(id string) (*CreditUnitReactivateResponse, error) {
-	req := &BlankRequest{}
+func (s *CreditUnitService) Reactivate(req *CreditUnitReactivateRequest) (*CreditUnitReactivateResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/credit_units/%v/reactivate_command", url.PathEscape(id))
+	req.path = fmt.Sprintf("/credit_units/%v/reactivate_command", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "creditUnit"
 	req.telemetryOperation = "reactivate"

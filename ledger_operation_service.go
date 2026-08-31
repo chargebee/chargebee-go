@@ -11,10 +11,9 @@ type LedgerOperationService struct {
 	config *ClientConfig
 }
 
-func (s *LedgerOperationService) RetrieveLedgerOperation(id string) (*LedgerOperationRetrieveLedgerOperationResponse, error) {
-	req := &BlankRequest{}
+func (s *LedgerOperationService) RetrieveLedgerOperation(req *LedgerOperationRetrieveLedgerOperationRequest) (*LedgerOperationRetrieveLedgerOperationResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/ledger_operations/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/ledger_operations/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "ledgerOperation"
 	req.telemetryOperation = "retrieveLedgerOperation"
 

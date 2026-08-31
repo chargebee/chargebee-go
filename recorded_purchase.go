@@ -81,6 +81,13 @@ type RecordedPurchaseCreateOmnichannelSubscription struct {
 	Id string `json:"id,omitempty"`
 }
 
+type RecordedPurchaseRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *RecordedPurchaseRetrieveRequest) payload() any { return r }
+
 type RecordedPurchaseCreateResponse struct {
 	RecordedPurchase *RecordedPurchase `json:"recorded_purchase,omitempty"`
 	Customer         Customer          `json:"customer,omitempty"`

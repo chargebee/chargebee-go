@@ -21,10 +21,9 @@ func (s *ItemFamilyService) Create(req *ItemFamilyCreateRequest) (*ItemFamilyCre
 	return send[*ItemFamilyCreateResponse](req, s.config)
 }
 
-func (s *ItemFamilyService) Retrieve(id string) (*ItemFamilyRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *ItemFamilyService) Retrieve(req *ItemFamilyRetrieveRequest) (*ItemFamilyRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/item_families/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/item_families/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "itemFamily"
 	req.telemetryOperation = "retrieve"
 
@@ -51,10 +50,9 @@ func (s *ItemFamilyService) Update(id string, req *ItemFamilyUpdateRequest) (*It
 	return send[*ItemFamilyUpdateResponse](req, s.config)
 }
 
-func (s *ItemFamilyService) Delete(id string) (*ItemFamilyDeleteResponse, error) {
-	req := &BlankRequest{}
+func (s *ItemFamilyService) Delete(req *ItemFamilyDeleteRequest) (*ItemFamilyDeleteResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/item_families/%v/delete", url.PathEscape(id))
+	req.path = fmt.Sprintf("/item_families/%v/delete", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "itemFamily"
 	req.telemetryOperation = "delete"

@@ -11,10 +11,9 @@ type RuleService struct {
 	config *ClientConfig
 }
 
-func (s *RuleService) Retrieve(id string) (*RuleRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *RuleService) Retrieve(req *RuleRetrieveRequest) (*RuleRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/rules/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/rules/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "rule"
 	req.telemetryOperation = "retrieve"
 

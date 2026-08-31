@@ -11,10 +11,9 @@ type OmnichannelSubscriptionService struct {
 	config *ClientConfig
 }
 
-func (s *OmnichannelSubscriptionService) Retrieve(id string) (*OmnichannelSubscriptionRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *OmnichannelSubscriptionService) Retrieve(req *OmnichannelSubscriptionRetrieveRequest) (*OmnichannelSubscriptionRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/omnichannel_subscriptions/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/omnichannel_subscriptions/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "omnichannelSubscription"
 	req.telemetryOperation = "retrieve"
 

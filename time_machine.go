@@ -21,6 +21,13 @@ type TimeMachine struct {
 	Object           string                      `json:"object"`
 }
 
+type TimeMachineRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *TimeMachineRetrieveRequest) payload() any { return r }
+
 type TimeMachineStartAfreshRequest struct {
 	GenesisTime *int64 `json:"genesis_time,omitempty"`
 	apiRequest  `json:"-" form:"-"`

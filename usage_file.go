@@ -46,6 +46,13 @@ type UsageFileUploadUrlRequest struct {
 
 func (r *UsageFileUploadUrlRequest) payload() any { return r }
 
+type UsageFileProcessingStatusRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *UsageFileProcessingStatusRequest) payload() any { return r }
+
 type UsageFileUploadUrlResponse struct {
 	UsageFile *UsageFile `json:"usage_file,omitempty"`
 	apiResponse

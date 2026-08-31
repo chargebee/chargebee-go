@@ -11,10 +11,9 @@ type OmnichannelOneTimeOrderService struct {
 	config *ClientConfig
 }
 
-func (s *OmnichannelOneTimeOrderService) Retrieve(id string) (*OmnichannelOneTimeOrderRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *OmnichannelOneTimeOrderService) Retrieve(req *OmnichannelOneTimeOrderRetrieveRequest) (*OmnichannelOneTimeOrderRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/omnichannel_one_time_orders/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/omnichannel_one_time_orders/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "omnichannelOneTimeOrder"
 	req.telemetryOperation = "retrieve"
 

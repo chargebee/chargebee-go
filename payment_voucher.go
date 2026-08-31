@@ -59,6 +59,13 @@ type PaymentVoucherCreateInvoiceAllocation struct {
 	InvoiceId string `json:"invoice_id"`
 }
 
+type PaymentVoucherRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *PaymentVoucherRetrieveRequest) payload() any { return r }
+
 type PaymentVoucherPaymentVouchersForInvoiceRequest struct {
 	Limit      *int32      `json:"limit,omitempty"`
 	Offset     string      `json:"offset,omitempty"`

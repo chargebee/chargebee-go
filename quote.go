@@ -279,6 +279,13 @@ type QuoteBillingAddress struct {
 	Object           string           `json:"object"`
 }
 
+type QuoteRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *QuoteRetrieveRequest) payload() any { return r }
+
 type QuoteCreateSubForCustomerQuoteRequest struct {
 	Name                    string                                           `json:"name,omitempty"`
 	Notes                   string                                           `json:"notes,omitempty"`
@@ -1621,6 +1628,34 @@ type QuotePdfRequest struct {
 
 func (r *QuotePdfRequest) payload() any { return r }
 
+type QuoteRetrieveSignatureRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *QuoteRetrieveSignatureRequest) payload() any { return r }
+
+type QuoteRetrieveSignedPdfRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *QuoteRetrieveSignedPdfRequest) payload() any { return r }
+
+type QuoteCreateSignatureRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *QuoteCreateSignatureRequest) payload() any { return r }
+
+type QuoteUpdateSignatureRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *QuoteUpdateSignatureRequest) payload() any { return r }
+
 type QuoteUpdateSignatureStatusRequest struct {
 	CpqQuoteSignature *QuoteUpdateSignatureStatusCpqQuoteSignature `json:"cpq_quote_signature,omitempty"`
 	apiRequest        `json:"-" form:"-"`
@@ -1631,6 +1666,13 @@ func (r *QuoteUpdateSignatureStatusRequest) payload() any { return r }
 type QuoteUpdateSignatureStatusCpqQuoteSignature struct {
 	Status CpqQuoteSignatureStatus `json:"status,omitempty"`
 }
+
+type QuoteRefreshSignatureLinkRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *QuoteRefreshSignatureLinkRequest) payload() any { return r }
 
 type QuoteRetrieveResponse struct {
 	Quote              *Quote             `json:"quote,omitempty"`

@@ -41,10 +41,9 @@ func (s *OrderService) ImportOrder(req *OrderImportOrderRequest) (*OrderImportOr
 	return send[*OrderImportOrderResponse](req, s.config)
 }
 
-func (s *OrderService) AssignOrderNumber(id string) (*OrderAssignOrderNumberResponse, error) {
-	req := &BlankRequest{}
+func (s *OrderService) AssignOrderNumber(req *OrderAssignOrderNumberRequest) (*OrderAssignOrderNumberResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/orders/%v/assign_order_number", url.PathEscape(id))
+	req.path = fmt.Sprintf("/orders/%v/assign_order_number", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "order"
 	req.telemetryOperation = "assignOrderNumber"
@@ -82,20 +81,18 @@ func (s *OrderService) Reopen(id string, req *OrderReopenRequest) (*OrderReopenR
 	return send[*OrderReopenResponse](req, s.config)
 }
 
-func (s *OrderService) Retrieve(id string) (*OrderRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *OrderService) Retrieve(req *OrderRetrieveRequest) (*OrderRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/orders/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/orders/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "order"
 	req.telemetryOperation = "retrieve"
 
 	return send[*OrderRetrieveResponse](req, s.config)
 }
 
-func (s *OrderService) Delete(id string) (*OrderDeleteResponse, error) {
-	req := &BlankRequest{}
+func (s *OrderService) Delete(req *OrderDeleteRequest) (*OrderDeleteResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/orders/%v/delete", url.PathEscape(id))
+	req.path = fmt.Sprintf("/orders/%v/delete", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "order"
 	req.telemetryOperation = "delete"

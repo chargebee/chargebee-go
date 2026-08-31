@@ -50,6 +50,20 @@ type PortalSessionCreateCustomer struct {
 	Id string `json:"id"`
 }
 
+type PortalSessionRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *PortalSessionRetrieveRequest) payload() any { return r }
+
+type PortalSessionLogoutRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *PortalSessionLogoutRequest) payload() any { return r }
+
 type PortalSessionActivateRequest struct {
 	Token      string `json:"token"`
 	apiRequest `json:"-" form:"-"`

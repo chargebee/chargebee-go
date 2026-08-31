@@ -296,6 +296,20 @@ type RampUpdateContractTerm struct {
 	RenewalBillingCycles     *int32                      `json:"renewal_billing_cycles,omitempty"`
 }
 
+type RampRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *RampRetrieveRequest) payload() any { return r }
+
+type RampDeleteRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *RampDeleteRequest) payload() any { return r }
+
 type RampListRequest struct {
 	Limit          *int32           `json:"limit,omitempty"`
 	Offset         string           `json:"offset,omitempty"`

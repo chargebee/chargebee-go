@@ -41,10 +41,9 @@ func (s *CouponSetService) List(req *CouponSetListRequest) (*CouponSetListRespon
 	return send[*CouponSetListResponse](req, s.config)
 }
 
-func (s *CouponSetService) Retrieve(id string) (*CouponSetRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *CouponSetService) Retrieve(req *CouponSetRetrieveRequest) (*CouponSetRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/coupon_sets/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/coupon_sets/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "couponSet"
 	req.telemetryOperation = "retrieve"
 
@@ -61,10 +60,9 @@ func (s *CouponSetService) Update(id string, req *CouponSetUpdateRequest) (*Coup
 	return send[*CouponSetUpdateResponse](req, s.config)
 }
 
-func (s *CouponSetService) Delete(id string) (*CouponSetDeleteResponse, error) {
-	req := &BlankRequest{}
+func (s *CouponSetService) Delete(req *CouponSetDeleteRequest) (*CouponSetDeleteResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/coupon_sets/%v/delete", url.PathEscape(id))
+	req.path = fmt.Sprintf("/coupon_sets/%v/delete", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "couponSet"
 	req.telemetryOperation = "delete"
@@ -72,10 +70,9 @@ func (s *CouponSetService) Delete(id string) (*CouponSetDeleteResponse, error) {
 	return send[*CouponSetDeleteResponse](req, s.config)
 }
 
-func (s *CouponSetService) DeleteUnusedCouponCodes(id string) (*CouponSetDeleteUnusedCouponCodesResponse, error) {
-	req := &BlankRequest{}
+func (s *CouponSetService) DeleteUnusedCouponCodes(req *CouponSetDeleteUnusedCouponCodesRequest) (*CouponSetDeleteUnusedCouponCodesResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/coupon_sets/%v/delete_unused_coupon_codes", url.PathEscape(id))
+	req.path = fmt.Sprintf("/coupon_sets/%v/delete_unused_coupon_codes", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "couponSet"
 	req.telemetryOperation = "deleteUnusedCouponCodes"

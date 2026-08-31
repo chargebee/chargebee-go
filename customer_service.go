@@ -31,10 +31,9 @@ func (s *CustomerService) List(req *CustomerListRequest) (*CustomerListResponse,
 	return send[*CustomerListResponse](req, s.config)
 }
 
-func (s *CustomerService) Retrieve(id string) (*CustomerRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *CustomerService) Retrieve(req *CustomerRetrieveRequest) (*CustomerRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/customers/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/customers/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "customer"
 	req.telemetryOperation = "retrieve"
 
@@ -214,10 +213,9 @@ func (s *CustomerService) Merge(req *CustomerMergeRequest) (*CustomerMergeRespon
 	return send[*CustomerMergeResponse](req, s.config)
 }
 
-func (s *CustomerService) ClearPersonalData(id string) (*CustomerClearPersonalDataResponse, error) {
-	req := &BlankRequest{}
+func (s *CustomerService) ClearPersonalData(req *CustomerClearPersonalDataRequest) (*CustomerClearPersonalDataResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/customers/%v/clear_personal_data", url.PathEscape(id))
+	req.path = fmt.Sprintf("/customers/%v/clear_personal_data", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "customer"
 	req.telemetryOperation = "clearPersonalData"
@@ -235,10 +233,9 @@ func (s *CustomerService) Relationships(id string, req *CustomerRelationshipsReq
 	return send[*CustomerRelationshipsResponse](req, s.config)
 }
 
-func (s *CustomerService) DeleteRelationship(id string) (*CustomerDeleteRelationshipResponse, error) {
-	req := &BlankRequest{}
+func (s *CustomerService) DeleteRelationship(req *CustomerDeleteRelationshipRequest) (*CustomerDeleteRelationshipResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/customers/%v/delete_relationship", url.PathEscape(id))
+	req.path = fmt.Sprintf("/customers/%v/delete_relationship", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "customer"
 	req.telemetryOperation = "deleteRelationship"

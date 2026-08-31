@@ -31,20 +31,18 @@ func (s *RampService) Update(id string, req *RampUpdateRequest) (*RampUpdateResp
 	return send[*RampUpdateResponse](req, s.config)
 }
 
-func (s *RampService) Retrieve(id string) (*RampRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *RampService) Retrieve(req *RampRetrieveRequest) (*RampRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/ramps/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/ramps/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "ramp"
 	req.telemetryOperation = "retrieve"
 
 	return send[*RampRetrieveResponse](req, s.config)
 }
 
-func (s *RampService) Delete(id string) (*RampDeleteResponse, error) {
-	req := &BlankRequest{}
+func (s *RampService) Delete(req *RampDeleteRequest) (*RampDeleteResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/ramps/%v/delete", url.PathEscape(id))
+	req.path = fmt.Sprintf("/ramps/%v/delete", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "ramp"
 	req.telemetryOperation = "delete"

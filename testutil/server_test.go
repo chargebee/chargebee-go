@@ -80,7 +80,7 @@ func TestServer_EnqueueJSON(t *testing.T) {
 
 	require.NoError(t, err)
 
-	res, err := client.Customer.Retrieve("cust_123")
+	res, err := client.Customer.Retrieve(&chargebee.CustomerRetrieveRequest{Id: "cust_123"})
 	require.NoError(t, err)
 	assert.Equal(t, "cust_123", res.Customer.Id)
 	assert.Equal(t, "john.doe@example.com", res.Customer.Email)
