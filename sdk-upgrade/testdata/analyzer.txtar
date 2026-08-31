@@ -1,0 +1,154 @@
+Fixtures for TestAnalyzer, laid out as the GOPATH that analysistest expects.
+
+They are bundled into an archive rather than checked in as loose .go files
+because they only type-check inside that synthetic GOPATH, which trips up tools
+that walk the repository for Go source.
+
+-- src/github.com/chargebee/chargebee-go/v4/chargebee.go --
+// Package chargebee is a stub of the generated SDK, holding just enough of the
+// shape the analyzer keys off: service types, request types with an Id field,
+// and both the old and new operation signatures.
+package chargebee
+
+type Client struct {
+	Subscription *SubscriptionService
+	Customer     *CustomerService
+	Export       *ExportService
+}
+
+type apiRequest struct{}
+
+type SubscriptionService struct{}
+
+type SubscriptionRetrieveRequest struct {
+	Id string
+	apiRequest
+}
+
+type SubscriptionRetrieveResponse struct{}
+
+func (s *SubscriptionService) Retrieve(req *SubscriptionRetrieveRequest) (*SubscriptionRetrieveResponse, error) {
+	return nil, nil
+}
+
+type SubscriptionUpdateRequest struct {
+	AutoCollection string
+	apiRequest
+}
+
+type SubscriptionUpdateResponse struct{}
+
+// Update keeps the id positional because it also takes body parameters.
+func (s *SubscriptionService) Update(id string, req *SubscriptionUpdateRequest) (*SubscriptionUpdateResponse, error) {
+	return nil, nil
+}
+
+type CustomerService struct{}
+
+type CustomerDeleteRequest struct {
+	Id string
+	apiRequest
+}
+
+type CustomerDeleteResponse struct{}
+
+func (s *CustomerService) Delete(req *CustomerDeleteRequest) (*CustomerDeleteResponse, error) {
+	return nil, nil
+}
+
+type ExportService struct{}
+
+type ExportListRequest struct {
+	Limit int
+	apiRequest
+}
+
+type ExportListResponse struct{}
+
+// List has no Id field, so it must never be rewritten.
+func (s *ExportService) List(req *ExportListRequest) (*ExportListResponse, error) {
+	return nil, nil
+}
+-- src/callsites/callsites.go --
+package callsites
+
+import "github.com/chargebee/chargebee-go/v4"
+
+type customID string
+
+func literal(c *chargebee.Client) {
+	c.Subscription.Retrieve("sub_1") // want `SubscriptionService.Retrieve no longer takes a string id`
+}
+
+func variable(c *chargebee.Client, id string) {
+	c.Customer.Delete(id) // want `CustomerService.Delete no longer takes a string id`
+}
+
+func alreadyMigrated(c *chargebee.Client) {
+	c.Subscription.Retrieve(&chargebee.SubscriptionRetrieveRequest{Id: "sub_1"})
+}
+
+func positionalID(c *chargebee.Client) {
+	c.Subscription.Update("sub_1", &chargebee.SubscriptionUpdateRequest{})
+}
+
+func noIDField(c *chargebee.Client) {
+	c.Export.List(&chargebee.ExportListRequest{Limit: 10})
+}
+
+func namedStringType(c *chargebee.Client, id customID) {
+	c.Customer.Delete(id)
+}
+-- src/callsites/callsites.go.golden --
+package callsites
+
+import "github.com/chargebee/chargebee-go/v4"
+
+type customID string
+
+func literal(c *chargebee.Client) {
+	c.Subscription.Retrieve(&chargebee.SubscriptionRetrieveRequest{Id: "sub_1"}) // want `SubscriptionService.Retrieve no longer takes a string id`
+}
+
+func variable(c *chargebee.Client, id string) {
+	c.Customer.Delete(&chargebee.CustomerDeleteRequest{Id: id}) // want `CustomerService.Delete no longer takes a string id`
+}
+
+func alreadyMigrated(c *chargebee.Client) {
+	c.Subscription.Retrieve(&chargebee.SubscriptionRetrieveRequest{Id: "sub_1"})
+}
+
+func positionalID(c *chargebee.Client) {
+	c.Subscription.Update("sub_1", &chargebee.SubscriptionUpdateRequest{})
+}
+
+func noIDField(c *chargebee.Client) {
+	c.Export.List(&chargebee.ExportListRequest{Limit: 10})
+}
+
+func namedStringType(c *chargebee.Client, id customID) {
+	c.Customer.Delete(id)
+}
+-- src/callsites/provider/provider.go --
+package provider
+
+import "github.com/chargebee/chargebee-go/v4"
+
+func Client() *chargebee.Client { return &chargebee.Client{} }
+-- src/noimport/noimport.go --
+package noimport
+
+import "callsites/provider"
+
+func load() {
+	provider.Client().Subscription.Retrieve("sub_1") // want `SubscriptionService.Retrieve no longer takes a string id`
+}
+-- src/noimport/noimport.go.golden --
+package noimport
+
+import "callsites/provider"
+import "github.com/chargebee/chargebee-go/v4"
+
+func load() {
+	provider.Client().Subscription.Retrieve(&chargebee.SubscriptionRetrieveRequest{Id: "sub_1"}) // want `SubscriptionService.Retrieve no longer takes a string id`
+}

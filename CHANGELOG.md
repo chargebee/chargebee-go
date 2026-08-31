@@ -1,3 +1,30 @@
+### v4.9.0 (2026-08-31)
+***
+### Bug fixes (BREAKING CHANGES)
+
+* All resource methods which only had the ID as a parameter (e.g. `Retrieve`, `Delete`, etc) have been updated to take a Request object instead. This makes all requests consistent in the way the headers, context, idempotent keys, etc are set. This was previously not possible since the request object was constructed internally and not accepted as a parameter.
+
+#### Why is this a breaking change?
+
+In order to maintain consistency with the existing resource access pattern, it was decided to make this a breaking change. The alternative was to expose additional `<Retrieve|Upgrade>WithRequest` methods which would be backwards compatible, but will make the SDK inconsistent and add to the cognitive load.
+
+However, to minimize disruption to existing users, we provide an easy to use `go fix` script which will automatically patch the behaviour in your codebase. Read the next section for more details on running the upgrade script.
+
+#### Automatically upgrading your code with `go fix`
+
+The `sdk-upgrade` package has been written using the most recent tooling offered by Go 1.27.0. Hence, you must have the latest version of go installed locally to run the following commands. It's important to note that this only applies to your local dev environment since the upgrade script is a one time command - your production servers can still remain on an earlier supported version of go (>1.21). 
+
+```shell
+# Update chargebee-go package
+go get -u github.com/chargebee/chargebee-go/v4
+
+# Run the sdk-upgrade command
+go run github.com/chargebee/chargebee-go/sdk-upgrade@latest -fix ./...
+```
+
+**Important** Please review the changes carefully and ensure your project's quality checks pass once the above command has been run.
+
+
 ### v4.8.0 (2026-08-19)
 * * *
 ### New Resources:

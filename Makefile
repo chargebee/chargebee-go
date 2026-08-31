@@ -1,4 +1,4 @@
-.PHONY: update-version increment-major increment-minor increment-patch test build clean fmt lint vet
+.PHONY: update-version increment-major increment-minor increment-patch test test-coverage build clean format lint vet
 
 VERSION_FILE := VERSION
 VERSION_GO_FILE := version.go
@@ -39,7 +39,7 @@ format:
 		echo "Installing goimports-reviser..."; \
 		go install -v github.com/incu6us/goimports-reviser/v3@latest; \
 	}
-	goimports-reviser -rm-unused -use-cache -format -apply-to-generated-files ./...
+	goimports-reviser -rm-unused -use-cache -format -apply-to-generated-files -excludes 'sdk-upgrade' ./...
 
 test:
 	@echo "Running tests..."
