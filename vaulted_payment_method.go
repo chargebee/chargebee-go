@@ -10,6 +10,13 @@ type VaultedPaymentMethod struct {
 	Object       string `json:"object"`
 }
 
+type VaultedPaymentMethodRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *VaultedPaymentMethodRetrieveRequest) payload() any { return r }
+
 type VaultedPaymentMethodRetrieveResponse struct {
 	VaultedPaymentMethod *VaultedPaymentMethod `json:"vaulted_payment_method,omitempty"`
 	apiResponse

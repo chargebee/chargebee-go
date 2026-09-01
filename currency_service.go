@@ -21,10 +21,9 @@ func (s *CurrencyService) List(req *CurrencyListRequest) (*CurrencyListResponse,
 	return send[*CurrencyListResponse](req, s.config)
 }
 
-func (s *CurrencyService) Retrieve(id string) (*CurrencyRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *CurrencyService) Retrieve(req *CurrencyRetrieveRequest) (*CurrencyRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/currencies/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/currencies/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "currency"
 	req.telemetryOperation = "retrieve"
 
@@ -61,10 +60,9 @@ func (s *CurrencyService) AddSchedule(id string, req *CurrencyAddScheduleRequest
 	return send[*CurrencyAddScheduleResponse](req, s.config)
 }
 
-func (s *CurrencyService) RemoveSchedule(id string) (*CurrencyRemoveScheduleResponse, error) {
-	req := &BlankRequest{}
+func (s *CurrencyService) RemoveSchedule(req *CurrencyRemoveScheduleRequest) (*CurrencyRemoveScheduleResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/currencies/%v/remove_schedule", url.PathEscape(id))
+	req.path = fmt.Sprintf("/currencies/%v/remove_schedule", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "currency"
 	req.telemetryOperation = "removeSchedule"

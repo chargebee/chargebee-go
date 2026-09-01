@@ -82,30 +82,27 @@ func (s *SubscriptionService) ListDiscounts(id string, req *SubscriptionListDisc
 	return send[*SubscriptionListDiscountsResponse](req, s.config)
 }
 
-func (s *SubscriptionService) Retrieve(id string) (*SubscriptionRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *SubscriptionService) Retrieve(req *SubscriptionRetrieveRequest) (*SubscriptionRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/subscriptions/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/subscriptions/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "subscription"
 	req.telemetryOperation = "retrieve"
 
 	return send[*SubscriptionRetrieveResponse](req, s.config)
 }
 
-func (s *SubscriptionService) RetrieveWithScheduledChanges(id string) (*SubscriptionRetrieveWithScheduledChangesResponse, error) {
-	req := &BlankRequest{}
+func (s *SubscriptionService) RetrieveWithScheduledChanges(req *SubscriptionRetrieveWithScheduledChangesRequest) (*SubscriptionRetrieveWithScheduledChangesResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/subscriptions/%v/retrieve_with_scheduled_changes", url.PathEscape(id))
+	req.path = fmt.Sprintf("/subscriptions/%v/retrieve_with_scheduled_changes", url.PathEscape(req.Id))
 	req.telemetryResource = "subscription"
 	req.telemetryOperation = "retrieveWithScheduledChanges"
 
 	return send[*SubscriptionRetrieveWithScheduledChangesResponse](req, s.config)
 }
 
-func (s *SubscriptionService) RemoveScheduledChanges(id string) (*SubscriptionRemoveScheduledChangesResponse, error) {
-	req := &BlankRequest{}
+func (s *SubscriptionService) RemoveScheduledChanges(req *SubscriptionRemoveScheduledChangesRequest) (*SubscriptionRemoveScheduledChangesResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/subscriptions/%v/remove_scheduled_changes", url.PathEscape(id))
+	req.path = fmt.Sprintf("/subscriptions/%v/remove_scheduled_changes", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "subscription"
 	req.telemetryOperation = "removeScheduledChanges"
@@ -213,10 +210,9 @@ func (s *SubscriptionService) EditAdvanceInvoiceSchedule(id string, req *Subscri
 	return send[*SubscriptionEditAdvanceInvoiceScheduleResponse](req, s.config)
 }
 
-func (s *SubscriptionService) RetrieveAdvanceInvoiceSchedule(id string) (*SubscriptionRetrieveAdvanceInvoiceScheduleResponse, error) {
-	req := &BlankRequest{}
+func (s *SubscriptionService) RetrieveAdvanceInvoiceSchedule(req *SubscriptionRetrieveAdvanceInvoiceScheduleRequest) (*SubscriptionRetrieveAdvanceInvoiceScheduleResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/subscriptions/%v/retrieve_advance_invoice_schedule", url.PathEscape(id))
+	req.path = fmt.Sprintf("/subscriptions/%v/retrieve_advance_invoice_schedule", url.PathEscape(req.Id))
 	req.telemetryResource = "subscription"
 	req.telemetryOperation = "retrieveAdvanceInvoiceSchedule"
 
@@ -303,10 +299,9 @@ func (s *SubscriptionService) OverrideBillingProfile(id string, req *Subscriptio
 	return send[*SubscriptionOverrideBillingProfileResponse](req, s.config)
 }
 
-func (s *SubscriptionService) Delete(id string) (*SubscriptionDeleteResponse, error) {
-	req := &BlankRequest{}
+func (s *SubscriptionService) Delete(req *SubscriptionDeleteRequest) (*SubscriptionDeleteResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/subscriptions/%v/delete", url.PathEscape(id))
+	req.path = fmt.Sprintf("/subscriptions/%v/delete", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "subscription"
 	req.telemetryOperation = "delete"
@@ -354,10 +349,9 @@ func (s *SubscriptionService) Resume(id string, req *SubscriptionResumeRequest) 
 	return send[*SubscriptionResumeResponse](req, s.config)
 }
 
-func (s *SubscriptionService) RemoveScheduledPause(id string) (*SubscriptionRemoveScheduledPauseResponse, error) {
-	req := &BlankRequest{}
+func (s *SubscriptionService) RemoveScheduledPause(req *SubscriptionRemoveScheduledPauseRequest) (*SubscriptionRemoveScheduledPauseResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/subscriptions/%v/remove_scheduled_pause", url.PathEscape(id))
+	req.path = fmt.Sprintf("/subscriptions/%v/remove_scheduled_pause", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "subscription"
 	req.telemetryOperation = "removeScheduledPause"
@@ -365,10 +359,9 @@ func (s *SubscriptionService) RemoveScheduledPause(id string) (*SubscriptionRemo
 	return send[*SubscriptionRemoveScheduledPauseResponse](req, s.config)
 }
 
-func (s *SubscriptionService) RemoveScheduledResumption(id string) (*SubscriptionRemoveScheduledResumptionResponse, error) {
-	req := &BlankRequest{}
+func (s *SubscriptionService) RemoveScheduledResumption(req *SubscriptionRemoveScheduledResumptionRequest) (*SubscriptionRemoveScheduledResumptionResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/subscriptions/%v/remove_scheduled_resumption", url.PathEscape(id))
+	req.path = fmt.Sprintf("/subscriptions/%v/remove_scheduled_resumption", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "subscription"
 	req.telemetryOperation = "removeScheduledResumption"

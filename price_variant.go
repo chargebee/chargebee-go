@@ -50,6 +50,13 @@ type PriceVariantCreateAttribute struct {
 	Value string `json:"value"`
 }
 
+type PriceVariantRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *PriceVariantRetrieveRequest) payload() any { return r }
+
 type PriceVariantUpdateRequest struct {
 	Name         string                         `json:"name,omitempty"`
 	ExternalName string                         `json:"external_name,omitempty"`
@@ -66,6 +73,13 @@ type PriceVariantUpdateAttribute struct {
 	Name  string `json:"name"`
 	Value string `json:"value"`
 }
+
+type PriceVariantDeleteRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *PriceVariantDeleteRequest) payload() any { return r }
 
 type PriceVariantListRequest struct {
 	Limit                     *int32           `json:"limit,omitempty"`

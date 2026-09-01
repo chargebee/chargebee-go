@@ -41,20 +41,18 @@ func (s *FeatureService) Update(id string, req *FeatureUpdateRequest) (*FeatureU
 	return send[*FeatureUpdateResponse](req, s.config)
 }
 
-func (s *FeatureService) Retrieve(id string) (*FeatureRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *FeatureService) Retrieve(req *FeatureRetrieveRequest) (*FeatureRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/features/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/features/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "feature"
 	req.telemetryOperation = "retrieve"
 
 	return send[*FeatureRetrieveResponse](req, s.config)
 }
 
-func (s *FeatureService) Delete(id string) (*FeatureDeleteResponse, error) {
-	req := &BlankRequest{}
+func (s *FeatureService) Delete(req *FeatureDeleteRequest) (*FeatureDeleteResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/features/%v/delete", url.PathEscape(id))
+	req.path = fmt.Sprintf("/features/%v/delete", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "feature"
 	req.telemetryOperation = "delete"
@@ -62,10 +60,9 @@ func (s *FeatureService) Delete(id string) (*FeatureDeleteResponse, error) {
 	return send[*FeatureDeleteResponse](req, s.config)
 }
 
-func (s *FeatureService) Activate(id string) (*FeatureActivateResponse, error) {
-	req := &BlankRequest{}
+func (s *FeatureService) Activate(req *FeatureActivateRequest) (*FeatureActivateResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/features/%v/activate_command", url.PathEscape(id))
+	req.path = fmt.Sprintf("/features/%v/activate_command", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "feature"
 	req.telemetryOperation = "activate"
@@ -73,10 +70,9 @@ func (s *FeatureService) Activate(id string) (*FeatureActivateResponse, error) {
 	return send[*FeatureActivateResponse](req, s.config)
 }
 
-func (s *FeatureService) Archive(id string) (*FeatureArchiveResponse, error) {
-	req := &BlankRequest{}
+func (s *FeatureService) Archive(req *FeatureArchiveRequest) (*FeatureArchiveResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/features/%v/archive_command", url.PathEscape(id))
+	req.path = fmt.Sprintf("/features/%v/archive_command", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "feature"
 	req.telemetryOperation = "archive"
@@ -84,10 +80,9 @@ func (s *FeatureService) Archive(id string) (*FeatureArchiveResponse, error) {
 	return send[*FeatureArchiveResponse](req, s.config)
 }
 
-func (s *FeatureService) Reactivate(id string) (*FeatureReactivateResponse, error) {
-	req := &BlankRequest{}
+func (s *FeatureService) Reactivate(req *FeatureReactivateRequest) (*FeatureReactivateResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/features/%v/reactivate_command", url.PathEscape(id))
+	req.path = fmt.Sprintf("/features/%v/reactivate_command", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "feature"
 	req.telemetryOperation = "reactivate"

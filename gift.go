@@ -206,6 +206,13 @@ type GiftCreateForItemsItemTier struct {
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
 }
 
+type GiftRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *GiftRetrieveRequest) payload() any { return r }
+
 type GiftListRequest struct {
 	Limit        *int32                `json:"limit,omitempty"`
 	Offset       string                `json:"offset,omitempty"`
@@ -225,6 +232,20 @@ type GiftListGiftReceiver struct {
 type GiftListGifter struct {
 	CustomerId *StringFilter `json:"customer_id,omitempty"`
 }
+
+type GiftClaimRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *GiftClaimRequest) payload() any { return r }
+
+type GiftCancelRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *GiftCancelRequest) payload() any { return r }
 
 type GiftUpdateGiftRequest struct {
 	ScheduledAt  *int64                      `json:"scheduled_at,omitempty"`

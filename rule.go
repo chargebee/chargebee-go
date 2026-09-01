@@ -22,6 +22,13 @@ type Rule struct {
 	Object     string     `json:"object"`
 }
 
+type RuleRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *RuleRetrieveRequest) payload() any { return r }
+
 type RuleRetrieveResponse struct {
 	Rule *Rule `json:"rule,omitempty"`
 	apiResponse

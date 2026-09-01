@@ -31,10 +31,9 @@ func (s *PaymentIntentService) Update(id string, req *PaymentIntentUpdateRequest
 	return send[*PaymentIntentUpdateResponse](req, s.config)
 }
 
-func (s *PaymentIntentService) Retrieve(id string) (*PaymentIntentRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *PaymentIntentService) Retrieve(req *PaymentIntentRetrieveRequest) (*PaymentIntentRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/payment_intents/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/payment_intents/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "paymentIntent"
 	req.telemetryOperation = "retrieve"
 

@@ -66,6 +66,13 @@ type OmnichannelSubscription struct {
 	Object                       string                         `json:"object"`
 }
 
+type OmnichannelSubscriptionRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *OmnichannelSubscriptionRetrieveRequest) payload() any { return r }
+
 type OmnichannelSubscriptionListRequest struct {
 	Limit                       *int32                                                  `json:"limit,omitempty"`
 	Offset                      string                                                  `json:"offset,omitempty"`

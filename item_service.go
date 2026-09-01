@@ -21,10 +21,9 @@ func (s *ItemService) Create(req *ItemCreateRequest) (*ItemCreateResponse, error
 	return send[*ItemCreateResponse](req, s.config)
 }
 
-func (s *ItemService) Retrieve(id string) (*ItemRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *ItemService) Retrieve(req *ItemRetrieveRequest) (*ItemRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/items/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/items/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "item"
 	req.telemetryOperation = "retrieve"
 
@@ -51,10 +50,9 @@ func (s *ItemService) List(req *ItemListRequest) (*ItemListResponse, error) {
 	return send[*ItemListResponse](req, s.config)
 }
 
-func (s *ItemService) Delete(id string) (*ItemDeleteResponse, error) {
-	req := &BlankRequest{}
+func (s *ItemService) Delete(req *ItemDeleteRequest) (*ItemDeleteResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/items/%v/delete", url.PathEscape(id))
+	req.path = fmt.Sprintf("/items/%v/delete", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "item"
 	req.telemetryOperation = "delete"

@@ -21,10 +21,9 @@ func (s *PaymentVoucherService) Create(req *PaymentVoucherCreateRequest) (*Payme
 	return send[*PaymentVoucherCreateResponse](req, s.config)
 }
 
-func (s *PaymentVoucherService) Retrieve(id string) (*PaymentVoucherRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *PaymentVoucherService) Retrieve(req *PaymentVoucherRetrieveRequest) (*PaymentVoucherRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/payment_vouchers/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/payment_vouchers/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "paymentVoucher"
 	req.telemetryOperation = "retrieve"
 

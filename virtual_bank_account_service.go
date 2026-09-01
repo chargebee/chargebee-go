@@ -31,10 +31,9 @@ func (s *VirtualBankAccountService) Create(req *VirtualBankAccountCreateRequest)
 	return send[*VirtualBankAccountCreateResponse](req, s.config)
 }
 
-func (s *VirtualBankAccountService) Retrieve(id string) (*VirtualBankAccountRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *VirtualBankAccountService) Retrieve(req *VirtualBankAccountRetrieveRequest) (*VirtualBankAccountRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/virtual_bank_accounts/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/virtual_bank_accounts/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "virtualBankAccount"
 	req.telemetryOperation = "retrieve"
 
@@ -51,10 +50,9 @@ func (s *VirtualBankAccountService) List(req *VirtualBankAccountListRequest) (*V
 	return send[*VirtualBankAccountListResponse](req, s.config)
 }
 
-func (s *VirtualBankAccountService) Delete(id string) (*VirtualBankAccountDeleteResponse, error) {
-	req := &BlankRequest{}
+func (s *VirtualBankAccountService) Delete(req *VirtualBankAccountDeleteRequest) (*VirtualBankAccountDeleteResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/virtual_bank_accounts/%v/delete", url.PathEscape(id))
+	req.path = fmt.Sprintf("/virtual_bank_accounts/%v/delete", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "virtualBankAccount"
 	req.telemetryOperation = "delete"
@@ -62,10 +60,9 @@ func (s *VirtualBankAccountService) Delete(id string) (*VirtualBankAccountDelete
 	return send[*VirtualBankAccountDeleteResponse](req, s.config)
 }
 
-func (s *VirtualBankAccountService) DeleteLocal(id string) (*VirtualBankAccountDeleteLocalResponse, error) {
-	req := &BlankRequest{}
+func (s *VirtualBankAccountService) DeleteLocal(req *VirtualBankAccountDeleteLocalRequest) (*VirtualBankAccountDeleteLocalResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/virtual_bank_accounts/%v/delete_local", url.PathEscape(id))
+	req.path = fmt.Sprintf("/virtual_bank_accounts/%v/delete_local", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "virtualBankAccount"
 	req.telemetryOperation = "deleteLocal"

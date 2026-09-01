@@ -271,6 +271,20 @@ type AddonListRequest struct {
 
 func (r *AddonListRequest) payload() any { return r }
 
+type AddonRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *AddonRetrieveRequest) payload() any { return r }
+
+type AddonDeleteRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *AddonDeleteRequest) payload() any { return r }
+
 type AddonCopyRequest struct {
 	FromSite       string `json:"from_site"`
 	IdAtFromSite   string `json:"id_at_from_site"`
@@ -280,6 +294,13 @@ type AddonCopyRequest struct {
 }
 
 func (r *AddonCopyRequest) payload() any { return r }
+
+type AddonUnarchiveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *AddonUnarchiveRequest) payload() any { return r }
 
 type AddonCreateResponse struct {
 	Addon *Addon `json:"addon,omitempty"`

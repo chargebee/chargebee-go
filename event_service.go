@@ -21,10 +21,9 @@ func (s *EventService) List(req *EventListRequest) (*EventListResponse, error) {
 	return send[*EventListResponse](req, s.config)
 }
 
-func (s *EventService) Retrieve(id string) (*EventRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *EventService) Retrieve(req *EventRetrieveRequest) (*EventRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/events/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/events/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "event"
 	req.telemetryOperation = "retrieve"
 

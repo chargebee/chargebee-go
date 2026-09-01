@@ -52,6 +52,20 @@ type WebhookEndpointUpdateRequest struct {
 
 func (r *WebhookEndpointUpdateRequest) payload() any { return r }
 
+type WebhookEndpointRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *WebhookEndpointRetrieveRequest) payload() any { return r }
+
+type WebhookEndpointDeleteRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *WebhookEndpointDeleteRequest) payload() any { return r }
+
 type WebhookEndpointListRequest struct {
 	Limit      *int32 `json:"limit,omitempty"`
 	Offset     string `json:"offset,omitempty"`

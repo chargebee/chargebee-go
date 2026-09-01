@@ -45,6 +45,13 @@ type LedgerOperation struct {
 	Object                   string                  `json:"object"`
 }
 
+type LedgerOperationRetrieveLedgerOperationRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *LedgerOperationRetrieveLedgerOperationRequest) payload() any { return r }
+
 type LedgerOperationListLedgerOperationsRequest struct {
 	Limit          *int32           `json:"limit,omitempty"`
 	Offset         string           `json:"offset,omitempty"`

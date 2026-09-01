@@ -46,6 +46,20 @@ type PaymentScheduleSchemeCreateFlexibleSchedule struct {
 	AmountPercentage *float64 `json:"amount_percentage,omitempty"`
 }
 
+type PaymentScheduleSchemeRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *PaymentScheduleSchemeRetrieveRequest) payload() any { return r }
+
+type PaymentScheduleSchemeDeleteRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *PaymentScheduleSchemeDeleteRequest) payload() any { return r }
+
 type PaymentScheduleSchemeCreateResponse struct {
 	PaymentScheduleScheme *PaymentScheduleScheme `json:"payment_schedule_scheme,omitempty"`
 	apiResponse

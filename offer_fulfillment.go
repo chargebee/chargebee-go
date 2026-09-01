@@ -57,6 +57,13 @@ type OfferFulfillmentOfferFulfillmentsRequest struct {
 
 func (r *OfferFulfillmentOfferFulfillmentsRequest) payload() any { return r }
 
+type OfferFulfillmentOfferFulfillmentsGetRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *OfferFulfillmentOfferFulfillmentsGetRequest) payload() any { return r }
+
 type OfferFulfillmentOfferFulfillmentsUpdateRequest struct {
 	Id            string                 `json:"id"`
 	Status        OfferFulfillmentStatus `json:"status"`

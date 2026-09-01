@@ -445,6 +445,13 @@ type CreditNotePdfRequest struct {
 
 func (r *CreditNotePdfRequest) payload() any { return r }
 
+type CreditNoteDownloadEinvoiceRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CreditNoteDownloadEinvoiceRequest) payload() any { return r }
+
 type CreditNoteRefundRequest struct {
 	RefundAmount     *int64 `json:"refund_amount,omitempty"`
 	CustomerNotes    string `json:"customer_notes,omitempty"`
@@ -543,6 +550,20 @@ func (r *CreditNoteRemoveTaxWithheldRefundRequest) payload() any { return r }
 type CreditNoteRemoveTaxWithheldRefundTaxWithheld struct {
 	Id string `json:"id"`
 }
+
+type CreditNoteResendEinvoiceRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CreditNoteResendEinvoiceRequest) payload() any { return r }
+
+type CreditNoteSendEinvoiceRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CreditNoteSendEinvoiceRequest) payload() any { return r }
 
 type CreditNoteImportCreditNoteRequest struct {
 	Id                   string                                    `json:"id"`

@@ -70,6 +70,13 @@ type EventListRequest struct {
 
 func (r *EventListRequest) payload() any { return r }
 
+type EventRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *EventRetrieveRequest) payload() any { return r }
+
 type EventListEventResponse struct {
 	Event *Event `json:"event,omitempty"`
 }

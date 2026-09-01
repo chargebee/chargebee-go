@@ -76,6 +76,13 @@ type PromotionalCreditListRequest struct {
 
 func (r *PromotionalCreditListRequest) payload() any { return r }
 
+type PromotionalCreditRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *PromotionalCreditRetrieveRequest) payload() any { return r }
+
 type PromotionalCreditAddResponse struct {
 	Customer          Customer           `json:"customer,omitempty"`
 	PromotionalCredit *PromotionalCredit `json:"promotional_credit,omitempty"`

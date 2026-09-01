@@ -21,10 +21,9 @@ func (s *ItemPriceService) Create(req *ItemPriceCreateRequest) (*ItemPriceCreate
 	return send[*ItemPriceCreateResponse](req, s.config)
 }
 
-func (s *ItemPriceService) Retrieve(id string) (*ItemPriceRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *ItemPriceService) Retrieve(req *ItemPriceRetrieveRequest) (*ItemPriceRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/item_prices/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/item_prices/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "itemPrice"
 	req.telemetryOperation = "retrieve"
 
@@ -51,10 +50,9 @@ func (s *ItemPriceService) List(req *ItemPriceListRequest) (*ItemPriceListRespon
 	return send[*ItemPriceListResponse](req, s.config)
 }
 
-func (s *ItemPriceService) Delete(id string) (*ItemPriceDeleteResponse, error) {
-	req := &BlankRequest{}
+func (s *ItemPriceService) Delete(req *ItemPriceDeleteRequest) (*ItemPriceDeleteResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/item_prices/%v/delete", url.PathEscape(id))
+	req.path = fmt.Sprintf("/item_prices/%v/delete", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "itemPrice"
 	req.telemetryOperation = "delete"

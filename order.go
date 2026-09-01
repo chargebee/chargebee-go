@@ -419,6 +419,13 @@ type OrderImportOrderBillingAddress struct {
 	ValidationStatus ValidationStatus `json:"validation_status,omitempty"`
 }
 
+type OrderAssignOrderNumberRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *OrderAssignOrderNumberRequest) payload() any { return r }
+
 type OrderCancelRequest struct {
 	CancellationReason OrderCancellationReason `json:"cancellation_reason"`
 	CreditNote         *OrderCancelCreditNote  `json:"credit_note,omitempty"`
@@ -454,6 +461,20 @@ type OrderReopenRequest struct {
 }
 
 func (r *OrderReopenRequest) payload() any { return r }
+
+type OrderRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *OrderRetrieveRequest) payload() any { return r }
+
+type OrderDeleteRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *OrderDeleteRequest) payload() any { return r }
 
 type OrderListRequest struct {
 	Limit                     *int32           `json:"limit,omitempty"`

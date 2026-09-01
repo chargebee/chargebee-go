@@ -41,10 +41,9 @@ func (s *UnbilledChargeService) InvoiceUnbilledCharges(req *UnbilledChargeInvoic
 	return send[*UnbilledChargeInvoiceUnbilledChargesResponse](req, s.config)
 }
 
-func (s *UnbilledChargeService) Delete(id string) (*UnbilledChargeDeleteResponse, error) {
-	req := &BlankRequest{}
+func (s *UnbilledChargeService) Delete(req *UnbilledChargeDeleteRequest) (*UnbilledChargeDeleteResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/unbilled_charges/%v/delete", url.PathEscape(id))
+	req.path = fmt.Sprintf("/unbilled_charges/%v/delete", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "unbilledCharge"
 	req.telemetryOperation = "delete"

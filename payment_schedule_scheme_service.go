@@ -21,20 +21,18 @@ func (s *PaymentScheduleSchemeService) Create(req *PaymentScheduleSchemeCreateRe
 	return send[*PaymentScheduleSchemeCreateResponse](req, s.config)
 }
 
-func (s *PaymentScheduleSchemeService) Retrieve(id string) (*PaymentScheduleSchemeRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *PaymentScheduleSchemeService) Retrieve(req *PaymentScheduleSchemeRetrieveRequest) (*PaymentScheduleSchemeRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/payment_schedule_schemes/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/payment_schedule_schemes/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "paymentScheduleScheme"
 	req.telemetryOperation = "retrieve"
 
 	return send[*PaymentScheduleSchemeRetrieveResponse](req, s.config)
 }
 
-func (s *PaymentScheduleSchemeService) Delete(id string) (*PaymentScheduleSchemeDeleteResponse, error) {
-	req := &BlankRequest{}
+func (s *PaymentScheduleSchemeService) Delete(req *PaymentScheduleSchemeDeleteRequest) (*PaymentScheduleSchemeDeleteResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/payment_schedule_schemes/%v/delete", url.PathEscape(id))
+	req.path = fmt.Sprintf("/payment_schedule_schemes/%v/delete", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "paymentScheduleScheme"
 	req.telemetryOperation = "delete"

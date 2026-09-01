@@ -26,6 +26,13 @@ type CurrencyListRequest struct {
 
 func (r *CurrencyListRequest) payload() any { return r }
 
+type CurrencyRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CurrencyRetrieveRequest) payload() any { return r }
+
 type CurrencyCreateRequest struct {
 	CurrencyCode       string            `json:"currency_code"`
 	ForexType          CurrencyForexType `json:"forex_type"`
@@ -50,6 +57,13 @@ type CurrencyAddScheduleRequest struct {
 }
 
 func (r *CurrencyAddScheduleRequest) payload() any { return r }
+
+type CurrencyRemoveScheduleRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CurrencyRemoveScheduleRequest) payload() any { return r }
 
 type CurrencyListCurrencyResponse struct {
 	Currency *Currency `json:"currency,omitempty"`

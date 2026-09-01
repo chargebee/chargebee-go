@@ -133,6 +133,13 @@ type ItemCreateBundleItemsToAdd struct {
 	PriceAllocation *float64 `json:"price_allocation,omitempty"`
 }
 
+type ItemRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *ItemRetrieveRequest) payload() any { return r }
+
 type ItemUpdateRequest struct {
 	Name                 string                           `json:"name,omitempty"`
 	Description          string                           `json:"description,omitempty"`
@@ -210,6 +217,13 @@ func (r *ItemListRequest) payload() any { return r }
 type ItemListBundleConfiguration struct {
 	Type *EnumFilter `json:"type,omitempty"`
 }
+
+type ItemDeleteRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *ItemDeleteRequest) payload() any { return r }
 
 type ItemCreateResponse struct {
 	Item *Item `json:"item,omitempty"`

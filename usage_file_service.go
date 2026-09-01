@@ -20,10 +20,9 @@ func (s *UsageFileService) UploadUrl(req *UsageFileUploadUrlRequest) (*UsageFile
 	return send[*UsageFileUploadUrlResponse](req, s.config)
 }
 
-func (s *UsageFileService) ProcessingStatus(id string) (*UsageFileProcessingStatusResponse, error) {
-	req := &BlankRequest{}
+func (s *UsageFileService) ProcessingStatus(req *UsageFileProcessingStatusRequest) (*UsageFileProcessingStatusResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/usage_files/%v/processing_status", url.PathEscape(id))
+	req.path = fmt.Sprintf("/usage_files/%v/processing_status", url.PathEscape(req.Id))
 	req.telemetryResource = "usageFile"
 	req.telemetryOperation = "processingStatus"
 

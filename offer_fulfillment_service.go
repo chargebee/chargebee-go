@@ -21,10 +21,9 @@ func (s *OfferFulfillmentService) OfferFulfillments(req *OfferFulfillmentOfferFu
 	return send[*OfferFulfillmentOfferFulfillmentsResponse](req, s.config)
 }
 
-func (s *OfferFulfillmentService) OfferFulfillmentsGet(id string) (*OfferFulfillmentOfferFulfillmentsGetResponse, error) {
-	req := &BlankRequest{}
+func (s *OfferFulfillmentService) OfferFulfillmentsGet(req *OfferFulfillmentOfferFulfillmentsGetRequest) (*OfferFulfillmentOfferFulfillmentsGetResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/offer_fulfillments/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/offer_fulfillments/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "offerFulfillment"
 	req.telemetryOperation = "offerFulfillmentsGet"
 

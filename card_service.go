@@ -11,10 +11,9 @@ type CardService struct {
 	config *ClientConfig
 }
 
-func (s *CardService) Retrieve(id string) (*CardRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *CardService) Retrieve(req *CardRetrieveRequest) (*CardRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/cards/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/cards/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "card"
 	req.telemetryOperation = "retrieve"
 
@@ -51,10 +50,9 @@ func (s *CardService) CopyCardForCustomer(id string, req *CardCopyCardForCustome
 	return send[*CardCopyCardForCustomerResponse](req, s.config)
 }
 
-func (s *CardService) DeleteCardForCustomer(id string) (*CardDeleteCardForCustomerResponse, error) {
-	req := &BlankRequest{}
+func (s *CardService) DeleteCardForCustomer(req *CardDeleteCardForCustomerRequest) (*CardDeleteCardForCustomerResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/customers/%v/delete_card", url.PathEscape(id))
+	req.path = fmt.Sprintf("/customers/%v/delete_card", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "card"
 	req.telemetryOperation = "deleteCardForCustomer"

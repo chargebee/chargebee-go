@@ -121,10 +121,9 @@ func (s *PaymentSourceService) ListGatewayTokensForPaymentSource(id string, req 
 	return send[*PaymentSourceListGatewayTokensForPaymentSourceResponse](req, s.config)
 }
 
-func (s *PaymentSourceService) Retrieve(id string) (*PaymentSourceRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *PaymentSourceService) Retrieve(req *PaymentSourceRetrieveRequest) (*PaymentSourceRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/payment_sources/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/payment_sources/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "paymentSource"
 	req.telemetryOperation = "retrieve"
 
@@ -161,10 +160,9 @@ func (s *PaymentSourceService) ExportPaymentSource(id string, req *PaymentSource
 	return send[*PaymentSourceExportPaymentSourceResponse](req, s.config)
 }
 
-func (s *PaymentSourceService) Delete(id string) (*PaymentSourceDeleteResponse, error) {
-	req := &BlankRequest{}
+func (s *PaymentSourceService) Delete(req *PaymentSourceDeleteRequest) (*PaymentSourceDeleteResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/payment_sources/%v/delete", url.PathEscape(id))
+	req.path = fmt.Sprintf("/payment_sources/%v/delete", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "paymentSource"
 	req.telemetryOperation = "delete"
@@ -172,10 +170,9 @@ func (s *PaymentSourceService) Delete(id string) (*PaymentSourceDeleteResponse, 
 	return send[*PaymentSourceDeleteResponse](req, s.config)
 }
 
-func (s *PaymentSourceService) DeleteLocal(id string) (*PaymentSourceDeleteLocalResponse, error) {
-	req := &BlankRequest{}
+func (s *PaymentSourceService) DeleteLocal(req *PaymentSourceDeleteLocalRequest) (*PaymentSourceDeleteLocalResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/payment_sources/%v/delete_local", url.PathEscape(id))
+	req.path = fmt.Sprintf("/payment_sources/%v/delete_local", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "paymentSource"
 	req.telemetryOperation = "deleteLocal"

@@ -39,6 +39,13 @@ type OmnichannelOneTimeOrder struct {
 	Object                       string                         `json:"object"`
 }
 
+type OmnichannelOneTimeOrderRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *OmnichannelOneTimeOrderRetrieveRequest) payload() any { return r }
+
 type OmnichannelOneTimeOrderListRequest struct {
 	Limit      *int32        `json:"limit,omitempty"`
 	Offset     string        `json:"offset,omitempty"`

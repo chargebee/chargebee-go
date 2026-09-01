@@ -41,20 +41,18 @@ func (s *AddonService) List(req *AddonListRequest) (*AddonListResponse, error) {
 	return send[*AddonListResponse](req, s.config)
 }
 
-func (s *AddonService) Retrieve(id string) (*AddonRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *AddonService) Retrieve(req *AddonRetrieveRequest) (*AddonRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/addons/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/addons/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "addon"
 	req.telemetryOperation = "retrieve"
 
 	return send[*AddonRetrieveResponse](req, s.config)
 }
 
-func (s *AddonService) Delete(id string) (*AddonDeleteResponse, error) {
-	req := &BlankRequest{}
+func (s *AddonService) Delete(req *AddonDeleteRequest) (*AddonDeleteResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/addons/%v/delete", url.PathEscape(id))
+	req.path = fmt.Sprintf("/addons/%v/delete", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "addon"
 	req.telemetryOperation = "delete"
@@ -72,10 +70,9 @@ func (s *AddonService) Copy(req *AddonCopyRequest) (*AddonCopyResponse, error) {
 	return send[*AddonCopyResponse](req, s.config)
 }
 
-func (s *AddonService) Unarchive(id string) (*AddonUnarchiveResponse, error) {
-	req := &BlankRequest{}
+func (s *AddonService) Unarchive(req *AddonUnarchiveRequest) (*AddonUnarchiveResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/addons/%v/unarchive", url.PathEscape(id))
+	req.path = fmt.Sprintf("/addons/%v/unarchive", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "addon"
 	req.telemetryOperation = "unarchive"

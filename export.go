@@ -33,6 +33,13 @@ type ExportDownload struct {
 	Object      string `json:"object"`
 }
 
+type ExportRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *ExportRetrieveRequest) payload() any { return r }
+
 type ExportRevenueRecognitionRequest struct {
 	Invoice          *ExportRevenueRecognitionInvoice      `json:"invoice,omitempty"`
 	Subscription     *ExportRevenueRecognitionSubscription `json:"subscription,omitempty"`

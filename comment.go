@@ -30,6 +30,13 @@ type CommentCreateRequest struct {
 
 func (r *CommentCreateRequest) payload() any { return r }
 
+type CommentRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CommentRetrieveRequest) payload() any { return r }
+
 type CommentListRequest struct {
 	Limit      *int32           `json:"limit,omitempty"`
 	Offset     string           `json:"offset,omitempty"`
@@ -41,6 +48,13 @@ type CommentListRequest struct {
 }
 
 func (r *CommentListRequest) payload() any { return r }
+
+type CommentDeleteRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CommentDeleteRequest) payload() any { return r }
 
 type CommentCreateResponse struct {
 	Comment *Comment `json:"comment,omitempty"`

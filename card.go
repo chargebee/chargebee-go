@@ -100,6 +100,13 @@ type Card struct {
 	Object           string          `json:"object"`
 }
 
+type CardRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CardRetrieveRequest) payload() any { return r }
+
 type CardUpdateCardForCustomerRequest struct {
 	GatewayAccountId string                             `json:"gateway_account_id,omitempty"`
 	TmpToken         string                             `json:"tmp_token,omitempty"`
@@ -140,6 +147,13 @@ type CardCopyCardForCustomerRequest struct {
 }
 
 func (r *CardCopyCardForCustomerRequest) payload() any { return r }
+
+type CardDeleteCardForCustomerRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CardDeleteCardForCustomerRequest) payload() any { return r }
 
 type CardRetrieveResponse struct {
 	Card *Card `json:"card,omitempty"`

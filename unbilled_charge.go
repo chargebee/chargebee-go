@@ -163,6 +163,13 @@ type UnbilledChargeInvoiceUnbilledChargesRequest struct {
 
 func (r *UnbilledChargeInvoiceUnbilledChargesRequest) payload() any { return r }
 
+type UnbilledChargeDeleteRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *UnbilledChargeDeleteRequest) payload() any { return r }
+
 type UnbilledChargeListRequest struct {
 	Limit          *int32        `json:"limit,omitempty"`
 	Offset         string        `json:"offset,omitempty"`

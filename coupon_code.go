@@ -27,6 +27,13 @@ type CouponCodeCreateRequest struct {
 
 func (r *CouponCodeCreateRequest) payload() any { return r }
 
+type CouponCodeRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CouponCodeRetrieveRequest) payload() any { return r }
+
 type CouponCodeListRequest struct {
 	Limit         *int32        `json:"limit,omitempty"`
 	Offset        string        `json:"offset,omitempty"`
@@ -38,6 +45,13 @@ type CouponCodeListRequest struct {
 }
 
 func (r *CouponCodeListRequest) payload() any { return r }
+
+type CouponCodeArchiveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CouponCodeArchiveRequest) payload() any { return r }
 
 type CouponCodeCreateResponse struct {
 	CouponCode *CouponCode `json:"coupon_code,omitempty"`

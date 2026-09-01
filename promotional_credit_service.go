@@ -51,10 +51,9 @@ func (s *PromotionalCreditService) List(req *PromotionalCreditListRequest) (*Pro
 	return send[*PromotionalCreditListResponse](req, s.config)
 }
 
-func (s *PromotionalCreditService) Retrieve(id string) (*PromotionalCreditRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *PromotionalCreditService) Retrieve(req *PromotionalCreditRetrieveRequest) (*PromotionalCreditRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/promotional_credits/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/promotional_credits/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "promotionalCredit"
 	req.telemetryOperation = "retrieve"
 

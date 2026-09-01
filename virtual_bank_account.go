@@ -52,6 +52,13 @@ type VirtualBankAccountCreateRequest struct {
 
 func (r *VirtualBankAccountCreateRequest) payload() any { return r }
 
+type VirtualBankAccountRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *VirtualBankAccountRetrieveRequest) payload() any { return r }
+
 type VirtualBankAccountListRequest struct {
 	Limit      *int32           `json:"limit,omitempty"`
 	Offset     string           `json:"offset,omitempty"`
@@ -62,6 +69,20 @@ type VirtualBankAccountListRequest struct {
 }
 
 func (r *VirtualBankAccountListRequest) payload() any { return r }
+
+type VirtualBankAccountDeleteRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *VirtualBankAccountDeleteRequest) payload() any { return r }
+
+type VirtualBankAccountDeleteLocalRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *VirtualBankAccountDeleteLocalRequest) payload() any { return r }
 
 type VirtualBankAccountCreateUsingPermanentTokenResponse struct {
 	VirtualBankAccount *VirtualBankAccount `json:"virtual_bank_account,omitempty"`

@@ -21,10 +21,9 @@ func (s *TransactionService) CreateAuthorization(req *TransactionCreateAuthoriza
 	return send[*TransactionCreateAuthorizationResponse](req, s.config)
 }
 
-func (s *TransactionService) VoidTransaction(id string) (*TransactionVoidTransactionResponse, error) {
-	req := &BlankRequest{}
+func (s *TransactionService) VoidTransaction(req *TransactionVoidTransactionRequest) (*TransactionVoidTransactionResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/transactions/%v/void", url.PathEscape(id))
+	req.path = fmt.Sprintf("/transactions/%v/void", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "transaction"
 	req.telemetryOperation = "voidTransaction"
@@ -104,10 +103,9 @@ func (s *TransactionService) PaymentsForInvoice(id string, req *TransactionPayme
 	return send[*TransactionPaymentsForInvoiceResponse](req, s.config)
 }
 
-func (s *TransactionService) Retrieve(id string) (*TransactionRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *TransactionService) Retrieve(req *TransactionRetrieveRequest) (*TransactionRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/transactions/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/transactions/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "transaction"
 	req.telemetryOperation = "retrieve"
 

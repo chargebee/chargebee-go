@@ -225,6 +225,13 @@ type ItemPriceCreateAccountingDetail struct {
 	AccountingCategory4 string `json:"accounting_category4,omitempty"`
 }
 
+type ItemPriceRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *ItemPriceRetrieveRequest) payload() any { return r }
+
 type ItemPriceUpdateRequest struct {
 	Name                            string                              `json:"name,omitempty"`
 	Description                     string                              `json:"description,omitempty"`
@@ -322,6 +329,13 @@ type ItemPriceListRequest struct {
 }
 
 func (r *ItemPriceListRequest) payload() any { return r }
+
+type ItemPriceDeleteRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *ItemPriceDeleteRequest) payload() any { return r }
 
 type ItemPriceFindApplicableItemsRequest struct {
 	Limit      *int32      `json:"limit,omitempty"`

@@ -41,20 +41,18 @@ func (s *PlanService) List(req *PlanListRequest) (*PlanListResponse, error) {
 	return send[*PlanListResponse](req, s.config)
 }
 
-func (s *PlanService) Retrieve(id string) (*PlanRetrieveResponse, error) {
-	req := &BlankRequest{}
+func (s *PlanService) Retrieve(req *PlanRetrieveRequest) (*PlanRetrieveResponse, error) {
 	req.method = "GET"
-	req.path = fmt.Sprintf("/plans/%v", url.PathEscape(id))
+	req.path = fmt.Sprintf("/plans/%v", url.PathEscape(req.Id))
 	req.telemetryResource = "plan"
 	req.telemetryOperation = "retrieve"
 
 	return send[*PlanRetrieveResponse](req, s.config)
 }
 
-func (s *PlanService) Delete(id string) (*PlanDeleteResponse, error) {
-	req := &BlankRequest{}
+func (s *PlanService) Delete(req *PlanDeleteRequest) (*PlanDeleteResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/plans/%v/delete", url.PathEscape(id))
+	req.path = fmt.Sprintf("/plans/%v/delete", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "plan"
 	req.telemetryOperation = "delete"
@@ -72,10 +70,9 @@ func (s *PlanService) Copy(req *PlanCopyRequest) (*PlanCopyResponse, error) {
 	return send[*PlanCopyResponse](req, s.config)
 }
 
-func (s *PlanService) Unarchive(id string) (*PlanUnarchiveResponse, error) {
-	req := &BlankRequest{}
+func (s *PlanService) Unarchive(req *PlanUnarchiveRequest) (*PlanUnarchiveResponse, error) {
 	req.method = "POST"
-	req.path = fmt.Sprintf("/plans/%v/unarchive", url.PathEscape(id))
+	req.path = fmt.Sprintf("/plans/%v/unarchive", url.PathEscape(req.Id))
 	req.isIdempotent = true
 	req.telemetryResource = "plan"
 	req.telemetryOperation = "unarchive"
