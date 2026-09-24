@@ -173,6 +173,16 @@ func (s *CustomerService) CollectPayment(id string, req *CustomerCollectPaymentR
 	return send[*CustomerCollectPaymentResponse](req, s.config)
 }
 
+func (s *CustomerService) SendPaymentRequest(req *CustomerSendPaymentRequestRequest) (*CustomerSendPaymentRequestResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/customers/%v/send_payment_request", url.PathEscape(req.Id))
+	req.isIdempotent = true
+	req.telemetryResource = "customer"
+	req.telemetryOperation = "sendPaymentRequest"
+
+	return send[*CustomerSendPaymentRequestResponse](req, s.config)
+}
+
 func (s *CustomerService) Delete(id string, req *CustomerDeleteRequest) (*CustomerDeleteResponse, error) {
 	req.method = "POST"
 	req.path = fmt.Sprintf("/customers/%v/delete", url.PathEscape(id))

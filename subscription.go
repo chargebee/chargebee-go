@@ -78,6 +78,7 @@ const (
 	SubscriptionCardPreferredSchemeCartesBancaires SubscriptionCardPreferredScheme = "cartes_bancaires"
 	SubscriptionCardPreferredSchemeMastercard      SubscriptionCardPreferredScheme = "mastercard"
 	SubscriptionCardPreferredSchemeVisa            SubscriptionCardPreferredScheme = "visa"
+	SubscriptionCardPreferredSchemeDankort         SubscriptionCardPreferredScheme = "dankort"
 )
 
 type SubscriptionUnbilledChargeEntityType string
@@ -183,6 +184,7 @@ type Subscription struct {
 	Discounts             []*SubscriptionDiscount      `json:"discounts"`
 	BusinessEntityId      string                       `json:"business_entity_id"`
 	Decommissioned        bool                         `json:"decommissioned"`
+	BrandId               string                       `json:"brand_id"`
 	CustomFields          *CustomFields                `json:"-"`
 	Object                string                       `json:"object"`
 
@@ -225,6 +227,7 @@ type SubscriptionSubscriptionItem struct {
 	ChargeOnOption                  ChargeOnOption                  `json:"charge_on_option"`
 	ProrationType                   ProrationType                   `json:"proration_type"`
 	UsageAccumulationResetFrequency UsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency"`
+	Description                     string                          `json:"description"`
 	Object                          string                          `json:"object"`
 }
 
@@ -374,6 +377,7 @@ type SubscriptionCreateRequest struct {
 	Customer                          *SubscriptionCreateCustomer            `json:"customer,omitempty"`
 	EntityIdentifiers                 []*SubscriptionCreateEntityIdentifier  `json:"entity_identifiers,omitempty"`
 	TaxProvidersFields                []*SubscriptionCreateTaxProvidersField `json:"tax_providers_fields,omitempty"`
+	BrandId                           string                                 `json:"brand_id,omitempty"`
 	PlanId                            string                                 `json:"plan_id"`
 	PlanQuantity                      *int32                                 `json:"plan_quantity,omitempty"`
 	PlanQuantityInDecimal             string                                 `json:"plan_quantity_in_decimal,omitempty"`
@@ -594,6 +598,7 @@ type SubscriptionCreateCoupon struct {
 
 type SubscriptionCreateForCustomerRequest struct {
 	Id                                string                                            `json:"id,omitempty"`
+	BrandId                           string                                            `json:"brand_id,omitempty"`
 	PlanId                            string                                            `json:"plan_id"`
 	PlanQuantity                      *int32                                            `json:"plan_quantity,omitempty"`
 	PlanQuantityInDecimal             string                                            `json:"plan_quantity_in_decimal,omitempty"`
@@ -700,6 +705,7 @@ type SubscriptionCreateForCustomerCoupon struct {
 type SubscriptionCreateWithItemsRequest struct {
 	Id                                string                                          `json:"id,omitempty"`
 	BusinessEntityId                  string                                          `json:"business_entity_id,omitempty"`
+	BrandId                           string                                          `json:"brand_id,omitempty"`
 	TrialEnd                          *int64                                          `json:"trial_end,omitempty"`
 	BillingCycles                     *int32                                          `json:"billing_cycles,omitempty"`
 	SubscriptionItems                 []*SubscriptionCreateWithItemsSubscriptionItem  `json:"subscription_items,omitempty"`
@@ -752,6 +758,7 @@ type SubscriptionCreateWithItemsSubscriptionItem struct {
 	ChargeOnEvent                   ChargeOnEvent                   `json:"charge_on_event,omitempty"`
 	ChargeOnce                      *bool                           `json:"charge_once,omitempty"`
 	ItemType                        ItemType                        `json:"item_type,omitempty"`
+	Description                     string                          `json:"description,omitempty"`
 	ChargeOnOption                  ChargeOnOption                  `json:"charge_on_option,omitempty"`
 	UsageAccumulationResetFrequency UsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency,omitempty"`
 }
@@ -1167,6 +1174,7 @@ type SubscriptionUpdateForItemsSubscriptionItem struct {
 	ChargeOnce                      *bool                           `json:"charge_once,omitempty"`
 	ChargeOnOption                  ChargeOnOption                  `json:"charge_on_option,omitempty"`
 	ItemType                        ItemType                        `json:"item_type,omitempty"`
+	Description                     string                          `json:"description,omitempty"`
 	ProrationType                   ProrationType                   `json:"proration_type,omitempty"`
 	UsageAccumulationResetFrequency UsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency,omitempty"`
 }
@@ -1855,6 +1863,7 @@ type SubscriptionImportForItemsSubscriptionItem struct {
 	ChargeOnEvent      ChargeOnEvent `json:"charge_on_event,omitempty"`
 	ChargeOnce         *bool         `json:"charge_once,omitempty"`
 	ItemType           ItemType      `json:"item_type,omitempty"`
+	Description        string        `json:"description,omitempty"`
 }
 
 type SubscriptionImportForItemsDiscount struct {

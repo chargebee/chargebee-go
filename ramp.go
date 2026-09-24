@@ -45,6 +45,7 @@ type Ramp struct {
 	CouponsToRemove        []string                    `json:"coupons_to_remove"`
 	DiscountsToRemove      []string                    `json:"discounts_to_remove"`
 	ContractTerm           *RampContractTerm           `json:"contract_term"`
+	BillingConfiguration   *RampBillingConfiguration   `json:"billing_configuration"`
 	Deleted                bool                        `json:"deleted"`
 	StatusTransitionReason *RampStatusTransitionReason `json:"status_transition_reason"`
 	Object                 string                      `json:"object"`
@@ -134,6 +135,11 @@ type RampContractTerm struct {
 	Object                   string                          `json:"object"`
 }
 
+type RampBillingConfiguration struct {
+	PoNumber string `json:"po_number"`
+	Object   string `json:"object"`
+}
+
 type RampStatusTransitionReason struct {
 	Code    string `json:"code"`
 	Message string `json:"message"`
@@ -141,21 +147,26 @@ type RampStatusTransitionReason struct {
 }
 
 type RampCreateForSubscriptionRequest struct {
-	EffectiveFrom     *int64                                     `json:"effective_from"`
-	Description       string                                     `json:"description,omitempty"`
-	CouponsToRemove   []string                                   `json:"coupons_to_remove,omitempty"`
-	DiscountsToRemove []string                                   `json:"discounts_to_remove,omitempty"`
-	ItemsToRemove     []string                                   `json:"items_to_remove,omitempty"`
-	ItemsToAdd        []*RampCreateForSubscriptionItemsToAdd     `json:"items_to_add,omitempty"`
-	ItemsToUpdate     []*RampCreateForSubscriptionItemsToUpdate  `json:"items_to_update,omitempty"`
-	ItemTiers         []*RampCreateForSubscriptionItemTier       `json:"item_tiers,omitempty"`
-	CouponsToAdd      []*RampCreateForSubscriptionCouponsToAdd   `json:"coupons_to_add,omitempty"`
-	DiscountsToAdd    []*RampCreateForSubscriptionDiscountsToAdd `json:"discounts_to_add,omitempty"`
-	ContractTerm      *RampCreateForSubscriptionContractTerm     `json:"contract_term,omitempty"`
-	apiRequest        `json:"-" form:"-"`
+	EffectiveFrom        *int64                                         `json:"effective_from"`
+	Description          string                                         `json:"description,omitempty"`
+	CouponsToRemove      []string                                       `json:"coupons_to_remove,omitempty"`
+	DiscountsToRemove    []string                                       `json:"discounts_to_remove,omitempty"`
+	ItemsToRemove        []string                                       `json:"items_to_remove,omitempty"`
+	BillingConfiguration *RampCreateForSubscriptionBillingConfiguration `json:"billing_configuration,omitempty"`
+	ItemsToAdd           []*RampCreateForSubscriptionItemsToAdd         `json:"items_to_add,omitempty"`
+	ItemsToUpdate        []*RampCreateForSubscriptionItemsToUpdate      `json:"items_to_update,omitempty"`
+	ItemTiers            []*RampCreateForSubscriptionItemTier           `json:"item_tiers,omitempty"`
+	CouponsToAdd         []*RampCreateForSubscriptionCouponsToAdd       `json:"coupons_to_add,omitempty"`
+	DiscountsToAdd       []*RampCreateForSubscriptionDiscountsToAdd     `json:"discounts_to_add,omitempty"`
+	ContractTerm         *RampCreateForSubscriptionContractTerm         `json:"contract_term,omitempty"`
+	apiRequest           `json:"-" form:"-"`
 }
 
 func (r *RampCreateForSubscriptionRequest) payload() any { return r }
+
+type RampCreateForSubscriptionBillingConfiguration struct {
+	PoNumber string `json:"po_number,omitempty"`
+}
 
 type RampCreateForSubscriptionItemsToAdd struct {
 	ItemPriceId        string         `json:"item_price_id"`
@@ -219,21 +230,26 @@ type RampCreateForSubscriptionContractTerm struct {
 }
 
 type RampUpdateRequest struct {
-	EffectiveFrom     *int64                      `json:"effective_from"`
-	Description       string                      `json:"description,omitempty"`
-	CouponsToRemove   []string                    `json:"coupons_to_remove,omitempty"`
-	DiscountsToRemove []string                    `json:"discounts_to_remove,omitempty"`
-	ItemsToRemove     []string                    `json:"items_to_remove,omitempty"`
-	ItemsToAdd        []*RampUpdateItemsToAdd     `json:"items_to_add,omitempty"`
-	ItemsToUpdate     []*RampUpdateItemsToUpdate  `json:"items_to_update,omitempty"`
-	ItemTiers         []*RampUpdateItemTier       `json:"item_tiers,omitempty"`
-	CouponsToAdd      []*RampUpdateCouponsToAdd   `json:"coupons_to_add,omitempty"`
-	DiscountsToAdd    []*RampUpdateDiscountsToAdd `json:"discounts_to_add,omitempty"`
-	ContractTerm      *RampUpdateContractTerm     `json:"contract_term,omitempty"`
-	apiRequest        `json:"-" form:"-"`
+	EffectiveFrom        *int64                          `json:"effective_from"`
+	Description          string                          `json:"description,omitempty"`
+	CouponsToRemove      []string                        `json:"coupons_to_remove,omitempty"`
+	DiscountsToRemove    []string                        `json:"discounts_to_remove,omitempty"`
+	ItemsToRemove        []string                        `json:"items_to_remove,omitempty"`
+	BillingConfiguration *RampUpdateBillingConfiguration `json:"billing_configuration,omitempty"`
+	ItemsToAdd           []*RampUpdateItemsToAdd         `json:"items_to_add,omitempty"`
+	ItemsToUpdate        []*RampUpdateItemsToUpdate      `json:"items_to_update,omitempty"`
+	ItemTiers            []*RampUpdateItemTier           `json:"item_tiers,omitempty"`
+	CouponsToAdd         []*RampUpdateCouponsToAdd       `json:"coupons_to_add,omitempty"`
+	DiscountsToAdd       []*RampUpdateDiscountsToAdd     `json:"discounts_to_add,omitempty"`
+	ContractTerm         *RampUpdateContractTerm         `json:"contract_term,omitempty"`
+	apiRequest           `json:"-" form:"-"`
 }
 
 func (r *RampUpdateRequest) payload() any { return r }
+
+type RampUpdateBillingConfiguration struct {
+	PoNumber string `json:"po_number,omitempty"`
+}
 
 type RampUpdateItemsToAdd struct {
 	ItemPriceId        string         `json:"item_price_id"`

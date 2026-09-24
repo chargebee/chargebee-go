@@ -66,6 +66,7 @@ const (
 	CardPreferredSchemeCartesBancaires CardPreferredScheme = "cartes_bancaires"
 	CardPreferredSchemeMastercard      CardPreferredScheme = "mastercard"
 	CardPreferredSchemeVisa            CardPreferredScheme = "visa"
+	CardPreferredSchemeDankort         CardPreferredScheme = "dankort"
 )
 
 type Card struct {

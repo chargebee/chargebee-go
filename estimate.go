@@ -214,6 +214,7 @@ type EstimateCreateSubItemEstimateSubscriptionItem struct {
 	ChargeOnEvent      ChargeOnEvent  `json:"charge_on_event,omitempty"`
 	ChargeOnce         *bool          `json:"charge_once,omitempty"`
 	ItemType           ItemType       `json:"item_type,omitempty"`
+	Description        string         `json:"description,omitempty"`
 	ChargeOnOption     ChargeOnOption `json:"charge_on_option,omitempty"`
 }
 
@@ -406,6 +407,7 @@ type EstimateCreateSubItemForCustomerEstimateSubscriptionItem struct {
 	ChargeOnEvent      ChargeOnEvent  `json:"charge_on_event,omitempty"`
 	ChargeOnce         *bool          `json:"charge_once,omitempty"`
 	ItemType           ItemType       `json:"item_type,omitempty"`
+	Description        string         `json:"description,omitempty"`
 	ChargeOnOption     ChargeOnOption `json:"charge_on_option,omitempty"`
 }
 
@@ -625,6 +627,7 @@ type EstimateUpdateSubscriptionForItemsSubscriptionItem struct {
 	ChargeOnce         *bool          `json:"charge_once,omitempty"`
 	ChargeOnOption     ChargeOnOption `json:"charge_on_option,omitempty"`
 	ItemType           ItemType       `json:"item_type,omitempty"`
+	Description        string         `json:"description,omitempty"`
 	ProrationType      ProrationType  `json:"proration_type,omitempty"`
 }
 

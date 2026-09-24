@@ -362,6 +362,16 @@ func (s *InvoiceService) VoidBeforeCapture(id string, req *InvoiceVoidBeforeCapt
 	return send[*InvoiceVoidBeforeCaptureResponse](req, s.config)
 }
 
+func (s *InvoiceService) SendEmail(req *InvoiceSendEmailRequest) (*InvoiceSendEmailResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/send_email", url.PathEscape(req.Id))
+	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "sendEmail"
+
+	return send[*InvoiceSendEmailResponse](req, s.config)
+}
+
 func (s *InvoiceService) Delete(id string, req *InvoiceDeleteRequest) (*InvoiceDeleteResponse, error) {
 	req.method = "POST"
 	req.path = fmt.Sprintf("/invoices/%v/delete", url.PathEscape(id))

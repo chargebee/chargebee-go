@@ -29,9 +29,10 @@ const (
 type OmnichannelSubscriptionOmnichannelSubscriptionItemExpirationReason string
 
 const (
-	OmnichannelSubscriptionOmnichannelSubscriptionItemExpirationReasonBillingError        OmnichannelSubscriptionOmnichannelSubscriptionItemExpirationReason = "billing_error"
-	OmnichannelSubscriptionOmnichannelSubscriptionItemExpirationReasonProductNotAvailable OmnichannelSubscriptionOmnichannelSubscriptionItemExpirationReason = "product_not_available"
-	OmnichannelSubscriptionOmnichannelSubscriptionItemExpirationReasonOther               OmnichannelSubscriptionOmnichannelSubscriptionItemExpirationReason = "other"
+	OmnichannelSubscriptionOmnichannelSubscriptionItemExpirationReasonBillingError                 OmnichannelSubscriptionOmnichannelSubscriptionItemExpirationReason = "billing_error"
+	OmnichannelSubscriptionOmnichannelSubscriptionItemExpirationReasonProductNotAvailable          OmnichannelSubscriptionOmnichannelSubscriptionItemExpirationReason = "product_not_available"
+	OmnichannelSubscriptionOmnichannelSubscriptionItemExpirationReasonOther                        OmnichannelSubscriptionOmnichannelSubscriptionItemExpirationReason = "other"
+	OmnichannelSubscriptionOmnichannelSubscriptionItemExpirationReasonSubscriptionNotFoundInSource OmnichannelSubscriptionOmnichannelSubscriptionItemExpirationReason = "subscription_not_found_in_source"
 )
 
 type OmnichannelSubscriptionOmnichannelSubscriptionItemCancellationReason string

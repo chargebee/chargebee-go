@@ -41,6 +41,30 @@ type WebhookHandler struct {
 
 	OnBusinessEntityUpdated func(BusinessEntityUpdatedEvent) error
 
+	OnBusinessRuleActivated func(BusinessRuleActivatedEvent) error
+
+	OnBusinessRuleCreated func(BusinessRuleCreatedEvent) error
+
+	OnBusinessRuleDeactivated func(BusinessRuleDeactivatedEvent) error
+
+	OnBusinessRuleDeleted func(BusinessRuleDeletedEvent) error
+
+	OnBusinessRuleReleased func(BusinessRuleReleasedEvent) error
+
+	OnBusinessRuleUpdated func(BusinessRuleUpdatedEvent) error
+
+	OnBusinessRulesApplied func(BusinessRulesAppliedEvent) error
+
+	OnBusinessRulesetActivated func(BusinessRulesetActivatedEvent) error
+
+	OnBusinessRulesetCreated func(BusinessRulesetCreatedEvent) error
+
+	OnBusinessRulesetDeactivated func(BusinessRulesetDeactivatedEvent) error
+
+	OnBusinessRulesetDeleted func(BusinessRulesetDeletedEvent) error
+
+	OnBusinessRulesetUpdated func(BusinessRulesetUpdatedEvent) error
+
 	OnCardAdded func(CardAddedEvent) error
 
 	OnCardDeleted func(CardDeletedEvent) error
@@ -108,6 +132,10 @@ type WebhookHandler struct {
 	OnDifferentialPriceUpdated func(DifferentialPriceUpdatedEvent) error
 
 	OnDunningUpdated func(DunningUpdatedEvent) error
+
+	OnEinvoiceCreated func(EinvoiceCreatedEvent) error
+
+	OnEinvoiceUpdated func(EinvoiceUpdatedEvent) error
 
 	OnEntitlementOverridesAutoRemoved func(EntitlementOverridesAutoRemovedEvent) error
 
@@ -643,6 +671,138 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
+	case chargebee.EventTypeBusinessRuleActivated:
+		if h.OnBusinessRuleActivated != nil {
+			var e BusinessRuleActivatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnBusinessRuleActivated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeBusinessRuleCreated:
+		if h.OnBusinessRuleCreated != nil {
+			var e BusinessRuleCreatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnBusinessRuleCreated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeBusinessRuleDeactivated:
+		if h.OnBusinessRuleDeactivated != nil {
+			var e BusinessRuleDeactivatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnBusinessRuleDeactivated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeBusinessRuleDeleted:
+		if h.OnBusinessRuleDeleted != nil {
+			var e BusinessRuleDeletedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnBusinessRuleDeleted(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeBusinessRuleReleased:
+		if h.OnBusinessRuleReleased != nil {
+			var e BusinessRuleReleasedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnBusinessRuleReleased(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeBusinessRuleUpdated:
+		if h.OnBusinessRuleUpdated != nil {
+			var e BusinessRuleUpdatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnBusinessRuleUpdated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeBusinessRulesApplied:
+		if h.OnBusinessRulesApplied != nil {
+			var e BusinessRulesAppliedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnBusinessRulesApplied(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeBusinessRulesetActivated:
+		if h.OnBusinessRulesetActivated != nil {
+			var e BusinessRulesetActivatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnBusinessRulesetActivated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeBusinessRulesetCreated:
+		if h.OnBusinessRulesetCreated != nil {
+			var e BusinessRulesetCreatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnBusinessRulesetCreated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeBusinessRulesetDeactivated:
+		if h.OnBusinessRulesetDeactivated != nil {
+			var e BusinessRulesetDeactivatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnBusinessRulesetDeactivated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeBusinessRulesetDeleted:
+		if h.OnBusinessRulesetDeleted != nil {
+			var e BusinessRulesetDeletedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnBusinessRulesetDeleted(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeBusinessRulesetUpdated:
+		if h.OnBusinessRulesetUpdated != nil {
+			var e BusinessRulesetUpdatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnBusinessRulesetUpdated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
 	case chargebee.EventTypeCardAdded:
 		if h.OnCardAdded != nil {
 			var e CardAddedEvent
@@ -1013,6 +1173,28 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 				return err
 			}
 			return h.OnDunningUpdated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeEinvoiceCreated:
+		if h.OnEinvoiceCreated != nil {
+			var e EinvoiceCreatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnEinvoiceCreated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeEinvoiceUpdated:
+		if h.OnEinvoiceUpdated != nil {
+			var e EinvoiceUpdatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnEinvoiceUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}

@@ -5,17 +5,17 @@ import (
 	"encoding/json"
 )
 
+type GrantBlockUnitType string
+
+const (
+	GrantBlockUnitTypeCreditUnit GrantBlockUnitType = "credit_unit"
+)
+
 type GrantBlockAccountType string
 
 const (
 	GrantBlockAccountTypeProvisioned GrantBlockAccountType = "provisioned"
 	GrantBlockAccountTypeOverdraft   GrantBlockAccountType = "overdraft"
-)
-
-type GrantBlockUnitType string
-
-const (
-	GrantBlockUnitTypeCreditUnit GrantBlockUnitType = "credit_unit"
 )
 
 type GrantBlockGrantSource string
@@ -31,28 +31,58 @@ const (
 )
 
 type GrantBlock struct {
-	Id                 string                `json:"id"`
-	SubscriptionId     string                `json:"subscription_id"`
-	AccountType        GrantBlockAccountType `json:"account_type"`
-	UnitId             string                `json:"unit_id"`
-	UnitType           GrantBlockUnitType    `json:"unit_type"`
-	GrantedAmount      string                `json:"granted_amount"`
-	EffectiveFrom      int64                 `json:"effective_from"`
-	ExpiresAt          int64                 `json:"expires_at"`
-	Balance            string                `json:"balance"`
-	HoldAmount         string                `json:"hold_amount"`
-	UsedAmount         string                `json:"used_amount"`
-	ExpiredAmount      string                `json:"expired_amount"`
-	RolledOverAmount   string                `json:"rolled_over_amount"`
-	VoidedAmount       string                `json:"voided_amount"`
-	OriginGrantBlockId string                `json:"origin_grant_block_id"`
-	Status             GiftStatus            `json:"status"`
-	GrantSource        GrantBlockGrantSource `json:"grant_source"`
-	CreatedAt          int64                 `json:"created_at"`
-	ModifiedAt         int64                 `json:"modified_at"`
-	ResourceVersion    int64                 `json:"resource_version"`
-	Metadata           json.RawMessage       `json:"metadata"`
-	Object             string                `json:"object"`
+	Id             string                `json:"id"`
+	SubscriptionId string                `json:"subscription_id"`
+	UnitId         string                `json:"unit_id"`
+	UnitType       GrantBlockUnitType    `json:"unit_type"`
+	AccountType    GrantBlockAccountType `json:"account_type"`
+	//Deprecated: this field is deprecated
+	GrantedAmount string `json:"granted_amount"`
+	EffectiveFrom int64  `json:"effective_from"`
+	ExpiresAt     int64  `json:"expires_at"`
+	//Deprecated: this field is deprecated
+	Balance string `json:"balance"`
+	//Deprecated: this field is deprecated
+	HoldAmount string `json:"hold_amount"`
+	//Deprecated: this field is deprecated
+	UsedAmount string `json:"used_amount"`
+	//Deprecated: this field is deprecated
+	ExpiredAmount string `json:"expired_amount"`
+	//Deprecated: this field is deprecated
+	RolledOverAmount string `json:"rolled_over_amount"`
+	//Deprecated: this field is deprecated
+	VoidedAmount            string                             `json:"voided_amount"`
+	OriginGrantBlockId      string                             `json:"origin_grant_block_id"`
+	Status                  GiftStatus                         `json:"status"`
+	GrantSource             GrantBlockGrantSource              `json:"grant_source"`
+	CreatedAt               int64                              `json:"created_at"`
+	ModifiedAt              int64                              `json:"modified_at"`
+	ResourceVersion         int64                              `json:"resource_version"`
+	ProvisionedBlockBalance *GrantBlockProvisionedBlockBalance `json:"provisioned_block_balance"`
+	OverdraftBlockBalance   *GrantBlockOverdraftBlockBalance   `json:"overdraft_block_balance"`
+	Metadata                json.RawMessage                    `json:"metadata"`
+	Object                  string                             `json:"object"`
+}
+
+type GrantBlockProvisionedBlockBalance struct {
+	GrantedAmount    string `json:"granted_amount"`
+	TotalBalance     string `json:"total_balance"`
+	UsableBalance    string `json:"usable_balance"`
+	HoldAmount       string `json:"hold_amount"`
+	UsedAmount       string `json:"used_amount"`
+	ExpiredAmount    string `json:"expired_amount"`
+	RolledOverAmount string `json:"rolled_over_amount"`
+	VoidedAmount     string `json:"voided_amount"`
+	Object           string `json:"object"`
+}
+
+type GrantBlockOverdraftBlockBalance struct {
+	IsUnlimited   bool   `json:"is_unlimited"`
+	Limit         string `json:"limit"`
+	TotalBalance  string `json:"total_balance"`
+	UsableBalance string `json:"usable_balance"`
+	UsedAmount    string `json:"used_amount"`
+	Object        string `json:"object"`
 }
 
 type GrantBlockListGrantBlocksRequest struct {

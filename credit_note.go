@@ -184,6 +184,7 @@ type CreditNote struct {
 	CreateReasonCode          string                           `json:"create_reason_code"`
 	VatNumberPrefix           string                           `json:"vat_number_prefix"`
 	BusinessEntityId          string                           `json:"business_entity_id"`
+	BrandId                   string                           `json:"brand_id"`
 	ShippingAddress           *CreditNoteShippingAddress       `json:"shipping_address"`
 	BillingAddress            *CreditNoteBillingAddress        `json:"billing_address"`
 	Einvoice                  *CreditNoteEinvoice              `json:"einvoice"`
@@ -486,6 +487,13 @@ type CreditNoteVoidCreditNoteRequest struct {
 
 func (r *CreditNoteVoidCreditNoteRequest) payload() any { return r }
 
+type CreditNoteSendEmailRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CreditNoteSendEmailRequest) payload() any { return r }
+
 type CreditNoteListRequest struct {
 	Limit              *int32                  `json:"limit,omitempty"`
 	Offset             string                  `json:"offset,omitempty"`
@@ -632,6 +640,8 @@ type CreditNoteImportCreditNoteLineItem struct {
 	Tax9Amount                 *int64                          `json:"tax9_amount,omitempty"`
 	Tax10Name                  string                          `json:"tax10_name,omitempty"`
 	Tax10Amount                *int64                          `json:"tax10_amount,omitempty"`
+	IsPartialTaxApplied        *bool                           `json:"is_partial_tax_applied,omitempty"`
+	TaxableAmount              *int64                          `json:"taxable_amount,omitempty"`
 	ProrationMode              CreditNoteLineItemProrationMode `json:"proration_mode,omitempty"`
 }
 
@@ -714,6 +724,11 @@ type CreditNoteRecordRefundResponse struct {
 
 type CreditNoteVoidCreditNoteResponse struct {
 	CreditNote *CreditNote `json:"credit_note,omitempty"`
+	apiResponse
+}
+
+type CreditNoteSendEmailResponse struct {
+	EmailLogs []EmailLog `json:"email_logs,omitempty"`
 	apiResponse
 }
 

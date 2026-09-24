@@ -30,6 +30,16 @@ func (s *PaymentScheduleSchemeService) Retrieve(req *PaymentScheduleSchemeRetrie
 	return send[*PaymentScheduleSchemeRetrieveResponse](req, s.config)
 }
 
+func (s *PaymentScheduleSchemeService) List(req *PaymentScheduleSchemeListRequest) (*PaymentScheduleSchemeListResponse, error) {
+	req.method = "GET"
+	req.path = "/payment_schedule_schemes"
+	req.isListRequest = true
+	req.telemetryResource = "paymentScheduleScheme"
+	req.telemetryOperation = "list"
+
+	return send[*PaymentScheduleSchemeListResponse](req, s.config)
+}
+
 func (s *PaymentScheduleSchemeService) Delete(req *PaymentScheduleSchemeDeleteRequest) (*PaymentScheduleSchemeDeleteResponse, error) {
 	req.method = "POST"
 	req.path = fmt.Sprintf("/payment_schedule_schemes/%v/delete", url.PathEscape(req.Id))

@@ -70,6 +70,19 @@ const (
 	PaymentIntentPaymentMethodTypeTouchNGo                  PaymentIntentPaymentMethodType = "touch_n_go"
 	PaymentIntentPaymentMethodTypeTamara                    PaymentIntentPaymentMethodType = "tamara"
 	PaymentIntentPaymentMethodTypeQpay                      PaymentIntentPaymentMethodType = "qpay"
+	PaymentIntentPaymentMethodTypeOvo                       PaymentIntentPaymentMethodType = "ovo"
+	PaymentIntentPaymentMethodTypeMomo                      PaymentIntentPaymentMethodType = "momo"
+	PaymentIntentPaymentMethodTypeMercadoPago               PaymentIntentPaymentMethodType = "mercado_pago"
+	PaymentIntentPaymentMethodTypeNequi                     PaymentIntentPaymentMethodType = "nequi"
+	PaymentIntentPaymentMethodTypeNupay                     PaymentIntentPaymentMethodType = "nupay"
+	PaymentIntentPaymentMethodTypePicpay                    PaymentIntentPaymentMethodType = "picpay"
+	PaymentIntentPaymentMethodTypeThaiQr                    PaymentIntentPaymentMethodType = "thai_qr"
+	PaymentIntentPaymentMethodTypeBlik                      PaymentIntentPaymentMethodType = "blik"
+	PaymentIntentPaymentMethodTypeFpx                       PaymentIntentPaymentMethodType = "fpx"
+	PaymentIntentPaymentMethodTypeWero                      PaymentIntentPaymentMethodType = "wero"
+	PaymentIntentPaymentMethodTypeP24                       PaymentIntentPaymentMethodType = "p24"
+	PaymentIntentPaymentMethodTypeAffirmPay                 PaymentIntentPaymentMethodType = "affirm_pay"
+	PaymentIntentPaymentMethodTypeRakutenPay                PaymentIntentPaymentMethodType = "rakuten_pay"
 )
 
 type PaymentIntentActivePaymentAttemptStatus string
@@ -139,6 +152,19 @@ const (
 	PaymentIntentActivePaymentAttemptPaymentMethodTypeTouchNGo                  PaymentIntentActivePaymentAttemptPaymentMethodType = "touch_n_go"
 	PaymentIntentActivePaymentAttemptPaymentMethodTypeTamara                    PaymentIntentActivePaymentAttemptPaymentMethodType = "tamara"
 	PaymentIntentActivePaymentAttemptPaymentMethodTypeQpay                      PaymentIntentActivePaymentAttemptPaymentMethodType = "qpay"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeOvo                       PaymentIntentActivePaymentAttemptPaymentMethodType = "ovo"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeMomo                      PaymentIntentActivePaymentAttemptPaymentMethodType = "momo"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeMercadoPago               PaymentIntentActivePaymentAttemptPaymentMethodType = "mercado_pago"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeNequi                     PaymentIntentActivePaymentAttemptPaymentMethodType = "nequi"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeNupay                     PaymentIntentActivePaymentAttemptPaymentMethodType = "nupay"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypePicpay                    PaymentIntentActivePaymentAttemptPaymentMethodType = "picpay"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeThaiQr                    PaymentIntentActivePaymentAttemptPaymentMethodType = "thai_qr"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeBlik                      PaymentIntentActivePaymentAttemptPaymentMethodType = "blik"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeFpx                       PaymentIntentActivePaymentAttemptPaymentMethodType = "fpx"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeWero                      PaymentIntentActivePaymentAttemptPaymentMethodType = "wero"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeP24                       PaymentIntentActivePaymentAttemptPaymentMethodType = "p24"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeAffirmPay                 PaymentIntentActivePaymentAttemptPaymentMethodType = "affirm_pay"
+	PaymentIntentActivePaymentAttemptPaymentMethodTypeRakutenPay                PaymentIntentActivePaymentAttemptPaymentMethodType = "rakuten_pay"
 )
 
 type PaymentIntentPaymentAttemptStatus string
@@ -208,6 +234,19 @@ const (
 	PaymentIntentPaymentAttemptPaymentMethodTypeTouchNGo                  PaymentIntentPaymentAttemptPaymentMethodType = "touch_n_go"
 	PaymentIntentPaymentAttemptPaymentMethodTypeTamara                    PaymentIntentPaymentAttemptPaymentMethodType = "tamara"
 	PaymentIntentPaymentAttemptPaymentMethodTypeQpay                      PaymentIntentPaymentAttemptPaymentMethodType = "qpay"
+	PaymentIntentPaymentAttemptPaymentMethodTypeOvo                       PaymentIntentPaymentAttemptPaymentMethodType = "ovo"
+	PaymentIntentPaymentAttemptPaymentMethodTypeMomo                      PaymentIntentPaymentAttemptPaymentMethodType = "momo"
+	PaymentIntentPaymentAttemptPaymentMethodTypeMercadoPago               PaymentIntentPaymentAttemptPaymentMethodType = "mercado_pago"
+	PaymentIntentPaymentAttemptPaymentMethodTypeNequi                     PaymentIntentPaymentAttemptPaymentMethodType = "nequi"
+	PaymentIntentPaymentAttemptPaymentMethodTypeNupay                     PaymentIntentPaymentAttemptPaymentMethodType = "nupay"
+	PaymentIntentPaymentAttemptPaymentMethodTypePicpay                    PaymentIntentPaymentAttemptPaymentMethodType = "picpay"
+	PaymentIntentPaymentAttemptPaymentMethodTypeThaiQr                    PaymentIntentPaymentAttemptPaymentMethodType = "thai_qr"
+	PaymentIntentPaymentAttemptPaymentMethodTypeBlik                      PaymentIntentPaymentAttemptPaymentMethodType = "blik"
+	PaymentIntentPaymentAttemptPaymentMethodTypeFpx                       PaymentIntentPaymentAttemptPaymentMethodType = "fpx"
+	PaymentIntentPaymentAttemptPaymentMethodTypeWero                      PaymentIntentPaymentAttemptPaymentMethodType = "wero"
+	PaymentIntentPaymentAttemptPaymentMethodTypeP24                       PaymentIntentPaymentAttemptPaymentMethodType = "p24"
+	PaymentIntentPaymentAttemptPaymentMethodTypeAffirmPay                 PaymentIntentPaymentAttemptPaymentMethodType = "affirm_pay"
+	PaymentIntentPaymentAttemptPaymentMethodTypeRakutenPay                PaymentIntentPaymentAttemptPaymentMethodType = "rakuten_pay"
 )
 
 type PaymentIntentPaymentIntentMetadataSource string
@@ -243,6 +282,7 @@ type PaymentIntent struct {
 	PaymentAttempts       []*PaymentIntentPaymentAttempt      `json:"payment_attempts"`
 	PaymentIntentMetadata *PaymentIntentPaymentIntentMetadata `json:"payment_intent_metadata"`
 	BusinessEntityId      string                              `json:"business_entity_id"`
+	BrandId               string                              `json:"brand_id"`
 	Object                string                              `json:"object"`
 }
 
@@ -272,6 +312,7 @@ type PaymentIntentPaymentIntentMetadata struct {
 
 type PaymentIntentCreateRequest struct {
 	BusinessEntityId       string                         `json:"business_entity_id,omitempty"`
+	BrandId                string                         `json:"brand_id,omitempty"`
 	CustomerId             string                         `json:"customer_id,omitempty"`
 	Amount                 *int64                         `json:"amount"`
 	CurrencyCode           string                         `json:"currency_code"`

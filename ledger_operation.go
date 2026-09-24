@@ -23,6 +23,7 @@ const (
 	LedgerOperationTypeVoid                 LedgerOperationType = "void"
 	LedgerOperationTypeRollover             LedgerOperationType = "rollover"
 	LedgerOperationTypeAdjustment           LedgerOperationType = "adjustment"
+	LedgerOperationTypeOverdraftSettlement  LedgerOperationType = "overdraft_settlement"
 )
 
 type LedgerOperation struct {
@@ -114,7 +115,9 @@ func (r *LedgerOperationReleaseAuthorizationRequest) payload() any { return r }
 type LedgerOperationAllocateRequest struct {
 	SubscriptionId string                 `json:"subscription_id"`
 	UnitId         string                 `json:"unit_id"`
+	Id             string                 `json:"id,omitempty"`
 	Amount         string                 `json:"amount"`
+	EffectiveFrom  *int64                 `json:"effective_from,omitempty"`
 	ExpiresAt      *int64                 `json:"expires_at"`
 	Metadata       map[string]interface{} `json:"metadata,omitempty"`
 	apiRequest     `json:"-" form:"-"`
@@ -138,34 +141,38 @@ type LedgerOperationListLedgerOperationsResponse struct {
 }
 
 type LedgerOperationCaptureResponse struct {
-	LedgerOperation      *LedgerOperation     `json:"ledger_operation,omitempty"`
+	LedgerOperations     []*LedgerOperation   `json:"ledger_operations,omitempty"`
 	LedgerAccountBalance LedgerAccountBalance `json:"ledger_account_balance,omitempty"`
 	GrantBlocks          []GrantBlock         `json:"grant_blocks,omitempty"`
 	LedgerEntries        []LedgerEntry        `json:"ledger_entries,omitempty"`
+	LedgerOperation      *LedgerOperation     `json:"ledger_operation,omitempty"`
 	apiResponse
 }
 
 type LedgerOperationAuthorizeResponse struct {
-	LedgerOperation      *LedgerOperation     `json:"ledger_operation,omitempty"`
+	LedgerOperations     []*LedgerOperation   `json:"ledger_operations,omitempty"`
 	LedgerAccountBalance LedgerAccountBalance `json:"ledger_account_balance,omitempty"`
 	GrantBlocks          []GrantBlock         `json:"grant_blocks,omitempty"`
 	LedgerEntries        []LedgerEntry        `json:"ledger_entries,omitempty"`
+	LedgerOperation      *LedgerOperation     `json:"ledger_operation,omitempty"`
 	apiResponse
 }
 
 type LedgerOperationCaptureAuthorizationResponse struct {
-	LedgerOperation      *LedgerOperation     `json:"ledger_operation,omitempty"`
+	LedgerOperations     []*LedgerOperation   `json:"ledger_operations,omitempty"`
 	LedgerAccountBalance LedgerAccountBalance `json:"ledger_account_balance,omitempty"`
 	GrantBlocks          []GrantBlock         `json:"grant_blocks,omitempty"`
 	LedgerEntries        []LedgerEntry        `json:"ledger_entries,omitempty"`
+	LedgerOperation      *LedgerOperation     `json:"ledger_operation,omitempty"`
 	apiResponse
 }
 
 type LedgerOperationReleaseAuthorizationResponse struct {
-	LedgerOperation      *LedgerOperation     `json:"ledger_operation,omitempty"`
+	LedgerOperations     []*LedgerOperation   `json:"ledger_operations,omitempty"`
 	LedgerAccountBalance LedgerAccountBalance `json:"ledger_account_balance,omitempty"`
 	GrantBlocks          []GrantBlock         `json:"grant_blocks,omitempty"`
 	LedgerEntries        []LedgerEntry        `json:"ledger_entries,omitempty"`
+	LedgerOperation      *LedgerOperation     `json:"ledger_operation,omitempty"`
 	apiResponse
 }
 
