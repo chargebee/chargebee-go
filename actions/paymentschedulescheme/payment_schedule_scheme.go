@@ -13,6 +13,9 @@ func Create(params *paymentschedulescheme.CreateRequestParams) chargebee.Request
 func Retrieve(id string) chargebee.Request {
 	return chargebee.Send("GET", fmt.Sprintf("/payment_schedule_schemes/%v", url.PathEscape(id)), nil)
 }
+func List(params *paymentschedulescheme.ListRequestParams) chargebee.ListRequest {
+	return chargebee.SendList("GET", fmt.Sprintf("/payment_schedule_schemes"), params)
+}
 func Delete(id string) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/payment_schedule_schemes/%v/delete", url.PathEscape(id)), nil).SetIdempotency(true)
 }

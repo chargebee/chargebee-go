@@ -63,5 +63,6 @@ const (
 	GatewayNameTempus                GatewayName = "tempus"
 	GatewayNameMoyasar               GatewayName = "moyasar"
 	GatewayNamePayway                GatewayName = "payway"
+	GatewayNamePayu                  GatewayName = "payu"
 	GatewayNameNotApplicable         GatewayName = "not_applicable"
 )

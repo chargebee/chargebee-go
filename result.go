@@ -6,6 +6,9 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/advanceinvoiceschedule"
 	"github.com/chargebee/chargebee-go/v3/models/alert"
 	"github.com/chargebee/chargebee-go/v3/models/alertstatus"
+	"github.com/chargebee/chargebee-go/v3/models/appliedbusinessrule"
+	"github.com/chargebee/chargebee-go/v3/models/appliedrule"
+	"github.com/chargebee/chargebee-go/v3/models/applyrule"
 	"github.com/chargebee/chargebee-go/v3/models/asyncresponse"
 	"github.com/chargebee/chargebee-go/v3/models/asyncresponselist"
 	"github.com/chargebee/chargebee-go/v3/models/attacheditem"
@@ -14,6 +17,9 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/brand"
 	"github.com/chargebee/chargebee-go/v3/models/businessentity"
 	"github.com/chargebee/chargebee-go/v3/models/businessentitytransfer"
+	"github.com/chargebee/chargebee-go/v3/models/businessrule"
+	"github.com/chargebee/chargebee-go/v3/models/businessruleset"
+	"github.com/chargebee/chargebee-go/v3/models/businessrulesetrule"
 	"github.com/chargebee/chargebee-go/v3/models/card"
 	"github.com/chargebee/chargebee-go/v3/models/comment"
 	"github.com/chargebee/chargebee-go/v3/models/configuration"
@@ -26,12 +32,15 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/creditnote"
 	"github.com/chargebee/chargebee-go/v3/models/creditunit"
 	"github.com/chargebee/chargebee-go/v3/models/currency"
+	"github.com/chargebee/chargebee-go/v3/models/customdataschema"
 	"github.com/chargebee/chargebee-go/v3/models/customer"
 	"github.com/chargebee/chargebee-go/v3/models/customerentitlement"
 	"github.com/chargebee/chargebee-go/v3/models/differentialprice"
 	"github.com/chargebee/chargebee-go/v3/models/discount"
+	"github.com/chargebee/chargebee-go/v3/models/dispute"
 	"github.com/chargebee/chargebee-go/v3/models/download"
 	"github.com/chargebee/chargebee-go/v3/models/einvoice"
+	"github.com/chargebee/chargebee-go/v3/models/emaillog"
 	"github.com/chargebee/chargebee-go/v3/models/entitlement"
 	"github.com/chargebee/chargebee-go/v3/models/entitlementoverride"
 	"github.com/chargebee/chargebee-go/v3/models/estimate"
@@ -144,16 +153,17 @@ type Result struct {
 	VirtualBankAccount                         *virtualbankaccount.VirtualBankAccount                                                 `json:"virtual_bank_account,omitempty"`
 	Card                                       *card.Card                                                                             `json:"card,omitempty"`
 	PromotionalCredit                          *promotionalcredit.PromotionalCredit                                                   `json:"promotional_credit,omitempty"`
+	EmailLog                                   *emaillog.EmailLog                                                                     `json:"email_log,omitempty"`
 	Invoice                                    *invoice.Invoice                                                                       `json:"invoice,omitempty"`
 	PaymentReferenceNumber                     *paymentreferencenumber.PaymentReferenceNumber                                         `json:"payment_reference_number,omitempty"`
 	PaymentSchedule                            *paymentschedule.PaymentSchedule                                                       `json:"payment_schedule,omitempty"`
-	Einvoice                                   *einvoice.Einvoice                                                                     `json:"einvoice,omitempty"`
 	TaxWithheld                                *taxwithheld.TaxWithheld                                                               `json:"tax_withheld,omitempty"`
 	CreditNote                                 *creditnote.CreditNote                                                                 `json:"credit_note,omitempty"`
 	UnbilledCharge                             *unbilledcharge.UnbilledCharge                                                         `json:"unbilled_charge,omitempty"`
 	Order                                      *order.Order                                                                           `json:"order,omitempty"`
 	Gift                                       *gift.Gift                                                                             `json:"gift,omitempty"`
 	Transaction                                *transaction.Transaction                                                               `json:"transaction,omitempty"`
+	Dispute                                    *dispute.Dispute                                                                       `json:"dispute,omitempty"`
 	HostedPage                                 *hostedpage.HostedPage                                                                 `json:"hosted_page,omitempty"`
 	Estimate                                   *estimate.Estimate                                                                     `json:"estimate,omitempty"`
 	Quote                                      *quote.Quote                                                                           `json:"quote,omitempty"`
@@ -221,12 +231,20 @@ type Result struct {
 	Meter                                      *meter.Meter                                                                           `json:"meter,omitempty"`
 	UsageEvent                                 *usageevent.UsageEvent                                                                 `json:"usage_event,omitempty"`
 	MeteredFeature                             *meteredfeature.MeteredFeature                                                         `json:"metered_feature,omitempty"`
+	CustomDataSchema                           *customdataschema.CustomDataSchema                                                     `json:"custom_data_schema,omitempty"`
 	UsageFile                                  *usagefile.UsageFile                                                                   `json:"usage_file,omitempty"`
+	Einvoice                                   *einvoice.Einvoice                                                                     `json:"einvoice,omitempty"`
 	PersonalizedOffer                          *personalizedoffer.PersonalizedOffer                                                   `json:"personalized_offer,omitempty"`
 	Brand                                      *brand.Brand                                                                           `json:"brand,omitempty"`
 	OfferFulfillment                           *offerfulfillment.OfferFulfillment                                                     `json:"offer_fulfillment,omitempty"`
 	OfferEvent                                 *offerevent.OfferEvent                                                                 `json:"offer_event,omitempty"`
 	WebhookEndpoint                            *webhookendpoint.WebhookEndpoint                                                       `json:"webhook_endpoint,omitempty"`
+	BusinessRule                               *businessrule.BusinessRule                                                             `json:"business_rule,omitempty"`
+	ApplyRule                                  *applyrule.ApplyRule                                                                   `json:"apply_rule,omitempty"`
+	AppliedRule                                *appliedrule.AppliedRule                                                               `json:"applied_rule,omitempty"`
+	AppliedBusinessRule                        *appliedbusinessrule.AppliedBusinessRule                                               `json:"applied_business_rule,omitempty"`
+	BusinessRuleset                            *businessruleset.BusinessRuleset                                                       `json:"business_ruleset,omitempty"`
+	BusinessRulesetRule                        *businessrulesetrule.BusinessRulesetRule                                               `json:"business_ruleset_rule,omitempty"`
 	UsageSummary                               *usagesummary.UsageSummary                                                             `json:"usage_summary,omitempty"`
 	UsageCharge                                *usagecharge.UsageCharge                                                               `json:"usage_charge,omitempty"`
 	Alert                                      *alert.Alert                                                                           `json:"alert,omitempty"`
@@ -242,6 +260,7 @@ type Result struct {
 	SubscriptionEntitlementsCreatedDetail      *subscriptionentitlementscreateddetail.SubscriptionEntitlementsCreatedDetail           `json:"subscription_entitlements_created_detail,omitempty"`
 	AdvanceInvoiceSchedules                    []*advanceinvoiceschedule.AdvanceInvoiceSchedule                                       `json:"advance_invoice_schedules,omitempty"`
 	Hierarchies                                []*hierarchy.Hierarchy                                                                 `json:"hierarchies,omitempty"`
+	EmailLogs                                  []*emaillog.EmailLog                                                                   `json:"email_logs,omitempty"`
 	Invoices                                   []*invoice.Invoice                                                                     `json:"invoices,omitempty"`
 	PaymentSchedules                           []*paymentschedule.PaymentSchedule                                                     `json:"payment_schedules,omitempty"`
 	CreditNotes                                []*creditnote.CreditNote                                                               `json:"credit_notes,omitempty"`

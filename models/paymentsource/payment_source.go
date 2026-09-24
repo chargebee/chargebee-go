@@ -10,32 +10,34 @@ import (
 )
 
 type PaymentSource struct {
-	Id               string                   `json:"id"`
-	ResourceVersion  int64                    `json:"resource_version"`
-	UpdatedAt        int64                    `json:"updated_at"`
-	CreatedAt        int64                    `json:"created_at"`
-	CustomerId       string                   `json:"customer_id"`
-	Type             enum.Type                `json:"type"`
-	ReferenceId      string                   `json:"reference_id"`
-	Status           paymentSourceEnum.Status `json:"status"`
-	Gateway          enum.Gateway             `json:"gateway"`
-	GatewayAccountId string                   `json:"gateway_account_id"`
-	IpAddress        string                   `json:"ip_address"`
-	IssuingCountry   string                   `json:"issuing_country"`
-	Card             *Card                    `json:"card"`
-	BankAccount      *BankAccount             `json:"bank_account"`
-	Boleto           *CustVoucherSource       `json:"boleto"`
-	BillingAddress   *BillingAddress          `json:"billing_address"`
-	AmazonPayment    *AmazonPayment           `json:"amazon_payment"`
-	Upi              *Upi                     `json:"upi"`
-	Paypal           *Paypal                  `json:"paypal"`
-	Venmo            *Venmo                   `json:"venmo"`
-	KlarnaPayNow     *KlarnaPayNow            `json:"klarna_pay_now"`
-	Mandates         []*Mandate               `json:"mandates"`
-	VaultToken       json.RawMessage          `json:"vault_token"`
-	Deleted          bool                     `json:"deleted"`
-	BusinessEntityId string                   `json:"business_entity_id"`
-	Object           string                   `json:"object"`
+	Id                          string                       `json:"id"`
+	ResourceVersion             int64                        `json:"resource_version"`
+	UpdatedAt                   int64                        `json:"updated_at"`
+	CreatedAt                   int64                        `json:"created_at"`
+	CustomerId                  string                       `json:"customer_id"`
+	Type                        enum.Type                    `json:"type"`
+	ReferenceId                 string                       `json:"reference_id"`
+	Status                      paymentSourceEnum.Status     `json:"status"`
+	Gateway                     enum.Gateway                 `json:"gateway"`
+	GatewayAccountId            string                       `json:"gateway_account_id"`
+	IpAddress                   string                       `json:"ip_address"`
+	IssuingCountry              string                       `json:"issuing_country"`
+	Card                        *Card                        `json:"card"`
+	BankAccount                 *BankAccount                 `json:"bank_account"`
+	Boleto                      *CustVoucherSource           `json:"boleto"`
+	BillingAddress              *BillingAddress              `json:"billing_address"`
+	AmazonPayment               *AmazonPayment               `json:"amazon_payment"`
+	Upi                         *Upi                         `json:"upi"`
+	Paypal                      *Paypal                      `json:"paypal"`
+	Venmo                       *Venmo                       `json:"venmo"`
+	KlarnaPayNow                *KlarnaPayNow                `json:"klarna_pay_now"`
+	Mandates                    []*Mandate                   `json:"mandates"`
+	VaultToken                  json.RawMessage              `json:"vault_token"`
+	NetworkTransactionReference *NetworkTransactionReference `json:"network_transaction_reference"`
+	Deleted                     bool                         `json:"deleted"`
+	BusinessEntityId            string                       `json:"business_entity_id"`
+	BrandId                     string                       `json:"brand_id"`
+	Object                      string                       `json:"object"`
 }
 type Card struct {
 	FirstName        string                            `json:"first_name"`
@@ -122,17 +124,23 @@ type Mandate struct {
 	CreatedAt      int64  `json:"created_at"`
 	Object         string `json:"object"`
 }
+type NetworkTransactionReference struct {
+	OriginalNetworkTransactionId string `json:"original_network_transaction_id"`
+	Object                       string `json:"object"`
+}
 type CreateUsingTempTokenRequestParams struct {
 	CustomerId                  string                 `json:"customer_id"`
 	GatewayAccountId            string                 `json:"gateway_account_id,omitempty"`
 	Type                        enum.Type              `json:"type"`
 	TmpToken                    string                 `json:"tmp_token"`
 	IssuingCountry              string                 `json:"issuing_country,omitempty"`
+	BrandId                     string                 `json:"brand_id,omitempty"`
 	ReplacePrimaryPaymentSource *bool                  `json:"replace_primary_payment_source,omitempty"`
 	AdditionalInformation       map[string]interface{} `json:"additional_information,omitempty"`
 }
 type CreateUsingPermanentTokenRequestParams struct {
 	CustomerId                  string                                         `json:"customer_id"`
+	BrandId                     string                                         `json:"brand_id,omitempty"`
 	Type                        enum.Type                                      `json:"type"`
 	GatewayAccountId            string                                         `json:"gateway_account_id,omitempty"`
 	ReferenceId                 string                                         `json:"reference_id,omitempty"`
@@ -170,11 +178,13 @@ type CreateUsingPermanentTokenBillingAddressParams struct {
 }
 type CreateUsingTokenRequestParams struct {
 	CustomerId                  string `json:"customer_id"`
+	BrandId                     string `json:"brand_id,omitempty"`
 	ReplacePrimaryPaymentSource *bool  `json:"replace_primary_payment_source,omitempty"`
 	TokenId                     string `json:"token_id"`
 }
 type CreateUsingPaymentIntentRequestParams struct {
 	CustomerId                  string                                       `json:"customer_id"`
+	BrandId                     string                                       `json:"brand_id,omitempty"`
 	PaymentIntent               *CreateUsingPaymentIntentPaymentIntentParams `json:"payment_intent,omitempty"`
 	ReplacePrimaryPaymentSource *bool                                        `json:"replace_primary_payment_source,omitempty"`
 }
@@ -190,6 +200,7 @@ type CreateUsingPaymentIntentPaymentIntentParams struct {
 }
 type CreateVoucherPaymentSourceRequestParams struct {
 	CustomerId           string                                                `json:"customer_id"`
+	BrandId              string                                                `json:"brand_id,omitempty"`
 	VoucherPaymentSource *CreateVoucherPaymentSourceVoucherPaymentSourceParams `json:"voucher_payment_source,omitempty"`
 }
 type CreateVoucherPaymentSourceVoucherPaymentSourceParams struct {
@@ -200,6 +211,7 @@ type CreateVoucherPaymentSourceVoucherPaymentSourceParams struct {
 }
 type CreateCardRequestParams struct {
 	CustomerId                  string                `json:"customer_id"`
+	BrandId                     string                `json:"brand_id,omitempty"`
 	Card                        *CreateCardCardParams `json:"card,omitempty"`
 	ReplacePrimaryPaymentSource *bool                 `json:"replace_primary_payment_source,omitempty"`
 }
@@ -223,6 +235,7 @@ type CreateCardCardParams struct {
 }
 type CreateBankAccountRequestParams struct {
 	CustomerId                  string                              `json:"customer_id"`
+	BrandId                     string                              `json:"brand_id,omitempty"`
 	BankAccount                 *CreateBankAccountBankAccountParams `json:"bank_account,omitempty"`
 	IssuingCountry              string                              `json:"issuing_country,omitempty"`
 	ReplacePrimaryPaymentSource *bool                               `json:"replace_primary_payment_source,omitempty"`
@@ -246,9 +259,10 @@ type CreateBankAccountBankAccountParams struct {
 	BillingAddress        map[string]interface{} `json:"billing_address,omitempty"`
 }
 type UpdateCardRequestParams struct {
-	Card                 *UpdateCardCardParams  `json:"card,omitempty"`
-	GatewayMetaData      map[string]interface{} `json:"gateway_meta_data,omitempty"`
-	ReferenceTransaction string                 `json:"reference_transaction,omitempty"`
+	Card                        *UpdateCardCardParams                        `json:"card,omitempty"`
+	GatewayMetaData             map[string]interface{}                       `json:"gateway_meta_data,omitempty"`
+	ReferenceTransaction        string                                       `json:"reference_transaction,omitempty"`
+	NetworkTransactionReference *UpdateCardNetworkTransactionReferenceParams `json:"network_transaction_reference,omitempty"`
 }
 type UpdateCardCardParams struct {
 	FirstName             string                 `json:"first_name,omitempty"`
@@ -263,6 +277,9 @@ type UpdateCardCardParams struct {
 	BillingState          string                 `json:"billing_state,omitempty"`
 	BillingCountry        string                 `json:"billing_country,omitempty"`
 	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+}
+type UpdateCardNetworkTransactionReferenceParams struct {
+	OriginalNetworkTransactionId string `json:"original_network_transaction_id,omitempty"`
 }
 type UpdateBankAccountRequestParams struct {
 	BankAccount *UpdateBankAccountBankAccountParams `json:"bank_account,omitempty"`

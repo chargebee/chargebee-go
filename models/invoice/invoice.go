@@ -83,6 +83,7 @@ type Invoice struct {
 	VatNumberPrefix           string                    `json:"vat_number_prefix"`
 	Channel                   enum.Channel              `json:"channel"`
 	BusinessEntityId          string                    `json:"business_entity_id"`
+	BrandId                   string                    `json:"brand_id"`
 	SiteDetailsAtCreation     *SiteDetailsAtCreation    `json:"site_details_at_creation"`
 	CustomField               map[string]interface{}    `json:"custom_field"`
 	Object                    string                    `json:"object"`
@@ -793,6 +794,8 @@ type ImportInvoiceLineItemParams struct {
 	Tax9Amount                 *int64                            `json:"tax9_amount,omitempty"`
 	Tax10Name                  string                            `json:"tax10_name,omitempty"`
 	Tax10Amount                *int64                            `json:"tax10_amount,omitempty"`
+	IsPartialTaxApplied        *bool                             `json:"is_partial_tax_applied,omitempty"`
+	TaxableAmount              *int64                            `json:"taxable_amount,omitempty"`
 	ProrationMode              invoiceEnum.LineItemProrationMode `json:"proration_mode,omitempty"`
 	CreatedAt                  *int64                            `json:"created_at,omitempty"`
 }

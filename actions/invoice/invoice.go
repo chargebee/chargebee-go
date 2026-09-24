@@ -118,6 +118,9 @@ func WriteOff(id string, params *invoice.WriteOffRequestParams) chargebee.Reques
 func VoidBeforeCapture(id string, params *invoice.VoidBeforeCaptureRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/void_before_capture", url.PathEscape(id)), params).SetIdempotency(true)
 }
+func SendEmail(id string) chargebee.Request {
+	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/send_email", url.PathEscape(id)), nil).SetIdempotency(true)
+}
 func Delete(id string, params *invoice.DeleteRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/delete", url.PathEscape(id)), params).SetIdempotency(true)
 }
