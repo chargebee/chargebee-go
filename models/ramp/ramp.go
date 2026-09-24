@@ -24,6 +24,7 @@ type Ramp struct {
 	CouponsToRemove        []string                `json:"coupons_to_remove"`
 	DiscountsToRemove      []string                `json:"discounts_to_remove"`
 	ContractTerm           *ContractTerm           `json:"contract_term"`
+	BillingConfiguration   *BillingConfiguration   `json:"billing_configuration"`
 	Deleted                bool                    `json:"deleted"`
 	StatusTransitionReason *StatusTransitionReason `json:"status_transition_reason"`
 	Object                 string                  `json:"object"`
@@ -106,23 +107,31 @@ type ContractTerm struct {
 	ActionAtTermEnd          rampEnum.ContractTermActionAtTermEnd `json:"action_at_term_end"`
 	Object                   string                               `json:"object"`
 }
+type BillingConfiguration struct {
+	PoNumber string `json:"po_number"`
+	Object   string `json:"object"`
+}
 type StatusTransitionReason struct {
 	Code    string `json:"code"`
 	Message string `json:"message"`
 	Object  string `json:"object"`
 }
 type CreateForSubscriptionRequestParams struct {
-	EffectiveFrom     *int64                                       `json:"effective_from"`
-	Description       string                                       `json:"description,omitempty"`
-	CouponsToRemove   []string                                     `json:"coupons_to_remove,omitempty"`
-	DiscountsToRemove []string                                     `json:"discounts_to_remove,omitempty"`
-	ItemsToRemove     []string                                     `json:"items_to_remove,omitempty"`
-	ItemsToAdd        []*CreateForSubscriptionItemsToAddParams     `json:"items_to_add,omitempty"`
-	ItemsToUpdate     []*CreateForSubscriptionItemsToUpdateParams  `json:"items_to_update,omitempty"`
-	ItemTiers         []*CreateForSubscriptionItemTierParams       `json:"item_tiers,omitempty"`
-	CouponsToAdd      []*CreateForSubscriptionCouponsToAddParams   `json:"coupons_to_add,omitempty"`
-	DiscountsToAdd    []*CreateForSubscriptionDiscountsToAddParams `json:"discounts_to_add,omitempty"`
-	ContractTerm      *CreateForSubscriptionContractTermParams     `json:"contract_term,omitempty"`
+	EffectiveFrom        *int64                                           `json:"effective_from"`
+	Description          string                                           `json:"description,omitempty"`
+	CouponsToRemove      []string                                         `json:"coupons_to_remove,omitempty"`
+	DiscountsToRemove    []string                                         `json:"discounts_to_remove,omitempty"`
+	ItemsToRemove        []string                                         `json:"items_to_remove,omitempty"`
+	BillingConfiguration *CreateForSubscriptionBillingConfigurationParams `json:"billing_configuration,omitempty"`
+	ItemsToAdd           []*CreateForSubscriptionItemsToAddParams         `json:"items_to_add,omitempty"`
+	ItemsToUpdate        []*CreateForSubscriptionItemsToUpdateParams      `json:"items_to_update,omitempty"`
+	ItemTiers            []*CreateForSubscriptionItemTierParams           `json:"item_tiers,omitempty"`
+	CouponsToAdd         []*CreateForSubscriptionCouponsToAddParams       `json:"coupons_to_add,omitempty"`
+	DiscountsToAdd       []*CreateForSubscriptionDiscountsToAddParams     `json:"discounts_to_add,omitempty"`
+	ContractTerm         *CreateForSubscriptionContractTermParams         `json:"contract_term,omitempty"`
+}
+type CreateForSubscriptionBillingConfigurationParams struct {
+	PoNumber string `json:"po_number,omitempty"`
 }
 type CreateForSubscriptionItemsToAddParams struct {
 	ItemPriceId        string              `json:"item_price_id"`
@@ -180,17 +189,21 @@ type CreateForSubscriptionContractTermParams struct {
 	RenewalBillingCycles     *int32                               `json:"renewal_billing_cycles,omitempty"`
 }
 type UpdateRequestParams struct {
-	EffectiveFrom     *int64                        `json:"effective_from"`
-	Description       string                        `json:"description,omitempty"`
-	CouponsToRemove   []string                      `json:"coupons_to_remove,omitempty"`
-	DiscountsToRemove []string                      `json:"discounts_to_remove,omitempty"`
-	ItemsToRemove     []string                      `json:"items_to_remove,omitempty"`
-	ItemsToAdd        []*UpdateItemsToAddParams     `json:"items_to_add,omitempty"`
-	ItemsToUpdate     []*UpdateItemsToUpdateParams  `json:"items_to_update,omitempty"`
-	ItemTiers         []*UpdateItemTierParams       `json:"item_tiers,omitempty"`
-	CouponsToAdd      []*UpdateCouponsToAddParams   `json:"coupons_to_add,omitempty"`
-	DiscountsToAdd    []*UpdateDiscountsToAddParams `json:"discounts_to_add,omitempty"`
-	ContractTerm      *UpdateContractTermParams     `json:"contract_term,omitempty"`
+	EffectiveFrom        *int64                            `json:"effective_from"`
+	Description          string                            `json:"description,omitempty"`
+	CouponsToRemove      []string                          `json:"coupons_to_remove,omitempty"`
+	DiscountsToRemove    []string                          `json:"discounts_to_remove,omitempty"`
+	ItemsToRemove        []string                          `json:"items_to_remove,omitempty"`
+	BillingConfiguration *UpdateBillingConfigurationParams `json:"billing_configuration,omitempty"`
+	ItemsToAdd           []*UpdateItemsToAddParams         `json:"items_to_add,omitempty"`
+	ItemsToUpdate        []*UpdateItemsToUpdateParams      `json:"items_to_update,omitempty"`
+	ItemTiers            []*UpdateItemTierParams           `json:"item_tiers,omitempty"`
+	CouponsToAdd         []*UpdateCouponsToAddParams       `json:"coupons_to_add,omitempty"`
+	DiscountsToAdd       []*UpdateDiscountsToAddParams     `json:"discounts_to_add,omitempty"`
+	ContractTerm         *UpdateContractTermParams         `json:"contract_term,omitempty"`
+}
+type UpdateBillingConfigurationParams struct {
+	PoNumber string `json:"po_number,omitempty"`
 }
 type UpdateItemsToAddParams struct {
 	ItemPriceId        string              `json:"item_price_id"`

@@ -25,6 +25,7 @@ type HostedPage struct {
 	ResourceVersion  int64                        `json:"resource_version"`
 	CheckoutInfo     json.RawMessage              `json:"checkout_info"`
 	BusinessEntityId string                       `json:"business_entity_id"`
+	BrandId          string                       `json:"brand_id"`
 	Object           string                       `json:"object"`
 }
 type CheckoutNewRequestParams struct {
@@ -233,6 +234,7 @@ type CheckoutOneTimeShippingAddressParams struct {
 }
 type CheckoutOneTimeForItemsRequestParams struct {
 	BusinessEntityId  string                                           `json:"business_entity_id,omitempty"`
+	BrandId           string                                           `json:"brand_id,omitempty"`
 	Layout            enum.Layout                                      `json:"layout,omitempty"`
 	Customer          *CheckoutOneTimeForItemsCustomerParams           `json:"customer,omitempty"`
 	ItemPrices        []*CheckoutOneTimeForItemsItemPriceParams        `json:"item_prices,omitempty"`
@@ -361,6 +363,7 @@ type CheckoutNewForItemsRequestParams struct {
 	Subscription               *CheckoutNewForItemsSubscriptionParams       `json:"subscription,omitempty"`
 	Layout                     enum.Layout                                  `json:"layout,omitempty"`
 	BusinessEntityId           string                                       `json:"business_entity_id,omitempty"`
+	BrandId                    string                                       `json:"brand_id,omitempty"`
 	Customer                   *CheckoutNewForItemsCustomerParams           `json:"customer,omitempty"`
 	BillingCycles              *int32                                       `json:"billing_cycles,omitempty"`
 	SubscriptionItems          []*CheckoutNewForItemsSubscriptionItemParams `json:"subscription_items,omitempty"`
@@ -566,6 +569,7 @@ type CheckoutExistingContractTermParams struct {
 type CheckoutExistingForItemsRequestParams struct {
 	Layout                     enum.Layout                                       `json:"layout,omitempty"`
 	Subscription               *CheckoutExistingForItemsSubscriptionParams       `json:"subscription,omitempty"`
+	BrandId                    string                                            `json:"brand_id,omitempty"`
 	SubscriptionItems          []*CheckoutExistingForItemsSubscriptionItemParams `json:"subscription_items,omitempty"`
 	MandatoryItemsToRemove     []string                                          `json:"mandatory_items_to_remove,omitempty"`
 	ReplaceItemsList           *bool                                             `json:"replace_items_list,omitempty"`
@@ -701,6 +705,7 @@ type UpdatePaymentMethodCardParams struct {
 }
 type ManagePaymentSourcesRequestParams struct {
 	BusinessEntityId string                              `json:"business_entity_id,omitempty"`
+	BrandId          string                              `json:"brand_id,omitempty"`
 	Customer         *ManagePaymentSourcesCustomerParams `json:"customer,omitempty"`
 	RedirectUrl      string                              `json:"redirect_url,omitempty"`
 	Card             *ManagePaymentSourcesCardParams     `json:"card,omitempty"`
@@ -714,6 +719,7 @@ type ManagePaymentSourcesCardParams struct {
 }
 type CollectNowRequestParams struct {
 	Customer                *CollectNowCustomerParams    `json:"customer,omitempty"`
+	BrandId                 string                       `json:"brand_id,omitempty"`
 	RedirectUrl             string                       `json:"redirect_url,omitempty"`
 	Card                    *CollectNowCardParams        `json:"card,omitempty"`
 	CurrencyCode            string                       `json:"currency_code,omitempty"`
@@ -728,6 +734,7 @@ type CollectNowCardParams struct {
 }
 type AcceptQuoteRequestParams struct {
 	Quote       *AcceptQuoteQuoteParams `json:"quote,omitempty"`
+	BrandId     string                  `json:"brand_id,omitempty"`
 	RedirectUrl string                  `json:"redirect_url,omitempty"`
 	Layout      enum.Layout             `json:"layout,omitempty"`
 }
@@ -736,6 +743,7 @@ type AcceptQuoteQuoteParams struct {
 }
 type ExtendSubscriptionRequestParams struct {
 	Subscription *ExtendSubscriptionSubscriptionParams `json:"subscription,omitempty"`
+	BrandId      string                                `json:"brand_id,omitempty"`
 	Expiry       *int32                                `json:"expiry,omitempty"`
 	BillingCycle *int32                                `json:"billing_cycle,omitempty"`
 }
@@ -766,6 +774,7 @@ type CheckoutGiftAddonParams struct {
 type CheckoutGiftForItemsRequestParams struct {
 	Layout            enum.Layout                                   `json:"layout,omitempty"`
 	BusinessEntityId  string                                        `json:"business_entity_id,omitempty"`
+	BrandId           string                                        `json:"brand_id,omitempty"`
 	Gifter            *CheckoutGiftForItemsGifterParams             `json:"gifter,omitempty"`
 	RedirectUrl       string                                        `json:"redirect_url,omitempty"`
 	SubscriptionItems []*CheckoutGiftForItemsSubscriptionItemParams `json:"subscription_items,omitempty"`
@@ -793,6 +802,7 @@ type CheckoutGiftForItemsItemTierParams struct {
 }
 type ClaimGiftRequestParams struct {
 	Gift        *ClaimGiftGiftParams     `json:"gift,omitempty"`
+	BrandId     string                   `json:"brand_id,omitempty"`
 	RedirectUrl string                   `json:"redirect_url,omitempty"`
 	Customer    *ClaimGiftCustomerParams `json:"customer,omitempty"`
 }
@@ -815,6 +825,7 @@ type ListRequestParams struct {
 }
 type PreCancelRequestParams struct {
 	Subscription    *PreCancelSubscriptionParams `json:"subscription,omitempty"`
+	BrandId         string                       `json:"brand_id,omitempty"`
 	PassThruContent string                       `json:"pass_thru_content,omitempty"`
 	CancelUrl       string                       `json:"cancel_url,omitempty"`
 	RedirectUrl     string                       `json:"redirect_url,omitempty"`

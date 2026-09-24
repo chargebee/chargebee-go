@@ -12,4 +12,5 @@ const (
 	TypeVoid                 Type = "void"
 	TypeRollover             Type = "rollover"
 	TypeAdjustment           Type = "adjustment"
+	TypeOverdraftSettlement  Type = "overdraft_settlement"
 )

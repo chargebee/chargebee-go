@@ -17,6 +17,7 @@ type CreateForNewSubscriptionRequestParams struct {
 	PricingPage             *CreateForNewSubscriptionPricingPageParams     `json:"pricing_page,omitempty"`
 	Subscription            *CreateForNewSubscriptionSubscriptionParams    `json:"subscription,omitempty"`
 	BusinessEntityId        string                                         `json:"business_entity_id,omitempty"`
+	BrandId                 string                                         `json:"brand_id,omitempty"`
 	AutoSelectLocalCurrency *bool                                          `json:"auto_select_local_currency,omitempty"`
 	Custom                  map[string]interface{}                         `json:"custom,omitempty"`
 	Customer                *CreateForNewSubscriptionCustomerParams        `json:"customer,omitempty"`

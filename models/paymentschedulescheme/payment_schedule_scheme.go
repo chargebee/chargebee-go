@@ -1,6 +1,7 @@
 package paymentschedulescheme
 
 import (
+	"github.com/chargebee/chargebee-go/v3/filter"
 	paymentScheduleSchemeEnum "github.com/chargebee/chargebee-go/v3/models/paymentschedulescheme/enum"
 )
 
@@ -33,4 +34,10 @@ type CreateRequestParams struct {
 type CreateFlexibleScheduleParams struct {
 	Period           *int32   `json:"period,omitempty"`
 	AmountPercentage *float64 `json:"amount_percentage,omitempty"`
+}
+type ListRequestParams struct {
+	Limit     *int32                  `json:"limit,omitempty"`
+	Offset    string                  `json:"offset,omitempty"`
+	Id        *filter.StringFilter    `json:"id,omitempty"`
+	UpdatedAt *filter.TimestampFilter `json:"updated_at,omitempty"`
 }

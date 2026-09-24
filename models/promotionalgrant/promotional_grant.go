@@ -15,7 +15,9 @@ type PromotionalGrant struct {
 type PromotionalGrantsRequestParams struct {
 	SubscriptionId string                 `json:"subscription_id"`
 	UnitId         string                 `json:"unit_id"`
+	Id             string                 `json:"id,omitempty"`
 	Amount         string                 `json:"amount"`
+	EffectiveFrom  *int64                 `json:"effective_from,omitempty"`
 	ExpiresAt      *int64                 `json:"expires_at"`
 	Metadata       map[string]interface{} `json:"metadata,omitempty"`
 }

@@ -28,6 +28,7 @@ type PaymentIntent struct {
 	PaymentAttempts       []*PaymentAttempt                   `json:"payment_attempts"`
 	PaymentIntentMetadata *PaymentIntentMetadata              `json:"payment_intent_metadata"`
 	BusinessEntityId      string                              `json:"business_entity_id"`
+	BrandId               string                              `json:"brand_id"`
 	Object                string                              `json:"object"`
 }
 type PaymentAttempt struct {
@@ -54,6 +55,7 @@ type PaymentIntentMetadata struct {
 }
 type CreateRequestParams struct {
 	BusinessEntityId       string                              `json:"business_entity_id,omitempty"`
+	BrandId                string                              `json:"brand_id,omitempty"`
 	CustomerId             string                              `json:"customer_id,omitempty"`
 	Amount                 *int64                              `json:"amount"`
 	CurrencyCode           string                              `json:"currency_code"`

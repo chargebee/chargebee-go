@@ -56,6 +56,7 @@ type CreditNote struct {
 	CreateReasonCode          string                    `json:"create_reason_code"`
 	VatNumberPrefix           string                    `json:"vat_number_prefix"`
 	BusinessEntityId          string                    `json:"business_entity_id"`
+	BrandId                   string                    `json:"brand_id"`
 	ShippingAddress           *ShippingAddress          `json:"shipping_address"`
 	BillingAddress            *BillingAddress           `json:"billing_address"`
 	Einvoice                  *Einvoice                 `json:"einvoice"`
@@ -408,6 +409,8 @@ type ImportCreditNoteLineItemParams struct {
 	Tax9Amount                 *int64                               `json:"tax9_amount,omitempty"`
 	Tax10Name                  string                               `json:"tax10_name,omitempty"`
 	Tax10Amount                *int64                               `json:"tax10_amount,omitempty"`
+	IsPartialTaxApplied        *bool                                `json:"is_partial_tax_applied,omitempty"`
+	TaxableAmount              *int64                               `json:"taxable_amount,omitempty"`
 	ProrationMode              creditNoteEnum.LineItemProrationMode `json:"proration_mode,omitempty"`
 }
 type ImportCreditNoteLineItemTierParams struct {

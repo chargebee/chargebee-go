@@ -61,6 +61,9 @@ func RecordExcessPayment(id string, params *customer.RecordExcessPaymentRequestP
 func CollectPayment(id string, params *customer.CollectPaymentRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/customers/%v/collect_payment", url.PathEscape(id)), params).SetIdempotency(true)
 }
+func SendPaymentRequest(id string) chargebee.Request {
+	return chargebee.Send("POST", fmt.Sprintf("/customers/%v/send_payment_request", url.PathEscape(id)), nil).SetIdempotency(true)
+}
 func Delete(id string, params *customer.DeleteRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/customers/%v/delete", url.PathEscape(id)), params).SetIdempotency(true)
 }

@@ -6,4 +6,5 @@ const (
 	PreferredSchemeCartesBancaires PreferredScheme = "cartes_bancaires"
 	PreferredSchemeMastercard      PreferredScheme = "mastercard"
 	PreferredSchemeVisa            PreferredScheme = "visa"
+	PreferredSchemeDankort         PreferredScheme = "dankort"
 )

@@ -93,6 +93,7 @@ type Subscription struct {
 	Discounts             []*Discount            `json:"discounts"`
 	BusinessEntityId      string                 `json:"business_entity_id"`
 	Decommissioned        bool                   `json:"decommissioned"`
+	BrandId               string                 `json:"brand_id"`
 	CustomField           map[string]interface{} `json:"custom_field"`
 	Object                string                 `json:"object"`
 
@@ -127,6 +128,7 @@ type SubscriptionItem struct {
 	ChargeOnOption                  enum.ChargeOnOption                  `json:"charge_on_option"`
 	ProrationType                   enum.ProrationType                   `json:"proration_type"`
 	UsageAccumulationResetFrequency enum.UsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency"`
+	Description                     string                               `json:"description"`
 	Object                          string                               `json:"object"`
 }
 type ItemTier struct {
@@ -264,6 +266,7 @@ type CreateRequestParams struct {
 	Customer                          *CreateCustomerParams            `json:"customer,omitempty"`
 	EntityIdentifiers                 []*CreateEntityIdentifierParams  `json:"entity_identifiers,omitempty"`
 	TaxProvidersFields                []*CreateTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
+	BrandId                           string                           `json:"brand_id,omitempty"`
 	PlanId                            string                           `json:"plan_id"`
 	PlanQuantity                      *int32                           `json:"plan_quantity,omitempty"`
 	PlanQuantityInDecimal             string                           `json:"plan_quantity_in_decimal,omitempty"`
@@ -468,6 +471,7 @@ type CreateCouponParams struct {
 }
 type CreateForCustomerRequestParams struct {
 	Id                                string                                      `json:"id,omitempty"`
+	BrandId                           string                                      `json:"brand_id,omitempty"`
 	PlanId                            string                                      `json:"plan_id"`
 	PlanQuantity                      *int32                                      `json:"plan_quantity,omitempty"`
 	PlanQuantityInDecimal             string                                      `json:"plan_quantity_in_decimal,omitempty"`
@@ -564,6 +568,7 @@ type CreateForCustomerCouponParams struct {
 type CreateWithItemsRequestParams struct {
 	Id                                string                                    `json:"id,omitempty"`
 	BusinessEntityId                  string                                    `json:"business_entity_id,omitempty"`
+	BrandId                           string                                    `json:"brand_id,omitempty"`
 	TrialEnd                          *int64                                    `json:"trial_end,omitempty"`
 	BillingCycles                     *int32                                    `json:"billing_cycles,omitempty"`
 	SubscriptionItems                 []*CreateWithItemsSubscriptionItemParams  `json:"subscription_items,omitempty"`
@@ -614,6 +619,7 @@ type CreateWithItemsSubscriptionItemParams struct {
 	ChargeOnEvent                   enum.ChargeOnEvent                   `json:"charge_on_event,omitempty"`
 	ChargeOnce                      *bool                                `json:"charge_once,omitempty"`
 	ItemType                        enum.ItemType                        `json:"item_type,omitempty"`
+	Description                     string                               `json:"description,omitempty"`
 	ChargeOnOption                  enum.ChargeOnOption                  `json:"charge_on_option,omitempty"`
 	UsageAccumulationResetFrequency enum.UsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency,omitempty"`
 }
@@ -958,6 +964,7 @@ type UpdateForItemsSubscriptionItemParams struct {
 	ChargeOnce                      *bool                                `json:"charge_once,omitempty"`
 	ChargeOnOption                  enum.ChargeOnOption                  `json:"charge_on_option,omitempty"`
 	ItemType                        enum.ItemType                        `json:"item_type,omitempty"`
+	Description                     string                               `json:"description,omitempty"`
 	ProrationType                   enum.ProrationType                   `json:"proration_type,omitempty"`
 	UsageAccumulationResetFrequency enum.UsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency,omitempty"`
 }
@@ -1546,6 +1553,7 @@ type ImportForItemsSubscriptionItemParams struct {
 	ChargeOnEvent      enum.ChargeOnEvent `json:"charge_on_event,omitempty"`
 	ChargeOnce         *bool              `json:"charge_once,omitempty"`
 	ItemType           enum.ItemType      `json:"item_type,omitempty"`
+	Description        string             `json:"description,omitempty"`
 }
 type ImportForItemsDiscountParams struct {
 	ApplyOn       enum.ApplyOn      `json:"apply_on,omitempty"`

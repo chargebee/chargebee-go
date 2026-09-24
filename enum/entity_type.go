@@ -42,7 +42,8 @@ const (
 	EntityTypeOmnichannelOneTimeOrderItem                EntityType = "omnichannel_one_time_order_item"
 	EntityTypeUsageFile                                  EntityType = "usage_file"
 	EntityTypeBusinessRule                               EntityType = "business_rule"
-	EntityTypeRuleset                                    EntityType = "ruleset"
+	EntityTypeBusinessRuleset                            EntityType = "business_ruleset"
 	EntityTypeAlertStatus                                EntityType = "alert_status"
 	EntityTypeOmnichannelSubscriptionItemMetric          EntityType = "omnichannel_subscription_item_metric"
+	EntityTypePriceRamp                                  EntityType = "price_ramp"
 )

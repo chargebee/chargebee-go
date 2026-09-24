@@ -62,6 +62,7 @@ const (
 	GatewayTempus                Gateway = "tempus"
 	GatewayMoyasar               Gateway = "moyasar"
 	GatewayPayway                Gateway = "payway"
+	GatewayPayu                  Gateway = "payu"
 	GatewayGocardless            Gateway = "gocardless"
 	GatewayNotApplicable         Gateway = "not_applicable"
 )

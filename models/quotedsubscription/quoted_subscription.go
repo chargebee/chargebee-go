@@ -65,6 +65,7 @@ type SubscriptionItem struct {
 	ChargeOnOption                  enum.ChargeOnOption                      `json:"charge_on_option"`
 	ProrationType                   enum.ProrationType                       `json:"proration_type"`
 	UsageAccumulationResetFrequency enum.UsageAccumulationResetFrequency     `json:"usage_accumulation_reset_frequency"`
+	Description                     string                                   `json:"description"`
 	Object                          string                                   `json:"object"`
 }
 type ItemTier struct {

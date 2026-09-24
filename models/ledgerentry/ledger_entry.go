@@ -8,9 +8,9 @@ import (
 type LedgerEntry struct {
 	Id                     string                      `json:"id"`
 	SubscriptionId         string                      `json:"subscription_id"`
-	AccountType            ledgerEntryEnum.AccountType `json:"account_type"`
 	UnitId                 string                      `json:"unit_id"`
 	UnitType               ledgerEntryEnum.UnitType    `json:"unit_type"`
+	AccountType            ledgerEntryEnum.AccountType `json:"account_type"`
 	Amount                 string                      `json:"amount"`
 	GrantBlockStartBalance string                      `json:"grant_block_start_balance"`
 	GrantBlockEndBalance   string                      `json:"grant_block_end_balance"`
