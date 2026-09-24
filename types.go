@@ -364,9 +364,10 @@ const (
 	EntityTypeOmnichannelOneTimeOrderItem                EntityType = "omnichannel_one_time_order_item"
 	EntityTypeUsageFile                                  EntityType = "usage_file"
 	EntityTypeBusinessRule                               EntityType = "business_rule"
-	EntityTypeRuleset                                    EntityType = "ruleset"
+	EntityTypeBusinessRuleset                            EntityType = "business_ruleset"
 	EntityTypeAlertStatus                                EntityType = "alert_status"
 	EntityTypeOmnichannelSubscriptionItemMetric          EntityType = "omnichannel_subscription_item_metric"
+	EntityTypePriceRamp                                  EntityType = "price_ramp"
 )
 
 type EventName string
@@ -468,6 +469,7 @@ const (
 	GatewayTempus                Gateway = "tempus"
 	GatewayMoyasar               Gateway = "moyasar"
 	GatewayPayway                Gateway = "payway"
+	GatewayPayu                  Gateway = "payu"
 	GatewayGocardless            Gateway = "gocardless"
 	GatewayNotApplicable         Gateway = "not_applicable"
 )
@@ -535,6 +537,7 @@ const (
 	GatewayNameTempus                GatewayName = "tempus"
 	GatewayNameMoyasar               GatewayName = "moyasar"
 	GatewayNamePayway                GatewayName = "payway"
+	GatewayNamePayu                  GatewayName = "payu"
 	GatewayNameNotApplicable         GatewayName = "not_applicable"
 )
 
@@ -657,10 +660,12 @@ const (
 	PaymentMethodBankTransfer              PaymentMethod = "bank_transfer"
 	PaymentMethodOther                     PaymentMethod = "other"
 	PaymentMethodCustom                    PaymentMethod = "custom"
-	PaymentMethodDana                      PaymentMethod = "dana"
-	PaymentMethodTouchNGo                  PaymentMethod = "touch_n_go"
 	PaymentMethodTamara                    PaymentMethod = "tamara"
 	PaymentMethodQpay                      PaymentMethod = "qpay"
+	PaymentMethodBlik                      PaymentMethod = "blik"
+	PaymentMethodFpx                       PaymentMethod = "fpx"
+	PaymentMethodWero                      PaymentMethod = "wero"
+	PaymentMethodP24                       PaymentMethod = "p24"
 	PaymentMethodChargeback                PaymentMethod = "chargeback"
 	PaymentMethodCard                      PaymentMethod = "card"
 	PaymentMethodAmazonPayments            PaymentMethod = "amazon_payments"
@@ -714,6 +719,17 @@ const (
 	PaymentMethodPaynow                    PaymentMethod = "paynow"
 	PaymentMethodBizum                     PaymentMethod = "bizum"
 	PaymentMethodPromptpay                 PaymentMethod = "promptpay"
+	PaymentMethodDana                      PaymentMethod = "dana"
+	PaymentMethodTouchNGo                  PaymentMethod = "touch_n_go"
+	PaymentMethodOvo                       PaymentMethod = "ovo"
+	PaymentMethodMomo                      PaymentMethod = "momo"
+	PaymentMethodMercadoPago               PaymentMethod = "mercado_pago"
+	PaymentMethodNequi                     PaymentMethod = "nequi"
+	PaymentMethodNupay                     PaymentMethod = "nupay"
+	PaymentMethodPicpay                    PaymentMethod = "picpay"
+	PaymentMethodThaiQr                    PaymentMethod = "thai_qr"
+	PaymentMethodAffirmPay                 PaymentMethod = "affirm_pay"
+	PaymentMethodRakutenPay                PaymentMethod = "rakuten_pay"
 )
 
 type PaymentMethodSavePolicy string
@@ -781,6 +797,19 @@ const (
 	PaymentMethodTypeTouchNGo                  PaymentMethodType = "touch_n_go"
 	PaymentMethodTypeTamara                    PaymentMethodType = "tamara"
 	PaymentMethodTypeQpay                      PaymentMethodType = "qpay"
+	PaymentMethodTypeOvo                       PaymentMethodType = "ovo"
+	PaymentMethodTypeMomo                      PaymentMethodType = "momo"
+	PaymentMethodTypeMercadoPago               PaymentMethodType = "mercado_pago"
+	PaymentMethodTypeNequi                     PaymentMethodType = "nequi"
+	PaymentMethodTypeNupay                     PaymentMethodType = "nupay"
+	PaymentMethodTypePicpay                    PaymentMethodType = "picpay"
+	PaymentMethodTypeThaiQr                    PaymentMethodType = "thai_qr"
+	PaymentMethodTypeBlik                      PaymentMethodType = "blik"
+	PaymentMethodTypeFpx                       PaymentMethodType = "fpx"
+	PaymentMethodTypeWero                      PaymentMethodType = "wero"
+	PaymentMethodTypeP24                       PaymentMethodType = "p24"
+	PaymentMethodTypeAffirmPay                 PaymentMethodType = "affirm_pay"
+	PaymentMethodTypeRakutenPay                PaymentMethodType = "rakuten_pay"
 )
 
 type PaymentVoucherType string
@@ -921,12 +950,20 @@ const (
 type Status string
 
 const (
+	StatusScheduled     Status = "scheduled"
+	StatusRescheduled   Status = "rescheduled"
+	StatusSucceeded     Status = "succeeded"
+	StatusFailed        Status = "failed"
+	StatusDeferred      Status = "deferred"
+	StatusDelivered     Status = "delivered"
+	StatusOpened        Status = "opened"
+	StatusBounced       Status = "bounced"
+	StatusDropped       Status = "dropped"
 	StatusActive        Status = "active"
 	StatusArchived      Status = "archived"
 	StatusDeleted       Status = "deleted"
 	StatusAvailable     Status = "available"
 	StatusExhausted     Status = "exhausted"
-	StatusScheduled     Status = "scheduled"
 	StatusInGracePeriod Status = "in_grace_period"
 )
 
@@ -975,8 +1012,9 @@ const (
 type Taxability string
 
 const (
-	TaxabilityTaxable Taxability = "taxable"
-	TaxabilityExempt  Taxability = "exempt"
+	TaxabilityTaxable   Taxability = "taxable"
+	TaxabilityExempt    Taxability = "exempt"
+	TaxabilityZeroRated Taxability = "zero_rated"
 )
 
 type TaxjarExemptionCategory string
@@ -1053,6 +1091,19 @@ const (
 	TypeTouchNGo                  Type = "touch_n_go"
 	TypeTamara                    Type = "tamara"
 	TypeQpay                      Type = "qpay"
+	TypeOvo                       Type = "ovo"
+	TypeMomo                      Type = "momo"
+	TypeMercadoPago               Type = "mercado_pago"
+	TypeNequi                     Type = "nequi"
+	TypeNupay                     Type = "nupay"
+	TypePicpay                    Type = "picpay"
+	TypeThaiQr                    Type = "thai_qr"
+	TypeBlik                      Type = "blik"
+	TypeFpx                       Type = "fpx"
+	TypeWero                      Type = "wero"
+	TypeP24                       Type = "p24"
+	TypeAffirmPay                 Type = "affirm_pay"
+	TypeRakutenPay                Type = "rakuten_pay"
 	TypeFreeTrial                 Type = "free_trial"
 	TypePayUpFront                Type = "pay_up_front"
 	TypePayAsYouGo                Type = "pay_as_you_go"
@@ -1136,6 +1187,18 @@ const (
 	EventTypeBusinessEntityCreated                                   EventType = "business_entity_created"
 	EventTypeBusinessEntityDeleted                                   EventType = "business_entity_deleted"
 	EventTypeBusinessEntityUpdated                                   EventType = "business_entity_updated"
+	EventTypeBusinessRuleActivated                                   EventType = "business_rule_activated"
+	EventTypeBusinessRuleCreated                                     EventType = "business_rule_created"
+	EventTypeBusinessRuleDeactivated                                 EventType = "business_rule_deactivated"
+	EventTypeBusinessRuleDeleted                                     EventType = "business_rule_deleted"
+	EventTypeBusinessRuleReleased                                    EventType = "business_rule_released"
+	EventTypeBusinessRuleUpdated                                     EventType = "business_rule_updated"
+	EventTypeBusinessRulesApplied                                    EventType = "business_rules_applied"
+	EventTypeBusinessRulesetActivated                                EventType = "business_ruleset_activated"
+	EventTypeBusinessRulesetCreated                                  EventType = "business_ruleset_created"
+	EventTypeBusinessRulesetDeactivated                              EventType = "business_ruleset_deactivated"
+	EventTypeBusinessRulesetDeleted                                  EventType = "business_ruleset_deleted"
+	EventTypeBusinessRulesetUpdated                                  EventType = "business_ruleset_updated"
 	EventTypeCardAdded                                               EventType = "card_added"
 	EventTypeCardDeleted                                             EventType = "card_deleted"
 	EventTypeCardExpired                                             EventType = "card_expired"
@@ -1170,6 +1233,8 @@ const (
 	EventTypeDifferentialPriceDeleted                                EventType = "differential_price_deleted"
 	EventTypeDifferentialPriceUpdated                                EventType = "differential_price_updated"
 	EventTypeDunningUpdated                                          EventType = "dunning_updated"
+	EventTypeEinvoiceCreated                                         EventType = "einvoice_created"
+	EventTypeEinvoiceUpdated                                         EventType = "einvoice_updated"
 	EventTypeEntitlementOverridesAutoRemoved                         EventType = "entitlement_overrides_auto_removed"
 	EventTypeEntitlementOverridesRemoved                             EventType = "entitlement_overrides_removed"
 	EventTypeEntitlementOverridesUpdated                             EventType = "entitlement_overrides_updated"

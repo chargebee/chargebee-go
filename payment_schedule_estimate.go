@@ -27,9 +27,10 @@ type PaymentScheduleEstimate struct {
 }
 
 type PaymentScheduleEstimateScheduleEntry struct {
-	Id     string                                     `json:"id"`
-	Date   int64                                      `json:"date"`
-	Amount int64                                      `json:"amount"`
-	Status PaymentScheduleEstimateScheduleEntryStatus `json:"status"`
-	Object string                                     `json:"object"`
+	Id              string                                     `json:"id"`
+	Date            int64                                      `json:"date"`
+	Amount          int64                                      `json:"amount"`
+	ScheduledAmount int64                                      `json:"scheduled_amount"`
+	Status          PaymentScheduleEstimateScheduleEntryStatus `json:"status"`
+	Object          string                                     `json:"object"`
 }

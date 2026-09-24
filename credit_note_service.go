@@ -79,6 +79,16 @@ func (s *CreditNoteService) VoidCreditNote(id string, req *CreditNoteVoidCreditN
 	return send[*CreditNoteVoidCreditNoteResponse](req, s.config)
 }
 
+func (s *CreditNoteService) SendEmail(req *CreditNoteSendEmailRequest) (*CreditNoteSendEmailResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/credit_notes/%v/send_email", url.PathEscape(req.Id))
+	req.isIdempotent = true
+	req.telemetryResource = "creditNote"
+	req.telemetryOperation = "sendEmail"
+
+	return send[*CreditNoteSendEmailResponse](req, s.config)
+}
+
 func (s *CreditNoteService) List(req *CreditNoteListRequest) (*CreditNoteListResponse, error) {
 	req.method = "GET"
 	req.path = "/credit_notes"

@@ -5,6 +5,13 @@ import (
 	"encoding/json"
 )
 
+type EinvoiceEntityType string
+
+const (
+	EinvoiceEntityTypeInvoice    EinvoiceEntityType = "invoice"
+	EinvoiceEntityTypeCreditNote EinvoiceEntityType = "credit_note"
+)
+
 type EinvoiceStatus string
 
 const (
@@ -23,12 +30,87 @@ const (
 	EinvoiceStatusPaid                   EinvoiceStatus = "paid"
 )
 
+type EinvoiceArtifactDirection string
+
+const (
+	EinvoiceArtifactDirectionOutbound EinvoiceArtifactDirection = "outbound"
+	EinvoiceArtifactDirectionInbound  EinvoiceArtifactDirection = "inbound"
+)
+
+type EinvoiceArtifactStatus string
+
+const (
+	EinvoiceArtifactStatusScheduled  EinvoiceArtifactStatus = "scheduled"
+	EinvoiceArtifactStatusSkipped    EinvoiceArtifactStatus = "skipped"
+	EinvoiceArtifactStatusInProgress EinvoiceArtifactStatus = "in_progress"
+	EinvoiceArtifactStatusSuccess    EinvoiceArtifactStatus = "success"
+	EinvoiceArtifactStatusFailed     EinvoiceArtifactStatus = "failed"
+	EinvoiceArtifactStatusRegistered EinvoiceArtifactStatus = "registered"
+)
+
 type Einvoice struct {
-	Id                 string          `json:"id"`
-	ReferenceId        string          `json:"reference_id"`
-	ReferenceNumber    string          `json:"reference_number"`
-	Status             EinvoiceStatus  `json:"status"`
-	Message            string          `json:"message"`
-	ProviderReferences json.RawMessage `json:"provider_references"`
-	Object             string          `json:"object"`
+	Id                 string              `json:"id"`
+	EntityType         EinvoiceEntityType  `json:"entity_type"`
+	EntityId           string              `json:"entity_id"`
+	ReferenceId        string              `json:"reference_id"`
+	ReferenceNumber    string              `json:"reference_number"`
+	Status             EinvoiceStatus      `json:"status"`
+	Message            string              `json:"message"`
+	CreatedAt          int64               `json:"created_at"`
+	ResourceVersion    int64               `json:"resource_version"`
+	UpdatedAt          int64               `json:"updated_at"`
+	Deleted            bool                `json:"deleted"`
+	ProviderReferences json.RawMessage     `json:"provider_references"`
+	BusinessEntityId   string              `json:"business_entity_id"`
+	Artifacts          []*EinvoiceArtifact `json:"artifacts"`
+	Object             string              `json:"object"`
+}
+
+type EinvoiceArtifact struct {
+	ArtifactType       string                    `json:"artifact_type"`
+	Direction          EinvoiceArtifactDirection `json:"direction"`
+	Status             EinvoiceArtifactStatus    `json:"status"`
+	Code               string                    `json:"code"`
+	ExternalArtifactId string                    `json:"external_artifact_id"`
+	CreatedAt          int64                     `json:"created_at"`
+	ResourceVersion    int64                     `json:"resource_version"`
+	UpdatedAt          int64                     `json:"updated_at"`
+	Deleted            bool                      `json:"deleted"`
+	Object             string                    `json:"object"`
+}
+
+type EinvoiceRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *EinvoiceRetrieveRequest) payload() any { return r }
+
+type EinvoiceListEinvoicesRequest struct {
+	Limit        *int32           `json:"limit,omitempty"`
+	Offset       string           `json:"offset,omitempty"`
+	Id           *StringFilter    `json:"id,omitempty"`
+	ReferenceId  *StringFilter    `json:"reference_id,omitempty"`
+	UpdatedAt    *TimestampFilter `json:"updated_at,omitempty"`
+	SortBy       *SortFilter      `json:"sort_by,omitempty"`
+	InvoiceId    string           `json:"invoice_id,omitempty"`
+	CreditNoteId string           `json:"credit_note_id,omitempty"`
+	apiRequest   `json:"-" form:"-"`
+}
+
+func (r *EinvoiceListEinvoicesRequest) payload() any { return r }
+
+type EinvoiceRetrieveResponse struct {
+	Einvoice *Einvoice `json:"einvoice,omitempty"`
+	apiResponse
+}
+
+type EinvoiceListEinvoicesEinvoiceResponse struct {
+	Einvoice *Einvoice `json:"einvoice,omitempty"`
+}
+
+type EinvoiceListEinvoicesResponse struct {
+	List       []*EinvoiceListEinvoicesEinvoiceResponse `json:"list,omitempty"`
+	NextOffset string                                   `json:"next_offset,omitempty"`
+	apiResponse
 }

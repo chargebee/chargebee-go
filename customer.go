@@ -100,6 +100,7 @@ const (
 	CustomerCardPreferredSchemeCartesBancaires CustomerCardPreferredScheme = "cartes_bancaires"
 	CustomerCardPreferredSchemeMastercard      CustomerCardPreferredScheme = "mastercard"
 	CustomerCardPreferredSchemeVisa            CustomerCardPreferredScheme = "visa"
+	CustomerCardPreferredSchemeDankort         CustomerCardPreferredScheme = "dankort"
 )
 
 type Customer struct {
@@ -170,6 +171,7 @@ type Customer struct {
 	VatNumberPrefix                  string                       `json:"vat_number_prefix"`
 	EntityIdentifierScheme           string                       `json:"entity_identifier_scheme"`
 	EntityIdentifierStandard         string                       `json:"entity_identifier_standard"`
+	BrandId                          string                       `json:"brand_id"`
 	CustomFields                     *CustomFields                `json:"-"`
 	Consents                         map[string]interface{}       `json:"consents"`
 	Object                           string                       `json:"object"`
@@ -325,6 +327,7 @@ type CustomerCreateRequest struct {
 	BillingAddress                   *CustomerCreateBillingAddress      `json:"billing_address,omitempty"`
 	EntityIdentifiers                []*CustomerCreateEntityIdentifier  `json:"entity_identifiers,omitempty"`
 	BusinessEntityId                 string                             `json:"business_entity_id,omitempty"`
+	BrandId                          string                             `json:"brand_id,omitempty"`
 	TaxProvidersFields               []*CustomerCreateTaxProvidersField `json:"tax_providers_fields,omitempty"`
 	InvoiceNotes                     string                             `json:"invoice_notes,omitempty"`
 	apiRequest                       `json:"-" form:"-"`
@@ -737,6 +740,13 @@ type CustomerCollectPaymentPaymentIntent struct {
 	AdditionalInformation map[string]interface{}         `json:"additional_information,omitempty"`
 }
 
+type CustomerSendPaymentRequestRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *CustomerSendPaymentRequestRequest) payload() any { return r }
+
 type CustomerDeleteRequest struct {
 	DeletePaymentMethod *bool `json:"delete_payment_method,omitempty"`
 	apiRequest          `json:"-" form:"-"`
@@ -953,6 +963,11 @@ type CustomerRecordExcessPaymentResponse struct {
 type CustomerCollectPaymentResponse struct {
 	Customer    *Customer   `json:"customer,omitempty"`
 	Transaction Transaction `json:"transaction,omitempty"`
+	apiResponse
+}
+
+type CustomerSendPaymentRequestResponse struct {
+	EmailLogs []EmailLog `json:"email_logs,omitempty"`
 	apiResponse
 }
 

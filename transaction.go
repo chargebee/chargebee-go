@@ -107,53 +107,54 @@ const (
 )
 
 type Transaction struct {
-	Id                       string                         `json:"id"`
-	CustomerId               string                         `json:"customer_id"`
-	SubscriptionId           string                         `json:"subscription_id"`
-	GatewayAccountId         string                         `json:"gateway_account_id"`
-	PaymentSourceId          string                         `json:"payment_source_id"`
-	PaymentMethod            PaymentMethod                  `json:"payment_method"`
-	ReferenceNumber          string                         `json:"reference_number"`
-	Gateway                  Gateway                        `json:"gateway"`
-	Type                     TransactionType                `json:"type"`
-	Date                     int64                          `json:"date"`
-	SettledAt                int64                          `json:"settled_at"`
-	ExchangeRate             float64                        `json:"exchange_rate"`
-	CurrencyCode             string                         `json:"currency_code"`
-	Amount                   int64                          `json:"amount"`
-	IdAtGateway              string                         `json:"id_at_gateway"`
-	Status                   TransactionStatus              `json:"status"`
-	FraudFlag                TransactionFraudFlag           `json:"fraud_flag"`
-	InitiatorType            TransactionInitiatorType       `json:"initiator_type"`
-	ThreeDSecure             bool                           `json:"three_d_secure"`
-	AuthorizationReason      TransactionAuthorizationReason `json:"authorization_reason"`
-	ErrorCode                string                         `json:"error_code"`
-	ErrorText                string                         `json:"error_text"`
-	VoidedAt                 int64                          `json:"voided_at"`
-	ResourceVersion          int64                          `json:"resource_version"`
-	UpdatedAt                int64                          `json:"updated_at"`
-	FraudReason              string                         `json:"fraud_reason"`
-	CustomPaymentMethodId    string                         `json:"custom_payment_method_id"`
-	AmountUnused             int64                          `json:"amount_unused"`
-	MaskedCardNumber         string                         `json:"masked_card_number"`
-	ReferenceTransactionId   string                         `json:"reference_transaction_id"`
-	RefundedTxnId            string                         `json:"refunded_txn_id"`
-	ReferenceAuthorizationId string                         `json:"reference_authorization_id"`
-	AmountCapturable         int64                          `json:"amount_capturable"`
-	ReversalTransactionId    string                         `json:"reversal_transaction_id"`
-	LinkedInvoices           []*TransactionLinkedInvoice    `json:"linked_invoices"`
-	LinkedCreditNotes        []*TransactionLinkedCreditNote `json:"linked_credit_notes"`
-	LinkedRefunds            []*TransactionLinkedRefund     `json:"linked_refunds"`
-	LinkedPayments           []*TransactionLinkedPayment    `json:"linked_payments"`
-	Deleted                  bool                           `json:"deleted"`
-	Iin                      string                         `json:"iin"`
-	Last4                    string                         `json:"last4"`
-	MerchantReferenceId      string                         `json:"merchant_reference_id"`
-	BusinessEntityId         string                         `json:"business_entity_id"`
-	PaymentMethodDetails     string                         `json:"payment_method_details"`
-	ErrorDetail              *TransactionGatewayErrorDetail `json:"error_detail"`
-	CustomPaymentMethodName  string                         `json:"custom_payment_method_name"`
-	Object                   string                         `json:"object"`
+	Id                        string                               `json:"id"`
+	CustomerId                string                               `json:"customer_id"`
+	SubscriptionId            string                               `json:"subscription_id"`
+	GatewayAccountId          string                               `json:"gateway_account_id"`
+	PaymentSourceId           string                               `json:"payment_source_id"`
+	PaymentMethod             PaymentMethod                        `json:"payment_method"`
+	ReferenceNumber           string                               `json:"reference_number"`
+	Gateway                   Gateway                              `json:"gateway"`
+	Type                      TransactionType                      `json:"type"`
+	Date                      int64                                `json:"date"`
+	SettledAt                 int64                                `json:"settled_at"`
+	ExchangeRate              float64                              `json:"exchange_rate"`
+	CurrencyCode              string                               `json:"currency_code"`
+	Amount                    int64                                `json:"amount"`
+	IdAtGateway               string                               `json:"id_at_gateway"`
+	Status                    TransactionStatus                    `json:"status"`
+	FraudFlag                 TransactionFraudFlag                 `json:"fraud_flag"`
+	InitiatorType             TransactionInitiatorType             `json:"initiator_type"`
+	ThreeDSecure              bool                                 `json:"three_d_secure"`
+	AuthorizationReason       TransactionAuthorizationReason       `json:"authorization_reason"`
+	ErrorCode                 string                               `json:"error_code"`
+	ErrorText                 string                               `json:"error_text"`
+	VoidedAt                  int64                                `json:"voided_at"`
+	ResourceVersion           int64                                `json:"resource_version"`
+	UpdatedAt                 int64                                `json:"updated_at"`
+	FraudReason               string                               `json:"fraud_reason"`
+	CustomPaymentMethodId     string                               `json:"custom_payment_method_id"`
+	AmountUnused              int64                                `json:"amount_unused"`
+	MaskedCardNumber          string                               `json:"masked_card_number"`
+	ReferenceTransactionId    string                               `json:"reference_transaction_id"`
+	RefundedTxnId             string                               `json:"refunded_txn_id"`
+	ReferenceAuthorizationId  string                               `json:"reference_authorization_id"`
+	AmountCapturable          int64                                `json:"amount_capturable"`
+	ReversalTransactionId     string                               `json:"reversal_transaction_id"`
+	LinkedInvoices            []*TransactionLinkedInvoice          `json:"linked_invoices"`
+	LinkedCreditNotes         []*TransactionLinkedCreditNote       `json:"linked_credit_notes"`
+	LinkedRefunds             []*TransactionLinkedRefund           `json:"linked_refunds"`
+	LinkedPayments            []*TransactionLinkedPayment          `json:"linked_payments"`
+	Deleted                   bool                                 `json:"deleted"`
+	Iin                       string                               `json:"iin"`
+	Last4                     string                               `json:"last4"`
+	MerchantReferenceId       string                               `json:"merchant_reference_id"`
+	BusinessEntityId          string                               `json:"business_entity_id"`
+	PaymentMethodDetails      string                               `json:"payment_method_details"`
+	ErrorDetail               *TransactionGatewayErrorDetail       `json:"error_detail"`
+	CustomPaymentMethodName   string                               `json:"custom_payment_method_name"`
+	NetworkTransactionDetails *TransactionNetworkTransactionDetail `json:"network_transaction_details"`
+	Object                    string                               `json:"object"`
 }
 
 type TransactionLinkedInvoice struct {
@@ -212,6 +213,12 @@ type TransactionGatewayErrorDetail struct {
 	ErrorCauseId          string `json:"error_cause_id"`
 	ProcessorAdviceCode   string `json:"processor_advice_code"`
 	Object                string `json:"object"`
+}
+
+type TransactionNetworkTransactionDetail struct {
+	NetworkTransactionId         string `json:"network_transaction_id"`
+	OriginalNetworkTransactionId string `json:"original_network_transaction_id"`
+	Object                       string `json:"object"`
 }
 
 type TransactionCreateAuthorizationRequest struct {

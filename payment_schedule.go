@@ -15,24 +15,69 @@ const (
 	PaymentScheduleScheduleEntryStatusPaid       PaymentScheduleScheduleEntryStatus = "paid"
 )
 
+type PaymentScheduleReferenceTransactionTxnStatus string
+
+const (
+	PaymentScheduleReferenceTransactionTxnStatusInProgress     PaymentScheduleReferenceTransactionTxnStatus = "in_progress"
+	PaymentScheduleReferenceTransactionTxnStatusSuccess        PaymentScheduleReferenceTransactionTxnStatus = "success"
+	PaymentScheduleReferenceTransactionTxnStatusVoided         PaymentScheduleReferenceTransactionTxnStatus = "voided"
+	PaymentScheduleReferenceTransactionTxnStatusFailure        PaymentScheduleReferenceTransactionTxnStatus = "failure"
+	PaymentScheduleReferenceTransactionTxnStatusTimeout        PaymentScheduleReferenceTransactionTxnStatus = "timeout"
+	PaymentScheduleReferenceTransactionTxnStatusNeedsAttention PaymentScheduleReferenceTransactionTxnStatus = "needs_attention"
+	PaymentScheduleReferenceTransactionTxnStatusLateFailure    PaymentScheduleReferenceTransactionTxnStatus = "late_failure"
+)
+
 type PaymentSchedule struct {
-	Id              string                          `json:"id"`
-	SchemeId        string                          `json:"scheme_id"`
-	EntityType      PaymentScheduleEntityType       `json:"entity_type"`
-	EntityId        string                          `json:"entity_id"`
-	Amount          int64                           `json:"amount"`
-	CreatedAt       int64                           `json:"created_at"`
-	ResourceVersion int64                           `json:"resource_version"`
-	UpdatedAt       int64                           `json:"updated_at"`
-	CurrencyCode    string                          `json:"currency_code"`
-	ScheduleEntries []*PaymentScheduleScheduleEntry `json:"schedule_entries"`
-	Object          string                          `json:"object"`
+	Id                    string                                 `json:"id"`
+	SchemeId              string                                 `json:"scheme_id"`
+	EntityType            PaymentScheduleEntityType              `json:"entity_type"`
+	EntityId              string                                 `json:"entity_id"`
+	Amount                int64                                  `json:"amount"`
+	CreatedAt             int64                                  `json:"created_at"`
+	ResourceVersion       int64                                  `json:"resource_version"`
+	UpdatedAt             int64                                  `json:"updated_at"`
+	CurrencyCode          string                                 `json:"currency_code"`
+	ScheduleEntries       []*PaymentScheduleScheduleEntry        `json:"schedule_entries"`
+	ReferenceTransactions []*PaymentScheduleReferenceTransaction `json:"reference_transactions"`
+	Object                string                                 `json:"object"`
 }
 
 type PaymentScheduleScheduleEntry struct {
-	Id     string                             `json:"id"`
-	Date   int64                              `json:"date"`
-	Amount int64                              `json:"amount"`
-	Status PaymentScheduleScheduleEntryStatus `json:"status"`
-	Object string                             `json:"object"`
+	Id              string                             `json:"id"`
+	Date            int64                              `json:"date"`
+	Amount          int64                              `json:"amount"`
+	ScheduledAmount int64                              `json:"scheduled_amount"`
+	Status          PaymentScheduleScheduleEntryStatus `json:"status"`
+	Object          string                             `json:"object"`
+}
+
+type PaymentScheduleReferenceTransaction struct {
+	ScheduleEntryId string                                       `json:"schedule_entry_id"`
+	AppliedAmount   int64                                        `json:"applied_amount"`
+	TxnId           string                                       `json:"txn_id"`
+	TxnStatus       PaymentScheduleReferenceTransactionTxnStatus `json:"txn_status"`
+	TxnDate         int64                                        `json:"txn_date"`
+	TxnAmount       int64                                        `json:"txn_amount"`
+	Object          string                                       `json:"object"`
+}
+
+type PaymentScheduleListRequest struct {
+	Limit      *int32           `json:"limit,omitempty"`
+	Offset     string           `json:"offset,omitempty"`
+	InvoiceId  *StringFilter    `json:"invoice_id,omitempty"`
+	Id         *StringFilter    `json:"id,omitempty"`
+	UpdatedAt  *TimestampFilter `json:"updated_at,omitempty"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *PaymentScheduleListRequest) payload() any { return r }
+
+type PaymentScheduleListPaymentScheduleResponse struct {
+	PaymentSchedule *PaymentSchedule `json:"payment_schedule,omitempty"`
+}
+
+type PaymentScheduleListResponse struct {
+	List       []*PaymentScheduleListPaymentScheduleResponse `json:"list,omitempty"`
+	NextOffset string                                        `json:"next_offset,omitempty"`
+	apiResponse
 }

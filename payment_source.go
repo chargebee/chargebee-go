@@ -59,35 +59,38 @@ const (
 	PaymentSourceCardPreferredSchemeCartesBancaires PaymentSourceCardPreferredScheme = "cartes_bancaires"
 	PaymentSourceCardPreferredSchemeMastercard      PaymentSourceCardPreferredScheme = "mastercard"
 	PaymentSourceCardPreferredSchemeVisa            PaymentSourceCardPreferredScheme = "visa"
+	PaymentSourceCardPreferredSchemeDankort         PaymentSourceCardPreferredScheme = "dankort"
 )
 
 type PaymentSource struct {
-	Id               string                          `json:"id"`
-	ResourceVersion  int64                           `json:"resource_version"`
-	UpdatedAt        int64                           `json:"updated_at"`
-	CreatedAt        int64                           `json:"created_at"`
-	CustomerId       string                          `json:"customer_id"`
-	Type             Type                            `json:"type"`
-	ReferenceId      string                          `json:"reference_id"`
-	Status           PaymentSourceStatus             `json:"status"`
-	Gateway          Gateway                         `json:"gateway"`
-	GatewayAccountId string                          `json:"gateway_account_id"`
-	IpAddress        string                          `json:"ip_address"`
-	IssuingCountry   string                          `json:"issuing_country"`
-	Card             *PaymentSourceCard              `json:"card"`
-	BankAccount      *PaymentSourceBankAccount       `json:"bank_account"`
-	Boleto           *PaymentSourceCustVoucherSource `json:"boleto"`
-	BillingAddress   *PaymentSourceBillingAddress    `json:"billing_address"`
-	AmazonPayment    *PaymentSourceAmazonPayment     `json:"amazon_payment"`
-	Upi              *PaymentSourceUpi               `json:"upi"`
-	Paypal           *PaymentSourcePaypal            `json:"paypal"`
-	Venmo            *PaymentSourceVenmo             `json:"venmo"`
-	KlarnaPayNow     *PaymentSourceKlarnaPayNow      `json:"klarna_pay_now"`
-	Mandates         []*PaymentSourceMandate         `json:"mandates"`
-	VaultToken       json.RawMessage                 `json:"vault_token"`
-	Deleted          bool                            `json:"deleted"`
-	BusinessEntityId string                          `json:"business_entity_id"`
-	Object           string                          `json:"object"`
+	Id                          string                                    `json:"id"`
+	ResourceVersion             int64                                     `json:"resource_version"`
+	UpdatedAt                   int64                                     `json:"updated_at"`
+	CreatedAt                   int64                                     `json:"created_at"`
+	CustomerId                  string                                    `json:"customer_id"`
+	Type                        Type                                      `json:"type"`
+	ReferenceId                 string                                    `json:"reference_id"`
+	Status                      PaymentSourceStatus                       `json:"status"`
+	Gateway                     Gateway                                   `json:"gateway"`
+	GatewayAccountId            string                                    `json:"gateway_account_id"`
+	IpAddress                   string                                    `json:"ip_address"`
+	IssuingCountry              string                                    `json:"issuing_country"`
+	Card                        *PaymentSourceCard                        `json:"card"`
+	BankAccount                 *PaymentSourceBankAccount                 `json:"bank_account"`
+	Boleto                      *PaymentSourceCustVoucherSource           `json:"boleto"`
+	BillingAddress              *PaymentSourceBillingAddress              `json:"billing_address"`
+	AmazonPayment               *PaymentSourceAmazonPayment               `json:"amazon_payment"`
+	Upi                         *PaymentSourceUpi                         `json:"upi"`
+	Paypal                      *PaymentSourcePaypal                      `json:"paypal"`
+	Venmo                       *PaymentSourceVenmo                       `json:"venmo"`
+	KlarnaPayNow                *PaymentSourceKlarnaPayNow                `json:"klarna_pay_now"`
+	Mandates                    []*PaymentSourceMandate                   `json:"mandates"`
+	VaultToken                  json.RawMessage                           `json:"vault_token"`
+	NetworkTransactionReference *PaymentSourceNetworkTransactionReference `json:"network_transaction_reference"`
+	Deleted                     bool                                      `json:"deleted"`
+	BusinessEntityId            string                                    `json:"business_entity_id"`
+	BrandId                     string                                    `json:"brand_id"`
+	Object                      string                                    `json:"object"`
 }
 
 type PaymentSourceCard struct {
@@ -185,12 +188,18 @@ type PaymentSourceMandate struct {
 	Object         string `json:"object"`
 }
 
+type PaymentSourceNetworkTransactionReference struct {
+	OriginalNetworkTransactionId string `json:"original_network_transaction_id"`
+	Object                       string `json:"object"`
+}
+
 type PaymentSourceCreateUsingTempTokenRequest struct {
 	CustomerId                  string                 `json:"customer_id"`
 	GatewayAccountId            string                 `json:"gateway_account_id,omitempty"`
 	Type                        Type                   `json:"type"`
 	TmpToken                    string                 `json:"tmp_token"`
 	IssuingCountry              string                 `json:"issuing_country,omitempty"`
+	BrandId                     string                 `json:"brand_id,omitempty"`
 	ReplacePrimaryPaymentSource *bool                  `json:"replace_primary_payment_source,omitempty"`
 	AdditionalInformation       map[string]interface{} `json:"additional_information,omitempty"`
 	apiRequest                  `json:"-" form:"-"`
@@ -200,6 +209,7 @@ func (r *PaymentSourceCreateUsingTempTokenRequest) payload() any { return r }
 
 type PaymentSourceCreateUsingPermanentTokenRequest struct {
 	CustomerId                  string                                                `json:"customer_id"`
+	BrandId                     string                                                `json:"brand_id,omitempty"`
 	Type                        Type                                                  `json:"type"`
 	GatewayAccountId            string                                                `json:"gateway_account_id,omitempty"`
 	ReferenceId                 string                                                `json:"reference_id,omitempty"`
@@ -243,6 +253,7 @@ type PaymentSourceCreateUsingPermanentTokenBillingAddress struct {
 
 type PaymentSourceCreateUsingTokenRequest struct {
 	CustomerId                  string `json:"customer_id"`
+	BrandId                     string `json:"brand_id,omitempty"`
 	ReplacePrimaryPaymentSource *bool  `json:"replace_primary_payment_source,omitempty"`
 	TokenId                     string `json:"token_id"`
 	apiRequest                  `json:"-" form:"-"`
@@ -252,6 +263,7 @@ func (r *PaymentSourceCreateUsingTokenRequest) payload() any { return r }
 
 type PaymentSourceCreateUsingPaymentIntentRequest struct {
 	CustomerId                  string                                              `json:"customer_id"`
+	BrandId                     string                                              `json:"brand_id,omitempty"`
 	PaymentIntent               *PaymentSourceCreateUsingPaymentIntentPaymentIntent `json:"payment_intent,omitempty"`
 	ReplacePrimaryPaymentSource *bool                                               `json:"replace_primary_payment_source,omitempty"`
 	apiRequest                  `json:"-" form:"-"`
@@ -272,6 +284,7 @@ type PaymentSourceCreateUsingPaymentIntentPaymentIntent struct {
 
 type PaymentSourceCreateVoucherPaymentSourceRequest struct {
 	CustomerId           string                                                       `json:"customer_id"`
+	BrandId              string                                                       `json:"brand_id,omitempty"`
 	VoucherPaymentSource *PaymentSourceCreateVoucherPaymentSourceVoucherPaymentSource `json:"voucher_payment_source,omitempty"`
 	apiRequest           `json:"-" form:"-"`
 }
@@ -287,6 +300,7 @@ type PaymentSourceCreateVoucherPaymentSourceVoucherPaymentSource struct {
 
 type PaymentSourceCreateCardRequest struct {
 	CustomerId                  string                       `json:"customer_id"`
+	BrandId                     string                       `json:"brand_id,omitempty"`
 	Card                        *PaymentSourceCreateCardCard `json:"card,omitempty"`
 	ReplacePrimaryPaymentSource *bool                        `json:"replace_primary_payment_source,omitempty"`
 	apiRequest                  `json:"-" form:"-"`
@@ -315,6 +329,7 @@ type PaymentSourceCreateCardCard struct {
 
 type PaymentSourceCreateBankAccountRequest struct {
 	CustomerId                  string                                     `json:"customer_id"`
+	BrandId                     string                                     `json:"brand_id,omitempty"`
 	BankAccount                 *PaymentSourceCreateBankAccountBankAccount `json:"bank_account,omitempty"`
 	IssuingCountry              string                                     `json:"issuing_country,omitempty"`
 	ReplacePrimaryPaymentSource *bool                                      `json:"replace_primary_payment_source,omitempty"`
@@ -343,10 +358,11 @@ type PaymentSourceCreateBankAccountBankAccount struct {
 }
 
 type PaymentSourceUpdateCardRequest struct {
-	Card                 *PaymentSourceUpdateCardCard `json:"card,omitempty"`
-	GatewayMetaData      map[string]interface{}       `json:"gateway_meta_data,omitempty"`
-	ReferenceTransaction string                       `json:"reference_transaction,omitempty"`
-	apiRequest           `json:"-" form:"-"`
+	Card                        *PaymentSourceUpdateCardCard                        `json:"card,omitempty"`
+	GatewayMetaData             map[string]interface{}                              `json:"gateway_meta_data,omitempty"`
+	ReferenceTransaction        string                                              `json:"reference_transaction,omitempty"`
+	NetworkTransactionReference *PaymentSourceUpdateCardNetworkTransactionReference `json:"network_transaction_reference,omitempty"`
+	apiRequest                  `json:"-" form:"-"`
 }
 
 func (r *PaymentSourceUpdateCardRequest) payload() any { return r }
@@ -364,6 +380,10 @@ type PaymentSourceUpdateCardCard struct {
 	BillingState          string                 `json:"billing_state,omitempty"`
 	BillingCountry        string                 `json:"billing_country,omitempty"`
 	AdditionalInformation map[string]interface{} `json:"additional_information,omitempty"`
+}
+
+type PaymentSourceUpdateCardNetworkTransactionReference struct {
+	OriginalNetworkTransactionId string `json:"original_network_transaction_id,omitempty"`
 }
 
 type PaymentSourceUpdateBankAccountRequest struct {

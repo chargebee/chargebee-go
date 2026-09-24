@@ -53,6 +53,16 @@ type PaymentScheduleSchemeRetrieveRequest struct {
 
 func (r *PaymentScheduleSchemeRetrieveRequest) payload() any { return r }
 
+type PaymentScheduleSchemeListRequest struct {
+	Limit      *int32           `json:"limit,omitempty"`
+	Offset     string           `json:"offset,omitempty"`
+	Id         *StringFilter    `json:"id,omitempty"`
+	UpdatedAt  *TimestampFilter `json:"updated_at,omitempty"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *PaymentScheduleSchemeListRequest) payload() any { return r }
+
 type PaymentScheduleSchemeDeleteRequest struct {
 	Id         string `json:"-" form:"-"`
 	apiRequest `json:"-" form:"-"`
@@ -67,6 +77,16 @@ type PaymentScheduleSchemeCreateResponse struct {
 
 type PaymentScheduleSchemeRetrieveResponse struct {
 	PaymentScheduleScheme *PaymentScheduleScheme `json:"payment_schedule_scheme,omitempty"`
+	apiResponse
+}
+
+type PaymentScheduleSchemeListPaymentScheduleSchemeResponse struct {
+	PaymentScheduleScheme *PaymentScheduleScheme `json:"payment_schedule_scheme,omitempty"`
+}
+
+type PaymentScheduleSchemeListResponse struct {
+	List       []*PaymentScheduleSchemeListPaymentScheduleSchemeResponse `json:"list,omitempty"`
+	NextOffset string                                                    `json:"next_offset,omitempty"`
 	apiResponse
 }
 

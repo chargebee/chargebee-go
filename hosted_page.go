@@ -66,6 +66,7 @@ type HostedPage struct {
 	ResourceVersion  int64                   `json:"resource_version"`
 	CheckoutInfo     json.RawMessage         `json:"checkout_info"`
 	BusinessEntityId string                  `json:"business_entity_id"`
+	BrandId          string                  `json:"brand_id"`
 	Object           string                  `json:"object"`
 }
 
@@ -297,6 +298,7 @@ type HostedPageCheckoutOneTimeShippingAddress struct {
 
 type HostedPageCheckoutOneTimeForItemsRequest struct {
 	BusinessEntityId  string                                               `json:"business_entity_id,omitempty"`
+	BrandId           string                                               `json:"brand_id,omitempty"`
 	Layout            Layout                                               `json:"layout,omitempty"`
 	Customer          *HostedPageCheckoutOneTimeForItemsCustomer           `json:"customer,omitempty"`
 	ItemPrices        []*HostedPageCheckoutOneTimeForItemsItemPrice        `json:"item_prices,omitempty"`
@@ -438,6 +440,7 @@ type HostedPageCheckoutNewForItemsRequest struct {
 	Subscription               *HostedPageCheckoutNewForItemsSubscription       `json:"subscription,omitempty"`
 	Layout                     Layout                                           `json:"layout,omitempty"`
 	BusinessEntityId           string                                           `json:"business_entity_id,omitempty"`
+	BrandId                    string                                           `json:"brand_id,omitempty"`
 	Customer                   *HostedPageCheckoutNewForItemsCustomer           `json:"customer,omitempty"`
 	BillingCycles              *int32                                           `json:"billing_cycles,omitempty"`
 	SubscriptionItems          []*HostedPageCheckoutNewForItemsSubscriptionItem `json:"subscription_items,omitempty"`
@@ -667,6 +670,7 @@ type HostedPageCheckoutExistingContractTerm struct {
 type HostedPageCheckoutExistingForItemsRequest struct {
 	Layout                     Layout                                                `json:"layout,omitempty"`
 	Subscription               *HostedPageCheckoutExistingForItemsSubscription       `json:"subscription,omitempty"`
+	BrandId                    string                                                `json:"brand_id,omitempty"`
 	SubscriptionItems          []*HostedPageCheckoutExistingForItemsSubscriptionItem `json:"subscription_items,omitempty"`
 	MandatoryItemsToRemove     []string                                              `json:"mandatory_items_to_remove,omitempty"`
 	ReplaceItemsList           *bool                                                 `json:"replace_items_list,omitempty"`
@@ -826,6 +830,7 @@ type HostedPageUpdatePaymentMethodCard struct {
 
 type HostedPageManagePaymentSourcesRequest struct {
 	BusinessEntityId string                                  `json:"business_entity_id,omitempty"`
+	BrandId          string                                  `json:"brand_id,omitempty"`
 	Customer         *HostedPageManagePaymentSourcesCustomer `json:"customer,omitempty"`
 	RedirectUrl      string                                  `json:"redirect_url,omitempty"`
 	Card             *HostedPageManagePaymentSourcesCard     `json:"card,omitempty"`
@@ -845,6 +850,7 @@ type HostedPageManagePaymentSourcesCard struct {
 
 type HostedPageCollectNowRequest struct {
 	Customer                *HostedPageCollectNowCustomer `json:"customer,omitempty"`
+	BrandId                 string                        `json:"brand_id,omitempty"`
 	RedirectUrl             string                        `json:"redirect_url,omitempty"`
 	Card                    *HostedPageCollectNowCard     `json:"card,omitempty"`
 	CurrencyCode            string                        `json:"currency_code,omitempty"`
@@ -865,6 +871,7 @@ type HostedPageCollectNowCard struct {
 
 type HostedPageAcceptQuoteRequest struct {
 	Quote       *HostedPageAcceptQuoteQuote `json:"quote,omitempty"`
+	BrandId     string                      `json:"brand_id,omitempty"`
 	RedirectUrl string                      `json:"redirect_url,omitempty"`
 	Layout      Layout                      `json:"layout,omitempty"`
 	apiRequest  `json:"-" form:"-"`
@@ -878,6 +885,7 @@ type HostedPageAcceptQuoteQuote struct {
 
 type HostedPageExtendSubscriptionRequest struct {
 	Subscription *HostedPageExtendSubscriptionSubscription `json:"subscription,omitempty"`
+	BrandId      string                                    `json:"brand_id,omitempty"`
 	Expiry       *int32                                    `json:"expiry,omitempty"`
 	BillingCycle *int32                                    `json:"billing_cycle,omitempty"`
 	apiRequest   `json:"-" form:"-"`
@@ -920,6 +928,7 @@ type HostedPageCheckoutGiftAddon struct {
 type HostedPageCheckoutGiftForItemsRequest struct {
 	Layout            Layout                                            `json:"layout,omitempty"`
 	BusinessEntityId  string                                            `json:"business_entity_id,omitempty"`
+	BrandId           string                                            `json:"brand_id,omitempty"`
 	Gifter            *HostedPageCheckoutGiftForItemsGifter             `json:"gifter,omitempty"`
 	RedirectUrl       string                                            `json:"redirect_url,omitempty"`
 	SubscriptionItems []*HostedPageCheckoutGiftForItemsSubscriptionItem `json:"subscription_items,omitempty"`
@@ -954,6 +963,7 @@ type HostedPageCheckoutGiftForItemsItemTier struct {
 
 type HostedPageClaimGiftRequest struct {
 	Gift        *HostedPageClaimGiftGift     `json:"gift,omitempty"`
+	BrandId     string                       `json:"brand_id,omitempty"`
 	RedirectUrl string                       `json:"redirect_url,omitempty"`
 	Customer    *HostedPageClaimGiftCustomer `json:"customer,omitempty"`
 	apiRequest  `json:"-" form:"-"`
@@ -1004,6 +1014,7 @@ func (r *HostedPageListRequest) payload() any { return r }
 
 type HostedPagePreCancelRequest struct {
 	Subscription    *HostedPagePreCancelSubscription `json:"subscription,omitempty"`
+	BrandId         string                           `json:"brand_id,omitempty"`
 	PassThruContent string                           `json:"pass_thru_content,omitempty"`
 	CancelUrl       string                           `json:"cancel_url,omitempty"`
 	RedirectUrl     string                           `json:"redirect_url,omitempty"`

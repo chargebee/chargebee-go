@@ -23,6 +23,7 @@ type PricingPageSessionCreateForNewSubscriptionRequest struct {
 	PricingPage             *PricingPageSessionCreateForNewSubscriptionPricingPage     `json:"pricing_page,omitempty"`
 	Subscription            *PricingPageSessionCreateForNewSubscriptionSubscription    `json:"subscription,omitempty"`
 	BusinessEntityId        string                                                     `json:"business_entity_id,omitempty"`
+	BrandId                 string                                                     `json:"brand_id,omitempty"`
 	AutoSelectLocalCurrency *bool                                                      `json:"auto_select_local_currency,omitempty"`
 	Custom                  map[string]interface{}                                     `json:"custom,omitempty"`
 	Customer                *PricingPageSessionCreateForNewSubscriptionCustomer        `json:"customer,omitempty"`

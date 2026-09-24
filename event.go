@@ -44,6 +44,7 @@ type Event struct {
 	WebhookFailureReason string          `json:"webhook_failure_reason"`
 	Webhooks             []*EventWebhook `json:"webhooks"`
 	EventType            EventType       `json:"event_type"`
+	SiteId               string          `json:"site_id"`
 	ApiVersion           ApiVersion      `json:"api_version"`
 	Content              json.RawMessage `json:"content"`
 	OriginUser           string          `json:"origin_user"`

@@ -11,6 +11,8 @@ type Client struct {
 	AlertStatus                 *AlertStatusService
 	AttachedItem                *AttachedItemService
 	BusinessEntity              *BusinessEntityService
+	BusinessRule                *BusinessRuleService
+	BusinessRuleset             *BusinessRulesetService
 	Card                        *CardService
 	Comment                     *CommentService
 	Configuration               *ConfigurationService
@@ -23,6 +25,9 @@ type Client struct {
 	Customer                    *CustomerService
 	CustomerEntitlement         *CustomerEntitlementService
 	DifferentialPrice           *DifferentialPriceService
+	Dispute                     *DisputeService
+	Einvoice                    *EinvoiceService
+	EmailLog                    *EmailLogService
 	Entitlement                 *EntitlementService
 	EntitlementOverride         *EntitlementOverrideService
 	Estimate                    *EstimateService
@@ -49,6 +54,7 @@ type Client struct {
 	OmnichannelSubscriptionItem *OmnichannelSubscriptionItemService
 	Order                       *OrderService
 	PaymentIntent               *PaymentIntentService
+	PaymentSchedule             *PaymentScheduleService
 	PaymentScheduleScheme       *PaymentScheduleSchemeService
 	PaymentSource               *PaymentSourceService
 	PaymentVoucher              *PaymentVoucherService
@@ -95,6 +101,8 @@ func NewClient(config *ClientConfig) *Client {
 		AlertStatus:                 &AlertStatusService{config},
 		AttachedItem:                &AttachedItemService{config},
 		BusinessEntity:              &BusinessEntityService{config},
+		BusinessRule:                &BusinessRuleService{config},
+		BusinessRuleset:             &BusinessRulesetService{config},
 		Card:                        &CardService{config},
 		Comment:                     &CommentService{config},
 		Configuration:               &ConfigurationService{config},
@@ -107,6 +115,9 @@ func NewClient(config *ClientConfig) *Client {
 		Customer:                    &CustomerService{config},
 		CustomerEntitlement:         &CustomerEntitlementService{config},
 		DifferentialPrice:           &DifferentialPriceService{config},
+		Dispute:                     &DisputeService{config},
+		Einvoice:                    &EinvoiceService{config},
+		EmailLog:                    &EmailLogService{config},
 		Entitlement:                 &EntitlementService{config},
 		EntitlementOverride:         &EntitlementOverrideService{config},
 		Estimate:                    &EstimateService{config},
@@ -133,6 +144,7 @@ func NewClient(config *ClientConfig) *Client {
 		OmnichannelSubscriptionItem: &OmnichannelSubscriptionItemService{config},
 		Order:                       &OrderService{config},
 		PaymentIntent:               &PaymentIntentService{config},
+		PaymentSchedule:             &PaymentScheduleService{config},
 		PaymentScheduleScheme:       &PaymentScheduleSchemeService{config},
 		PaymentSource:               &PaymentSourceService{config},
 		PaymentVoucher:              &PaymentVoucherService{config},

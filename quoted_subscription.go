@@ -89,6 +89,7 @@ type QuotedSubscriptionSubscriptionItem struct {
 	ChargeOnOption                  ChargeOnOption                  `json:"charge_on_option"`
 	ProrationType                   ProrationType                   `json:"proration_type"`
 	UsageAccumulationResetFrequency UsageAccumulationResetFrequency `json:"usage_accumulation_reset_frequency"`
+	Description                     string                          `json:"description"`
 	Object                          string                          `json:"object"`
 }
 
