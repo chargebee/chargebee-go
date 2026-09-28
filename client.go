@@ -27,7 +27,6 @@ type Client struct {
 	DifferentialPrice           *DifferentialPriceService
 	Dispute                     *DisputeService
 	Einvoice                    *EinvoiceService
-	EmailLog                    *EmailLogService
 	Entitlement                 *EntitlementService
 	EntitlementOverride         *EntitlementOverrideService
 	Estimate                    *EstimateService
@@ -117,7 +116,6 @@ func NewClient(config *ClientConfig) *Client {
 		DifferentialPrice:           &DifferentialPriceService{config},
 		Dispute:                     &DisputeService{config},
 		Einvoice:                    &EinvoiceService{config},
-		EmailLog:                    &EmailLogService{config},
 		Entitlement:                 &EntitlementService{config},
 		EntitlementOverride:         &EntitlementOverrideService{config},
 		Estimate:                    &EstimateService{config},

@@ -59,8 +59,9 @@ type UsageListRequest struct {
 func (r *UsageListRequest) payload() any { return r }
 
 type UsagePdfRequest struct {
-	Invoice         *UsagePdfInvoice `json:"invoice,omitempty"`
-	DispositionType DispositionType  `json:"disposition_type,omitempty"`
+	Invoice         *UsagePdfInvoice   `json:"invoice,omitempty"`
+	DispositionType DispositionType    `json:"disposition_type,omitempty"`
+	GroupBy         []*UsagePdfGroupBy `json:"group_by,omitempty"`
 	apiRequest      `json:"-" form:"-"`
 }
 
@@ -68,6 +69,11 @@ func (r *UsagePdfRequest) payload() any { return r }
 
 type UsagePdfInvoice struct {
 	Id string `json:"id"`
+}
+
+type UsagePdfGroupBy struct {
+	FeatureId  string        `json:"feature_id,omitempty"`
+	Attributes []interface{} `json:"attributes,omitempty"`
 }
 
 type UsageCreateResponse struct {

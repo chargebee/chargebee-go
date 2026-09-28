@@ -53,7 +53,7 @@ type GrantBlock struct {
 	//Deprecated: this field is deprecated
 	VoidedAmount            string                             `json:"voided_amount"`
 	OriginGrantBlockId      string                             `json:"origin_grant_block_id"`
-	Status                  GiftStatus                         `json:"status"`
+	Status                  Status                             `json:"status"`
 	GrantSource             GrantBlockGrantSource              `json:"grant_source"`
 	CreatedAt               int64                              `json:"created_at"`
 	ModifiedAt              int64                              `json:"modified_at"`

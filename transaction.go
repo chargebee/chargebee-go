@@ -151,6 +151,7 @@ type Transaction struct {
 	MerchantReferenceId       string                               `json:"merchant_reference_id"`
 	BusinessEntityId          string                               `json:"business_entity_id"`
 	PaymentMethodDetails      string                               `json:"payment_method_details"`
+	GatewayMetadata           *TransactionGatewayMetadata          `json:"gateway_metadata"`
 	ErrorDetail               *TransactionGatewayErrorDetail       `json:"error_detail"`
 	CustomPaymentMethodName   string                               `json:"custom_payment_method_name"`
 	NetworkTransactionDetails *TransactionNetworkTransactionDetail `json:"network_transaction_details"`
@@ -194,6 +195,11 @@ type TransactionLinkedPayment struct {
 	Amount int64                          `json:"amount"`
 	Date   int64                          `json:"date"`
 	Object string                         `json:"object"`
+}
+
+type TransactionGatewayMetadata struct {
+	AcquirerReferenceId string `json:"acquirer_reference_id"`
+	Object              string `json:"object"`
 }
 
 type TransactionGatewayErrorDetail struct {

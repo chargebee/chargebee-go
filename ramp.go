@@ -67,6 +67,7 @@ type RampItemsToAdd struct {
 	MeteredQuantity       string         `json:"metered_quantity"`
 	ChargeOnce            bool           `json:"charge_once"`
 	ChargeOnOption        ChargeOnOption `json:"charge_on_option"`
+	Description           string         `json:"description"`
 	ChargeOnEvent         ChargeOnEvent  `json:"charge_on_event"`
 	Object                string         `json:"object"`
 }
@@ -87,6 +88,7 @@ type RampItemsToUpdate struct {
 	MeteredQuantity       string         `json:"metered_quantity"`
 	ChargeOnce            bool           `json:"charge_once"`
 	ChargeOnOption        ChargeOnOption `json:"charge_on_option"`
+	Description           string         `json:"description"`
 	ChargeOnEvent         ChargeOnEvent  `json:"charge_on_event"`
 	Object                string         `json:"object"`
 }
@@ -179,6 +181,7 @@ type RampCreateForSubscriptionItemsToAdd struct {
 	ChargeOnEvent      ChargeOnEvent  `json:"charge_on_event,omitempty"`
 	ChargeOnce         *bool          `json:"charge_once,omitempty"`
 	ChargeOnOption     ChargeOnOption `json:"charge_on_option,omitempty"`
+	Description        string         `json:"description,omitempty"`
 }
 
 type RampCreateForSubscriptionItemsToUpdate struct {
@@ -192,6 +195,7 @@ type RampCreateForSubscriptionItemsToUpdate struct {
 	ChargeOnEvent      ChargeOnEvent  `json:"charge_on_event,omitempty"`
 	ChargeOnce         *bool          `json:"charge_once,omitempty"`
 	ChargeOnOption     ChargeOnOption `json:"charge_on_option,omitempty"`
+	Description        string         `json:"description,omitempty"`
 }
 
 type RampCreateForSubscriptionItemTier struct {
@@ -262,6 +266,7 @@ type RampUpdateItemsToAdd struct {
 	ChargeOnEvent      ChargeOnEvent  `json:"charge_on_event,omitempty"`
 	ChargeOnce         *bool          `json:"charge_once,omitempty"`
 	ChargeOnOption     ChargeOnOption `json:"charge_on_option,omitempty"`
+	Description        string         `json:"description,omitempty"`
 }
 
 type RampUpdateItemsToUpdate struct {
@@ -275,6 +280,7 @@ type RampUpdateItemsToUpdate struct {
 	ChargeOnEvent      ChargeOnEvent  `json:"charge_on_event,omitempty"`
 	ChargeOnce         *bool          `json:"charge_once,omitempty"`
 	ChargeOnOption     ChargeOnOption `json:"charge_on_option,omitempty"`
+	Description        string         `json:"description,omitempty"`
 }
 
 type RampUpdateItemTier struct {
