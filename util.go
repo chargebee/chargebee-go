@@ -180,6 +180,18 @@ func parseMapListParams(aMap, serListParams map[string]interface{}, prefix strin
 		switch value := val.(type) {
 		case map[string]interface{}:
 			parseMapListParams(val.(map[string]interface{}), serListParams, key)
+		case []interface{}:
+			k := key
+			if prefix != "" {
+				k = prefix + "[" + key + "]"
+			}
+			if prefix != "" && arrayOperators[key] {
+				serListParams[k] = value
+			} else {
+				for i, element := range value {
+					serListParams[k+"["+strconv.Itoa(i)+"]"] = element
+				}
+			}
 		default:
 			if prefix != "" {
 				k := prefix + "[" + key + "]"
