@@ -179,8 +179,27 @@ func serializeMap(values *url.Values, v reflect.Value, prefix string, isList boo
 
 func serializeSlice(values *url.Values, v reflect.Value, prefix string, isList bool) {
 	if isList {
-		// List Params: Serialize as JSON array of strings
-		serializeArrayAsJSON(values, v, prefix)
+		// Filter operator arrays (in, not_in, between) are serialized as JSON arrays.
+		// Other arrays (e.g. group_by) use indexed params: key[0]=val1&key[1]=val2.
+		lastBracket := prefix
+		if idx := strings.LastIndex(prefix, "["); idx >= 0 {
+			lastBracket = prefix[idx+1 : len(prefix)-1]
+		}
+		if arrayOperators[lastBracket] {
+			serializeArrayAsJSON(values, v, prefix)
+			return
+		}
+		for i := 0; i < v.Len(); i++ {
+			item := v.Index(i)
+			key := prefix + "[" + strconv.Itoa(i) + "]"
+			if item.Kind() == reflect.Ptr {
+				if item.IsNil() {
+					continue
+				}
+				item = item.Elem()
+			}
+			values.Set(key, fmt.Sprintf("%v", item.Interface()))
+		}
 		return
 	}
 
