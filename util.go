@@ -141,6 +141,11 @@ func parseArray(anArray []interface{}, serParams map[string]interface{}, prefix 
 	}
 }
 
+// arrayOperators are filter operators whose value should be JSON-serialized as an array
+// (e.g. updated_at[between]=["1704067200","1717199999"]).
+// Non-operator arrays like group_by should use indexed form encoding (group_by[0]=gpu_type).
+var arrayOperators = map[string]bool{"in": true, "not_in": true, "between": true}
+
 // SerializeListParams is to used to serialize the inputParams of list request.
 func SerializeListParams(params interface{}) *url.Values {
 	queryParams, err := json.Marshal(params)
@@ -160,20 +165,44 @@ func SerializeListParams(params interface{}) *url.Values {
 	for k, v := range serListParams {
 		switch val := v.(type) {
 		case []interface{}:
-			value := "[\""
-			str := []string{}
-			for _, element := range val {
-				str = append(str, fmt.Sprintf("%v", element))
+			// Extract the last bracket key to check if it's a filter operator
+			lastKey := extractLastKey(k)
+			if arrayOperators[lastKey] {
+				// Filter operator: JSON-serialize as ["val1","val2"]
+				value := "[\""
+				str := []string{}
+				for _, element := range val {
+					str = append(str, fmt.Sprintf("%v", element))
+				}
+				value = value + strings.Join(str, "\",\"")
+				value = value + "\"]"
+				body.Set(k, value)
+			} else {
+				// Non-operator array: use indexed form encoding (e.g. group_by[0]=val)
+				for i, element := range val {
+					body.Set(k+"["+strconv.Itoa(i)+"]", fmt.Sprintf("%v", element))
+				}
 			}
-			value = value + strings.Join(str, "\",\"")
-			value = value + "\"]"
-			body.Set(k, value)
 		default:
 			body.Set(k, fmt.Sprintf("%v", v))
 		}
 	}
 	return body
 
+}
+
+// extractLastKey returns the last bracket key from a serialized key.
+// e.g. "status[in]" -> "in", "group_by" -> "group_by", "a[b][c]" -> "c"
+func extractLastKey(key string) string {
+	lastOpen := strings.LastIndex(key, "[")
+	if lastOpen == -1 {
+		return key
+	}
+	lastClose := strings.LastIndex(key, "]")
+	if lastClose > lastOpen {
+		return key[lastOpen+1 : lastClose]
+	}
+	return key
 }
 func parseMapListParams(aMap, serListParams map[string]interface{}, prefix string) {
 	for key, val := range aMap {
