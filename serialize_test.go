@@ -49,6 +49,20 @@ func TestSerializeListParams(t *testing.T) {
 				"email[is]":      []string{"john@test.com"},
 			},
 		},
+		{
+			Name: "Usage summary request with group_by array - should use indexed form encoding",
+			Input: &UsageSummaryRetrieveUsageSummaryForSubscriptionRequest{
+				FeatureId:  "GPU-Hours",
+				WindowSize: WindowSizeDay,
+				GroupBy:    []string{"gpu_type", "region"},
+			},
+			Output: &url.Values{
+				"feature_id":  []string{"GPU-Hours"},
+				"window_size": []string{"day"},
+				"group_by[0]": []string{"gpu_type"},
+				"group_by[1]": []string{"region"},
+			},
+		},
 	}
 
 	for _, tt := range tests {
