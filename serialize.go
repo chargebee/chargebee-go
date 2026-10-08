@@ -102,6 +102,20 @@ func serializeStruct(values *url.Values, v reflect.Value, prefix string, isList 
 // (e.g. updated_at[between]=["1704067200","1717199999"]).
 var arrayOperators = map[string]bool{"in": true, "not_in": true, "between": true}
 
+// extractLastKey returns the last bracket key from a serialized key.
+// e.g. "status[in]" -> "in", "group_by" -> "group_by", "a[b][c]" -> "c"
+func extractLastKey(key string) string {
+	lastOpen := strings.LastIndex(key, "[")
+	if lastOpen == -1 {
+		return key
+	}
+	lastClose := strings.LastIndex(key, "]")
+	if lastClose > lastOpen {
+		return key[lastOpen+1 : lastClose]
+	}
+	return key
+}
+
 func serializeArrayAsJSON(values *url.Values, v reflect.Value, key string) {
 	var items []string
 	for i := 0; i < v.Len(); i++ {
@@ -179,9 +193,14 @@ func serializeMap(values *url.Values, v reflect.Value, prefix string, isList boo
 
 func serializeSlice(values *url.Values, v reflect.Value, prefix string, isList bool) {
 	if isList {
-		// List Params: Serialize as JSON array of strings
-		serializeArrayAsJSON(values, v, prefix)
-		return
+		// For list requests, only filter operators (in, not_in, between) are serialized
+		// as JSON arrays. All other slices use normal indexed form-url-encoding
+		// (e.g. group_by[0]=gpu_type&group_by[1]=region).
+		lastKey := extractLastKey(prefix)
+		if arrayOperators[lastKey] {
+			serializeArrayAsJSON(values, v, prefix)
+			return
+		}
 	}
 
 	// Standard Params
