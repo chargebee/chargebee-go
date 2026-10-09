@@ -5,6 +5,8 @@
 >
 > We are trialing a Discord server for developers building with Chargebee. Limited spots are open on a first-come basis. Join [here](https://discord.gg/gpsNqnhDm2) if interested.
 
+> [!IMPORTANT]
+> A new major version (v4) of the Chargebee GO SDK is now available for beta testing. It is a complete rewrite and addresses feedback raised by the community. If interested, please try it out in the [v4 branch](https://github.com/chargebee/chargebee-go/tree/v4) and share your feedback with us on the Discord channel.
 
 This is the official Go library for integrating with Chargebee
 - 📘 For a complete reference of available APIs, check out our [API Documentation](https://apidocs.chargebee.com/docs/api/?lang=go).  
