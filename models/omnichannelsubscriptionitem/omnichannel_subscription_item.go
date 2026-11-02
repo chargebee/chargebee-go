@@ -15,8 +15,10 @@ type OmnichannelSubscriptionItem struct {
 	CurrentTermEnd                    int64                                                                `json:"current_term_end"`
 	ExpiredAt                         int64                                                                `json:"expired_at"`
 	ExpirationReason                  omnichannelSubscriptionItemEnum.ExpirationReason                     `json:"expiration_reason"`
+	ExpirationReasonAtSource          string                                                               `json:"expiration_reason_at_source"`
 	CancelledAt                       int64                                                                `json:"cancelled_at"`
 	CancellationReason                omnichannelSubscriptionItemEnum.CancellationReason                   `json:"cancellation_reason"`
+	CancellationReasonAtSource        string                                                               `json:"cancellation_reason_at_source"`
 	GracePeriodExpiresAt              int64                                                                `json:"grace_period_expires_at"`
 	ResumesAt                         int64                                                                `json:"resumes_at"`
 	HasScheduledChanges               bool                                                                 `json:"has_scheduled_changes"`

@@ -13,6 +13,7 @@ type OmnichannelSubscription struct {
 	AppId                        string                                                     `json:"app_id"`
 	Source                       omnichannelSubscriptionEnum.Source                         `json:"source"`
 	CustomerId                   string                                                     `json:"customer_id"`
+	Origin                       string                                                     `json:"origin"`
 	CreatedAt                    int64                                                      `json:"created_at"`
 	PurchasedAt                  int64                                                      `json:"purchased_at"`
 	UpdatedAt                    int64                                                      `json:"updated_at"`

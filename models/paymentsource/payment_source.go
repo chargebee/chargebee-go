@@ -126,6 +126,7 @@ type Mandate struct {
 }
 type NetworkTransactionReference struct {
 	OriginalNetworkTransactionId string `json:"original_network_transaction_id"`
+	TransactionLinkId            string `json:"transaction_link_id"`
 	Object                       string `json:"object"`
 }
 type CreateUsingTempTokenRequestParams struct {
@@ -152,6 +153,7 @@ type CreateUsingPermanentTokenRequestParams struct {
 	MandateId                   string                                         `json:"mandate_id,omitempty"`
 	SkipRetrieval               *bool                                          `json:"skip_retrieval,omitempty"`
 	Card                        *CreateUsingPermanentTokenCardParams           `json:"card,omitempty"`
+	BankAccount                 *CreateUsingPermanentTokenBankAccountParams    `json:"bank_account,omitempty"`
 	BillingAddress              *CreateUsingPermanentTokenBillingAddressParams `json:"billing_address,omitempty"`
 	AdditionalInformation       map[string]interface{}                         `json:"additional_information,omitempty"`
 }
@@ -162,6 +164,16 @@ type CreateUsingPermanentTokenCardParams struct {
 	ExpiryYear  *int32                      `json:"expiry_year,omitempty"`
 	Brand       paymentSourceEnum.CardBrand `json:"brand,omitempty"`
 	FundingType cardEnum.FundingType        `json:"funding_type,omitempty"`
+}
+type CreateUsingPermanentTokenBankAccountParams struct {
+	AccountType       enum.AccountType                    `json:"account_type,omitempty"`
+	AccountHolderType enum.AccountHolderType              `json:"account_holder_type,omitempty"`
+	FirstName         string                              `json:"first_name,omitempty"`
+	LastName          string                              `json:"last_name,omitempty"`
+	Company           string                              `json:"company,omitempty"`
+	Scheme            paymentSourceEnum.BankAccountScheme `json:"scheme,omitempty"`
+	Last4             string                              `json:"last4,omitempty"`
+	EcheckType        enum.EcheckType                     `json:"echeck_type,omitempty"`
 }
 type CreateUsingPermanentTokenBillingAddressParams struct {
 	FirstName string `json:"first_name,omitempty"`

@@ -16,6 +16,7 @@ type ItemPrice struct {
 	Status                          itemPriceEnum.Status                 `json:"status"`
 	ExternalName                    string                               `json:"external_name"`
 	PriceVariantId                  string                               `json:"price_variant_id"`
+	PriceRampId                     string                               `json:"price_ramp_id"`
 	ProrationType                   itemPriceEnum.ProrationType          `json:"proration_type"`
 	PricingModel                    enum.PricingModel                    `json:"pricing_model"`
 	Price                           int64                                `json:"price"`

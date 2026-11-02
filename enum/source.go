@@ -14,4 +14,7 @@ const (
 	SourceJsApi           Source = "js_api"
 	SourceMigration       Source = "migration"
 	SourceExternalService Source = "external_service"
+	SourceMcp             Source = "mcp"
+	SourceCopilot         Source = "copilot"
+	SourceAgent           Source = "agent"
 )

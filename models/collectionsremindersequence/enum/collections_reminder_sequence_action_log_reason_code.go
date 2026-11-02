@@ -1,0 +1,10 @@
+package enum
+
+type CollectionsReminderSequenceActionLogReasonCode string
+
+const (
+	CollectionsReminderSequenceActionLogReasonCodeDateAlreadyPassed       CollectionsReminderSequenceActionLogReasonCode = "date_already_passed"
+	CollectionsReminderSequenceActionLogReasonCodeBeforeInvoiceDate       CollectionsReminderSequenceActionLogReasonCode = "before_invoice_date"
+	CollectionsReminderSequenceActionLogReasonCodeTriggerEventNotReceived CollectionsReminderSequenceActionLogReasonCode = "trigger_event_not_received"
+	CollectionsReminderSequenceActionLogReasonCodeSequencePaused          CollectionsReminderSequenceActionLogReasonCode = "sequence_paused"
+)

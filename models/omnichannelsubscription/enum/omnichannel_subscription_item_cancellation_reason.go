@@ -8,4 +8,5 @@ const (
 	OmnichannelSubscriptionItemCancellationReasonRefundedDueToAppIssue                OmnichannelSubscriptionItemCancellationReason = "refunded_due_to_app_issue"
 	OmnichannelSubscriptionItemCancellationReasonRefundedForOtherReason               OmnichannelSubscriptionItemCancellationReason = "refunded_for_other_reason"
 	OmnichannelSubscriptionItemCancellationReasonMerchantRevoked                      OmnichannelSubscriptionItemCancellationReason = "merchant_revoked"
+	OmnichannelSubscriptionItemCancellationReasonOther                                OmnichannelSubscriptionItemCancellationReason = "other"
 )

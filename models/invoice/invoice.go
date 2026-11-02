@@ -67,6 +67,7 @@ type Invoice struct {
 	TaxOrigin                 *TaxOrigin                `json:"tax_origin"`
 	LinkedPayments            []*LinkedPayment          `json:"linked_payments"`
 	ReferenceTransactions     []*ReferenceTransaction   `json:"reference_transactions"`
+	RetrySegmentId            string                    `json:"retry_segment_id"`
 	DunningAttempts           []*DunningAttempt         `json:"dunning_attempts"`
 	AppliedCredits            []*AppliedCredit          `json:"applied_credits"`
 	AdjustmentCreditNotes     []*AdjustmentCreditNote   `json:"adjustment_credit_notes"`
@@ -796,6 +797,7 @@ type ImportInvoiceLineItemParams struct {
 	Tax10Amount                *int64                            `json:"tax10_amount,omitempty"`
 	IsPartialTaxApplied        *bool                             `json:"is_partial_tax_applied,omitempty"`
 	TaxableAmount              *int64                            `json:"taxable_amount,omitempty"`
+	TaxExemptReason            enum.TaxExemptReason              `json:"tax_exempt_reason,omitempty"`
 	ProrationMode              invoiceEnum.LineItemProrationMode `json:"proration_mode,omitempty"`
 	CreatedAt                  *int64                            `json:"created_at,omitempty"`
 }
@@ -1180,4 +1182,7 @@ type UpdateDetailsStatementDescriptorParams struct {
 type ApplyPaymentScheduleSchemeRequestParams struct {
 	SchemeId string `json:"scheme_id"`
 	Amount   *int64 `json:"amount,omitempty"`
+}
+type RemovePaymentScheduleSchemeRequestParams struct {
+	Comment string `json:"comment,omitempty"`
 }

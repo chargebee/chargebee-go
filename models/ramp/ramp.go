@@ -45,6 +45,7 @@ type ItemsToAdd struct {
 	MeteredQuantity       string              `json:"metered_quantity"`
 	ChargeOnce            bool                `json:"charge_once"`
 	ChargeOnOption        enum.ChargeOnOption `json:"charge_on_option"`
+	Description           string              `json:"description"`
 	ChargeOnEvent         enum.ChargeOnEvent  `json:"charge_on_event"`
 	Object                string              `json:"object"`
 }
@@ -64,6 +65,7 @@ type ItemsToUpdate struct {
 	MeteredQuantity       string              `json:"metered_quantity"`
 	ChargeOnce            bool                `json:"charge_once"`
 	ChargeOnOption        enum.ChargeOnOption `json:"charge_on_option"`
+	Description           string              `json:"description"`
 	ChargeOnEvent         enum.ChargeOnEvent  `json:"charge_on_event"`
 	Object                string              `json:"object"`
 }
@@ -144,6 +146,7 @@ type CreateForSubscriptionItemsToAddParams struct {
 	ChargeOnEvent      enum.ChargeOnEvent  `json:"charge_on_event,omitempty"`
 	ChargeOnce         *bool               `json:"charge_once,omitempty"`
 	ChargeOnOption     enum.ChargeOnOption `json:"charge_on_option,omitempty"`
+	Description        string              `json:"description,omitempty"`
 }
 type CreateForSubscriptionItemsToUpdateParams struct {
 	ItemPriceId        string              `json:"item_price_id"`
@@ -156,6 +159,7 @@ type CreateForSubscriptionItemsToUpdateParams struct {
 	ChargeOnEvent      enum.ChargeOnEvent  `json:"charge_on_event,omitempty"`
 	ChargeOnce         *bool               `json:"charge_once,omitempty"`
 	ChargeOnOption     enum.ChargeOnOption `json:"charge_on_option,omitempty"`
+	Description        string              `json:"description,omitempty"`
 }
 type CreateForSubscriptionItemTierParams struct {
 	ItemPriceId           string           `json:"item_price_id,omitempty"`
@@ -216,6 +220,7 @@ type UpdateItemsToAddParams struct {
 	ChargeOnEvent      enum.ChargeOnEvent  `json:"charge_on_event,omitempty"`
 	ChargeOnce         *bool               `json:"charge_once,omitempty"`
 	ChargeOnOption     enum.ChargeOnOption `json:"charge_on_option,omitempty"`
+	Description        string              `json:"description,omitempty"`
 }
 type UpdateItemsToUpdateParams struct {
 	ItemPriceId        string              `json:"item_price_id"`
@@ -228,6 +233,7 @@ type UpdateItemsToUpdateParams struct {
 	ChargeOnEvent      enum.ChargeOnEvent  `json:"charge_on_event,omitempty"`
 	ChargeOnce         *bool               `json:"charge_once,omitempty"`
 	ChargeOnOption     enum.ChargeOnOption `json:"charge_on_option,omitempty"`
+	Description        string              `json:"description,omitempty"`
 }
 type UpdateItemTierParams struct {
 	ItemPriceId           string           `json:"item_price_id,omitempty"`

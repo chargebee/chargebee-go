@@ -8,7 +8,7 @@ import (
 type GatewayPaymentMethodToken struct {
 	Id                string                               `json:"id"`
 	GatewayAccountId  string                               `json:"gateway_account_id"`
-	GatewayName       enum.GatewayName                     `json:"gateway_name"`
+	Gateway           enum.Gateway                         `json:"gateway"`
 	GatewayCustomerId string                               `json:"gateway_customer_id"`
 	GatewayToken      string                               `json:"gateway_token"`
 	Status            gatewayPaymentMethodTokenEnum.Status `json:"status"`

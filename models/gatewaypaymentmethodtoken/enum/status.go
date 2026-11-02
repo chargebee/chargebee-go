@@ -3,7 +3,7 @@ package enum
 type Status string
 
 const (
-	StatusActive              Status = "active"
-	StatusInactive            Status = "inactive"
+	StatusValid               Status = "valid"
+	StatusInvalid             Status = "invalid"
 	StatusPendingVerification Status = "pending_verification"
 )

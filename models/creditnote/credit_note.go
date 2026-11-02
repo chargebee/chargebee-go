@@ -355,6 +355,7 @@ type ImportCreditNoteRequestParams struct {
 	CurrencyCode         string                                `json:"currency_code,omitempty"`
 	CreateReasonCode     string                                `json:"create_reason_code"`
 	Date                 *int64                                `json:"date"`
+	CustomerNotes        string                                `json:"customer_notes,omitempty"`
 	Status               creditNoteEnum.Status                 `json:"status,omitempty"`
 	Total                *int64                                `json:"total,omitempty"`
 	RefundedAt           *int64                                `json:"refunded_at,omitempty"`
