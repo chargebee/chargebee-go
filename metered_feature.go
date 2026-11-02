@@ -33,6 +33,7 @@ type MeteredFeature struct {
 	Status            GiftStatus          `json:"status"`
 	Query             string              `json:"query"`
 	ColumnDefinitions []*ColumnDefinition `json:"column_definitions"`
+	GroupBy           []string            `json:"group_by"`
 	Features          []*Feature          `json:"features"`
 	Object            string              `json:"object"`
 }

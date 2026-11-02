@@ -2,8 +2,52 @@
 
 package chargebee
 
+import (
+	"fmt"
+	"net/url"
+)
+
 type BusinessEntityService struct {
 	config *ClientConfig
+}
+
+func (s *BusinessEntityService) Create(req *BusinessEntityCreateRequest) (*BusinessEntityCreateResponse, error) {
+	req.method = "POST"
+	req.path = "/business_entities"
+	req.isIdempotent = true
+	req.telemetryResource = "businessEntity"
+	req.telemetryOperation = "create"
+
+	return send[*BusinessEntityCreateResponse](req, s.config)
+}
+
+func (s *BusinessEntityService) List(req *BusinessEntityListRequest) (*BusinessEntityListResponse, error) {
+	req.method = "GET"
+	req.path = "/business_entities"
+	req.isListRequest = true
+	req.telemetryResource = "businessEntity"
+	req.telemetryOperation = "list"
+
+	return send[*BusinessEntityListResponse](req, s.config)
+}
+
+func (s *BusinessEntityService) Retrieve(req *BusinessEntityRetrieveRequest) (*BusinessEntityRetrieveResponse, error) {
+	req.method = "GET"
+	req.path = fmt.Sprintf("/business_entities/%v", url.PathEscape(req.Id))
+	req.telemetryResource = "businessEntity"
+	req.telemetryOperation = "retrieve"
+
+	return send[*BusinessEntityRetrieveResponse](req, s.config)
+}
+
+func (s *BusinessEntityService) Update(id string, req *BusinessEntityUpdateRequest) (*BusinessEntityUpdateResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/business_entities/%v", url.PathEscape(id))
+	req.isIdempotent = true
+	req.telemetryResource = "businessEntity"
+	req.telemetryOperation = "update"
+
+	return send[*BusinessEntityUpdateResponse](req, s.config)
 }
 
 func (s *BusinessEntityService) CreateTransfers(req *BusinessEntityCreateTransfersRequest) (*BusinessEntityCreateTransfersResponse, error) {

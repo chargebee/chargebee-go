@@ -13,6 +13,7 @@ const (
 	PaymentScheduleScheduleEntryStatusPosted     PaymentScheduleScheduleEntryStatus = "posted"
 	PaymentScheduleScheduleEntryStatusPaymentDue PaymentScheduleScheduleEntryStatus = "payment_due"
 	PaymentScheduleScheduleEntryStatusPaid       PaymentScheduleScheduleEntryStatus = "paid"
+	PaymentScheduleScheduleEntryStatusVoided     PaymentScheduleScheduleEntryStatus = "voided"
 )
 
 type PaymentScheduleReferenceTransactionTxnStatus string

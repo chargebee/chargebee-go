@@ -46,6 +46,7 @@ type PurchaseCreatePurchaseItem struct {
 	UnitAmount          *int64 `json:"unit_amount,omitempty"`
 	UnitAmountInDecimal string `json:"unit_amount_in_decimal,omitempty"`
 	QuantityInDecimal   string `json:"quantity_in_decimal,omitempty"`
+	TrialEnd            *int64 `json:"trial_end,omitempty"`
 }
 
 type PurchaseCreateItemTier struct {
@@ -90,6 +91,8 @@ type PurchaseCreateSubscriptionInfo struct {
 	SubscriptionId                    string                 `json:"subscription_id,omitempty"`
 	BillingCycles                     *int32                 `json:"billing_cycles,omitempty"`
 	ContractTermBillingCycleOnRenewal *int32                 `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	TrialEnd                          *int64                 `json:"trial_end,omitempty"`
+	StartDate                         *int64                 `json:"start_date,omitempty"`
 	MetaData                          map[string]interface{} `json:"meta_data,omitempty"`
 }
 
@@ -146,6 +149,7 @@ type PurchaseEstimatePurchaseItem struct {
 	UnitAmount          *int64 `json:"unit_amount,omitempty"`
 	UnitAmountInDecimal string `json:"unit_amount_in_decimal,omitempty"`
 	QuantityInDecimal   string `json:"quantity_in_decimal,omitempty"`
+	TrialEnd            *int64 `json:"trial_end,omitempty"`
 }
 
 type PurchaseEstimateItemTier struct {
@@ -190,6 +194,8 @@ type PurchaseEstimateSubscriptionInfo struct {
 	SubscriptionId                    string `json:"subscription_id,omitempty"`
 	BillingCycles                     *int32 `json:"billing_cycles,omitempty"`
 	ContractTermBillingCycleOnRenewal *int32 `json:"contract_term_billing_cycle_on_renewal,omitempty"`
+	TrialEnd                          *int64 `json:"trial_end,omitempty"`
+	StartDate                         *int64 `json:"start_date,omitempty"`
 }
 
 type PurchaseEstimateContractTerm struct {

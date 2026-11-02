@@ -2,19 +2,20 @@
 package chargebee
 
 type EmailLog struct {
-	Id               string     `json:"id"`
-	TemplateName     string     `json:"template_name"`
-	FromAddress      string     `json:"from_address"`
-	ToAddress        string     `json:"to_address"`
-	Subject          string     `json:"subject"`
-	Status           GiftStatus `json:"status"`
-	SentOn           int64      `json:"sent_on"`
-	CustomerId       string     `json:"customer_id"`
-	SiteId           string     `json:"site_id"`
-	BusinessEntityId string     `json:"business_entity_id"`
-	BrandId          string     `json:"brand_id"`
-	ErrorMessage     string     `json:"error_message"`
-	Object           string     `json:"object"`
+	Id                  string     `json:"id"`
+	TemplateName        string     `json:"template_name"`
+	FromAddress         string     `json:"from_address"`
+	ToAddress           string     `json:"to_address"`
+	Subject             string     `json:"subject"`
+	Status              GiftStatus `json:"status"`
+	SentOn              int64      `json:"sent_on"`
+	CustomerId          string     `json:"customer_id"`
+	EmailConversationId string     `json:"email_conversation_id"`
+	SiteId              string     `json:"site_id"`
+	BusinessEntityId    string     `json:"business_entity_id"`
+	BrandId             string     `json:"brand_id"`
+	ErrorMessage        string     `json:"error_message"`
+	Object              string     `json:"object"`
 }
 
 type EmailLogEmailLogsForCustomerRequest struct {

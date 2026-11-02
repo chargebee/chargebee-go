@@ -14,6 +14,7 @@ type Client struct {
 	BusinessRule                *BusinessRuleService
 	BusinessRuleset             *BusinessRulesetService
 	Card                        *CardService
+	CollectionsPaymentPromise   *CollectionsPaymentPromiseService
 	Comment                     *CommentService
 	Configuration               *ConfigurationService
 	Coupon                      *CouponService
@@ -61,6 +62,7 @@ type Client struct {
 	PersonalizedOffer           *PersonalizedOfferService
 	Plan                        *PlanService
 	PortalSession               *PortalSessionService
+	PriceRamp                   *PriceRampService
 	PriceVariant                *PriceVariantService
 	PricingPageSession          *PricingPageSessionService
 	PromotionalCredit           *PromotionalCreditService
@@ -71,6 +73,7 @@ type Client struct {
 	Ramp                        *RampService
 	RecordedPurchase            *RecordedPurchaseService
 	ResourceMigration           *ResourceMigrationService
+	RetrySegment                *RetrySegmentService
 	Rule                        *RuleService
 	SiteMigrationDetail         *SiteMigrationDetailService
 	Subscription                *SubscriptionService
@@ -104,6 +107,7 @@ func NewClient(config *ClientConfig) *Client {
 		BusinessRule:                &BusinessRuleService{config},
 		BusinessRuleset:             &BusinessRulesetService{config},
 		Card:                        &CardService{config},
+		CollectionsPaymentPromise:   &CollectionsPaymentPromiseService{config},
 		Comment:                     &CommentService{config},
 		Configuration:               &ConfigurationService{config},
 		Coupon:                      &CouponService{config},
@@ -151,6 +155,7 @@ func NewClient(config *ClientConfig) *Client {
 		PersonalizedOffer:           &PersonalizedOfferService{config},
 		Plan:                        &PlanService{config},
 		PortalSession:               &PortalSessionService{config},
+		PriceRamp:                   &PriceRampService{config},
 		PriceVariant:                &PriceVariantService{config},
 		PricingPageSession:          &PricingPageSessionService{config},
 		PromotionalCredit:           &PromotionalCreditService{config},
@@ -161,6 +166,7 @@ func NewClient(config *ClientConfig) *Client {
 		Ramp:                        &RampService{config},
 		RecordedPurchase:            &RecordedPurchaseService{config},
 		ResourceMigration:           &ResourceMigrationService{config},
+		RetrySegment:                &RetrySegmentService{config},
 		Rule:                        &RuleService{config},
 		SiteMigrationDetail:         &SiteMigrationDetailService{config},
 		Subscription:                &SubscriptionService{config},
