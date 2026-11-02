@@ -1,0 +1,9 @@
+package enum
+
+type CollectionsReminderSequenceActionLogStatus string
+
+const (
+	CollectionsReminderSequenceActionLogStatusCompleted CollectionsReminderSequenceActionLogStatus = "completed"
+	CollectionsReminderSequenceActionLogStatusScheduled CollectionsReminderSequenceActionLogStatus = "scheduled"
+	CollectionsReminderSequenceActionLogStatusSkipped   CollectionsReminderSequenceActionLogStatus = "skipped"
+)

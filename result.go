@@ -6,7 +6,6 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/advanceinvoiceschedule"
 	"github.com/chargebee/chargebee-go/v3/models/alert"
 	"github.com/chargebee/chargebee-go/v3/models/alertstatus"
-	"github.com/chargebee/chargebee-go/v3/models/appliedbusinessrule"
 	"github.com/chargebee/chargebee-go/v3/models/appliedrule"
 	"github.com/chargebee/chargebee-go/v3/models/applyrule"
 	"github.com/chargebee/chargebee-go/v3/models/asyncresponse"
@@ -21,6 +20,10 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/businessruleset"
 	"github.com/chargebee/chargebee-go/v3/models/businessrulesetrule"
 	"github.com/chargebee/chargebee-go/v3/models/card"
+	"github.com/chargebee/chargebee-go/v3/models/citation"
+	"github.com/chargebee/chargebee-go/v3/models/collectionsdispute"
+	"github.com/chargebee/chargebee-go/v3/models/collectionspaymentpromise"
+	"github.com/chargebee/chargebee-go/v3/models/collectionsremindersequence"
 	"github.com/chargebee/chargebee-go/v3/models/comment"
 	"github.com/chargebee/chargebee-go/v3/models/configuration"
 	"github.com/chargebee/chargebee-go/v3/models/contact"
@@ -32,6 +35,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/creditnote"
 	"github.com/chargebee/chargebee-go/v3/models/creditunit"
 	"github.com/chargebee/chargebee-go/v3/models/currency"
+	"github.com/chargebee/chargebee-go/v3/models/customdata"
 	"github.com/chargebee/chargebee-go/v3/models/customdataschema"
 	"github.com/chargebee/chargebee-go/v3/models/customer"
 	"github.com/chargebee/chargebee-go/v3/models/customerentitlement"
@@ -39,12 +43,18 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/discount"
 	"github.com/chargebee/chargebee-go/v3/models/dispute"
 	"github.com/chargebee/chargebee-go/v3/models/download"
+	"github.com/chargebee/chargebee-go/v3/models/draftestimate"
+	"github.com/chargebee/chargebee-go/v3/models/draftrequest"
 	"github.com/chargebee/chargebee-go/v3/models/einvoice"
+	"github.com/chargebee/chargebee-go/v3/models/emailattachment"
+	"github.com/chargebee/chargebee-go/v3/models/emailconversation"
 	"github.com/chargebee/chargebee-go/v3/models/emaillog"
+	"github.com/chargebee/chargebee-go/v3/models/emailmessage"
 	"github.com/chargebee/chargebee-go/v3/models/entitlement"
 	"github.com/chargebee/chargebee-go/v3/models/entitlementoverride"
 	"github.com/chargebee/chargebee-go/v3/models/estimate"
 	"github.com/chargebee/chargebee-go/v3/models/event"
+	"github.com/chargebee/chargebee-go/v3/models/execution"
 	"github.com/chargebee/chargebee-go/v3/models/export"
 	"github.com/chargebee/chargebee-go/v3/models/feature"
 	"github.com/chargebee/chargebee-go/v3/models/filtercondition"
@@ -52,6 +62,8 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/gatewaypaymentmethodtoken"
 	"github.com/chargebee/chargebee-go/v3/models/gift"
 	"github.com/chargebee/chargebee-go/v3/models/grantblock"
+	"github.com/chargebee/chargebee-go/v3/models/groupbyattribute"
+	"github.com/chargebee/chargebee-go/v3/models/groupbyrecommendation"
 	"github.com/chargebee/chargebee-go/v3/models/hierarchy"
 	"github.com/chargebee/chargebee-go/v3/models/hostedpage"
 	"github.com/chargebee/chargebee-go/v3/models/impactedcustomer"
@@ -89,8 +101,10 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/personalizedoffer"
 	"github.com/chargebee/chargebee-go/v3/models/plan"
 	"github.com/chargebee/chargebee-go/v3/models/portalsession"
+	"github.com/chargebee/chargebee-go/v3/models/priceramp"
 	"github.com/chargebee/chargebee-go/v3/models/pricevariant"
 	"github.com/chargebee/chargebee-go/v3/models/pricingpagesession"
+	"github.com/chargebee/chargebee-go/v3/models/privatenote"
 	"github.com/chargebee/chargebee-go/v3/models/promotionalcredit"
 	"github.com/chargebee/chargebee-go/v3/models/promotionalgrant"
 	"github.com/chargebee/chargebee-go/v3/models/purchase"
@@ -102,8 +116,10 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/quoteentitlement"
 	"github.com/chargebee/chargebee-go/v3/models/quotelinegroup"
 	"github.com/chargebee/chargebee-go/v3/models/ramp"
+	"github.com/chargebee/chargebee-go/v3/models/rampinterval"
 	"github.com/chargebee/chargebee-go/v3/models/recordedpurchase"
 	"github.com/chargebee/chargebee-go/v3/models/resourcemigration"
+	"github.com/chargebee/chargebee-go/v3/models/retrysegment"
 	"github.com/chargebee/chargebee-go/v3/models/rule"
 	"github.com/chargebee/chargebee-go/v3/models/sitemigrationdetail"
 	"github.com/chargebee/chargebee-go/v3/models/subscription"
@@ -199,6 +215,8 @@ type Result struct {
 	ItemPrice                                  *itemprice.ItemPrice                                                                   `json:"item_price,omitempty"`
 	AttachedItem                               *attacheditem.AttachedItem                                                             `json:"attached_item,omitempty"`
 	DifferentialPrice                          *differentialprice.DifferentialPrice                                                   `json:"differential_price,omitempty"`
+	PriceRamp                                  *priceramp.PriceRamp                                                                   `json:"price_ramp,omitempty"`
+	RampInterval                               *rampinterval.RampInterval                                                             `json:"ramp_interval,omitempty"`
 	Configuration                              *configuration.Configuration                                                           `json:"configuration,omitempty"`
 	Feature                                    *feature.Feature                                                                       `json:"feature,omitempty"`
 	ImpactedSubscription                       *impactedsubscription.ImpactedSubscription                                             `json:"impacted_subscription,omitempty"`
@@ -228,10 +246,14 @@ type Result struct {
 	OmnichannelOneTimeOrder                    *omnichannelonetimeorder.OmnichannelOneTimeOrder                                       `json:"omnichannel_one_time_order,omitempty"`
 	OmnichannelOneTimeOrderItem                *omnichannelonetimeorderitem.OmnichannelOneTimeOrderItem                               `json:"omnichannel_one_time_order_item,omitempty"`
 	Rule                                       *rule.Rule                                                                             `json:"rule,omitempty"`
+	RetrySegment                               *retrysegment.RetrySegment                                                             `json:"retry_segment,omitempty"`
 	Meter                                      *meter.Meter                                                                           `json:"meter,omitempty"`
+	GroupByAttribute                           *groupbyattribute.GroupByAttribute                                                     `json:"group_by_attribute,omitempty"`
+	GroupByRecommendation                      *groupbyrecommendation.GroupByRecommendation                                           `json:"group_by_recommendation,omitempty"`
 	UsageEvent                                 *usageevent.UsageEvent                                                                 `json:"usage_event,omitempty"`
 	MeteredFeature                             *meteredfeature.MeteredFeature                                                         `json:"metered_feature,omitempty"`
 	CustomDataSchema                           *customdataschema.CustomDataSchema                                                     `json:"custom_data_schema,omitempty"`
+	CustomData                                 *customdata.CustomData                                                                 `json:"custom_data,omitempty"`
 	UsageFile                                  *usagefile.UsageFile                                                                   `json:"usage_file,omitempty"`
 	Einvoice                                   *einvoice.Einvoice                                                                     `json:"einvoice,omitempty"`
 	PersonalizedOffer                          *personalizedoffer.PersonalizedOffer                                                   `json:"personalized_offer,omitempty"`
@@ -242,14 +264,24 @@ type Result struct {
 	BusinessRule                               *businessrule.BusinessRule                                                             `json:"business_rule,omitempty"`
 	ApplyRule                                  *applyrule.ApplyRule                                                                   `json:"apply_rule,omitempty"`
 	AppliedRule                                *appliedrule.AppliedRule                                                               `json:"applied_rule,omitempty"`
-	AppliedBusinessRule                        *appliedbusinessrule.AppliedBusinessRule                                               `json:"applied_business_rule,omitempty"`
 	BusinessRuleset                            *businessruleset.BusinessRuleset                                                       `json:"business_ruleset,omitempty"`
 	BusinessRulesetRule                        *businessrulesetrule.BusinessRulesetRule                                               `json:"business_ruleset_rule,omitempty"`
+	DraftRequest                               *draftrequest.DraftRequest                                                             `json:"draft_request,omitempty"`
+	Citation                                   *citation.Citation                                                                     `json:"citation,omitempty"`
+	Execution                                  *execution.Execution                                                                   `json:"execution,omitempty"`
+	DraftEstimate                              *draftestimate.DraftEstimate                                                           `json:"draft_estimate,omitempty"`
 	UsageSummary                               *usagesummary.UsageSummary                                                             `json:"usage_summary,omitempty"`
 	UsageCharge                                *usagecharge.UsageCharge                                                               `json:"usage_charge,omitempty"`
 	Alert                                      *alert.Alert                                                                           `json:"alert,omitempty"`
 	FilterCondition                            *filtercondition.FilterCondition                                                       `json:"filter_condition,omitempty"`
 	AlertStatus                                *alertstatus.AlertStatus                                                               `json:"alert_status,omitempty"`
+	CollectionsPaymentPromise                  *collectionspaymentpromise.CollectionsPaymentPromise                                   `json:"collections_payment_promise,omitempty"`
+	CollectionsDispute                         *collectionsdispute.CollectionsDispute                                                 `json:"collections_dispute,omitempty"`
+	CollectionsReminderSequence                *collectionsremindersequence.CollectionsReminderSequence                               `json:"collections_reminder_sequence,omitempty"`
+	EmailConversation                          *emailconversation.EmailConversation                                                   `json:"email_conversation,omitempty"`
+	EmailMessage                               *emailmessage.EmailMessage                                                             `json:"email_message,omitempty"`
+	PrivateNote                                *privatenote.PrivateNote                                                               `json:"private_note,omitempty"`
+	EmailAttachment                            *emailattachment.EmailAttachment                                                       `json:"email_attachment,omitempty"`
 	LedgerAccountBalance                       *ledgeraccountbalance.LedgerAccountBalance                                             `json:"ledger_account_balance,omitempty"`
 	LedgerOperation                            *ledgeroperation.LedgerOperation                                                       `json:"ledger_operation,omitempty"`
 	GrantBlock                                 *grantblock.GrantBlock                                                                 `json:"grant_block,omitempty"`
@@ -269,15 +301,20 @@ type Result struct {
 	Configurations                             []*configuration.Configuration                                                         `json:"configurations,omitempty"`
 	InAppSubscriptions                         []*inappsubscription.InAppSubscription                                                 `json:"in_app_subscriptions,omitempty"`
 	PersonalizedOffers                         []*personalizedoffer.PersonalizedOffer                                                 `json:"personalized_offers,omitempty"`
+	CollectionsPaymentPromises                 []*collectionspaymentpromise.CollectionsPaymentPromise                                 `json:"collections_payment_promises,omitempty"`
 	LedgerOperations                           []*ledgeroperation.LedgerOperation                                                     `json:"ledger_operations,omitempty"`
 	GrantBlocks                                []*grantblock.GrantBlock                                                               `json:"grant_blocks,omitempty"`
 	LedgerEntries                              []*ledgerentry.LedgerEntry                                                             `json:"ledger_entries,omitempty"`
+	SubscriptionId                             interface{}                                                                            `json:"subscription_id,omitempty"`
 	FailedEvents                               interface{}                                                                            `json:"failed_events,omitempty"`
+	ChangeReason                               interface{}                                                                            `json:"change_reason,omitempty"`
 	ExpiresAt                                  interface{}                                                                            `json:"expires_at,omitempty"`
 	BatchId                                    interface{}                                                                            `json:"batch_id,omitempty"`
 	Success                                    interface{}                                                                            `json:"success,omitempty"`
 	ScheduledAt                                interface{}                                                                            `json:"scheduled_at,omitempty"`
 	List                                       interface{}                                                                            `json:"list,omitempty"`
+	UnitId                                     interface{}                                                                            `json:"unit_id,omitempty"`
+	OverdraftBalance                           interface{}                                                                            `json:"overdraft_balance,omitempty"`
 	responseHeaders                            http.Header
 	httpStatusCode                             int
 }

@@ -6,4 +6,5 @@ const (
 	ScheduleEntryStatusPosted     ScheduleEntryStatus = "posted"
 	ScheduleEntryStatusPaymentDue ScheduleEntryStatus = "payment_due"
 	ScheduleEntryStatusPaid       ScheduleEntryStatus = "paid"
+	ScheduleEntryStatusVoided     ScheduleEntryStatus = "voided"
 )

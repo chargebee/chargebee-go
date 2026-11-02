@@ -15,6 +15,20 @@ type BusinessEntity struct {
 	UpdatedAt       int64                     `json:"updated_at"`
 	Object          string                    `json:"object"`
 }
+type CreateRequestParams struct {
+	Name   string                    `json:"name"`
+	Status businessEntityEnum.Status `json:"status"`
+}
+type ListRequestParams struct {
+	Limit          *int32               `json:"limit,omitempty"`
+	Offset         string               `json:"offset,omitempty"`
+	IncludeDeleted *bool                `json:"include_deleted,omitempty"`
+	Name           *filter.StringFilter `json:"name,omitempty"`
+}
+type UpdateRequestParams struct {
+	Name   string                    `json:"name,omitempty"`
+	Status businessEntityEnum.Status `json:"status,omitempty"`
+}
 type CreateTransfersRequestParams struct {
 	ActiveResourceIds            []string `json:"active_resource_ids"`
 	DestinationBusinessEntityIds []string `json:"destination_business_entity_ids"`

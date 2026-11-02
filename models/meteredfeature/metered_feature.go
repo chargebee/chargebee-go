@@ -15,6 +15,7 @@ type MeteredFeature struct {
 	Status            enum.Status                          `json:"status"`
 	Query             string                               `json:"query"`
 	ColumnDefinitions []*columndefinition.ColumnDefinition `json:"column_definitions"`
+	GroupBy           []string                             `json:"group_by"`
 	Features          []*feature.Feature                   `json:"features"`
 	Object            string                               `json:"object"`
 }

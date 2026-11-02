@@ -37,3 +37,10 @@ type ListLedgerAccountBalancesRequestParams struct {
 	SubscriptionId *filter.StringFilter `json:"subscription_id"`
 	UnitId         *filter.StringFilter `json:"unit_id,omitempty"`
 }
+type UpdateOverdraftLimitRequestParams struct {
+	SubscriptionId string `json:"subscription_id"`
+	UnitId         string `json:"unit_id"`
+	IsUnlimited    *bool  `json:"is_unlimited"`
+	Limit          string `json:"limit,omitempty"`
+	ChangeReason   string `json:"change_reason,omitempty"`
+}

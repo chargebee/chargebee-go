@@ -1,0 +1,7 @@
+package enum
+
+type CollectionsReminderSequenceActionLogActionType string
+
+const (
+	CollectionsReminderSequenceActionLogActionTypeSendEmail CollectionsReminderSequenceActionLogActionType = "send_email"
+)

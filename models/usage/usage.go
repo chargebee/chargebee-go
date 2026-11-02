@@ -49,7 +49,12 @@ type ListRequestParams struct {
 type PdfRequestParams struct {
 	Invoice         *PdfInvoiceParams    `json:"invoice,omitempty"`
 	DispositionType enum.DispositionType `json:"disposition_type,omitempty"`
+	GroupBy         []*PdfGroupByParams  `json:"group_by,omitempty"`
 }
 type PdfInvoiceParams struct {
 	Id string `json:"id"`
+}
+type PdfGroupByParams struct {
+	FeatureId  string        `json:"feature_id,omitempty"`
+	Attributes []interface{} `json:"attributes,omitempty"`
 }

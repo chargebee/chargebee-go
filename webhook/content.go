@@ -19,6 +19,10 @@ import (
 
 	"github.com/chargebee/chargebee-go/v3/models/businessentitytransfer"
 
+	"github.com/chargebee/chargebee-go/v3/models/businessrule"
+
+	"github.com/chargebee/chargebee-go/v3/models/businessruleset"
+
 	"github.com/chargebee/chargebee-go/v3/models/card"
 
 	"github.com/chargebee/chargebee-go/v3/models/contractterm"
@@ -34,6 +38,8 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/customer"
 
 	"github.com/chargebee/chargebee-go/v3/models/differentialprice"
+
+	"github.com/chargebee/chargebee-go/v3/models/dispute"
 
 	"github.com/chargebee/chargebee-go/v3/models/einvoice"
 
@@ -180,7 +186,20 @@ type GrantBlocksCreatedContent struct {
 	GrantBlock []*grantblock.GrantBlock `json:"grant_block,omitempty"`
 }
 
+type ChargebackLostContent struct {
+	Dispute *dispute.Dispute `json:"dispute,omitempty"`
+
+	Transaction *transaction.Transaction `json:"transaction,omitempty"`
+
+	Customer *customer.Customer `json:"customer,omitempty"`
+
+	Subscription *subscription.Subscription `json:"subscription,omitempty"`
+}
+
 type ProductUpdatedContent struct {
+}
+
+type PriceRampUpdatedContent struct {
 }
 
 type OmnichannelSubscriptionItemReactivatedContent struct {
@@ -242,6 +261,7 @@ type SubscriptionCancelledContent struct {
 }
 
 type BusinessRuleDeletedContent struct {
+	BusinessRule *businessrule.BusinessRule `json:"business_rule,omitempty"`
 }
 
 type ItemEntitlementsRemovedContent struct {
@@ -320,9 +340,6 @@ type VoucherCreateFailedContent struct {
 
 type GiftClaimedContent struct {
 	Gift *gift.Gift `json:"gift,omitempty"`
-}
-
-type BusinessRulesAppliedContent struct {
 }
 
 type CustomerDeletedContent struct {
@@ -484,6 +501,20 @@ type OrderCreatedContent struct {
 	Order *order.Order `json:"order,omitempty"`
 }
 
+type RefundFailedContent struct {
+	Transaction *transaction.Transaction `json:"transaction,omitempty"`
+
+	Invoice *invoice.Invoice `json:"invoice,omitempty"`
+
+	CreditNote *creditnote.CreditNote `json:"credit_note,omitempty"`
+
+	Customer *customer.Customer `json:"customer,omitempty"`
+
+	Subscription *subscription.Subscription `json:"subscription,omitempty"`
+
+	Card *card.Card `json:"card,omitempty"`
+}
+
 type PriceVariantDeletedContent struct {
 	PriceVariant *pricevariant.PriceVariant `json:"price_variant,omitempty"`
 
@@ -501,6 +532,7 @@ type SubscriptionMovementFailedContent struct {
 }
 
 type BusinessRulesetUpdatedContent struct {
+	BusinessRuleset *businessruleset.BusinessRuleset `json:"business_ruleset,omitempty"`
 }
 
 type CustomerMovedInContent struct {
@@ -525,7 +557,18 @@ type SubscriptionRampDraftedContent struct {
 	Ramp *ramp.Ramp `json:"ramp,omitempty"`
 }
 
+type ChargebackInitiatedContent struct {
+	Dispute *dispute.Dispute `json:"dispute,omitempty"`
+
+	Transaction *transaction.Transaction `json:"transaction,omitempty"`
+
+	Customer *customer.Customer `json:"customer,omitempty"`
+
+	Subscription *subscription.Subscription `json:"subscription,omitempty"`
+}
+
 type BusinessRuleCreatedContent struct {
+	BusinessRule *businessrule.BusinessRule `json:"business_rule,omitempty"`
 }
 
 type VaultTokenUpdatedContent struct {
@@ -600,6 +643,9 @@ type FeatureUpdatedContent struct {
 	Metadata *metadata.Metadata `json:"metadata,omitempty"`
 }
 
+type CollectionsPaymentPromiseFulfilledContent struct {
+}
+
 type FeatureDeletedContent struct {
 	Feature *feature.Feature `json:"feature,omitempty"`
 
@@ -628,6 +674,9 @@ type OmnichannelSubscriptionItemResumedContent struct {
 	OmnichannelSubscriptionItem *omnichannelsubscriptionitem.OmnichannelSubscriptionItem `json:"omnichannel_subscription_item,omitempty"`
 
 	Customer *customer.Customer `json:"customer,omitempty"`
+}
+
+type CollectionsDisputeResolvedContent struct {
 }
 
 type PurchaseCreatedContent struct {
@@ -689,12 +738,16 @@ type OmnichannelSubscriptionItemDowngradedContent struct {
 }
 
 type BusinessRulesetDeactivatedContent struct {
+	BusinessRuleset *businessruleset.BusinessRuleset `json:"business_ruleset,omitempty"`
 }
 
 type PriceVariantUpdatedContent struct {
 	PriceVariant *pricevariant.PriceVariant `json:"price_variant,omitempty"`
 
 	Attribute *attribute.Attribute `json:"attribute,omitempty"`
+}
+
+type CollectionsDisputeUpdatedContent struct {
 }
 
 type PromotionalCreditsDeductedContent struct {
@@ -708,6 +761,7 @@ type SubscriptionRampAppliedContent struct {
 }
 
 type BusinessRulesetDeletedContent struct {
+	BusinessRuleset *businessruleset.BusinessRuleset `json:"business_ruleset,omitempty"`
 }
 
 type SubscriptionPausedContent struct {
@@ -769,10 +823,14 @@ type ItemCreatedContent struct {
 }
 
 type BusinessRulesetCreatedContent struct {
+	BusinessRuleset *businessruleset.BusinessRuleset `json:"business_ruleset,omitempty"`
 }
 
 type TransactionUpdatedContent struct {
 	Transaction *transaction.Transaction `json:"transaction,omitempty"`
+}
+
+type CollectionsPaymentPromiseUpdatedContent struct {
 }
 
 type VariantDeletedContent struct {
@@ -786,6 +844,16 @@ type UnbilledChargesInvoicedContent struct {
 	UnbilledCharge []*unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
 
 	Invoice *invoice.Invoice `json:"invoice,omitempty"`
+}
+
+type ChargebackWonContent struct {
+	Dispute *dispute.Dispute `json:"dispute,omitempty"`
+
+	Transaction *transaction.Transaction `json:"transaction,omitempty"`
+
+	Customer *customer.Customer `json:"customer,omitempty"`
+
+	Subscription *subscription.Subscription `json:"subscription,omitempty"`
 }
 
 type ItemPriceUpdatedContent struct {
@@ -868,6 +936,12 @@ type CardUpdatedContent struct {
 	Card *card.Card `json:"card,omitempty"`
 }
 
+type PriceRampCreatedContent struct {
+}
+
+type CollectionsReminderSequenceCreatedContent struct {
+}
+
 type CustomerCreatedContent struct {
 	Customer *customer.Customer `json:"customer,omitempty"`
 
@@ -928,6 +1002,9 @@ type CouponCodesAddedContent struct {
 	CouponSet *couponset.CouponSet `json:"coupon_set,omitempty"`
 }
 
+type EmailMessageReceivedContent struct {
+}
+
 type GiftCancelledContent struct {
 	Gift *gift.Gift `json:"gift,omitempty"`
 }
@@ -954,6 +1031,9 @@ type PendingInvoiceCreatedContent struct {
 	Invoice *invoice.Invoice `json:"invoice,omitempty"`
 }
 
+type CollectionsPaymentPromiseBrokenContent struct {
+}
+
 type ProductDeletedContent struct {
 }
 
@@ -967,7 +1047,11 @@ type EntitlementOverridesAutoRemovedContent struct {
 	ImpactedSubscription *impactedsubscription.ImpactedSubscription `json:"impacted_subscription,omitempty"`
 }
 
+type PriceRampDeletedContent struct {
+}
+
 type BusinessRulesetActivatedContent struct {
+	BusinessRuleset *businessruleset.BusinessRuleset `json:"business_ruleset,omitempty"`
 }
 
 type OmnichannelSubscriptionItemUpgradedContent struct {
@@ -998,6 +1082,9 @@ type OmnichannelOneTimeOrderCreatedContent struct {
 	Customer *customer.Customer `json:"customer,omitempty"`
 }
 
+type CollectionsPaymentPromiseCreatedContent struct {
+}
+
 type PaymentSourceDeletedContent struct {
 	Customer *customer.Customer `json:"customer,omitempty"`
 
@@ -1018,6 +1105,9 @@ type QuoteDeletedContent struct {
 
 type InvoiceUpdatedContent struct {
 	Invoice *invoice.Invoice `json:"invoice,omitempty"`
+}
+
+type PrivateNoteAddedContent struct {
 }
 
 type SubscriptionAdvanceInvoiceScheduleRemovedContent struct {
@@ -1123,6 +1213,9 @@ type RuleDeletedContent struct {
 	Rule *rule.Rule `json:"rule,omitempty"`
 }
 
+type CollectionsDisputeCreatedContent struct {
+}
+
 type ItemPriceEntitlementsUpdatedContent struct {
 	Feature *feature.Feature `json:"feature,omitempty"`
 
@@ -1195,6 +1288,9 @@ type LedgerUpdatedContent struct {
 	GrantBlock []*grantblock.GrantBlock `json:"grant_block,omitempty"`
 
 	LedgerEntry []*ledgerentry.LedgerEntry `json:"ledger_entry,omitempty"`
+}
+
+type CollectionsPaymentPromiseCancelledContent struct {
 }
 
 type ItemPriceCreatedContent struct {
@@ -1349,6 +1445,9 @@ type OrderUpdatedContent struct {
 	Order *order.Order `json:"order,omitempty"`
 }
 
+type CollectionsDisputeWithdrawnContent struct {
+}
+
 type SubscriptionScheduledPauseRemovedContent struct {
 	Subscription *subscription.Subscription `json:"subscription,omitempty"`
 
@@ -1429,6 +1528,9 @@ type TokenCreatedContent struct {
 	Token *token.Token `json:"token,omitempty"`
 }
 
+type CollectionsReminderSequencePausedContent struct {
+}
+
 type PaymentSourceBusinessEntityChangedContent struct {
 	BusinessEntityTransfer *businessentitytransfer.BusinessEntityTransfer `json:"business_entity_transfer,omitempty"`
 
@@ -1446,6 +1548,7 @@ type SubscriptionRampUpdatedContent struct {
 }
 
 type BusinessRuleDeactivatedContent struct {
+	BusinessRule *businessrule.BusinessRule `json:"business_rule,omitempty"`
 }
 
 type LedgerAccountBalanceUpdatedContent struct {
@@ -1477,6 +1580,7 @@ type CustomerMovedOutContent struct {
 }
 
 type BusinessRuleReleasedContent struct {
+	BusinessRule *businessrule.BusinessRule `json:"business_rule,omitempty"`
 }
 
 type SubscriptionEntitlementsUpdatedContent struct {
@@ -1509,6 +1613,9 @@ type OmnichannelSubscriptionItemScheduledCancellationRemovedContent struct {
 
 type ItemUpdatedContent struct {
 	Item *item.Item `json:"item,omitempty"`
+}
+
+type CollectionsReminderSequenceResumedContent struct {
 }
 
 type CouponSetCreatedContent struct {
@@ -1562,6 +1669,7 @@ type DifferentialPriceDeletedContent struct {
 }
 
 type BusinessRuleActivatedContent struct {
+	BusinessRule *businessrule.BusinessRule `json:"business_rule,omitempty"`
 }
 
 type SubscriptionItemsRenewedContent struct {
@@ -1576,6 +1684,10 @@ type SubscriptionItemsRenewedContent struct {
 	CreditNote []*creditnote.CreditNote `json:"credit_note,omitempty"`
 
 	UnbilledCharge []*unbilledcharge.UnbilledCharge `json:"unbilled_charge,omitempty"`
+}
+
+type PaymentSchedulesCancelledContent struct {
+	PaymentSchedule *paymentschedule.PaymentSchedule `json:"payment_schedule,omitempty"`
 }
 
 type RuleCreatedContent struct {
@@ -1595,6 +1707,7 @@ type InvoiceDeletedContent struct {
 }
 
 type BusinessRuleUpdatedContent struct {
+	BusinessRule *businessrule.BusinessRule `json:"business_rule,omitempty"`
 }
 
 type ItemPriceEntitlementsRemovedContent struct {
@@ -1654,6 +1767,9 @@ type GrantBlocksUpdatedContent struct {
 
 type AuthorizationVoidedContent struct {
 	Transaction *transaction.Transaction `json:"transaction,omitempty"`
+}
+
+type CollectionsReminderSequenceCompletedContent struct {
 }
 
 type SubscriptionRampDeletedContent struct {
@@ -1746,10 +1862,22 @@ type GrantBlocksCreatedEvent struct {
 	Content *GrantBlocksCreatedContent `json:"content"`
 }
 
+// ChargebackLostEvent represents a chargeback_lost webhook event
+type ChargebackLostEvent struct {
+	BaseEvent
+	Content *ChargebackLostContent `json:"content"`
+}
+
 // ProductUpdatedEvent represents a product_updated webhook event
 type ProductUpdatedEvent struct {
 	BaseEvent
 	Content *ProductUpdatedContent `json:"content"`
+}
+
+// PriceRampUpdatedEvent represents a price_ramp_updated webhook event
+type PriceRampUpdatedEvent struct {
+	BaseEvent
+	Content *PriceRampUpdatedContent `json:"content"`
 }
 
 // OmnichannelSubscriptionItemReactivatedEvent represents a omnichannel_subscription_item_reactivated webhook event
@@ -1858,12 +1986,6 @@ type VoucherCreateFailedEvent struct {
 type GiftClaimedEvent struct {
 	BaseEvent
 	Content *GiftClaimedContent `json:"content"`
-}
-
-// BusinessRulesAppliedEvent represents a business_rules_applied webhook event
-type BusinessRulesAppliedEvent struct {
-	BaseEvent
-	Content *BusinessRulesAppliedContent `json:"content"`
 }
 
 // CustomerDeletedEvent represents a customer_deleted webhook event
@@ -2022,6 +2144,12 @@ type OrderCreatedEvent struct {
 	Content *OrderCreatedContent `json:"content"`
 }
 
+// RefundFailedEvent represents a refund_failed webhook event
+type RefundFailedEvent struct {
+	BaseEvent
+	Content *RefundFailedContent `json:"content"`
+}
+
 // PriceVariantDeletedEvent represents a price_variant_deleted webhook event
 type PriceVariantDeletedEvent struct {
 	BaseEvent
@@ -2068,6 +2196,12 @@ type ItemDeletedEvent struct {
 type SubscriptionRampDraftedEvent struct {
 	BaseEvent
 	Content *SubscriptionRampDraftedContent `json:"content"`
+}
+
+// ChargebackInitiatedEvent represents a chargeback_initiated webhook event
+type ChargebackInitiatedEvent struct {
+	BaseEvent
+	Content *ChargebackInitiatedContent `json:"content"`
 }
 
 // BusinessRuleCreatedEvent represents a business_rule_created webhook event
@@ -2142,6 +2276,12 @@ type FeatureUpdatedEvent struct {
 	Content *FeatureUpdatedContent `json:"content"`
 }
 
+// CollectionsPaymentPromiseFulfilledEvent represents a collections_payment_promise_fulfilled webhook event
+type CollectionsPaymentPromiseFulfilledEvent struct {
+	BaseEvent
+	Content *CollectionsPaymentPromiseFulfilledContent `json:"content"`
+}
+
 // FeatureDeletedEvent represents a feature_deleted webhook event
 type FeatureDeletedEvent struct {
 	BaseEvent
@@ -2164,6 +2304,12 @@ type OmnichannelSubscriptionItemScheduledChangeRemovedEvent struct {
 type OmnichannelSubscriptionItemResumedEvent struct {
 	BaseEvent
 	Content *OmnichannelSubscriptionItemResumedContent `json:"content"`
+}
+
+// CollectionsDisputeResolvedEvent represents a collections_dispute_resolved webhook event
+type CollectionsDisputeResolvedEvent struct {
+	BaseEvent
+	Content *CollectionsDisputeResolvedContent `json:"content"`
 }
 
 // PurchaseCreatedEvent represents a purchase_created webhook event
@@ -2230,6 +2376,12 @@ type BusinessRulesetDeactivatedEvent struct {
 type PriceVariantUpdatedEvent struct {
 	BaseEvent
 	Content *PriceVariantUpdatedContent `json:"content"`
+}
+
+// CollectionsDisputeUpdatedEvent represents a collections_dispute_updated webhook event
+type CollectionsDisputeUpdatedEvent struct {
+	BaseEvent
+	Content *CollectionsDisputeUpdatedContent `json:"content"`
 }
 
 // PromotionalCreditsDeductedEvent represents a promotional_credits_deducted webhook event
@@ -2310,6 +2462,12 @@ type TransactionUpdatedEvent struct {
 	Content *TransactionUpdatedContent `json:"content"`
 }
 
+// CollectionsPaymentPromiseUpdatedEvent represents a collections_payment_promise_updated webhook event
+type CollectionsPaymentPromiseUpdatedEvent struct {
+	BaseEvent
+	Content *CollectionsPaymentPromiseUpdatedContent `json:"content"`
+}
+
 // VariantDeletedEvent represents a variant_deleted webhook event
 type VariantDeletedEvent struct {
 	BaseEvent
@@ -2326,6 +2484,12 @@ type MrrUpdatedEvent struct {
 type UnbilledChargesInvoicedEvent struct {
 	BaseEvent
 	Content *UnbilledChargesInvoicedContent `json:"content"`
+}
+
+// ChargebackWonEvent represents a chargeback_won webhook event
+type ChargebackWonEvent struct {
+	BaseEvent
+	Content *ChargebackWonContent `json:"content"`
 }
 
 // ItemPriceUpdatedEvent represents a item_price_updated webhook event
@@ -2400,6 +2564,18 @@ type CardUpdatedEvent struct {
 	Content *CardUpdatedContent `json:"content"`
 }
 
+// PriceRampCreatedEvent represents a price_ramp_created webhook event
+type PriceRampCreatedEvent struct {
+	BaseEvent
+	Content *PriceRampCreatedContent `json:"content"`
+}
+
+// CollectionsReminderSequenceCreatedEvent represents a collections_reminder_sequence_created webhook event
+type CollectionsReminderSequenceCreatedEvent struct {
+	BaseEvent
+	Content *CollectionsReminderSequenceCreatedContent `json:"content"`
+}
+
 // CustomerCreatedEvent represents a customer_created webhook event
 type CustomerCreatedEvent struct {
 	BaseEvent
@@ -2454,6 +2630,12 @@ type CouponCodesAddedEvent struct {
 	Content *CouponCodesAddedContent `json:"content"`
 }
 
+// EmailMessageReceivedEvent represents a email_message_received webhook event
+type EmailMessageReceivedEvent struct {
+	BaseEvent
+	Content *EmailMessageReceivedContent `json:"content"`
+}
+
 // GiftCancelledEvent represents a gift_cancelled webhook event
 type GiftCancelledEvent struct {
 	BaseEvent
@@ -2484,6 +2666,12 @@ type PendingInvoiceCreatedEvent struct {
 	Content *PendingInvoiceCreatedContent `json:"content"`
 }
 
+// CollectionsPaymentPromiseBrokenEvent represents a collections_payment_promise_broken webhook event
+type CollectionsPaymentPromiseBrokenEvent struct {
+	BaseEvent
+	Content *CollectionsPaymentPromiseBrokenContent `json:"content"`
+}
+
 // ProductDeletedEvent represents a product_deleted webhook event
 type ProductDeletedEvent struct {
 	BaseEvent
@@ -2494,6 +2682,12 @@ type ProductDeletedEvent struct {
 type EntitlementOverridesAutoRemovedEvent struct {
 	BaseEvent
 	Content *EntitlementOverridesAutoRemovedContent `json:"content"`
+}
+
+// PriceRampDeletedEvent represents a price_ramp_deleted webhook event
+type PriceRampDeletedEvent struct {
+	BaseEvent
+	Content *PriceRampDeletedContent `json:"content"`
 }
 
 // BusinessRulesetActivatedEvent represents a business_ruleset_activated webhook event
@@ -2520,6 +2714,12 @@ type OmnichannelOneTimeOrderCreatedEvent struct {
 	Content *OmnichannelOneTimeOrderCreatedContent `json:"content"`
 }
 
+// CollectionsPaymentPromiseCreatedEvent represents a collections_payment_promise_created webhook event
+type CollectionsPaymentPromiseCreatedEvent struct {
+	BaseEvent
+	Content *CollectionsPaymentPromiseCreatedContent `json:"content"`
+}
+
 // PaymentSourceDeletedEvent represents a payment_source_deleted webhook event
 type PaymentSourceDeletedEvent struct {
 	BaseEvent
@@ -2542,6 +2742,12 @@ type QuoteDeletedEvent struct {
 type InvoiceUpdatedEvent struct {
 	BaseEvent
 	Content *InvoiceUpdatedContent `json:"content"`
+}
+
+// PrivateNoteAddedEvent represents a private_note_added webhook event
+type PrivateNoteAddedEvent struct {
+	BaseEvent
+	Content *PrivateNoteAddedContent `json:"content"`
 }
 
 // SubscriptionAdvanceInvoiceScheduleRemovedEvent represents a subscription_advance_invoice_schedule_removed webhook event
@@ -2640,6 +2846,12 @@ type RuleDeletedEvent struct {
 	Content *RuleDeletedContent `json:"content"`
 }
 
+// CollectionsDisputeCreatedEvent represents a collections_dispute_created webhook event
+type CollectionsDisputeCreatedEvent struct {
+	BaseEvent
+	Content *CollectionsDisputeCreatedContent `json:"content"`
+}
+
 // ItemPriceEntitlementsUpdatedEvent represents a item_price_entitlements_updated webhook event
 type ItemPriceEntitlementsUpdatedEvent struct {
 	BaseEvent
@@ -2704,6 +2916,12 @@ type SubscriptionMovedInEvent struct {
 type LedgerUpdatedEvent struct {
 	BaseEvent
 	Content *LedgerUpdatedContent `json:"content"`
+}
+
+// CollectionsPaymentPromiseCancelledEvent represents a collections_payment_promise_cancelled webhook event
+type CollectionsPaymentPromiseCancelledEvent struct {
+	BaseEvent
+	Content *CollectionsPaymentPromiseCancelledContent `json:"content"`
 }
 
 // ItemPriceCreatedEvent represents a item_price_created webhook event
@@ -2838,6 +3056,12 @@ type OrderUpdatedEvent struct {
 	Content *OrderUpdatedContent `json:"content"`
 }
 
+// CollectionsDisputeWithdrawnEvent represents a collections_dispute_withdrawn webhook event
+type CollectionsDisputeWithdrawnEvent struct {
+	BaseEvent
+	Content *CollectionsDisputeWithdrawnContent `json:"content"`
+}
+
 // SubscriptionScheduledPauseRemovedEvent represents a subscription_scheduled_pause_removed webhook event
 type SubscriptionScheduledPauseRemovedEvent struct {
 	BaseEvent
@@ -2902,6 +3126,12 @@ type CardExpiryReminderEvent struct {
 type TokenCreatedEvent struct {
 	BaseEvent
 	Content *TokenCreatedContent `json:"content"`
+}
+
+// CollectionsReminderSequencePausedEvent represents a collections_reminder_sequence_paused webhook event
+type CollectionsReminderSequencePausedEvent struct {
+	BaseEvent
+	Content *CollectionsReminderSequencePausedContent `json:"content"`
 }
 
 // PaymentSourceBusinessEntityChangedEvent represents a payment_source_business_entity_changed webhook event
@@ -3006,6 +3236,12 @@ type ItemUpdatedEvent struct {
 	Content *ItemUpdatedContent `json:"content"`
 }
 
+// CollectionsReminderSequenceResumedEvent represents a collections_reminder_sequence_resumed webhook event
+type CollectionsReminderSequenceResumedEvent struct {
+	BaseEvent
+	Content *CollectionsReminderSequenceResumedContent `json:"content"`
+}
+
 // CouponSetCreatedEvent represents a coupon_set_created webhook event
 type CouponSetCreatedEvent struct {
 	BaseEvent
@@ -3064,6 +3300,12 @@ type BusinessRuleActivatedEvent struct {
 type SubscriptionItemsRenewedEvent struct {
 	BaseEvent
 	Content *SubscriptionItemsRenewedContent `json:"content"`
+}
+
+// PaymentSchedulesCancelledEvent represents a payment_schedules_cancelled webhook event
+type PaymentSchedulesCancelledEvent struct {
+	BaseEvent
+	Content *PaymentSchedulesCancelledContent `json:"content"`
 }
 
 // RuleCreatedEvent represents a rule_created webhook event
@@ -3160,6 +3402,12 @@ type GrantBlocksUpdatedEvent struct {
 type AuthorizationVoidedEvent struct {
 	BaseEvent
 	Content *AuthorizationVoidedContent `json:"content"`
+}
+
+// CollectionsReminderSequenceCompletedEvent represents a collections_reminder_sequence_completed webhook event
+type CollectionsReminderSequenceCompletedEvent struct {
+	BaseEvent
+	Content *CollectionsReminderSequenceCompletedContent `json:"content"`
 }
 
 // SubscriptionRampDeletedEvent represents a subscription_ramp_deleted webhook event

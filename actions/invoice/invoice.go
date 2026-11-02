@@ -130,6 +130,9 @@ func UpdateDetails(id string, params *invoice.UpdateDetailsRequestParams) charge
 func ApplyPaymentScheduleScheme(id string, params *invoice.ApplyPaymentScheduleSchemeRequestParams) chargebee.Request {
 	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/apply_payment_schedule_scheme", url.PathEscape(id)), params).SetIdempotency(true)
 }
+func RemovePaymentScheduleScheme(id string, params *invoice.RemovePaymentScheduleSchemeRequestParams) chargebee.Request {
+	return chargebee.Send("POST", fmt.Sprintf("/invoices/%v/remove_payment_schedule_scheme", url.PathEscape(id)), params).SetIdempotency(true)
+}
 func PaymentSchedules(id string) chargebee.Request {
 	return chargebee.Send("GET", fmt.Sprintf("/invoices/%v/payment_schedules", url.PathEscape(id)), nil)
 }
