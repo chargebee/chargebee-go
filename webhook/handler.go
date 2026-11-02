@@ -53,8 +53,6 @@ type WebhookHandler struct {
 
 	OnBusinessRuleUpdated func(BusinessRuleUpdatedEvent) error
 
-	OnBusinessRulesApplied func(BusinessRulesAppliedEvent) error
-
 	OnBusinessRulesetActivated func(BusinessRulesetActivatedEvent) error
 
 	OnBusinessRulesetCreated func(BusinessRulesetCreatedEvent) error
@@ -74,6 +72,38 @@ type WebhookHandler struct {
 	OnCardExpiryReminder func(CardExpiryReminderEvent) error
 
 	OnCardUpdated func(CardUpdatedEvent) error
+
+	OnChargebackInitiated func(ChargebackInitiatedEvent) error
+
+	OnChargebackLost func(ChargebackLostEvent) error
+
+	OnChargebackWon func(ChargebackWonEvent) error
+
+	OnCollectionsDisputeCreated func(CollectionsDisputeCreatedEvent) error
+
+	OnCollectionsDisputeResolved func(CollectionsDisputeResolvedEvent) error
+
+	OnCollectionsDisputeUpdated func(CollectionsDisputeUpdatedEvent) error
+
+	OnCollectionsDisputeWithdrawn func(CollectionsDisputeWithdrawnEvent) error
+
+	OnCollectionsPaymentPromiseBroken func(CollectionsPaymentPromiseBrokenEvent) error
+
+	OnCollectionsPaymentPromiseCancelled func(CollectionsPaymentPromiseCancelledEvent) error
+
+	OnCollectionsPaymentPromiseCreated func(CollectionsPaymentPromiseCreatedEvent) error
+
+	OnCollectionsPaymentPromiseFulfilled func(CollectionsPaymentPromiseFulfilledEvent) error
+
+	OnCollectionsPaymentPromiseUpdated func(CollectionsPaymentPromiseUpdatedEvent) error
+
+	OnCollectionsReminderSequenceCompleted func(CollectionsReminderSequenceCompletedEvent) error
+
+	OnCollectionsReminderSequenceCreated func(CollectionsReminderSequenceCreatedEvent) error
+
+	OnCollectionsReminderSequencePaused func(CollectionsReminderSequencePausedEvent) error
+
+	OnCollectionsReminderSequenceResumed func(CollectionsReminderSequenceResumedEvent) error
 
 	OnContractTermCancelled func(ContractTermCancelledEvent) error
 
@@ -136,6 +166,8 @@ type WebhookHandler struct {
 	OnEinvoiceCreated func(EinvoiceCreatedEvent) error
 
 	OnEinvoiceUpdated func(EinvoiceUpdatedEvent) error
+
+	OnEmailMessageReceived func(EmailMessageReceivedEvent) error
 
 	OnEntitlementOverridesAutoRemoved func(EntitlementOverridesAutoRemovedEvent) error
 
@@ -311,6 +343,8 @@ type WebhookHandler struct {
 
 	OnPaymentScheduleSchemeDeleted func(PaymentScheduleSchemeDeletedEvent) error
 
+	OnPaymentSchedulesCancelled func(PaymentSchedulesCancelledEvent) error
+
 	OnPaymentSchedulesCreated func(PaymentSchedulesCreatedEvent) error
 
 	OnPaymentSchedulesUpdated func(PaymentSchedulesUpdatedEvent) error
@@ -341,11 +375,19 @@ type WebhookHandler struct {
 
 	OnPlanUpdated func(PlanUpdatedEvent) error
 
+	OnPriceRampCreated func(PriceRampCreatedEvent) error
+
+	OnPriceRampDeleted func(PriceRampDeletedEvent) error
+
+	OnPriceRampUpdated func(PriceRampUpdatedEvent) error
+
 	OnPriceVariantCreated func(PriceVariantCreatedEvent) error
 
 	OnPriceVariantDeleted func(PriceVariantDeletedEvent) error
 
 	OnPriceVariantUpdated func(PriceVariantUpdatedEvent) error
+
+	OnPrivateNoteAdded func(PrivateNoteAddedEvent) error
 
 	OnProductCreated func(ProductCreatedEvent) error
 
@@ -366,6 +408,8 @@ type WebhookHandler struct {
 	OnQuoteUpdated func(QuoteUpdatedEvent) error
 
 	OnRecordPurchaseFailed func(RecordPurchaseFailedEvent) error
+
+	OnRefundFailed func(RefundFailedEvent) error
 
 	OnRefundInitiated func(RefundInitiatedEvent) error
 
@@ -737,17 +781,6 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
-	case chargebee.EventTypeBusinessRulesApplied:
-		if h.OnBusinessRulesApplied != nil {
-			var e BusinessRulesAppliedEvent
-			if err := json.Unmarshal(body, &e); err != nil {
-				return err
-			}
-			return h.OnBusinessRulesApplied(e)
-		} else {
-			return h.handleUnhandledEvent(eventType, body)
-		}
-
 	case chargebee.EventTypeBusinessRulesetActivated:
 		if h.OnBusinessRulesetActivated != nil {
 			var e BusinessRulesetActivatedEvent
@@ -854,6 +887,182 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 				return err
 			}
 			return h.OnCardUpdated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeChargebackInitiated:
+		if h.OnChargebackInitiated != nil {
+			var e ChargebackInitiatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnChargebackInitiated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeChargebackLost:
+		if h.OnChargebackLost != nil {
+			var e ChargebackLostEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnChargebackLost(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeChargebackWon:
+		if h.OnChargebackWon != nil {
+			var e ChargebackWonEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnChargebackWon(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeCollectionsDisputeCreated:
+		if h.OnCollectionsDisputeCreated != nil {
+			var e CollectionsDisputeCreatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnCollectionsDisputeCreated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeCollectionsDisputeResolved:
+		if h.OnCollectionsDisputeResolved != nil {
+			var e CollectionsDisputeResolvedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnCollectionsDisputeResolved(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeCollectionsDisputeUpdated:
+		if h.OnCollectionsDisputeUpdated != nil {
+			var e CollectionsDisputeUpdatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnCollectionsDisputeUpdated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeCollectionsDisputeWithdrawn:
+		if h.OnCollectionsDisputeWithdrawn != nil {
+			var e CollectionsDisputeWithdrawnEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnCollectionsDisputeWithdrawn(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeCollectionsPaymentPromiseBroken:
+		if h.OnCollectionsPaymentPromiseBroken != nil {
+			var e CollectionsPaymentPromiseBrokenEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnCollectionsPaymentPromiseBroken(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeCollectionsPaymentPromiseCancelled:
+		if h.OnCollectionsPaymentPromiseCancelled != nil {
+			var e CollectionsPaymentPromiseCancelledEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnCollectionsPaymentPromiseCancelled(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeCollectionsPaymentPromiseCreated:
+		if h.OnCollectionsPaymentPromiseCreated != nil {
+			var e CollectionsPaymentPromiseCreatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnCollectionsPaymentPromiseCreated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeCollectionsPaymentPromiseFulfilled:
+		if h.OnCollectionsPaymentPromiseFulfilled != nil {
+			var e CollectionsPaymentPromiseFulfilledEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnCollectionsPaymentPromiseFulfilled(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeCollectionsPaymentPromiseUpdated:
+		if h.OnCollectionsPaymentPromiseUpdated != nil {
+			var e CollectionsPaymentPromiseUpdatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnCollectionsPaymentPromiseUpdated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeCollectionsReminderSequenceCompleted:
+		if h.OnCollectionsReminderSequenceCompleted != nil {
+			var e CollectionsReminderSequenceCompletedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnCollectionsReminderSequenceCompleted(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeCollectionsReminderSequenceCreated:
+		if h.OnCollectionsReminderSequenceCreated != nil {
+			var e CollectionsReminderSequenceCreatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnCollectionsReminderSequenceCreated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeCollectionsReminderSequencePaused:
+		if h.OnCollectionsReminderSequencePaused != nil {
+			var e CollectionsReminderSequencePausedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnCollectionsReminderSequencePaused(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeCollectionsReminderSequenceResumed:
+		if h.OnCollectionsReminderSequenceResumed != nil {
+			var e CollectionsReminderSequenceResumedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnCollectionsReminderSequenceResumed(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -1195,6 +1404,17 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 				return err
 			}
 			return h.OnEinvoiceUpdated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeEmailMessageReceived:
+		if h.OnEmailMessageReceived != nil {
+			var e EmailMessageReceivedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnEmailMessageReceived(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2156,6 +2376,17 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
+	case chargebee.EventTypePaymentSchedulesCancelled:
+		if h.OnPaymentSchedulesCancelled != nil {
+			var e PaymentSchedulesCancelledEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnPaymentSchedulesCancelled(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
 	case chargebee.EventTypePaymentSchedulesCreated:
 		if h.OnPaymentSchedulesCreated != nil {
 			var e PaymentSchedulesCreatedEvent
@@ -2321,6 +2552,39 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 			return h.handleUnhandledEvent(eventType, body)
 		}
 
+	case chargebee.EventTypePriceRampCreated:
+		if h.OnPriceRampCreated != nil {
+			var e PriceRampCreatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnPriceRampCreated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypePriceRampDeleted:
+		if h.OnPriceRampDeleted != nil {
+			var e PriceRampDeletedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnPriceRampDeleted(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypePriceRampUpdated:
+		if h.OnPriceRampUpdated != nil {
+			var e PriceRampUpdatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnPriceRampUpdated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
 	case chargebee.EventTypePriceVariantCreated:
 		if h.OnPriceVariantCreated != nil {
 			var e PriceVariantCreatedEvent
@@ -2350,6 +2614,17 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 				return err
 			}
 			return h.OnPriceVariantUpdated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypePrivateNoteAdded:
+		if h.OnPrivateNoteAdded != nil {
+			var e PrivateNoteAddedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnPrivateNoteAdded(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}
@@ -2460,6 +2735,17 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 				return err
 			}
 			return h.OnRecordPurchaseFailed(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case chargebee.EventTypeRefundFailed:
+		if h.OnRefundFailed != nil {
+			var e RefundFailedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnRefundFailed(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}

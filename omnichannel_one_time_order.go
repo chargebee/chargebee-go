@@ -6,6 +6,8 @@ type OmnichannelOneTimeOrderSource string
 const (
 	OmnichannelOneTimeOrderSourceAppleAppStore   OmnichannelOneTimeOrderSource = "apple_app_store"
 	OmnichannelOneTimeOrderSourceGooglePlayStore OmnichannelOneTimeOrderSource = "google_play_store"
+	OmnichannelOneTimeOrderSourceRoku            OmnichannelOneTimeOrderSource = "roku"
+	OmnichannelOneTimeOrderSourceAmazonAppStore  OmnichannelOneTimeOrderSource = "amazon_app_store"
 )
 
 type OmnichannelOneTimeOrderOmnichannelOneTimeOrderItemCancellationReason string

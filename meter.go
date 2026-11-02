@@ -51,6 +51,7 @@ type Meter struct {
 	UpdatedAt         int64               `json:"updated_at"`
 	ColumnDefinitions []*ColumnDefinition `json:"column_definitions"`
 	Features          []*Feature          `json:"features"`
+	GroupBy           []string            `json:"group_by"`
 	Object            string              `json:"object"`
 }
 

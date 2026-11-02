@@ -15,3 +15,12 @@ func (s *LedgerAccountBalanceService) ListLedgerAccountBalances(req *LedgerAccou
 
 	return send[*LedgerAccountBalanceListLedgerAccountBalancesResponse](req, s.config)
 }
+
+func (s *LedgerAccountBalanceService) UpdateOverdraftLimit(req *LedgerAccountBalanceUpdateOverdraftLimitRequest) (*LedgerAccountBalanceUpdateOverdraftLimitResponse, error) {
+	req.method = "POST"
+	req.path = "/ledger_account_balances/update_overdraft_limit"
+	req.telemetryResource = "ledgerAccountBalance"
+	req.telemetryOperation = "updateOverdraftLimit"
+
+	return send[*LedgerAccountBalanceUpdateOverdraftLimitResponse](req, s.config)
+}

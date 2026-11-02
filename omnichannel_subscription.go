@@ -6,6 +6,8 @@ type OmnichannelSubscriptionSource string
 const (
 	OmnichannelSubscriptionSourceAppleAppStore   OmnichannelSubscriptionSource = "apple_app_store"
 	OmnichannelSubscriptionSourceGooglePlayStore OmnichannelSubscriptionSource = "google_play_store"
+	OmnichannelSubscriptionSourceRoku            OmnichannelSubscriptionSource = "roku"
+	OmnichannelSubscriptionSourceAmazonAppStore  OmnichannelSubscriptionSource = "amazon_app_store"
 )
 
 type OmnichannelSubscriptionOmnichannelSubscriptionItemStatus string
@@ -43,6 +45,7 @@ const (
 	OmnichannelSubscriptionOmnichannelSubscriptionItemCancellationReasonRefundedDueToAppIssue                OmnichannelSubscriptionOmnichannelSubscriptionItemCancellationReason = "refunded_due_to_app_issue"
 	OmnichannelSubscriptionOmnichannelSubscriptionItemCancellationReasonRefundedForOtherReason               OmnichannelSubscriptionOmnichannelSubscriptionItemCancellationReason = "refunded_for_other_reason"
 	OmnichannelSubscriptionOmnichannelSubscriptionItemCancellationReasonMerchantRevoked                      OmnichannelSubscriptionOmnichannelSubscriptionItemCancellationReason = "merchant_revoked"
+	OmnichannelSubscriptionOmnichannelSubscriptionItemCancellationReasonOther                                OmnichannelSubscriptionOmnichannelSubscriptionItemCancellationReason = "other"
 )
 
 type OmnichannelSubscriptionInitialPurchaseTransactionType string
@@ -58,6 +61,7 @@ type OmnichannelSubscription struct {
 	AppId                        string                         `json:"app_id"`
 	Source                       OmnichannelSubscriptionSource  `json:"source"`
 	CustomerId                   string                         `json:"customer_id"`
+	Origin                       string                         `json:"origin"`
 	CreatedAt                    int64                          `json:"created_at"`
 	PurchasedAt                  int64                          `json:"purchased_at"`
 	UpdatedAt                    int64                          `json:"updated_at"`

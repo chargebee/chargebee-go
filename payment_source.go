@@ -53,6 +53,18 @@ const (
 	PaymentSourceCardFundingTypeNotApplicable PaymentSourceCardFundingType = "not_applicable"
 )
 
+type PaymentSourceBankAccountScheme string
+
+const (
+	PaymentSourceBankAccountSchemeAch      PaymentSourceBankAccountScheme = "ach"
+	PaymentSourceBankAccountSchemeBacs     PaymentSourceBankAccountScheme = "bacs"
+	PaymentSourceBankAccountSchemeSepaCore PaymentSourceBankAccountScheme = "sepa_core"
+	PaymentSourceBankAccountSchemeAutogiro PaymentSourceBankAccountScheme = "autogiro"
+	PaymentSourceBankAccountSchemeBecs     PaymentSourceBankAccountScheme = "becs"
+	PaymentSourceBankAccountSchemeBecsNz   PaymentSourceBankAccountScheme = "becs_nz"
+	PaymentSourceBankAccountSchemePad      PaymentSourceBankAccountScheme = "pad"
+)
+
 type PaymentSourceCardPreferredScheme string
 
 const (
@@ -190,6 +202,7 @@ type PaymentSourceMandate struct {
 
 type PaymentSourceNetworkTransactionReference struct {
 	OriginalNetworkTransactionId string `json:"original_network_transaction_id"`
+	TransactionLinkId            string `json:"transaction_link_id"`
 	Object                       string `json:"object"`
 }
 
@@ -221,6 +234,7 @@ type PaymentSourceCreateUsingPermanentTokenRequest struct {
 	MandateId                   string                                                `json:"mandate_id,omitempty"`
 	SkipRetrieval               *bool                                                 `json:"skip_retrieval,omitempty"`
 	Card                        *PaymentSourceCreateUsingPermanentTokenCard           `json:"card,omitempty"`
+	BankAccount                 *PaymentSourceCreateUsingPermanentTokenBankAccount    `json:"bank_account,omitempty"`
 	BillingAddress              *PaymentSourceCreateUsingPermanentTokenBillingAddress `json:"billing_address,omitempty"`
 	AdditionalInformation       map[string]interface{}                                `json:"additional_information,omitempty"`
 	apiRequest                  `json:"-" form:"-"`
@@ -235,6 +249,17 @@ type PaymentSourceCreateUsingPermanentTokenCard struct {
 	ExpiryYear  *int32                 `json:"expiry_year,omitempty"`
 	Brand       PaymentSourceCardBrand `json:"brand,omitempty"`
 	FundingType CardFundingType        `json:"funding_type,omitempty"`
+}
+
+type PaymentSourceCreateUsingPermanentTokenBankAccount struct {
+	AccountType       AccountType                    `json:"account_type,omitempty"`
+	AccountHolderType AccountHolderType              `json:"account_holder_type,omitempty"`
+	FirstName         string                         `json:"first_name,omitempty"`
+	LastName          string                         `json:"last_name,omitempty"`
+	Company           string                         `json:"company,omitempty"`
+	Scheme            PaymentSourceBankAccountScheme `json:"scheme,omitempty"`
+	Last4             string                         `json:"last4,omitempty"`
+	EcheckType        EcheckType                     `json:"echeck_type,omitempty"`
 }
 
 type PaymentSourceCreateUsingPermanentTokenBillingAddress struct {

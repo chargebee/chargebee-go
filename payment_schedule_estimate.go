@@ -13,6 +13,7 @@ const (
 	PaymentScheduleEstimateScheduleEntryStatusPosted     PaymentScheduleEstimateScheduleEntryStatus = "posted"
 	PaymentScheduleEstimateScheduleEntryStatusPaymentDue PaymentScheduleEstimateScheduleEntryStatus = "payment_due"
 	PaymentScheduleEstimateScheduleEntryStatusPaid       PaymentScheduleEstimateScheduleEntryStatus = "paid"
+	PaymentScheduleEstimateScheduleEntryStatusVoided     PaymentScheduleEstimateScheduleEntryStatus = "voided"
 )
 
 type PaymentScheduleEstimate struct {

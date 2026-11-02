@@ -19,6 +19,39 @@ type BusinessEntity struct {
 	Object          string               `json:"object"`
 }
 
+type BusinessEntityCreateRequest struct {
+	Name       string               `json:"name"`
+	Status     BusinessEntityStatus `json:"status"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *BusinessEntityCreateRequest) payload() any { return r }
+
+type BusinessEntityListRequest struct {
+	Limit          *int32        `json:"limit,omitempty"`
+	Offset         string        `json:"offset,omitempty"`
+	IncludeDeleted *bool         `json:"include_deleted,omitempty"`
+	Name           *StringFilter `json:"name,omitempty"`
+	apiRequest     `json:"-" form:"-"`
+}
+
+func (r *BusinessEntityListRequest) payload() any { return r }
+
+type BusinessEntityRetrieveRequest struct {
+	Id         string `json:"-" form:"-"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *BusinessEntityRetrieveRequest) payload() any { return r }
+
+type BusinessEntityUpdateRequest struct {
+	Name       string               `json:"name,omitempty"`
+	Status     BusinessEntityStatus `json:"status,omitempty"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *BusinessEntityUpdateRequest) payload() any { return r }
+
 type BusinessEntityCreateTransfersRequest struct {
 	ActiveResourceIds            []string `json:"active_resource_ids"`
 	DestinationBusinessEntityIds []string `json:"destination_business_entity_ids"`
@@ -40,6 +73,31 @@ type BusinessEntityGetTransfersRequest struct {
 }
 
 func (r *BusinessEntityGetTransfersRequest) payload() any { return r }
+
+type BusinessEntityCreateResponse struct {
+	BusinessEntity *BusinessEntity `json:"business_entity,omitempty"`
+	apiResponse
+}
+
+type BusinessEntityListBusinessEntityResponse struct {
+	BusinessEntity *BusinessEntity `json:"business_entity,omitempty"`
+}
+
+type BusinessEntityListResponse struct {
+	List       []*BusinessEntityListBusinessEntityResponse `json:"list,omitempty"`
+	NextOffset string                                      `json:"next_offset,omitempty"`
+	apiResponse
+}
+
+type BusinessEntityRetrieveResponse struct {
+	BusinessEntity *BusinessEntity `json:"business_entity,omitempty"`
+	apiResponse
+}
+
+type BusinessEntityUpdateResponse struct {
+	BusinessEntity *BusinessEntity `json:"business_entity,omitempty"`
+	apiResponse
+}
 
 type BusinessEntityCreateTransfersResponse struct {
 	BusinessEntityTransfer BusinessEntityTransfer `json:"business_entity_transfer,omitempty"`

@@ -6,6 +6,8 @@ type RecordedPurchaseSource string
 const (
 	RecordedPurchaseSourceAppleAppStore   RecordedPurchaseSource = "apple_app_store"
 	RecordedPurchaseSourceGooglePlayStore RecordedPurchaseSource = "google_play_store"
+	RecordedPurchaseSourceRoku            RecordedPurchaseSource = "roku"
+	RecordedPurchaseSourceAmazonAppStore  RecordedPurchaseSource = "amazon_app_store"
 )
 
 type RecordedPurchaseStatus string

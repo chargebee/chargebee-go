@@ -402,6 +402,16 @@ func (s *InvoiceService) ApplyPaymentScheduleScheme(id string, req *InvoiceApply
 	return send[*InvoiceApplyPaymentScheduleSchemeResponse](req, s.config)
 }
 
+func (s *InvoiceService) RemovePaymentScheduleScheme(id string, req *InvoiceRemovePaymentScheduleSchemeRequest) (*InvoiceRemovePaymentScheduleSchemeResponse, error) {
+	req.method = "POST"
+	req.path = fmt.Sprintf("/invoices/%v/remove_payment_schedule_scheme", url.PathEscape(id))
+	req.isIdempotent = true
+	req.telemetryResource = "invoice"
+	req.telemetryOperation = "removePaymentScheduleScheme"
+
+	return send[*InvoiceRemovePaymentScheduleSchemeResponse](req, s.config)
+}
+
 func (s *InvoiceService) PaymentSchedules(req *InvoicePaymentSchedulesRequest) (*InvoicePaymentSchedulesResponse, error) {
 	req.method = "GET"
 	req.path = fmt.Sprintf("/invoices/%v/payment_schedules", url.PathEscape(req.Id))

@@ -36,6 +36,7 @@ const (
 	OmnichannelSubscriptionItemCancellationReasonRefundedDueToAppIssue                OmnichannelSubscriptionItemCancellationReason = "refunded_due_to_app_issue"
 	OmnichannelSubscriptionItemCancellationReasonRefundedForOtherReason               OmnichannelSubscriptionItemCancellationReason = "refunded_for_other_reason"
 	OmnichannelSubscriptionItemCancellationReasonMerchantRevoked                      OmnichannelSubscriptionItemCancellationReason = "merchant_revoked"
+	OmnichannelSubscriptionItemCancellationReasonOther                                OmnichannelSubscriptionItemCancellationReason = "other"
 )
 
 type OmnichannelSubscriptionItem struct {
@@ -48,8 +49,10 @@ type OmnichannelSubscriptionItem struct {
 	CurrentTermEnd                    int64                                         `json:"current_term_end"`
 	ExpiredAt                         int64                                         `json:"expired_at"`
 	ExpirationReason                  OmnichannelSubscriptionItemExpirationReason   `json:"expiration_reason"`
+	ExpirationReasonAtSource          string                                        `json:"expiration_reason_at_source"`
 	CancelledAt                       int64                                         `json:"cancelled_at"`
 	CancellationReason                OmnichannelSubscriptionItemCancellationReason `json:"cancellation_reason"`
+	CancellationReasonAtSource        string                                        `json:"cancellation_reason_at_source"`
 	GracePeriodExpiresAt              int64                                         `json:"grace_period_expires_at"`
 	ResumesAt                         int64                                         `json:"resumes_at"`
 	HasScheduledChanges               bool                                          `json:"has_scheduled_changes"`

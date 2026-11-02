@@ -4,15 +4,15 @@ package chargebee
 type GatewayPaymentMethodTokenStatus string
 
 const (
-	GatewayPaymentMethodTokenStatusActive              GatewayPaymentMethodTokenStatus = "active"
-	GatewayPaymentMethodTokenStatusInactive            GatewayPaymentMethodTokenStatus = "inactive"
+	GatewayPaymentMethodTokenStatusValid               GatewayPaymentMethodTokenStatus = "valid"
+	GatewayPaymentMethodTokenStatusInvalid             GatewayPaymentMethodTokenStatus = "invalid"
 	GatewayPaymentMethodTokenStatusPendingVerification GatewayPaymentMethodTokenStatus = "pending_verification"
 )
 
 type GatewayPaymentMethodToken struct {
 	Id                string                          `json:"id"`
 	GatewayAccountId  string                          `json:"gateway_account_id"`
-	GatewayName       GatewayName                     `json:"gateway_name"`
+	Gateway           Gateway                         `json:"gateway"`
 	GatewayCustomerId string                          `json:"gateway_customer_id"`
 	GatewayToken      string                          `json:"gateway_token"`
 	Status            GatewayPaymentMethodTokenStatus `json:"status"`

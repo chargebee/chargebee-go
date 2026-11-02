@@ -344,6 +344,7 @@ type Invoice struct {
 	TaxOrigin                 *InvoiceTaxOrigin              `json:"tax_origin"`
 	LinkedPayments            []*InvoiceLinkedPayment        `json:"linked_payments"`
 	ReferenceTransactions     []*InvoiceReferenceTransaction `json:"reference_transactions"`
+	RetrySegmentId            string                         `json:"retry_segment_id"`
 	DunningAttempts           []*InvoiceDunningAttempt       `json:"dunning_attempts"`
 	AppliedCredits            []*InvoiceAppliedCredit        `json:"applied_credits"`
 	AdjustmentCreditNotes     []*InvoiceAdjustmentCreditNote `json:"adjustment_credit_notes"`
@@ -1161,6 +1162,7 @@ type InvoiceImportInvoiceLineItem struct {
 	Tax10Amount                *int64                       `json:"tax10_amount,omitempty"`
 	IsPartialTaxApplied        *bool                        `json:"is_partial_tax_applied,omitempty"`
 	TaxableAmount              *int64                       `json:"taxable_amount,omitempty"`
+	TaxExemptReason            TaxExemptReason              `json:"tax_exempt_reason,omitempty"`
 	ProrationMode              InvoiceLineItemProrationMode `json:"proration_mode,omitempty"`
 	CreatedAt                  *int64                       `json:"created_at,omitempty"`
 }
@@ -1706,6 +1708,13 @@ type InvoiceApplyPaymentScheduleSchemeRequest struct {
 
 func (r *InvoiceApplyPaymentScheduleSchemeRequest) payload() any { return r }
 
+type InvoiceRemovePaymentScheduleSchemeRequest struct {
+	Comment    string `json:"comment,omitempty"`
+	apiRequest `json:"-" form:"-"`
+}
+
+func (r *InvoiceRemovePaymentScheduleSchemeRequest) payload() any { return r }
+
 type InvoicePaymentSchedulesRequest struct {
 	Id         string `json:"-" form:"-"`
 	apiRequest `json:"-" form:"-"`
@@ -1950,6 +1959,11 @@ type InvoiceUpdateDetailsResponse struct {
 }
 
 type InvoiceApplyPaymentScheduleSchemeResponse struct {
+	Invoice *Invoice `json:"invoice,omitempty"`
+	apiResponse
+}
+
+type InvoiceRemovePaymentScheduleSchemeResponse struct {
 	Invoice *Invoice `json:"invoice,omitempty"`
 	apiResponse
 }
