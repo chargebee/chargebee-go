@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
+	"github.com/chargebee/chargebee-go/v3/models/billinglineitem"
 	grantBlockEnum "github.com/chargebee/chargebee-go/v3/models/grantblock/enum"
 )
 
@@ -37,6 +38,7 @@ type GrantBlock struct {
 	ResourceVersion         int64                      `json:"resource_version"`
 	ProvisionedBlockBalance *ProvisionedBlockBalance   `json:"provisioned_block_balance"`
 	OverdraftBlockBalance   *OverdraftBlockBalance     `json:"overdraft_block_balance"`
+	BillingMetadata         *BillingMetadata           `json:"billing_metadata"`
 	Metadata                json.RawMessage            `json:"metadata"`
 	Object                  string                     `json:"object"`
 }
@@ -58,6 +60,11 @@ type OverdraftBlockBalance struct {
 	UsableBalance string `json:"usable_balance"`
 	UsedAmount    string `json:"used_amount"`
 	Object        string `json:"object"`
+}
+type BillingMetadata struct {
+	ItemPriceId string                             `json:"item_price_id"`
+	LineItems   []*billinglineitem.BillingLineItem `json:"line_items"`
+	Object      string                             `json:"object"`
 }
 type ListGrantBlocksRequestParams struct {
 	Limit          *int32                  `json:"limit,omitempty"`

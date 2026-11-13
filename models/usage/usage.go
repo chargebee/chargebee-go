@@ -3,6 +3,7 @@ package usage
 import (
 	"github.com/chargebee/chargebee-go/v3/enum"
 	"github.com/chargebee/chargebee-go/v3/filter"
+	usageEnum "github.com/chargebee/chargebee-go/v3/models/usage/enum"
 )
 
 type Usage struct {
@@ -55,6 +56,7 @@ type PdfInvoiceParams struct {
 	Id string `json:"id"`
 }
 type PdfGroupByParams struct {
-	FeatureId  string        `json:"feature_id,omitempty"`
-	Attributes []interface{} `json:"attributes,omitempty"`
+	FeatureId  string                      `json:"feature_id,omitempty"`
+	Attributes []interface{}               `json:"attributes,omitempty"`
+	WindowSize usageEnum.GroupByWindowSize `json:"window_size,omitempty"`
 }

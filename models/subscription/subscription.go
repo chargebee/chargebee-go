@@ -213,6 +213,7 @@ type ContractTerm struct {
 type Discount struct {
 	Id            string                        `json:"id"`
 	InvoiceName   string                        `json:"invoice_name"`
+	Description   string                        `json:"description"`
 	Type          subscriptionEnum.DiscountType `json:"type"`
 	Percentage    float64                       `json:"percentage"`
 	Amount        int64                         `json:"amount"`
@@ -633,6 +634,7 @@ type CreateWithItemsDiscountParams struct {
 	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`
 	ItemPriceId   string            `json:"item_price_id,omitempty"`
 	Quantity      *int32            `json:"quantity,omitempty"`
+	Description   string            `json:"description,omitempty"`
 }
 type CreateWithItemsItemTierParams struct {
 	ItemPriceId           string           `json:"item_price_id,omitempty"`
@@ -980,6 +982,7 @@ type UpdateForItemsDiscountParams struct {
 	Quantity      *int32             `json:"quantity,omitempty"`
 	OperationType enum.OperationType `json:"operation_type"`
 	Id            string             `json:"id,omitempty"`
+	Description   string             `json:"description,omitempty"`
 }
 type UpdateForItemsItemTierParams struct {
 	ItemPriceId           string           `json:"item_price_id,omitempty"`

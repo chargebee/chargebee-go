@@ -173,6 +173,7 @@ type CreateSubItemEstimateDiscountParams struct {
 	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`
 	ItemPriceId   string            `json:"item_price_id,omitempty"`
 	Quantity      *int32            `json:"quantity,omitempty"`
+	Description   string            `json:"description,omitempty"`
 }
 type CreateSubItemEstimateItemTierParams struct {
 	ItemPriceId           string           `json:"item_price_id,omitempty"`
@@ -344,6 +345,7 @@ type CreateSubItemForCustomerEstimateDiscountParams struct {
 	IncludedInMrr *bool             `json:"included_in_mrr,omitempty"`
 	ItemPriceId   string            `json:"item_price_id,omitempty"`
 	Quantity      *int32            `json:"quantity,omitempty"`
+	Description   string            `json:"description,omitempty"`
 }
 type CreateSubItemForCustomerEstimateItemTierParams struct {
 	ItemPriceId           string           `json:"item_price_id,omitempty"`
@@ -544,6 +546,7 @@ type UpdateSubscriptionForItemsDiscountParams struct {
 	Quantity      *int32             `json:"quantity,omitempty"`
 	OperationType enum.OperationType `json:"operation_type"`
 	Id            string             `json:"id,omitempty"`
+	Description   string             `json:"description,omitempty"`
 }
 type UpdateSubscriptionForItemsItemTierParams struct {
 	ItemPriceId           string           `json:"item_price_id,omitempty"`

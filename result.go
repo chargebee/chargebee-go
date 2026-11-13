@@ -13,6 +13,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/attacheditem"
 	"github.com/chargebee/chargebee-go/v3/models/attribute"
 	"github.com/chargebee/chargebee-go/v3/models/billingconfiguration"
+	"github.com/chargebee/chargebee-go/v3/models/billingmetadata"
 	"github.com/chargebee/chargebee-go/v3/models/brand"
 	"github.com/chargebee/chargebee-go/v3/models/businessentity"
 	"github.com/chargebee/chargebee-go/v3/models/businessentitytransfer"
@@ -60,6 +61,8 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/filtercondition"
 	"github.com/chargebee/chargebee-go/v3/models/gatewayerrordetail"
 	"github.com/chargebee/chargebee-go/v3/models/gatewaypaymentmethodtoken"
+	"github.com/chargebee/chargebee-go/v3/models/gatewayrequestlog"
+	"github.com/chargebee/chargebee-go/v3/models/gatewaywebhooklog"
 	"github.com/chargebee/chargebee-go/v3/models/gift"
 	"github.com/chargebee/chargebee-go/v3/models/grantblock"
 	"github.com/chargebee/chargebee-go/v3/models/groupbyattribute"
@@ -92,6 +95,7 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/omnichannelsubscriptionitemscheduledchange"
 	"github.com/chargebee/chargebee-go/v3/models/omnichanneltransaction"
 	"github.com/chargebee/chargebee-go/v3/models/order"
+	"github.com/chargebee/chargebee-go/v3/models/organizationdetail"
 	"github.com/chargebee/chargebee-go/v3/models/paymentintent"
 	"github.com/chargebee/chargebee-go/v3/models/paymentreferencenumber"
 	"github.com/chargebee/chargebee-go/v3/models/paymentschedule"
@@ -170,6 +174,8 @@ type Result struct {
 	Card                                       *card.Card                                                                             `json:"card,omitempty"`
 	PromotionalCredit                          *promotionalcredit.PromotionalCredit                                                   `json:"promotional_credit,omitempty"`
 	EmailLog                                   *emaillog.EmailLog                                                                     `json:"email_log,omitempty"`
+	GatewayRequestLog                          *gatewayrequestlog.GatewayRequestLog                                                   `json:"gateway_request_log,omitempty"`
+	GatewayWebhookLog                          *gatewaywebhooklog.GatewayWebhookLog                                                   `json:"gateway_webhook_log,omitempty"`
 	Invoice                                    *invoice.Invoice                                                                       `json:"invoice,omitempty"`
 	PaymentReferenceNumber                     *paymentreferencenumber.PaymentReferenceNumber                                         `json:"payment_reference_number,omitempty"`
 	PaymentSchedule                            *paymentschedule.PaymentSchedule                                                       `json:"payment_schedule,omitempty"`
@@ -233,6 +239,7 @@ type Result struct {
 	BusinessEntity                             *businessentity.BusinessEntity                                                         `json:"business_entity,omitempty"`
 	Purchase                                   *purchase.Purchase                                                                     `json:"purchase,omitempty"`
 	PaymentVoucher                             *paymentvoucher.PaymentVoucher                                                         `json:"payment_voucher,omitempty"`
+	OrganizationDetail                         *organizationdetail.OrganizationDetail                                                 `json:"organization_detail,omitempty"`
 	Currency                                   *currency.Currency                                                                     `json:"currency,omitempty"`
 	Ramp                                       *ramp.Ramp                                                                             `json:"ramp,omitempty"`
 	PaymentScheduleScheme                      *paymentschedulescheme.PaymentScheduleScheme                                           `json:"payment_schedule_scheme,omitempty"`
@@ -284,6 +291,7 @@ type Result struct {
 	EmailAttachment                            *emailattachment.EmailAttachment                                                       `json:"email_attachment,omitempty"`
 	LedgerAccountBalance                       *ledgeraccountbalance.LedgerAccountBalance                                             `json:"ledger_account_balance,omitempty"`
 	LedgerOperation                            *ledgeroperation.LedgerOperation                                                       `json:"ledger_operation,omitempty"`
+	BillingMetadata                            *billingmetadata.BillingMetadata                                                       `json:"billing_metadata,omitempty"`
 	GrantBlock                                 *grantblock.GrantBlock                                                                 `json:"grant_block,omitempty"`
 	LedgerEntry                                *ledgerentry.LedgerEntry                                                               `json:"ledger_entry,omitempty"`
 	PromotionalGrant                           *promotionalgrant.PromotionalGrant                                                     `json:"promotional_grant,omitempty"`
