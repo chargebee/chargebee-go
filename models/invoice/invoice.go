@@ -50,6 +50,7 @@ type Invoice struct {
 	FirstInvoice              bool                      `json:"first_invoice"`
 	NewSalesAmount            int64                     `json:"new_sales_amount"`
 	HasAdvanceCharges         bool                      `json:"has_advance_charges"`
+	OfflinePaymentMethod      enum.OfflinePaymentMethod `json:"offline_payment_method"`
 	TermFinalized             bool                      `json:"term_finalized"`
 	IsGifted                  bool                      `json:"is_gifted"`
 	GeneratedAt               int64                     `json:"generated_at"`
@@ -493,6 +494,7 @@ type CreateForChargeItemsAndChargesRequestParams struct {
 	PaymentSourceId             string                                                   `json:"payment_source_id,omitempty"`
 	AutoCollection              enum.AutoCollection                                      `json:"auto_collection,omitempty"`
 	NetTermDays                 *int32                                                   `json:"net_term_days,omitempty"`
+	OfflinePaymentMethod        enum.OfflinePaymentMethod                                `json:"offline_payment_method,omitempty"`
 	TaxProvidersFields          []*CreateForChargeItemsAndChargesTaxProvidersFieldParams `json:"tax_providers_fields,omitempty"`
 	Discounts                   []*CreateForChargeItemsAndChargesDiscountParams          `json:"discounts,omitempty"`
 	InvoiceDate                 *int64                                                   `json:"invoice_date,omitempty"`
@@ -916,7 +918,9 @@ type ApplyCreditsRequestParams struct {
 	Comment     string                          `json:"comment,omitempty"`
 }
 type ApplyCreditsCreditNoteParams struct {
-	Id string `json:"id,omitempty"`
+	Id        string `json:"id,omitempty"`
+	Amount    *int64 `json:"amount,omitempty"`
+	AppliedAt *int64 `json:"applied_at,omitempty"`
 }
 type ListRequestParams struct {
 	Limit          *int32                  `json:"limit,omitempty"`

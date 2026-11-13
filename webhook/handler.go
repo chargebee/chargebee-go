@@ -327,6 +327,10 @@ type WebhookHandler struct {
 
 	OnOrderUpdated func(OrderUpdatedEvent) error
 
+	OnOrganizationDetailsCreated func(OrganizationDetailsCreatedEvent) error
+
+	OnOrganizationDetailsUpdated func(OrganizationDetailsUpdatedEvent) error
+
 	OnPaymentDueReminder func(PaymentDueReminderEvent) error
 
 	OnPaymentFailed func(PaymentFailedEvent) error
@@ -2284,6 +2288,28 @@ func (h *WebhookHandler) ParseAndDispatch(body []byte) error {
 				return err
 			}
 			return h.OnOrderUpdated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case enum.EventTypeOrganizationDetailsCreated:
+		if h.OnOrganizationDetailsCreated != nil {
+			var e OrganizationDetailsCreatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnOrganizationDetailsCreated(e)
+		} else {
+			return h.handleUnhandledEvent(eventType, body)
+		}
+
+	case enum.EventTypeOrganizationDetailsUpdated:
+		if h.OnOrganizationDetailsUpdated != nil {
+			var e OrganizationDetailsUpdatedEvent
+			if err := json.Unmarshal(body, &e); err != nil {
+				return err
+			}
+			return h.OnOrganizationDetailsUpdated(e)
 		} else {
 			return h.handleUnhandledEvent(eventType, body)
 		}

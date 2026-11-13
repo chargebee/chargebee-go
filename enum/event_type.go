@@ -159,6 +159,8 @@ const (
 	EventTypeOrderResent                                             EventType = "order_resent"
 	EventTypeOrderReturned                                           EventType = "order_returned"
 	EventTypeOrderUpdated                                            EventType = "order_updated"
+	EventTypeOrganizationDetailsCreated                              EventType = "organization_details_created"
+	EventTypeOrganizationDetailsUpdated                              EventType = "organization_details_updated"
 	EventTypePaymentDueReminder                                      EventType = "payment_due_reminder"
 	EventTypePaymentFailed                                           EventType = "payment_failed"
 	EventTypePaymentInitiated                                        EventType = "payment_initiated"

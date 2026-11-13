@@ -1,0 +1,50 @@
+package organizationdetail
+
+import (
+	"github.com/chargebee/chargebee-go/v3/filter"
+)
+
+type OrganizationDetail struct {
+	Id                 string `json:"id"`
+	OrganizationName   string `json:"organization_name"`
+	Email              string `json:"email"`
+	AddressLine1       string `json:"address_line1"`
+	AddressLine2       string `json:"address_line2"`
+	AddressLine3       string `json:"address_line3"`
+	City               string `json:"city"`
+	StateCode          string `json:"state_code"`
+	State              string `json:"state"`
+	CountryCode        string `json:"country_code"`
+	Zip                string `json:"zip"`
+	Phone              string `json:"phone"`
+	Fax                string `json:"fax"`
+	Website            string `json:"website"`
+	IsVatNumberPresent bool   `json:"is_vat_number_present"`
+	VatNumber          string `json:"vat_number"`
+	ResourceVersion    int64  `json:"resource_version"`
+	UpdatedAt          int64  `json:"updated_at"`
+	BusinessEntityId   string `json:"business_entity_id"`
+	Object             string `json:"object"`
+}
+type CreateRequestParams struct {
+	OrganizationName   string `json:"organization_name"`
+	Email              string `json:"email,omitempty"`
+	AddressLine1       string `json:"address_line1"`
+	AddressLine2       string `json:"address_line2,omitempty"`
+	AddressLine3       string `json:"address_line3,omitempty"`
+	City               string `json:"city"`
+	StateCode          string `json:"state_code,omitempty"`
+	State              string `json:"state"`
+	Zip                string `json:"zip"`
+	CountryCode        string `json:"country_code,omitempty"`
+	Phone              string `json:"phone"`
+	Fax                string `json:"fax,omitempty"`
+	Website            string `json:"website,omitempty"`
+	IsVatNumberPresent *bool  `json:"is_vat_number_present,omitempty"`
+	VatNumber          string `json:"vat_number,omitempty"`
+}
+type ListRequestParams struct {
+	Limit            *int32               `json:"limit,omitempty"`
+	Offset           string               `json:"offset,omitempty"`
+	BusinessEntityId *filter.StringFilter `json:"business_entity_id,omitempty"`
+}

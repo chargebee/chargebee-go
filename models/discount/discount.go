@@ -8,6 +8,7 @@ import (
 type Discount struct {
 	Id            string            `json:"id"`
 	InvoiceName   string            `json:"invoice_name"`
+	Description   string            `json:"description"`
 	Type          discountEnum.Type `json:"type"`
 	Percentage    float64           `json:"percentage"`
 	Amount        int64             `json:"amount"`

@@ -25,6 +25,12 @@ import (
 
 	"github.com/chargebee/chargebee-go/v3/models/card"
 
+	"github.com/chargebee/chargebee-go/v3/models/collectionsdispute"
+
+	"github.com/chargebee/chargebee-go/v3/models/collectionspaymentpromise"
+
+	"github.com/chargebee/chargebee-go/v3/models/collectionsremindersequence"
+
 	"github.com/chargebee/chargebee-go/v3/models/contractterm"
 
 	"github.com/chargebee/chargebee-go/v3/models/coupon"
@@ -42,6 +48,8 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/dispute"
 
 	"github.com/chargebee/chargebee-go/v3/models/einvoice"
+
+	"github.com/chargebee/chargebee-go/v3/models/emailmessage"
 
 	"github.com/chargebee/chargebee-go/v3/models/feature"
 
@@ -101,7 +109,11 @@ import (
 
 	"github.com/chargebee/chargebee-go/v3/models/plan"
 
+	"github.com/chargebee/chargebee-go/v3/models/priceramp"
+
 	"github.com/chargebee/chargebee-go/v3/models/pricevariant"
+
+	"github.com/chargebee/chargebee-go/v3/models/privatenote"
 
 	"github.com/chargebee/chargebee-go/v3/models/promotionalcredit"
 
@@ -110,6 +122,8 @@ import (
 	"github.com/chargebee/chargebee-go/v3/models/quote"
 
 	"github.com/chargebee/chargebee-go/v3/models/ramp"
+
+	"github.com/chargebee/chargebee-go/v3/models/rampinterval"
 
 	"github.com/chargebee/chargebee-go/v3/models/recordedpurchase"
 
@@ -200,6 +214,9 @@ type ProductUpdatedContent struct {
 }
 
 type PriceRampUpdatedContent struct {
+	PriceRamp *priceramp.PriceRamp `json:"price_ramp,omitempty"`
+
+	RampInterval *rampinterval.RampInterval `json:"ramp_interval,omitempty"`
 }
 
 type OmnichannelSubscriptionItemReactivatedContent struct {
@@ -644,6 +661,7 @@ type FeatureUpdatedContent struct {
 }
 
 type CollectionsPaymentPromiseFulfilledContent struct {
+	CollectionsPaymentPromise *collectionspaymentpromise.CollectionsPaymentPromise `json:"collections_payment_promise,omitempty"`
 }
 
 type FeatureDeletedContent struct {
@@ -677,6 +695,7 @@ type OmnichannelSubscriptionItemResumedContent struct {
 }
 
 type CollectionsDisputeResolvedContent struct {
+	CollectionsDispute *collectionsdispute.CollectionsDispute `json:"collections_dispute,omitempty"`
 }
 
 type PurchaseCreatedContent struct {
@@ -748,6 +767,7 @@ type PriceVariantUpdatedContent struct {
 }
 
 type CollectionsDisputeUpdatedContent struct {
+	CollectionsDispute *collectionsdispute.CollectionsDispute `json:"collections_dispute,omitempty"`
 }
 
 type PromotionalCreditsDeductedContent struct {
@@ -831,6 +851,7 @@ type TransactionUpdatedContent struct {
 }
 
 type CollectionsPaymentPromiseUpdatedContent struct {
+	CollectionsPaymentPromise *collectionspaymentpromise.CollectionsPaymentPromise `json:"collections_payment_promise,omitempty"`
 }
 
 type VariantDeletedContent struct {
@@ -937,9 +958,13 @@ type CardUpdatedContent struct {
 }
 
 type PriceRampCreatedContent struct {
+	PriceRamp *priceramp.PriceRamp `json:"price_ramp,omitempty"`
+
+	RampInterval *rampinterval.RampInterval `json:"ramp_interval,omitempty"`
 }
 
 type CollectionsReminderSequenceCreatedContent struct {
+	CollectionsReminderSequence *collectionsremindersequence.CollectionsReminderSequence `json:"collections_reminder_sequence,omitempty"`
 }
 
 type CustomerCreatedContent struct {
@@ -1003,6 +1028,7 @@ type CouponCodesAddedContent struct {
 }
 
 type EmailMessageReceivedContent struct {
+	EmailMessage *emailmessage.EmailMessage `json:"email_message,omitempty"`
 }
 
 type GiftCancelledContent struct {
@@ -1032,6 +1058,7 @@ type PendingInvoiceCreatedContent struct {
 }
 
 type CollectionsPaymentPromiseBrokenContent struct {
+	CollectionsPaymentPromise *collectionspaymentpromise.CollectionsPaymentPromise `json:"collections_payment_promise,omitempty"`
 }
 
 type ProductDeletedContent struct {
@@ -1048,6 +1075,9 @@ type EntitlementOverridesAutoRemovedContent struct {
 }
 
 type PriceRampDeletedContent struct {
+	PriceRamp *priceramp.PriceRamp `json:"price_ramp,omitempty"`
+
+	RampInterval *rampinterval.RampInterval `json:"ramp_interval,omitempty"`
 }
 
 type BusinessRulesetActivatedContent struct {
@@ -1083,6 +1113,7 @@ type OmnichannelOneTimeOrderCreatedContent struct {
 }
 
 type CollectionsPaymentPromiseCreatedContent struct {
+	CollectionsPaymentPromise *collectionspaymentpromise.CollectionsPaymentPromise `json:"collections_payment_promise,omitempty"`
 }
 
 type PaymentSourceDeletedContent struct {
@@ -1108,6 +1139,7 @@ type InvoiceUpdatedContent struct {
 }
 
 type PrivateNoteAddedContent struct {
+	PrivateNote *privatenote.PrivateNote `json:"private_note,omitempty"`
 }
 
 type SubscriptionAdvanceInvoiceScheduleRemovedContent struct {
@@ -1214,6 +1246,7 @@ type RuleDeletedContent struct {
 }
 
 type CollectionsDisputeCreatedContent struct {
+	CollectionsDispute *collectionsdispute.CollectionsDispute `json:"collections_dispute,omitempty"`
 }
 
 type ItemPriceEntitlementsUpdatedContent struct {
@@ -1291,6 +1324,7 @@ type LedgerUpdatedContent struct {
 }
 
 type CollectionsPaymentPromiseCancelledContent struct {
+	CollectionsPaymentPromise *collectionspaymentpromise.CollectionsPaymentPromise `json:"collections_payment_promise,omitempty"`
 }
 
 type ItemPriceCreatedContent struct {
@@ -1413,6 +1447,9 @@ type SubscriptionStartedContent struct {
 	Invoice *invoice.Invoice `json:"invoice,omitempty"`
 }
 
+type OrganizationDetailsUpdatedContent struct {
+}
+
 type SubscriptionActivatedContent struct {
 	Subscription *subscription.Subscription `json:"subscription,omitempty"`
 
@@ -1446,6 +1483,7 @@ type OrderUpdatedContent struct {
 }
 
 type CollectionsDisputeWithdrawnContent struct {
+	CollectionsDispute *collectionsdispute.CollectionsDispute `json:"collections_dispute,omitempty"`
 }
 
 type SubscriptionScheduledPauseRemovedContent struct {
@@ -1529,6 +1567,7 @@ type TokenCreatedContent struct {
 }
 
 type CollectionsReminderSequencePausedContent struct {
+	CollectionsReminderSequence *collectionsremindersequence.CollectionsReminderSequence `json:"collections_reminder_sequence,omitempty"`
 }
 
 type PaymentSourceBusinessEntityChangedContent struct {
@@ -1616,6 +1655,7 @@ type ItemUpdatedContent struct {
 }
 
 type CollectionsReminderSequenceResumedContent struct {
+	CollectionsReminderSequence *collectionsremindersequence.CollectionsReminderSequence `json:"collections_reminder_sequence,omitempty"`
 }
 
 type CouponSetCreatedContent struct {
@@ -1662,6 +1702,9 @@ type PriceVariantCreatedContent struct {
 	PriceVariant *pricevariant.PriceVariant `json:"price_variant,omitempty"`
 
 	Attribute *attribute.Attribute `json:"attribute,omitempty"`
+}
+
+type OrganizationDetailsCreatedContent struct {
 }
 
 type DifferentialPriceDeletedContent struct {
@@ -1770,6 +1813,7 @@ type AuthorizationVoidedContent struct {
 }
 
 type CollectionsReminderSequenceCompletedContent struct {
+	CollectionsReminderSequence *collectionsremindersequence.CollectionsReminderSequence `json:"collections_reminder_sequence,omitempty"`
 }
 
 type SubscriptionRampDeletedContent struct {
@@ -3032,6 +3076,12 @@ type SubscriptionStartedEvent struct {
 	Content *SubscriptionStartedContent `json:"content"`
 }
 
+// OrganizationDetailsUpdatedEvent represents a organization_details_updated webhook event
+type OrganizationDetailsUpdatedEvent struct {
+	BaseEvent
+	Content *OrganizationDetailsUpdatedContent `json:"content"`
+}
+
 // SubscriptionActivatedEvent represents a subscription_activated webhook event
 type SubscriptionActivatedEvent struct {
 	BaseEvent
@@ -3282,6 +3332,12 @@ type TaxWithheldRecordedEvent struct {
 type PriceVariantCreatedEvent struct {
 	BaseEvent
 	Content *PriceVariantCreatedContent `json:"content"`
+}
+
+// OrganizationDetailsCreatedEvent represents a organization_details_created webhook event
+type OrganizationDetailsCreatedEvent struct {
+	BaseEvent
+	Content *OrganizationDetailsCreatedContent `json:"content"`
 }
 
 // DifferentialPriceDeletedEvent represents a differential_price_deleted webhook event
