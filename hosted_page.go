@@ -437,29 +437,31 @@ type HostedPageCheckoutOneTimeForItemsShippingAddress struct {
 }
 
 type HostedPageCheckoutNewForItemsRequest struct {
-	Subscription               *HostedPageCheckoutNewForItemsSubscription       `json:"subscription,omitempty"`
-	Layout                     Layout                                           `json:"layout,omitempty"`
-	BusinessEntityId           string                                           `json:"business_entity_id,omitempty"`
-	BrandId                    string                                           `json:"brand_id,omitempty"`
-	Customer                   *HostedPageCheckoutNewForItemsCustomer           `json:"customer,omitempty"`
-	BillingCycles              *int32                                           `json:"billing_cycles,omitempty"`
-	SubscriptionItems          []*HostedPageCheckoutNewForItemsSubscriptionItem `json:"subscription_items,omitempty"`
-	Discounts                  []*HostedPageCheckoutNewForItemsDiscount         `json:"discounts,omitempty"`
-	MandatoryItemsToRemove     []string                                         `json:"mandatory_items_to_remove,omitempty"`
-	ItemTiers                  []*HostedPageCheckoutNewForItemsItemTier         `json:"item_tiers,omitempty"`
-	TermsToCharge              *int32                                           `json:"terms_to_charge,omitempty"`
-	BillingAlignmentMode       BillingAlignmentMode                             `json:"billing_alignment_mode,omitempty"`
-	CouponIds                  []string                                         `json:"coupon_ids,omitempty"`
-	Card                       *HostedPageCheckoutNewForItemsCard               `json:"card,omitempty"`
-	EntityIdentifiers          []*HostedPageCheckoutNewForItemsEntityIdentifier `json:"entity_identifiers,omitempty"`
-	RedirectUrl                string                                           `json:"redirect_url,omitempty"`
-	CancelUrl                  string                                           `json:"cancel_url,omitempty"`
-	PassThruContent            string                                           `json:"pass_thru_content,omitempty"`
-	AllowOfflinePaymentMethods *bool                                            `json:"allow_offline_payment_methods,omitempty"`
-	BillingAddress             *HostedPageCheckoutNewForItemsBillingAddress     `json:"billing_address,omitempty"`
-	ShippingAddress            *HostedPageCheckoutNewForItemsShippingAddress    `json:"shipping_address,omitempty"`
-	ContractTerm               *HostedPageCheckoutNewForItemsContractTerm       `json:"contract_term,omitempty"`
-	apiRequest                 `json:"-" form:"-"`
+	Subscription                 *HostedPageCheckoutNewForItemsSubscription              `json:"subscription,omitempty"`
+	Layout                       Layout                                                  `json:"layout,omitempty"`
+	BusinessEntityId             string                                                  `json:"business_entity_id,omitempty"`
+	BrandId                      string                                                  `json:"brand_id,omitempty"`
+	Customer                     *HostedPageCheckoutNewForItemsCustomer                  `json:"customer,omitempty"`
+	BillingCycles                *int32                                                  `json:"billing_cycles,omitempty"`
+	SubscriptionItems            []*HostedPageCheckoutNewForItemsSubscriptionItem        `json:"subscription_items,omitempty"`
+	Discounts                    []*HostedPageCheckoutNewForItemsDiscount                `json:"discounts,omitempty"`
+	MandatoryItemsToRemove       []string                                                `json:"mandatory_items_to_remove,omitempty"`
+	ItemTiers                    []*HostedPageCheckoutNewForItemsItemTier                `json:"item_tiers,omitempty"`
+	TermsToCharge                *int32                                                  `json:"terms_to_charge,omitempty"`
+	BillingAlignmentMode         BillingAlignmentMode                                    `json:"billing_alignment_mode,omitempty"`
+	CouponIds                    []string                                                `json:"coupon_ids,omitempty"`
+	Card                         *HostedPageCheckoutNewForItemsCard                      `json:"card,omitempty"`
+	EntityIdentifiers            []*HostedPageCheckoutNewForItemsEntityIdentifier        `json:"entity_identifiers,omitempty"`
+	RedirectUrl                  string                                                  `json:"redirect_url,omitempty"`
+	CancelUrl                    string                                                  `json:"cancel_url,omitempty"`
+	PassThruContent              string                                                  `json:"pass_thru_content,omitempty"`
+	ShowBillingFrequencySelector *bool                                                   `json:"show_billing_frequency_selector,omitempty"`
+	AllowedBillingFrequencies    []*HostedPageCheckoutNewForItemsAllowedBillingFrequency `json:"allowed_billing_frequencies,omitempty"`
+	AllowOfflinePaymentMethods   *bool                                                   `json:"allow_offline_payment_methods,omitempty"`
+	BillingAddress               *HostedPageCheckoutNewForItemsBillingAddress            `json:"billing_address,omitempty"`
+	ShippingAddress              *HostedPageCheckoutNewForItemsShippingAddress           `json:"shipping_address,omitempty"`
+	ContractTerm                 *HostedPageCheckoutNewForItemsContractTerm              `json:"contract_term,omitempty"`
+	apiRequest                   `json:"-" form:"-"`
 }
 
 func (r *HostedPageCheckoutNewForItemsRequest) payload() any { return r }
@@ -544,6 +546,11 @@ type HostedPageCheckoutNewForItemsEntityIdentifier struct {
 	Value     string    `json:"value,omitempty"`
 	Operation Operation `json:"operation,omitempty"`
 	Standard  string    `json:"standard,omitempty"`
+}
+
+type HostedPageCheckoutNewForItemsAllowedBillingFrequency struct {
+	Period     *int32     `json:"period,omitempty"`
+	PeriodUnit PeriodUnit `json:"period_unit,omitempty"`
 }
 
 type HostedPageCheckoutNewForItemsBillingAddress struct {
@@ -668,35 +675,37 @@ type HostedPageCheckoutExistingContractTerm struct {
 }
 
 type HostedPageCheckoutExistingForItemsRequest struct {
-	Layout                     Layout                                                `json:"layout,omitempty"`
-	Subscription               *HostedPageCheckoutExistingForItemsSubscription       `json:"subscription,omitempty"`
-	BrandId                    string                                                `json:"brand_id,omitempty"`
-	SubscriptionItems          []*HostedPageCheckoutExistingForItemsSubscriptionItem `json:"subscription_items,omitempty"`
-	MandatoryItemsToRemove     []string                                              `json:"mandatory_items_to_remove,omitempty"`
-	ReplaceItemsList           *bool                                                 `json:"replace_items_list,omitempty"`
-	Discounts                  []*HostedPageCheckoutExistingForItemsDiscount         `json:"discounts,omitempty"`
-	ItemTiers                  []*HostedPageCheckoutExistingForItemsItemTier         `json:"item_tiers,omitempty"`
-	InvoiceDate                *int64                                                `json:"invoice_date,omitempty"`
-	BillingCycles              *int32                                                `json:"billing_cycles,omitempty"`
-	TermsToCharge              *int32                                                `json:"terms_to_charge,omitempty"`
-	ReactivateFrom             *int64                                                `json:"reactivate_from,omitempty"`
-	BillingAlignmentMode       BillingAlignmentMode                                  `json:"billing_alignment_mode,omitempty"`
-	CouponIds                  []string                                              `json:"coupon_ids,omitempty"`
-	ReplaceCouponList          *bool                                                 `json:"replace_coupon_list,omitempty"`
-	Reactivate                 *bool                                                 `json:"reactivate,omitempty"`
-	ForceTermReset             *bool                                                 `json:"force_term_reset,omitempty"`
-	ChangeOption               ChangeOption                                          `json:"change_option,omitempty"`
-	ChangesScheduledAt         *int64                                                `json:"changes_scheduled_at,omitempty"`
-	Customer                   *HostedPageCheckoutExistingForItemsCustomer           `json:"customer,omitempty"`
-	InvoiceUsages              *bool                                                 `json:"invoice_usages,omitempty"`
-	EntityIdentifiers          []*HostedPageCheckoutExistingForItemsEntityIdentifier `json:"entity_identifiers,omitempty"`
-	Card                       *HostedPageCheckoutExistingForItemsCard               `json:"card,omitempty"`
-	RedirectUrl                string                                                `json:"redirect_url,omitempty"`
-	CancelUrl                  string                                                `json:"cancel_url,omitempty"`
-	PassThruContent            string                                                `json:"pass_thru_content,omitempty"`
-	AllowOfflinePaymentMethods *bool                                                 `json:"allow_offline_payment_methods,omitempty"`
-	ContractTerm               *HostedPageCheckoutExistingForItemsContractTerm       `json:"contract_term,omitempty"`
-	apiRequest                 `json:"-" form:"-"`
+	Layout                       Layout                                                       `json:"layout,omitempty"`
+	Subscription                 *HostedPageCheckoutExistingForItemsSubscription              `json:"subscription,omitempty"`
+	BrandId                      string                                                       `json:"brand_id,omitempty"`
+	SubscriptionItems            []*HostedPageCheckoutExistingForItemsSubscriptionItem        `json:"subscription_items,omitempty"`
+	MandatoryItemsToRemove       []string                                                     `json:"mandatory_items_to_remove,omitempty"`
+	ReplaceItemsList             *bool                                                        `json:"replace_items_list,omitempty"`
+	Discounts                    []*HostedPageCheckoutExistingForItemsDiscount                `json:"discounts,omitempty"`
+	ItemTiers                    []*HostedPageCheckoutExistingForItemsItemTier                `json:"item_tiers,omitempty"`
+	InvoiceDate                  *int64                                                       `json:"invoice_date,omitempty"`
+	BillingCycles                *int32                                                       `json:"billing_cycles,omitempty"`
+	TermsToCharge                *int32                                                       `json:"terms_to_charge,omitempty"`
+	ReactivateFrom               *int64                                                       `json:"reactivate_from,omitempty"`
+	BillingAlignmentMode         BillingAlignmentMode                                         `json:"billing_alignment_mode,omitempty"`
+	CouponIds                    []string                                                     `json:"coupon_ids,omitempty"`
+	ReplaceCouponList            *bool                                                        `json:"replace_coupon_list,omitempty"`
+	Reactivate                   *bool                                                        `json:"reactivate,omitempty"`
+	ForceTermReset               *bool                                                        `json:"force_term_reset,omitempty"`
+	ChangeOption                 ChangeOption                                                 `json:"change_option,omitempty"`
+	ChangesScheduledAt           *int64                                                       `json:"changes_scheduled_at,omitempty"`
+	Customer                     *HostedPageCheckoutExistingForItemsCustomer                  `json:"customer,omitempty"`
+	InvoiceUsages                *bool                                                        `json:"invoice_usages,omitempty"`
+	EntityIdentifiers            []*HostedPageCheckoutExistingForItemsEntityIdentifier        `json:"entity_identifiers,omitempty"`
+	Card                         *HostedPageCheckoutExistingForItemsCard                      `json:"card,omitempty"`
+	RedirectUrl                  string                                                       `json:"redirect_url,omitempty"`
+	CancelUrl                    string                                                       `json:"cancel_url,omitempty"`
+	PassThruContent              string                                                       `json:"pass_thru_content,omitempty"`
+	ShowBillingFrequencySelector *bool                                                        `json:"show_billing_frequency_selector,omitempty"`
+	AllowedBillingFrequencies    []*HostedPageCheckoutExistingForItemsAllowedBillingFrequency `json:"allowed_billing_frequencies,omitempty"`
+	AllowOfflinePaymentMethods   *bool                                                        `json:"allow_offline_payment_methods,omitempty"`
+	ContractTerm                 *HostedPageCheckoutExistingForItemsContractTerm              `json:"contract_term,omitempty"`
+	apiRequest                   `json:"-" form:"-"`
 }
 
 func (r *HostedPageCheckoutExistingForItemsRequest) payload() any { return r }
@@ -773,6 +782,11 @@ type HostedPageCheckoutExistingForItemsEntityIdentifier struct {
 type HostedPageCheckoutExistingForItemsCard struct {
 	Gateway          Gateway `json:"gateway,omitempty"`
 	GatewayAccountId string  `json:"gateway_account_id,omitempty"`
+}
+
+type HostedPageCheckoutExistingForItemsAllowedBillingFrequency struct {
+	Period     *int32     `json:"period,omitempty"`
+	PeriodUnit PeriodUnit `json:"period_unit,omitempty"`
 }
 
 type HostedPageCheckoutExistingForItemsContractTerm struct {
@@ -926,15 +940,17 @@ type HostedPageCheckoutGiftAddon struct {
 }
 
 type HostedPageCheckoutGiftForItemsRequest struct {
-	Layout            Layout                                            `json:"layout,omitempty"`
-	BusinessEntityId  string                                            `json:"business_entity_id,omitempty"`
-	BrandId           string                                            `json:"brand_id,omitempty"`
-	Gifter            *HostedPageCheckoutGiftForItemsGifter             `json:"gifter,omitempty"`
-	RedirectUrl       string                                            `json:"redirect_url,omitempty"`
-	SubscriptionItems []*HostedPageCheckoutGiftForItemsSubscriptionItem `json:"subscription_items,omitempty"`
-	ItemTiers         []*HostedPageCheckoutGiftForItemsItemTier         `json:"item_tiers,omitempty"`
-	CouponIds         []string                                          `json:"coupon_ids,omitempty"`
-	apiRequest        `json:"-" form:"-"`
+	Layout                       Layout                                                   `json:"layout,omitempty"`
+	BusinessEntityId             string                                                   `json:"business_entity_id,omitempty"`
+	BrandId                      string                                                   `json:"brand_id,omitempty"`
+	Gifter                       *HostedPageCheckoutGiftForItemsGifter                    `json:"gifter,omitempty"`
+	RedirectUrl                  string                                                   `json:"redirect_url,omitempty"`
+	SubscriptionItems            []*HostedPageCheckoutGiftForItemsSubscriptionItem        `json:"subscription_items,omitempty"`
+	ItemTiers                    []*HostedPageCheckoutGiftForItemsItemTier                `json:"item_tiers,omitempty"`
+	CouponIds                    []string                                                 `json:"coupon_ids,omitempty"`
+	ShowBillingFrequencySelector *bool                                                    `json:"show_billing_frequency_selector,omitempty"`
+	AllowedBillingFrequencies    []*HostedPageCheckoutGiftForItemsAllowedBillingFrequency `json:"allowed_billing_frequencies,omitempty"`
+	apiRequest                   `json:"-" form:"-"`
 }
 
 func (r *HostedPageCheckoutGiftForItemsRequest) payload() any { return r }
@@ -959,6 +975,11 @@ type HostedPageCheckoutGiftForItemsItemTier struct {
 	StartingUnitInDecimal string `json:"starting_unit_in_decimal,omitempty"`
 	EndingUnitInDecimal   string `json:"ending_unit_in_decimal,omitempty"`
 	PriceInDecimal        string `json:"price_in_decimal,omitempty"`
+}
+
+type HostedPageCheckoutGiftForItemsAllowedBillingFrequency struct {
+	Period     *int32     `json:"period,omitempty"`
+	PeriodUnit PeriodUnit `json:"period_unit,omitempty"`
 }
 
 type HostedPageClaimGiftRequest struct {

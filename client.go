@@ -35,6 +35,8 @@ type Client struct {
 	Event                       *EventService
 	Export                      *ExportService
 	Feature                     *FeatureService
+	GatewayRequestLog           *GatewayRequestLogService
+	GatewayWebhookLog           *GatewayWebhookLogService
 	Gift                        *GiftService
 	GrantBlock                  *GrantBlockService
 	HostedPage                  *HostedPageService
@@ -54,6 +56,7 @@ type Client struct {
 	OmnichannelSubscription     *OmnichannelSubscriptionService
 	OmnichannelSubscriptionItem *OmnichannelSubscriptionItemService
 	Order                       *OrderService
+	OrganizationDetail          *OrganizationDetailService
 	PaymentIntent               *PaymentIntentService
 	PaymentSchedule             *PaymentScheduleService
 	PaymentScheduleScheme       *PaymentScheduleSchemeService
@@ -128,6 +131,8 @@ func NewClient(config *ClientConfig) *Client {
 		Event:                       &EventService{config},
 		Export:                      &ExportService{config},
 		Feature:                     &FeatureService{config},
+		GatewayRequestLog:           &GatewayRequestLogService{config},
+		GatewayWebhookLog:           &GatewayWebhookLogService{config},
 		Gift:                        &GiftService{config},
 		GrantBlock:                  &GrantBlockService{config},
 		HostedPage:                  &HostedPageService{config},
@@ -147,6 +152,7 @@ func NewClient(config *ClientConfig) *Client {
 		OmnichannelSubscription:     &OmnichannelSubscriptionService{config},
 		OmnichannelSubscriptionItem: &OmnichannelSubscriptionItemService{config},
 		Order:                       &OrderService{config},
+		OrganizationDetail:          &OrganizationDetailService{config},
 		PaymentIntent:               &PaymentIntentService{config},
 		PaymentSchedule:             &PaymentScheduleService{config},
 		PaymentScheduleScheme:       &PaymentScheduleSchemeService{config},
