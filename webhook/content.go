@@ -1303,6 +1303,10 @@ type SubscriptionStartedContent struct {
 	Invoice *chargebee.Invoice `json:"invoice,omitempty"`
 }
 
+type OrganizationDetailsUpdatedContent struct {
+	OrganizationDetail *chargebee.OrganizationDetail `json:"organization_detail,omitempty"`
+}
+
 type SubscriptionActivatedContent struct {
 	Subscription *chargebee.Subscription `json:"subscription,omitempty"`
 
@@ -1555,6 +1559,10 @@ type PriceVariantCreatedContent struct {
 	PriceVariant *chargebee.PriceVariant `json:"price_variant,omitempty"`
 
 	Attribute *chargebee.Attribute `json:"attribute,omitempty"`
+}
+
+type OrganizationDetailsCreatedContent struct {
+	OrganizationDetail *chargebee.OrganizationDetail `json:"organization_detail,omitempty"`
 }
 
 type DifferentialPriceDeletedContent struct {
@@ -2926,6 +2934,12 @@ type SubscriptionStartedEvent struct {
 	Content *SubscriptionStartedContent `json:"content"`
 }
 
+// OrganizationDetailsUpdatedEvent represents a organization_details_updated webhook event
+type OrganizationDetailsUpdatedEvent struct {
+	BaseEvent
+	Content *OrganizationDetailsUpdatedContent `json:"content"`
+}
+
 // SubscriptionActivatedEvent represents a subscription_activated webhook event
 type SubscriptionActivatedEvent struct {
 	BaseEvent
@@ -3176,6 +3190,12 @@ type TaxWithheldRecordedEvent struct {
 type PriceVariantCreatedEvent struct {
 	BaseEvent
 	Content *PriceVariantCreatedContent `json:"content"`
+}
+
+// OrganizationDetailsCreatedEvent represents a organization_details_created webhook event
+type OrganizationDetailsCreatedEvent struct {
+	BaseEvent
+	Content *OrganizationDetailsCreatedContent `json:"content"`
 }
 
 // DifferentialPriceDeletedEvent represents a differential_price_deleted webhook event

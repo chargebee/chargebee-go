@@ -327,6 +327,7 @@ type Invoice struct {
 	FirstInvoice              bool                           `json:"first_invoice"`
 	NewSalesAmount            int64                          `json:"new_sales_amount"`
 	HasAdvanceCharges         bool                           `json:"has_advance_charges"`
+	OfflinePaymentMethod      OfflinePaymentMethod           `json:"offline_payment_method"`
 	TermFinalized             bool                           `json:"term_finalized"`
 	IsGifted                  bool                           `json:"is_gifted"`
 	GeneratedAt               int64                          `json:"generated_at"`
@@ -813,6 +814,7 @@ type InvoiceCreateForChargeItemsAndChargesRequest struct {
 	PaymentSourceId             string                                                    `json:"payment_source_id,omitempty"`
 	AutoCollection              AutoCollection                                            `json:"auto_collection,omitempty"`
 	NetTermDays                 *int32                                                    `json:"net_term_days,omitempty"`
+	OfflinePaymentMethod        OfflinePaymentMethod                                      `json:"offline_payment_method,omitempty"`
 	TaxProvidersFields          []*InvoiceCreateForChargeItemsAndChargesTaxProvidersField `json:"tax_providers_fields,omitempty"`
 	Discounts                   []*InvoiceCreateForChargeItemsAndChargesDiscount          `json:"discounts,omitempty"`
 	InvoiceDate                 *int64                                                    `json:"invoice_date,omitempty"`
@@ -1313,7 +1315,9 @@ type InvoiceApplyCreditsRequest struct {
 func (r *InvoiceApplyCreditsRequest) payload() any { return r }
 
 type InvoiceApplyCreditsCreditNote struct {
-	Id string `json:"id,omitempty"`
+	Id        string `json:"id,omitempty"`
+	Amount    *int64 `json:"amount,omitempty"`
+	AppliedAt *int64 `json:"applied_at,omitempty"`
 }
 
 type InvoiceListRequest struct {

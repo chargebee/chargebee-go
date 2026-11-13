@@ -60,6 +60,7 @@ type GrantBlock struct {
 	ResourceVersion         int64                              `json:"resource_version"`
 	ProvisionedBlockBalance *GrantBlockProvisionedBlockBalance `json:"provisioned_block_balance"`
 	OverdraftBlockBalance   *GrantBlockOverdraftBlockBalance   `json:"overdraft_block_balance"`
+	BillingMetadata         *GrantBlockBillingMetadata         `json:"billing_metadata"`
 	Metadata                json.RawMessage                    `json:"metadata"`
 	Object                  string                             `json:"object"`
 }
@@ -83,6 +84,12 @@ type GrantBlockOverdraftBlockBalance struct {
 	UsableBalance string `json:"usable_balance"`
 	UsedAmount    string `json:"used_amount"`
 	Object        string `json:"object"`
+}
+
+type GrantBlockBillingMetadata struct {
+	ItemPriceId string             `json:"item_price_id"`
+	LineItems   []*BillingLineItem `json:"line_items"`
+	Object      string             `json:"object"`
 }
 
 type GrantBlockListGrantBlocksRequest struct {

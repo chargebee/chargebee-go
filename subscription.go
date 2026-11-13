@@ -320,6 +320,7 @@ type SubscriptionContractTerm struct {
 type SubscriptionDiscount struct {
 	Id            string                   `json:"id"`
 	InvoiceName   string                   `json:"invoice_name"`
+	Description   string                   `json:"description"`
 	Type          SubscriptionDiscountType `json:"type"`
 	Percentage    float64                  `json:"percentage"`
 	Amount        int64                    `json:"amount"`
@@ -773,6 +774,7 @@ type SubscriptionCreateWithItemsDiscount struct {
 	IncludedInMrr *bool        `json:"included_in_mrr,omitempty"`
 	ItemPriceId   string       `json:"item_price_id,omitempty"`
 	Quantity      *int32       `json:"quantity,omitempty"`
+	Description   string       `json:"description,omitempty"`
 }
 
 type SubscriptionCreateWithItemsItemTier struct {
@@ -1191,6 +1193,7 @@ type SubscriptionUpdateForItemsDiscount struct {
 	Quantity      *int32        `json:"quantity,omitempty"`
 	OperationType OperationType `json:"operation_type"`
 	Id            string        `json:"id,omitempty"`
+	Description   string        `json:"description,omitempty"`
 }
 
 type SubscriptionUpdateForItemsItemTier struct {
