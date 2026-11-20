@@ -177,17 +177,15 @@ func SerializeListParams(params interface{}) *url.Values {
 }
 func parseMapListParams(aMap, serListParams map[string]interface{}, prefix string) {
 	for key, val := range aMap {
+		fullKey := key
+		if prefix != "" {
+			fullKey = prefix + "[" + key + "]"
+		}
 		switch value := val.(type) {
 		case map[string]interface{}:
-			parseMapListParams(val.(map[string]interface{}), serListParams, key)
+			parseMapListParams(value, serListParams, fullKey)
 		default:
-			if prefix != "" {
-				k := prefix + "[" + key + "]"
-				serListParams[k] = value
-			} else {
-				serListParams[key] = value
-			}
-
+			serListParams[fullKey] = value
 		}
 	}
 }
